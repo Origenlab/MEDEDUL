@@ -1,0 +1,14 @@
+# https://www.robotstxt.org/
+# Robots.txt for Mededul - Mesas de Dulces
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mesas-de-dulces.com/sitemap.xml
+
+# Crawl-delay (optional - be nice to servers)
+Crawl-delay: 1
+
+# Disallow admin/private areas (none currently)
+# Disallow: /admin/

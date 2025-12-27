@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Blog de Mesas de Dulces | Tips, Ideas y Tendencias | Mededul CDMX</title>
+    <meta name="description" content="Descubre ideas, tips y tendencias para mesas de dulces en bodas, XV años, baby showers y eventos corporativos. Guías de expertos de Mededul CDMX.">
+    <meta name="keywords" content="blog mesas de dulces, ideas candy bar, tips decoracion dulces, tendencias mesas postres, mededul blog">
+    <meta name="author" content="Mededul - Mesas de Dulces Profesionales">
+    <link rel="canonical" href="https://mesas-de-dulces.com/blog/">
+    <meta property="og:title" content="Blog de Mesas de Dulces | Mededul CDMX">
+    <meta property="og:description" content="Ideas, tips y tendencias para crear mesas de dulces perfectas para tu evento.">
+    <meta property="og:image" content="https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.webp">
+    <meta property="og:url" content="https://mesas-de-dulces.com/blog/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css?v=20241213">
+    <link rel="stylesheet" href="../css/header-footer.css?v=20241213">
+    <style>
+        :root {
+            --rosa-principal: #E91E8C;
+            --rosa-claro: #FF6BB3;
+            --texto-oscuro: #1a1a1a;
+            --texto-gris: #555;
+        }
+        .blog-hero {
+            background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        .blog-hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+            margin-bottom: 15px;
+        }
+        .blog-hero p {
+            font-size: 1.1rem;
+            color: var(--texto-gris);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        .category-tag {
+            padding: 10px 20px;
+            background: #fff;
+            border: 2px solid var(--rosa-principal);
+            border-radius: 50px;
+            color: var(--rosa-principal);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .category-tag:hover, .category-tag.active {
+            background: var(--rosa-principal);
+            color: #fff;
+        }
+        .articles-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .article-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(233, 30, 140, 0.15);
+        }
+        .article-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+        .article-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--rosa-principal);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .article-content {
+            padding: 20px;
+        }
+        .article-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .article-content h3 a {
+            color: var(--texto-oscuro);
+            text-decoration: none;
+        }
+        .article-content h3 a:hover {
+            color: var(--rosa-principal);
+        }
+        .article-excerpt {
+            color: var(--texto-gris);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 42px;
+            height: 42px;
+            padding: 0 14px;
+            border: none;
+            border-radius: 8px;
+            background: #f0f0f0;
+            color: var(--texto-oscuro);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pagination-btn:hover:not(.disabled):not(.active) {
+            background: #e0e0e0;
+        }
+        .pagination-btn.active {
+            background: var(--rosa-principal);
+            color: #fff;
+        }
+        .pagination-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .pagination-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--texto-gris);
+            font-size: 0.85rem;
+        }
+        @media (max-width: 900px) {
+            .articles-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .blog-hero h1 { font-size: 2rem; }
+            .articles-grid { grid-template-columns: 1fr; }
+            .category-tag { padding: 8px 14px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="../index.html" class="logo">
+                <picture>
+                    <source srcset="../img/branding/logo-mededul-mesas-de-dulces.avif" type="image/avif">
+                    <img src="../img/branding/logo-mededul-mesas-de-dulces.webp" alt="Mededul - Mesas de Dulces en CDMX" width="225" height="75">
+                </picture>
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="../index.html" class="nav-link">Inicio</a></li>
+
+                <li class="nav-dropdown">
+                    <a href="../servicios.html" class="nav-link nav-link-dropdown">
+                        Servicios
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu dropdown-mega">
+                        <li class="dropdown-column">
+                            <span class="dropdown-header">Tipos de Mesas</span>
+                            <ul>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-dulces.html">Mesa de Dulces</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-frutas.html">Mesa de Frutas</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-postres.html">Mesa de Postres</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos.html">Quesos y Embutidos</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-snacks.html">Mesa de Snacks</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-botanas.html">Mesa de Botanas</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales.html">Dulces Tradicionales</a></li>
+                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes.html">Donas y Cupcakes</a></li>
+                            </ul>
+                            <a href="../tipos-de-mesas-de-dulces.html" class="ver-todos">Ver todos los tipos</a>
+                        </li>
+                        <li class="dropdown-column">
+                            <span class="dropdown-header">Candy Bar por Evento</span>
+                            <ul>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-boda.html">Bodas</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-xv-anos.html">XV Anos</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-baby-shower.html">Baby Shower</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-bautizo.html">Bautizos</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-primera-comunion.html">Primera Comunion</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html">Cumpleanos Infantil</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-graduacion.html">Graduaciones</a></li>
+                                <li><a href="../candy-bar-eventos/mesa-dulces-corporativos.html">Corporativos</a></li>
+                            </ul>
+                            <a href="../candy-bar-eventos.html" class="ver-todos">Ver todos los eventos</a>
+                        </li>
+                        <li class="dropdown-column">
+                            <span class="dropdown-header">Estaciones Interactivas</span>
+                            <ul>
+                                <li><a href="../estaciones-interactivas/fuente-de-chocolate.html">Fuente de Chocolate</a></li>
+                                <li><a href="../estaciones-interactivas/fuente-de-chamoy.html">Fuente de Chamoy</a></li>
+                                <li><a href="../estaciones-interactivas/pared-de-dulces.html">Pared de Dulces</a></li>
+                                <li><a href="../estaciones-interactivas/stand-para-pastel.html">Stand para Pastel</a></li>
+                            </ul>
+                            <a href="../estaciones-interactivas.html" class="ver-todos">Ver todas las estaciones</a>
+                        </li>
+                        <li class="dropdown-column">
+                            <span class="dropdown-header">Por que Elegirnos</span>
+                            <ul>
+                                <li><a href="../porque-mededul/diseno-personalizado.html">Diseno Personalizado</a></li>
+                                <li><a href="../porque-mededul/calidad-premium.html">Calidad Premium</a></li>
+                                <li><a href="../porque-mededul/servicio-completo.html">Servicio Completo</a></li>
+                                <li><a href="../porque-mededul/cero-estres.html">Cero Estres</a></li>
+                            </ul>
+                            <a href="../porque-mededul.html" class="ver-todos">Conoce mas de nosotros</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a href="../nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="index.html" class="nav-link">Blog</a></li>
+                <li><a href="../contacto.html" class="nav-link">Contacto</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="tel:+525525820596" class="nav-phone">
+                    <span>55 2582 0596</span>
+                </a>
+                <a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces" class="btn-cta-nav" target="_blank" rel="noopener">
+                    Cotizar Ahora
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Blog Mededul</h1>
+            <p>Ideas, tips y tendencias para crear mesas de dulces inolvidables</p>
+            <div class="blog-categories">
+                <a href="bodas/" class="category-tag">Bodas</a>
+                <a href="xv-anos/" class="category-tag">XV Años</a>
+                <a href="baby-shower/" class="category-tag">Baby Shower</a>
+                <a href="corporativos/" class="category-tag">Corporativos</a>
+                <a href="infantiles/" class="category-tag">Infantiles</a>
+                <a href="estaciones/" class="category-tag">Estaciones</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="articles-section">
+        <div class="articles-grid" id="articles-grid">
+<article class="article-card" data-category="xv-anos" data-slug="mesa-dulces-xv-anos-ideas-tendencias"><div class="article-image"><a href="xv-anos/mesa-dulces-xv-anos-ideas-tendencias.html"><img src="../img/blog/mesa-dulces-xv-anos-ideas-tendencias-1765608822456.webp" alt="Mesa de Dulces para XV Años en CDMX: Ideas Espectaculares" loading="lazy"></a><span class="article-category">XV ANOS</span></div><div class="article-content"><h3><a href="xv-anos/mesa-dulces-xv-anos-ideas-tendencias.html">Mesa de Dulces para XV Años en CDMX: Ideas Espectaculares</a></h3><p class="article-excerpt">Descubre cómo crear una mesa de dulces inolvidable para XV años en CDMX. Ideas, estilos y consejos de expertos.</p></div></article>
+<article class="article-card" data-category="corporativos" data-slug="mesa-dulces-eventos-corporativos-empresas"><div class="article-image"><a href="corporativos/mesa-dulces-eventos-corporativos-empresas.html"><img src="../img/blog/mesa-dulces-eventos-corporativos-empresas-1765608314101.webp" alt="Transforma tu Evento con una Mesa de Dulces Corporativa en CDMX" loading="lazy"></a><span class="article-category">CORPORATIVOS</span></div><div class="article-content"><h3><a href="corporativos/mesa-dulces-eventos-corporativos-empresas.html">Transforma tu Evento con una Mesa de Dulces Corporativa en CDMX</a></h3><p class="article-excerpt">Descubre soluciones de mesas de dulces para eventos corporativos en CDMX con estilos modernos y elegantes.</p></div></article>
+<article class="article-card" data-category="baby-shower" data-slug="mesa-dulces-baby-shower-ideas-creativas"><div class="article-image"><a href="baby-shower/mesa-dulces-baby-shower-ideas-creativas.html"><img src="../img/blog/mesa-dulces-baby-shower-ideas-creativas-1765607325376.webp" alt="Mesa de Dulces para Baby Shower en CDMX: Crea Momentos Unicos" loading="lazy"></a><span class="article-category">BABY SHOWER</span></div><div class="article-content"><h3><a href="baby-shower/mesa-dulces-baby-shower-ideas-creativas.html">Mesa de Dulces para Baby Shower en CDMX: Crea Momentos Unicos</a></h3><p class="article-excerpt">Descubre ideas creativas para una mesa de dulces para baby shower en CDMX. Temas clasicos y modernos que encantaran a tus invitados.</p></div></article>
+<article class="article-card" data-category="tematicas" data-slug="mesa-dulces-mexicanos-tradicionales-eventos"><div class="article-image"><a href="tematicas/mesa-dulces-mexicanos-tradicionales-eventos.html"><img src="../img/blog/mesa-dulces-mexicanos-tradicionales-eventos-1765606975993.webp" alt="Mesa de Dulces Mexicanos para Eventos en CDMX" loading="lazy"></a><span class="article-category">TEMATICAS</span></div><div class="article-content"><h3><a href="tematicas/mesa-dulces-mexicanos-tradicionales-eventos.html">Mesa de Dulces Mexicanos para Eventos en CDMX</a></h3><p class="article-excerpt">Descubre la magia de una mesa de dulces mexicanos para eventos en CDMX. Dulces artesanales y decoraciones únicas.</p></div></article>
+<article class="article-card" data-category="bodas" data-slug="mesa-dulces-bodas-guia-completa"><div class="article-image"><a href="bodas/mesa-dulces-bodas-guia-completa.html"><img src="../img/blog/mesa-dulces-bodas-guia-completa-1765606565123.webp" alt="Mesa de Dulces para Bodas: Guia Completa" loading="lazy"></a><span class="article-category">BODAS</span></div><div class="article-content"><h3><a href="bodas/mesa-dulces-bodas-guia-completa.html">Mesa de Dulces para Bodas en CDMX: Guia Completa</a></h3><p class="article-excerpt">Descubre como crear la mesa de dulces perfecta para tu boda en CDMX con esta guia completa.</p></div></article>
+            <article class="article-card" data-category="estaciones" data-slug="barra-postres-gourmet-eventos-cdmx"><div class="article-image"><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html"><img src="../img/blog/barra-postres-gourmet-eventos-cdmx-1765606157055.webp" alt="Barra de Postres Gourmet para Eventos" loading="lazy"></a><span class="article-category">ESTACIONES</span></div><div class="article-content"><h3><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html">Barra de Postres Gourmet para Eventos en CDMX</a></h3><p class="article-excerpt">Descubre la barra de postres gourmet de Mededul en CDMX. Elegancia y sabor en cada creación.</p></div></article>
+
+                <article class="article-card">
+                    <a href="baby-shower/mesa-dulces-bautizo-elegante-cdmx.html">
+                        <div class="article-image">
+                            <img src="../img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.jpg" alt="Mesa de Dulces para Bautizo Elegante en CDMX" loading="lazy">
+                            <span class="article-category">Baby Shower</span>
+                        </div>
+                        <div class="article-content">
+                            <h3>Mesa de Dulces para Bautizo Elegante en CDMX</h3>
+                            <p>Crea la mesa de dulces perfecta para el bautizo de tu bebé con estas ideas profesionales...</p>
+                            <span class="read-more">Leer más →</span>
+                        </div>
+                    </a>
+                </article>
+
+
+                
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="bodas/mesa-dulces-bodas-exclusivas-cdmx.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Mesa de Dulces para Bodas" loading="lazy"></a>
+                    <span class="article-category">Bodas</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="bodas/mesa-dulces-bodas-exclusivas-cdmx.html">Mesa de Dulces para Bodas en Polanco, Lomas y Santa Fe</a></h3>
+                    <p class="article-excerpt">Crea la mesa de dulces perfecta para tu boda en las zonas más exclusivas de CDMX.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="bodas/tendencias-candy-bar-bodas-2025.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Tendencias Candy Bar 2025" loading="lazy"></a>
+                    <span class="article-category">Bodas</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="bodas/tendencias-candy-bar-bodas-2025.html">Tendencias Candy Bar Bodas 2025</a></h3>
+                    <p class="article-excerpt">Descubre las tendencias más exclusivas en candy bar para bodas este año.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="bodas/mesa-dulces-boda-jardin-exterior.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Mesa Dulces Boda Jardín" loading="lazy"></a>
+                    <span class="article-category">Bodas</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="bodas/mesa-dulces-boda-jardin-exterior.html">Mesa de Dulces para Boda en Jardín</a></h3>
+                    <p class="article-excerpt">Guía completa para una mesa de dulces perfecta en boda al aire libre.</p>
+                </div>
+            </article>
+
+            
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="xv-anos/mesa-dulces-xv-anos-elegante-cdmx.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Mesa Dulces XV Años" loading="lazy"></a>
+                    <span class="article-category">XV Años</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="xv-anos/mesa-dulces-xv-anos-elegante-cdmx.html">Mesa de Dulces para XV Años Elegante en CDMX</a></h3>
+                    <p class="article-excerpt">Crea la mesa de dulces perfecta para los XV años de tu hija.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="xv-anos/tendencias-mesa-dulces-xv-anos-2025.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Tendencias XV Años 2025" loading="lazy"></a>
+                    <span class="article-category">XV Años</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="xv-anos/tendencias-mesa-dulces-xv-anos-2025.html">Tendencias Mesa de Dulces XV Años 2025</a></h3>
+                    <p class="article-excerpt">Las tendencias más innovadoras en mesas de dulces para quinceañeras.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="xv-anos/colores-tematicas-mesa-dulces-quinceanera.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Colores Mesa Dulces" loading="lazy"></a>
+                    <span class="article-category">XV Años</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="xv-anos/colores-tematicas-mesa-dulces-quinceanera.html">Colores y Temáticas para Quinceañera</a></h3>
+                    <p class="article-excerpt">Guía de colores y temáticas para tu mesa de dulces de XV años.</p>
+                </div>
+            </article>
+
+            
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="corporativos/mesa-dulces-eventos-corporativos-cdmx.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Mesa Dulces Corporativos" loading="lazy"></a>
+                    <span class="article-category">Corporativos</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="corporativos/mesa-dulces-eventos-corporativos-cdmx.html">Mesa de Dulces para Eventos Corporativos</a></h3>
+                    <p class="article-excerpt">Servicio profesional de mesas de dulces para eventos empresariales.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="corporativos/catering-dulces-eventos-empresariales-cdmx.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Catering Dulces Empresarial" loading="lazy"></a>
+                    <span class="article-category">Corporativos</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="corporativos/catering-dulces-eventos-empresariales-cdmx.html">Catering de Dulces para Eventos Empresariales</a></h3>
+                    <p class="article-excerpt">Catering profesional de dulces para eventos corporativos en CDMX.</p>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="corporativos/mesa-dulces-lanzamiento-productos.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Mesa Dulces Lanzamiento" loading="lazy"></a>
+                    <span class="article-category">Corporativos</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="corporativos/mesa-dulces-lanzamiento-productos.html">Mesa de Dulces para Lanzamiento de Productos</a></h3>
+                    <p class="article-excerpt">Mesas de dulces personalizadas con branding corporativo.</p>
+                </div>
+            </article>
+
+            
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="baby-shower/ideas-mesa-dulces-baby-shower-perfecta.html"><img src="../img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.jpg" alt="Mesa Dulces Baby Shower" loading="lazy"></a>
+                    <span class="article-category">Baby Shower</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="baby-shower/ideas-mesa-dulces-baby-shower-perfecta.html">Ideas para Mesa de Dulces Baby Shower Perfecta</a></h3>
+                    <p class="article-excerpt">Las mejores ideas para crear una mesa de dulces inolvidable.</p>
+                </div>
+            </article>
+
+            
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="infantiles/mesa-dulces-cumpleanos-infantil-ideas.html"><img src="../img/blog/mesa-dulces-cumpleanos-infantil-ideas-1765595023196.webp" alt="Mesa Dulces Infantil" loading="lazy"></a>
+                    <span class="article-category">Infantiles</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="infantiles/mesa-dulces-cumpleanos-infantil-ideas.html">Mesas de Dulces para Cumpleaños Infantil</a></h3>
+                    <p class="article-excerpt">Mesas de dulces mágicas para cumpleaños infantiles en CDMX.</p>
+                </div>
+            </article>
+
+            
+            <article class="article-card">
+                <div class="article-image">
+                    <a href="estaciones/barra-postres-gourmet-eventos-cdmx.html"><img src="../img/blog/barra-postres-gourmet-eventos-cdmx-1765594191306.webp" alt="Barra Postres Gourmet" loading="lazy"></a>
+                    <span class="article-category">Estaciones</span>
+                </div>
+                <div class="article-content">
+                    <h3><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html">Barra de Postres Gourmet para Eventos</a></h3>
+                    <p class="article-excerpt">Elegantes barras de postres gourmet para eventos en CDMX.</p>
+                </div>
+            </article>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+        <div class="pagination-info" id="pagination-info"></div>
+    </section>
+
+    <footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-row-1">
+                <div class="footer-brand">
+                    <a href="https://mesas-de-dulces.com/" class="footer-logo">
+                        <picture>
+                            <source srcset="https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif" type="image/avif">
+                            <img src="https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.webp" alt="Mededul" width="180" height="60">
+                        </picture>
+                    </a>
+                    <p class="footer-tagline">Transformamos tus eventos en experiencias deliciosamente inolvidables. Mesas de dulces profesionales en CDMX y area metropolitana.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/mededul" class="social-link" target="_blank" rel="noopener">Facebook</a>
+                        <a href="https://www.instagram.com/mededul" class="social-link" target="_blank" rel="noopener">Instagram</a>
+                        <a href="https://www.tiktok.com/@mededul" class="social-link" target="_blank" rel="noopener">TikTok</a>
+                        <a href="https://wa.me/525525820596" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegacion</h4>
+                    <ul>
+                        <li><a href="https://mesas-de-dulces.com/">Inicio</a></li>
+                        <li><a href="https://mesas-de-dulces.com/servicios.html">Servicios</a></li>
+                        <li><a href="https://mesas-de-dulces.com/tipos-de-mesas-de-dulces.html">Tipos de Mesas</a></li>
+                        <li><a href="https://mesas-de-dulces.com/candy-bar-eventos.html">Eventos</a></li>
+                        <li><a href="https://mesas-de-dulces.com/blog/">Blog</a></li>
+                        <li><a href="https://mesas-de-dulces.com/contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Tipos de Mesas</h4>
+                    <ul>
+                        <li><a href="https://mesas-de-dulces.com/tipos-de-mesas-de-dulces/mesa-de-dulces.html">Mesa de Dulces</a></li>
+                        <li><a href="https://mesas-de-dulces.com/tipos-de-mesas-de-dulces/mesa-de-frutas.html">Mesa de Frutas</a></li>
+                        <li><a href="https://mesas-de-dulces.com/tipos-de-mesas-de-dulces/mesa-de-postres.html">Mesa de Postres</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Candy Bar por Evento</h4>
+                    <ul>
+                        <li><a href="https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-baby-shower.html">Baby Shower</a></li>
+                        <li><a href="https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-xv-anos.html">XV Anos</a></li>
+                        <li><a href="https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-boda.html">Bodas</a></li>
+                        <li><a href="https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-corporativos.html">Corporativos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Estaciones Interactivas</h4>
+                    <ul>
+                        <li><a href="https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chocolate.html">Fuente de Chocolate</a></li>
+                        <li><a href="https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy.html">Fuente de Chamoy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-row-2">
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <div class="sucursal-card">
+                        <span class="sucursal-badge">Sucursal Condesa</span>
+                        <p class="sucursal-direccion">Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+                    </div>
+                    <div class="sucursal-card">
+                        <span class="sucursal-badge">Sucursal Anzures</span>
+                        <p class="sucursal-direccion">Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+                    </div>
+                    <div class="contacto-directo">
+                        <a href="tel:+525525820596" class="footer-phone">55 2582 0596</a>
+                        <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
+                    </div>
+                </div>
+                <div class="footer-zona-col"><h5>Colonias CDMX</h5><ul><li>Polanco</li><li>Lomas de Chapultepec</li><li>Santa Fe</li><li>Condesa</li><li>Roma</li></ul></div>
+                <div class="footer-zona-col"><h5>Alcaldias CDMX</h5><ul><li>Miguel Hidalgo</li><li>Benito Juarez</li><li>Cuauhtemoc</li><li>Coyoacan</li><li>Alvaro Obregon</li></ul></div>
+                <div class="footer-zona-col"><h5>Zona Metropolitana</h5><ul><li>Huixquilucan</li><li>Naucalpan</li><li>Tlalnepantla</li><li>Atizapan</li><li>Metepec</li></ul></div>
+                <div class="footer-zona-col"><h5>Zonas Exclusivas</h5><ul><li>Pedregal</li><li>Tecamachalco</li><li>Interlomas</li><li>Bosques de las Lomas</li><li>San Angel</li></ul></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Mededul. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="https://mesas-de-dulces.com/aviso-privacidad.html">Aviso de Privacidad</a>
+                    <a href="https://mesas-de-dulces.com/terminos-condiciones.html">Terminos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <span class="whatsapp-badge">1</span>
+    <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+</a>
+
+<script>
+// Header scroll effect
+const header = document.getElementById('header');
+if (header) {
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.pageYOffset > 50);
+    });
+    header.classList.toggle('scrolled', window.pageYOffset > 50);
+}
+
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    const navLinks = navMenu.querySelectorAll('.nav-link:not(.nav-link-dropdown)');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+}
+
+// Mobile accordion menu
+const isMobile = () => window.innerWidth <= 768;
+
+const dropdownParents = document.querySelectorAll('.nav-dropdown');
+dropdownParents.forEach(dropdown => {
+    const toggleLink = dropdown.querySelector('.nav-link-dropdown');
+    if (toggleLink) {
+        toggleLink.addEventListener('click', (e) => {
+            if (isMobile()) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdownParents.forEach(other => {
+                    if (other !== dropdown) {
+                        other.classList.remove('active');
+                    }
+                });
+                dropdown.classList.toggle('active');
+            }
+        });
+    }
+});
+
+const dropdownColumns = document.querySelectorAll('.dropdown-column');
+dropdownColumns.forEach(column => {
+    const columnHeader = column.querySelector('.dropdown-header');
+    if (columnHeader) {
+        columnHeader.addEventListener('click', (e) => {
+            if (isMobile()) {
+                e.preventDefault();
+                e.stopPropagation();
+                column.classList.toggle('active');
+            }
+        });
+    }
+});
+
+const menuLinks = document.querySelectorAll('.dropdown-column ul li a, .dropdown-column a.ver-todos');
+menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (isMobile()) {
+            const navMenu = document.getElementById('nav-menu');
+            const hamburger = document.getElementById('hamburger');
+            if (navMenu && hamburger) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+            document.querySelectorAll('.nav-dropdown, .dropdown-column').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+    });
+});
+</script>
+
+
+    <script>
+        fetch('../components/header.html').then(r=>r.text()).then(h=>{
+            h=h.replace(/href="(?!http|#|tel:|mailto:|https:\/\/wa\.me)/g,'href="../');
+            h=h.replace(/src="(?!http)/g,'src="../');
+            h=h.replace(/srcset="(?!http)/g,'srcset="../');
+            document.getElementById('header-placeholder').innerHTML=h;
+            initHeader();
+        });
+        fetch('../components/footer.html').then(r=>r.text()).then(f=>{
+            f=f.replace(/href="(?!http|#|tel:|mailto:|https:\/\/wa\.me)/g,'href="../');
+            f=f.replace(/src="(?!http)/g,'src="../');
+            f=f.replace(/srcset="(?!http)/g,'srcset="../');
+            document.getElementById('footer-placeholder').innerHTML=f;
+        });
+        function initHeader(){
+            const hdr=document.getElementById('header');
+            if(hdr){window.addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',window.pageYOffset>50);});}
+            const hamburger=document.getElementById('hamburger');
+            const navMenu=document.getElementById('nav-menu');
+            if(hamburger&&navMenu){hamburger.addEventListener('click',()=>{navMenu.classList.toggle('active');hamburger.classList.toggle('active');});}
+            document.querySelectorAll('.nav-dropdown').forEach(d=>{const t=d.querySelector('.nav-link-dropdown');if(t){t.addEventListener('click',e=>{if(window.innerWidth<=768){e.preventDefault();d.classList.toggle('active');}});}});
+            document.querySelectorAll('.dropdown-column').forEach(c=>{const h=c.querySelector('.dropdown-header');if(h){h.addEventListener('click',e=>{if(window.innerWidth<=768){e.preventDefault();c.classList.toggle('active');}});}});
+        }
+
+        // Paginación simple
+        const ITEMS_PER_PAGE = 9;
+        const cards = document.querySelectorAll('.article-card');
+        const pagination = document.getElementById('pagination');
+        const paginationInfo = document.getElementById('pagination-info');
+        const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
+        let currentPage = 1;
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            cards.forEach((card, i) => {
+                card.style.display = (i >= start && i < end) ? 'block' : 'none';
+            });
+
+            renderPagination();
+            paginationInfo.textContent = `Mostrando ${start + 1}-${Math.min(end, cards.length)} de ${cards.length} artículos`;
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function renderPagination() {
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                paginationInfo.style.display = 'none';
+                return;
+            }
+
+            let html = `<button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="showPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="showPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="showPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        showPage(1);
+    </script>
+</body>
+</html>

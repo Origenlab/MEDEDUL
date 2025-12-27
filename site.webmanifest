@@ -1,0 +1,26 @@
+{
+  "short_name": "Mededul",
+  "name": "Mededul - Mesas de Dulces CDMX",
+  "description": "Mesas de dulces profesionales para bodas, XV años, baby shower y eventos en CDMX",
+  "icons": [
+    {
+      "src": "img/branding/favicon-mededul.webp",
+      "type": "image/webp",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/branding/favicon-mededul.webp",
+      "type": "image/webp",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E91E8C",
+  "orientation": "portrait-primary",
+  "categories": ["food", "lifestyle", "shopping"],
+  "lang": "es-MX"
+}
