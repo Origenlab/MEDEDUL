@@ -55,6 +55,18 @@
         .article-tag { background: rgba(233, 30, 140, 0.1); color: #E91E8C; padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
         @media (max-width: 900px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .articles-grid { grid-template-columns: 1fr; } .category-hero h1 { font-size: 1.8rem; } }
+    
+        .breadcrumb-section {
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-top: 80px;
+        }
+        .breadcrumb-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
@@ -153,8 +165,8 @@
     </div>
 </header>
 
-
-    <section class="category-hero">
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb">
                 <a href="../../index.html">Inicio</a>
@@ -163,6 +175,13 @@
                 <span>›</span>
                 <span class="current">Tendencias</span>
             </nav>
+        </div>
+    </section>
+
+
+
+    <section class="category-hero">
+        <div class="container">
             <h1>Tendencias en <span>Mesas de Dulces</span></h1>
             <p>Mantente al dia con las ultimas tendencias en decoracion, estilos y presentaciones de mesas de dulces. Descubre lo que esta marcando pauta en el mundo de los eventos.</p>
         </div>

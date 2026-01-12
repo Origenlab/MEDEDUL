@@ -58,6 +58,18 @@
         .no-articles { text-align: center; padding: 60px 20px; color: #666; }
         @media (max-width: 900px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .articles-grid { grid-template-columns: 1fr; } .category-hero h1 { font-size: 1.8rem; } }
+    
+        .breadcrumb-section {
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-top: 80px;
+        }
+        .breadcrumb-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
@@ -156,8 +168,8 @@
     </div>
 </header>
 
-
-    <section class="category-hero">
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb">
                 <a href="../../index.html">Inicio</a>
@@ -166,6 +178,13 @@
                 <span>›</span>
                 <span class="current">Tematicas</span>
             </nav>
+        </div>
+    </section>
+
+
+
+    <section class="category-hero">
+        <div class="container">
             <h1>Mesas de Dulces <span>Tematicas</span></h1>
             <p>Dulces mexicanos tradicionales, estilos vintage, bohemios y disenos especiales para eventos unicos. Inspiracion y tendencias.</p>
         </div>

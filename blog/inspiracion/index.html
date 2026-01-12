@@ -183,6 +183,18 @@
                 font-size: 1.05rem;
             }
         }
+    
+        .breadcrumb-section {
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-top: 80px;
+        }
+        .breadcrumb-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
@@ -281,11 +293,10 @@
     </div>
 </header>
 
-
-    <section class="category-hero">
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section">
         <div class="container">
-            <div class="category-hero-content">
-                <nav class="breadcrumb">
+            <nav class="breadcrumb">
                     <a href="../../index.html">Inicio</a>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"/>
@@ -296,6 +307,14 @@
                     </svg>
                     <span>Inspiracion</span>
                 </nav>
+        </div>
+    </section>
+
+
+
+    <section class="category-hero">
+        <div class="container">
+            <div class="category-hero-content">
                 <span class="category-hero-badge">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"/>

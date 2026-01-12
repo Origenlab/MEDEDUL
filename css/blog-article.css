@@ -47,6 +47,51 @@
 }
 
 /* ========================================
+   BREADCRUMB SECTION
+   ======================================== */
+.breadcrumb-section {
+    background: #f8f9fa;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    margin-top: 80px;
+}
+
+.breadcrumb-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb-section .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-section .breadcrumb a {
+    color: var(--texto-gris);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-section .breadcrumb a:hover {
+    color: var(--rosa-principal);
+}
+
+.breadcrumb-section .breadcrumb svg {
+    width: 14px;
+    height: 14px;
+    color: #999;
+}
+
+.breadcrumb-section .breadcrumb span {
+    color: var(--texto-oscuro);
+    font-weight: 500;
+}
+
+/* ========================================
    ARTICLE HERO - VERSION CON IMAGEN
    ======================================== */
 .article-hero {

@@ -65,6 +65,58 @@ body {
     padding: 0 20px;
 }
 
+/* ========================================
+   BREADCRUMB SECTION
+   ======================================== */
+.breadcrumb-section {
+    background: var(--gris-claro);
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    margin-top: 80px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: var(--gris-texto);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--rosa-principal);
+}
+
+.breadcrumb svg {
+    width: 14px;
+    height: 14px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.breadcrumb span {
+    color: var(--negro-suave);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-section {
+        margin-top: 70px;
+        padding: 12px 0;
+    }
+
+    .breadcrumb {
+        font-size: 0.85rem;
+        gap: 8px;
+    }
+}
+
 .section-padding {
     padding: 80px 0;
 }
