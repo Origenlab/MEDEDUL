@@ -72,7 +72,7 @@ body {
     background: var(--gris-claro);
     padding: 15px 0;
     border-bottom: 1px solid #eee;
-    margin-top: 90px;
+    margin-top: 105px;
     position: relative;
     z-index: 10;
 }
@@ -109,7 +109,7 @@ body {
 
 @media (max-width: 768px) {
     .breadcrumb-section {
-        margin-top: 70px;
+        margin-top: 80px;
         padding: 12px 0;
     }
 

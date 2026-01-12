@@ -1456,17 +1456,17 @@
 
 /* Why Us Widget */
 .sidebar-why-us {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border: none;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+    border: none !important;
 }
 
 .sidebar-why-us .sidebar-widget-title {
-    color: #fff;
-    border-bottom-color: rgba(255,255,255,0.2);
+    color: #fff !important;
+    border-bottom-color: rgba(255,255,255,0.2) !important;
 }
 
 .sidebar-why-us .sidebar-widget-title svg {
-    stroke: #FFD700;
+    stroke: #FFD700 !important;
 }
 
 .sidebar-benefits-list {
@@ -1481,7 +1481,7 @@
     gap: 12px;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.9) !important;
     font-size: 0.9rem;
 }
 
