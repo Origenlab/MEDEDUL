@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <title>Blog de Mesas de Dulces | Tips, Ideas y Tendencias | Mededul CDMX</title>
-    <meta name="description" content="Descubre ideas, tips y tendencias para mesas de dulces en bodas, XV años, baby showers y eventos corporativos. Guías de expertos de Mededul CDMX.">
+    <meta name="description" content="Descubre ideas, tips y tendencias para mesas de dulces en bodas, XV anos, baby showers y eventos corporativos. Guias de expertos de Mededul CDMX.">
     <meta name="keywords" content="blog mesas de dulces, ideas candy bar, tips decoracion dulces, tendencias mesas postres, mededul blog">
     <meta name="author" content="Mededul - Mesas de Dulces Profesionales">
     <link rel="canonical" href="https://mesas-de-dulces.com/blog/">
@@ -15,190 +15,20 @@
     <meta property="og:url" content="https://mesas-de-dulces.com/blog/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_MX">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/branding/favicon-mededul-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/branding/favicon-mededul-16x16.png">
+    <meta name="theme-color" content="#E91E8C">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css?v=20241213">
-    <link rel="stylesheet" href="../css/header-footer.css?v=20241213">
-    <style>
-        :root {
-            --rosa-principal: #E91E8C;
-            --rosa-claro: #FF6BB3;
-            --texto-oscuro: #1a1a1a;
-            --texto-gris: #555;
-        }
-        .blog-hero {
-            background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
-            padding: 120px 0 60px;
-            text-align: center;
-        }
-        .blog-hero h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--texto-oscuro);
-            margin-bottom: 15px;
-        }
-        .blog-hero p {
-            font-size: 1.1rem;
-            color: var(--texto-gris);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .blog-categories {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-            padding: 0 20px;
-        }
-        .category-tag {
-            padding: 10px 20px;
-            background: #fff;
-            border: 2px solid var(--rosa-principal);
-            border-radius: 50px;
-            color: var(--rosa-principal);
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-        .category-tag:hover, .category-tag.active {
-            background: var(--rosa-principal);
-            color: #fff;
-        }
-        .articles-section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        .article-card {
-            background: #fff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-        }
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(233, 30, 140, 0.15);
-        }
-        .article-image {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-        }
-        .article-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-        .article-card:hover .article-image img {
-            transform: scale(1.05);
-        }
-        .article-category {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: var(--rosa-principal);
-            color: #fff;
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        .article-content {
-            padding: 20px;
-        }
-        .article-content h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-        .article-content h3 a {
-            color: var(--texto-oscuro);
-            text-decoration: none;
-        }
-        .article-content h3 a:hover {
-            color: var(--rosa-principal);
-        }
-        .article-excerpt {
-            color: var(--texto-gris);
-            font-size: 0.85rem;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-        .pagination-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 42px;
-            height: 42px;
-            padding: 0 14px;
-            border: none;
-            border-radius: 8px;
-            background: #f0f0f0;
-            color: var(--texto-oscuro);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .pagination-btn:hover:not(.disabled):not(.active) {
-            background: #e0e0e0;
-        }
-        .pagination-btn.active {
-            background: var(--rosa-principal);
-            color: #fff;
-        }
-        .pagination-btn.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .pagination-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-        .pagination-info {
-            text-align: center;
-            margin-top: 15px;
-            color: var(--texto-gris);
-            font-size: 0.85rem;
-        }
-        @media (max-width: 900px) {
-            .articles-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .blog-hero h1 { font-size: 2rem; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .category-tag { padding: 8px 14px; font-size: 0.8rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/header-footer.css">
+    <link rel="stylesheet" href="../css/blog.css">
 </head>
 <body>
-    <header class="header" id="header">
+    <!-- Header Placeholder -->
+    
+<header class="header" id="header">
     <div class="container">
         <nav class="nav">
             <a href="../index.html" class="logo">
@@ -271,15 +101,15 @@
                 </li>
 
                 <li><a href="../nosotros.html" class="nav-link">Nosotros</a></li>
-                <li><a href="index.html" class="nav-link">Blog</a></li>
+                <li><a href="../blog/" class="nav-link">Blog</a></li>
                 <li><a href="../contacto.html" class="nav-link">Contacto</a></li>
             </ul>
 
             <div class="nav-actions">
-                <a href="tel:+525525820596" class="nav-phone">
-                    <span>55 2582 0596</span>
+                <a href="tel:+525525226442" class="nav-phone">
+                    <span>55 2522 6442</span>
                 </a>
-                <a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces" class="btn-cta-nav" target="_blank" rel="noopener">
+                <a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces" class="btn-cta-nav" target="_blank" rel="noopener">
                     Cotizar Ahora
                 </a>
             </div>
@@ -294,183 +124,54 @@
 </header>
 
 
-    <section class="blog-hero">
-        <div class="container">
-            <h1>Blog Mededul</h1>
-            <p>Ideas, tips y tendencias para crear mesas de dulces inolvidables</p>
-            <div class="blog-categories">
-                <a href="bodas/" class="category-tag">Bodas</a>
-                <a href="xv-anos/" class="category-tag">XV Años</a>
-                <a href="baby-shower/" class="category-tag">Baby Shower</a>
-                <a href="corporativos/" class="category-tag">Corporativos</a>
-                <a href="infantiles/" class="category-tag">Infantiles</a>
-                <a href="estaciones/" class="category-tag">Estaciones</a>
+    <main id="main-content" class="blog-main">
+        <!-- Blog Hero Section -->
+        <section class="blog-hero">
+            <div class="container">
+                <h1>Blog Mededul</h1>
+                <p class="blog-hero-subtitle">Ideas, tips y tendencias para crear mesas de dulces inolvidables</p>
+                <div class="blog-categories">
+                    <a href="bodas/" class="category-tag">Bodas</a>
+                    <a href="xv-anos/" class="category-tag">XV Anos</a>
+                    <a href="baby-shower/" class="category-tag">Baby Shower</a>
+                    <a href="corporativos/" class="category-tag">Corporativos</a>
+                    <a href="infantiles/" class="category-tag">Infantiles</a>
+                    <a href="estaciones/" class="category-tag">Estaciones</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="articles-section">
-        <div class="articles-grid" id="articles-grid">
-<article class="article-card" data-category="xv-anos" data-slug="mesa-dulces-xv-anos-ideas-tendencias"><div class="article-image"><a href="xv-anos/mesa-dulces-xv-anos-ideas-tendencias.html"><img src="../img/blog/mesa-dulces-xv-anos-ideas-tendencias-1765608822456.webp" alt="Mesa de Dulces para XV Años en CDMX: Ideas Espectaculares" loading="lazy"></a><span class="article-category">XV ANOS</span></div><div class="article-content"><h3><a href="xv-anos/mesa-dulces-xv-anos-ideas-tendencias.html">Mesa de Dulces para XV Años en CDMX: Ideas Espectaculares</a></h3><p class="article-excerpt">Descubre cómo crear una mesa de dulces inolvidable para XV años en CDMX. Ideas, estilos y consejos de expertos.</p></div></article>
-<article class="article-card" data-category="corporativos" data-slug="mesa-dulces-eventos-corporativos-empresas"><div class="article-image"><a href="corporativos/mesa-dulces-eventos-corporativos-empresas.html"><img src="../img/blog/mesa-dulces-eventos-corporativos-empresas-1765608314101.webp" alt="Transforma tu Evento con una Mesa de Dulces Corporativa en CDMX" loading="lazy"></a><span class="article-category">CORPORATIVOS</span></div><div class="article-content"><h3><a href="corporativos/mesa-dulces-eventos-corporativos-empresas.html">Transforma tu Evento con una Mesa de Dulces Corporativa en CDMX</a></h3><p class="article-excerpt">Descubre soluciones de mesas de dulces para eventos corporativos en CDMX con estilos modernos y elegantes.</p></div></article>
-<article class="article-card" data-category="baby-shower" data-slug="mesa-dulces-baby-shower-ideas-creativas"><div class="article-image"><a href="baby-shower/mesa-dulces-baby-shower-ideas-creativas.html"><img src="../img/blog/mesa-dulces-baby-shower-ideas-creativas-1765607325376.webp" alt="Mesa de Dulces para Baby Shower en CDMX: Crea Momentos Unicos" loading="lazy"></a><span class="article-category">BABY SHOWER</span></div><div class="article-content"><h3><a href="baby-shower/mesa-dulces-baby-shower-ideas-creativas.html">Mesa de Dulces para Baby Shower en CDMX: Crea Momentos Unicos</a></h3><p class="article-excerpt">Descubre ideas creativas para una mesa de dulces para baby shower en CDMX. Temas clasicos y modernos que encantaran a tus invitados.</p></div></article>
-<article class="article-card" data-category="tematicas" data-slug="mesa-dulces-mexicanos-tradicionales-eventos"><div class="article-image"><a href="tematicas/mesa-dulces-mexicanos-tradicionales-eventos.html"><img src="../img/blog/mesa-dulces-mexicanos-tradicionales-eventos-1765606975993.webp" alt="Mesa de Dulces Mexicanos para Eventos en CDMX" loading="lazy"></a><span class="article-category">TEMATICAS</span></div><div class="article-content"><h3><a href="tematicas/mesa-dulces-mexicanos-tradicionales-eventos.html">Mesa de Dulces Mexicanos para Eventos en CDMX</a></h3><p class="article-excerpt">Descubre la magia de una mesa de dulces mexicanos para eventos en CDMX. Dulces artesanales y decoraciones únicas.</p></div></article>
-<article class="article-card" data-category="bodas" data-slug="mesa-dulces-bodas-guia-completa"><div class="article-image"><a href="bodas/mesa-dulces-bodas-guia-completa.html"><img src="../img/blog/mesa-dulces-bodas-guia-completa-1765606565123.webp" alt="Mesa de Dulces para Bodas: Guia Completa" loading="lazy"></a><span class="article-category">BODAS</span></div><div class="article-content"><h3><a href="bodas/mesa-dulces-bodas-guia-completa.html">Mesa de Dulces para Bodas en CDMX: Guia Completa</a></h3><p class="article-excerpt">Descubre como crear la mesa de dulces perfecta para tu boda en CDMX con esta guia completa.</p></div></article>
-            <article class="article-card" data-category="estaciones" data-slug="barra-postres-gourmet-eventos-cdmx"><div class="article-image"><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html"><img src="../img/blog/barra-postres-gourmet-eventos-cdmx-1765606157055.webp" alt="Barra de Postres Gourmet para Eventos" loading="lazy"></a><span class="article-category">ESTACIONES</span></div><div class="article-content"><h3><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html">Barra de Postres Gourmet para Eventos en CDMX</a></h3><p class="article-excerpt">Descubre la barra de postres gourmet de Mededul en CDMX. Elegancia y sabor en cada creación.</p></div></article>
+        <!-- Blog Content -->
+        <section class="blog-content">
+            <div class="posts-grid" id="posts-grid">
+                <!-- Las cards se generan dinamicamente desde el array blogArticles -->
+            </div>
 
-                <article class="article-card">
-                    <a href="baby-shower/mesa-dulces-bautizo-elegante-cdmx.html">
-                        <div class="article-image">
-                            <img src="../img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.jpg" alt="Mesa de Dulces para Bautizo Elegante en CDMX" loading="lazy">
-                            <span class="article-category">Baby Shower</span>
-                        </div>
-                        <div class="article-content">
-                            <h3>Mesa de Dulces para Bautizo Elegante en CDMX</h3>
-                            <p>Crea la mesa de dulces perfecta para el bautizo de tu bebé con estas ideas profesionales...</p>
-                            <span class="read-more">Leer más →</span>
-                        </div>
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+            <div class="pagination-info" id="pagination-info"></div>
+        </section>
+
+        <!-- Blog CTA -->
+        <section class="blog-cta">
+            <div class="container">
+                <div class="blog-cta-content">
+                    <h2>¿Listo para tu mesa de dulces perfecta?</h2>
+                    <p>Transforma tu evento en una experiencia inolvidable con nuestras mesas de dulces profesionales</p>
+                    <a href="https://wa.me/525525820596?text=Hola!%20Me%20gustaria%20cotizar%20una%20mesa%20de%20dulces" class="btn-cta" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                        </svg>
+                        Cotizar Ahora
                     </a>
-                </article>
+                </div>
+            </div>
+        </section>
+    </main>
 
-
-                
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="bodas/mesa-dulces-bodas-exclusivas-cdmx.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Mesa de Dulces para Bodas" loading="lazy"></a>
-                    <span class="article-category">Bodas</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="bodas/mesa-dulces-bodas-exclusivas-cdmx.html">Mesa de Dulces para Bodas en Polanco, Lomas y Santa Fe</a></h3>
-                    <p class="article-excerpt">Crea la mesa de dulces perfecta para tu boda en las zonas más exclusivas de CDMX.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="bodas/tendencias-candy-bar-bodas-2025.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Tendencias Candy Bar 2025" loading="lazy"></a>
-                    <span class="article-category">Bodas</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="bodas/tendencias-candy-bar-bodas-2025.html">Tendencias Candy Bar Bodas 2025</a></h3>
-                    <p class="article-excerpt">Descubre las tendencias más exclusivas en candy bar para bodas este año.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="bodas/mesa-dulces-boda-jardin-exterior.html"><img src="../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg" alt="Mesa Dulces Boda Jardín" loading="lazy"></a>
-                    <span class="article-category">Bodas</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="bodas/mesa-dulces-boda-jardin-exterior.html">Mesa de Dulces para Boda en Jardín</a></h3>
-                    <p class="article-excerpt">Guía completa para una mesa de dulces perfecta en boda al aire libre.</p>
-                </div>
-            </article>
-
-            
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="xv-anos/mesa-dulces-xv-anos-elegante-cdmx.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Mesa Dulces XV Años" loading="lazy"></a>
-                    <span class="article-category">XV Años</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="xv-anos/mesa-dulces-xv-anos-elegante-cdmx.html">Mesa de Dulces para XV Años Elegante en CDMX</a></h3>
-                    <p class="article-excerpt">Crea la mesa de dulces perfecta para los XV años de tu hija.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="xv-anos/tendencias-mesa-dulces-xv-anos-2025.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Tendencias XV Años 2025" loading="lazy"></a>
-                    <span class="article-category">XV Años</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="xv-anos/tendencias-mesa-dulces-xv-anos-2025.html">Tendencias Mesa de Dulces XV Años 2025</a></h3>
-                    <p class="article-excerpt">Las tendencias más innovadoras en mesas de dulces para quinceañeras.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="xv-anos/colores-tematicas-mesa-dulces-quinceanera.html"><img src="../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg" alt="Colores Mesa Dulces" loading="lazy"></a>
-                    <span class="article-category">XV Años</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="xv-anos/colores-tematicas-mesa-dulces-quinceanera.html">Colores y Temáticas para Quinceañera</a></h3>
-                    <p class="article-excerpt">Guía de colores y temáticas para tu mesa de dulces de XV años.</p>
-                </div>
-            </article>
-
-            
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="corporativos/mesa-dulces-eventos-corporativos-cdmx.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Mesa Dulces Corporativos" loading="lazy"></a>
-                    <span class="article-category">Corporativos</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="corporativos/mesa-dulces-eventos-corporativos-cdmx.html">Mesa de Dulces para Eventos Corporativos</a></h3>
-                    <p class="article-excerpt">Servicio profesional de mesas de dulces para eventos empresariales.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="corporativos/catering-dulces-eventos-empresariales-cdmx.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Catering Dulces Empresarial" loading="lazy"></a>
-                    <span class="article-category">Corporativos</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="corporativos/catering-dulces-eventos-empresariales-cdmx.html">Catering de Dulces para Eventos Empresariales</a></h3>
-                    <p class="article-excerpt">Catering profesional de dulces para eventos corporativos en CDMX.</p>
-                </div>
-            </article>
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="corporativos/mesa-dulces-lanzamiento-productos.html"><img src="../img/eventos/corporativos/mesa-dulces-evento-corporativo.webp" alt="Mesa Dulces Lanzamiento" loading="lazy"></a>
-                    <span class="article-category">Corporativos</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="corporativos/mesa-dulces-lanzamiento-productos.html">Mesa de Dulces para Lanzamiento de Productos</a></h3>
-                    <p class="article-excerpt">Mesas de dulces personalizadas con branding corporativo.</p>
-                </div>
-            </article>
-
-            
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="baby-shower/ideas-mesa-dulces-baby-shower-perfecta.html"><img src="../img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.jpg" alt="Mesa Dulces Baby Shower" loading="lazy"></a>
-                    <span class="article-category">Baby Shower</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="baby-shower/ideas-mesa-dulces-baby-shower-perfecta.html">Ideas para Mesa de Dulces Baby Shower Perfecta</a></h3>
-                    <p class="article-excerpt">Las mejores ideas para crear una mesa de dulces inolvidable.</p>
-                </div>
-            </article>
-
-            
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="infantiles/mesa-dulces-cumpleanos-infantil-ideas.html"><img src="../img/blog/mesa-dulces-cumpleanos-infantil-ideas-1765595023196.webp" alt="Mesa Dulces Infantil" loading="lazy"></a>
-                    <span class="article-category">Infantiles</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="infantiles/mesa-dulces-cumpleanos-infantil-ideas.html">Mesas de Dulces para Cumpleaños Infantil</a></h3>
-                    <p class="article-excerpt">Mesas de dulces mágicas para cumpleaños infantiles en CDMX.</p>
-                </div>
-            </article>
-
-            
-            <article class="article-card">
-                <div class="article-image">
-                    <a href="estaciones/barra-postres-gourmet-eventos-cdmx.html"><img src="../img/blog/barra-postres-gourmet-eventos-cdmx-1765594191306.webp" alt="Barra Postres Gourmet" loading="lazy"></a>
-                    <span class="article-category">Estaciones</span>
-                </div>
-                <div class="article-content">
-                    <h3><a href="estaciones/barra-postres-gourmet-eventos-cdmx.html">Barra de Postres Gourmet para Eventos</a></h3>
-                    <p class="article-excerpt">Elegantes barras de postres gourmet para eventos en CDMX.</p>
-                </div>
-            </article>
-        </div>
-
-        <div class="pagination" id="pagination"></div>
-        <div class="pagination-info" id="pagination-info"></div>
-    </section>
-
-    <footer class="footer">
+    <!-- Footer Placeholder -->
+    
+<footer class="footer">
     <div class="footer-top">
         <div class="container">
             <div class="footer-row-1">
@@ -486,7 +187,7 @@
                         <a href="https://www.facebook.com/mededul" class="social-link" target="_blank" rel="noopener">Facebook</a>
                         <a href="https://www.instagram.com/mededul" class="social-link" target="_blank" rel="noopener">Instagram</a>
                         <a href="https://www.tiktok.com/@mededul" class="social-link" target="_blank" rel="noopener">TikTok</a>
-                        <a href="https://wa.me/525525820596" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
+                        <a href="https://wa.me/525525226442" class="social-link" target="_blank" rel="noopener">WhatsApp</a>
                     </div>
                 </div>
                 <div class="footer-links">
@@ -537,7 +238,7 @@
                         <p class="sucursal-direccion">Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
                     </div>
                     <div class="contacto-directo">
-                        <a href="tel:+525525820596" class="footer-phone">55 2582 0596</a>
+                        <a href="tel:+525525226442" class="footer-phone">55 2522 6442</a>
                         <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
                     </div>
                 </div>
@@ -560,10 +261,221 @@
         </div>
     </div>
 </footer>
-<a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+<a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
     <span class="whatsapp-badge">1</span>
-    <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 3.348s1.44 3.88 1.64 4.148c.2.268 2.832 4.32 6.864 6.06.96.416 1.708.664 2.292.848.964.308 1.84.264 2.532.16.772-.116 2.368-.968 2.704-1.904.332-.936.332-1.74.232-1.904-.1-.168-.368-.268-.768-.468z"/></svg>
 </a>
+
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+        <span class="whatsapp-badge">1</span>
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    </a>
+    <script>
+        // ============================================
+        // ARRAY DE ARTICULOS DEL BLOG - N8N INSERTA AQUI
+        // ============================================
+        const blogArticles = [
+      {
+        id: 1765606565123,
+        title: "Mesa de Dulces para Bodas en CDMX: Guia Completa",
+        excerpt: "Guia completa para crear la mesa de dulces perfecta para tu boda en CDMX. Estilos, dulces imprescindibles y consejos de expertos.",
+        category: "bodas",
+        image: "../img/blog/mesa-dulces-bodas-guia-completa-1765606565123.webp",
+        slug: "bodas/mesa-dulces-bodas-guia-completa",
+        readTime: "12 min lectura"
+      },
+      {
+        id: 1765608822456,
+        title: "Mesa de Dulces para XV Anos: Ideas Espectaculares",
+        excerpt: "Descubre como crear una mesa de dulces inolvidable para XV anos en CDMX. Ideas, estilos y consejos de expertos.",
+        category: "xv-anos",
+        image: "../img/blog/mesa-dulces-xv-anos-ideas-tendencias-1765608822456.webp",
+        slug: "xv-anos/mesa-dulces-xv-anos-ideas-tendencias",
+        readTime: "10 min lectura"
+      },
+      {
+        id: 1765608314101,
+        title: "Mesa de Dulces Corporativa en CDMX",
+        excerpt: "Descubre soluciones de mesas de dulces para eventos corporativos en CDMX con estilos modernos y elegantes.",
+        category: "corporativos",
+        image: "../img/blog/mesa-dulces-eventos-corporativos-empresas-1765608314101.webp",
+        slug: "corporativos/mesa-dulces-eventos-corporativos-empresas",
+        readTime: "8 min lectura"
+      },
+      {
+        id: 1765607325376,
+        title: "Mesa de Dulces para Baby Shower: Momentos Unicos",
+        excerpt: "Descubre ideas creativas para una mesa de dulces para baby shower en CDMX. Temas clasicos y modernos que encantaran.",
+        category: "baby-shower",
+        image: "../img/blog/mesa-dulces-baby-shower-ideas-creativas-1765607325376.webp",
+        slug: "baby-shower/mesa-dulces-baby-shower-ideas-creativas",
+        readTime: "9 min lectura"
+      },
+      {
+        id: 1765606975993,
+        title: "Mesa de Dulces Mexicanos para Eventos",
+        excerpt: "Descubre la magia de una mesa de dulces mexicanos para eventos en CDMX. Dulces artesanales y decoraciones unicas.",
+        category: "tematicas",
+        image: "../img/blog/mesa-dulces-mexicanos-tradicionales-eventos-1765606975993.webp",
+        slug: "tematicas/mesa-dulces-mexicanos-tradicionales-eventos",
+        readTime: "11 min lectura"
+      },
+      {
+        id: 1765606157055,
+        title: "Barra de Postres Gourmet para Eventos",
+        excerpt: "Descubre la barra de postres gourmet de Mededul en CDMX. Elegancia y sabor en cada creacion.",
+        category: "estaciones",
+        image: "../img/blog/barra-postres-gourmet-eventos-cdmx-1765606157055.webp",
+        slug: "estaciones/barra-postres-gourmet-eventos-cdmx",
+        readTime: "7 min lectura"
+      },
+      {
+        id: 1765605000001,
+        title: "Tendencias Candy Bar Bodas 2025",
+        excerpt: "Descubre las tendencias mas exclusivas en candy bar para bodas este ano.",
+        category: "bodas",
+        image: "../img/eventos/bodas/mesa-de-dulces-para-bodas.jpg",
+        slug: "bodas/tendencias-candy-bar-bodas-2025",
+        readTime: "8 min lectura"
+      },
+      {
+        id: 1765605000002,
+        title: "Tendencias Mesa de Dulces XV Anos 2025",
+        excerpt: "Las tendencias mas innovadoras en mesas de dulces para quinceaneras.",
+        category: "xv-anos",
+        image: "../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.jpg",
+        slug: "xv-anos/tendencias-mesa-dulces-xv-anos-2025",
+        readTime: "9 min lectura"
+      },
+      {
+        id: 1765595023196,
+        title: "Mesas de Dulces para Cumpleanos Infantil",
+        excerpt: "Mesas de dulces magicas para cumpleanos infantiles en CDMX.",
+        category: "infantiles",
+        image: "../img/blog/mesa-dulces-cumpleanos-infantil-ideas-1765595023196.webp",
+        slug: "infantiles/mesa-dulces-cumpleanos-infantil-ideas",
+        readTime: "10 min lectura"
+      },
+      {
+        id: 1765605000003,
+        title: "Guia Completa: Fuentes de Chocolate",
+        excerpt: "Todo lo que necesitas saber sobre fuentes de chocolate para eventos en CDMX.",
+        category: "guias",
+        image: "../img/estaciones/fuente-chocolate-eventos-cdmx.webp",
+        slug: "guias/guia-completa-fuentes-chocolate-eventos-cdmx",
+        readTime: "15 min lectura"
+      }
+    ];
+
+        // ============================================
+        // MAPEO DE CATEGORIAS
+        // ============================================
+        const categoryNames = {
+            'bodas': 'Bodas',
+            'xv-anos': 'XV Anos',
+            'baby-shower': 'Baby Shower',
+            'corporativos': 'Corporativos',
+            'infantiles': 'Infantiles',
+            'estaciones': 'Estaciones',
+            'guias': 'Guias',
+            'tematicas': 'Tematicas',
+            'tendencias': 'Tendencias',
+            'tips-y-consejos': 'Tips y Consejos',
+            'inspiracion': 'Inspiracion'
+        };
+
+        // ============================================
+        // RENDERIZAR CARDS
+        // ============================================
+        function renderCards() {
+            const grid = document.getElementById('posts-grid');
+            grid.innerHTML = blogArticles.map(article => `
+                <article class="post-card" data-category="${article.category}">
+                    <a href="${article.slug}.html">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </a>
+                    <div class="post-meta">
+                        <span class="read-time">${article.readTime}</span>
+                        <span class="category">${categoryNames[article.category] || article.category}</span>
+                    </div>
+                    <h3>
+                        <a href="${article.slug}.html">${article.title}</a>
+                    </h3>
+                    <p>${article.excerpt}</p>
+                    <a href="${article.slug}.html" class="btn btn-primary">Leer mas</a>
+                </article>
+            `).join('');
+        }
+
+        // ============================================
+        // PAGINACION
+        // ============================================
+        const ITEMS_PER_PAGE = 12;
+        let currentPage = 1;
+        let filteredArticles = [...blogArticles];
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+
+            const grid = document.getElementById('posts-grid');
+            grid.innerHTML = filteredArticles.slice(start, end).map(article => `
+                <article class="post-card" data-category="${article.category}">
+                    <a href="${article.slug}.html">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    </a>
+                    <div class="post-meta">
+                        <span class="read-time">${article.readTime}</span>
+                        <span class="category">${categoryNames[article.category] || article.category}</span>
+                    </div>
+                    <h3>
+                        <a href="${article.slug}.html">${article.title}</a>
+                    </h3>
+                    <p>${article.excerpt}</p>
+                    <a href="${article.slug}.html" class="btn btn-primary">Leer mas</a>
+                </article>
+            `).join('');
+
+            renderPagination(totalPages);
+            document.getElementById('pagination-info').textContent =
+                `Mostrando ${start + 1}-${Math.min(end, filteredArticles.length)} de ${filteredArticles.length} articulos`;
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            const paginationInfo = document.getElementById('pagination-info');
+
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                paginationInfo.style.display = 'none';
+                return;
+            }
+
+            pagination.style.display = 'flex';
+            paginationInfo.style.display = 'block';
+
+            let html = `<button class="pagination-arrow ${currentPage === 1 ? 'disabled' : ''}" onclick="showPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="showPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="pagination-arrow ${currentPage === totalPages ? 'disabled' : ''}" onclick="showPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        // Inicializar
+        showPage(1);
+    </script>
 
 <script>
 // Header scroll effect
@@ -648,76 +560,5 @@ menuLinks.forEach(link => {
 });
 </script>
 
-
-    <script>
-        fetch('../components/header.html').then(r=>r.text()).then(h=>{
-            h=h.replace(/href="(?!http|#|tel:|mailto:|https:\/\/wa\.me)/g,'href="../');
-            h=h.replace(/src="(?!http)/g,'src="../');
-            h=h.replace(/srcset="(?!http)/g,'srcset="../');
-            document.getElementById('header-placeholder').innerHTML=h;
-            initHeader();
-        });
-        fetch('../components/footer.html').then(r=>r.text()).then(f=>{
-            f=f.replace(/href="(?!http|#|tel:|mailto:|https:\/\/wa\.me)/g,'href="../');
-            f=f.replace(/src="(?!http)/g,'src="../');
-            f=f.replace(/srcset="(?!http)/g,'srcset="../');
-            document.getElementById('footer-placeholder').innerHTML=f;
-        });
-        function initHeader(){
-            const hdr=document.getElementById('header');
-            if(hdr){window.addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',window.pageYOffset>50);});}
-            const hamburger=document.getElementById('hamburger');
-            const navMenu=document.getElementById('nav-menu');
-            if(hamburger&&navMenu){hamburger.addEventListener('click',()=>{navMenu.classList.toggle('active');hamburger.classList.toggle('active');});}
-            document.querySelectorAll('.nav-dropdown').forEach(d=>{const t=d.querySelector('.nav-link-dropdown');if(t){t.addEventListener('click',e=>{if(window.innerWidth<=768){e.preventDefault();d.classList.toggle('active');}});}});
-            document.querySelectorAll('.dropdown-column').forEach(c=>{const h=c.querySelector('.dropdown-header');if(h){h.addEventListener('click',e=>{if(window.innerWidth<=768){e.preventDefault();c.classList.toggle('active');}});}});
-        }
-
-        // Paginación simple
-        const ITEMS_PER_PAGE = 9;
-        const cards = document.querySelectorAll('.article-card');
-        const pagination = document.getElementById('pagination');
-        const paginationInfo = document.getElementById('pagination-info');
-        const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
-        let currentPage = 1;
-
-        function showPage(page) {
-            currentPage = page;
-            const start = (page - 1) * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
-
-            cards.forEach((card, i) => {
-                card.style.display = (i >= start && i < end) ? 'block' : 'none';
-            });
-
-            renderPagination();
-            paginationInfo.textContent = `Mostrando ${start + 1}-${Math.min(end, cards.length)} de ${cards.length} artículos`;
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        function renderPagination() {
-            if (totalPages <= 1) {
-                pagination.style.display = 'none';
-                paginationInfo.style.display = 'none';
-                return;
-            }
-
-            let html = `<button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="showPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>`;
-
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="showPage(${i})">${i}</button>`;
-            }
-
-            html += `<button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="showPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>`;
-
-            pagination.innerHTML = html;
-        }
-
-        showPage(1);
-    </script>
 </body>
 </html>
