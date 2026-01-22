@@ -1,7 +1,7 @@
 
 
 :root {
-    
+
     --rosa-principal: #FF6B9D;
     --rosa-claro: #FFB6C1;
     --amarillo-dulce: #FFE66D;
@@ -11,33 +11,27 @@
     --azul-cielo: #74B9FF;
     --verde-menta: #55EFC4;
 
-    
     --blanco: #FFFFFF;
     --negro-suave: #2D3436;
     --gris-claro: #F8F9FA;
     --gris-texto: #636E72;
 
-    
     --gradiente-dulce: linear-gradient(135deg, #FF6B9D 0%, #FF8C42 50%, #FFE66D 100%);
     --gradiente-fresco: linear-gradient(135deg, #4ECDC4 0%, #74B9FF 100%);
     --gradiente-fiesta: linear-gradient(135deg, #9B59B6 0%, #FF6B9D 100%);
 
-    
     --font-principal: 'Poppins', sans-serif;
     --font-decorativa: 'Pacifico', cursive;
 
-    
     --sombra-suave: 0 4px 20px rgba(0,0,0,0.08);
     --sombra-media: 0 8px 30px rgba(0,0,0,0.12);
     --sombra-rosa: 0 8px 30px rgba(255,107,157,0.3);
 
-    
     --radio-pequeno: 12px;
     --radio-medio: 20px;
     --radio-grande: 30px;
     --radio-redondo: 50px;
 }
-
 
 * {
     margin: 0;
@@ -58,21 +52,17 @@ body {
     overflow-x: hidden;
 }
 
-
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ========================================
-   BREADCRUMB SECTION
-   ======================================== */
 .breadcrumb-section {
     background: var(--gris-claro);
     padding: 15px 0;
     border-bottom: 1px solid #eee;
-    margin-top: 105px;
+    margin-top: 165px;
     position: relative;
     z-index: 10;
 }
@@ -127,7 +117,6 @@ body {
     text-align: center;
 }
 
-
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 1.3;
@@ -150,8 +139,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     margin: 0 auto;
 }
 
-
-
 .hero {
     min-height: 100vh;
     display: flex;
@@ -159,7 +146,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #FFF5F8 0%, #FFF9E6 50%, #F0FFFF 100%);
-    padding-top: 80px;
+    padding-top: 200px;
 }
 
 .hero-bg-shapes {
@@ -250,8 +237,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     flex-wrap: wrap;
 }
 
-
-
 .btn {
     display: inline-flex;
     align-items: center;
@@ -309,11 +294,9 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     color: var(--rosa-principal);
 }
 
-
-
 .page-hero {
     background: linear-gradient(135deg, #FFF5F8 0%, #FFF9E6 50%, #F0FFFF 100%);
-    padding: 140px 0 80px;
+    padding: 180px 0 80px;
     position: relative;
     overflow: hidden;
 }
@@ -368,7 +351,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .page-hero-left {
-    
+
 }
 
 .page-hero-left h1 {
@@ -391,7 +374,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .page-hero-right {
-    
+
 }
 
 .page-hero-right p {
@@ -409,7 +392,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     color: var(--rosa-principal);
 }
 
-
 @media (max-width: 968px) {
     .page-hero-grid {
         grid-template-columns: 1fr;
@@ -418,7 +400,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     }
 
     .page-hero {
-        padding: 120px 0 60px;
+        padding: 160px 0 60px;
     }
 }
 
@@ -435,8 +417,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
         font-size: 0.95rem;
     }
 }
-
-
 
 .servicios {
     background: var(--blanco);
@@ -484,8 +464,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .section-header-right strong {
     color: var(--rosa-principal);
 }
-
-
 
 .tipos-mesas {
     background: var(--gris-claro);
@@ -548,8 +526,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     padding-top: 8px;
 }
 
-
-
 .eventos {
     background: var(--blanco);
 }
@@ -609,8 +585,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     margin: 0;
     padding-top: 8px;
 }
-
-
 
 .estaciones {
     background: linear-gradient(135deg, #FFF5F8 0%, #F0FFFF 100%);
@@ -672,8 +646,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     padding-top: 8px;
 }
 
-
-
 .porque-elegirnos {
     background: var(--blanco);
 }
@@ -733,8 +705,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     margin: 0;
     padding-top: 8px;
 }
-
-
 
 .resenas-section {
     background: var(--gris-claro);
@@ -812,8 +782,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     font-weight: 600;
 }
 
-
-
 .galeria-section {
     background: var(--blanco);
 }
@@ -845,8 +813,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     text-align: center;
     margin-top: 40px;
 }
-
-
 
 .cta-section {
     background: var(--gradiente-dulce);
@@ -888,8 +854,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     gap: 20px;
     flex-wrap: wrap;
 }
-
-
 
 .faq-section {
     background: var(--blanco);
@@ -953,8 +917,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     line-height: 1.8;
 }
 
-
-
 .seo-content {
     background: var(--gris-claro);
 }
@@ -991,8 +953,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     margin-bottom: 8px;
 }
 
-
-
 @media (max-width: 1024px) {
     .hero-content {
         grid-template-columns: 1fr;
@@ -1028,7 +988,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     }
 
     .page-hero {
-        padding: 120px 0 50px;
+        padding: 150px 0 50px;
     }
 
     .galeria-grid {
@@ -1050,8 +1010,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     .btn { width: 100%; justify-content: center; }
 }
 
-
-
 .contacto-section {
     background: var(--gris-claro);
 }
@@ -1062,7 +1020,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     gap: 60px;
     align-items: start;
 }
-
 
 .contacto-info h2 {
     margin-bottom: 15px;
@@ -1111,7 +1068,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     color: var(--rosa-principal);
 }
 
-
 .maps-link {
     display: inline-block;
     margin-top: 8px;
@@ -1130,7 +1086,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     background: var(--rosa-principal);
     color: #ffffff !important;
 }
-
 
 .contacto-form-wrapper {
     background: var(--blanco);
@@ -1230,7 +1185,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     transform: translateY(-3px);
     box-shadow: var(--sombra-rosa);
 }
-
 
 @media (max-width: 968px) {
     .contacto-grid {

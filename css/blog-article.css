@@ -1,8 +1,4 @@
-/**
- * Mededul - Blog Article Styles
- * Estilos para artículos del blog
- * Compatible con el template oficial
- */
+
 
 :root {
     --rosa-principal: #E91E8C;
@@ -12,9 +8,6 @@
     --fondo-rosa: #fff5f8;
 }
 
-/* ========================================
-   SVG GLOBAL SIZES - Evitar iconos grandes
-   ======================================== */
 .article-content svg,
 .article-sidebar svg,
 .article-hero svg,
@@ -46,20 +39,17 @@
     height: 20px;
 }
 
-/* ========================================
-   BREADCRUMB SECTION
-   ======================================== */
 .breadcrumb-section {
     background: #f8f9fa;
     padding: 15px 0;
     border-bottom: 1px solid #eee;
-    margin-top: 90px;
+    margin-top: 165px;
     position: relative;
     z-index: 10;
 }
 
 .breadcrumb-section .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -93,9 +83,6 @@
     font-weight: 500;
 }
 
-/* ========================================
-   ARTICLE HERO - VERSION CON IMAGEN
-   ======================================== */
 .article-hero {
     position: relative;
     height: 70vh;
@@ -232,9 +219,6 @@
     stroke: var(--rosa-principal);
 }
 
-/* ========================================
-   BREADCRUMB
-   ======================================== */
 .breadcrumb {
     margin-bottom: 30px;
     font-size: 0.9rem;
@@ -260,9 +244,6 @@
     color: var(--texto-gris);
 }
 
-/* ========================================
-   ARTICLE LAYOUT
-   ======================================== */
 .article-wrapper {
     background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
 }
@@ -287,9 +268,6 @@
     max-width: 800px;
 }
 
-/* ========================================
-   ARTICLE CONTENT
-   ======================================== */
 .article-content h2 {
     font-size: 1.8rem;
     color: #1a1a1a;
@@ -333,9 +311,6 @@
     color: #1a1a1a;
 }
 
-/* ========================================
-   ARTICLE IMAGE
-   ======================================== */
 .article-image {
     margin: 40px 0;
     border-radius: 20px;
@@ -358,9 +333,6 @@
     font-style: italic;
 }
 
-/* ========================================
-   ARTICLE IMAGE INLINE (Imágenes dentro del contenido)
-   ======================================== */
 .article-image-inline {
     margin: 40px 0;
     border-radius: 16px;
@@ -386,9 +358,6 @@
     border-top: 3px solid var(--rosa-principal);
 }
 
-/* ========================================
-   ARTICLE GALLERY
-   ======================================== */
 .article-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -414,9 +383,6 @@
     transform: scale(1.05);
 }
 
-/* ========================================
-   COMPARISON TABLE
-   ======================================== */
 .comparison-table {
     width: 100%;
     border-collapse: collapse;
@@ -453,9 +419,6 @@
     background: #fff5f8;
 }
 
-/* ========================================
-   ERROR AND SOLUTION BOXES
-   ======================================== */
 .error-box {
     background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
     border-left: 4px solid #dc2626;
@@ -486,9 +449,6 @@
     font-weight: 700;
 }
 
-/* ========================================
-   FEATURED IMAGE
-   ======================================== */
 .article-featured-image {
     margin-bottom: 40px;
     border-radius: 16px;
@@ -511,9 +471,6 @@
     font-style: italic;
 }
 
-/* ========================================
-   TABLE OF CONTENTS
-   ======================================== */
 .toc {
     background: #f9f9f9;
     padding: 30px;
@@ -548,9 +505,6 @@
     color: #E91E8C;
 }
 
-/* ========================================
-   ARTICLE SECTIONS
-   ======================================== */
 .article-section {
     margin-bottom: 40px;
 }
@@ -592,9 +546,6 @@
     color: #E91E8C;
 }
 
-/* ========================================
-   LISTS
-   ======================================== */
 .article-section ul,
 .article-section ol {
     margin: 20px 0;
@@ -627,9 +578,6 @@
     font-size: 1.1rem;
 }
 
-/* ========================================
-   HIGHLIGHT BOX
-   ======================================== */
 .highlight-box {
     background: rgba(233, 30, 140, 0.08);
     border-radius: 12px;
@@ -655,9 +603,6 @@
     padding-left: 20px;
 }
 
-/* ========================================
-   TIPS BOX
-   ======================================== */
 .tips-box {
     background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
     border-radius: 16px;
@@ -705,9 +650,6 @@
     font-weight: bold;
 }
 
-/* ========================================
-   FAQ SECTION
-   ======================================== */
 .faq-container {
     margin-top: 20px;
 }
@@ -756,7 +698,6 @@
     transform: rotate(45deg);
 }
 
-/* FAQ SVG Icon (cuando se usa SVG en vez de texto) */
 .faq-question svg {
     width: 20px;
     height: 20px;
@@ -784,9 +725,6 @@
     margin: 0;
 }
 
-/* ========================================
-   ARTICLE CTA
-   ======================================== */
 .article-cta {
     background: linear-gradient(135deg, var(--rosa-principal) 0%, var(--rosa-claro) 100%);
     border-radius: 20px;
@@ -884,9 +822,6 @@
     transform: translateY(-3px);
 }
 
-/* ========================================
-   SIDEBAR
-   ======================================== */
 .article-sidebar {
     position: relative;
 }
@@ -923,7 +858,6 @@
     flex-shrink: 0;
 }
 
-/* Sidebar CTA */
 .sidebar-cta {
     background: linear-gradient(135deg, var(--rosa-principal), var(--rosa-claro));
     color: #fff;
@@ -974,7 +908,6 @@
     fill: var(--rosa-principal);
 }
 
-/* Sidebar Zonas */
 .zonas-tags {
     display: flex;
     flex-wrap: wrap;
@@ -990,7 +923,6 @@
     font-weight: 500;
 }
 
-/* Sidebar About */
 .sidebar-about-text {
     color: var(--texto-gris);
     font-size: 0.9rem;
@@ -1024,7 +956,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Sidebar Related */
 .sidebar-related-item {
     display: flex;
     gap: 15px;
@@ -1087,7 +1018,6 @@
     height: 12px;
 }
 
-/* Sidebar Zones */
 .sidebar-zones-list {
     display: flex;
     flex-wrap: wrap;
@@ -1103,7 +1033,6 @@
     font-weight: 500;
 }
 
-/* Sidebar Related List */
 .sidebar-related-list {
     list-style: none;
     padding: 0;
@@ -1142,7 +1071,6 @@
     font-weight: bold;
 }
 
-/* Sidebar CTA Icon */
 .sidebar-cta-icon {
     width: 60px;
     height: 60px;
@@ -1160,7 +1088,6 @@
     color: #fff;
 }
 
-/* Article Share */
 .article-share {
     display: flex;
     align-items: center;
@@ -1203,7 +1130,6 @@
     height: 20px;
 }
 
-/* FAQ Section Alternate Style */
 .faq-section {
     margin: 60px 0;
 }
@@ -1232,9 +1158,6 @@
     padding: 0 30px 25px;
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
 @media (max-width: 1100px) {
     .article-layout {
         grid-template-columns: 1fr;
@@ -1330,11 +1253,6 @@
     }
 }
 
-/* ========================================
-   SIDEBAR PROFESIONAL - NUEVO DISEÑO 2025
-   ======================================== */
-
-/* Widget CTA WhatsApp */
 .sidebar-cta-whatsapp {
     background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
     color: #fff;
@@ -1417,7 +1335,6 @@
     text-decoration: underline;
 }
 
-/* Services Grid */
 .sidebar-services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1454,7 +1371,6 @@
     text-align: center;
 }
 
-/* Why Us Widget */
 .sidebar-why-us {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
     border: none !important;
@@ -1504,7 +1420,6 @@
     flex-shrink: 0;
 }
 
-/* Zones Grid */
 .sidebar-zones-grid {
     display: flex;
     flex-wrap: wrap;
@@ -1519,7 +1434,6 @@
     font-style: italic;
 }
 
-/* Stats Widget */
 .sidebar-stats-widget {
     background: linear-gradient(135deg, #fff5f8 0%, #fff 100%);
     border: 2px solid rgba(233, 30, 140, 0.2);
@@ -1555,7 +1469,6 @@
     font-weight: 600;
 }
 
-/* Related Links */
 .sidebar-related-links {
     display: flex;
     flex-direction: column;
@@ -1607,7 +1520,6 @@
     transform: translateX(5px);
 }
 
-/* CTA Final */
 .sidebar-cta-final {
     background: linear-gradient(135deg, #E91E8C 0%, #c4167a 100%);
     color: #fff;
@@ -1666,7 +1578,6 @@
     stroke: var(--rosa-principal);
 }
 
-/* Responsive Sidebar */
 @media (max-width: 1100px) {
     .sidebar-services-grid {
         grid-template-columns: repeat(3, 1fr);

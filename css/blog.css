@@ -1,8 +1,4 @@
-/* ============================================
-   BLOG STYLES - MEDEDUL
-   Homologado con REDEIL para compatibilidad n8n
-   Usado en: /blog/index.html y /blog/{categoria}/index.html
-   ============================================ */
+
 
 :root {
     --rosa-principal: #E91E8C;
@@ -15,21 +11,16 @@
     --borde-light: #eee;
 }
 
-/* ============================================
-   BLOG MAIN CONTAINER
-   ============================================ */
 .blog-main {
     min-height: 100vh;
     padding-top: 100px;
 }
 
-/* ============================================
-   BREADCRUMB SECTION
-   ============================================ */
 .breadcrumb-section {
     background: var(--fondo-gris);
     padding: 20px 0;
     border-bottom: 1px solid var(--borde-light);
+    margin-top: 165px;
 }
 
 .breadcrumb {
@@ -61,9 +52,6 @@
     font-weight: 500;
 }
 
-/* ============================================
-   BLOG HERO
-   ============================================ */
 .blog-hero {
     background: linear-gradient(135deg, var(--rosa-principal) 0%, var(--rosa-hover) 100%);
     padding: 80px 0;
@@ -100,7 +88,6 @@
     line-height: 1.6;
 }
 
-/* Hero de categoria (mas compacto) */
 .blog-hero-category {
     padding: 60px 0;
 }
@@ -126,9 +113,6 @@
     color: #ffffff;
 }
 
-/* ============================================
-   BLOG CATEGORIES FILTER
-   ============================================ */
 .blog-categories {
     display: flex;
     justify-content: center;
@@ -157,33 +141,21 @@
     color: var(--rosa-principal);
 }
 
-/* ============================================
-   BLOG CONTENT SECTION
-   ============================================ */
 .blog-content {
     padding: 60px 0;
     background: var(--fondo-gris);
     min-height: 50vh;
 }
 
-/* ============================================
-   POSTS GRID - ESTRUCTURA REDEIL
-   Grid de 3 columnas para mejor visualizacion
-   ============================================ */
 .blog-main .posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ============================================
-   POST CARD - ESTRUCTURA REDEIL
-   IMPORTANTE: Esta estructura debe coincidir con
-   lo que genera el workflow n8n
-   ============================================ */
 .post-card {
     background: #ffffff;
     border-radius: 16px;
@@ -199,7 +171,6 @@
     box-shadow: 0 12px 35px rgba(233, 30, 140, 0.15);
 }
 
-/* Post Card Image */
 .post-card > a:first-child {
     display: block;
     aspect-ratio: 16/10;
@@ -217,7 +188,6 @@
     transform: scale(1.05);
 }
 
-/* Post Card Meta */
 .post-card .post-meta {
     display: flex;
     justify-content: space-between;
@@ -243,7 +213,6 @@
     text-transform: uppercase;
 }
 
-/* Post Card Title */
 .post-card h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 1.15rem;
@@ -264,7 +233,6 @@
     color: var(--rosa-principal);
 }
 
-/* Post Card Description */
 .post-card > p {
     font-size: 0.92rem;
     color: var(--texto-light);
@@ -278,7 +246,6 @@
     overflow: hidden;
 }
 
-/* Post Card Button */
 .post-card .btn.btn-primary {
     display: inline-flex;
     align-items: center;
@@ -300,13 +267,9 @@
     transform: translateX(5px);
 }
 
-/* ============================================
-   ARTICLE CARD - ESTRUCTURA ALTERNATIVA
-   Para compatibilidad con estructura existente
-   ============================================ */
 .articles-section {
     padding: 60px 20px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -331,7 +294,6 @@
     box-shadow: 0 12px 35px rgba(233, 30, 140, 0.15);
 }
 
-/* Article Card Image */
 .article-card .article-image {
     position: relative;
     aspect-ratio: 16/10;
@@ -355,7 +317,6 @@
     transform: scale(1.05);
 }
 
-/* Article Card Category Badge */
 .article-card .article-category {
     position: absolute;
     top: 15px;
@@ -371,7 +332,6 @@
     box-shadow: 0 2px 8px rgba(233, 30, 140, 0.3);
 }
 
-/* Article Card Content */
 .article-card .article-content {
     padding: 25px;
     flex: 1;
@@ -379,7 +339,6 @@
     flex-direction: column;
 }
 
-/* Article Card Post Meta */
 .article-card .post-meta {
     display: flex;
     justify-content: space-between;
@@ -404,7 +363,6 @@
     font-size: 0.75rem;
 }
 
-/* Article Card Title */
 .article-card h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1rem;
@@ -424,7 +382,6 @@
     color: var(--rosa-principal);
 }
 
-/* Article Card Excerpt */
 .article-card .article-excerpt {
     font-size: 0.9rem;
     color: var(--texto-light);
@@ -437,7 +394,6 @@
     margin-bottom: 15px;
 }
 
-/* Article Card Button */
 .article-card .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -458,9 +414,6 @@
     background: var(--rosa-hover);
 }
 
-/* ============================================
-   PAGINATION - ESTRUCTURA REDEIL
-   ============================================ */
 .pagination {
     display: flex;
     justify-content: center;
@@ -556,9 +509,6 @@
     font-size: 0.85rem;
 }
 
-/* ============================================
-   BLOG CTA SECTION
-   ============================================ */
 .blog-cta {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d44 100%);
     padding: 90px 0;
@@ -624,9 +574,6 @@
     height: 22px;
 }
 
-/* ============================================
-   NO ARTICLES MESSAGE
-   ============================================ */
 .no-articles {
     text-align: center;
     padding: 80px 20px;
@@ -637,9 +584,6 @@
     font-size: 1.1rem;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 1024px) {
     .blog-main .posts-grid,
     .articles-grid {

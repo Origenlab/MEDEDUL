@@ -1,17 +1,10 @@
 
 
-
-
-
-
-
 html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
 }
-
-
 
 ::-moz-selection {
   background: #b3d4fc;
@@ -23,8 +16,6 @@ html {
   text-shadow: none;
 }
 
-
-
 hr {
   display: block;
   height: 1px;
@@ -33,8 +24,6 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
-
-
 
 audio,
 canvas,
@@ -45,32 +34,20 @@ video {
   vertical-align: middle;
 }
 
-
-
 fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-
-
 textarea {
   resize: vertical;
 }
-
-
-
-
-
-
 
 .hidden,
 [hidden] {
   display: none !important;
 }
-
-
 
 .visually-hidden {
   border: 0;
@@ -82,10 +59,8 @@ textarea {
   position: absolute;
   white-space: nowrap;
   width: 1px;
-  
+
 }
-
-
 
 .visually-hidden.focusable:active,
 .visually-hidden.focusable:focus {
@@ -98,13 +73,9 @@ textarea {
   width: auto;
 }
 
-
-
 .invisible {
   visibility: hidden;
 }
-
-
 
 .clearfix::before,
 .clearfix::after {
@@ -116,20 +87,16 @@ textarea {
   clear: both;
 }
 
-
-
 @media only screen and (min-width: 35em) {
-  
+
 }
 
 @media print,
   (-webkit-min-device-pixel-ratio: 1.25),
   (min-resolution: 1.25dppx),
   (min-resolution: 120dpi) {
-  
+
 }
-
-
 
 @media print {
   *,
@@ -137,7 +104,7 @@ textarea {
   *::after {
     background: #fff !important;
     color: #000 !important;
-    
+
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -155,7 +122,6 @@ textarea {
     content: " (" attr(title) ")";
   }
 
-  
   a[href^="#"]::after,
   a[href^="javascript:"]::after {
     content: "";

@@ -1,13 +1,7 @@
-/* ============================================
-   MAIN.JS - MEDEDUL
-   Scripts globales para todo el sitio
-   ============================================ */
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ==========================================
-    // HEADER SCROLL EFFECT
-    // ==========================================
     const header = document.getElementById('header');
 
     if (header) {
@@ -19,9 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         handleScroll(); // Check on load
     }
 
-    // ==========================================
-    // MOBILE MENU
-    // ==========================================
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
 
@@ -33,9 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ==========================================
-    // MOBILE DROPDOWNS
-    // ==========================================
     const isMobile = () => window.innerWidth <= 768;
 
     document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
@@ -46,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (isMobile()) {
                     e.preventDefault();
 
-                    // Close other dropdowns
                     document.querySelectorAll('.nav-dropdown').forEach(d => {
                         if (d !== dropdown) d.classList.remove('active');
                     });
@@ -57,9 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ==========================================
-    // CLOSE MENU ON OUTSIDE CLICK
-    // ==========================================
     document.addEventListener('click', (e) => {
         if (navMenu && navMenu.classList.contains('active')) {
             if (!e.target.closest('.nav') && !e.target.closest('.hamburger')) {
@@ -70,9 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ==========================================
-    // CLOSE MENU ON RESIZE
-    // ==========================================
     window.addEventListener('resize', () => {
         if (!isMobile() && navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
@@ -81,9 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ==========================================
-    // SMOOTH SCROLL FOR ANCHOR LINKS
-    // ==========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
@@ -101,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         behavior: 'smooth'
                     });
 
-                    // Close mobile menu if open
                     if (navMenu && navMenu.classList.contains('active')) {
                         navMenu.classList.remove('active');
                         hamburger.classList.remove('active');
@@ -112,9 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ==========================================
-    // FAQ ACCORDION
-    // ==========================================
     const initFAQ = () => {
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -130,9 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
         initFAQ();
     }
 
-    // ==========================================
-    // BLOG CATEGORY FILTER
-    // ==========================================
     const initBlogFilter = () => {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const articleCards = document.querySelectorAll('.article-card');
@@ -144,11 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', () => {
                 const category = btn.dataset.category;
 
-                // Update active button
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Filter cards
                 let visibleCount = 0;
 
                 articleCards.forEach(card => {
@@ -159,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (shouldShow) visibleCount++;
                 });
 
-                // Show/hide no articles message
                 if (noArticles) {
                     noArticles.style.display = visibleCount === 0 ? 'block' : 'none';
                 }
@@ -171,18 +139,15 @@ document.addEventListener('DOMContentLoaded', function() {
         initBlogFilter();
     }
 
-    // ==========================================
-    // LAZY LOADING IMAGES (Fallback)
-    // ==========================================
     if ('loading' in HTMLImageElement.prototype) {
-        // Browser supports native lazy loading
+
         document.querySelectorAll('img[loading="lazy"]').forEach(img => {
             if (img.dataset.src) {
                 img.src = img.dataset.src;
             }
         });
     } else {
-        // Fallback: IntersectionObserver
+
         const lazyImages = document.querySelectorAll('img[loading="lazy"]');
 
         if (lazyImages.length > 0) {
@@ -204,9 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ==========================================
-    // ANIMATION ON SCROLL (Optional)
-    // ==========================================
     const animateOnScroll = () => {
         const elements = document.querySelectorAll('[data-animate]');
 
@@ -231,11 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// ==========================================
-// UTILITY FUNCTIONS
-// ==========================================
-
-// Debounce function for performance
 function debounce(func, wait = 100) {
     let timeout;
     return function executedFunction(...args) {
@@ -248,7 +205,6 @@ function debounce(func, wait = 100) {
     };
 }
 
-// Throttle function for scroll events
 function throttle(func, limit = 100) {
     let inThrottle;
     return function executedFunction(...args) {

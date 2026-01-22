@@ -1,14 +1,56 @@
-# https://www.robotstxt.org/
-# Robots.txt for Mededul - Mesas de Dulces
+# =====================================================
+# MEDEDUL - ROBOTS.TXT
+# Mesas de Dulces CDMX
+# https://mesas-de-dulces.com
+# =====================================================
 
+# Permitir todos los crawlers
 User-agent: *
+
+# Permitir todo el sitio
 Allow: /
 
-# Sitemap
-Sitemap: https://mesas-de-dulces.com/sitemap.xml
+# Bloquear archivos innecesarios
+Disallow: /*.css$
+Disallow: /*.js$
 
-# Crawl-delay (optional - be nice to servers)
+# Bloquear paginas de sistema
+Disallow: /404.html
+Disallow: /menu.html
+Disallow: /footer.html
+
+# Bloquear archivos sensibles
+Disallow: /.htaccess
+Disallow: /.git/
+
+# Crawl-delay para ser amigable con el servidor
 Crawl-delay: 1
 
-# Disallow admin/private areas (none currently)
-# Disallow: /admin/
+# =====================================================
+# GOOGLE BOT - Configuracion especifica
+# =====================================================
+User-agent: Googlebot
+Allow: /
+Allow: /*.css$
+Allow: /*.js$
+Allow: /img/
+
+# =====================================================
+# GOOGLE IMAGES BOT
+# =====================================================
+User-agent: Googlebot-Image
+Allow: /img/
+Allow: /*.avif$
+Allow: /*.webp$
+
+# =====================================================
+# BING BOT
+# =====================================================
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# =====================================================
+# SITEMAP
+# =====================================================
+Sitemap: https://mesas-de-dulces.com/sitemap.xml
