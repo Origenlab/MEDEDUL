@@ -175,7 +175,7 @@ flex-wrap: wrap;
 .article-breadcrumb a {
 color: rgba(255,255,255,0.7);
 text-decoration: none;
-transition: color 0.3s ease;
+
 }
 
 .article-breadcrumb a:hover {
@@ -449,7 +449,7 @@ cursor: pointer;
 display: flex;
 justify-content: space-between;
 align-items: center;
-transition: all 0.3s ease;
+
 }
 
 .faq-question:hover {
@@ -458,7 +458,6 @@ color: #E91E8C;
 
 .faq-question .icon {
 font-size: 1.5rem;
-transition: transform 0.3s ease;
 }
 
 .faq-item.active .faq-question .icon {
@@ -513,7 +512,7 @@ border-radius: 50px;
 font-weight: 700;
 font-size: 1rem;
 text-decoration: none;
-transition: all 0.3s ease;
+
 box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -657,7 +656,7 @@ border-radius: 50px;
 font-weight: 700;
 font-size: 0.9rem;
 text-decoration: none;
-transition: all 0.3s ease;
+
 width: 100%;
 box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
@@ -735,7 +734,7 @@ flex-shrink: 0;
 width: 100%;
 height: 100%;
 object-fit: cover;
-transition: transform 0.3s ease;
+
 }
 
 .sidebar-related-item:hover .sidebar-related-image img {
@@ -1502,10 +1501,12 @@ Agendar Consultoría
                     <div class="sucursal-card">
                         <span class="sucursal-badge">Sucursal Condesa</span>
                         <p class="sucursal-direccion">Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+                        <a href="https://maps.app.goo.gl/JV69HuQt3djPx9WZ9" target="_blank" rel="noopener" class="sucursal-mapa">Ver en Google Maps</a>
                     </div>
                     <div class="sucursal-card">
                         <span class="sucursal-badge">Sucursal Anzures</span>
                         <p class="sucursal-direccion">Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+                        <a href="https://maps.app.goo.gl/Ze5acD2HRQ73QTa86" target="_blank" rel="noopener" class="sucursal-mapa">Ver en Google Maps</a>
                     </div>
                     <div class="contacto-directo">
                         <a href="tel:+525525820596" class="footer-phone">55 2582 0596</a>
@@ -1531,7 +1532,7 @@ Agendar Consultoría
         </div>
     </div>
 </footer>
-<a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" onclick="if(typeof rybbit!=='undefined')rybbit.event('whatsapp_click',{page:location.pathname});">
+<a href="https://wa.me/525525820596?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" onclick="if(typeof rybbit!=='undefined')rybbit.event('whatsapp_click',{page:location.pathname})">
     <span class="whatsapp-badge">1</span>
     <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
 </a>

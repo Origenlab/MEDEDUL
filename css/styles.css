@@ -484,12 +484,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     position: relative;
     overflow: hidden;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.tipo-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
 }
 
 .tipo-card .tipo-img {
@@ -544,12 +538,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     position: relative;
     overflow: hidden;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.evento-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
 }
 
 .evento-card img {
@@ -604,12 +592,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     position: relative;
     overflow: hidden;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.estacion-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
 }
 
 .estacion-card img {
@@ -664,12 +646,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     position: relative;
     overflow: hidden;
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.porque-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
 }
 
 .porque-card img {

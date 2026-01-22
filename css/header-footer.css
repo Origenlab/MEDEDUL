@@ -756,6 +756,18 @@
     margin: 0 0 12px 0;
 }
 
+.sucursal-mapa {
+    color: #ffffff;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: block;
+    margin-top: 8px;
+}
+
+.sucursal-mapa:hover {
+    text-decoration: underline;
+}
+
 .footer-maps-link {
     display: inline-flex;
     align-items: center;
