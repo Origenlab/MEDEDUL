@@ -7,6 +7,13 @@
 RewriteEngine On
 
 # =====================================================
+# ELIMINAR BARRAS MULTIPLES EN LA URL
+# =====================================================
+# Redirige URLs con // o /// a la URL correcta con una sola /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s//+(.*)\sHTTP/
+RewriteRule ^ /%1 [R=301,L]
+
+# =====================================================
 # PAGINA DE ERROR 404 PERSONALIZADA
 # =====================================================
 ErrorDocument 404 /404.html
@@ -56,6 +63,36 @@ Redirect 301 /categoria/infantiles/ /candy-bar-eventos/mesa-dulces-cumpleanos-in
 
 # Redireccion generica para categorias
 RedirectMatch 301 ^/categoria/(.*)$ /candy-bar-eventos/
+
+# =====================================================
+# REDIRECCIONES 301 - TAGS (URLs que generan 404)
+# =====================================================
+
+# Tags especificos identificados en analytics
+Redirect 301 /tag/mesa-de-dulces-para-adultos/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
+Redirect 301 /tag/tarjetas-de-mesa-de-dulces/ /tipos-de-mesas-de-dulces.html
+Redirect 301 /tag/mesa-de-dulces-sencilla/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
+Redirect 301 /tag/mesa-de-dulces-para-hombre/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
+Redirect 301 /tag/mesa-de-dulces-elegante/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
+Redirect 301 /tag/mesa-de-dulces-para-boda/ /candy-bar-eventos/mesa-dulces-boda.html
+Redirect 301 /tag/mesa-de-dulces-para-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
+Redirect 301 /tag/mesa-de-dulces-para-baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower.html
+Redirect 301 /tag/mesa-de-dulces-para-cumpleanos/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html
+Redirect 301 /tag/mesa-de-dulces-infantil/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html
+Redirect 301 /tag/mesa-de-dulces-para-bautizo/ /candy-bar-eventos/mesa-dulces-bautizo.html
+Redirect 301 /tag/mesa-de-dulces-corporativa/ /candy-bar-eventos/mesa-dulces-corporativos.html
+Redirect 301 /tag/candy-bar/ /tipos-de-mesas-de-dulces.html
+Redirect 301 /tag/candy-bar-bodas/ /candy-bar-eventos/mesa-dulces-boda.html
+Redirect 301 /tag/candy-bar-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
+Redirect 301 /tag/dulces-mexicanos/ /tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales.html
+Redirect 301 /tag/postres/ /tipos-de-mesas-de-dulces/mesa-de-postres.html
+Redirect 301 /tag/frutas/ /tipos-de-mesas-de-dulces/mesa-de-frutas.html
+Redirect 301 /tag/quesos/ /tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos.html
+Redirect 301 /tag/botanas/ /tipos-de-mesas-de-dulces/mesa-de-botanas.html
+Redirect 301 /tag/snacks/ /tipos-de-mesas-de-dulces/mesa-de-snacks.html
+
+# Redireccion generica para todos los tags no especificados
+RedirectMatch 301 ^/tag/(.*)$ /tipos-de-mesas-de-dulces.html
 
 # =====================================================
 # REDIRECCIONES 301 - PAGINAS ANTIGUAS
