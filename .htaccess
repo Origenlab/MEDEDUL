@@ -9,9 +9,20 @@ RewriteEngine On
 # =====================================================
 # ELIMINAR BARRAS MULTIPLES EN LA URL
 # =====================================================
-# Redirige URLs con // o /// a la URL correcta con una sola /
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s//+(.*)\sHTTP/
-RewriteRule ^ /%1 [R=301,L]
+# Redirige URLs con // o /// o //// a la URL correcta con una sola /
+
+# Metodo 1: Captura barras multiples al inicio
+RewriteCond %{THE_REQUEST} \s/{2,}
+RewriteCond %{REQUEST_URI} ^/{2,}(.*)$
+RewriteRule . /%1 [R=301,L,NE]
+
+# Metodo 2: Normaliza barras multiples en cualquier parte de la URL
+RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
+RewriteRule . %1/%2 [R=301,L,NE]
+
+# Metodo 3: Redirigir la raiz con multiples barras
+RewriteCond %{THE_REQUEST} \s/+\s
+RewriteRule ^ / [R=301,L]
 
 # =====================================================
 # PAGINA DE ERROR 404 PERSONALIZADA
@@ -23,6 +34,20 @@ ErrorDocument 404 /404.html
 # =====================================================
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# =====================================================
+# REDIRECCIONES 301 - ARTICULOS RENOMBRADOS (URLs legibles)
+# =====================================================
+
+Redirect 301 /blog/articulos/eleganciadulcemesasdebodasexclusivasencdmx.html /blog/articulos/elegancia-dulce-mesas-bodas-exclusivas-cdmx.html
+Redirect 301 /blog/articulos/celebracionesinfantilesdeensuenoencdmx.html /blog/articulos/celebraciones-infantiles-ensueno-cdmx.html
+Redirect 301 /blog/articulos/experienciasdulcesinolvidablesparaquinceaneras.html /blog/articulos/experiencias-dulces-inolvidables-quinceaneras.html
+Redirect 301 /blog/articulos/mesasdedulceseltoquedelujoparabodasexclusivas.html /blog/articulos/mesas-dulces-toque-lujo-bodas-exclusivas.html
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasarteysofisticacionparabodas.html /blog/articulos/mesas-dulces-exclusivas-arte-sofisticacion-bodas.html
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasparaeventoscorporativos.html /blog/articulos/mesas-dulces-exclusivas-eventos-corporativos.html
+Redirect 301 /blog/articulos/mesasdedulceslacuspidedellujoencelebraciones.html /blog/articulos/mesas-dulces-cuspide-lujo-celebraciones.html
+Redirect 301 /blog/articulos/mesasdedulcesmagiaydistincionenfiestasinfantiles.html /blog/articulos/mesas-dulces-magia-distincion-fiestas-infantiles.html
+Redirect 301 /blog/articulos/mesasdedulcesparaxvdealtasociedadencdmx.html /blog/articulos/mesas-dulces-xv-anos-alta-sociedad-cdmx.html
 
 # =====================================================
 # REDIRECCIONES 301 - PRODUCTOS ELIMINADOS

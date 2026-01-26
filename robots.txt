@@ -4,15 +4,16 @@
 # https://mesas-de-dulces.com
 # =====================================================
 
-# Permitir todos los crawlers
+# Configuracion para todos los crawlers
 User-agent: *
 
 # Permitir todo el sitio
 Allow: /
 
-# Bloquear archivos innecesarios
-Disallow: /*.css$
-Disallow: /*.js$
+# Permitir recursos CSS y JS (importante para renderizado)
+Allow: /css/
+Allow: /js/
+Allow: /img/
 
 # Bloquear paginas de sistema
 Disallow: /404.html
@@ -22,6 +23,15 @@ Disallow: /footer.html
 # Bloquear archivos sensibles
 Disallow: /.htaccess
 Disallow: /.git/
+Disallow: /.well-known/
+
+# Bloquear archivos de desarrollo
+Disallow: /webpack.common.js
+Disallow: /webpack.config.dev.js
+Disallow: /webpack.config.prod.js
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /convertir-webp.py
 
 # Crawl-delay para ser amigable con el servidor
 Crawl-delay: 1
@@ -31,8 +41,8 @@ Crawl-delay: 1
 # =====================================================
 User-agent: Googlebot
 Allow: /
-Allow: /*.css$
-Allow: /*.js$
+Allow: /css/
+Allow: /js/
 Allow: /img/
 
 # =====================================================
@@ -42,12 +52,17 @@ User-agent: Googlebot-Image
 Allow: /img/
 Allow: /*.avif$
 Allow: /*.webp$
+Allow: /*.png$
+Allow: /*.jpg$
 
 # =====================================================
 # BING BOT
 # =====================================================
 User-agent: Bingbot
 Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /img/
 Crawl-delay: 2
 
 # =====================================================

@@ -1,1 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 192 192"><path fill="#e08524" d="M75.3 73.4H18.4l45.3 34.3L48.3 163l46.1-32.3 48.2 34.6-16.9-58.3 44.9-33.6H115l-20.5-55-19.2 55z"/><path d="m96.7 18.8 18.2 8.2 16.5 44.3h-15.1L96.7 18.8zm-47 146 18.7 9.9 42.6-29.9-16.5-11.4-44.8 31.4zm79.1-56.8 17.4 9.4 18.6 60.1-19.7-11.3-16.3-58.2z"/><path d="m173.1 74.3 17.8 9.2-44.7 34-17.4-9.4 44.3-33.8z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Fondo blanco -->
+  <circle cx="50" cy="50" r="48" fill="white"/>
+
+  <!-- Espirales rojas -->
+  <path d="M50 2 A48 48 0 0 1 98 50 L50 50 Z" fill="#EF4444"/>
+  <path d="M98 50 A48 48 0 0 1 50 98 L50 50 Z" fill="white"/>
+  <path d="M50 98 A48 48 0 0 1 2 50 L50 50 Z" fill="#EF4444"/>
+  <path d="M2 50 A48 48 0 0 1 50 2 L50 50 Z" fill="white"/>
+
+  <!-- Más sectores para efecto espiral -->
+  <path d="M50 2 A48 48 0 0 1 85.4 14.6 L50 50 Z" fill="#EF4444"/>
+  <path d="M85.4 14.6 A48 48 0 0 1 98 50 L50 50 Z" fill="white"/>
+  <path d="M98 50 A48 48 0 0 1 85.4 85.4 L50 50 Z" fill="#EF4444"/>
+  <path d="M85.4 85.4 A48 48 0 0 1 50 98 L50 50 Z" fill="white"/>
+  <path d="M50 98 A48 48 0 0 1 14.6 85.4 L50 50 Z" fill="#EF4444"/>
+  <path d="M14.6 85.4 A48 48 0 0 1 2 50 L50 50 Z" fill="white"/>
+  <path d="M2 50 A48 48 0 0 1 14.6 14.6 L50 50 Z" fill="#EF4444"/>
+  <path d="M14.6 14.6 A48 48 0 0 1 50 2 L50 50 Z" fill="white"/>
+
+  <!-- Centro rosa -->
+  <circle cx="50" cy="50" r="20" fill="#EC4899"/>
+
+  <!-- Centro blanco -->
+  <circle cx="50" cy="50" r="10" fill="white"/>
+
+  <!-- Brillo -->
+  <circle cx="45" cy="45" r="5" fill="white" opacity="0.8"/>
+
+  <!-- Borde -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#DB2777" stroke-width="3"/>
+</svg>
