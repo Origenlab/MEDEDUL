@@ -263,9 +263,9 @@
 
 .article-layout {
     display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: 50px;
-    max-width: 1400px;
+    grid-template-columns: 1fr 320px;
+    gap: 30px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 60px 40px;
 }
@@ -278,7 +278,8 @@
 }
 
 .article-container {
-    max-width: 800px;
+    max-width: 100%;
+    width: 100%;
 }
 
 .article-content h2 {
