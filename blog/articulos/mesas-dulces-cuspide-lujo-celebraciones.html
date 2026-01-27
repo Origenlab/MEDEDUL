@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuántas variedades de dulces debería incluir en mi mesa?","acceptedAnswer":{"@type":"Answer","text":"La regla general es 8-12 variedades para eventos pequeños (hasta 50 personas) y 12-20 variedades para eventos grandes (100+ personas). Más importante que la cantidad de variedades es la cantidad total de piezas: calcula 6-8 piezas por persona para eventos donde la mesa es el foco, o 3-4 piezas si es complemento de un banquete completo."}},{"@type":"Question","name":"¿Los macarons son buena opción para eventos al aire libre?","acceptedAnswer":{"@type":"Answer","text":"No, los macarons son muy delicados. La humedad los ablanda y pierden su textura crujiente, y el calor derrite su relleno de ganache. Solo inclúyelos si tienes el evento en interior con aire acondicionado o si puedes mantenerlos refrigerados hasta el último momento y servirlos en un período corto (1-2 horas máximo)."}},{"@type":"Question","name":"¿Qué dulces son seguros para niños pequeños menores de 4 años?","acceptedAnswer":{"@type":"Answer","text":"Evita caramelos duros pequeños, nueces enteras, uvas enteras y paletas redondas pequeñas, ya que son riesgo de atragantamiento. Opciones seguras incluyen malvaviscos (son suaves y se deshacen), galletas blandas, cake pops, chocolates suaves y gomitas grandes. Siempre supervisa a los pequeños cerca de la mesa de dulces."}},{"@type":"Question","name":"¿Puedo mezclar dulces gourmet con dulces tradicionales mexicanos?","acceptedAnswer":{"@type":"Answer","text":"¡Absolutamente! Lo recomendamos para la mayoría de eventos. La clave es la presentación: eleva los dulces tradicionales con contenedores elegantes y buena iluminación. Un mazapán presentado en cristalería fina se ve tan sofisticado como un macaron. La mezcla de estilos satisface a todos los paladares y genera conversación entre los invitados."}},{"@type":"Question","name":"¿Cómo identifico las opciones sin azúcar o veganas sin que se vea feo?","acceptedAnswer":{"@type":"Answer","text":"Usa tarjetas pequeñas y elegantes en el mismo estilo de tu mesa, no etiquetas adhesivas genéricas. Puedes usar iconos discretos en lugar de texto largo. Agrupa las opciones especiales en una sección de la mesa con un letrero sutil como 'Opciones Conscientes' o 'Healthy Corner'. Los invitados que las necesitan las encontrarán fácilmente."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -891,7 +916,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

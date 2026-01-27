@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Con cuánta anticipación debo reservar la mesa de dulces para XV años?","acceptedAnswer":{"@type":"Answer","text":"Lo ideal es reservar con 4-6 meses de anticipación, especialmente si tu evento es en temporada alta (agosto-diciembre). Los proveedores más solicitados se llenan rápido. Empieza a cotizar 6 meses antes y firma contrato a los 3-4 meses."}},{"@type":"Question","name":"¿Cuánto cuesta una mesa de dulces para 100 invitados de XV años?","acceptedAnswer":{"@type":"Answer","text":"En CDMX para 2025, los rangos son: básica $8,000-$12,000, estándar $12,000-$18,000, y premium $18,000-$30,000 MXN. El precio varía por calidad de dulces, mobiliario incluido, personalización, y servicios adicionales como fuente de chocolate."}},{"@type":"Question","name":"¿Qué información necesito darle al proveedor de mesa de dulces?","acceptedAnswer":{"@type":"Answer","text":"Prepara: fecha y hora exacta, dirección del venue, número de invitados, colores y tema de la fiesta con fotos de referencia, restricciones alimentarias de invitados, si es interior o exterior, y tu presupuesto aproximado."}},{"@type":"Question","name":"¿El servicio normalmente incluye montaje y desmontaje?","acceptedAnswer":{"@type":"Answer","text":"Varía por proveedor. Algunos incluyen montaje pero no desmontaje, otros incluyen ambos. SIEMPRE pregunta específicamente qué incluye y asegúrate de que quede por escrito en el contrato."}},{"@type":"Question","name":"¿Qué hago si cambia el número de invitados después de reservar?","acceptedAnswer":{"@type":"Answer","text":"La mayoría de proveedores permiten ajustes hasta 1 mes antes. Cambios menores (±10-15%) usualmente se acomodan sin problema. Pregunta la política de ajustes ANTES de firmar el contrato."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -1155,7 +1180,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

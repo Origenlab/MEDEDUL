@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Qué dulces son seguros para una fiesta con niños de diferentes edades?","acceptedAnswer":{"@type":"Answer","text":"Cuando tienes niños de varias edades, planea pensando en el más pequeño. Evita caramelos duros, nueces y paletas redondas pequeñas. Opciones universalmente seguras: malvaviscos grandes, galletas suaves, cake pops, chocolates de tamaño mediano, y gomitas grandes. Si hay menores de 3 años, coloca los dulces potencialmente peligrosos en la parte alta de la mesa."}},{"@type":"Question","name":"¿Cuántos dulces necesito para una fiesta infantil de 20 niños?","acceptedAnswer":{"@type":"Answer","text":"Depende de la edad. Para 3-5 años: 80-100 piezas totales (4-5 por niño). Para 6-9 años: 120-160 piezas (6-8 por niño). Para 10-12 años: 160-200 piezas (8-10 por niño). Si además darás bolsitas de dulces para llevar, puedes reducir la mesa un 30%."}},{"@type":"Question","name":"¿Qué temas de fiesta están de moda en 2025 para niños?","acceptedAnswer":{"@type":"Answer","text":"Para 3-5 años: Bluey, Gabby's Dollhouse, Paw Patrol, y personajes clásicos de Disney. Para 6-9 años: Minecraft, Roblox, Wednesday, Taylor Swift, Pokémon. Para 10-12 años: K-pop, gaming sin personaje específico, neón/glow, y estéticas de TikTok."}},{"@type":"Question","name":"¿Cómo manejar las alergias alimentarias en una mesa de dulces infantil?","acceptedAnswer":{"@type":"Answer","text":"Pregunta a los papás en la invitación sobre alergias. Las más comunes son nueces, lácteos y gluten. Ten opciones identificadas para cada restricción con tarjetitas visibles. Coloca los dulces libres de alérgenos en una sección separada y nunca uses el mismo utensilio para servir dulces con y sin alérgenos."}},{"@type":"Question","name":"¿La mesa de dulces del primer añito debe ser diferente?","acceptedAnswer":{"@type":"Answer","text":"Sí. El bebé de 1 año no comerá dulces, así que la mesa es para los adultos invitados y hermanos mayores. Enfócate en una presentación bonita para las fotos, con el pastel y smash cake como protagonistas. Incluye opciones elegantes para adultos y pocas opciones para niños mayores si asistirán."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -1100,7 +1125,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

@@ -137,6 +137,32 @@
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/header-footer.css">
     <link rel="stylesheet" href="../../css/blog-article.css">
+
+<!-- FIX: Estilos criticos para header-spacer y breadcrumb -->
+<style>
+.header-spacer {
+    height: 180px !important;
+    width: 100% !important;
+    display: block !important;
+}
+@media (max-width: 768px) {
+    .header-spacer {
+        height: 130px !important;
+    }
+}
+.breadcrumb-section,
+section.breadcrumb-section {
+    margin-top: -10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+}
+.article-hero {
+    padding-top: 150px !important;
+    padding-bottom: 100px !important;
+    min-height: 500px !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -283,13 +309,6 @@
     <header class="article-hero">
         <div class="container">
             <div class="article-hero-content">
-                <nav class="article-breadcrumb" aria-label="Breadcrumb">
-                    <a href="../../index.html">Inicio</a>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    <a href="../index.html">Blog</a>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    <span>Tendencias Mesas de Dulces 2025</span>
-                </nav>
                 <span class="article-category-tag">Tendencias</span>
                 <h1>Tendencias en Mesas de Dulces: Lo Que Viene para CDMX en 2025</h1>
                 <p class="article-tagline">Descubre las innovaciones que transformarán los candy bars este año: minimalismo, sostenibilidad, estaciones interactivas y experiencias multisensoriales.</p>

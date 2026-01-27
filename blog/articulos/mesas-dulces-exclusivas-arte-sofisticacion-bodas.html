@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Puedo tener chocolate en mi mesa de dulces si mi boda es en un jardín?","acceptedAnswer":{"@type":"Answer","text":"Depende de la hora y la temporada. Si tu boda es en invierno (noviembre-febrero) y la mesa estará en sombra después del atardecer, SÍ puedes incluir chocolate. Pero si es en primavera/verano con exposición al sol, el chocolate se derretirá a partir de 25°C. En ese caso, recomendamos pretzels cubiertos de chocolate oscuro en contenedores cerrados, o simplemente optar por otros dulces."}},{"@type":"Question","name":"¿Qué hago si el hotel de mi boda cobra por usar proveedor externo de dulces?","acceptedAnswer":{"@type":"Answer","text":"Es común que los hoteles cobren corkage por proveedores externos (típicamente $2,000-$8,000 MXN). Tienes tres opciones: pagar la cuota si el proveedor vale la diferencia, negociar con el hotel antes de firmar contrato, o usar el servicio de dulces del hotel si tienen buena calidad. Siempre pregunta ANTES de firmar."}},{"@type":"Question","name":"¿Necesito plan B para lluvia si mi boda es en octubre?","acceptedAnswer":{"@type":"Answer","text":"Absolutamente SÍ. Octubre todavía es temporada de lluvias en CDMX. Aunque estadísticamente llueve menos que en julio-septiembre, una lluvia imprevista puede arruinar tu mesa de dulces exterior. Todo venue de jardín serio tiene espacio de respaldo. Si no lo tiene, reconsidera el venue o asegúrate de tener carpa resistente."}},{"@type":"Question","name":"¿Qué tipo de mesa funciona mejor en un loft industrial?","acceptedAnswer":{"@type":"Answer","text":"Los lofts industriales piden estética moderna y minimalista. Funcionan muy bien: bases de concreto o metal, contenedores de acrílico o cristal geométrico, paleta monocromática con acentos de dorado o cobre, elementos de neón, dulces artesanales gourmet. Piensa en tu mesa como una instalación de arte."}},{"@type":"Question","name":"¿Mededul adapta su servicio según el tipo de venue?","acceptedAnswer":{"@type":"Answer","text":"Sí, es parte fundamental de nuestro proceso. En la consultoría inicial siempre preguntamos sobre el venue y, de ser posible, lo visitamos o pedimos fotos detalladas. Diseñamos la selección de dulces, contenedores, decoración y logística específicamente para cada tipo de espacio."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -891,7 +916,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo personalizan el servicio para cada boda?","acceptedAnswer":{"@type":"Answer","text":"Cada boda es única, y en Mededul nos aseguramos de que cada detalle de la mesa de dulces refleje la personalidad y el estilo de la pareja. A través de una consultoría detallada, trabajamos estrechamente con nuestros clientes para entender su visión y traducirla en una experiencia dulce que deleitará a todos los invitados."}},{"@type":"Question","name":"¿Cubre Mededul colonias residenciales exclusivas?","acceptedAnswer":{"@type":"Answer","text":"Sí, Mededul ofrece sus servicios en las colonias más exclusivas de la Ciudad de México, incluyendo <strong>Lomas de Bezares</strong>, <strong>Lomas de Chapultepec</strong> y <strong>Lomas de Tecamachalco</strong>. Nuestro compromiso es llevar una experiencia de lujo a cada rincón, asegurando que cada evento sea tan memorable como sofisticado."}},{"@type":"Question","name":"¿Cómo coordinan con otros proveedores de eventos de lujo?","acceptedAnswer":{"@type":"Answer","text":"La coordinación con otros proveedores es esencial para el éxito de cualquier evento de lujo. En Mededul, trabajamos de la mano con wedding planners y otros profesionales para asegurar que cada aspecto de la mesa de dulces se alinee con la visión general del evento, creando una experiencia cohesiva y deslumbrante."}},{"@type":"Question","name":"¿Qué opciones gourmet ofrecen para restricciones alimentarias?","acceptedAnswer":{"@type":"Answer","text":"Entendemos la importancia de atender todas las necesidades dietéticas. Ofrecemos una variedad de dulces gourmet que incluyen opciones sin gluten, veganas y alérgenos controlados, todos preparados con los mismos estándares de calidad que nuestros productos tradicionales, asegurando que cada invitado pueda disfrutar de nuestra selección sin preocupaciones."}},{"@type":"Question","name":"¿Cómo es el proceso de consultoría y diseño?","acceptedAnswer":{"@type":"Answer","text":"El proceso inicia con una reunión de consultoría donde discutimos la visión del cliente para su evento. A partir de ahí, nuestro equipo de expertos en diseño conceptualiza una mesa de dulces que se alinea perfectamente con el tema y la estética del evento. Cada detalle, desde la selección de dulces hasta el montaje final, se personaliza para crear una experiencia única e inolvidable."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -1041,7 +1066,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

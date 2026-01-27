@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo asegura Mededul la personalización y exclusividad del servicio?","acceptedAnswer":{"@type":"Answer","text":"Mededul ofrece un proceso de consultoría personalizada que permite a cada cliente expresar sus deseos y necesidades específicas. Esta atención al detalle asegura que cada mesa de dulces sea única, reflejando el estilo y la visión del cliente. Trabajamos estrechamente con nuestros clientes para personalizar cada aspecto, desde la selección de dulces hasta el diseño de la presentación, garantizando una experiencia exclusiva y memorable."}},{"@type":"Question","name":"¿Mededul cubre todas las zonas residenciales exclusivas de CDMX?","acceptedAnswer":{"@type":"Answer","text":"Sí, Mededul ofrece sus servicios en las colonias más exclusivas de Ciudad de México, incluyendo Polanco I, II, III, IV y V Sección, Santa Fe, Hipódromo Condesa, Granada y Lomas de Chapultepec. Nuestro equipo está familiarizado con las necesidades y expectativas de estas áreas, asegurando que cada evento se desarrolle con el más alto nivel de sofisticación y atención al detalle."}},{"@type":"Question","name":"¿Cómo coordina Mededul con otros proveedores de eventos de lujo?","acceptedAnswer":{"@type":"Answer","text":"En Mededul, entendemos la importancia de la colaboración en eventos de lujo. Trabajamos de la mano con planners, diseñadores y otros proveedores para asegurar una experiencia cohesiva y elegante. Esta coordinación es clave para garantizar que cada elemento del evento esté perfectamente alineado, creando una atmósfera armoniosa y sofisticada."}},{"@type":"Question","name":"¿Qué opciones gourmet ofrece Mededul para restricciones alimentarias?","acceptedAnswer":{"@type":"Answer","text":"Mededul se enorgullece de ofrecer una amplia gama de opciones gourmet para satisfacer diversas restricciones alimentarias. Desde opciones sin gluten hasta dulces veganos, cada selección está diseñada para no comprometer el sabor ni la calidad. Utilizamos ingredientes de la más alta calidad para asegurar que todos los invitados puedan disfrutar de una experiencia dulce inolvidable."}},{"@type":"Question","name":"¿Cómo es el proceso de consultoría y diseño de Mededul?","acceptedAnswer":{"@type":"Answer","text":"El proceso de consultoría de Mededul comienza con una reunión inicial para comprender las necesidades y deseos del cliente. A partir de ahí, desarrollamos un diseño personalizado que refleja la visión del cliente. Este enfoque colaborativo permite a Mededul ofrecer una experiencia que no solo cumple, sino que supera las expectativas, asegurando que cada evento sea verdaderamente memorable."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -894,7 +919,10 @@
     </div>
 </header>
 
-      <section class="breadcrumb-section">
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
+
+<section class="breadcrumb-section">
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Inicio</a>

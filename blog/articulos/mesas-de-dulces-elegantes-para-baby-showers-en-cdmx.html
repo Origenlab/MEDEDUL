@@ -63,6 +63,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuál es el rango de precios para una mesa de dulces?","acceptedAnswer":{"@type":"Answer","text":"El precio de una mesa de dulces de alta gama para un baby shower en CDMX generalmente varía entre $15,000 y $35,000 MXN. Este rango depende de factores como el número de invitados, el tipo de dulces seleccionados y la complejidad del diseño. En Mededul, trabajamos contigo para ajustar el servicio a tus necesidades específicas, asegurando que obtengas la mejor calidad dentro de tu presupuesto."}},{"@type":"Question","name":"¿Cuánto tiempo de anticipación se requiere para planificar?","acceptedAnswer":{"@type":"Answer","text":"Recomendamos comenzar la planificación al menos 3 a 4 meses antes del evento. Esto nos permite garantizar la disponibilidad de los mejores ingredientes y coordinar todos los detalles logísticos. Un inicio temprano también ofrece la oportunidad de personalizar cada aspecto de la mesa de dulces, asegurando que refleje perfectamente el tema y estilo del baby shower."}},{"@type":"Question","name":"¿Qué opciones de personalización ofrecen?","acceptedAnswer":{"@type":"Answer","text":"Ofrecemos una amplia gama de opciones de personalización, desde la selección de dulces y colores hasta el diseño temático de la mesa. Podemos personalizar macarons con iniciales, crear chocolates con sabores únicos o incorporar elementos decorativos que reflejen el tema del evento. Nuestro compromiso es hacer que tu mesa de dulces sea única y memorable."}},{"@type":"Question","name":"¿En qué zonas de CDMX ofrecen servicios?","acceptedAnswer":{"@type":"Answer","text":"Mededul ofrece servicios en diversas zonas premium de CDMX, incluyendo Polanco, Condesa, Roma, Santa Fe y Pedregal. Estamos familiarizados con los venues más exclusivos de estas áreas, asegurando que nuestra instalación se integre perfectamente con el entorno del evento, ya sea en un jardín, un museo o una residencia particular."}},{"@type":"Question","name":"¿Qué hace especial a una mesa de dulces para baby shower?","acceptedAnswer":{"@type":"Answer","text":"Una mesa de dulces para un baby shower no solo ofrece una selección deliciosa de golosinas, sino que también añade un elemento visualmente atractivo que complementa la temática del evento. Es una oportunidad para celebrar de manera creativa y personalizada, haciendo que los invitados se sientan especiales y bien atendidos. Además, permite a los futuros padres expresar su estilo y anticipación por la llegada del bebé."}}]}</script>
 
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -397,6 +422,9 @@
         </nav>
     </div>
 </header>
+
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
 
 <section class="breadcrumb-section">
     <div class="container">

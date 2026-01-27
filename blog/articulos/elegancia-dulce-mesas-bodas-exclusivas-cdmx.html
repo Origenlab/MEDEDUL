@@ -67,6 +67,31 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo se personaliza el servicio para cada cliente?","acceptedAnswer":{"@type":"Answer","text":"Nuestro servicio se centra en ofrecer una experiencia bespoke. Desde la consultoría inicial, trabajamos de cerca con las parejas para entender sus gustos y preferencias, creando una mesa de dulces que refleje su estilo único. Cada detalle, desde la selección de dulces hasta el diseño del montaje, es personalizado para garantizar una experiencia inigualable."}},{"@type":"Question","name":"¿Cubre Mededul todas las zonas residenciales exclusivas?","acceptedAnswer":{"@type":"Answer","text":"Sí, Mededul ofrece sus servicios en las zonas más exclusivas de Ciudad de México, incluyendo colonias como Polanco, Bosques de las Lomas y San Angel, entre otras. Estamos comprometidos en llevar nuestra experiencia de lujo a cada cliente, independientemente de su ubicación."}},{"@type":"Question","name":"¿Cómo se coordina Mededul con otros proveedores de eventos de lujo?","acceptedAnswer":{"@type":"Answer","text":"Nuestro equipo trabaja en estrecha colaboración con wedding planners y diseñadores de eventos de prestigio para asegurar que cada aspecto de la mesa de dulces se integre perfectamente con el resto del evento. La comunicación y la coordinación son clave para lograr un resultado impecable."}},{"@type":"Question","name":"¿Qué opciones gourmet ofrece Mededul para restricciones alimentarias?","acceptedAnswer":{"@type":"Answer","text":"Ofrecemos una variedad de opciones gourmet que pueden adaptarse a restricciones alimentarias específicas, como gluten free o veganas. Nuestro objetivo es asegurarnos de que todos los invitados puedan disfrutar de nuestros dulces sin comprometer su estilo de vida o preferencias."}},{"@type":"Question","name":"¿Cuál es el proceso de consultoría y diseño de Mededul?","acceptedAnswer":{"@type":"Answer","text":"El proceso comienza con una consulta detallada para entender las necesidades y deseos del cliente. Luego, nuestro equipo de diseño elabora un plan personalizado que incluye la selección de dulces, el diseño del montaje y la logística del evento. A lo largo del proceso, mantenemos una comunicación abierta para asegurar que cada detalle cumpla con los estándares de calidad y estilo esperados por nuestros clientes."}}]}</script>
   
   <style>
+
+    /* FIX: Estilos criticos para header-spacer y breadcrumb */
+    .header-spacer {
+        height: 180px !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    @media (max-width: 768px) {
+        .header-spacer {
+            height: 130px !important;
+        }
+    }
+    .breadcrumb-section,
+    section.breadcrumb-section {
+        margin-top: -10px !important;
+        padding-top: 10px !important;
+        padding-bottom: 5px !important;
+    }
+    .article-hero {
+        padding-top: 150px !important;
+        padding-bottom: 100px !important;
+        min-height: 500px !important;
+    }
+
+
     :root {
       --color-primary: #E91E8C;
       --color-primary-dark: #be185d;
@@ -1042,6 +1067,9 @@
         </nav>
     </div>
 </header>
+
+<!-- Espaciador para header fijo -->
+<div class="header-spacer"></div>
 
 <section class="breadcrumb-section">
     <div class="container">

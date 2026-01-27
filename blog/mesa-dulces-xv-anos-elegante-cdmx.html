@@ -43,6 +43,31 @@
     <link rel="stylesheet" href="../../css/header-footer.css">
     <link rel="stylesheet" href="../../css/blog-article.css">
 
+<!-- FIX: Estilos criticos para header-spacer y breadcrumb -->
+<style>
+.header-spacer {
+    height: 180px !important;
+    width: 100% !important;
+    display: block !important;
+}
+@media (max-width: 768px) {
+    .header-spacer {
+        height: 130px !important;
+    }
+}
+.breadcrumb-section,
+section.breadcrumb-section {
+    margin-top: -10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+}
+.article-hero {
+    padding-top: 150px !important;
+    padding-bottom: 100px !important;
+    min-height: 500px !important;
+}
+</style>
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -283,13 +308,6 @@
         <header class="article-hero">
             <div class="article-hero-content">
                 <div class="container">
-<nav class="article-breadcrumb" aria-label="Breadcrumb">
-<a href="../../index.html">Inicio</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-<a href="../index.html">Blog</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-<span>Mesa de Dulces para XV Años Elegante en </span>
-</nav>
 <span class="article-category-tag">XV Años</span>
                 <h1>Mesa de Dulces para XV Años Elegante: Guía Completa CDMX</h1>
                 <div class="article-hero-meta">

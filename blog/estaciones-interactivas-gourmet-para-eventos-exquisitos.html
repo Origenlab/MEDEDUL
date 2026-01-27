@@ -73,6 +73,31 @@
 <link rel="stylesheet" href="../css/header-footer.css">
 <link rel="stylesheet" href="../css/blog-article.css">
 
+<!-- FIX: Estilos criticos para header-spacer y breadcrumb -->
+<style>
+.header-spacer {
+    height: 180px !important;
+    width: 100% !important;
+    display: block !important;
+}
+@media (max-width: 768px) {
+    .header-spacer {
+        height: 130px !important;
+    }
+}
+.breadcrumb-section,
+section.breadcrumb-section {
+    margin-top: -10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+}
+.article-hero {
+    padding-top: 150px !important;
+    padding-bottom: 100px !important;
+    min-height: 500px !important;
+}
+</style>
+
 <!-- Schema.org Article -->
 <script type="application/ld+json">
 {
@@ -300,13 +325,6 @@
 <header class="article-hero">
 <div class="article-hero-content">
 <div class="container">
-<nav class="article-breadcrumb" aria-label="Breadcrumb">
-<a href="/">Inicio</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-<a href="/blog/">Blog</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-<span>Estaciones Gourmet</span>
-</nav>
 <span class="article-category-tag" itemprop="articleSection">Estaciones</span>
 <h1 itemprop="headline">Estaciones Interactivas Gourmet para Eventos Exquisitos</h1>
 <div class="article-hero-meta">
