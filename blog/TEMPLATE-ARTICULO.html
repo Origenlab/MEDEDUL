@@ -277,21 +277,6 @@
     </div>
 </header>
 
-<!-- ========== BREADCRUMB ========== -->
-<section class="breadcrumb-section">
-    <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Inicio</a>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
-            <a href="/blog/">Blog</a>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
-            <a href="/blog/?categoria={{CATEGORIA_SLUG}}">{{CATEGORIA}}</a>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
-            <span aria-current="page">{{BREADCRUMB_TEXT}}</span>
-        </nav>
-    </div>
-</section>
-
 <!-- ========== ARTICLE ========== -->
 <article itemscope itemtype="https://schema.org/Article">
 <meta itemprop="author" content="Mededul">
@@ -300,6 +285,15 @@
 <header class="article-hero">
 <div class="article-hero-content">
 <div class="container">
+<nav class="article-breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Inicio</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="/blog/">Blog</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="/blog/?categoria={{CATEGORIA_SLUG}}">{{CATEGORIA}}</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    <span>{{BREADCRUMB_TEXT}}</span>
+</nav>
 <span class="article-category-tag" itemprop="articleSection">{{CATEGORIA}}</span>
 <h1 itemprop="headline">{{TITULO}}</h1>
 <div class="article-hero-meta">
