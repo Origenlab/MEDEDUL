@@ -1,7 +1,17 @@
 {
   "version": "1.0",
-  "lastUpdate": "2026-01-26",
+  "lastUpdate": "2026-01-27",
   "articles": [
+    {
+      "id": 1769493558613,
+      "title": "Mesas de Dulces para Bodas Elegantes en CDMX",
+      "excerpt": "Explora las últimas tendencias en mesas de dulces elegantes para bodas en CDMX. Haz de tu boda un evento inolvidable.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-blanca-total-minimalista.avif",
+      "slug": "mesas-de-dulces-para-bodas-elegantes-en-cdmx",
+      "readTime": "10 min lectura",
+      "cta": "Solicita tu cotización"
+    },
     {
       "id": 1765606565123,
       "title": "Mesa de Dulces para Bodas en CDMX: Guia Completa",
