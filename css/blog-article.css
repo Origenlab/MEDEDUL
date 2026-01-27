@@ -53,7 +53,7 @@
 section.breadcrumb-section {
     background: #f8f9fa !important;
     padding: 15px 0 !important;
-    margin-top: 120px !important;
+    margin-top: 140px !important;
     margin-bottom: 0 !important;
     position: relative !important;
     z-index: 10 !important;
@@ -1238,7 +1238,7 @@ header.article-hero,
 @media (max-width: 768px) {
     .breadcrumb-section,
     section.breadcrumb-section {
-        margin-top: 80px !important;
+        margin-top: 100px !important;
         padding: 12px 0 !important;
     }
 
