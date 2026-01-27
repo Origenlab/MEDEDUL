@@ -1370,38 +1370,48 @@
 
 .sidebar-services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .sidebar-service-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px 10px;
+    justify-content: center;
+    padding: 12px 8px;
     background: linear-gradient(135deg, #fff5f8 0%, #fff 100%);
-    border-radius: 12px;
+    border-radius: 10px;
     text-decoration: none;
     transition: all 0.3s ease;
-    border: 1px solid rgba(233, 30, 140, 0.1);
+    border: 1px solid rgba(233, 30, 140, 0.15);
+    min-height: 70px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .sidebar-service-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(233, 30, 140, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 30, 140, 0.2);
     border-color: var(--rosa-principal);
+    background: linear-gradient(135deg, #ffe8f0 0%, #fff 100%);
 }
 
 .sidebar-service-item .service-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    line-height: 1;
 }
 
 .sidebar-service-item .service-name {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--texto-oscuro);
     text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .sidebar-why-us {
@@ -1613,7 +1623,7 @@
 
 @media (max-width: 1100px) {
     .sidebar-services-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .sidebar-stats-grid {
