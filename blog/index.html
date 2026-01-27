@@ -78,38 +78,12 @@
         }
         .empty-state h3 { color: #333; margin: 20px 0 10px; }
         .empty-state p { color: #666; }
-        /* Category filters */
-        .blog-categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 25px;
+        /* Blog hero icon */
+        .blog-hero-icon {
+            margin-bottom: 20px;
         }
-        .category-tag {
-            padding: 10px 20px;
-            border: 2px solid #E91E8C;
-            background: transparent;
-            color: #E91E8C;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        .category-tag:hover {
-            background: rgba(233, 30, 140, 0.1);
-            transform: translateY(-2px);
-        }
-        .category-tag.active {
-            background: #E91E8C;
-            color: white;
-        }
-        @media (max-width: 768px) {
-            .category-tag {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
+        .blog-hero-icon svg {
+            opacity: 0.9;
         }
     </style>
     <script type="application/ld+json">
@@ -274,17 +248,13 @@
 
         <section class="blog-hero">
             <div class="container">
-                <h1>Blog Mededul</h1>
-                <p class="blog-hero-subtitle">Ideas, tips y tendencias para crear mesas de dulces inolvidables</p>
-                <div class="blog-categories" id="category-filters">
-                    <button class="category-tag active" data-category="todos">Todos</button>
-                    <button class="category-tag" data-category="bodas">Bodas</button>
-                    <button class="category-tag" data-category="xv-anos">XV Anos</button>
-                    <button class="category-tag" data-category="baby-shower">Baby Shower</button>
-                    <button class="category-tag" data-category="corporativos">Corporativos</button>
-                    <button class="category-tag" data-category="infantiles">Infantiles</button>
-                    <button class="category-tag" data-category="estaciones">Estaciones</button>
+                <div class="blog-hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
                 </div>
+                <h1>Blog Mededul</h1>
+                <p class="blog-hero-subtitle">Descubre ideas inspiradoras, tips de expertos y las ultimas tendencias para crear mesas de dulces que transformaran tu evento en una experiencia inolvidable</p>
             </div>
         </section>
 
