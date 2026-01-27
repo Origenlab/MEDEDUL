@@ -73,6 +73,44 @@
 <link rel="stylesheet" href="../css/header-footer.css">
 <link rel="stylesheet" href="../css/blog-article.css">
 
+<!-- FIX: Estilos criticos para header-spacer y breadcrumb -->
+<style>
+.header-spacer {
+    height: 180px !important;
+    width: 100% !important;
+    display: block !important;
+}
+.breadcrumb-section,
+section.breadcrumb-section {
+    margin-top: -10px !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #eee !important;
+}
+.breadcrumb-section .breadcrumb,
+.breadcrumb {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+article {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.article-hero,
+header.article-hero {
+    padding-top: 150px !important;
+    padding-bottom: 100px !important;
+    min-height: 500px !important;
+    margin-top: 0 !important;
+}
+@media (max-width: 768px) {
+    .header-spacer { height: 130px !important; }
+    .article-hero { min-height: 350px !important; padding: 80px 0 60px !important; }
+}
+</style>
+
 <!-- Schema.org Article -->
 <script type="application/ld+json">
 {
