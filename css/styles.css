@@ -62,9 +62,16 @@ body {
     background: var(--gris-claro);
     padding: 15px 0;
     border-bottom: 1px solid #eee;
-    margin-top: 165px;
+    margin-top: 0;
     position: relative;
     z-index: 10;
+}
+
+/* Espaciador para header fijo - usar antes de breadcrumb */
+.header-spacer {
+    height: 125px;
+    width: 100%;
+    display: block;
 }
 
 .breadcrumb {
@@ -98,8 +105,12 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header-spacer {
+        height: 95px;
+    }
+
     .breadcrumb-section {
-        margin-top: 80px;
+        margin-top: 0;
         padding: 12px 0;
     }
 
