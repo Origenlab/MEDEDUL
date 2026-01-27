@@ -45,18 +45,24 @@
 
 .breadcrumb-section {
     background: #f8f9fa;
-    padding: 15px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #eee;
-    margin-top: 140px;
+    margin-top: 115px;
     margin-bottom: 0;
     position: relative;
     z-index: 10;
 }
 
 /* Eliminar espacio entre breadcrumb y hero */
+.breadcrumb-section + article,
+article:has(.article-hero) {
+    margin-top: 0;
+}
+
 .breadcrumb-section + article .article-hero,
-.breadcrumb-section + .article-hero {
+.breadcrumb-section ~ article .article-hero {
     margin-top: 0 !important;
+    padding-top: 40px;
 }
 
 .breadcrumb-section .container {
