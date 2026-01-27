@@ -66,12 +66,18 @@
 .breadcrumb-section,
 section.breadcrumb-section {
     background: #f8f9fa !important;
-    padding: 15px 0 !important;
-    margin-top: 0 !important;
+    padding: 10px 0 5px 0 !important;
+    margin-top: -10px !important;
     margin-bottom: 0 !important;
     position: relative !important;
     z-index: 10 !important;
     border-bottom: 1px solid #eee !important;
+}
+
+.breadcrumb-section .breadcrumb,
+.breadcrumb {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .breadcrumb-section .container {
@@ -132,7 +138,7 @@ header.article-hero,
     align-items: center;
     overflow: hidden;
     background: linear-gradient(180deg, #ffd6e7 0%, #ffe8f0 30%, #fff5f8 70%, #ffffff 100%);
-    padding: 40px 0 35px;
+    padding: 15px 0 35px;
     margin: 0 !important;
     margin-top: 0 !important;
     border: none !important;
