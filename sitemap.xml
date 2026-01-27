@@ -530,4 +530,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mesas-de-dulces.com/blog/la-magia-de-la-mesa-de-dulces-en-baby-showers-bosques-de-las-loma.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
