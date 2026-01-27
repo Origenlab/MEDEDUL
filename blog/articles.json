@@ -1,7 +1,27 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "lastUpdate": "2026-01-27",
   "articles": [
+    {
+      "id": 1769494847065,
+      "title": "Mesa Dulces Boda CDMX: Elegancia y Estilo",
+      "excerpt": "Revoluciona tu boda con una mesa de dulces en CDMX. Elegancia y estilo para sorprender a tus invitados. ¡Cotiza hoy!",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-lujoso-cristal-flores.avif",
+      "slug": "mesa-dulces-boda-cdmx-elegancia-y-estilo",
+      "readTime": "12 min lectura",
+      "cta": "Cotizar Mesa de Dulces"
+    },
+    {
+      "id": 1769494441538,
+      "title": "Estaciones Interactivas Gourmet para Eventos Exquisitos",
+      "excerpt": "Impresiona a tus invitados con estaciones interactivas gourmet de Mededul en CDMX. Experiencias culinarias únicas y sofisticadas.",
+      "category": "estaciones",
+      "image": "../img/galeria/candy-bar-chocolate-oscuro-elegante.avif",
+      "slug": "estaciones-interactivas-gourmet-para-eventos-exquisitos",
+      "readTime": "10 min lectura",
+      "cta": "Explora ahora"
+    },
     {
       "id": 1769493558613,
       "title": "Mesas de Dulces para Bodas Elegantes en CDMX",
