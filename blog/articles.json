@@ -1,0 +1,296 @@
+{
+  "version": "1.0",
+  "lastUpdate": "2026-01-26",
+  "articles": [
+    {
+      "id": 1765606565123,
+      "title": "Mesa de Dulces para Bodas en CDMX: Guia Completa",
+      "excerpt": "Descubre como crear la mesa de dulces perfecta para tu boda en CDMX. Incluye estilos elegantes, dulces gourmet imprescindibles como macarons y chocolates finos, decoracion personalizada y consejos de wedding planners expertos para sorprender a tus invitados.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif",
+      "slug": "mesa-dulces-bodas-guia-completa",
+      "readTime": "12 min lectura",
+      "cta": "Ver Candy Bar Bodas"
+    },
+    {
+      "id": 1765608822456,
+      "title": "Mesa de Dulces para XV Anos: Ideas Espectaculares",
+      "excerpt": "Transforma tu fiesta de quinceanera con una mesa de dulces espectacular en CDMX. Ideas creativas con tematicas de princesa, colores rosa y dorado, macarons personalizados y decoracion elegante que hara inolvidable tu celebracion de XV anos.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif",
+      "slug": "mesa-dulces-xv-anos-ideas-tendencias",
+      "readTime": "10 min lectura",
+      "cta": "Ideas XV Anos"
+    },
+    {
+      "id": 1765608314101,
+      "title": "Mesa de Dulces Corporativa en CDMX",
+      "excerpt": "Eleva tus eventos empresariales con mesas de dulces corporativas profesionales en CDMX. Soluciones elegantes con branding personalizado, dulces premium y presentacion ejecutiva perfecta para conferencias, lanzamientos y reuniones de negocios.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-empresarial-moderno-minimalista.avif",
+      "slug": "mesa-dulces-eventos-corporativos-empresas",
+      "readTime": "8 min lectura",
+      "cta": "Candy Bar Empresarial"
+    },
+    {
+      "id": 1765607325376,
+      "title": "Mesa de Dulces para Baby Shower: Momentos Unicos",
+      "excerpt": "Celebra la llegada de tu bebe con una mesa de dulces encantadora para baby shower en CDMX. Tematicas tiernas con ositos, elefantes o unicornios, dulces en tonos pastel rosa o azul, y detalles personalizados que emocionaran a todos tus invitados.",
+      "category": "baby-shower",
+      "image": "../img/galeria/candy-bar-baby-shower-celeste-macarons-osito.avif",
+      "slug": "mesa-dulces-baby-shower-ideas-creativas",
+      "readTime": "9 min lectura",
+      "cta": "Ideas Baby Shower"
+    },
+    {
+      "id": 1765606975993,
+      "title": "Mesa de Dulces Mexicanos para Eventos",
+      "excerpt": "Celebra con autentico sabor mexicano con nuestra mesa de dulces tradicionales para eventos en CDMX. Incluye glorias, mazapanes, cocadas, alegrias, mueganos y dulces artesanales de Oaxaca, Puebla y Michoacan con decoracion tipica mexicana.",
+      "category": "tematicas",
+      "image": "../img/galeria/candy-bar-dia-muertos-pan-muerto-cempasuchil.avif",
+      "slug": "mesa-dulces-mexicanos-tradicionales-eventos",
+      "readTime": "11 min lectura",
+      "cta": "Dulces Mexicanos"
+    },
+    {
+      "id": 1765606157055,
+      "title": "Barra de Postres Gourmet para Eventos",
+      "excerpt": "Impresiona a tus invitados con una barra de postres gourmet de alta reposteria en CDMX. Macarons franceses, petit fours, tartaletas artesanales, eclairs y creaciones de pasteleria fina que elevaran la experiencia gastronomica de tu evento.",
+      "category": "estaciones",
+      "image": "../img/galeria/candy-bar-elegante-terraza-atardecer.avif",
+      "slug": "barra-postres-gourmet-eventos-cdmx",
+      "readTime": "7 min lectura",
+      "cta": "Postres Gourmet"
+    },
+    {
+      "id": 1765605000001,
+      "title": "Tendencias Candy Bar Bodas 2025",
+      "excerpt": "Conoce las tendencias mas exclusivas en candy bar para bodas 2025: estilos minimalistas, paletas de colores naturales, dulces organicos, estaciones interactivas y presentaciones sustentables que marcaran la diferencia en tu celebracion nupcial.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-contemporanea-geometrico.avif",
+      "slug": "tendencias-candy-bar-bodas-2025",
+      "readTime": "8 min lectura",
+      "cta": "Tendencias Bodas 2025"
+    },
+    {
+      "id": 1765605000002,
+      "title": "Tendencias Mesa de Dulces XV Anos 2025",
+      "excerpt": "Descubre las tendencias mas innovadoras en mesas de dulces para quinceaneras 2025: tematicas modernas, colores vibrantes como lavanda y rose gold, dulces instagrameables y experiencias interactivas que haran viral tu fiesta de XV anos.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-quinceanos-moderno-rosa-plateado.avif",
+      "slug": "tendencias-mesa-dulces-xv-anos-2025",
+      "readTime": "9 min lectura",
+      "cta": "Tendencias XV Anos"
+    },
+    {
+      "id": 1765595023196,
+      "title": "Mesas de Dulces para Cumpleanos Infantil",
+      "excerpt": "Crea momentos magicos con mesas de dulces para fiestas infantiles en CDMX. Tematicas de superheroes, princesas, dinosaurios o unicornios con dulces coloridos, decoracion divertida y presentaciones seguras y atractivas para los mas pequenos.",
+      "category": "infantiles",
+      "image": "../img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif",
+      "slug": "mesa-dulces-cumpleanos-infantil-ideas",
+      "readTime": "10 min lectura",
+      "cta": "Fiestas Infantiles"
+    },
+    {
+      "id": 1765605000003,
+      "title": "Guia Completa: Fuentes de Chocolate",
+      "excerpt": "Todo sobre fuentes de chocolate para eventos en CDMX: tipos de chocolate belga o suizo, frutas y complementos ideales para banear, tamanos segun invitados, mantenimiento y tips profesionales para una estacion de chocolate perfecta y deliciosa.",
+      "category": "guias",
+      "image": "../img/galeria/candy-bar-chocolate-oscuro-elegante.avif",
+      "slug": "guia-completa-fuentes-chocolate-eventos-cdmx",
+      "readTime": "15 min lectura",
+      "cta": "Fuentes de Chocolate"
+    },
+    {
+      "id": 1765600208465,
+      "title": "Catering de Dulces para Eventos Empresariales en CDMX",
+      "excerpt": "Servicio profesional de catering de dulces para eventos corporativos en CDMX. Candy bar ejecutivo con dulces premium, empaque personalizado con logo empresarial y servicio integral para conferencias, seminarios y celebraciones de empresa.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-lanzamiento-producto-elegante.avif",
+      "slug": "catering-dulces-eventos-empresariales-cdmx",
+      "readTime": "8 min lectura",
+      "cta": "Catering Corporativo"
+    },
+    {
+      "id": 1765600921340,
+      "title": "Colores y Tematicas para Mesa de Dulces de XV Anos",
+      "excerpt": "Guia experta de colores y tematicas para tu mesa de dulces de quinceanera: combinaciones elegantes rosa con dorado, violeta con plateado, azul tiffany, tematicas de Paris, mariposas o jardin encantado que reflejaran tu personalidad unica.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-tema-princesa-castillo-rosa.avif",
+      "slug": "colores-tematicas-mesa-dulces-quinceanera",
+      "readTime": "10 min lectura",
+      "cta": "Tematicas Quinceanera"
+    },
+    {
+      "id": 1765600721284,
+      "title": "Como Elegir los Colores para tu Mesa de Dulces de Boda",
+      "excerpt": "Aprende a elegir la paleta de colores perfecta para tu mesa de dulces de boda en CDMX. Combinaciones clasicas blanco y dorado, romanticas rosa pastel, modernas terracota y verde salvia, segun la temporada y estilo de tu celebracion nupcial.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif",
+      "slug": "como-elegir-colores-mesa-dulces-boda",
+      "readTime": "12 min lectura",
+      "cta": "Colores para Bodas"
+    },
+    {
+      "id": 1765600361392,
+      "title": "10 Errores que Arruinan tu Mesa de Dulces de Boda",
+      "excerpt": "Evita los 10 errores mas comunes al planear tu mesa de dulces para boda: cantidad incorrecta de dulces por invitado, mala ubicacion, dulces que se derriten, falta de variedad y otros fallos que arruinan la experiencia de tu candy bar nupcial.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-vintage-madera-flores.avif",
+      "slug": "errores-comunes-mesa-dulces-boda",
+      "readTime": "11 min lectura",
+      "cta": "Evitar Errores Boda"
+    },
+    {
+      "id": 1765600123813,
+      "title": "7 Errores Comunes en Mesas de Dulces para XV Anos",
+      "excerpt": "Descubre los 7 errores fatales al organizar una mesa de dulces para XV anos y como evitarlos: presupuesto mal calculado, tematica inconsistente, dulces inadecuados para jovenes y mas consejos para una quinceanera perfecta sin contratiempos.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-princesa-elegante-cupcakes-coronas.avif",
+      "slug": "errores-comunes-mesa-dulces-xv-anos",
+      "readTime": "9 min lectura",
+      "cta": "Evitar Errores XV Anos"
+    },
+    {
+      "id": 1765600856059,
+      "title": "Estaciones Interactivas de Dulces para Team Building",
+      "excerpt": "Fortalece tu equipo con estaciones interactivas de dulces para team building en CDMX. Dinamicas de decoracion de cupcakes, creacion de candy bags y experiencias colaborativas que fomentan la creatividad y union entre colaboradores.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-gourmet-elegante.avif",
+      "slug": "estaciones-interactivas-team-building",
+      "readTime": "8 min lectura",
+      "cta": "Team Building Dulce"
+    },
+    {
+      "id": 1765600901983,
+      "title": "Ideas para Mesa de Dulces de Baby Shower Perfecta",
+      "excerpt": "Inspira tu baby shower con ideas creativas de mesas de dulces en CDMX: tematicas de safari, nubes, estrellas o cuentos infantiles, dulces en forma de biberones y carreolas, y detalles personalizados para revelar el genero o celebrar la llegada del bebe.",
+      "category": "baby-shower",
+      "image": "../img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif",
+      "slug": "ideas-mesa-dulces-baby-shower-perfecta",
+      "readTime": "9 min lectura",
+      "cta": "Inspiracion Baby Shower"
+    },
+    {
+      "id": 1765600923707,
+      "title": "Mesa de Dulces para Bautizo Elegante en CDMX",
+      "excerpt": "Celebra el bautizo de tu bebe con una mesa de dulces elegante y significativa en CDMX. Dulces en tonos blancos y celestes o rosas, simbolos religiosos como cruces y palomas, y presentacion sofisticada para esta ceremonia tan especial.",
+      "category": "baby-shower",
+      "image": "../img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif",
+      "slug": "mesa-dulces-bautizo-elegante-cdmx",
+      "readTime": "9 min lectura",
+      "cta": "Candy Bar Bautizo"
+    },
+    {
+      "id": 1765600566314,
+      "title": "Mesa de Dulces para Boda Intima y Pequena",
+      "excerpt": "Crea una mesa de dulces perfecta para bodas intimas de 20 a 50 invitados en CDMX. Proporciones ideales, seleccion curada de dulces gourmet, presentacion elegante y detalles personalizados que hacen especial cada celebracion pequena.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-blanca-total-minimalista.avif",
+      "slug": "mesa-dulces-boda-intima-pequena",
+      "readTime": "11 min lectura",
+      "cta": "Bodas Intimas"
+    },
+    {
+      "id": 1765600471907,
+      "title": "Mesa de Dulces para Boda en Jardin: Guia Completa",
+      "excerpt": "Guia esencial para mesas de dulces en bodas al aire libre y jardines de CDMX. Dulces resistentes al calor, proteccion contra insectos, decoracion botanica, flores naturales y soluciones creativas para candy bars en exteriores perfectos.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-exterior-elegante-flores-rosas.avif",
+      "slug": "mesa-dulces-boda-jardin-exterior",
+      "readTime": "11 min lectura",
+      "cta": "Bodas en Jardin"
+    },
+    {
+      "id": 1765600695815,
+      "title": "Mesa de Dulces para Bodas en Polanco, Lomas y Santa Fe",
+      "excerpt": "Servicio exclusivo de mesas de dulces para bodas de lujo en las zonas mas exclusivas de CDMX: Polanco, Lomas de Chapultepec, Santa Fe y Pedregal. Dulces premium, cristaleria fina y presentacion impecable para celebraciones de alta gama.",
+      "category": "bodas",
+      "image": "../img/galeria/candy-bar-boda-lujoso-cristal-flores.avif",
+      "slug": "mesa-dulces-bodas-exclusivas-cdmx",
+      "readTime": "10 min lectura",
+      "cta": "Bodas Exclusivas CDMX"
+    },
+    {
+      "id": 1765600536814,
+      "title": "Mesa de Dulces para Conferencias y Congresos",
+      "excerpt": "Servicio profesional de mesas de dulces para conferencias y congresos en CDMX. Coffee breaks ejecutivos, dulces energeticos para networking, presentacion corporativa elegante y logistica impecable para eventos de gran formato.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-profesional-eventos.avif",
+      "slug": "mesa-dulces-conferencias-congresos",
+      "readTime": "8 min lectura",
+      "cta": "Conferencias y Congresos"
+    },
+    {
+      "id": 1765600371913,
+      "title": "Mesa de Dulces para Eventos Corporativos CDMX",
+      "excerpt": "Mesas de dulces profesionales para eventos corporativos en zonas empresariales de CDMX: Polanco, Santa Fe, Reforma e Insurgentes. Candy bar con imagen institucional, dulces de calidad premium y servicio puntual para empresas exigentes.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-empresarial-moderno-minimalista.avif",
+      "slug": "mesa-dulces-eventos-corporativos-cdmx",
+      "readTime": "8 min lectura",
+      "cta": "Eventos Corporativos"
+    },
+    {
+      "id": 1765600739097,
+      "title": "Mesa de Dulces para Lanzamiento de Productos",
+      "excerpt": "Destaca tu lanzamiento de producto con una mesa de dulces con branding corporativo en CDMX. Dulces personalizados con logo, colores institucionales, packaging exclusivo y experiencias memorables que refuerzan tu marca ante clientes y medios.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-graduacion-birrete-elegante.avif",
+      "slug": "mesa-dulces-lanzamiento-productos",
+      "readTime": "8 min lectura",
+      "cta": "Lanzamientos de Marca"
+    },
+    {
+      "id": 1765600336569,
+      "title": "Mesa de Dulces para XV Anos Elegante en CDMX",
+      "excerpt": "Haz realidad el sueno de tu quinceanera con una mesa de dulces elegante en CDMX. Macarons en colores personalizados, chocolates finos, cake pops decorados y una presentacion digna de princesa que sera el centro de atencion de tu fiesta.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-quinceanera-rosa-fresas-dorado.avif",
+      "slug": "mesa-dulces-xv-anos-elegante-cdmx",
+      "readTime": "10 min lectura",
+      "cta": "XV Anos Elegantes"
+    },
+    {
+      "id": 1765600944405,
+      "title": "Mesa de Dulces XV Anos Elegante y Sofisticada",
+      "excerpt": "Eleva tu celebracion de XV anos con una mesa de dulces sofisticada y de alta gama en CDMX. Seleccion curada de dulces artesanales, decoracion con flores naturales, cristaleria elegante y detalles de lujo que impresionaran a todos tus invitados.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-quinceanera-violeta-macarons.avif",
+      "slug": "mesa-dulces-xv-anos-elegante-sofisticada",
+      "readTime": "9 min lectura",
+      "cta": "Quinceanera Sofisticada"
+    },
+    {
+      "id": 1765600694940,
+      "title": "Presupuesto Mesa de Dulces para XV Anos",
+      "excerpt": "Conoce los precios y presupuestos reales de mesas de dulces para XV anos en CDMX. Desglose de costos por paquete, opciones desde economicas hasta premium, que incluye cada servicio y como optimizar tu inversion para una fiesta inolvidable.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-princesa-elegante-rosa-dorado.avif",
+      "slug": "presupuesto-mesa-dulces-quinceanera",
+      "readTime": "9 min lectura",
+      "cta": "Precios XV Anos"
+    },
+    {
+      "id": 1765600508020,
+      "title": "ROI de Mesas de Dulces en Eventos Corporativos",
+      "excerpt": "Aprende a medir el retorno de inversion de mesas de dulces en eventos corporativos. Metricas clave de engagement, satisfaccion de asistentes, impacto en networking y como justificar el presupuesto de catering dulce ante directivos.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif",
+      "slug": "roi-mesas-dulces-eventos-corporativos",
+      "readTime": "8 min lectura",
+      "cta": "ROI Eventos Empresa"
+    },
+    {
+      "id": 1765600691232,
+      "title": "Tendencias Mesas de Dulces 2025 CDMX",
+      "excerpt": "Descubre las tendencias que dominaran las mesas de dulces en 2025 en CDMX: estilos minimalistas japoneses, dulces plant-based, colores terrosos naturales, experiencias sensoriales inmersivas y presentaciones eco-friendly sustentables.",
+      "category": "tendencias",
+      "image": "../img/galeria/candy-bar-colorido-fiestas.avif",
+      "slug": "tendencias-mesas-dulces-2025-cdmx",
+      "readTime": "9 min lectura",
+      "cta": "Tendencias 2025"
+    }
+  ]
+}

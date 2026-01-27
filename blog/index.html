@@ -330,269 +330,206 @@
         <span class="whatsapp-badge">1</span>
         <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
     </a>
+    <!-- Cargar configuracion centralizada -->
+    <script src="config.js"></script>
+
     <script>
         // ============================================
-        // ARRAY DE ARTICULOS DEL BLOG - N8N INSERTA AQUI
+        // VARIABLES GLOBALES
         // ============================================
-        const blogArticles = [
-      {"id":1769484595969,"title":"Mesas de Dulces Elegantes para Baby Showers en CDMX","excerpt":"Mesas de dulces elegantes para baby showers en CDMX con Mededul.","category":"baby-shower","image":"../img/eventos/baby-shower/mesa-dulces-baby-shower-elegante.avif","slug":"articulos/mesas-de-dulces-elegantes-para-baby-showers-en-cdmx","readTime":"12 min lectura"},
-      {"id":1769483177447,"title":"Mesas de Dulces Elegantes para Bodas en CDMX","excerpt":"Mesas de dulces elegantes para bodas en CDMX. Experiencia premium.","category":"bodas","image":"../img/eventos/bodas/mesa-dulces-boda-moderna.avif","slug":"articulos/mesas-de-dulces-elegantes-para-bodas-en-cdmx","readTime":"12 min lectura"},
-      {
-        id: 1769360474689,
-        title: "Checklist Completo para tu Mesa de Dulces de Boda 2025",
-        excerpt: "Checklist mes a mes para planear tu mesa de dulces de boda. Timeline, presupuesto y errores a evitar.",
-        category: "guias",
-        image: "../img/eventos/bodas/mesa-dulces-boda-moderna.webp",
-        slug: "articulos/elegancia-dulce-mesas-bodas-exclusivas-cdmx",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1769101288471,
-        title: "Mesa de Dulces para Eventos Corporativos: Guía por Tipo de Evento 2025",
-        excerpt: "Guía práctica por tipo de evento corporativo: lanzamientos, conferencias, fiestas de fin de año e inauguraciones.",
-        category: "guias",
-        image: "../img/eventos/corporativos/servicio-mesa-corporativo-cdmx.avif",
-        slug: "articulos/mesas-dulces-exclusivas-eventos-corporativos",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1768842103301,
-        title: "Cómo Calcular Cantidades para tu Mesa de Dulces 2025",
-        excerpt: "Fórmulas exactas para calcular dulces por persona según tipo de evento, duración y si hay banquete.",
-        category: "tips-y-consejos",
-        image: "../img/eventos/cumpleanos/infantiles/servicio-mesa-dulces-infantil.avif",
-        slug: "articulos/celebraciones-infantiles-ensueno-cdmx",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1768582898857,
-        title: "Guía de Dulces para tu Mesa: Qué Incluir Según tu Evento 2025",
-        excerpt: "Guía completa: dulces gourmet vs tradicionales, por audiencia, resistentes al calor, opciones sin azúcar y más.",
-        category: "inspiracion",
-        image: "../img/galeria/mesa-dulces-tematica-personalizada.avif",
-        slug: "articulos/mesas-dulces-cuspide-lujo-celebraciones",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1768323690651,
-        title: "Mesa de Dulces Según tu Venue: Guía por Tipo de Espacio 2025",
-        excerpt: "Guía para adaptar tu mesa de dulces al venue: haciendas, jardines, salones de hotel y terrazas.",
-        category: "tendencias",
-        image: "../img/eventos/bodas/candy-bar-boda-jardin-luces-elegante.avif",
-        slug: "articulos/mesas-dulces-exclusivas-arte-sofisticacion-bodas",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1768256356766,
-        title: "Mesas de Dulces: Elegancia y Singularidad en Bodas de Lujo",
-        excerpt: "Explora la elegancia de mesas de dulces para bodas de lujo en CDMX.",
-        category: "inspiracion",
-        image: "../img/eventos/bodas/mesa-dulces-boda-terraza-elegante-dorado.avif",
-        slug: "articulos/mesas-de-dulces-elegancia-y-singularidad-en-bodas-de-lujo",
-        readTime: "15 min lectura"
-      },
-      {
-        id: 1768256136031,
-        title: "Checklist Mesa de Dulces XV Años: Guía de Planificación 2025",
-        excerpt: "Timeline de 6 meses a 1 semana antes. Presupuesto, proveedores y errores comunes a evitar.",
-        category: "guias",
-        image: "../img/galeria/dulces-surtidos-eventos.avif",
-        slug: "articulos/mesas-dulces-xv-anos-alta-sociedad-cdmx",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1768246593370,
-        title: "Ideas Creativas para Mesas de Dulces de XV Años 2025",
-        excerpt: "Ideas por estilo: romántico, moderno, tradicional, bohemio. Dulces imprescindibles y tendencias.",
-        category: "tematicas",
-        image: "../img/galeria/candy-bar-profesional-eventos.avif",
-        slug: "articulos/experiencias-dulces-inolvidables-quinceaneras",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1768242776161,
-        title: "Mesa de Dulces por Edad del Niño: Guía 1-12 Años 2025",
-        excerpt: "Qué dulces funcionan para cada edad. Seguridad, temas populares por edad y cantidades recomendadas.",
-        category: "inspiracion",
-        image: "../img/eventos/cumpleanos/infantiles/mesa-dulces-bob-esponja.avif",
-        slug: "articulos/mesas-dulces-magia-distincion-fiestas-infantiles",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1768239702350,
-        title: "Tendencias de Mesas de Dulces para Bodas 2025",
-        excerpt: "Tendencias actuales: minimalismo elegante, estaciones interactivas y personalización total.",
-        category: "tendencias",
-        image: "../img/eventos/bodas/mesa-dulces-boda-hacienda-colonial-elegante.avif",
-        slug: "articulos/mesas-dulces-toque-lujo-bodas-exclusivas",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1765606565123,
-        title: "Mesa de Dulces para Bodas en CDMX: Guia Completa",
-        excerpt: "Guia completa para crear la mesa de dulces perfecta para tu boda en CDMX. Estilos, dulces imprescindibles y consejos de expertos.",
-        category: "bodas",
-        image: "../img/blog/mesa-dulces-bodas-guia-completa-1765606565123.avif",
-        slug: "bodas/mesa-dulces-bodas-guia-completa",
-        readTime: "12 min lectura"
-      },
-      {
-        id: 1765608822456,
-        title: "Mesa de Dulces para XV Anos: Ideas Espectaculares",
-        excerpt: "Descubre como crear una mesa de dulces inolvidable para XV anos en CDMX. Ideas, estilos y consejos de expertos.",
-        category: "xv-anos",
-        image: "../img/blog/mesa-dulces-xv-anos-ideas-tendencias-1765608822456.avif",
-        slug: "xv-anos/mesa-dulces-xv-anos-ideas-tendencias",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1765608314101,
-        title: "Mesa de Dulces Corporativa en CDMX",
-        excerpt: "Descubre soluciones de mesas de dulces para eventos corporativos en CDMX con estilos modernos y elegantes.",
-        category: "corporativos",
-        image: "../img/blog/mesa-dulces-eventos-corporativos-empresas-1765608314101.avif",
-        slug: "corporativos/mesa-dulces-eventos-corporativos-empresas",
-        readTime: "8 min lectura"
-      },
-      {
-        id: 1765607325376,
-        title: "Mesa de Dulces para Baby Shower: Momentos Unicos",
-        excerpt: "Descubre ideas creativas para una mesa de dulces para baby shower en CDMX. Temas clasicos y modernos que encantaran.",
-        category: "baby-shower",
-        image: "../img/blog/mesa-dulces-baby-shower-ideas-creativas-1765607325376.avif",
-        slug: "baby-shower/mesa-dulces-baby-shower-ideas-creativas",
-        readTime: "9 min lectura"
-      },
-      {
-        id: 1765606975993,
-        title: "Mesa de Dulces Mexicanos para Eventos",
-        excerpt: "Descubre la magia de una mesa de dulces mexicanos para eventos en CDMX. Dulces artesanales y decoraciones unicas.",
-        category: "tematicas",
-        image: "../img/blog/mesa-dulces-mexicanos-tradicionales-eventos-1765606975993.avif",
-        slug: "tematicas/mesa-dulces-mexicanos-tradicionales-eventos",
-        readTime: "11 min lectura"
-      },
-      {
-        id: 1765606157055,
-        title: "Barra de Postres Gourmet para Eventos",
-        excerpt: "Descubre la barra de postres gourmet de Mededul en CDMX. Elegancia y sabor en cada creacion.",
-        category: "estaciones",
-        image: "../img/blog/barra-postres-gourmet-eventos-cdmx-1765606157055.avif",
-        slug: "estaciones/barra-postres-gourmet-eventos-cdmx",
-        readTime: "7 min lectura"
-      },
-      {
-        id: 1765605000001,
-        title: "Tendencias Candy Bar Bodas 2025",
-        excerpt: "Descubre las tendencias mas exclusivas en candy bar para bodas este ano.",
-        category: "bodas",
-        image: "../img/eventos/bodas/mesa-de-dulces-para-bodas.avif",
-        slug: "bodas/tendencias-candy-bar-bodas-2025",
-        readTime: "8 min lectura"
-      },
-      {
-        id: 1765605000002,
-        title: "Tendencias Mesa de Dulces XV Anos 2025",
-        excerpt: "Las tendencias mas innovadoras en mesas de dulces para quinceaneras.",
-        category: "xv-anos",
-        image: "../img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif",
-        slug: "xv-anos/tendencias-mesa-dulces-xv-anos-2025",
-        readTime: "9 min lectura"
-      },
-      {
-        id: 1765595023196,
-        title: "Mesas de Dulces para Cumpleanos Infantil",
-        excerpt: "Mesas de dulces magicas para cumpleanos infantiles en CDMX.",
-        category: "infantiles",
-        image: "../img/blog/mesa-dulces-cumpleanos-infantil-ideas-1765595023196.avif",
-        slug: "infantiles/mesa-dulces-cumpleanos-infantil-ideas",
-        readTime: "10 min lectura"
-      },
-      {
-        id: 1765605000003,
-        title: "Guia Completa: Fuentes de Chocolate",
-        excerpt: "Todo lo que necesitas saber sobre fuentes de chocolate para eventos en CDMX.",
-        category: "guias",
-        image: "../img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif",
-        slug: "guias/guia-completa-fuentes-chocolate-eventos-cdmx",
-        readTime: "15 min lectura"
-      }
-    ];
+        let blogArticles = [];
+        let filteredArticles = [];
+        let currentPage = 1;
+        let loadAttempts = 0;
+        const MAX_LOAD_ATTEMPTS = 3;
 
         // ============================================
-        // MAPEO DE CATEGORIAS
+        // CARGAR ARTICULOS DESDE JSON
         // ============================================
-        const categoryNames = {
-            'bodas': 'Bodas',
-            'xv-anos': 'XV Anos',
-            'baby-shower': 'Baby Shower',
-            'corporativos': 'Corporativos',
-            'infantiles': 'Infantiles',
-            'estaciones': 'Estaciones',
-            'guias': 'Guias',
-            'tematicas': 'Tematicas',
-            'tendencias': 'Tendencias',
-            'tips-y-consejos': 'Tips y Consejos',
-            'inspiracion': 'Inspiracion'
-        };
+        async function loadArticles() {
+            loadAttempts++;
+            const grid = document.getElementById('posts-grid');
+
+            // Mostrar estado de carga
+            if (loadAttempts === 1) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <div class="loading-spinner"></div>
+                        <p style="color: #666; margin-top: 20px;">Cargando articulos...</p>
+                    </div>
+                `;
+            }
+
+            try {
+                const response = await fetch(BLOG_CONFIG.jsonFile + '?v=' + Date.now(), {
+                    cache: 'no-store',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                // Validar estructura del JSON
+                if (!data) {
+                    throw new Error('JSON vacio');
+                }
+
+                if (!data.articles) {
+                    throw new Error('Falta propiedad "articles" en el JSON');
+                }
+
+                if (!Array.isArray(data.articles)) {
+                    throw new Error('"articles" debe ser un array');
+                }
+
+                if (data.articles.length === 0) {
+                    throw new Error('El array "articles" esta vacio');
+                }
+
+                // Validar y sanitizar cada articulo
+                const allErrors = [];
+                const validArticles = [];
+
+                data.articles.forEach((article, index) => {
+                    const errors = validateArticle(article, index);
+
+                    if (errors.some(e => e.includes('[ERROR]'))) {
+                        // Errores criticos - no incluir el articulo
+                        allErrors.push(...errors);
+                        console.error(`Articulo #${index + 1} EXCLUIDO por errores criticos`);
+                    } else {
+                        // Warnings o sin errores - incluir sanitizado
+                        if (errors.length > 0) {
+                            allErrors.push(...errors);
+                        }
+                        validArticles.push(sanitizeArticle(article));
+                    }
+                });
+
+                // Mostrar resumen en consola
+                console.log('========================================');
+                console.log('BLOG MEDEDUL - Carga de Articulos');
+                console.log('========================================');
+                console.log(`Total en JSON: ${data.articles.length}`);
+                console.log(`Articulos validos: ${validArticles.length}`);
+                console.log(`Articulos excluidos: ${data.articles.length - validArticles.length}`);
+
+                if (allErrors.length > 0) {
+                    console.warn('--- Errores/Warnings encontrados ---');
+                    allErrors.forEach(err => {
+                        if (err.includes('[ERROR]')) {
+                            console.error(err);
+                        } else {
+                            console.warn(err);
+                        }
+                    });
+                }
+                console.log('========================================');
+
+                if (validArticles.length === 0) {
+                    throw new Error('Ningun articulo paso la validacion');
+                }
+
+                blogArticles = validArticles;
+                filteredArticles = [...blogArticles];
+                loadAttempts = 0; // Reset en exito
+                showPage(1);
+
+            } catch (error) {
+                console.error('Error cargando articulos:', error.message);
+
+                // Intentar con fallback si hay intentos restantes
+                if (loadAttempts < MAX_LOAD_ATTEMPTS) {
+                    console.log(`Reintentando... (${loadAttempts}/${MAX_LOAD_ATTEMPTS})`);
+                    setTimeout(loadArticles, 1000 * loadAttempts);
+                    return;
+                }
+
+                // Intentar usar fallback
+                if (typeof FALLBACK_ARTICLES !== 'undefined' && FALLBACK_ARTICLES.length > 0) {
+                    console.warn('Usando articulos de respaldo (FALLBACK)');
+                    blogArticles = FALLBACK_ARTICLES.map(sanitizeArticle);
+                    filteredArticles = [...blogArticles];
+                    showPage(1);
+                    return;
+                }
+
+                // Mostrar error final
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#E91E8C" stroke-width="2" style="margin-bottom: 20px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <h3 style="color: #333; margin-bottom: 10px;">Error al cargar articulos</h3>
+                        <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">${error.message}</p>
+                        <button onclick="loadAttempts=0; loadArticles();" style="padding: 12px 30px; background: #E91E8C; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; transition: background 0.3s;">
+                            Reintentar
+                        </button>
+                        <p style="color: #999; font-size: 0.8rem; margin-top: 15px;">
+                            Si el problema persiste, contacta al administrador.
+                        </p>
+                    </div>
+                `;
+            }
+        }
 
         // ============================================
         // RENDERIZAR CARDS
         // ============================================
-        function renderCards() {
-            const grid = document.getElementById('posts-grid');
-            grid.innerHTML = blogArticles.map(article => `
-                <article class="post-card" data-category="${article.category}">
-                    <a href="${article.slug}.html">
-                        <img decoding="async" src="${article.image}" alt="${article.title}" loading="lazy">
+        function renderCard(article) {
+            const categoryData = BLOG_CONFIG.categories[article.category] || {};
+            const categoryName = categoryData.name || article.category;
+            const defaultImg = BLOG_CONFIG.defaults.image;
+
+            return `
+                <article class="post-card" data-category="${article.category}" data-id="${article.id}">
+                    <a href="${article.slug}.html" aria-label="${article.title}">
+                        <img decoding="async" src="${article.image}" alt="${article.title}" loading="lazy" onerror="this.onerror=null; this.src='${defaultImg}';">
                     </a>
                     <div class="post-meta">
                         <span class="read-time">${article.readTime}</span>
-                        <span class="category">${categoryNames[article.category] || article.category}</span>
+                        <span class="category">${categoryName}</span>
                     </div>
                     <h3>
                         <a href="${article.slug}.html">${article.title}</a>
                     </h3>
                     <p>${article.excerpt}</p>
-                    <a href="${article.slug}.html" class="btn btn-primary">Leer mas</a>
+                    <a href="${article.slug}.html" class="btn btn-primary">${article.cta}</a>
                 </article>
-            `).join('');
+            `;
         }
 
         // ============================================
         // PAGINACION
         // ============================================
-        const ITEMS_PER_PAGE = 12;
-        let currentPage = 1;
-        let filteredArticles = [...blogArticles];
-
         function showPage(page) {
             currentPage = page;
-            const start = (page - 1) * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
-            const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+            const itemsPerPage = BLOG_CONFIG.itemsPerPage;
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
 
             const grid = document.getElementById('posts-grid');
-            grid.innerHTML = filteredArticles.slice(start, end).map(article => `
-                <article class="post-card" data-category="${article.category}">
-                    <a href="${article.slug}.html">
-                        <img decoding="async" src="${article.image}" alt="${article.title}" loading="lazy">
-                    </a>
-                    <div class="post-meta">
-                        <span class="read-time">${article.readTime}</span>
-                        <span class="category">${categoryNames[article.category] || article.category}</span>
-                    </div>
-                    <h3>
-                        <a href="${article.slug}.html">${article.title}</a>
-                    </h3>
-                    <p>${article.excerpt}</p>
-                    <a href="${article.slug}.html" class="btn btn-primary">Leer mas</a>
-                </article>
-            `).join('');
+            grid.innerHTML = filteredArticles.slice(start, end).map(renderCard).join('');
 
             renderPagination(totalPages);
-            document.getElementById('pagination-info').textContent =
-                `Mostrando ${start + 1}-${Math.min(end, filteredArticles.length)} de ${filteredArticles.length} articulos`;
+
+            const paginationInfo = document.getElementById('pagination-info');
+            if (filteredArticles.length > 0) {
+                paginationInfo.textContent = `Mostrando ${start + 1}-${Math.min(end, filteredArticles.length)} de ${filteredArticles.length} articulos`;
+            } else {
+                paginationInfo.textContent = 'No hay articulos para mostrar';
+            }
+
+            // Scroll suave al inicio de la grilla si cambia de pagina
+            if (page > 1) {
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         function renderPagination(totalPages) {
@@ -601,30 +538,401 @@
 
             if (totalPages <= 1) {
                 pagination.style.display = 'none';
-                paginationInfo.style.display = 'none';
+                paginationInfo.style.display = filteredArticles.length > 0 ? 'block' : 'none';
                 return;
             }
 
             pagination.style.display = 'flex';
             paginationInfo.style.display = 'block';
 
-            let html = `<button class="pagination-arrow ${currentPage === 1 ? 'disabled' : ''}" onclick="showPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+            let html = `<button class="pagination-arrow ${currentPage === 1 ? 'disabled' : ''}" onclick="showPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} aria-label="Pagina anterior">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>`;
 
+            // Logica de paginacion inteligente (mostrar primeras, ultimas y alrededor de actual)
+            const showPages = [];
             for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="showPage(${i})">${i}</button>`;
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    showPages.push(i);
+                } else if (showPages[showPages.length - 1] !== '...') {
+                    showPages.push('...');
+                }
             }
 
-            html += `<button class="pagination-arrow ${currentPage === totalPages ? 'disabled' : ''}" onclick="showPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+            showPages.forEach(p => {
+                if (p === '...') {
+                    html += `<span class="pagination-ellipsis">...</span>`;
+                } else {
+                    html += `<button class="pagination-btn ${p === currentPage ? 'active' : ''}" onclick="showPage(${p})">${p}</button>`;
+                }
+            });
+
+            html += `<button class="pagination-arrow ${currentPage === totalPages ? 'disabled' : ''}" onclick="showPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Pagina siguiente">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
             </button>`;
 
             pagination.innerHTML = html;
         }
 
-        // Inicializar
-        showPage(1);
+        // ============================================
+        // FILTRAR POR CATEGORIA
+        // ============================================
+        function filterByCategory(category) {
+            if (category === 'todos' || !category) {
+                filteredArticles = [...blogArticles];
+            } else {
+                filteredArticles = blogArticles.filter(a => a.category === category);
+            }
+
+            // Actualizar estado visual de filtros si existen
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.toggle('active', tag.dataset.category === category);
+            });
+
+            showPage(1);
+        }
+
+        // ============================================
+        // BUSCAR ARTICULOS
+        // ============================================
+        function searchArticles(query) {
+            if (!query || query.trim() === '') {
+                filteredArticles = [...blogArticles];
+            } else {
+                const q = query.toLowerCase().trim();
+                filteredArticles = blogArticles.filter(a =>
+                    a.title.toLowerCase().includes(q) ||
+                    a.excerpt.toLowerCase().includes(q) ||
+                    a.category.toLowerCase().includes(q)
+                );
+            }
+            showPage(1);
+        }
+
+        // ============================================
+        // INICIALIZAR
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar articulos
+            loadArticles();
+
+            // Configurar filtros de categoria si existen
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.dataset.category || this.textContent.toLowerCase().replace(/\s+/g, '-');
+                    filterByCategory(category);
+                });
+            });
+        });
+    </script>
+
+    <!-- ============================================
+         FALLBACK: Si el JSON falla, usar este array
+         N8N puede insertar articulos aqui como respaldo
+         ============================================ -->
+    <script>
+        // RESPALDO - Solo se usa si articles.json no carga
+        const FALLBACK_ARTICLES = [
+      {
+        id: 1765606565123,
+        title: "Mesa de Dulces para Bodas en CDMX: Guia Completa",
+        excerpt: "Descubre como crear la mesa de dulces perfecta para tu boda en CDMX. Incluye estilos elegantes, dulces gourmet imprescindibles como macarons y chocolates finos, decoracion personalizada y consejos de wedding planners expertos para sorprender a tus invitados.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif",
+        slug: "mesa-dulces-bodas-guia-completa",
+        readTime: "12 min lectura",
+        cta: "Ver Candy Bar Bodas"
+      },
+      {
+        id: 1765608822456,
+        title: "Mesa de Dulces para XV Anos: Ideas Espectaculares",
+        excerpt: "Transforma tu fiesta de quinceanera con una mesa de dulces espectacular en CDMX. Ideas creativas con tematicas de princesa, colores rosa y dorado, macarons personalizados y decoracion elegante que hara inolvidable tu celebracion de XV anos.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif",
+        slug: "mesa-dulces-xv-anos-ideas-tendencias",
+        readTime: "10 min lectura",
+        cta: "Ideas XV Anos"
+      },
+      {
+        id: 1765608314101,
+        title: "Mesa de Dulces Corporativa en CDMX",
+        excerpt: "Eleva tus eventos empresariales con mesas de dulces corporativas profesionales en CDMX. Soluciones elegantes con branding personalizado, dulces premium y presentacion ejecutiva perfecta para conferencias, lanzamientos y reuniones de negocios.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-empresarial-moderno-minimalista.avif",
+        slug: "mesa-dulces-eventos-corporativos-empresas",
+        readTime: "8 min lectura",
+        cta: "Candy Bar Empresarial"
+      },
+      {
+        id: 1765607325376,
+        title: "Mesa de Dulces para Baby Shower: Momentos Unicos",
+        excerpt: "Celebra la llegada de tu bebe con una mesa de dulces encantadora para baby shower en CDMX. Tematicas tiernas con ositos, elefantes o unicornios, dulces en tonos pastel rosa o azul, y detalles personalizados que emocionaran a todos tus invitados.",
+        category: "baby-shower",
+        image: "../img/galeria/candy-bar-baby-shower-celeste-macarons-osito.avif",
+        slug: "mesa-dulces-baby-shower-ideas-creativas",
+        readTime: "9 min lectura",
+        cta: "Ideas Baby Shower"
+      },
+      {
+        id: 1765606975993,
+        title: "Mesa de Dulces Mexicanos para Eventos",
+        excerpt: "Celebra con autentico sabor mexicano con nuestra mesa de dulces tradicionales para eventos en CDMX. Incluye glorias, mazapanes, cocadas, alegrías, mueganos y dulces artesanales de Oaxaca, Puebla y Michoacan con decoracion tipica mexicana.",
+        category: "tematicas",
+        image: "../img/galeria/candy-bar-dia-muertos-pan-muerto-cempasuchil.avif",
+        slug: "mesa-dulces-mexicanos-tradicionales-eventos",
+        readTime: "11 min lectura",
+        cta: "Dulces Mexicanos"
+      },
+      {
+        id: 1765606157055,
+        title: "Barra de Postres Gourmet para Eventos",
+        excerpt: "Impresiona a tus invitados con una barra de postres gourmet de alta reposteria en CDMX. Macarons franceses, petit fours, tartaletas artesanales, eclairs y creaciones de pasteleria fina que elevaran la experiencia gastronomica de tu evento.",
+        category: "estaciones",
+        image: "../img/galeria/candy-bar-elegante-terraza-atardecer.avif",
+        slug: "barra-postres-gourmet-eventos-cdmx",
+        readTime: "7 min lectura",
+        cta: "Postres Gourmet"
+      },
+      {
+        id: 1765605000001,
+        title: "Tendencias Candy Bar Bodas 2025",
+        excerpt: "Conoce las tendencias mas exclusivas en candy bar para bodas 2025: estilos minimalistas, paletas de colores naturales, dulces organicos, estaciones interactivas y presentaciones sustentables que marcaran la diferencia en tu celebracion nupcial.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-contemporanea-geometrico.avif",
+        slug: "tendencias-candy-bar-bodas-2025",
+        readTime: "8 min lectura",
+        cta: "Tendencias Bodas 2025"
+      },
+      {
+        id: 1765605000002,
+        title: "Tendencias Mesa de Dulces XV Anos 2025",
+        excerpt: "Descubre las tendencias mas innovadoras en mesas de dulces para quinceaneras 2025: tematicas modernas, colores vibrantes como lavanda y rose gold, dulces instagrameables y experiencias interactivas que haran viral tu fiesta de XV anos.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-quinceanos-moderno-rosa-plateado.avif",
+        slug: "tendencias-mesa-dulces-xv-anos-2025",
+        readTime: "9 min lectura",
+        cta: "Tendencias XV Anos"
+      },
+      {
+        id: 1765595023196,
+        title: "Mesas de Dulces para Cumpleanos Infantil",
+        excerpt: "Crea momentos magicos con mesas de dulces para fiestas infantiles en CDMX. Tematicas de superheroes, princesas, dinosaurios o unicornios con dulces coloridos, decoracion divertida y presentaciones seguras y atractivas para los mas pequenos.",
+        category: "infantiles",
+        image: "../img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif",
+        slug: "mesa-dulces-cumpleanos-infantil-ideas",
+        readTime: "10 min lectura",
+        cta: "Fiestas Infantiles"
+      },
+      {
+        id: 1765605000003,
+        title: "Guia Completa: Fuentes de Chocolate",
+        excerpt: "Todo sobre fuentes de chocolate para eventos en CDMX: tipos de chocolate belga o suizo, frutas y complementos ideales para banear, tamanos segun invitados, mantenimiento y tips profesionales para una estacion de chocolate perfecta y deliciosa.",
+        category: "guias",
+        image: "../img/galeria/candy-bar-chocolate-oscuro-elegante.avif",
+        slug: "guia-completa-fuentes-chocolate-eventos-cdmx",
+        readTime: "15 min lectura",
+        cta: "Fuentes de Chocolate"
+      },
+      {
+        id: 1765600208465,
+        title: "Catering de Dulces para Eventos Empresariales en CDMX",
+        excerpt: "Servicio profesional de catering de dulces para eventos corporativos en CDMX. Candy bar ejecutivo con dulces premium, empaque personalizado con logo empresarial y servicio integral para conferencias, seminarios y celebraciones de empresa.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-lanzamiento-producto-elegante.avif",
+        slug: "catering-dulces-eventos-empresariales-cdmx",
+        readTime: "8 min lectura",
+        cta: "Catering Corporativo"
+      },
+      {
+        id: 1765600921340,
+        title: "Colores y Tematicas para Mesa de Dulces de XV Anos",
+        excerpt: "Guia experta de colores y tematicas para tu mesa de dulces de quinceanera: combinaciones elegantes rosa con dorado, violeta con plateado, azul tiffany, tematicas de Paris, mariposas o jardin encantado que reflejaran tu personalidad unica.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-tema-princesa-castillo-rosa.avif",
+        slug: "colores-tematicas-mesa-dulces-quinceanera",
+        readTime: "10 min lectura",
+        cta: "Tematicas Quinceanera"
+      },
+      {
+        id: 1765600721284,
+        title: "Como Elegir los Colores para tu Mesa de Dulces de Boda",
+        excerpt: "Aprende a elegir la paleta de colores perfecta para tu mesa de dulces de boda en CDMX. Combinaciones clasicas blanco y dorado, romanticas rosa pastel, modernas terracota y verde salvia, segun la temporada y estilo de tu celebracion nupcial.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif",
+        slug: "como-elegir-colores-mesa-dulces-boda",
+        readTime: "12 min lectura",
+        cta: "Colores para Bodas"
+      },
+      {
+        id: 1765600361392,
+        title: "10 Errores que Arruinan tu Mesa de Dulces de Boda",
+        excerpt: "Evita los 10 errores mas comunes al planear tu mesa de dulces para boda: cantidad incorrecta de dulces por invitado, mala ubicacion, dulces que se derriten, falta de variedad y otros fallos que arruinan la experiencia de tu candy bar nupcial.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-vintage-madera-flores.avif",
+        slug: "errores-comunes-mesa-dulces-boda",
+        readTime: "11 min lectura",
+        cta: "Evitar Errores Boda"
+      },
+      {
+        id: 1765600123813,
+        title: "7 Errores Comunes en Mesas de Dulces para XV Anos",
+        excerpt: "Descubre los 7 errores fatales al organizar una mesa de dulces para XV anos y como evitarlos: presupuesto mal calculado, tematica inconsistente, dulces inadecuados para jovenes y mas consejos para una quinceanera perfecta sin contratiempos.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-princesa-elegante-cupcakes-coronas.avif",
+        slug: "errores-comunes-mesa-dulces-xv-anos",
+        readTime: "9 min lectura",
+        cta: "Evitar Errores XV Anos"
+      },
+      {
+        id: 1765600856059,
+        title: "Estaciones Interactivas de Dulces para Team Building",
+        excerpt: "Fortalece tu equipo con estaciones interactivas de dulces para team building en CDMX. Dinamicas de decoracion de cupcakes, creacion de candy bags y experiencias colaborativas que fomentan la creatividad y union entre colaboradores.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-gourmet-elegante.avif",
+        slug: "estaciones-interactivas-team-building",
+        readTime: "8 min lectura",
+        cta: "Team Building Dulce"
+      },
+      {
+        id: 1765600901983,
+        title: "Ideas para Mesa de Dulces de Baby Shower Perfecta",
+        excerpt: "Inspira tu baby shower con ideas creativas de mesas de dulces en CDMX: tematicas de safari, nubes, estrellas o cuentos infantiles, dulces en forma de biberones y carreolas, y detalles personalizados para revelar el genero o celebrar la llegada del bebe.",
+        category: "baby-shower",
+        image: "../img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif",
+        slug: "ideas-mesa-dulces-baby-shower-perfecta",
+        readTime: "9 min lectura",
+        cta: "Inspiracion Baby Shower"
+      },
+      {
+        id: 1765600923707,
+        title: "Mesa de Dulces para Bautizo Elegante en CDMX",
+        excerpt: "Celebra el bautizo de tu bebe con una mesa de dulces elegante y significativa en CDMX. Dulces en tonos blancos y celestes o rosas, simbolos religiosos como cruces y palomas, y presentacion sofisticada para esta ceremonia tan especial.",
+        category: "baby-shower",
+        image: "../img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif",
+        slug: "mesa-dulces-bautizo-elegante-cdmx",
+        readTime: "9 min lectura",
+        cta: "Candy Bar Bautizo"
+      },
+      {
+        id: 1765600566314,
+        title: "Mesa de Dulces para Boda Intima y Pequena",
+        excerpt: "Crea una mesa de dulces perfecta para bodas intimas de 20 a 50 invitados en CDMX. Proporciones ideales, seleccion curada de dulces gourmet, presentacion elegante y detalles personalizados que hacen especial cada celebracion pequena.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-blanca-total-minimalista.avif",
+        slug: "mesa-dulces-boda-intima-pequena",
+        readTime: "11 min lectura",
+        cta: "Bodas Intimas"
+      },
+      {
+        id: 1765600471907,
+        title: "Mesa de Dulces para Boda en Jardin: Guia Completa",
+        excerpt: "Guia esencial para mesas de dulces en bodas al aire libre y jardines de CDMX. Dulces resistentes al calor, proteccion contra insectos, decoracion botanica, flores naturales y soluciones creativas para candy bars en exteriores perfectos.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-exterior-elegante-flores-rosas.avif",
+        slug: "mesa-dulces-boda-jardin-exterior",
+        readTime: "11 min lectura",
+        cta: "Bodas en Jardin"
+      },
+      {
+        id: 1765600695815,
+        title: "Mesa de Dulces para Bodas en Polanco, Lomas y Santa Fe",
+        excerpt: "Servicio exclusivo de mesas de dulces para bodas de lujo en las zonas mas exclusivas de CDMX: Polanco, Lomas de Chapultepec, Santa Fe y Pedregal. Dulces premium, cristaleria fina y presentacion impecable para celebraciones de alta gama.",
+        category: "bodas",
+        image: "../img/galeria/candy-bar-boda-lujoso-cristal-flores.avif",
+        slug: "mesa-dulces-bodas-exclusivas-cdmx",
+        readTime: "10 min lectura",
+        cta: "Bodas Exclusivas CDMX"
+      },
+      {
+        id: 1765600536814,
+        title: "Mesa de Dulces para Conferencias y Congresos",
+        excerpt: "Servicio profesional de mesas de dulces para conferencias y congresos en CDMX. Coffee breaks ejecutivos, dulces energeticos para networking, presentacion corporativa elegante y logistica impecable para eventos de gran formato.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-profesional-eventos.avif",
+        slug: "mesa-dulces-conferencias-congresos",
+        readTime: "8 min lectura",
+        cta: "Conferencias y Congresos"
+      },
+      {
+        id: 1765600371913,
+        title: "Mesa de Dulces para Eventos Corporativos CDMX",
+        excerpt: "Mesas de dulces profesionales para eventos corporativos en zonas empresariales de CDMX: Polanco, Santa Fe, Reforma e Insurgentes. Candy bar con imagen institucional, dulces de calidad premium y servicio puntual para empresas exigentes.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-empresarial-moderno-minimalista.avif",
+        slug: "mesa-dulces-eventos-corporativos-cdmx",
+        readTime: "8 min lectura",
+        cta: "Eventos Corporativos"
+      },
+      {
+        id: 1765600739097,
+        title: "Mesa de Dulces para Lanzamiento de Productos",
+        excerpt: "Destaca tu lanzamiento de producto con una mesa de dulces con branding corporativo en CDMX. Dulces personalizados con logo, colores institucionales, packaging exclusivo y experiencias memorables que refuerzan tu marca ante clientes y medios.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-graduacion-birrete-elegante.avif",
+        slug: "mesa-dulces-lanzamiento-productos",
+        readTime: "8 min lectura",
+        cta: "Lanzamientos de Marca"
+      },
+      {
+        id: 1765600336569,
+        title: "Mesa de Dulces para XV Anos Elegante en CDMX",
+        excerpt: "Haz realidad el sueno de tu quinceanera con una mesa de dulces elegante en CDMX. Macarons en colores personalizados, chocolates finos, cake pops decorados y una presentacion digna de princesa que sera el centro de atencion de tu fiesta.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-quinceanera-rosa-fresas-dorado.avif",
+        slug: "mesa-dulces-xv-anos-elegante-cdmx",
+        readTime: "10 min lectura",
+        cta: "XV Anos Elegantes"
+      },
+      {
+        id: 1765600944405,
+        title: "Mesa de Dulces XV Anos Elegante y Sofisticada",
+        excerpt: "Eleva tu celebracion de XV anos con una mesa de dulces sofisticada y de alta gama en CDMX. Seleccion curada de dulces artesanales, decoracion con flores naturales, cristaleria elegante y detalles de lujo que impresionaran a todos tus invitados.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-quinceanera-violeta-macarons.avif",
+        slug: "mesa-dulces-xv-anos-elegante-sofisticada",
+        readTime: "9 min lectura",
+        cta: "Quinceanera Sofisticada"
+      },
+      {
+        id: 1765600694940,
+        title: "Presupuesto Mesa de Dulces para XV Anos",
+        excerpt: "Conoce los precios y presupuestos reales de mesas de dulces para XV anos en CDMX. Desglose de costos por paquete, opciones desde economicas hasta premium, que incluye cada servicio y como optimizar tu inversion para una fiesta inolvidable.",
+        category: "xv-anos",
+        image: "../img/galeria/candy-bar-princesa-elegante-rosa-dorado.avif",
+        slug: "presupuesto-mesa-dulces-quinceanera",
+        readTime: "9 min lectura",
+        cta: "Precios XV Anos"
+      },
+      {
+        id: 1765600508020,
+        title: "ROI de Mesas de Dulces en Eventos Corporativos",
+        excerpt: "Aprende a medir el retorno de inversion de mesas de dulces en eventos corporativos. Metricas clave de engagement, satisfaccion de asistentes, impacto en networking y como justificar el presupuesto de catering dulce ante directivos.",
+        category: "corporativos",
+        image: "../img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif",
+        slug: "roi-mesas-dulces-eventos-corporativos",
+        readTime: "8 min lectura",
+        cta: "ROI Eventos Empresa"
+      },
+      {
+        id: 1765600691232,
+        title: "Tendencias Mesas de Dulces 2025 CDMX",
+        excerpt: "Descubre las tendencias que dominaran las mesas de dulces en 2025 en CDMX: estilos minimalistas japoneses, dulces plant-based, colores terrosos naturales, experiencias sensoriales inmersivas y presentaciones eco-friendly sustentables.",
+        category: "tendencias",
+        image: "../img/galeria/candy-bar-colorido-fiestas.avif",
+        slug: "tendencias-mesas-dulces-2025-cdmx",
+        readTime: "9 min lectura",
+        cta: "Tendencias 2025"
+      }
+    ];
+
+        // Si el JSON no cargo, usar fallback
+        if (blogArticles.length === 0 && FALLBACK_ARTICLES.length > 0) {
+            console.warn('Usando articulos de respaldo');
+            blogArticles = FALLBACK_ARTICLES.map(sanitizeArticle);
+            filteredArticles = [...blogArticles];
+            showPage(1);
+        }
     </script>
 
 <script>
