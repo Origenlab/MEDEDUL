@@ -1,108 +1,167 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-    <script
-        src="https://app.rybbit.io/api/script.js"
-        data-site-id="d0ab4d9bb6d4"
-        defer
-    ></script>
+    <script src="https://app.rybbit.io/api/script.js" data-site-id="d0ab4d9bb6d4" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- ============================================
-     VARIABLES N8N - REEMPLAZAR ESTAS:
-     {{TITULO}} - Titulo completo del articulo
-     {{SLUG}} - URL amigable (solo a-z, 0-9, guiones)
+     TEMPLATE ARTICULO MEDEDUL v2.0
+     Sistema Profesional de Generacion de Contenido
+
+     VARIABLES (N8N reemplaza estas):
+     {{TITULO}}           - Titulo H1 del articulo (40-65 chars)
+     {{SLUG}}             - URL amigable (a-z, 0-9, guiones)
      {{META_DESCRIPTION}} - Descripcion SEO (150-160 chars)
-     {{META_KEYWORDS}} - Palabras clave separadas por coma
-     {{CATEGORIA}} - Categoria del articulo
-     {{CATEGORIA_SLUG}} - Slug de categoria (bodas, xv-anos, etc)
-     {{IMAGEN_PRINCIPAL}} - Ruta imagen destacada
-     {{IMAGEN_ALT}} - Texto alternativo imagen
-     {{BREADCRUMB_TEXT}} - Texto corto para breadcrumb
-     {{TIEMPO_LECTURA}} - Ej: "12 min lectura"
-     {{CONTENIDO}} - HTML del contenido completo
-     {{FAQ_SCHEMA}} - JSON de preguntas frecuentes
+     {{META_KEYWORDS}}    - Keywords separadas por coma
+     {{CATEGORIA}}        - Nombre categoria (Bodas, XV Anos, etc)
+     {{CATEGORIA_SLUG}}   - Slug categoria (bodas, xv-anos, etc)
+     {{IMAGEN_PRINCIPAL}} - Ruta imagen (img/galeria/...)
+     {{IMAGEN_ALT}}       - Alt de imagen descriptivo
+     {{BREADCRUMB_TEXT}}  - Texto corto breadcrumb (15-25 chars)
+     {{TIEMPO_LECTURA}}   - Ej: "10 min lectura"
+     {{CONTENIDO}}        - HTML completo del articulo
+     {{FAQ_SCHEMA}}       - JSON-LD de FAQs para SEO
      ============================================ -->
 
-<title>{{TITULO}} | Mededul</title>
+<title>{{TITULO}} | Mededul - Mesas de Dulces CDMX</title>
 <meta name="description" content="{{META_DESCRIPTION}}">
-<meta name="keywords" content="{{META_KEYWORDS}}">
+<meta name="keywords" content="{{META_KEYWORDS}}, mesas de dulces CDMX, candy bar profesional">
 <meta name="author" content="Mededul - Mesas de Dulces Profesionales">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="googlebot" content="index, follow">
 
+<!-- Canonical -->
 <link rel="canonical" href="https://mesas-de-dulces.com/blog/{{SLUG}}.html">
 
+<!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mesas-de-dulces.com/blog/{{SLUG}}.html">
-<meta property="og:title" content="{{TITULO}}">
+<meta property="og:title" content="{{TITULO}} | Mededul">
 <meta property="og:description" content="{{META_DESCRIPTION}}">
 <meta property="og:image" content="https://mesas-de-dulces.com/{{IMAGEN_PRINCIPAL}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="Mededul - Mesas de Dulces">
 <meta property="article:section" content="{{CATEGORIA}}">
+<meta property="article:author" content="Mededul">
 
+<!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{TITULO}}">
 <meta name="twitter:description" content="{{META_DESCRIPTION}}">
+<meta name="twitter:image" content="https://mesas-de-dulces.com/{{IMAGEN_PRINCIPAL}}">
 
+<!-- Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="../img/branding/favicon-mededul-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../img/branding/favicon-mededul-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../img/branding/apple-touch-icon.png">
 <meta name="theme-color" content="#E91E8C">
 
+<!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<!-- Styles -->
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="stylesheet" href="../css/header-footer.css">
 <link rel="stylesheet" href="../css/blog-article.css">
 
-<!-- Schema Article -->
+<!-- Schema.org Article -->
 <script type="application/ld+json">
 {
-"@context": "https://schema.org",
-"@type": "Article",
-"headline": "{{TITULO}}",
-"description": "{{META_DESCRIPTION}}",
-"image": "https://mesas-de-dulces.com/{{IMAGEN_PRINCIPAL}}",
-"author": {
-"@type": "Organization",
-"name": "Mededul",
-"url": "https://mesas-de-dulces.com"
-},
-"publisher": {
-"@type": "Organization",
-"name": "Mededul",
-"logo": {
-"@type": "ImageObject",
-"url": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif"
-}
-},
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https://mesas-de-dulces.com/blog/{{SLUG}}.html"
-}
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITULO}}",
+    "description": "{{META_DESCRIPTION}}",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://mesas-de-dulces.com/{{IMAGEN_PRINCIPAL}}",
+        "width": 1200,
+        "height": 630
+    },
+    "author": {
+        "@type": "Organization",
+        "name": "Mededul",
+        "url": "https://mesas-de-dulces.com",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif"
+        }
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Mededul - Mesas de Dulces",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+            "width": 225,
+            "height": 75
+        }
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://mesas-de-dulces.com/blog/{{SLUG}}.html"
+    },
+    "articleSection": "{{CATEGORIA}}",
+    "inLanguage": "es-MX"
 }
 </script>
 
-<!-- Schema Breadcrumb -->
+<!-- Schema.org BreadcrumbList -->
 <script type="application/ld+json">
 {
-"@context": "https://schema.org",
-"@type": "BreadcrumbList",
-"itemListElement": [
-{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com"},
-{"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mesas-de-dulces.com/blog/"},
-{"@type": "ListItem", "position": 3, "name": "{{BREADCRUMB_TEXT}}", "item": "https://mesas-de-dulces.com/blog/{{SLUG}}.html"}
-]
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com"},
+        {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mesas-de-dulces.com/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "{{CATEGORIA}}", "item": "https://mesas-de-dulces.com/blog/?categoria={{CATEGORIA_SLUG}}"},
+        {"@type": "ListItem", "position": 4, "name": "{{BREADCRUMB_TEXT}}", "item": "https://mesas-de-dulces.com/blog/{{SLUG}}.html"}
+    ]
 }
 </script>
 
-<!-- Schema FAQ - N8N genera este JSON -->
+<!-- Schema.org FAQPage -->
 <script type="application/ld+json">
 {{FAQ_SCHEMA}}
+</script>
+
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Mededul - Mesas de Dulces",
+    "image": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+    "telephone": "+52-55-2522-6442",
+    "email": "info@mesas-de-dulces.com",
+    "url": "https://mesas-de-dulces.com",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Baja California 255, Col. Condesa",
+        "addressLocality": "Ciudad de Mexico",
+        "addressRegion": "CDMX",
+        "postalCode": "06170",
+        "addressCountry": "MX"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 19.4117,
+        "longitude": -99.1730
+    },
+    "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico"
+    },
+    "priceRange": "$$$"
+}
 </script>
 
 </head>
@@ -113,7 +172,7 @@
     <div class="container">
         <div class="top-bar-content">
             <div class="top-bar-left">
-                <span class="top-bar-highlight">Mesas de Dulces</span>
+                <span class="top-bar-highlight">Mesas de Dulces Premium</span>
                 <span class="top-bar-separator">|</span>
                 <span class="top-bar-text">Servicio en toda la CDMX y Area Metropolitana</span>
             </div>
@@ -155,13 +214,10 @@
 
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="/" class="nav-link">Inicio</a></li>
-
                 <li class="nav-dropdown">
                     <a href="../servicios.html" class="nav-link nav-link-dropdown">
                         Servicios
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
                     <ul class="dropdown-menu dropdown-mega">
                         <li class="dropdown-column">
@@ -171,10 +227,6 @@
                                 <li><a href="../tipos-de-mesas-de-dulces/mesa-de-frutas.html">Mesa de Frutas</a></li>
                                 <li><a href="../tipos-de-mesas-de-dulces/mesa-de-postres.html">Mesa de Postres</a></li>
                                 <li><a href="../tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos.html">Quesos y Embutidos</a></li>
-                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-snacks.html">Mesa de Snacks</a></li>
-                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-botanas.html">Mesa de Botanas</a></li>
-                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales.html">Dulces Tradicionales</a></li>
-                                <li><a href="../tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes.html">Donas y Cupcakes</a></li>
                             </ul>
                             <a href="../tipos-de-mesas-de-dulces.html" class="ver-todos">Ver todos los tipos</a>
                         </li>
@@ -184,10 +236,6 @@
                                 <li><a href="../candy-bar-eventos/mesa-dulces-boda.html">Bodas</a></li>
                                 <li><a href="../candy-bar-eventos/mesa-dulces-xv-anos.html">XV Anos</a></li>
                                 <li><a href="../candy-bar-eventos/mesa-dulces-baby-shower.html">Baby Shower</a></li>
-                                <li><a href="../candy-bar-eventos/mesa-dulces-bautizo.html">Bautizos</a></li>
-                                <li><a href="../candy-bar-eventos/mesa-dulces-primera-comunion.html">Primera Comunion</a></li>
-                                <li><a href="../candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html">Cumpleanos Infantil</a></li>
-                                <li><a href="../candy-bar-eventos/mesa-dulces-graduacion.html">Graduaciones</a></li>
                                 <li><a href="../candy-bar-eventos/mesa-dulces-corporativos.html">Corporativos</a></li>
                             </ul>
                             <a href="../candy-bar-eventos.html" class="ver-todos">Ver todos los eventos</a>
@@ -198,7 +246,6 @@
                                 <li><a href="../estaciones-interactivas/fuente-de-chocolate.html">Fuente de Chocolate</a></li>
                                 <li><a href="../estaciones-interactivas/fuente-de-chamoy.html">Fuente de Chamoy</a></li>
                                 <li><a href="../estaciones-interactivas/pared-de-dulces.html">Pared de Dulces</a></li>
-                                <li><a href="../estaciones-interactivas/stand-para-pastel.html">Stand para Pastel</a></li>
                             </ul>
                             <a href="../estaciones-interactivas.html" class="ver-todos">Ver todas las estaciones</a>
                         </li>
@@ -208,37 +255,29 @@
                                 <li><a href="../porque-mededul/diseno-personalizado.html">Diseno Personalizado</a></li>
                                 <li><a href="../porque-mededul/calidad-premium.html">Calidad Premium</a></li>
                                 <li><a href="../porque-mededul/servicio-completo.html">Servicio Completo</a></li>
-                                <li><a href="../porque-mededul/cero-estres.html">Cero Estres</a></li>
                             </ul>
                             <a href="../porque-mededul.html" class="ver-todos">Conoce mas de nosotros</a>
                         </li>
                     </ul>
                 </li>
-
                 <li><a href="../nosotros.html" class="nav-link">Nosotros</a></li>
-                <li><a href="/blog/" class="nav-link">Blog</a></li>
+                <li><a href="/blog/" class="nav-link active">Blog</a></li>
                 <li><a href="../contacto.html" class="nav-link">Contacto</a></li>
             </ul>
 
             <div class="nav-actions">
-                <a href="tel:+525525226442" class="nav-phone">
-                    <span>55 2522 6442</span>
-                </a>
-                <a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces" class="btn-cta-nav" target="_blank" rel="noopener">
-                    Cotizar Ahora
-                </a>
+                <a href="tel:+525525226442" class="nav-phone"><span>55 2522 6442</span></a>
+                <a href="https://wa.me/525525226442?text=Hola!%20Me%20gustaria%20cotizar%20una%20mesa%20de%20dulces" class="btn-cta-nav" target="_blank" rel="noopener">Cotizar Ahora</a>
             </div>
 
             <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </nav>
     </div>
 </header>
 
-<!-- ========== BREADCRUMB SECTION ========== -->
+<!-- ========== BREADCRUMB ========== -->
 <section class="breadcrumb-section">
     <div class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -246,13 +285,18 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
             <a href="/blog/">Blog</a>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
-            <span>{{BREADCRUMB_TEXT}}</span>
+            <a href="/blog/?categoria={{CATEGORIA_SLUG}}">{{CATEGORIA}}</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+            <span aria-current="page">{{BREADCRUMB_TEXT}}</span>
         </nav>
     </div>
 </section>
 
 <!-- ========== ARTICLE ========== -->
-<article>
+<article itemscope itemtype="https://schema.org/Article">
+<meta itemprop="author" content="Mededul">
+<meta itemprop="publisher" content="Mededul - Mesas de Dulces">
+
 <header class="article-hero">
 <div class="article-hero-content">
 <div class="container">
@@ -263,16 +307,16 @@
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
 <span>{{BREADCRUMB_TEXT}}</span>
 </nav>
-<span class="article-category-tag">{{CATEGORIA}}</span>
-<h1>{{TITULO}}</h1>
+<span class="article-category-tag" itemprop="articleSection">{{CATEGORIA}}</span>
+<h1 itemprop="headline">{{TITULO}}</h1>
 <div class="article-hero-meta">
-<span>
+<span itemprop="timeRequired">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 {{TIEMPO_LECTURA}}
 </span>
 <span>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-Guia Completa
+Guia Profesional
 </span>
 </div>
 </div>
@@ -284,41 +328,43 @@ Guia Completa
 <div class="article-container">
 
 <figure class="article-featured-image">
-<img src="../{{IMAGEN_PRINCIPAL}}" alt="{{IMAGEN_ALT}}" loading="eager" width="800" height="400">
+<img src="../{{IMAGEN_PRINCIPAL}}"
+     alt="{{IMAGEN_ALT}}"
+     loading="eager"
+     width="800"
+     height="450"
+     itemprop="image"
+     onerror="this.onerror=null;this.src='../img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif';">
+<figcaption class="visually-hidden">{{IMAGEN_ALT}}</figcaption>
 </figure>
 
-<div class="article-content">
+<div class="article-content" itemprop="articleBody">
 
-<!-- ========== CONTENIDO DEL ARTICULO ========== -->
-<!-- N8N: Insertar aqui todo el contenido HTML -->
-
+<!-- ========== CONTENIDO GENERADO POR N8N ========== -->
 {{CONTENIDO}}
-
 <!-- ========== FIN CONTENIDO ========== -->
 
-<!-- CTA Final del Articulo -->
+<!-- CTA Final -->
 <div class="article-cta">
-<h3>¿Listo para tu mesa de dulces perfecta?</h3>
-<p>Transforma tu evento en una experiencia inolvidable. Cotiza sin compromiso.</p>
-<a href="https://wa.me/525525226442?text=Hola!%20Me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20para%20mi%20evento" class="btn-cta" target="_blank" rel="noopener">
-<svg viewBox="0 0 24 24" fill="currentColor">
-<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-</svg>
-Cotizar mi Mesa de Dulces
+<h3>¿Listo para crear tu mesa de dulces perfecta?</h3>
+<p>Transformamos tu evento en una experiencia inolvidable. Cotiza sin compromiso y recibe asesoria personalizada.</p>
+<a href="https://wa.me/525525226442?text=Hola!%20Lei%20el%20articulo%20{{SLUG}}%20y%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces" class="btn-cta" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+Cotizar Mesa de Dulces
 </a>
 </div>
 
-<!-- Botones Compartir -->
+<!-- Compartir -->
 <div class="article-share">
-<span>Compartir:</span>
+<span>Compartir articulo:</span>
 <div class="share-links">
-<a href="#" aria-label="Compartir en Facebook">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://mesas-de-dulces.com/blog/{{SLUG}}.html" target="_blank" rel="noopener" aria-label="Compartir en Facebook">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
 </a>
-<a href="#" aria-label="Compartir en Pinterest">
+<a href="https://pinterest.com/pin/create/button/?url=https://mesas-de-dulces.com/blog/{{SLUG}}.html&media=https://mesas-de-dulces.com/{{IMAGEN_PRINCIPAL}}&description={{TITULO}}" target="_blank" rel="noopener" aria-label="Compartir en Pinterest">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
 </a>
-<a href="#" aria-label="Compartir en WhatsApp">
+<a href="https://wa.me/?text={{TITULO}}%20-%20https://mesas-de-dulces.com/blog/{{SLUG}}.html" target="_blank" rel="noopener" aria-label="Compartir en WhatsApp">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 </div>
@@ -334,7 +380,7 @@ Cotizar mi Mesa de Dulces
 <div class="sidebar-cta-badge">Atencion Personalizada</div>
 <h4>¿Planeas tu Evento?</h4>
 <p>Creamos mesas de dulces elegantes para cualquier ocasion</p>
-<a href="https://wa.me/525525226442?text=Hola%2C%20me%20interesa%20una%20mesa%20de%20dulces" class="sidebar-cta-btn-wa" target="_blank" rel="noopener">
+<a href="https://wa.me/525525226442?text=Hola%2C%20me%20interesa%20una%20mesa%20de%20dulces%20para%20mi%20evento" class="sidebar-cta-btn-wa" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.79l4.925-1.564A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.487 0-4.786-.778-6.684-2.1l-3.473 1.102 1.083-3.363A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 Cotizar por WhatsApp
 </a>
@@ -347,30 +393,12 @@ Cotizar por WhatsApp
 Servicios Destacados
 </h3>
 <div class="sidebar-services-grid">
-<a href="../candy-bar-eventos/mesa-dulces-boda.html" class="sidebar-service-item">
-<span class="service-icon">💒</span>
-<span class="service-name">Bodas</span>
-</a>
-<a href="../candy-bar-eventos/mesa-dulces-xv-anos.html" class="sidebar-service-item">
-<span class="service-icon">👑</span>
-<span class="service-name">XV Anos</span>
-</a>
-<a href="../candy-bar-eventos/mesa-dulces-baby-shower.html" class="sidebar-service-item">
-<span class="service-icon">👶</span>
-<span class="service-name">Baby Shower</span>
-</a>
-<a href="../candy-bar-eventos/mesa-dulces-corporativos.html" class="sidebar-service-item">
-<span class="service-icon">🏢</span>
-<span class="service-name">Corporativos</span>
-</a>
-<a href="../candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html" class="sidebar-service-item">
-<span class="service-icon">🎂</span>
-<span class="service-name">Cumpleanos</span>
-</a>
-<a href="../estaciones-interactivas/fuente-de-chocolate.html" class="sidebar-service-item">
-<span class="service-icon">🍫</span>
-<span class="service-name">Estaciones</span>
-</a>
+<a href="../candy-bar-eventos/mesa-dulces-boda.html" class="sidebar-service-item"><span class="service-icon">💒</span><span class="service-name">Bodas</span></a>
+<a href="../candy-bar-eventos/mesa-dulces-xv-anos.html" class="sidebar-service-item"><span class="service-icon">👑</span><span class="service-name">XV Anos</span></a>
+<a href="../candy-bar-eventos/mesa-dulces-baby-shower.html" class="sidebar-service-item"><span class="service-icon">👶</span><span class="service-name">Baby Shower</span></a>
+<a href="../candy-bar-eventos/mesa-dulces-corporativos.html" class="sidebar-service-item"><span class="service-icon">🏢</span><span class="service-name">Corporativos</span></a>
+<a href="../candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html" class="sidebar-service-item"><span class="service-icon">🎂</span><span class="service-name">Cumpleanos</span></a>
+<a href="../estaciones-interactivas/fuente-de-chocolate.html" class="sidebar-service-item"><span class="service-icon">🍫</span><span class="service-name">Estaciones</span></a>
 </div>
 </div>
 
@@ -408,18 +436,9 @@ Zonas de Cobertura
 
 <div class="sidebar-widget sidebar-stats-widget">
 <div class="sidebar-stats-grid">
-<div class="sidebar-stat-item">
-<span class="stat-number">500+</span>
-<span class="stat-label">Eventos</span>
-</div>
-<div class="sidebar-stat-item">
-<span class="stat-number">7+</span>
-<span class="stat-label">Anos</span>
-</div>
-<div class="sidebar-stat-item">
-<span class="stat-number">98%</span>
-<span class="stat-label">Satisfaccion</span>
-</div>
+<div class="sidebar-stat-item"><span class="stat-number">500+</span><span class="stat-label">Eventos</span></div>
+<div class="sidebar-stat-item"><span class="stat-number">7+</span><span class="stat-label">Anos</span></div>
+<div class="sidebar-stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfaccion</span></div>
 </div>
 </div>
 
@@ -429,21 +448,9 @@ Zonas de Cobertura
 Te Puede Interesar
 </h3>
 <div class="sidebar-related-links">
-<a href="/blog/" class="sidebar-related-link">
-<span class="related-icon">📚</span>
-<span class="related-text">Mas Articulos del Blog</span>
-<span class="related-arrow">→</span>
-</a>
-<a href="../tipos-de-mesas-de-dulces.html" class="sidebar-related-link">
-<span class="related-icon">🎨</span>
-<span class="related-text">Tipos de Mesas de Dulces</span>
-<span class="related-arrow">→</span>
-</a>
-<a href="../porque-mededul.html" class="sidebar-related-link">
-<span class="related-icon">⭐</span>
-<span class="related-text">¿Por Que Mededul?</span>
-<span class="related-arrow">→</span>
-</a>
+<a href="/blog/" class="sidebar-related-link"><span class="related-icon">📚</span><span class="related-text">Mas Articulos del Blog</span><span class="related-arrow">→</span></a>
+<a href="../tipos-de-mesas-de-dulces.html" class="sidebar-related-link"><span class="related-icon">🎨</span><span class="related-text">Tipos de Mesas de Dulces</span><span class="related-arrow">→</span></a>
+<a href="../porque-mededul.html" class="sidebar-related-link"><span class="related-icon">⭐</span><span class="related-text">¿Por Que Mededul?</span><span class="related-arrow">→</span></a>
 </div>
 </div>
 
@@ -528,11 +535,6 @@ Agendar Consultoria
                         <p class="sucursal-direccion">Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
                         <a href="https://maps.app.goo.gl/JV69HuQt3djPx9WZ9" target="_blank" rel="noopener" class="sucursal-mapa">Ver en Google Maps</a>
                     </div>
-                    <div class="sucursal-card">
-                        <span class="sucursal-badge">Sucursal Anzures</span>
-                        <p class="sucursal-direccion">Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-                        <a href="https://maps.app.goo.gl/Ze5acD2HRQ73QTa86" target="_blank" rel="noopener" class="sucursal-mapa">Ver en Google Maps</a>
-                    </div>
                     <div class="contacto-directo">
                         <a href="tel:+525525226442" class="footer-phone">55 2522 6442</a>
                         <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
@@ -559,93 +561,101 @@ Agendar Consultoria
 </footer>
 
 <!-- WhatsApp Float -->
-<a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" onclick="if(typeof rybbit!=='undefined')rybbit.event('whatsapp_click',{page:location.pathname})">
+<a href="https://wa.me/525525226442?text=Hola!%20Me%20gustaria%20cotizar%20una%20mesa%20de%20dulces" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
     <span class="whatsapp-badge">1</span>
     <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
 </a>
 
 <!-- Scripts -->
 <script>
-// Header scroll effect
-const header = document.getElementById('header');
-if (header) {
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.pageYOffset > 50);
-    });
-    header.classList.toggle('scrolled', window.pageYOffset > 50);
-}
+(function() {
+    'use strict';
 
-// Mobile menu toggle
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
-
-    const navLinks = navMenu.querySelectorAll('.nav-link:not(.nav-link-dropdown)');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
-    });
-}
-
-// Mobile accordion menu
-const isMobile = () => window.innerWidth <= 768;
-
-const dropdownParents = document.querySelectorAll('.nav-dropdown');
-dropdownParents.forEach(dropdown => {
-    const toggleLink = dropdown.querySelector('.nav-link-dropdown');
-    if (toggleLink) {
-        toggleLink.addEventListener('click', (e) => {
-            if (isMobile()) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdownParents.forEach(other => {
-                    if (other !== dropdown) {
-                        other.classList.remove('active');
-                    }
-                });
-                dropdown.classList.toggle('active');
-            }
-        });
-    }
-});
-
-const dropdownColumns = document.querySelectorAll('.dropdown-column');
-dropdownColumns.forEach(column => {
-    const header = column.querySelector('.dropdown-header');
+    // Header scroll
+    const header = document.getElementById('header');
     if (header) {
-        header.addEventListener('click', (e) => {
-            if (isMobile()) {
-                e.preventDefault();
-                e.stopPropagation();
-                column.classList.toggle('active');
-            }
-        });
+        const updateHeader = () => header.classList.toggle('scrolled', window.pageYOffset > 50);
+        window.addEventListener('scroll', updateHeader, { passive: true });
+        updateHeader();
     }
-});
 
-const menuLinks = document.querySelectorAll('.dropdown-column ul li a, .dropdown-column a.ver-todos');
-menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (isMobile()) {
-            const navMenu = document.getElementById('nav-menu');
-            const hamburger = document.getElementById('hamburger');
-            if (navMenu && hamburger) {
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        navMenu.querySelectorAll('.nav-link:not(.nav-link-dropdown)').forEach(link => {
+            link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
-            }
-            document.querySelectorAll('.nav-dropdown, .dropdown-column').forEach(el => {
-                el.classList.remove('active');
+            });
+        });
+    }
+
+    // Mobile dropdowns
+    const isMobile = () => window.innerWidth <= 768;
+
+    document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+        const toggle = dropdown.querySelector('.nav-link-dropdown');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                if (isMobile()) {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav-dropdown').forEach(d => {
+                        if (d !== dropdown) d.classList.remove('active');
+                    });
+                    dropdown.classList.toggle('active');
+                }
             });
         }
     });
-});
+
+    document.querySelectorAll('.dropdown-column').forEach(col => {
+        const header = col.querySelector('.dropdown-header');
+        if (header) {
+            header.addEventListener('click', (e) => {
+                if (isMobile()) {
+                    e.preventDefault();
+                    col.classList.toggle('active');
+                }
+            });
+        }
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.dropdown-column ul li a, .dropdown-column a.ver-todos').forEach(link => {
+        link.addEventListener('click', () => {
+            if (isMobile()) {
+                navMenu?.classList.remove('active');
+                hamburger?.classList.remove('active');
+                document.querySelectorAll('.nav-dropdown, .dropdown-column').forEach(el => el.classList.remove('active'));
+            }
+        });
+    });
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            q.parentElement.classList.toggle('active');
+        });
+    });
+})();
 </script>
 </body>
 </html>

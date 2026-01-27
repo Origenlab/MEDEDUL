@@ -1,25 +1,40 @@
 /**
  * ============================================
- * CONFIGURACION CENTRALIZADA DEL BLOG MEDEDUL
+ * CONFIGURACION CENTRALIZADA BLOG MEDEDUL v2.0
+ * Sistema Profesional de Gestion de Contenido
  * ============================================
  *
- * Este archivo contiene TODA la configuracion del blog.
- * N8N y el sitio web usan estas mismas constantes.
+ * Este archivo es la UNICA fuente de verdad para:
+ * - Configuracion del sitio web (blog/index.html)
+ * - Workflow N8N de generacion de articulos
  *
- * IMPORTANTE: No modificar sin actualizar el WORKFLOW
+ * IMPORTANTE: Cambios aqui afectan ambos sistemas
  */
 
 const BLOG_CONFIG = {
     // ============================================
+    // VERSION Y METADATA
+    // ============================================
+    version: '2.0.0',
+    lastUpdate: '2025-01-27',
+
+    // ============================================
     // ARCHIVOS Y RUTAS
     // ============================================
-    jsonFile: 'articles.json',
-    templateFile: 'TEMPLATE-ARTICULO.html',
+    paths: {
+        jsonFile: 'articles.json',
+        templateFile: 'TEMPLATE-ARTICULO.html',
+        articlesDir: '/blog/',
+        imagesDir: '../img/galeria/'
+    },
 
     // ============================================
     // PAGINACION
     // ============================================
-    itemsPerPage: 12,
+    pagination: {
+        itemsPerPage: 12,
+        maxVisiblePages: 5
+    },
 
     // ============================================
     // VALORES POR DEFECTO
@@ -27,76 +42,87 @@ const BLOG_CONFIG = {
     defaults: {
         image: '../img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif',
         cta: 'Ver Articulo',
-        readTime: '5 min lectura',
-        category: 'guias'
+        readTime: '8 min lectura',
+        category: 'guias',
+        excerpt: 'Descubre los mejores consejos y tendencias para mesas de dulces profesionales en CDMX.',
+        breadcrumbMaxLength: 25
     },
 
     // ============================================
     // CATEGORIAS VALIDAS
     // ============================================
-    // IMPORTANTE: Si agregas una categoria, actualizala aqui
     categories: {
         'bodas': {
             name: 'Bodas',
             color: '#E91E8C',
-            icon: 'heart'
+            icon: 'heart',
+            description: 'Mesas de dulces elegantes para bodas'
         },
         'xv-anos': {
             name: 'XV Anos',
             color: '#9C27B0',
-            icon: 'crown'
+            icon: 'crown',
+            description: 'Celebraciones de quinceanera inolvidables'
         },
         'baby-shower': {
             name: 'Baby Shower',
             color: '#03A9F4',
-            icon: 'baby'
+            icon: 'baby',
+            description: 'Dulces momentos para celebrar la llegada del bebe'
         },
         'corporativos': {
             name: 'Corporativos',
             color: '#607D8B',
-            icon: 'briefcase'
+            icon: 'briefcase',
+            description: 'Eventos empresariales y ejecutivos'
         },
         'infantiles': {
             name: 'Infantiles',
             color: '#FF9800',
-            icon: 'balloon'
+            icon: 'balloon',
+            description: 'Fiestas magicas para los mas pequenos'
         },
         'estaciones': {
             name: 'Estaciones',
             color: '#4CAF50',
-            icon: 'utensils'
+            icon: 'utensils',
+            description: 'Experiencias interactivas gourmet'
         },
         'guias': {
             name: 'Guias',
             color: '#795548',
-            icon: 'book'
+            icon: 'book',
+            description: 'Guias completas y tutoriales'
         },
         'tematicas': {
             name: 'Tematicas',
             color: '#673AB7',
-            icon: 'palette'
+            icon: 'palette',
+            description: 'Mesas de dulces con temas especiales'
         },
         'tendencias': {
             name: 'Tendencias',
             color: '#FF5722',
-            icon: 'trending'
+            icon: 'trending',
+            description: 'Lo mas nuevo en mesas de dulces'
         },
         'tips-y-consejos': {
             name: 'Tips y Consejos',
             color: '#009688',
-            icon: 'lightbulb'
+            icon: 'lightbulb',
+            description: 'Consejos practicos de expertos'
         },
         'inspiracion': {
             name: 'Inspiracion',
             color: '#E91E63',
-            icon: 'sparkle'
+            icon: 'sparkle',
+            description: 'Ideas creativas para tu evento'
         }
     },
 
     // ============================================
     // IMAGENES POR CATEGORIA
     // ============================================
-    // Imagenes disponibles para cada categoria
     imagesByCategory: {
         'bodas': [
             '../img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif',
@@ -145,15 +171,19 @@ const BLOG_CONFIG = {
     },
 
     // ============================================
-    // VALIDACION
+    // REGLAS DE VALIDACION
     // ============================================
     validation: {
         requiredFields: ['id', 'title', 'excerpt', 'category', 'slug'],
-        slugPattern: /^[a-z0-9-]+$/,
-        minExcerptLength: 100,
-        maxExcerptLength: 300,
-        minTitleLength: 20,
-        maxTitleLength: 80
+        slugPattern: /^[a-z0-9][a-z0-9-]*[a-z0-9]$/,
+        slugMinLength: 10,
+        slugMaxLength: 70,
+        titleMinLength: 30,
+        titleMaxLength: 70,
+        excerptMinLength: 80,
+        excerptMaxLength: 200,
+        metaDescriptionMinLength: 120,
+        metaDescriptionMaxLength: 160
     },
 
     // ============================================
@@ -162,7 +192,20 @@ const BLOG_CONFIG = {
     urls: {
         base: 'https://mesas-de-dulces.com',
         blog: 'https://mesas-de-dulces.com/blog/',
-        images: 'https://mesas-de-dulces.com/img/galeria/'
+        images: 'https://mesas-de-dulces.com/img/galeria/',
+        whatsapp: 'https://wa.me/525525226442'
+    },
+
+    // ============================================
+    // EMPRESA
+    // ============================================
+    empresa: {
+        nombre: 'Mededul',
+        nombreCompleto: 'Mededul - Mesas de Dulces de Alta Gama',
+        telefono: '55 2522 6442',
+        telefonoIntl: '+525525226442',
+        email: 'info@mesas-de-dulces.com',
+        ubicacion: 'CDMX y Area Metropolitana'
     }
 };
 
@@ -171,58 +214,69 @@ const BLOG_CONFIG = {
 // ============================================
 
 /**
- * Valida un articulo y retorna errores encontrados
- * @param {Object} article - Objeto del articulo
- * @param {Number} index - Indice del articulo
- * @returns {Array} - Array de errores (vacio si todo OK)
+ * Valida un articulo completo
+ * @param {Object} article - Articulo a validar
+ * @param {Number} index - Indice para mensajes de error
+ * @returns {Object} - { valid: boolean, errors: [], warnings: [] }
  */
-function validateArticle(article, index) {
-    const errors = [];
+function validateArticle(article, index = 0) {
+    const result = { valid: true, errors: [], warnings: [] };
     const v = BLOG_CONFIG.validation;
+    const prefix = `Articulo #${index + 1}`;
 
-    // Verificar campos requeridos
+    // Campos requeridos
     v.requiredFields.forEach(field => {
         if (!article[field]) {
-            errors.push(`[ERROR] Articulo #${index + 1}: Falta campo requerido "${field}"`);
+            result.errors.push(`${prefix}: Campo requerido "${field}" faltante`);
+            result.valid = false;
         }
     });
 
     // Validar categoria
     if (article.category && !BLOG_CONFIG.categories[article.category]) {
-        errors.push(`[ERROR] Articulo #${index + 1}: Categoria "${article.category}" no valida. Categorias permitidas: ${Object.keys(BLOG_CONFIG.categories).join(', ')}`);
+        result.errors.push(`${prefix}: Categoria "${article.category}" no valida`);
+        result.valid = false;
     }
 
     // Validar slug
-    if (article.slug && !v.slugPattern.test(article.slug)) {
-        errors.push(`[ERROR] Articulo #${index + 1}: Slug "${article.slug}" contiene caracteres no validos. Solo usar: a-z, 0-9, guiones`);
-    }
-
-    // Validar longitud del excerpt
-    if (article.excerpt) {
-        if (article.excerpt.length < v.minExcerptLength) {
-            errors.push(`[WARN] Articulo #${index + 1}: Excerpt muy corto (${article.excerpt.length} chars). Minimo recomendado: ${v.minExcerptLength}`);
+    if (article.slug) {
+        if (article.slug.length < v.slugMinLength) {
+            result.warnings.push(`${prefix}: Slug muy corto (${article.slug.length} chars, min: ${v.slugMinLength})`);
         }
-        if (article.excerpt.length > v.maxExcerptLength) {
-            errors.push(`[WARN] Articulo #${index + 1}: Excerpt muy largo (${article.excerpt.length} chars). Maximo recomendado: ${v.maxExcerptLength}`);
+        if (article.slug.length > v.slugMaxLength) {
+            result.warnings.push(`${prefix}: Slug muy largo (${article.slug.length} chars, max: ${v.slugMaxLength})`);
+        }
+        if (!v.slugPattern.test(article.slug)) {
+            result.warnings.push(`${prefix}: Slug contiene caracteres no validos`);
         }
     }
 
-    // Validar longitud del titulo
+    // Validar titulo
     if (article.title) {
-        if (article.title.length < v.minTitleLength) {
-            errors.push(`[WARN] Articulo #${index + 1}: Titulo muy corto (${article.title.length} chars)`);
+        if (article.title.length < v.titleMinLength) {
+            result.warnings.push(`${prefix}: Titulo corto (${article.title.length} chars)`);
         }
-        if (article.title.length > v.maxTitleLength) {
-            errors.push(`[WARN] Articulo #${index + 1}: Titulo muy largo (${article.title.length} chars)`);
+        if (article.title.length > v.titleMaxLength) {
+            result.warnings.push(`${prefix}: Titulo largo (${article.title.length} chars)`);
         }
     }
 
-    return errors;
+    // Validar excerpt
+    if (article.excerpt) {
+        if (article.excerpt.length < v.excerptMinLength) {
+            result.warnings.push(`${prefix}: Excerpt corto (${article.excerpt.length} chars)`);
+        }
+        if (article.excerpt.length > v.excerptMaxLength) {
+            result.warnings.push(`${prefix}: Excerpt largo (${article.excerpt.length} chars)`);
+        }
+    }
+
+    return result;
 }
 
 /**
  * Sanitiza un articulo aplicando valores por defecto
- * @param {Object} article - Objeto del articulo
+ * @param {Object} article - Articulo a sanitizar
  * @returns {Object} - Articulo sanitizado
  */
 function sanitizeArticle(article) {
@@ -231,32 +285,27 @@ function sanitizeArticle(article) {
 
     return {
         id: article.id || Date.now(),
-        title: article.title || 'Sin titulo',
-        excerpt: article.excerpt || 'Descripcion no disponible.',
+        title: (article.title || 'Sin titulo').trim(),
+        excerpt: (article.excerpt || d.excerpt).trim(),
         category: BLOG_CONFIG.categories[article.category] ? article.category : d.category,
         categoryName: categoryData.name,
+        categoryColor: categoryData.color,
         image: article.image || d.image,
-        slug: article.slug || 'articulo-' + Date.now(),
+        slug: sanitizeSlug(article.slug || article.title || 'articulo-' + Date.now()),
         readTime: article.readTime || d.readTime,
         cta: article.cta || d.cta
     };
 }
 
 /**
- * Genera un ID unico para un nuevo articulo
- * @returns {Number} - ID unico basado en timestamp
+ * Sanitiza un slug
+ * @param {String} text - Texto a convertir en slug
+ * @returns {String} - Slug sanitizado
  */
-function generateArticleId() {
-    return Date.now();
-}
+function sanitizeSlug(text) {
+    if (!text) return 'articulo-' + Date.now();
 
-/**
- * Genera un slug a partir de un titulo
- * @param {String} title - Titulo del articulo
- * @returns {String} - Slug URL-friendly
- */
-function generateSlug(title) {
-    return title
+    let slug = text
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '') // Remover acentos
@@ -264,12 +313,27 @@ function generateSlug(title) {
         .replace(/\s+/g, '-')            // Espacios a guiones
         .replace(/-+/g, '-')             // Multiples guiones a uno
         .replace(/^-|-$/g, '')           // Quitar guiones al inicio/fin
-        .substring(0, 60);               // Limitar longitud
+        .substring(0, 70);               // Limitar longitud
+
+    // Si queda muy corto, agregar timestamp
+    if (slug.length < 10) {
+        slug = slug + '-' + Date.now();
+    }
+
+    return slug;
 }
 
 /**
- * Obtiene el nombre legible de una categoria
- * @param {String} categorySlug - Slug de la categoria
+ * Genera un ID unico para articulo
+ * @returns {Number} - ID basado en timestamp
+ */
+function generateArticleId() {
+    return Date.now();
+}
+
+/**
+ * Obtiene nombre legible de categoria
+ * @param {String} categorySlug - Slug de categoria
  * @returns {String} - Nombre legible
  */
 function getCategoryName(categorySlug) {
@@ -277,22 +341,57 @@ function getCategoryName(categorySlug) {
 }
 
 /**
+ * Obtiene color de categoria
+ * @param {String} categorySlug - Slug de categoria
+ * @returns {String} - Color hex
+ */
+function getCategoryColor(categorySlug) {
+    return BLOG_CONFIG.categories[categorySlug]?.color || '#795548';
+}
+
+/**
  * Obtiene lista de categorias validas
- * @returns {Array} - Array de slugs de categorias
+ * @returns {Array} - Array de slugs
  */
 function getValidCategories() {
     return Object.keys(BLOG_CONFIG.categories);
 }
 
-// Exportar para uso en Node.js (N8N) si aplica
+/**
+ * Obtiene imagen aleatoria de categoria
+ * @param {String} category - Slug de categoria
+ * @returns {String} - Ruta de imagen
+ */
+function getRandomImageForCategory(category) {
+    const images = BLOG_CONFIG.imagesByCategory[category] || [BLOG_CONFIG.defaults.image];
+    return images[Math.floor(Math.random() * images.length)];
+}
+
+/**
+ * Valida si una imagen existe en la configuracion
+ * @param {String} imagePath - Ruta de imagen
+ * @returns {Boolean}
+ */
+function isValidImage(imagePath) {
+    if (!imagePath) return false;
+    const allImages = Object.values(BLOG_CONFIG.imagesByCategory).flat();
+    return allImages.includes(imagePath);
+}
+
+// ============================================
+// EXPORTAR PARA NODE.JS (N8N)
+// ============================================
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         BLOG_CONFIG,
         validateArticle,
         sanitizeArticle,
+        sanitizeSlug,
         generateArticleId,
-        generateSlug,
         getCategoryName,
-        getValidCategories
+        getCategoryColor,
+        getValidCategories,
+        getRandomImageForCategory,
+        isValidImage
     };
 }

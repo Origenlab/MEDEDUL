@@ -1,0 +1,14 @@
+# Carpeta workflow con credenciales sensibles
+workflow/
+
+# Archivos de sistema
+.DS_Store
+*.DS_Store
+**/.DS_Store
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
