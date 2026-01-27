@@ -68,11 +68,6 @@ body {
     z-index: 10;
 }
 
-.breadcrumb {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
 /* Espaciador para header fijo - usar antes de breadcrumb */
 .header-spacer {
     height: 180px;
@@ -86,6 +81,8 @@ body {
     gap: 10px;
     font-size: 0.9rem;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
 }
 
 .breadcrumb a {

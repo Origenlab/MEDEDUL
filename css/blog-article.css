@@ -75,7 +75,12 @@ section.breadcrumb-section {
 }
 
 .breadcrumb-section .breadcrumb,
-.breadcrumb {
+.breadcrumb-section nav.breadcrumb {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+article {
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -133,12 +138,12 @@ article[itemscope] {
 header.article-hero,
 .article-hero {
     position: relative;
-    min-height: 220px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     overflow: hidden;
     background: linear-gradient(180deg, #ffd6e7 0%, #ffe8f0 30%, #fff5f8 70%, #ffffff 100%);
-    padding: 15px 0 35px;
+    padding: 150px 0 100px;
     margin: 0 !important;
     margin-top: 0 !important;
     border: none !important;
@@ -1258,18 +1263,20 @@ header.article-hero,
 @media (max-width: 768px) {
     .breadcrumb-section,
     section.breadcrumb-section {
-        margin-top: 0 !important;
-        padding: 12px 0 !important;
+        margin-top: -10px !important;
+        padding: 10px 0 5px 0 !important;
     }
 
     .breadcrumb-section .breadcrumb {
         font-size: 0.85rem;
         gap: 8px;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .article-hero {
-        min-height: 200px;
-        padding: 30px 0 25px;
+        min-height: 350px;
+        padding: 80px 0 60px;
         margin-top: 0 !important;
     }
 
