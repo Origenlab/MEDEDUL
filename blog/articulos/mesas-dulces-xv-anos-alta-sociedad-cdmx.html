@@ -64,7 +64,7 @@
   }
   </script>
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo se personaliza la mesa de dulces para cada cliente?","acceptedAnswer":{"@type":"Answer","text":"Cada mesa de dulces se personaliza a través de un proceso de consultoría detallada, donde analizamos sus preferencias y estilo. Ofrecemos opciones de diseño temático exclusivo, dulces personalizados con monogramas y una selección de postres que reflejen sus gustos únicos. Nuestro enfoque bespoke asegura que cada mesa sea una extensión de su evento, creando una experiencia verdaderamente única y memorable."}},{"@type":"Question","name":"¿En qué zonas exclusivas de CDMX operan sus servicios?","acceptedAnswer":{"@type":"Answer","text":"Mededul ofrece sus servicios premium en las colonias más exclusivas de Ciudad de México, incluyendo Polanco, San Angel, Lomas de Chapultepec, y otras áreas residenciales de alto prestigio. Nuestra presencia en estas zonas nos permite atender a las familias más distinguidas, asegurando un servicio personalizado y una experiencia de lujo inigualable."}},{"@type":"Question","name":"¿Cómo coordinan con otros proveedores de eventos de lujo?","acceptedAnswer":{"@type":"Answer","text":"Trabajamos estrechamente con wedding planners y otros proveedores de eventos de lujo para garantizar una integración perfecta de servicios. Nuestra comunicación constante y planificación meticulosa aseguran que cada elemento del evento se alinee, creando una experiencia cohesiva y sofisticada. Este enfoque colaborativo es clave para el éxito de los eventos de alta gama."}},{"@type":"Question","name":"¿Qué opciones gourmet ofrecen para restricciones alimentarias?","acceptedAnswer":{"@type":"Answer","text":"Entendemos la importancia de atender a todos los invitados, por lo que ofrecemos opciones gourmet que se adaptan a diversas restricciones alimentarias, como dulces veganos, sin gluten y sin lactosa. Nuestros chefs pasteleros utilizan ingredientes de la más alta calidad para garantizar que todos los dulces sean deliciosos, independientemente de las necesidades dietéticas."}},{"@type":"Question","name":"¿Cuál es el proceso de consultoría y diseño de Mededul?","acceptedAnswer":{"@type":"Answer","text":"El proceso de consultoría de Mededul comienza con una reunión para entender sus deseos y expectativas. A partir de ahí, desarrollamos un diseño personalizado que refleja su estilo único. Cada etapa se lleva a cabo con atención al detalle, desde la selección de dulces hasta el montaje final, asegurando que cada mesa sea una expresión única de su evento de lujo."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Con cuánta anticipación debo reservar la mesa de dulces para XV años?","acceptedAnswer":{"@type":"Answer","text":"Lo ideal es reservar con 4-6 meses de anticipación, especialmente si tu evento es en temporada alta (agosto-diciembre). Los proveedores más solicitados se llenan rápido. Empieza a cotizar 6 meses antes y firma contrato a los 3-4 meses."}},{"@type":"Question","name":"¿Cuánto cuesta una mesa de dulces para 100 invitados de XV años?","acceptedAnswer":{"@type":"Answer","text":"En CDMX para 2025, los rangos son: básica $8,000-$12,000, estándar $12,000-$18,000, y premium $18,000-$30,000 MXN. El precio varía por calidad de dulces, mobiliario incluido, personalización, y servicios adicionales como fuente de chocolate."}},{"@type":"Question","name":"¿Qué información necesito darle al proveedor de mesa de dulces?","acceptedAnswer":{"@type":"Answer","text":"Prepara: fecha y hora exacta, dirección del venue, número de invitados, colores y tema de la fiesta con fotos de referencia, restricciones alimentarias de invitados, si es interior o exterior, y tu presupuesto aproximado."}},{"@type":"Question","name":"¿El servicio normalmente incluye montaje y desmontaje?","acceptedAnswer":{"@type":"Answer","text":"Varía por proveedor. Algunos incluyen montaje pero no desmontaje, otros incluyen ambos. SIEMPRE pregunta específicamente qué incluye y asegúrate de que quede por escrito en el contrato."}},{"@type":"Question","name":"¿Qué hago si cambia el número de invitados después de reservar?","acceptedAnswer":{"@type":"Answer","text":"La mayoría de proveedores permiten ajustes hasta 1 mes antes. Cambios menores (±10-15%) usualmente se acomodan sin problema. Pregunta la política de ajustes ANTES de firmar el contrato."}}]}</script>
 
   <style>
     :root {
@@ -144,9 +144,9 @@
     }
     .article-layout__wrapper {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 60px;
-      max-width: 1280px;
+      grid-template-columns: 1fr 400px;
+      gap: 50px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -571,16 +571,33 @@
 
     @media (max-width: 1024px) { .article-layout__sidebar { display: none; } }
 
-    /* ========== SIDEBAR MEJORADO ========== */
-    .article-layout__sidebar { position: sticky; top: 100px; height: fit-content; display: flex; flex-direction: column; gap: 20px; }
+    /* ========== SIDEBAR PROFESIONAL MEJORADO ========== */
+    .article-layout__sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-primary-light) transparent;
+    }
+    .article-layout__sidebar::-webkit-scrollbar { width: 6px; }
+    .article-layout__sidebar::-webkit-scrollbar-track { background: transparent; }
+    .article-layout__sidebar::-webkit-scrollbar-thumb { background: var(--color-primary-light); border-radius: 3px; }
 
     .sidebar-widget {
       background: #fff;
       border-radius: 16px;
       padding: 24px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
       border: 1px solid #f0f0f0;
+      transition: box-shadow 0.3s ease;
     }
+    .sidebar-widget:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
     .sidebar-widget__title {
       display: flex;
       align-items: center;
@@ -593,23 +610,26 @@
       border-bottom: 2px solid var(--color-primary-light);
       font-weight: 600;
     }
-    .sidebar-widget__title svg { color: var(--color-primary); }
+    .sidebar-widget__title svg { color: var(--color-primary); flex-shrink: 0; }
 
     /* TOC Widget */
     .sidebar-toc__nav ul { list-style: none; padding: 0; margin: 0; }
-    .sidebar-toc__nav li { margin-bottom: 8px; padding-left: 16px; position: relative; }
+    .sidebar-toc__nav li { margin-bottom: 8px; padding-left: 20px; position: relative; }
     .sidebar-toc__nav li::before {
       content: '';
       position: absolute;
       left: 0;
       top: 8px;
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       background: var(--color-primary-light);
       border-radius: 50%;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
-    .sidebar-toc__nav li:hover::before { background: var(--color-primary); }
+    .sidebar-toc__nav li:hover::before {
+      background: var(--color-primary);
+      transform: scale(1.2);
+    }
     .sidebar-toc__nav a {
       color: var(--color-text-light);
       text-decoration: none;
@@ -619,191 +639,348 @@
     }
     .sidebar-toc__nav a:hover { color: var(--color-primary); }
 
-    /* CTA Principal Widget */
+    /* CTA Principal Widget - WhatsApp */
     .sidebar-cta-main {
       background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
       text-align: center;
       border: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .sidebar-cta-main::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
     }
     .sidebar-cta-main__badge {
       display: inline-block;
       background: rgba(255,255,255,0.2);
       color: #fff;
-      padding: 4px 12px;
+      padding: 6px 16px;
       border-radius: 20px;
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
     }
     .sidebar-cta-main__title {
       color: #fff;
       font-family: var(--font-display);
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin: 0 0 8px;
+      margin: 0 0 10px;
+      line-height: 1.3;
     }
     .sidebar-cta-main__text {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.9);
       font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 0 0 16px;
+      line-height: 1.6;
+      margin: 0 0 18px;
     }
     .sidebar-cta-main__btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       background: #25D366;
       color: #fff;
-      padding: 14px 20px;
+      padding: 14px 24px;
       border-radius: 30px;
       text-decoration: none;
       font-weight: 600;
       font-size: 0.95rem;
-      }
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
     .sidebar-cta-main__btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
     }
+    .sidebar-cta-main__btn svg { width: 20px; height: 20px; }
     .sidebar-cta-main__phone {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.8);
       font-size: 0.85rem;
-      margin: 12px 0 0;
+      margin: 14px 0 0;
     }
-    .sidebar-cta-main__phone a { color: #fff; text-decoration: underline; }
+    .sidebar-cta-main__phone a { color: #fff; text-decoration: none; font-weight: 500; }
+    .sidebar-cta-main__phone a:hover { text-decoration: underline; }
 
     /* Services Grid Widget */
     .sidebar-services__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
     .sidebar-service-card {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px 8px;
+      justify-content: center;
+      padding: 18px 8px;
+      background: #fff;
+      border-radius: 14px;
+      text-decoration: none;
+      border: 2px solid #f5f5f5;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .sidebar-service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-gold));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .sidebar-service-card:hover::before { transform: scaleX(1); }
+    .sidebar-service-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(233, 30, 140, 0.18);
+    }
+    .sidebar-service-card__icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    .sidebar-service-card:hover .sidebar-service-card__icon {
+      transform: scale(1.1) rotate(5deg);
       background: var(--color-primary-light);
+    }
+    .sidebar-service-card__name {
+      color: var(--color-text);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.25;
+    }
+    .sidebar-service-card:hover .sidebar-service-card__name { color: var(--color-primary-dark); }
+
+    /* Paginas de Interes Widget */
+    .sidebar-pages__list { display: flex; flex-direction: column; gap: 10px; }
+    .sidebar-pages__item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
       border-radius: 12px;
       text-decoration: none;
-      
-      border: 1px solid transparent;
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .sidebar-service-card:hover {
-      background: #fff;
+    .sidebar-pages__item::after {
+      content: '→';
+      position: absolute;
+      right: 16px;
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+    .sidebar-pages__item:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .sidebar-pages__item:hover {
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
       border-color: var(--color-primary);
-      transform: translateY(-2px);
+      transform: translateX(6px);
+      box-shadow: 0 6px 20px rgba(233, 30, 140, 0.12);
     }
-    .sidebar-service-card__icon { font-size: 1.5rem; margin-bottom: 6px; }
-    .sidebar-service-card__name { color: var(--color-text); font-size: 0.75rem; font-weight: 500; text-align: center; }
+    .sidebar-pages__icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(233, 30, 140, 0.25);
+    }
+    .sidebar-pages__item:hover .sidebar-pages__icon {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(233, 30, 140, 0.35);
+    }
+    .sidebar-pages__icon svg {
+      width: 20px;
+      height: 20px;
+      color: #fff;
+    }
+    .sidebar-pages__text { flex: 1; padding-right: 20px; }
+    .sidebar-pages__title {
+      display: block;
+      color: var(--color-text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+      transition: color 0.3s;
+    }
+    .sidebar-pages__item:hover .sidebar-pages__title { color: var(--color-primary-dark); }
+    .sidebar-pages__desc {
+      display: block;
+      color: var(--color-text-light);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
 
     /* Zonas Widget */
-    .sidebar-zonas__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .sidebar-zonas__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #eee;
+    }
+    .sidebar-zonas__badge {
+      background: var(--color-gold);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .sidebar-zonas__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
     .zona-tag {
       display: inline-block;
-      background: var(--color-primary-light);
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
       color: var(--color-primary-dark);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 500;
+      border: 1px solid rgba(233, 30, 140, 0.1);
+      transition: all 0.2s;
     }
-    .sidebar-zonas__note { color: var(--color-text-light); font-size: 0.8rem; font-style: italic; margin: 0; }
+    .zona-tag:hover {
+      background: var(--color-primary);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .sidebar-zonas__note {
+      color: var(--color-text-light);
+      font-size: 0.8rem;
+      font-style: italic;
+      margin: 0;
+      padding-top: 10px;
+      border-top: 1px dashed #eee;
+    }
 
     /* Features Widget */
     .sidebar-features__list { list-style: none; padding: 0; margin: 0; }
     .sidebar-features__list li {
       display: flex;
-      gap: 12px;
-      padding: 12px 0;
+      gap: 14px;
+      padding: 14px 0;
       border-bottom: 1px solid #f5f5f5;
+      transition: all 0.2s;
     }
+    .sidebar-features__list li:hover { padding-left: 8px; }
     .sidebar-features__list li:last-child { border-bottom: none; padding-bottom: 0; }
-    .sidebar-features__icon { font-size: 1.2rem; flex-shrink: 0; }
-    .sidebar-features__list strong { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 600; }
-    .sidebar-features__list span { color: var(--color-text-light); font-size: 0.8rem; }
-
-    /* Related Widget */
-    .sidebar-related__list { display: flex; flex-direction: column; gap: 10px; }
-    .sidebar-related__item {
-      display: block;
-      padding: 12px;
-      background: #fafafa;
-      border-radius: 10px;
-      text-decoration: none;
-      
-      border: 1px solid #eee;
-    }
-    .sidebar-related__item:hover {
+    .sidebar-features__icon {
+      width: 40px;
+      height: 40px;
       background: var(--color-primary-light);
-      border-color: var(--color-primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
     }
-    .sidebar-related__cat {
-      display: inline-block;
+    .sidebar-features__content { flex: 1; }
+    .sidebar-features__list strong {
+      display: block;
+      color: var(--color-text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .sidebar-features__list span {
+      color: var(--color-text-light);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    /* Related Articles Widget */
+    .sidebar-related__list { display: flex; flex-direction: column; gap: 0; }
+    .sidebar-related__item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+    .sidebar-related__item:last-child { border-bottom: none; }
+    .sidebar-related__item:hover { padding-left: 8px; }
+    .sidebar-related__number {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
+      border: 2px solid var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .sidebar-related__item:hover .sidebar-related__number {
       background: var(--color-primary);
       color: #fff;
-      padding: 2px 8px;
-      border-radius: 4px;
+    }
+    .sidebar-related__content { flex: 1; }
+    .sidebar-related__cat {
+      display: inline-block;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      padding: 3px 10px;
+      border-radius: 12px;
       font-size: 0.7rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .sidebar-related__title { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 500; }
-
-    /* Contact Final Widget */
-    .sidebar-contact-final {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      text-align: center;
-      border: none;
-    }
-    .sidebar-contact-final__header { margin-bottom: 16px; }
-    .sidebar-contact-final__header img { filter: brightness(0) invert(1); opacity: 0.9; }
-    .sidebar-contact-final__slogan {
-      color: rgba(255,255,255,0.7);
-      font-style: italic;
-      font-size: 0.9rem;
-      margin: 0 0 16px;
-    }
-    .sidebar-contact-final__info { margin-bottom: 16px; }
-    .sidebar-contact-final__row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.85rem;
-    }
-    .sidebar-contact-final__row svg { color: var(--color-primary); }
-    .sidebar-contact-final__row a { color: #fff; text-decoration: none; }
-    .sidebar-contact-final__row a:hover { text-decoration: underline; }
-    .sidebar-contact-final__social {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .sidebar-contact-final__social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border-radius: 50%;
-      text-decoration: none;
-      font-size: 0.75rem;
       font-weight: 600;
-      transition: background 0.2s;
+      text-transform: uppercase;
+      margin-bottom: 5px;
     }
-    .sidebar-contact-final__social a:hover { background: var(--color-primary); }
+    .sidebar-related__title {
+      display: block;
+      color: var(--color-text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.4;
+      transition: color 0.3s;
+    }
+    .sidebar-related__item:hover .sidebar-related__title { color: var(--color-primary); }
 
-    @media (max-width: 1024px) {
-      .article-layout__sidebar { display: none; }
-    }
+    @media (max-width: 1024px) { .article-layout__sidebar { display: none; } }
 
     .breadcrumbs {
       background: var(--color-primary-light);
@@ -1019,9 +1196,9 @@
 
         <nav class="article-toc"><h2 class="article-toc__title">En Este Articulo</h2><ul class="article-toc__list"><li><a href="#meses6">6 Meses Antes: Investigación y Presupuesto</a></li><li><a href="#meses3">3 Meses Antes: Reservar y Definir</a></li><li><a href="#mes1">1 Mes Antes: Confirmar Todo</a></li><li><a href="#semana1">1 Semana Antes: Últimos Detalles</a></li><li><a href="#presupuesto">Desglose de Presupuesto Real</a></li><li><a href="#errores">Errores Comunes a Evitar</a></li><li><a href="#faq">Preguntas Frecuentes</a></li></ul></nav>
 
-        <section id="meses6" class="article-section"><h2>6 Meses Antes: Investigación y Presupuesto</h2><p>Sí, 6 meses parece mucho, pero los mejores proveedores de mesas de dulces se reservan con anticipación, especialmente en temporada alta de XV años (agosto-diciembre).</p><p><strong>CHECKLIST 6 MESES:</strong></p><ul><li><strong>☐ Define tu presupuesto total para la mesa de dulces:</strong> Separa este rubro del presupuesto general. Un rango realista para XV años es $8,000-$25,000 MXN dependiendo de invitados y calidad.</li><li><strong>☐ Decide el tamaño aproximado:</strong> ¿Cuántos invitados tendrás? Esto determina cantidades. Regla general: 6-8 piezas por persona.</li><li><strong>☐ Investiga 3-5 proveedores:</strong> Revisa sus redes sociales, portafolios, y reseñas de Google. Busca específicamente fotos de XV años que hayan hecho.</li><li><strong>☐ Solicita cotizaciones:</strong> Incluye: número de invitados, fecha, venue, colores/tema si ya lo tienes.</li><li><strong>☐ Agenda citas o videollamadas:</strong> Conocer al proveedor te ayuda a evaluar profesionalismo y química.</li><li><strong>☐ Define si quieres estaciones adicionales:</strong> Fuente de chocolate, algodón de azúcar, carrito de churros. Esto afecta presupuesto.</li></ul><p><strong>Preguntas CLAVE para hacer al proveedor:</strong></p><ul><li>¿El precio incluye montaje y desmontaje?</li><li>¿Qué pasa si hay cambios en número de invitados?</li><li>¿Cuánto es el anticipo y cuándo se paga el resto?</li><li>¿Tienen seguro o cómo manejan imprevistos?</li><li>¿Puedo ver más fotos de XV años que hayan hecho?</li></ul></section><div class="info-box"><div class="info-box__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div><div class="info-box__content"><h4>Nota del Experto</h4><p>Personalizar cada dulce con un monograma es un detalle que encanta a los invitados y eleva la exclusividad de su evento, convirtiéndose en una firma de estilo.</p></div></div><section id="estilos" class="article-section"><h2>Estilos Exclusivos para Mesas de Dulces</h2><p>La curaduría de estilos exclusivos es una de las especialidades de Mededul, donde cada mesa de dulces es un reflejo del carácter único del evento. Combinando tendencias internacionales con la elegancia local, ofrecemos una rica variedad de estilos para elegir.</p><ul><li><strong>Clásico Atemporal:</strong> Ideal para eventos en el <strong>Hotel Camino Real Polanco</strong>, este estilo evoca la elegancia perenne con detalles dorados y cristalería fina.</li><li><strong>Contemporáneo Sofisticado:</strong> Perfecto para la <strong>Casa de las Campanas</strong>, combina líneas limpias y una paleta monocromática con acentos de color.</li><li><strong>Romántico de Autor:</strong> Inspirado en las historias de amor eternas, este estilo es ideal para venues como el <strong>Museo Soumaya</strong>, con flores suaves y una iluminación ambiental cálida.</li><li><strong>Minimalista Elegante:</strong> Para quienes buscan simplicidad con estilo, este enfoque utiliza materiales nobles como mármol y cristal, realzando la belleza de las líneas puras y el diseño funcional.</li></ul><p>Cada estilo es cuidadosamente curado para resonar con las tendencias de eventos más selectos del mundo, asegurando que su celebración sea tanto local como globalmente relevante.</p></section><section id="seleccion" class="article-section"><h2>La Curaduría de Dulces Gourmet</h2><p>En Mededul, cada dulce es una obra maestra artesanal, seleccionada meticulosamente para deleitar los sentidos de sus distinguidos invitados. Nuestra selección gourmet incluye macarons franceses de texturas delicadas, chocolates belgas que se funden en el paladar y confitería mexicana de autor que celebra nuestras ricas tradiciones.</p><p>Utilizamos ingredientes premium como el chocolate Valrhona, conocido por su suavidad incomparable, y frutos rojos orgánicos que aportan frescura y vitalidad a cada bocado. Para aquellos con paladares exigentes o necesidades dietéticas específicas, ofrecemos opciones que no comprometen el sabor ni la calidad, como dulces veganos o sin gluten.</p><p>Cada elección es parte de una experiencia sensorial completa, diseñada para despertar los sentidos y llevar a los comensales a un viaje de sabores, texturas y aromas que complementan la atmósfera de exclusividad.</p></section><div class="article-image-grid"><figure><img decoding="async" height="634" width="528" src="../../img/galeria/candy-bar-tematico-eventos.avif" alt="Mesas de Dulces para XV de Alta Sociedad en CDMX" loading="lazy" /><figcaption>Experiencia Mededul en CDMX</figcaption></figure><figure><img decoding="async" height="716" width="1306" src="../../img/galeria/candy-bar-gourmet-elegante.avif" alt="Mesas de Dulces para XV de Alta Sociedad en CDMX" loading="lazy" /><figcaption>Servicio premium para eventos exclusivos</figcaption></figure></div><section id="diseno" class="article-section"><h2>El Arte del Montaje en Mesas de Dulces</h2><p>El diseño y la presentación son el corazón de cada mesa de dulces de Mededul. Desde la cristalería fina hasta las bases de mármol, cada elemento ha sido seleccionado para complementar la arquitectura de las residencias en <strong>Lomas de Chapultepec</strong> y más allá. La iluminación ambiental juega un papel crucial, acentuando cada detalle y creando una atmósfera mágica.</p><p>Trabajamos en estrecha colaboración con wedding planners y event designers de prestigio, asegurando que cada mesa no solo se integre sino que eleve el evento. Nuestra consultoría personalizada comienza escuchando sus deseos y culmina en un montaje que excede sus expectativas.</p><p>El proceso de diseño es una danza entre la creatividad y la precisión, donde cada detalle se ajusta para armonizar con el entorno, asegurando una presentación que no solo es visualmente deslumbrante, sino también coherente con la elegancia de su hogar.</p></section><div class="warning-box"><div class="warning-box__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div><div class="warning-box__content"><h4>Recomendacion Importante</h4><p>Asegúrese de que el diseño de la mesa de dulces complementa la temática general del evento para una presentación visualmente coherente y elegante.</p></div></div><section id="experiencia" class="article-section"><h2>La Experiencia Mededul: Servicio White-Glove</h2><p>El servicio white-glove de Mededul es una experiencia completa que transforma su evento en una obra maestra. Comenzamos con una consultoría detallada, entendiendo sus necesidades y visiones para diseñar una mesa de dulces que refleje su estilo único.</p><p>Nuestro equipo de profesionales capacitados maneja cada detalle, desde el diseño hasta el montaje y el servicio durante el evento. La discreción y el profesionalismo son nuestros sellos distintivos, permitiéndole disfrutar de su celebración con la confianza de que todo está en manos expertas.</p><p>Es por esta dedicación a la excelencia que las familias más distinguidas de la Ciudad de México eligen Mededul, sabiendo que nuestra atención personalizada garantiza una experiencia que supera cualquier expectativa.</p></section><div class="article-image-grid"><figure><img decoding="async" height="634" width="528" src="../../img/galeria/candy-bar-profesional-eventos.avif" alt="Mesas de Dulces para XV de Alta Sociedad en CDMX" loading="lazy" /><figcaption>Experiencia Mededul en CDMX</figcaption></figure><figure><img decoding="async" height="634" width="528" src="../../img/galeria/mesa-dulces-gourmet-premium.avif" alt="Mesas de Dulces para XV de Alta Sociedad en CDMX" loading="lazy" /><figcaption>Servicio premium para eventos exclusivos</figcaption></figure></div><section id="recomendaciones" class="article-section"><h2>Recomendaciones Insider para un Evento Perfecto</h2><p>Elegir la mesa de dulces perfecta es un arte, y nuestros expertos comparten consejos exclusivos para asegurar que su evento sea inolvidable. Al coordinar con otros proveedores de lujo, como floristas y decoradores, es crucial mantener una comunicación clara para asegurar que todos los elementos se integren armoniosamente.</p><p>Un aspecto que distingue un servicio premium de uno estándar es la atención al detalle en cada etapa del proceso, desde la consultoría inicial hasta el servicio durante el evento. Recomendamos planificar con antelación, permitiendo suficiente tiempo para personalizar cada detalle a su gusto.</p><p>Para eventos de gran envergadura, como una quinceañera, asegurarse de que todos los proveedores estén alineados es esencial. La anticipación es clave, y nuestra experiencia nos permite asesorarlo sobre el tiempo ideal para comenzar los preparativos, garantizando que cada aspecto de su evento se realice con la máxima excelencia.</p></section>
+        <section id="meses6" class="article-section"><h2>6 Meses Antes: Investigación y Presupuesto</h2><p>Sí, 6 meses parece mucho, pero los mejores proveedores de mesas de dulces se reservan con anticipación, especialmente en temporada alta de XV años (agosto-diciembre).</p><p><strong>CHECKLIST 6 MESES:</strong></p><ul><li><strong>☐ Define tu presupuesto total para la mesa de dulces:</strong> Separa este rubro del presupuesto general. Un rango realista para XV años es $8,000-$25,000 MXN dependiendo de invitados y calidad.</li><li><strong>☐ Decide el tamaño aproximado:</strong> ¿Cuántos invitados tendrás? Esto determina cantidades. Regla general: 6-8 piezas por persona.</li><li><strong>☐ Investiga 3-5 proveedores:</strong> Revisa sus redes sociales, portafolios, y reseñas de Google. Busca específicamente fotos de XV años que hayan hecho.</li><li><strong>☐ Solicita cotizaciones:</strong> Incluye: número de invitados, fecha, venue, colores/tema si ya lo tienes.</li><li><strong>☐ Agenda citas o videollamadas:</strong> Conocer al proveedor te ayuda a evaluar profesionalismo y química.</li><li><strong>☐ Define si quieres estaciones adicionales:</strong> Fuente de chocolate, algodón de azúcar, carrito de churros. Esto afecta presupuesto.</li></ul><p><strong>Preguntas CLAVE para hacer al proveedor:</strong></p><ul><li>¿El precio incluye montaje y desmontaje?</li><li>¿Qué pasa si hay cambios en número de invitados?</li><li>¿Cuánto es el anticipo y cuándo se paga el resto?</li><li>¿Tienen seguro o cómo manejan imprevistos?</li><li>¿Puedo ver más fotos de XV años que hayan hecho?</li></ul></section><div class="info-box"><div class="info-box__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div><div class="info-box__content"><h4>Tip de Ahorro</h4><p>Cotiza en enero-marzo aunque tu evento sea en septiembre-diciembre. Muchos proveedores ofrecen descuentos por reservar con mucha anticipación, y aseguras disponibilidad en temporada alta.</p></div></div><section id="meses3" class="article-section"><h2>3 Meses Antes: Reservar y Definir</h2><p>Ya investigaste, ahora es momento de comprometerte y empezar a definir detalles específicos.</p><p><strong>CHECKLIST 3 MESES:</strong></p><ul><li><strong>☐ Firma contrato con tu proveedor elegido:</strong> Asegúrate de que incluya: fecha, hora de montaje, dirección exacta, detalle de lo incluido, política de cancelación.</li><li><strong>☐ Paga el anticipo:</strong> Normalmente es 50% del total. Guarda tu comprobante.</li><li><strong>☐ Define paleta de colores EXACTA:</strong> Da códigos de color si es posible, o fotos de referencia muy específicas. "Rosa" puede ser rosa pastel, rosa mexicano, o rosa gold.</li><li><strong>☐ Confirma el tema/concepto:</strong> ¿Mariposas? ¿Jardín encantado? ¿Elegante sin tema? ¿Neón? Esto guía todo el diseño.</li><li><strong>☐ Decide ubicación exacta de la mesa:</strong> Visita el venue y define dónde estará. Considera: tomacorrientes si hay fuente, flujo de personas, iluminación, fotos.</li><li><strong>☐ Comunica restricciones alimentarias:</strong> Si hay invitados diabéticos, celíacos, veganos, avísalo ahora para que preparen opciones.</li><li><strong>☐ Define horario de la mesa:</strong> ¿Disponible toda la fiesta? ¿Solo después del banquete? ¿Se cierra a cierta hora?</li></ul><p><strong>Información que tu proveedor necesita de ti:</strong></p><ul><li>Número FINAL de invitados (o estimado muy cercano)</li><li>Hora exacta del evento y hora de montaje permitida por el venue</li><li>Datos de contacto del coordinador del venue</li><li>Restricciones del venue (algunos no permiten confeti, por ejemplo)</li></ul></section><section id="mes1" class="article-section"><h2>1 Mes Antes: Confirmar Todo</h2><p>El mes previo es para confirmar, confirmar, y confirmar. No asumas nada.</p><p><strong>CHECKLIST 1 MES:</strong></p><ul><li><strong>☐ Confirma con tu proveedor por escrito:</strong> Envía un mensaje/correo resumiendo: fecha, hora, dirección, contacto en venue, número de invitados, y pide que confirme recibido.</li><li><strong>☐ Paga el saldo restante</strong> (si aplica según tu contrato)</li><li><strong>☐ Confirma número FINAL de invitados:</strong> Ya debes tener las confirmaciones de asistencia. Comunica ajustes si hubo cambios significativos (+/- 15%)</li><li><strong>☐ Coordina con otros proveedores:</strong> Asegúrate de que el DJ sepa dónde está la mesa, que el fotógrafo tenga fotos de ella en su lista, que la decoradora no bloquee el acceso.</li><li><strong>☐ Prepara pagos en efectivo si es necesario:</strong> Algunos proveedores piden saldo en efectivo el día del evento.</li><li><strong>☐ Confirma horarios con el venue:</strong> ¿A qué hora puede entrar el equipo de la mesa de dulces? ¿Necesitan gafete o credencial?</li><li><strong>☐ Ten un plan B para el clima:</strong> Si es jardín/exterior y puede llover, ¿hay techo? ¿Se moverá adentro?</li></ul><p><strong>Crea tu lista de contactos de emergencia:</strong></p><ul><li>Nombre y celular de tu proveedor de mesa de dulces</li><li>Contacto del venue</li><li>Contacto del coordinador/wedding planner si tienes</li><li>Ten estos números a la mano el día del evento</li></ul></section><div class="article-image-grid"><figure><img decoding="async" height="634" width="528" src="../../img/galeria/candy-bar-tematico-eventos.avif" alt="Mesa de dulces XV años en proceso de montaje" loading="lazy" /><figcaption>Montaje profesional de mesa XV años</figcaption></figure><figure><img decoding="async" height="716" width="1306" src="../../img/galeria/candy-bar-gourmet-elegante.avif" alt="Mesa de dulces elegante para quinceañera" loading="lazy" /><figcaption>Mesa lista para la celebración</figcaption></figure></div><section id="semana1" class="article-section"><h2>1 Semana Antes: Últimos Detalles</h2><p>La semana previa es para los detalles finales y asegurar que TODO esté listo.</p><p><strong>CHECKLIST 1 SEMANA:</strong></p><ul><li><strong>☐ Confirmación final con proveedor:</strong> Un último mensaje: "Confirmando que nos vemos el [fecha] a las [hora] en [dirección]. Mi contacto es [número]. ¿Todo listo de su lado?"</li><li><strong>☐ Revisa el pronóstico del clima:</strong> Si es exterior, prepárate para ajustes de última hora.</li><li><strong>☐ Confirma que tienes todos los pagos listos:</strong> Saldo pendiente, propinas si quieres dar.</li><li><strong>☐ Prepara área de la mesa:</strong> ¿Hay tomacorriente cerca? ¿La mesa/mueble donde irá está confirmado?</li><li><strong>☐ Designa a alguien para recibir al proveedor:</strong> Si tú estarás en maquillaje/preparación, alguien más debe recibirlos y supervisar el montaje.</li></ul><p><strong>CHECKLIST DÍA DEL EVENTO:</strong></p><ul><li>☐ Llega alguien designado 30 min antes del montaje</li><li>☐ Verifica que todo lo acordado esté montado</li><li>☐ Toma fotos de la mesa ANTES de que lleguen invitados</li><li>☐ Confirma hora de desmontaje/retiro</li><li>☐ Ten efectivo listo para propina si el servicio fue excelente</li></ul></section><div class="warning-box"><div class="warning-box__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div><div class="warning-box__content"><h4>Importante</h4><p>Si el servicio no incluye desmontaje y retiro, asegúrate de tener a alguien designado para guardar todo al final de la fiesta. No querrás dulces sobrantes desprotegidos.</p></div></div><section id="presupuesto" class="article-section"><h2>Desglose de Presupuesto Real para XV Años</h2><p>Estos son rangos reales en CDMX para 2025. Los precios varían por zona y calidad del servicio.</p><p><strong>MESA DE DULCES BÁSICA (100 invitados):</strong></p><ul><li>Rango: $8,000 - $12,000 MXN</li><li>Incluye: 8-10 variedades de dulces, montaje básico, sin mobiliario especial</li><li>Ideal para: Presupuesto ajustado, fiesta en casa o salón sencillo</li></ul><p><strong>MESA DE DULCES ESTÁNDAR (100 invitados):</strong></p><ul><li>Rango: $12,000 - $18,000 MXN</li><li>Incluye: 12-15 variedades, montaje decorativo, mobiliario incluido, algunas opciones gourmet</li><li>Ideal para: La mayoría de XV años, buen balance calidad/precio</li></ul><p><strong>MESA DE DULCES PREMIUM (100 invitados):</strong></p><ul><li>Rango: $18,000 - $30,000 MXN</li><li>Incluye: 15-20 variedades, opciones 100% gourmet, mobiliario de lujo, personalización completa, posible fuente de chocolate incluida</li><li>Ideal para: Eventos en venues de lujo, familias que buscan lo mejor</li></ul><p><strong>COSTOS ADICIONALES COMUNES:</strong></p><ul><li>Fuente de chocolate: +$2,500 - $5,000</li><li>Carrito de algodón de azúcar: +$2,000 - $3,500</li><li>Personalización (monogramas, colores especiales): +$500 - $2,000</li><li>Servicio en zona fuera de CDMX: +$500 - $2,000 por traslado</li></ul></section><div class="article-image-grid"><figure><img decoding="async" height="634" width="528" src="../../img/galeria/candy-bar-profesional-eventos.avif" alt="Variedad de dulces para quinceañera" loading="lazy" /><figcaption>Selección de dulces gourmet y tradicionales</figcaption></figure><figure><img decoding="async" height="634" width="528" src="../../img/galeria/mesa-dulces-gourmet-premium.avif" alt="Mesa de dulces premium para XV años" loading="lazy" /><figcaption>Mesa premium con personalización completa</figcaption></figure></div><section id="errores" class="article-section"><h2>Errores Comunes a Evitar</h2><p>Después de cientos de eventos de XV años, estos son los errores que vemos repetidamente:</p><p><strong>1. Contratar tarde</strong></p><ul><li>Error: Contactar proveedores 1 mes antes y encontrar que los mejores ya no tienen disponibilidad</li><li>Solución: Empieza a cotizar 6 meses antes, reserva a los 4-3 meses</li></ul><p><strong>2. No definir bien los colores</strong></p><ul><li>Error: Decir "rosa" y recibir rosa mexicano cuando querías rosa pastel</li><li>Solución: Envía fotos específicas de referencia, códigos Pantone si es posible</li></ul><p><strong>3. Calcular mal las cantidades</strong></p><ul><li>Error: Pedir para 150 cuando solo confirmaron 100, y desperdiciar dinero y comida</li><li>Solución: Espera las confirmaciones, ajusta hasta 1 mes antes</li></ul><p><strong>4. No considerar el clima/espacio</strong></p><ul><li>Error: Chocolates derritiéndose en jardín de mayo a las 3pm</li><li>Solución: Comunica si es exterior, pide opciones resistentes al calor</li></ul><p><strong>5. No coordinar con otros proveedores</strong></p><ul><li>Error: El decorador pone un arco que bloquea la mesa de dulces</li><li>Solución: Haz una reunión o grupo de WhatsApp con todos los proveedores</li></ul><p><strong>6. No tener plan para los dulces sobrantes</strong></p><ul><li>Error: Dulces abandonados al final de la fiesta, nadie sabe qué hacer</li><li>Solución: Ten bolsitas para que invitados se lleven, o designa quién los recoge</li></ul></section>
 
-        <section id="faq" class="article-section article-faq-section"><h2>Preguntas Frecuentes</h2><div class="article-faq"><details class="article-faq__item"><summary class="article-faq__question">¿Cómo se personaliza la mesa de dulces para cada cliente?</summary><div class="article-faq__answer"><p>Cada mesa de dulces se personaliza a través de un proceso de consultoría detallada, donde analizamos sus preferencias y estilo. Ofrecemos opciones de diseño temático exclusivo, dulces personalizados con monogramas y una selección de postres que reflejen sus gustos únicos. Nuestro enfoque bespoke asegura que cada mesa sea una extensión de su evento, creando una experiencia verdaderamente única y memorable.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿En qué zonas exclusivas de CDMX operan sus servicios?</summary><div class="article-faq__answer"><p>Mededul ofrece sus servicios premium en las colonias más exclusivas de Ciudad de México, incluyendo Polanco, San Angel, Lomas de Chapultepec, y otras áreas residenciales de alto prestigio. Nuestra presencia en estas zonas nos permite atender a las familias más distinguidas, asegurando un servicio personalizado y una experiencia de lujo inigualable.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Cómo coordinan con otros proveedores de eventos de lujo?</summary><div class="article-faq__answer"><p>Trabajamos estrechamente con wedding planners y otros proveedores de eventos de lujo para garantizar una integración perfecta de servicios. Nuestra comunicación constante y planificación meticulosa aseguran que cada elemento del evento se alinee, creando una experiencia cohesiva y sofisticada. Este enfoque colaborativo es clave para el éxito de los eventos de alta gama.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Qué opciones gourmet ofrecen para restricciones alimentarias?</summary><div class="article-faq__answer"><p>Entendemos la importancia de atender a todos los invitados, por lo que ofrecemos opciones gourmet que se adaptan a diversas restricciones alimentarias, como dulces veganos, sin gluten y sin lactosa. Nuestros chefs pasteleros utilizan ingredientes de la más alta calidad para garantizar que todos los dulces sean deliciosos, independientemente de las necesidades dietéticas.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Cuál es el proceso de consultoría y diseño de Mededul?</summary><div class="article-faq__answer"><p>El proceso de consultoría de Mededul comienza con una reunión para entender sus deseos y expectativas. A partir de ahí, desarrollamos un diseño personalizado que refleja su estilo único. Cada etapa se lleva a cabo con atención al detalle, desde la selección de dulces hasta el montaje final, asegurando que cada mesa sea una expresión única de su evento de lujo.</p></div></details></div></section>
+        <section id="faq" class="article-section article-faq-section"><h2>Preguntas Frecuentes sobre Planificación</h2><div class="article-faq"><details class="article-faq__item"><summary class="article-faq__question">¿Con cuánta anticipación debo reservar la mesa de dulces para XV años?</summary><div class="article-faq__answer"><p>Lo ideal es reservar con 4-6 meses de anticipación, especialmente si tu evento es en temporada alta (agosto-diciembre). Los proveedores más solicitados se llenan rápido. Empieza a cotizar 6 meses antes y firma contrato a los 3-4 meses. Reservar con solo 1-2 meses de anticipación es arriesgado - podrías quedarte sin opciones o pagar más por urgencia.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Cuánto cuesta una mesa de dulces para 100 invitados de XV años?</summary><div class="article-faq__answer"><p>En CDMX para 2025, los rangos son: básica $8,000-$12,000, estándar $12,000-$18,000, y premium $18,000-$30,000 MXN. El precio varía por calidad de dulces, mobiliario incluido, personalización, y servicios adicionales como fuente de chocolate (+$2,500-$5,000). Pide cotizaciones detalladas que especifiquen exactamente qué incluyen.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Qué información necesito darle al proveedor de mesa de dulces?</summary><div class="article-faq__answer"><p>Prepara: fecha y hora exacta, dirección del venue, número de invitados, colores/tema de la fiesta (con fotos de referencia), restricciones alimentarias de invitados, si es interior o exterior, y tu presupuesto aproximado. Entre más información des desde el inicio, mejor será la cotización y menos sorpresas habrá.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿El servicio normalmente incluye montaje y desmontaje?</summary><div class="article-faq__answer"><p>Varía por proveedor. Algunos incluyen montaje pero no desmontaje, otros incluyen ambos, y los más básicos solo entregan los dulces. SIEMPRE pregunta específicamente: ¿incluye montaje? ¿incluye mobiliario/bases? ¿incluye desmontaje y retiro? ¿a qué hora llegan y a qué hora se van? Que todo quede por escrito en el contrato.</p></div></details><details class="article-faq__item"><summary class="article-faq__question">¿Qué hago si cambia el número de invitados después de reservar?</summary><div class="article-faq__answer"><p>La mayoría de proveedores permiten ajustes hasta cierto punto (generalmente 1 mes antes). Cambios menores (±10-15%) usualmente se acomodan sin problema. Cambios grandes pueden tener costo adicional o crédito dependiendo de la política. Pregunta esto ANTES de firmar el contrato y asegúrate de que la política de ajustes quede por escrito.</p></div></details></div></section>
 
         <div class="article-interlink">
   <div class="article-interlink__badge">Servicios Exclusivos</div>
@@ -1077,6 +1254,26 @@
 
       <aside class="article-layout__sidebar">
 
+        <!-- 1. TOC Widget -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            En Este Articulo
+          </h3>
+          <nav class="sidebar-toc__nav">
+            <ul>
+              <li><a href="#meses6">6 Meses Antes: Investigacion</a></li>
+              <li><a href="#meses3">3 Meses Antes: Reservar</a></li>
+              <li><a href="#mes1">1 Mes Antes: Confirmar</a></li>
+              <li><a href="#semana1">1 Semana Antes: Detalles</a></li>
+              <li><a href="#presupuesto">Desglose de Presupuesto</a></li>
+              <li><a href="#errores">Errores a Evitar</a></li>
+              <li><a href="#faq">Preguntas Frecuentes</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- 2. CTA Principal WhatsApp -->
         <div class="sidebar-widget sidebar-cta-main">
           <span class="sidebar-cta-main__badge">Atencion Inmediata</span>
           <h3 class="sidebar-cta-main__title">¿Planeas tu Evento?</h3>
@@ -1088,6 +1285,7 @@
           <p class="sidebar-cta-main__phone">o llama: <a href="tel:+525525226442">55 2522 6442</a></p>
         </div>
 
+        <!-- 3. Services Grid -->
         <div class="sidebar-widget">
           <h3 class="sidebar-widget__title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -1103,34 +1301,135 @@
           </div>
         </div>
 
-        <div class="sidebar-widget sidebar-why-us">
+        <!-- 4. Paginas de Interes -->
+        <div class="sidebar-widget">
           <h3 class="sidebar-widget__title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            Por Que Mededul
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Paginas de Interes
           </h3>
-          <ul class="sidebar-benefits">
-            <li><span class="benefit-icon">✓</span> Dulces Gourmet Premium</li>
-            <li><span class="benefit-icon">✓</span> Diseno 100% Personalizado</li>
-            <li><span class="benefit-icon">✓</span> Montaje Profesional Incluido</li>
-            <li><span class="benefit-icon">✓</span> +500 Eventos Exitosos</li>
-          </ul>
+          <div class="sidebar-pages__list">
+            <a href="../../tipos-de-mesas-de-dulces.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Tipos de Mesas</span>
+                <span class="sidebar-pages__desc">Conoce todas las opciones</span>
+              </div>
+            </a>
+            <a href="../../porque-mededul.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Por Que Mededul</span>
+                <span class="sidebar-pages__desc">Nuestra propuesta de valor</span>
+              </div>
+            </a>
+            <a href="../index.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Blog Mededul</span>
+                <span class="sidebar-pages__desc">Mas articulos y guias</span>
+              </div>
+            </a>
+          </div>
         </div>
 
+        <!-- 5. Zonas de Cobertura -->
         <div class="sidebar-widget">
           <h3 class="sidebar-widget__title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Zonas Premium
+            Zonas de Cobertura
           </h3>
+          <div class="sidebar-zonas__header">
+            <span class="sidebar-zonas__badge">Premium</span>
+          </div>
           <div class="sidebar-zonas__tags">
             <span class="zona-tag">Polanco</span>
             <span class="zona-tag">Lomas</span>
             <span class="zona-tag">Santa Fe</span>
             <span class="zona-tag">Condesa</span>
             <span class="zona-tag">Del Valle</span>
+            <span class="zona-tag">Roma</span>
+            <span class="zona-tag">San Angel</span>
+            <span class="zona-tag">Pedregal</span>
           </div>
-          <p class="sidebar-zonas__note">Cobertura en toda CDMX y Area Metropolitana</p>
+          <p class="sidebar-zonas__note">Servicio en toda CDMX y Area Metropolitana</p>
         </div>
 
+        <!-- 6. Features/Beneficios -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Por Que Elegirnos
+          </h3>
+          <ul class="sidebar-features__list">
+            <li>
+              <div class="sidebar-features__icon">✨</div>
+              <div class="sidebar-features__content">
+                <strong>100% Personalizado</strong>
+                <span>Diseño exclusivo para tu evento</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">🍬</div>
+              <div class="sidebar-features__content">
+                <strong>Dulces Gourmet</strong>
+                <span>Solo productos premium</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">🚚</div>
+              <div class="sidebar-features__content">
+                <strong>Montaje Incluido</strong>
+                <span>Servicio completo profesional</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">⭐</div>
+              <div class="sidebar-features__content">
+                <strong>+500 Eventos</strong>
+                <span>Experiencia comprobada</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 7. Related Articles -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Articulos Relacionados
+          </h3>
+          <div class="sidebar-related__list">
+            <a href="../../candy-bar-eventos/mesa-dulces-xv-anos.html" class="sidebar-related__item">
+              <div class="sidebar-related__number">1</div>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">XV Anos</span>
+                <span class="sidebar-related__title">Guia Completa Mesas XV Anos</span>
+              </div>
+            </a>
+            <a href="../../tipos-de-mesas-de-dulces/mesa-de-dulces.html" class="sidebar-related__item">
+              <div class="sidebar-related__number">2</div>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Tipos</span>
+                <span class="sidebar-related__title">Tipos de Mesas de Dulces</span>
+              </div>
+            </a>
+            <a href="../../porque-mededul/diseno-personalizado.html" class="sidebar-related__item">
+              <div class="sidebar-related__number">3</div>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Servicio</span>
+                <span class="sidebar-related__title">Diseño Personalizado Mededul</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Trust Signals (Stats) - KEEPING EXISTING STYLES -->
         <div class="sidebar-widget sidebar-stats">
           <div class="sidebar-stats__grid">
             <div class="stat-item"><span class="stat-number">500+</span><span class="stat-label">Eventos</span></div>
@@ -1139,18 +1438,7 @@
           </div>
         </div>
 
-        <div class="sidebar-widget">
-          <h3 class="sidebar-widget__title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            Te Puede Interesar
-          </h3>
-          <div class="sidebar-related-links">
-            <a href="../index.html" class="sidebar-related-link"><span class="related-icon">📚</span><span class="related-text">Mas Articulos del Blog</span><span class="related-arrow">→</span></a>
-            <a href="../../tipos-de-mesas-de-dulces.html" class="sidebar-related-link"><span class="related-icon">🎨</span><span class="related-text">Tipos de Mesas</span><span class="related-arrow">→</span></a>
-            <a href="../../porque-mededul.html" class="sidebar-related-link"><span class="related-icon">⭐</span><span class="related-text">Por Que Mededul</span><span class="related-arrow">→</span></a>
-          </div>
-        </div>
-
+        <!-- 9. Final CTA Contact -->
         <div class="sidebar-widget sidebar-contact-final">
           <h3 class="sidebar-contact-final__title">¿Listo para tu evento?</h3>
           <p class="sidebar-contact-final__text">Agenda tu consultoria gratuita</p>
@@ -1159,6 +1447,7 @@
             Agendar Consultoria
           </a>
         </div>
+
       </aside>
     </div>
   </article>

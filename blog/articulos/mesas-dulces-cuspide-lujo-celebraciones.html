@@ -144,9 +144,9 @@
     }
     .article-layout__wrapper {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 60px;
-      max-width: 1280px;
+      grid-template-columns: 1fr 400px;
+      gap: 50px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -457,67 +457,22 @@
     }
     .btn-cta-secondary:hover { border-color: #fff; }
 
-    /* Sidebar */
-    .article-layout__sidebar { position: sticky; top: 100px; height: fit-content; }
-    .sidebar-widget {
-      background: #fff;
-      border-radius: 20px;
-      padding: 28px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    /* ========== SIDEBAR PROFESIONAL ========== */
+    .article-layout__sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-primary-light) transparent;
     }
-    .sidebar-widget__title {
-      font-family: var(--font-display);
-      color: var(--color-text);
-      font-size: 1.1rem;
-      margin: 0 0 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #eee;
-      font-weight: 600;
-    }
-    .sidebar-widget__list { list-style: none; padding: 0; margin: 0; }
-    .sidebar-widget__list li { margin-bottom: 12px; }
-    .sidebar-widget__list a {
-      color: var(--color-text-light);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .sidebar-widget__list a:hover { color: var(--color-primary); }
-
-    .sidebar-zonas .zona-tag {
-      display: inline-block;
-      background: var(--color-primary-light);
-      color: var(--color-primary-dark);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin: 4px;
-      font-weight: 500;
-    }
-
-    .sidebar-contact {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    }
-    .sidebar-contact .sidebar-widget__title { color: #fff; border-bottom-color: rgba(255,255,255,0.2); }
-    .sidebar-contact__info { margin-bottom: 20px; }
-    .sidebar-contact__item { margin-bottom: 16px; }
-    .sidebar-contact__label { color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-bottom: 4px; }
-    .sidebar-contact__value { color: #fff; font-size: 1rem; }
-    .sidebar-contact__value a { color: #fff; text-decoration: none; }
-    .sidebar-contact__btn {
-      display: block;
-      background: #fff;
-      color: var(--color-primary);
-      text-align: center;
-      padding: 14px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      }
-    .sidebar-contact__btn:hover { transform: scale(1.02); }
-    /* ========== SIDEBAR MEJORADO ========== */
-    .article-layout__sidebar { position: sticky; top: 100px; height: fit-content; display: flex; flex-direction: column; gap: 20px; }
+    .article-layout__sidebar::-webkit-scrollbar { width: 6px; }
+    .article-layout__sidebar::-webkit-scrollbar-track { background: transparent; }
+    .article-layout__sidebar::-webkit-scrollbar-thumb { background: var(--color-primary-light); border-radius: 3px; }
 
     .sidebar-widget {
       background: #fff;
@@ -538,31 +493,7 @@
       border-bottom: 2px solid var(--color-primary-light);
       font-weight: 600;
     }
-    .sidebar-widget__title svg { color: var(--color-primary); }
-
-    /* TOC Widget */
-    .sidebar-toc__nav ul { list-style: none; padding: 0; margin: 0; }
-    .sidebar-toc__nav li { margin-bottom: 8px; padding-left: 16px; position: relative; }
-    .sidebar-toc__nav li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 6px;
-      height: 6px;
-      background: var(--color-primary-light);
-      border-radius: 50%;
-      transition: background 0.2s;
-    }
-    .sidebar-toc__nav li:hover::before { background: var(--color-primary); }
-    .sidebar-toc__nav a {
-      color: var(--color-text-light);
-      text-decoration: none;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      transition: color 0.2s;
-    }
-    .sidebar-toc__nav a:hover { color: var(--color-primary); }
+    .sidebar-widget__title svg { color: var(--color-primary); flex-shrink: 0; }
 
     /* CTA Principal Widget */
     .sidebar-cta-main {
@@ -606,7 +537,8 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.95rem;
-      }
+      transition: all 0.3s ease;
+    }
     .sidebar-cta-main__btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
@@ -618,6 +550,30 @@
     }
     .sidebar-cta-main__phone a { color: #fff; text-decoration: underline; }
 
+    /* TOC Widget */
+    .sidebar-toc__nav ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar-toc__nav li { margin-bottom: 8px; padding-left: 16px; position: relative; }
+    .sidebar-toc__nav li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary-light);
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .sidebar-toc__nav li:hover::before { background: var(--color-primary); }
+    .sidebar-toc__nav a {
+      color: var(--color-text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      transition: color 0.2s;
+    }
+    .sidebar-toc__nav a:hover { color: var(--color-primary); }
+
     /* Services Grid Widget */
     .sidebar-services__grid {
       display: grid;
@@ -628,33 +584,54 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px 8px;
-      background: var(--color-primary-light);
+      padding: 14px 8px;
+      background: linear-gradient(135deg, #fdfcfb 0%, var(--color-primary-light) 100%);
       border-radius: 12px;
       text-decoration: none;
-      
-      border: 1px solid transparent;
+      border: 1px solid rgba(233, 30, 140, 0.1);
+      transition: all 0.3s ease;
     }
     .sidebar-service-card:hover {
-      background: #fff;
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
       border-color: var(--color-primary);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(233, 30, 140, 0.15);
     }
     .sidebar-service-card__icon { font-size: 1.5rem; margin-bottom: 6px; }
     .sidebar-service-card__name { color: var(--color-text); font-size: 0.75rem; font-weight: 500; text-align: center; }
 
-    /* Zonas Widget */
-    .sidebar-zonas__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .zona-tag {
-      display: inline-block;
-      background: var(--color-primary-light);
-      color: var(--color-primary-dark);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
+    /* Pages List Widget */
+    .sidebar-pages__list { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-pages__item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: linear-gradient(135deg, #fdfcfb 0%, #f8f8f8 100%);
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
     }
-    .sidebar-zonas__note { color: var(--color-text-light); font-size: 0.8rem; font-style: italic; margin: 0; }
+    .sidebar-pages__item:hover {
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
+      border-color: var(--color-primary);
+      transform: translateX(4px);
+    }
+    .sidebar-pages__icon {
+      width: 36px;
+      height: 36px;
+      background: var(--color-primary-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sidebar-pages__icon svg { color: var(--color-primary); width: 18px; height: 18px; }
+    .sidebar-pages__text { flex: 1; }
+    .sidebar-pages__title { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 600; }
+    .sidebar-pages__desc { display: block; color: var(--color-text-light); font-size: 0.75rem; margin-top: 2px; }
 
     /* Features Widget */
     .sidebar-features__list { list-style: none; padding: 0; margin: 0; }
@@ -666,85 +643,79 @@
     }
     .sidebar-features__list li:last-child { border-bottom: none; padding-bottom: 0; }
     .sidebar-features__icon { font-size: 1.2rem; flex-shrink: 0; }
-    .sidebar-features__list strong { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 600; }
-    .sidebar-features__list span { color: var(--color-text-light); font-size: 0.8rem; }
+    .sidebar-features__content { flex: 1; }
+    .sidebar-features__content strong { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 600; }
+    .sidebar-features__content span { display: block; color: var(--color-text-light); font-size: 0.8rem; margin-top: 2px; }
 
     /* Related Widget */
-    .sidebar-related__list { display: flex; flex-direction: column; gap: 10px; }
+    .sidebar-related__list { display: flex; flex-direction: column; gap: 8px; }
     .sidebar-related__item {
-      display: block;
-      padding: 12px;
-      background: #fafafa;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: linear-gradient(135deg, #fdfcfb 0%, #f8f8f8 100%);
       border-radius: 10px;
       text-decoration: none;
-      
       border: 1px solid #eee;
+      transition: all 0.3s ease;
     }
     .sidebar-related__item:hover {
-      background: var(--color-primary-light);
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
       border-color: var(--color-primary);
     }
-    .sidebar-related__cat {
-      display: inline-block;
+    .sidebar-related__number {
+      width: 28px;
+      height: 28px;
       background: var(--color-primary);
       color: #fff;
-      padding: 2px 8px;
-      border-radius: 4px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .sidebar-related__content { flex: 1; }
+    .sidebar-related__cat {
+      display: inline-block;
+      color: var(--color-primary);
       font-size: 0.7rem;
       font-weight: 500;
-      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .sidebar-related__title { display: block; color: var(--color-text); font-size: 0.9rem; font-weight: 500; }
+    .sidebar-related__title { display: block; color: var(--color-text); font-size: 0.85rem; font-weight: 500; margin-top: 2px; }
 
-    /* Contact Final Widget */
-    .sidebar-contact-final {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      text-align: center;
-      border: none;
-    }
-    .sidebar-contact-final__header { margin-bottom: 16px; }
-    .sidebar-contact-final__header img { filter: brightness(0) invert(1); opacity: 0.9; }
-    .sidebar-contact-final__slogan {
-      color: rgba(255,255,255,0.7);
-      font-style: italic;
-      font-size: 0.9rem;
-      margin: 0 0 16px;
-    }
-    .sidebar-contact-final__info { margin-bottom: 16px; }
-    .sidebar-contact-final__row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.85rem;
-    }
-    .sidebar-contact-final__row svg { color: var(--color-primary); }
-    .sidebar-contact-final__row a { color: #fff; text-decoration: none; }
-    .sidebar-contact-final__row a:hover { text-decoration: underline; }
-    .sidebar-contact-final__social {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .sidebar-contact-final__social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      background: rgba(255,255,255,0.1);
+    /* Zonas Widget */
+    .sidebar-zonas__header { margin-bottom: 12px; }
+    .sidebar-zonas__badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--color-gold) 0%, #c9a227 100%);
       color: #fff;
-      border-radius: 50%;
-      text-decoration: none;
+      padding: 4px 12px;
+      border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 600;
-      transition: background 0.2s;
+      letter-spacing: 0.5px;
     }
-    .sidebar-contact-final__social a:hover { background: var(--color-primary); }
+    .sidebar-zonas__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .zona-tag {
+      display: inline-block;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .zona-tag:hover {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .sidebar-zonas__note { color: var(--color-text-light); font-size: 0.8rem; font-style: italic; margin: 0; }
 
     @media (max-width: 1024px) {
       .article-layout__sidebar { display: none; }
@@ -1018,40 +989,276 @@
       </div>
 
       <aside class="article-layout__sidebar">
-        <div class="sidebar-widget">
-          <h3 class="sidebar-widget__title">Contenido</h3>
-          <nav><ul><li><a href="#factores">Los 5 Factores para Elegir tus Dulces</a></li><li><a href="#gourmet-tradicional">Dulces Gourmet vs Tradicionales</a></li><li><a href="#audiencia">Dulces por Tipo de Audiencia</a></li><li><a href="#calor">Dulces Resistentes al Calor y Clima</a></li><li><a href="#saludables">Opciones Saludables y Dietéticas</a></li><li><a href="#listas">Listas de Dulces por Tipo de Evento</a></li></ul></nav>
+        <!-- 1. CTA WhatsApp -->
+        <div class="sidebar-widget sidebar-cta-main">
+          <span class="sidebar-cta-main__badge">Atencion Inmediata</span>
+          <h3 class="sidebar-cta-main__title">Cotiza Tu Mesa de Dulces</h3>
+          <p class="sidebar-cta-main__text">Recibe una propuesta personalizada en menos de 24 horas</p>
+          <a href="https://wa.me/525525226442?text=Hola%2C%20me%20interesa%20una%20cotizacion%20para%20mesa%20de%20dulces" class="sidebar-cta-main__btn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            Cotizar por WhatsApp
+          </a>
+          <p class="sidebar-cta-main__phone">o llama al <a href="tel:+525525226442">55 2522 6442</a></p>
         </div>
 
-        <div class="sidebar-widget sidebar-zonas">
-          <h3 class="sidebar-widget__title">Zonas de Servicio</h3>
-          <div><span class="zona-tag">Veronica Anzures</span><span class="zona-tag">Polanco I, II, III, IV y V Seccion</span><span class="zona-tag">Bosques de las Lomas</span><span class="zona-tag">Jardines del Pedregal</span><span class="zona-tag">Santa Fe</span></div>
+        <!-- 2. Tabla de Contenido -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Contenido del Articulo
+          </h3>
+          <nav class="sidebar-toc__nav">
+            <ul>
+              <li><a href="#introduccion">Los 5 Factores para Elegir</a></li>
+              <li><a href="#estilos">Gourmet vs Tradicionales</a></li>
+              <li><a href="#seleccion">Dulces por Audiencia</a></li>
+              <li><a href="#diseno">Resistentes al Calor</a></li>
+              <li><a href="#experiencia">Opciones Saludables</a></li>
+              <li><a href="#recomendaciones">Listas por Evento</a></li>
+              <li><a href="#faq">Preguntas Frecuentes</a></li>
+            </ul>
+          </nav>
         </div>
 
+        <!-- 3. Servicios por Evento -->
         <div class="sidebar-widget">
-          <h3 class="sidebar-widget__title">Servicios Premium</h3>
-          <ul class="sidebar-widget__list">
-            <li><a href="../../candy-bar-eventos/mesa-dulces-boda.html">Bodas de Lujo</a></li>
-            <li><a href="../../candy-bar-eventos/mesa-dulces-xv-anos.html">XV Anos Premium</a></li>
-            <li><a href="../../candy-bar-eventos/mesa-dulces-baby-shower.html">Baby Shower Exclusivo</a></li>
-            <li><a href="../../candy-bar-eventos/mesa-dulces-corporativos.html">Eventos Corporativos</a></li>
-            <li><a href="../../estaciones-interactivas/fuente-de-chocolate.html">Estaciones Gourmet</a></li>
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            Servicios por Evento
+          </h3>
+          <div class="sidebar-services__grid">
+            <a href="../../candy-bar-eventos/mesa-dulces-boda.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">💍</span>
+              <span class="sidebar-service-card__name">Bodas</span>
+            </a>
+            <a href="../../candy-bar-eventos/mesa-dulces-xv-anos.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">👑</span>
+              <span class="sidebar-service-card__name">XV Años</span>
+            </a>
+            <a href="../../candy-bar-eventos/mesa-dulces-baby-shower.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🍼</span>
+              <span class="sidebar-service-card__name">Baby Shower</span>
+            </a>
+            <a href="../../candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🎂</span>
+              <span class="sidebar-service-card__name">Cumpleaños</span>
+            </a>
+            <a href="../../candy-bar-eventos/mesa-dulces-corporativos.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🏢</span>
+              <span class="sidebar-service-card__name">Corporativos</span>
+            </a>
+            <a href="../../candy-bar-eventos/mesa-dulces-graduacion.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🎓</span>
+              <span class="sidebar-service-card__name">Graduaciones</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Paginas de Interes -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Paginas de Interes
+          </h3>
+          <div class="sidebar-pages__list">
+            <a href="../../servicios.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Nuestros Servicios</span>
+                <span class="sidebar-pages__desc">Conoce todo lo que ofrecemos</span>
+              </div>
+            </a>
+            <a href="../../nosotros.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Nosotros</span>
+                <span class="sidebar-pages__desc">Conoce nuestra historia</span>
+              </div>
+            </a>
+            <a href="../../porque-mededul.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Por Que Elegirnos</span>
+                <span class="sidebar-pages__desc">Nuestra diferencia</span>
+              </div>
+            </a>
+            <a href="../../galeria.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Galeria</span>
+                <span class="sidebar-pages__desc">Nuestros trabajos</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Tipos de Mesas -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Tipos de Mesas
+          </h3>
+          <div class="sidebar-services__grid" style="grid-template-columns: repeat(2, 1fr);">
+            <a href="../../tipos-de-mesas-de-dulces/mesa-de-dulces.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🍬</span>
+              <span class="sidebar-service-card__name">Dulces</span>
+            </a>
+            <a href="../../tipos-de-mesas-de-dulces/mesa-de-postres.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🧁</span>
+              <span class="sidebar-service-card__name">Postres</span>
+            </a>
+            <a href="../../tipos-de-mesas-de-dulces/mesa-de-frutas.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🍓</span>
+              <span class="sidebar-service-card__name">Frutas</span>
+            </a>
+            <a href="../../tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos.html" class="sidebar-service-card">
+              <span class="sidebar-service-card__icon">🧀</span>
+              <span class="sidebar-service-card__name">Quesos</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Estaciones Interactivas -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Estaciones Interactivas
+          </h3>
+          <div class="sidebar-pages__list">
+            <a href="../../estaciones-interactivas/fuente-de-chocolate.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Fuente de Chocolate</span>
+                <span class="sidebar-pages__desc">Experiencia interactiva premium</span>
+              </div>
+            </a>
+            <a href="../../estaciones-interactivas/fuente-de-chamoy.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Fuente de Chamoy</span>
+                <span class="sidebar-pages__desc">Sabor mexicano autentico</span>
+              </div>
+            </a>
+            <a href="../../estaciones-interactivas/pared-de-dulces.html" class="sidebar-pages__item">
+              <div class="sidebar-pages__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              </div>
+              <div class="sidebar-pages__text">
+                <span class="sidebar-pages__title">Pared de Dulces</span>
+                <span class="sidebar-pages__desc">Impacto visual garantizado</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. Por Que Elegirnos -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Por Que Elegirnos
+          </h3>
+          <ul class="sidebar-features__list">
+            <li>
+              <div class="sidebar-features__icon">✨</div>
+              <div class="sidebar-features__content">
+                <strong>Diseno Personalizado</strong>
+                <span>Cada evento es unico y exclusivo</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">🏆</div>
+              <div class="sidebar-features__content">
+                <strong>Calidad Premium</strong>
+                <span>Solo los mejores ingredientes</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">🎯</div>
+              <div class="sidebar-features__content">
+                <strong>Servicio Completo</strong>
+                <span>Montaje y desmontaje incluido</span>
+              </div>
+            </li>
+            <li>
+              <div class="sidebar-features__icon">💯</div>
+              <div class="sidebar-features__content">
+                <strong>Cero Estres</strong>
+                <span>Nos encargamos de todo</span>
+              </div>
+            </li>
           </ul>
         </div>
 
-        <div class="sidebar-widget sidebar-contact">
-          <h3 class="sidebar-widget__title">Consultoria Personalizada</h3>
-          <div class="sidebar-contact__info">
-            <div class="sidebar-contact__item">
-              <div class="sidebar-contact__label">Telefono Directo</div>
-              <div class="sidebar-contact__value"><a href="tel:+52525525226442">55 2522 6442</a></div>
-            </div>
-            <div class="sidebar-contact__item">
-              <div class="sidebar-contact__label">Cobertura</div>
-              <div class="sidebar-contact__value">CDMX y Area Metropolitana</div>
-            </div>
+        <!-- 8. Articulos Relacionados -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Articulos Relacionados
+          </h3>
+          <div class="sidebar-related__list">
+            <a href="elegancia-dulce-mesas-bodas-exclusivas-cdmx.html" class="sidebar-related__item">
+              <span class="sidebar-related__number">1</span>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Bodas</span>
+                <span class="sidebar-related__title">Mesas de Dulces para Bodas Exclusivas</span>
+              </div>
+            </a>
+            <a href="celebraciones-infantiles-ensueno-cdmx.html" class="sidebar-related__item">
+              <span class="sidebar-related__number">2</span>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Infantil</span>
+                <span class="sidebar-related__title">Celebraciones Infantiles de Ensueno</span>
+              </div>
+            </a>
+            <a href="arte-mesas-dulces-corporativas-cdmx.html" class="sidebar-related__item">
+              <span class="sidebar-related__number">3</span>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Corporativo</span>
+                <span class="sidebar-related__title">Arte de Mesas Dulces Corporativas</span>
+              </div>
+            </a>
+            <a href="tendencias-mesas-dulces-2025-cdmx.html" class="sidebar-related__item">
+              <span class="sidebar-related__number">4</span>
+              <div class="sidebar-related__content">
+                <span class="sidebar-related__cat">Tendencias</span>
+                <span class="sidebar-related__title">Tendencias Mesas de Dulces 2025</span>
+              </div>
+            </a>
           </div>
-          <a href="../../contacto.html" class="sidebar-contact__btn">Agendar Consultoria</a>
+        </div>
+
+        <!-- 9. Zonas de Servicio -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Zonas de Servicio
+          </h3>
+          <div class="sidebar-zonas__header">
+            <span class="sidebar-zonas__badge">CDMX Premium</span>
+          </div>
+          <div class="sidebar-zonas__tags">
+            <span class="zona-tag">Polanco</span>
+            <span class="zona-tag">Lomas de Chapultepec</span>
+            <span class="zona-tag">Santa Fe</span>
+            <span class="zona-tag">Pedregal</span>
+            <span class="zona-tag">Condesa</span>
+            <span class="zona-tag">Roma</span>
+            <span class="zona-tag">Interlomas</span>
+            <span class="zona-tag">Bosques de las Lomas</span>
+          </div>
+          <p class="sidebar-zonas__note">Servicio en toda la CDMX y Area Metropolitana</p>
         </div>
       </aside>
     </div>
