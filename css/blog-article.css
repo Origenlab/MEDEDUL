@@ -44,8 +44,22 @@
 }
 
 /* ==========================================
+   HEADER SPACER - Reserva espacio del header fijo
+   ========================================== */
+.header-spacer {
+    height: 120px; /* top-bar (38px) + header (~82px) */
+    width: 100%;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .header-spacer {
+        height: 95px; /* top-bar (34px) + header móvil (~61px) */
+    }
+}
+
+/* ==========================================
    BREADCRUMB - MODULO INDEPENDIENTE
-   Estilo consistente con el resto del sitio
    ========================================== */
 
 /* Breadcrumb section para artículos del blog */
@@ -53,7 +67,7 @@
 section.breadcrumb-section {
     background: #f8f9fa !important;
     padding: 15px 0 !important;
-    margin-top: 140px !important;
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
     position: relative !important;
     z-index: 10 !important;
@@ -1238,7 +1252,7 @@ header.article-hero,
 @media (max-width: 768px) {
     .breadcrumb-section,
     section.breadcrumb-section {
-        margin-top: 100px !important;
+        margin-top: 0 !important;
         padding: 12px 0 !important;
     }
 
