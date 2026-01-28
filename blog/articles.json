@@ -1,7 +1,17 @@
 {
   "version": "2.0",
-  "lastUpdate": "2026-01-27",
+  "lastUpdate": "2026-01-28",
   "articles": [
+    {
+      "id": 1769560642160,
+      "title": "Mesa de Dulces para Baby Shower: Magia en Cada Dulce",
+      "excerpt": "Explora cómo una mesa de dulces puede convertir tu baby shower en una experiencia inolvidable. Un viaje sensorial en cada bocado.",
+      "category": "baby-shower",
+      "image": "../img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif",
+      "slug": "mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas",
+      "readTime": "aprox 12-15 min lectura",
+      "cta": "Cotiza Ahora"
+    },
     {
       "id": 1769555823885,
       "title": "Mesa de Dulces Baby Shower: Transforma Tu Celebración con Encanto",
