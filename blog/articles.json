@@ -1,7 +1,17 @@
 {
   "version": "2.0",
-  "lastUpdate": "2026-01-28",
+  "lastUpdate": "2026-01-29",
   "articles": [
+    {
+      "id": 1769707830594,
+      "title": "Mesa de Dulces XV Años: Crea una Celebración Inolvidable",
+      "excerpt": "Transforma tu celebración de XV años con una mesa de dulces que cautivará a todos tus invitados y creará recuerdos inolvidables.",
+      "category": "xv-anos",
+      "image": "../img/galeria/candy-bar-quinceanera-rosa-fresas-dorado.avif",
+      "slug": "mesa-de-dulces-xv-anos-crea-una-celebracion-inolvidable-santa-fe",
+      "readTime": "14 min lectura",
+      "cta": "Solicitar Cotización"
+    },
     {
       "id": 1769560642160,
       "title": "Mesa de Dulces para Baby Shower: Magia en Cada Dulce",
