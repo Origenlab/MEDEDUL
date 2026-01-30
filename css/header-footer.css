@@ -922,15 +922,323 @@
 
 @media (max-width: 480px) {
     .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
     }
 
     .whatsapp-float svg {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* =====================================================
+   MEJORAS RESPONSIVE PROFESIONALES - MOBILE FIRST
+   ===================================================== */
+
+/* Mejoras de Touch Targets para Móvil */
+@media (max-width: 768px) {
+    /* Top bar - mejor espaciado y touch targets */
+    .top-bar-social a {
+        width: 40px;
+        height: 40px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .top-bar-link {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+
+    /* Navegación móvil mejorada */
+    .nav {
+        padding: 15px 0;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+
+    .hamburger {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+    }
+
+    .hamburger:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hamburger span {
+        width: 22px;
+        height: 2px;
+    }
+
+    /* Menú móvil con animación suave */
+    .nav-menu {
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /* Links de navegación con mejor touch */
+    .nav-link {
+        padding: 16px 0;
+        font-size: 1rem;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-dropdown > .nav-link-dropdown {
+        padding: 16px 0;
+        min-height: 48px;
+    }
+
+    /* Dropdown items con mejor espaciado */
+    .dropdown-column ul li a {
+        padding: 14px 20px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-column .dropdown-header {
+        padding: 14px 16px;
+        min-height: 48px;
+        font-size: 0.9rem;
+    }
+
+    /* Footer mejorado para móvil */
+    .footer-top {
+        padding: 50px 0 40px;
+    }
+
+    .footer .container {
+        padding: 0 20px;
+    }
+
+    .footer-logo img {
+        height: 48px;
+        margin-bottom: 16px;
+    }
+
+    .footer-tagline {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    /* Social links con mejor touch target */
+    .footer-social {
+        gap: 8px;
+    }
+
+    .social-link {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Footer links mejorados */
+    .footer-links h4,
+    .footer-contact h4 {
+        font-size: 1rem;
+        margin-bottom: 18px;
+    }
+
+    .footer-links h4::before,
+    .footer-contact h4::before {
+        bottom: -6px;
+        width: 35px;
+        height: 3px;
+    }
+
+    .footer-links ul a {
+        font-size: 0.95rem;
+        padding: 8px 0;
+        display: inline-block;
+        min-height: 40px;
+    }
+
+    /* Sucursales cards mejoradas */
+    .sucursal-card {
+        padding: 20px;
+        margin-bottom: 12px;
+    }
+
+    .sucursal-badge {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+    }
+
+    .sucursal-direccion {
+        font-size: 0.9rem;
+    }
+
+    .sucursal-mapa {
+        font-size: 0.9rem;
+        padding: 8px 0;
+        display: inline-block;
+        min-height: 40px;
+    }
+
+    /* Contacto directo mejorado */
+    .contacto-directo {
+        padding-top: 20px;
+        gap: 15px;
+    }
+
+    .footer-phone {
+        font-size: 1.5rem;
+        padding: 8px 0;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .footer-email {
+        font-size: 0.95rem;
+        padding: 8px 0;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Footer bottom mejorado */
+    .footer-bottom {
+        padding: 20px 0;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem;
+    }
+
+    .footer-legal {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-legal a {
+        font-size: 0.85rem;
+        padding: 8px 0;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Zonas footer mejoradas */
+    .footer-zona-col {
+        margin-bottom: 10px;
+    }
+
+    .footer-zona-col h5 {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+    }
+
+    .footer-zona-col ul li {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+}
+
+/* Mejoras específicas para pantallas muy pequeñas */
+@media (max-width: 380px) {
+    .top-bar {
+        padding: 6px 0;
+    }
+
+    .top-bar .container {
+        padding: 0 12px;
+    }
+
+    .header .container {
+        padding: 0 12px;
+    }
+
+    .header {
+        top: 30px;
+    }
+
+    .nav {
+        padding: 12px 0;
+    }
+
+    .logo img {
+        height: 42px;
+    }
+
+    .nav-menu {
+        padding: 15px;
+    }
+
+    .footer .container {
+        padding: 0 15px;
+    }
+
+    .footer-top {
+        padding: 40px 0 30px;
+    }
+
+    .sucursal-card {
+        padding: 16px;
+    }
+
+    .footer-phone {
+        font-size: 1.3rem;
+    }
+
+    .social-link {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Mejoras para tablets horizontales */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-link {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .btn-cta-nav {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .dropdown-mega {
+        min-width: 680px;
+        padding: 20px 15px;
+    }
+
+    .dropdown-column {
+        padding: 0 10px;
+    }
+
+    .dropdown-header {
+        font-size: 0.7rem;
+        padding: 0 0 10px 0;
+    }
+
+    .dropdown-column ul li a {
+        font-size: 0.8rem;
+        padding: 6px 0;
     }
 }
 

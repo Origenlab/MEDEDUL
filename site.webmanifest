@@ -4,14 +4,14 @@
   "description": "Mesas de dulces profesionales para bodas, XV años, baby shower y eventos en CDMX",
   "icons": [
     {
-      "src": "img/branding/favicon-mededul.webp",
-      "type": "image/webp",
+      "src": "img/branding/favicon-mededul.avif",
+      "type": "image/avif",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "img/branding/favicon-mededul.webp",
-      "type": "image/webp",
+      "src": "img/branding/favicon-mededul.avif",
+      "type": "image/avif",
       "sizes": "512x512",
       "purpose": "any maskable"
     }

@@ -1,10 +1,28 @@
 # =====================================================
 # MEDEDUL - CONFIGURACION .htaccess
 # Mesas de Dulces CDMX
+# URLs limpias sin extension .html
 # =====================================================
 
 # Activar RewriteEngine
 RewriteEngine On
+
+# =====================================================
+# ELIMINAR EXTENSION .HTML DE LAS URLs
+# =====================================================
+
+# 1. Redirigir URLs con .html a versiones sin extension (301)
+# Excluir archivos especiales que deben mantener .html
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteCond %{REQUEST_URI} !^/404\.html$ [NC]
+RewriteCond %{REQUEST_URI} !^/google68f59ec7686036d5\.html$ [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# 2. Servir archivo .html cuando se solicita URL sin extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
 
 # =====================================================
 # ELIMINAR BARRAS MULTIPLES EN LA URL
@@ -30,106 +48,118 @@ RewriteRule ^ / [R=301,L]
 ErrorDocument 404 /404.html
 
 # =====================================================
-# FORZAR HTTPS (descomentar en produccion)
+# FORZAR HTTPS
 # =====================================================
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # =====================================================
 # REDIRECCIONES 301 - ARTICULOS RENOMBRADOS (URLs legibles)
+# NOTA: URLs actualizadas sin extension .html
 # =====================================================
 
-Redirect 301 /blog/articulos/eleganciadulcemesasdebodasexclusivasencdmx.html /blog/articulos/elegancia-dulce-mesas-bodas-exclusivas-cdmx.html
-Redirect 301 /blog/articulos/celebracionesinfantilesdeensuenoencdmx.html /blog/articulos/celebraciones-infantiles-ensueno-cdmx.html
-Redirect 301 /blog/articulos/experienciasdulcesinolvidablesparaquinceaneras.html /blog/articulos/experiencias-dulces-inolvidables-quinceaneras.html
-Redirect 301 /blog/articulos/mesasdedulceseltoquedelujoparabodasexclusivas.html /blog/articulos/mesas-dulces-toque-lujo-bodas-exclusivas.html
-Redirect 301 /blog/articulos/mesasdedulcesexclusivasarteysofisticacionparabodas.html /blog/articulos/mesas-dulces-exclusivas-arte-sofisticacion-bodas.html
-Redirect 301 /blog/articulos/mesasdedulcesexclusivasparaeventoscorporativos.html /blog/articulos/mesas-dulces-exclusivas-eventos-corporativos.html
-Redirect 301 /blog/articulos/mesasdedulceslacuspidedellujoencelebraciones.html /blog/articulos/mesas-dulces-cuspide-lujo-celebraciones.html
-Redirect 301 /blog/articulos/mesasdedulcesmagiaydistincionenfiestasinfantiles.html /blog/articulos/mesas-dulces-magia-distincion-fiestas-infantiles.html
-Redirect 301 /blog/articulos/mesasdedulcesparaxvdealtasociedadencdmx.html /blog/articulos/mesas-dulces-xv-anos-alta-sociedad-cdmx.html
+Redirect 301 /blog/articulos/eleganciadulcemesasdebodasexclusivasencdmx /blog/articulos/elegancia-dulce-mesas-bodas-exclusivas-cdmx
+Redirect 301 /blog/articulos/celebracionesinfantilesdeensuenoencdmx /blog/articulos/celebraciones-infantiles-ensueno-cdmx
+Redirect 301 /blog/articulos/experienciasdulcesinolvidablesparaquinceaneras /blog/articulos/experiencias-dulces-inolvidables-quinceaneras
+Redirect 301 /blog/articulos/mesasdedulceseltoquedelujoparabodasexclusivas /blog/articulos/mesas-dulces-toque-lujo-bodas-exclusivas
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasarteysofisticacionparabodas /blog/articulos/mesas-dulces-exclusivas-arte-sofisticacion-bodas
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasparaeventoscorporativos /blog/articulos/mesas-dulces-exclusivas-eventos-corporativos
+Redirect 301 /blog/articulos/mesasdedulceslacuspidedellujoencelebraciones /blog/articulos/mesas-dulces-cuspide-lujo-celebraciones
+Redirect 301 /blog/articulos/mesasdedulcesmagiaydistincionenfiestasinfantiles /blog/articulos/mesas-dulces-magia-distincion-fiestas-infantiles
+Redirect 301 /blog/articulos/mesasdedulcesparaxvdealtasociedadencdmx /blog/articulos/mesas-dulces-xv-anos-alta-sociedad-cdmx
+
+# Tambien redirigir las versiones antiguas con .html
+Redirect 301 /blog/articulos/eleganciadulcemesasdebodasexclusivasencdmx.html /blog/articulos/elegancia-dulce-mesas-bodas-exclusivas-cdmx
+Redirect 301 /blog/articulos/celebracionesinfantilesdeensuenoencdmx.html /blog/articulos/celebraciones-infantiles-ensueno-cdmx
+Redirect 301 /blog/articulos/experienciasdulcesinolvidablesparaquinceaneras.html /blog/articulos/experiencias-dulces-inolvidables-quinceaneras
+Redirect 301 /blog/articulos/mesasdedulceseltoquedelujoparabodasexclusivas.html /blog/articulos/mesas-dulces-toque-lujo-bodas-exclusivas
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasarteysofisticacionparabodas.html /blog/articulos/mesas-dulces-exclusivas-arte-sofisticacion-bodas
+Redirect 301 /blog/articulos/mesasdedulcesexclusivasparaeventoscorporativos.html /blog/articulos/mesas-dulces-exclusivas-eventos-corporativos
+Redirect 301 /blog/articulos/mesasdedulceslacuspidedellujoencelebraciones.html /blog/articulos/mesas-dulces-cuspide-lujo-celebraciones
+Redirect 301 /blog/articulos/mesasdedulcesmagiaydistincionenfiestasinfantiles.html /blog/articulos/mesas-dulces-magia-distincion-fiestas-infantiles
+Redirect 301 /blog/articulos/mesasdedulcesparaxvdealtasociedadencdmx.html /blog/articulos/mesas-dulces-xv-anos-alta-sociedad-cdmx
 
 # =====================================================
 # REDIRECCIONES 301 - PRODUCTOS ELIMINADOS
 # =====================================================
 
 # Productos eliminados -> Pagina principal de servicios
-Redirect 301 /producto/candy-bar-bodas-de-oro-con-postres-finos-para-primavera/ /candy-bar-eventos/
-Redirect 301 /producto/candy-bar-para-eventos-de-negocios-concepto-visual-en-cdmx/ /candy-bar-eventos/
-Redirect 301 /producto/mesa-de-dulces-para-boda-elegante/ /candy-bar-eventos/mesa-dulces-boda.html
-Redirect 301 /producto/candy-bar-para-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
-Redirect 301 /producto/mesa-de-dulces-baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower.html
+Redirect 301 /producto/candy-bar-bodas-de-oro-con-postres-finos-para-primavera/ /candy-bar-eventos
+Redirect 301 /producto/candy-bar-para-eventos-de-negocios-concepto-visual-en-cdmx/ /candy-bar-eventos
+Redirect 301 /producto/mesa-de-dulces-para-boda-elegante/ /candy-bar-eventos/mesa-dulces-boda
+Redirect 301 /producto/candy-bar-para-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos
+Redirect 301 /producto/mesa-de-dulces-baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower
 
 # Redireccion generica para todos los productos eliminados
-RedirectMatch 301 ^/producto/(.*)$ /candy-bar-eventos/
+RedirectMatch 301 ^/producto/(.*)$ /candy-bar-eventos
 
 # =====================================================
 # REDIRECCIONES 301 - ETIQUETAS DE PRODUCTO
 # =====================================================
 
-Redirect 301 /etiqueta-producto/mesas-de-dulces-modernas/ /tipos-de-mesas-de-dulces.html
-Redirect 301 /etiqueta-producto/mesas-de-dulces-para-inauguraciones/ /candy-bar-eventos/mesa-dulces-corporativos.html
-Redirect 301 /etiqueta-producto/mesas-de-postres-y-salados/ /tipos-de-mesas-de-dulces/mesa-de-postres.html
-Redirect 301 /etiqueta-producto/candy-bar-bodas/ /candy-bar-eventos/mesa-dulces-boda.html
-Redirect 301 /etiqueta-producto/mesas-dulces-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
+Redirect 301 /etiqueta-producto/mesas-de-dulces-modernas/ /tipos-de-mesas-de-dulces
+Redirect 301 /etiqueta-producto/mesas-de-dulces-para-inauguraciones/ /candy-bar-eventos/mesa-dulces-corporativos
+Redirect 301 /etiqueta-producto/mesas-de-postres-y-salados/ /tipos-de-mesas-de-dulces/mesa-de-postres
+Redirect 301 /etiqueta-producto/candy-bar-bodas/ /candy-bar-eventos/mesa-dulces-boda
+Redirect 301 /etiqueta-producto/mesas-dulces-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos
 
 # Redireccion generica para todas las etiquetas de producto
-RedirectMatch 301 ^/etiqueta-producto/(.*)$ /tipos-de-mesas-de-dulces.html
+RedirectMatch 301 ^/etiqueta-producto/(.*)$ /tipos-de-mesas-de-dulces
 
 # =====================================================
 # REDIRECCIONES 301 - CATEGORIAS ANTIGUAS
 # =====================================================
 
-Redirect 301 /categoria/bodas/ /candy-bar-eventos/mesa-dulces-boda.html
-Redirect 301 /categoria/xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
-Redirect 301 /categoria/baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower.html
-Redirect 301 /categoria/corporativos/ /candy-bar-eventos/mesa-dulces-corporativos.html
-Redirect 301 /categoria/infantiles/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html
+Redirect 301 /categoria/bodas/ /candy-bar-eventos/mesa-dulces-boda
+Redirect 301 /categoria/xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos
+Redirect 301 /categoria/baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower
+Redirect 301 /categoria/corporativos/ /candy-bar-eventos/mesa-dulces-corporativos
+Redirect 301 /categoria/infantiles/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil
 
 # Redireccion generica para categorias
-RedirectMatch 301 ^/categoria/(.*)$ /candy-bar-eventos/
+RedirectMatch 301 ^/categoria/(.*)$ /candy-bar-eventos
 
 # =====================================================
 # REDIRECCIONES 301 - TAGS (URLs que generan 404)
 # =====================================================
 
 # Tags especificos identificados en analytics
-Redirect 301 /tag/mesa-de-dulces-para-adultos/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
-Redirect 301 /tag/tarjetas-de-mesa-de-dulces/ /tipos-de-mesas-de-dulces.html
-Redirect 301 /tag/mesa-de-dulces-sencilla/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
-Redirect 301 /tag/mesa-de-dulces-para-hombre/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
-Redirect 301 /tag/mesa-de-dulces-elegante/ /tipos-de-mesas-de-dulces/mesa-de-dulces.html
-Redirect 301 /tag/mesa-de-dulces-para-boda/ /candy-bar-eventos/mesa-dulces-boda.html
-Redirect 301 /tag/mesa-de-dulces-para-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
-Redirect 301 /tag/mesa-de-dulces-para-baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower.html
-Redirect 301 /tag/mesa-de-dulces-para-cumpleanos/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html
-Redirect 301 /tag/mesa-de-dulces-infantil/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil.html
-Redirect 301 /tag/mesa-de-dulces-para-bautizo/ /candy-bar-eventos/mesa-dulces-bautizo.html
-Redirect 301 /tag/mesa-de-dulces-corporativa/ /candy-bar-eventos/mesa-dulces-corporativos.html
-Redirect 301 /tag/candy-bar/ /tipos-de-mesas-de-dulces.html
-Redirect 301 /tag/candy-bar-bodas/ /candy-bar-eventos/mesa-dulces-boda.html
-Redirect 301 /tag/candy-bar-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos.html
-Redirect 301 /tag/dulces-mexicanos/ /tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales.html
-Redirect 301 /tag/postres/ /tipos-de-mesas-de-dulces/mesa-de-postres.html
-Redirect 301 /tag/frutas/ /tipos-de-mesas-de-dulces/mesa-de-frutas.html
-Redirect 301 /tag/quesos/ /tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos.html
-Redirect 301 /tag/botanas/ /tipos-de-mesas-de-dulces/mesa-de-botanas.html
-Redirect 301 /tag/snacks/ /tipos-de-mesas-de-dulces/mesa-de-snacks.html
+Redirect 301 /tag/mesa-de-dulces-para-adultos/ /tipos-de-mesas-de-dulces/mesa-de-dulces
+Redirect 301 /tag/tarjetas-de-mesa-de-dulces/ /tipos-de-mesas-de-dulces
+Redirect 301 /tag/mesa-de-dulces-sencilla/ /tipos-de-mesas-de-dulces/mesa-de-dulces
+Redirect 301 /tag/mesa-de-dulces-para-hombre/ /tipos-de-mesas-de-dulces/mesa-de-dulces
+Redirect 301 /tag/mesa-de-dulces-elegante/ /tipos-de-mesas-de-dulces/mesa-de-dulces
+Redirect 301 /tag/mesa-de-dulces-para-boda/ /candy-bar-eventos/mesa-dulces-boda
+Redirect 301 /tag/mesa-de-dulces-para-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos
+Redirect 301 /tag/mesa-de-dulces-para-baby-shower/ /candy-bar-eventos/mesa-dulces-baby-shower
+Redirect 301 /tag/mesa-de-dulces-para-cumpleanos/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil
+Redirect 301 /tag/mesa-de-dulces-infantil/ /candy-bar-eventos/mesa-dulces-cumpleanos-infantil
+Redirect 301 /tag/mesa-de-dulces-para-bautizo/ /candy-bar-eventos/mesa-dulces-bautizo
+Redirect 301 /tag/mesa-de-dulces-corporativa/ /candy-bar-eventos/mesa-dulces-corporativos
+Redirect 301 /tag/candy-bar/ /tipos-de-mesas-de-dulces
+Redirect 301 /tag/candy-bar-bodas/ /candy-bar-eventos/mesa-dulces-boda
+Redirect 301 /tag/candy-bar-xv-anos/ /candy-bar-eventos/mesa-dulces-xv-anos
+Redirect 301 /tag/dulces-mexicanos/ /tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales
+Redirect 301 /tag/postres/ /tipos-de-mesas-de-dulces/mesa-de-postres
+Redirect 301 /tag/frutas/ /tipos-de-mesas-de-dulces/mesa-de-frutas
+Redirect 301 /tag/quesos/ /tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos
+Redirect 301 /tag/botanas/ /tipos-de-mesas-de-dulces/mesa-de-botanas
+Redirect 301 /tag/snacks/ /tipos-de-mesas-de-dulces/mesa-de-snacks
 
 # Redireccion generica para todos los tags no especificados
-RedirectMatch 301 ^/tag/(.*)$ /tipos-de-mesas-de-dulces.html
+RedirectMatch 301 ^/tag/(.*)$ /tipos-de-mesas-de-dulces
 
 # =====================================================
 # REDIRECCIONES 301 - PAGINAS ANTIGUAS
 # =====================================================
 
-Redirect 301 /nosotros/ /nosotros.html
-Redirect 301 /contacto/ /contacto.html
-Redirect 301 /servicios/ /servicios.html
+Redirect 301 /nosotros/ /nosotros
+Redirect 301 /contacto/ /contacto
+Redirect 301 /servicios/ /servicios
 Redirect 301 /galeria/ /
 Redirect 301 /portafolio/ /
-Redirect 301 /about/ /nosotros.html
-Redirect 301 /contact/ /contacto.html
+Redirect 301 /about/ /nosotros
+Redirect 301 /contact/ /contacto
 
 # =====================================================
 # REDIRECCIONES - INDEX.HTML A RAIZ
@@ -137,15 +167,6 @@ Redirect 301 /contact/ /contacto.html
 
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
-
-# =====================================================
-# TRAILING SLASH - Agregar / al final de directorios
-# =====================================================
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !(.*)/$
-RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{1,5}$
-RewriteRule ^(.*)$ $1/ [R=301,L]
 
 # =====================================================
 # COMPRESION GZIP

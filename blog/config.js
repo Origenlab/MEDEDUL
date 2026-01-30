@@ -49,73 +49,73 @@ const BLOG_CONFIG = {
     },
 
     // ============================================
-    // CATEGORIAS VALIDAS
+    // CATEGORIAS VALIDAS - Con emojis para UI
     // ============================================
     categories: {
         'bodas': {
             name: 'Bodas',
             color: '#E91E8C',
-            icon: 'heart',
+            icon: '💒',
             description: 'Mesas de dulces elegantes para bodas'
         },
         'xv-anos': {
-            name: 'XV Anos',
+            name: 'XV Años',
             color: '#9C27B0',
-            icon: 'crown',
-            description: 'Celebraciones de quinceanera inolvidables'
+            icon: '👑',
+            description: 'Celebraciones de quinceañera inolvidables'
         },
         'baby-shower': {
             name: 'Baby Shower',
             color: '#03A9F4',
-            icon: 'baby',
-            description: 'Dulces momentos para celebrar la llegada del bebe'
+            icon: '👶',
+            description: 'Dulces momentos para celebrar la llegada del bebé'
         },
         'corporativos': {
             name: 'Corporativos',
             color: '#607D8B',
-            icon: 'briefcase',
+            icon: '🏢',
             description: 'Eventos empresariales y ejecutivos'
         },
         'infantiles': {
             name: 'Infantiles',
             color: '#FF9800',
-            icon: 'balloon',
-            description: 'Fiestas magicas para los mas pequenos'
+            icon: '🎈',
+            description: 'Fiestas mágicas para los más pequeños'
         },
         'estaciones': {
             name: 'Estaciones',
             color: '#4CAF50',
-            icon: 'utensils',
+            icon: '🍫',
             description: 'Experiencias interactivas gourmet'
         },
         'guias': {
-            name: 'Guias',
+            name: 'Guías',
             color: '#795548',
-            icon: 'book',
-            description: 'Guias completas y tutoriales'
+            icon: '📖',
+            description: 'Guías completas y tutoriales'
         },
         'tematicas': {
-            name: 'Tematicas',
+            name: 'Temáticas',
             color: '#673AB7',
-            icon: 'palette',
+            icon: '🎨',
             description: 'Mesas de dulces con temas especiales'
         },
         'tendencias': {
             name: 'Tendencias',
             color: '#FF5722',
-            icon: 'trending',
-            description: 'Lo mas nuevo en mesas de dulces'
+            icon: '🔥',
+            description: 'Lo más nuevo en mesas de dulces'
         },
         'tips-y-consejos': {
             name: 'Tips y Consejos',
             color: '#009688',
-            icon: 'lightbulb',
-            description: 'Consejos practicos de expertos'
+            icon: '💡',
+            description: 'Consejos prácticos de expertos'
         },
         'inspiracion': {
-            name: 'Inspiracion',
+            name: 'Inspiración',
             color: '#E91E63',
-            icon: 'sparkle',
+            icon: '✨',
             description: 'Ideas creativas para tu evento'
         }
     },
