@@ -1,7 +1,17 @@
 {
   "version": "2.0",
-  "lastUpdate": "2026-01-29",
+  "lastUpdate": "2026-01-30",
   "articles": [
+    {
+      "id": 1769739384586,
+      "title": "Mesa de Dulces Corporativo: Catering Premium para Eventos Empresariales",
+      "excerpt": "Transforma tus eventos corporativos con mesas de dulces que generan conversación y fortalecen vínculos profesionales en un ambiente sofisticado y memorable.",
+      "category": "corporativos",
+      "image": "../img/blog/trufas-coco-almendra-02.jpeg",
+      "slug": "mesa-de-dulces-corporativo-catering-premium-para-eventos-emp-roma",
+      "readTime": "13 min lectura",
+      "cta": "Cotizar Mesa Corporativa"
+    },
     {
       "id": 1769707830594,
       "title": "Mesa de Dulces XV Años: Crea una Celebración Inolvidable",
