@@ -542,9 +542,12 @@
                 ? article.excerpt.substring(0, maxExcerpt) + '...'
                 : article.excerpt;
 
+            // Generar URL del articulo (con .html para compatibilidad)
+            const articleUrl = article.slug.endsWith('.html') ? article.slug : article.slug + '.html';
+
             return `
                 <article class="post-card" data-category="${article.category}" data-id="${article.id}" style="--category-color: ${categoryColor}">
-                    <a href="${article.slug}" aria-label="Leer artículo: ${article.title}">
+                    <a href="${articleUrl}" aria-label="Leer artículo: ${article.title}">
                         <img decoding="async" src="${article.image}" alt="${article.title} - Mededul CDMX" loading="lazy" onerror="this.onerror=null; this.src='${defaultImg}';">
                     </a>
                     <div class="post-meta">
@@ -554,10 +557,10 @@
                         </span>
                     </div>
                     <h3>
-                        <a href="${article.slug}">${article.title}</a>
+                        <a href="${articleUrl}">${article.title}</a>
                     </h3>
                     <p>${excerpt}</p>
-                    <a href="${article.slug}" class="btn btn-primary">${article.cta || 'Leer Más'}</a>
+                    <a href="${articleUrl}" class="btn btn-primary">${article.cta || 'Leer Más'}</a>
                 </article>
             `;
         }

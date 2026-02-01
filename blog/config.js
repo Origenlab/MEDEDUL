@@ -49,6 +49,23 @@ const BLOG_CONFIG = {
     },
 
     // ============================================
+    // CTAs ESTANDARIZADOS POR CATEGORIA
+    // ============================================
+    ctaByCategory: {
+        'bodas': 'Cotizar Mesa Boda',
+        'xv-anos': 'Cotizar XV Años',
+        'baby-shower': 'Cotizar Baby Shower',
+        'corporativos': 'Solicitar Cotización',
+        'infantiles': 'Ver Opciones Infantil',
+        'estaciones': 'Cotizar Estación',
+        'guias': 'Leer Guía',
+        'tematicas': 'Ver Ideas',
+        'tendencias': 'Descubrir Tendencias',
+        'tips-y-consejos': 'Leer Consejos',
+        'inspiracion': 'Ver Inspiración'
+    },
+
+    // ============================================
     // CATEGORIAS VALIDAS - Con emojis para UI
     // ============================================
     categories: {
@@ -282,18 +299,23 @@ function validateArticle(article, index = 0) {
 function sanitizeArticle(article) {
     const d = BLOG_CONFIG.defaults;
     const categoryData = BLOG_CONFIG.categories[article.category] || BLOG_CONFIG.categories[d.category];
+    const validCategory = BLOG_CONFIG.categories[article.category] ? article.category : d.category;
+
+    // CTA estandarizado por categoria
+    const ctaByCategory = BLOG_CONFIG.ctaByCategory || {};
+    const defaultCta = ctaByCategory[validCategory] || d.cta;
 
     return {
         id: article.id || Date.now(),
         title: (article.title || 'Sin titulo').trim(),
         excerpt: (article.excerpt || d.excerpt).trim(),
-        category: BLOG_CONFIG.categories[article.category] ? article.category : d.category,
+        category: validCategory,
         categoryName: categoryData.name,
         categoryColor: categoryData.color,
         image: article.image || d.image,
         slug: sanitizeSlug(article.slug || article.title || 'articulo-' + Date.now()),
         readTime: article.readTime || d.readTime,
-        cta: article.cta || d.cta
+        cta: article.cta || defaultCta
     };
 }
 
