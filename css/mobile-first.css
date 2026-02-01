@@ -115,8 +115,8 @@
 
 @media (max-width: 768px) {
     .header {
-        position: fixed;
-        top: 36px;
+        position: fixed !important;
+        top: 60px !important;
         left: 0;
         right: 0;
         z-index: 1000;
@@ -333,7 +333,7 @@
 
 @media (max-width: 380px) {
     .header {
-        top: 32px;
+        top: 56px !important;
     }
 
     .nav {
@@ -493,8 +493,8 @@
 
 @media (max-width: 768px) {
     .hero {
-        min-height: auto;
-        padding: 30px 0 40px;
+        min-height: auto !important;
+        padding: 140px 0 40px !important;
     }
 
     .hero-content {
@@ -556,7 +556,7 @@
 
 @media (max-width: 768px) {
     .page-hero {
-        padding: 30px 0 40px;
+        padding: 160px 0 40px !important;
     }
 
     .page-hero-grid {
@@ -948,7 +948,6 @@
     }
 
     .footer-grid,
-    .footer-row-1,
     .footer-row-2 {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -956,8 +955,22 @@
     }
 
     .footer-row-1 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        text-align: left;
         margin-bottom: 30px;
         padding-bottom: 30px;
+    }
+
+    .footer-row-1 .footer-brand {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .footer-row-1 .footer-links {
+        text-align: left;
     }
 
     /* Footer Brand */
@@ -992,13 +1005,18 @@
     /* Footer Links */
     .footer-links h4,
     .footer-contact h4 {
-        font-size: 14px;
-        margin-bottom: 16px;
+        font-size: 12px;
+        margin-bottom: 12px;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
     }
 
-    .footer-links h4::before,
+    .footer-row-1 .footer-links h4::before {
+        left: 0;
+        transform: none;
+        width: 30px;
+    }
+
     .footer-contact h4::before {
         left: 50%;
         transform: translateX(-50%);
@@ -1017,9 +1035,9 @@
 
     .footer-links ul a {
         display: block;
-        padding: 10px 0;
-        font-size: 14px;
-        min-height: var(--touch-min);
+        padding: 8px 0;
+        font-size: 13px;
+        min-height: 36px;
     }
 
     /* Sucursales */
@@ -1556,11 +1574,11 @@
 
 @media (max-width: 768px) and (orientation: landscape) {
     .hero {
-        padding: 20px 0 30px;
+        padding: 130px 0 30px !important;
     }
 
     .page-hero {
-        padding: 20px 0 30px;
+        padding: 130px 0 30px !important;
     }
 
     .section-padding {
@@ -1568,7 +1586,7 @@
     }
 
     .blog-hero {
-        padding: 20px 0 30px;
+        padding: 130px 0 30px !important;
     }
 
     .article-hero {
@@ -1586,11 +1604,11 @@
     }
 
     .hero {
-        padding: 20px 0 30px;
+        padding: 130px 0 30px !important;
     }
 
     .page-hero {
-        padding: 20px 0 30px;
+        padding: 130px 0 30px !important;
     }
 
     .hero h1,

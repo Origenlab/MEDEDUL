@@ -312,7 +312,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 
 .page-hero {
     background: linear-gradient(135deg, #FFF5F8 0%, #FFF9E6 50%, #F0FFFF 100%);
-    padding: 180px 0 80px;
+    padding: 250px 0 80px;
     position: relative;
     overflow: hidden;
 }

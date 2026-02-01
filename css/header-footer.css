@@ -1,6 +1,6 @@
 
 .top-bar {
-    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 50%, #E91E8C 100%);
+    background: #E91E8C;
     padding: 10px 0;
     position: fixed;
     top: 0;
