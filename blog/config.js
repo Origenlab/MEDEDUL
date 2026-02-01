@@ -191,7 +191,10 @@ const BLOG_CONFIG = {
     // REGLAS DE VALIDACION
     // ============================================
     validation: {
+        // Campos requeridos que SIEMPRE vienen del workflow
         requiredFields: ['id', 'title', 'excerpt', 'category', 'slug'],
+        // Campos opcionales pero esperados (tienen defaults)
+        optionalFields: ['image', 'readTime', 'cta', 'nlpScore', 'metaDescription', 'metaKeywords', 'breadcrumbText'],
         slugPattern: /^[a-z0-9][a-z0-9-]*[a-z0-9]$/,
         slugMinLength: 10,
         slugMaxLength: 70,
