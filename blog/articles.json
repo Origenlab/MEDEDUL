@@ -1,7 +1,18 @@
 {
   "version": "2.0",
-  "lastUpdate": "2026-01-30",
+  "lastUpdate": "2026-02-01",
   "articles": [
+    {
+      "id": 1769974376647,
+      "title": "Mesa de Dulces Corporativos: Impresiona en Eventos Empresariales CDMX",
+      "excerpt": "Transforma tus eventos empresariales con mesas de dulces corporativos elegantes que reflejan la excelencia de tu marca en las zonas más exclusivas de CDMX.",
+      "category": "corporativos",
+      "image": "../img/blog/tartaletas-frutas-chocolate-limon-02.jpeg",
+      "slug": "mesa-de-dulces-corporativos-impresiona-en-eventos-empresaria-pola",
+      "readTime": "10 min lectura",
+      "cta": "Solicitar Cotización Corporativa",
+      "nlpScore": 47
+    },
     {
       "id": 1769792441607,
       "title": "Estaciones Interactivas Gourmet: Transforma Tu Evento en CDMX",
