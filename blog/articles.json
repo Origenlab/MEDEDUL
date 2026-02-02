@@ -1,8 +1,22 @@
 {
   "version": "2.0",
-  "lastUpdate": "2026-02-01",
+  "lastUpdate": "2026-02-02",
   "totalArticles": 57,
   "articles": [
+    {
+      "id": 1770000728957,
+      "title": "Mesa de Dulces Corporativos: Eleva tus Eventos Empresariales",
+      "excerpt": "Las mesas de dulces corporativos están revolucionando los eventos empresariales en CDMX, creando experiencias memorables que fortalecen la cultura organizacional.",
+      "category": "corporativos",
+      "image": "../img/galeria/candy-bar-profesional-eventos.avif",
+      "slug": "mesa-de-dulces-corporativos-eleva-tus-eventos-empresari-condesa",
+      "readTime": "10 min lectura",
+      "cta": "Cotizar Mesa Corporativa",
+      "nlpScore": 58,
+      "metaDescription": "Descubre cómo las mesas de dulces corporativos transforman eventos empresariales en CDMX. Servicio premium en Polanco, Santa Fe y Reforma. ¡Cotiza ya!",
+      "metaKeywords": "mesa de dulces corporativos, candy bar empresarial, catering eventos corporativos, mesa dulces cdmx, eventos empresariales, catering dulce",
+      "breadcrumbText": "Mesa Dulces Corporativos"
+    },
     {
       "id": 1769978389900,
       "title": "Mesa de Dulces Infantil: Guía Completa para Fiestas Mágicas",
