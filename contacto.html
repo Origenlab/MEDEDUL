@@ -932,6 +932,127 @@
                 justify-content: center;
             }
         }
+
+        /* ============================================
+           MOBILE 480px - Optimizaciones adicionales
+        ============================================ */
+        @media (max-width: 480px) {
+            .contacto-hero {
+                padding: 120px 0 40px;
+            }
+
+            .contacto-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .contacto-hero .subtitulo {
+                font-size: 0.95rem;
+            }
+
+            .contacto-rapido-section {
+                padding: 50px 0;
+            }
+
+            .contacto-rapido-card {
+                padding: 25px 20px;
+            }
+
+            .contacto-rapido-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .contacto-rapido-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .contacto-rapido-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .contacto-rapido-card p {
+                font-size: 0.9rem;
+            }
+
+            .contacto-main-section {
+                padding: 50px 0;
+            }
+
+            .contacto-info h2,
+            .sucursales-header h2,
+            .faq-contacto-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .contacto-form-container {
+                padding: 25px 18px;
+            }
+
+            .contacto-form-container h3 {
+                font-size: 1.2rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px;
+                font-size: 16px; /* Previene zoom iOS */
+            }
+
+            .sucursales-section,
+            .faq-contacto-section {
+                padding: 50px 0;
+            }
+
+            .sucursal-card {
+                padding: 25px 20px;
+            }
+
+            .sucursal-card-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .faq-contacto-item {
+                padding: 20px;
+            }
+
+            .faq-contacto-item h4 {
+                font-size: 0.95rem;
+            }
+
+            .faq-contacto-item p {
+                font-size: 0.85rem;
+            }
+
+            .cta-contacto-section {
+                padding: 50px 0;
+            }
+
+            .cta-contacto-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-contacto-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ============================================
+           TOUCH DEVICES - Sin hover en cards
+        ============================================ */
+        @media (hover: none) and (pointer: coarse) {
+            .contacto-rapido-card,
+            .sucursal-card {
+                transition: none;
+            }
+
+            .contacto-rapido-card:hover,
+            .sucursal-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>

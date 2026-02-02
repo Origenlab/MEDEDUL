@@ -176,33 +176,8 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: 1px solid rgba(233, 30, 140, 0.05);
     position: relative;
-}
-
-.post-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--rosa-principal), var(--rosa-claro));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-    z-index: 10;
-}
-
-.post-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(233, 30, 140, 0.15);
-    border-color: rgba(233, 30, 140, 0.2);
-}
-
-.post-card:hover::before {
-    transform: scaleX(1);
 }
 
 .post-card > a:first-child {
@@ -212,28 +187,10 @@
     position: relative;
 }
 
-.post-card > a:first-child::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.post-card:hover > a:first-child::after {
-    opacity: 1;
-}
-
 .post-card > a:first-child img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.post-card:hover > a:first-child img {
-    transform: scale(1.08);
 }
 
 .post-card .post-meta {
@@ -270,19 +227,11 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border: 1px solid rgba(233, 30, 140, 0.15);
-    transition: all 0.3s ease;
 }
 
 .post-card .category .category-icon {
     font-size: 0.85rem;
     line-height: 1;
-}
-
-.post-card:hover .category {
-    background: var(--category-color, var(--rosa-principal));
-    color: #fff;
-    border-color: var(--category-color, var(--rosa-principal));
-    transform: scale(1.05);
 }
 
 .post-card h3 {
@@ -298,16 +247,6 @@
 .post-card h3 a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.3s ease;
-    background: linear-gradient(transparent 60%, rgba(233, 30, 140, 0.1) 60%);
-    background-size: 0% 100%;
-    background-repeat: no-repeat;
-    transition: background-size 0.4s ease;
-}
-
-.post-card:hover h3 a {
-    color: var(--rosa-principal);
-    background-size: 100% 100%;
 }
 
 .post-card > p {
@@ -366,11 +305,6 @@
 .post-card .btn.btn-primary::after {
     content: '→';
     font-size: 1.1rem;
-    transition: transform 0.3s ease;
-}
-
-.post-card:hover .btn.btn-primary::after {
-    transform: translateX(4px);
 }
 
 .articles-section {
@@ -1078,29 +1012,6 @@
         min-height: 44px;
     }
 
-    /* Hover states desactivados en touch */
-    @media (hover: none) {
-        .post-card:hover {
-            transform: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
-        .post-card:hover::before {
-            transform: scaleX(0);
-        }
-
-        .post-card:hover > a:first-child img {
-            transform: none;
-        }
-
-        .post-card:hover h3 a {
-            background-size: 0% 100%;
-        }
-
-        .post-card .btn.btn-primary:active {
-            background: linear-gradient(135deg, var(--rosa-hover) 0%, #a01365 100%);
-        }
-    }
 }
 
 /* Modo landscape para móvil */
@@ -1119,5 +1030,75 @@
 
     .blog-cta {
         padding: 40px 0;
+    }
+}
+
+/* =====================================================
+   SIN ANIMACIONES EN CARDS E IMAGENES - SOLO BOTONES
+   ===================================================== */
+
+/* Eliminar transiciones y animaciones de post-card */
+.post-card {
+    transition: none !important;
+}
+
+.post-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+}
+
+/* Eliminar transiciones y animaciones de article-card */
+.article-card {
+    transition: none !important;
+}
+
+.article-card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08) !important;
+}
+
+/* Eliminar animaciones de imagenes en cards */
+.post-card > a:first-child img,
+.article-card .article-image img {
+    transition: none !important;
+}
+
+.post-card:hover > a:first-child img,
+.post-card > a:first-child:hover img,
+.article-card:hover .article-image img,
+.article-card .article-image:hover img,
+.article-card .article-image a:hover img {
+    transform: none !important;
+    filter: none !important;
+}
+
+/* Eliminar animaciones de los enlaces de titulo */
+.post-card h3 a,
+.article-card h3 a {
+    transition: none !important;
+}
+
+.post-card h3 a:hover,
+.article-card h3 a:hover {
+    color: inherit !important;
+}
+
+/* Dispositivos tactiles - sin hover en cards */
+@media (hover: none) and (pointer: coarse) {
+    .post-card,
+    .article-card {
+        transition: none !important;
+    }
+
+    .post-card:hover,
+    .article-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .post-card > a:first-child img,
+    .article-card .article-image img {
+        transition: none !important;
+        transform: none !important;
     }
 }

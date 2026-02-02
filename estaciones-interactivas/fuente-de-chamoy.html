@@ -878,6 +878,199 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* ===============================================
+           MOBILE 480px - Optimizaciones adicionales
+           =============================================== */
+        @media (max-width: 480px) {
+            /* Proceso timeline en grid 2x2 */
+            .proceso-timeline {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .proceso-step {
+                flex: none !important;
+                width: 100% !important;
+                min-width: unset !important;
+                text-align: center;
+            }
+
+            .proceso-step .number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+                margin: 0 auto 10px;
+            }
+
+            .proceso-step h4 {
+                font-size: 0.95rem;
+            }
+
+            .proceso-step p {
+                font-size: 0.85rem;
+            }
+
+            /* Grids a 1 columna */
+            .caracteristicas-grid,
+            .incluye-grid,
+            .servicios-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px;
+            }
+
+            /* Cards sin hover en movil */
+            .caracteristica-card,
+            .incluye-card {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            .caracteristica-card:hover,
+            .incluye-card:hover {
+                transform: none !important;
+            }
+
+            /* Imagenes sin hover */
+            .caracteristica-card img,
+            .card-image img {
+                transform: none !important;
+            }
+
+            .caracteristica-card:hover img,
+            .card-image:hover img {
+                transform: none !important;
+            }
+        }
+
+        /* ===============================================
+           MOBILE 380px - Pantallas muy pequeñas
+           =============================================== */
+        @media (max-width: 380px) {
+            .proceso-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .proceso-step .number {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 1.6rem !important;
+            }
+
+            h2 {
+                font-size: 1.4rem !important;
+            }
+
+            .hero-servicio h1 {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        /* ===============================================
+           TOUCH DEVICES - Eliminar hover en tactiles
+           =============================================== */
+        @media (hover: none) and (pointer: coarse) {
+            .caracteristica-card,
+            .incluye-card {
+                transform: none !important;
+            }
+
+            .caracteristica-card:hover,
+            .incluye-card:hover {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            }
+
+            .caracteristica-card img,
+            .card-image img {
+                transform: none !important;
+            }
+        }
+
+        /* ===============================================
+           SECCION DE CONTACTO - RESPONSIVE
+           =============================================== */
+
+        /* Grid para info items */
+        .info-items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .info-item.info-horario {
+            grid-column: span 2;
+            text-align: center;
+        }
+
+        /* Tablet - 1024px */
+        @media (max-width: 1024px) {
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .info-items-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile - 768px */
+        @media (max-width: 768px) {
+            .contacto-section {
+                padding: 50px 0;
+            }
+
+            .contacto-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .info-items-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+
+        /* Mobile pequeño - 480px */
+        @media (max-width: 480px) {
+            .info-items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item.info-horario {
+                grid-column: span 1;
+            }
+
+            .info-item {
+                padding: 15px;
+            }
+
+            .contacto-form input,
+            .contacto-form select,
+            .contacto-form textarea {
+                font-size: 16px !important; /* Previene zoom en iOS */
+            }
+        }
+
+        /* Mobile muy pequeño - 380px */
+        @media (max-width: 380px) {
+            .contacto-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-item h4 {
+                font-size: 1rem;
+            }
+
+            .info-item p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1685,31 +1878,33 @@
                     <h2>Cotiza tu Fuente de Chamoy</h2>
                     <p class="contacto-intro">Estamos listos para llevar el sabor mexicano a tu fiesta. Contactanos y recibe una cotizacion personalizada sin compromiso.</p>
 
-                    <div class="info-item">
-                        <h4>Sucursal Condesa</h4>
-                        <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
-                        <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                    <div class="info-items-grid">
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Condesa</h4>
+                            <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+                            <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Sucursal Anzures</h4>
-                        <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-                        <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Anzures</h4>
+                            <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+                            <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Telefono y WhatsApp</h4>
-                        <p><a href="tel:+525525226442">55 2522 6442</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>WhatsApp</h4>
+                            <p><a href="tel:+525525226442">55 2522 6442</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Email</h4>
-                        <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Horario de Atencion</h4>
-                        <p>Lunes a Viernes: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        <div class="info-item info-horario">
+                            <h4>Horario de Atencion</h4>
+                            <p>Lun - Vie: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        </div>
                     </div>
                 </div>
 

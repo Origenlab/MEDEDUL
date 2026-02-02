@@ -881,6 +881,129 @@
                 justify-content: center;
             }
         }
+
+        /* ============================================
+           MOBILE 480px - Optimizaciones adicionales
+        ============================================ */
+        @media (max-width: 480px) {
+            .nosotros-hero {
+                padding: 120px 0 50px;
+            }
+
+            .nosotros-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .nosotros-hero .subtitulo {
+                font-size: 0.95rem;
+            }
+
+            .nosotros-hero .descripcion {
+                font-size: 0.9rem;
+            }
+
+            .historia-section,
+            .mision-vision-section,
+            .valores-section,
+            .sucursales-section,
+            .cobertura-section {
+                padding: 50px 0;
+            }
+
+            .historia-content h2,
+            .valores-header h2,
+            .sucursales-header h2,
+            .cobertura-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .historia-content p,
+            .valores-header p,
+            .sucursales-header p,
+            .cobertura-content p {
+                font-size: 0.95rem;
+            }
+
+            .historia-badge {
+                padding: 18px 25px;
+            }
+
+            .historia-badge span {
+                font-size: 2rem;
+            }
+
+            .mv-card {
+                padding: 30px 20px;
+            }
+
+            .mv-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .mv-card p {
+                font-size: 0.9rem;
+            }
+
+            .valor-card {
+                padding: 25px 20px;
+            }
+
+            .valor-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .valor-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .valor-card h4 {
+                font-size: 1rem;
+            }
+
+            .valor-card p {
+                font-size: 0.85rem;
+            }
+
+            .stats-section {
+                padding: 50px 0;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            .cta-section {
+                padding: 50px 0;
+            }
+
+            .cta-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ============================================
+           TOUCH DEVICES - Sin hover en cards
+        ============================================ */
+        @media (hover: none) and (pointer: coarse) {
+            .valor-card {
+                transition: none;
+            }
+
+            .valor-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>

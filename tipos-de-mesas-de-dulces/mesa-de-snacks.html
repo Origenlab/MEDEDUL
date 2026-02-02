@@ -894,6 +894,217 @@
                 font-size: 1.8rem;
             }
         }
+
+        /* ========================================
+           BREAKPOINT 480px - MOVILES PEQUENOS
+           ======================================== */
+        @media (max-width: 480px) {
+            /* Proceso en grid 2x2 */
+            .proceso-timeline {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .proceso-step {
+                flex: none !important;
+                width: 100% !important;
+                min-width: unset !important;
+                text-align: center;
+            }
+
+            .proceso-step .number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+                margin: 0 auto 10px;
+            }
+
+            .proceso-step h4 {
+                font-size: 0.95rem;
+                margin-bottom: 5px;
+            }
+
+            .proceso-step p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            /* Hero ajustes */
+            .servicio-hero-content h1 {
+                font-size: 1.6rem;
+                line-height: 1.3;
+            }
+
+            .servicio-hero-content p {
+                font-size: 0.9rem;
+            }
+
+            /* Grids a 1 columna */
+            .caracteristicas-right,
+            .ideal-grid,
+            .incluye-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Secciones padding reducido */
+            .section-padding {
+                padding: 40px 0;
+            }
+
+            /* Cards sin hover en movil */
+            .caracteristica-card,
+            .ideal-card,
+            .incluye-card {
+                transform: none !important;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.08) !important;
+            }
+
+            /* Imagenes sin efectos */
+            .caracteristica-card .card-image img,
+            .ideal-card .card-img img,
+            .galeria-item img {
+                transform: none !important;
+            }
+        }
+
+        /* ========================================
+           CONTACTO SECTION - ESTILOS MOVIL
+           ======================================== */
+        .info-items-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-item h4 {
+            color: #E91E8C;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .info-item p {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .info-item a {
+            color: #E91E8C;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-item.info-horario {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            border: 1px solid rgba(233, 30, 140, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .contacto-grid {
+                grid-template-columns: 1fr !important;
+                gap: 30px;
+            }
+
+            .contacto-info {
+                order: 2;
+            }
+
+            .contacto-form-wrapper {
+                order: 1;
+            }
+
+            .info-items-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .info-item.info-sucursal {
+                grid-column: 1 / -1;
+            }
+
+            .info-item.info-horario {
+                grid-column: 1 / -1;
+            }
+
+            /* Formulario responsive */
+            .form-row {
+                grid-template-columns: 1fr !important;
+            }
+
+            .contacto-form input,
+            .contacto-form select,
+            .contacto-form textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contacto-section {
+                padding: 40px 0;
+            }
+
+            .contacto-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .contacto-intro {
+                font-size: 0.9rem;
+            }
+
+            .info-items-grid {
+                gap: 10px;
+            }
+
+            .info-item {
+                padding: 15px;
+            }
+
+            .info-item h4 {
+                font-size: 0.95rem;
+            }
+
+            .info-item p {
+                font-size: 0.85rem;
+            }
+
+            .contacto-form-wrapper h3 {
+                font-size: 1.3rem;
+            }
+
+            .btn-submit {
+                width: 100%;
+                padding: 15px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .contacto-info h2 {
+                font-size: 1.3rem;
+            }
+
+            .info-item {
+                padding: 12px;
+            }
+
+            .info-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .info-item p {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1681,31 +1892,33 @@
                     <h2>Cotiza tu Mesa de Snacks</h2>
                     <p class="contacto-intro">Estamos listos para crear la mesa de snacks perfecta para tu evento. Contactanos y recibe una cotizacion personalizada sin compromiso.</p>
 
-                    <div class="info-item">
-                        <h4>Sucursal Condesa</h4>
-                        <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
-                        <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                    <div class="info-items-grid">
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Condesa</h4>
+                            <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+                            <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Sucursal Anzures</h4>
-                        <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-                        <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Anzures</h4>
+                            <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+                            <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Telefono y WhatsApp</h4>
-                        <p><a href="tel:+525525226442">55 2522 6442</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>Telefono y WhatsApp</h4>
+                            <p><a href="tel:+525525226442">55 2522 6442</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Email</h4>
-                        <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Horario de Atencion</h4>
-                        <p>Lunes a Viernes: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        <div class="info-item info-horario">
+                            <h4>Horario de Atencion</h4>
+                            <p>Lunes a Viernes: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        </div>
                     </div>
                 </div>
 

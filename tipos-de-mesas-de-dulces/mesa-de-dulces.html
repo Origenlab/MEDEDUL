@@ -403,12 +403,6 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            
-        }
-
-        .caracteristica-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(233, 30, 140, 0.15);
         }
 
         .caracteristica-card .card-image {
@@ -421,11 +415,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            
-        }
-
-        .caracteristica-card:hover .card-image img {
-            transform: scale(1.1);
         }
 
         .caracteristica-card .card-image::after {
@@ -532,42 +521,13 @@
             border-radius: 24px;
             overflow: hidden;
             position: relative;
-            cursor: pointer;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            
         }
 
         .galeria-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            
-        }
-
-        .galeria-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(233, 30, 140, 0.1) 100%);
-            opacity: 0;
-            
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .galeria-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 3px solid transparent;
-            border-radius: 24px;
-            
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .galeria-item:hover img {
-            transform: scale(1.1);
         }
 
         /* Bento Grid Layout */
@@ -1044,18 +1004,1000 @@
                 font-size: 0.9rem;
             }
 
+            /* Galería 768px - Layout Profesional */
             .galeria-bento {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(4, 150px);
-                gap: 10px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: 200px 160px 200px;
+                gap: 12px;
+            }
+
+            .galeria-item {
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             }
 
             .galeria-item:nth-child(1) {
-                grid-column: span 2;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+
+            .galeria-item:nth-child(2) {
+                grid-column: 2 / 3;
+                grid-row: 1 / 3;
+            }
+
+            .galeria-item:nth-child(3) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+
+            .galeria-item:nth-child(4) {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+
+            .galeria-item:nth-child(5) {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+            }
+
+            .galeria-item:nth-child(6) {
+                display: none;
             }
 
             .cta-final h2 {
                 font-size: 1.8rem;
+            }
+        }
+
+        /* ===============================================
+           OPTIMIZACIÓN MÓVIL COMPLETA - MESA DE DULCES
+           =============================================== */
+
+        /* Móvil pequeño (480px) */
+        @media (max-width: 480px) {
+            /* Hero Section */
+            .servicio-hero {
+                padding: 120px 0 40px;
+            }
+
+            .servicio-hero-content h1 {
+                font-size: 1.6rem;
+                line-height: 1.25;
+            }
+
+            .servicio-hero-content .descripcion {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .servicio-hero-badge {
+                bottom: -15px;
+                left: -10px;
+                padding: 14px 20px;
+            }
+
+            .servicio-hero-badge span {
+                font-size: 1.5rem;
+            }
+
+            .servicio-hero-badge small {
+                font-size: 0.75rem;
+            }
+
+            /* Botón WhatsApp Hero */
+            .btn-whatsapp-hero {
+                padding: 14px 24px;
+                font-size: 1rem;
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-whatsapp-hero svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            /* Características */
+            .caracteristicas-section {
+                padding: 50px 0;
+            }
+
+            .caracteristicas-left h2 {
+                font-size: 1.5rem;
+            }
+
+            .caracteristicas-right {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .caracteristica-card .card-image {
+                height: 140px;
+            }
+
+            /* Stats */
+            .header-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 16px 12px;
+            }
+
+            .stat-number {
+                font-size: 1.3rem;
+            }
+
+            .stat-label {
+                font-size: 0.6rem;
+            }
+
+            /* Galería - Diseño Móvil Profesional */
+            .galeria-section {
+                padding: 50px 0;
+            }
+
+            .galeria-bento {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: 140px 180px 140px;
+                gap: 10px;
+            }
+
+            .galeria-item {
+                border-radius: 14px;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            .galeria-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Layout asimétrico profesional */
+            .galeria-item:nth-child(1) {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+
+            .galeria-item:nth-child(2) {
+                grid-column: 2 / 3;
+                grid-row: 1 / 3;
+            }
+
+            .galeria-item:nth-child(3) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+
+            .galeria-item:nth-child(4) {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+
+            .galeria-item:nth-child(5) {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+            }
+
+            .galeria-item:nth-child(6) {
+                display: none;
+            }
+
+            /* Incluye Section */
+            .incluye-section {
+                padding: 50px 0;
+            }
+
+            .incluye-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .incluye-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .incluye-card {
+                padding: 20px 16px;
+            }
+
+            .incluye-card h4 {
+                font-size: 0.95rem;
+            }
+
+            .incluye-card p {
+                font-size: 0.85rem;
+            }
+
+            /* Ideal Section */
+            .ideal-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .ideal-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .ideal-card {
+                padding: 18px 14px;
+            }
+
+            .ideal-card .card-img {
+                height: 120px;
+            }
+
+            /* Proceso - 2 columnas en móvil */
+            .proceso-timeline {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .proceso-step {
+                text-align: center;
+            }
+
+            .proceso-step .number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+                margin: 0 auto 10px;
+            }
+
+            .proceso-step h4 {
+                font-size: 0.85rem;
+                margin-bottom: 6px;
+            }
+
+            .proceso-step p {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            /* CTA Final */
+            .cta-final {
+                padding: 50px 0;
+            }
+
+            .cta-final h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-final p {
+                font-size: 0.95rem;
+            }
+
+            .cta-final .btn-white {
+                padding: 14px 28px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===============================================
+           FIX PARA SECCIONES CON ESTILOS INLINE
+           =============================================== */
+
+        /* Eventos Premium - Grid responsive */
+        @media (max-width: 1024px) {
+            .eventos-premium .container > div:last-child {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .eventos-premium {
+                padding: 60px 0 !important;
+            }
+
+            .eventos-premium .container > div:first-child h2 {
+                font-size: 1.6rem !important;
+            }
+
+            .eventos-premium .container > div:first-child p {
+                font-size: 0.95rem !important;
+            }
+
+            .eventos-premium .container > div:last-child {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
+            /* Cards de eventos */
+            .eventos-premium .container > div:last-child > div {
+                border-radius: 16px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div > div:first-child {
+                height: 160px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div > div:last-child {
+                padding: 18px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div h3 {
+                font-size: 1.05rem !important;
+            }
+
+            .eventos-premium .container > div:last-child > div p {
+                font-size: 0.85rem !important;
+            }
+
+            .eventos-premium .container > div:last-child > div ul li {
+                font-size: 0.78rem !important;
+            }
+
+            .eventos-premium .container > div:last-child > div a {
+                padding: 14px 20px !important;
+                font-size: 0.9rem !important;
+                min-height: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .eventos-premium {
+                padding: 40px 0 !important;
+            }
+
+            .eventos-premium .container > div:first-child {
+                margin-bottom: 40px !important;
+            }
+
+            .eventos-premium .container > div:first-child span {
+                font-size: 0.75rem !important;
+                padding: 6px 16px !important;
+            }
+
+            .eventos-premium .container > div:first-child h2 {
+                font-size: 1.4rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .eventos-premium .container > div:first-child p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+            }
+
+            .eventos-premium .container > div:last-child {
+                gap: 16px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div > div:first-child {
+                height: 140px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div > div:last-child {
+                padding: 16px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div h3 {
+                font-size: 1rem !important;
+                margin-bottom: 8px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div p {
+                font-size: 0.82rem !important;
+                margin-bottom: 12px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div ul {
+                margin-bottom: 14px !important;
+            }
+
+            .eventos-premium .container > div:last-child > div ul li {
+                font-size: 0.75rem !important;
+                padding: 3px 0 !important;
+            }
+        }
+
+        /* ===============================================
+           ESTACIONES INTERACTIVAS - RESPONSIVE
+           =============================================== */
+
+        @media (max-width: 1024px) {
+            .otras-estaciones .container > div:last-child {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .otras-estaciones {
+                padding: 60px 0 !important;
+            }
+
+            .otras-estaciones .container > div:first-child {
+                margin-bottom: 40px !important;
+            }
+
+            .otras-estaciones .container > div:first-child h2 {
+                font-size: 1.6rem !important;
+            }
+
+            .otras-estaciones .container > div:first-child p {
+                font-size: 0.95rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div {
+                border-radius: 16px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div > div:first-child {
+                height: 160px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div > div:last-child {
+                padding: 20px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div h3 {
+                font-size: 1.1rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div p {
+                font-size: 0.88rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div ul li {
+                font-size: 0.8rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div a {
+                padding: 14px 20px !important;
+                font-size: 0.9rem !important;
+                min-height: 48px;
+            }
+
+            /* CTA final de estaciones */
+            .otras-estaciones .container > div:last-child {
+                margin-top: 35px !important;
+            }
+
+            .otras-estaciones .container > div:last-child p {
+                font-size: 0.9rem !important;
+                margin-bottom: 16px !important;
+            }
+
+            .otras-estaciones .container > div:last-child a {
+                padding: 14px 28px !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .otras-estaciones {
+                padding: 40px 0 !important;
+            }
+
+            .otras-estaciones .container > div:first-child span {
+                font-size: 0.75rem !important;
+                padding: 6px 16px !important;
+            }
+
+            .otras-estaciones .container > div:first-child h2 {
+                font-size: 1.4rem !important;
+            }
+
+            .otras-estaciones .container > div:first-child p {
+                font-size: 0.88rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div > div:first-child {
+                height: 140px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div > div:last-child {
+                padding: 16px !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div h3 {
+                font-size: 1rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div p {
+                font-size: 0.82rem !important;
+            }
+
+            .otras-estaciones .container > div:nth-child(2) > div ul li {
+                font-size: 0.75rem !important;
+            }
+        }
+
+        /* ===============================================
+           MEJORAS GENERALES TÁCTILES Y LEGIBILIDAD
+           =============================================== */
+
+        @media (max-width: 768px) {
+            /* Containers con mejor padding */
+            .servicio-hero .container,
+            .caracteristicas-section .container,
+            .galeria-section .container,
+            .incluye-section .container,
+            .ideal-section .container,
+            .proceso-section .container,
+            .cta-final .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            /* Headers de sección centrados */
+            .incluye-header,
+            .ideal-header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .incluye-header .badge,
+            .ideal-header .badge {
+                font-size: 0.75rem;
+                padding: 6px 16px;
+            }
+
+            /* Espaciado entre secciones */
+            .caracteristicas-section,
+            .galeria-section,
+            .incluye-section,
+            .ideal-section {
+                padding: 60px 0;
+            }
+
+            /* Imágenes responsive */
+            .servicio-hero-image img {
+                border-radius: 16px;
+            }
+
+            /* Cards con sombras sutiles en móvil */
+            .caracteristica-card,
+            .incluye-card,
+            .ideal-card {
+                box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            }
+
+            /* Galería - Mejoras visuales móvil */
+            .galeria-section .section-header {
+                margin-bottom: 30px;
+            }
+
+            .galeria-section .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .galeria-section .subtitulo {
+                font-size: 0.9rem;
+            }
+
+            /* Botones táctiles */
+            .btn-whatsapp-hero,
+            .cta-final .btn-white,
+            .eventos-premium a {
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+
+            /* Mejor legibilidad de textos */
+            .servicio-hero-content .descripcion,
+            .caracteristicas-left .header-description {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            /* Scroll suave */
+            html {
+                scroll-padding-top: 120px;
+            }
+        }
+
+        /* ===============================================
+           OPTIMIZACIÓN LANDSCAPE MÓVIL
+           =============================================== */
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .servicio-hero {
+                padding: 100px 0 40px;
+            }
+
+            .servicio-hero-grid {
+                gap: 30px;
+            }
+
+            .caracteristicas-section,
+            .galeria-section,
+            .incluye-section {
+                padding: 40px 0;
+            }
+        }
+
+        /* ===============================================
+           PANTALLAS MUY PEQUEÑAS (380px)
+           =============================================== */
+
+        @media (max-width: 380px) {
+            .servicio-hero {
+                padding: 110px 0 35px;
+            }
+
+            .servicio-hero-content h1 {
+                font-size: 1.4rem;
+            }
+
+            .servicio-hero-badge {
+                padding: 12px 16px;
+            }
+
+            .servicio-hero-badge span {
+                font-size: 1.3rem;
+            }
+
+            .btn-whatsapp-hero {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .caracteristicas-left h2 {
+                font-size: 1.35rem;
+            }
+
+            .incluye-header h2,
+            .ideal-header h2 {
+                font-size: 1.35rem;
+            }
+
+            /* Galería 380px - Compacta */
+            .galeria-bento {
+                grid-template-rows: 120px 150px 120px;
+                gap: 8px;
+            }
+
+            .galeria-item {
+                border-radius: 12px;
+            }
+
+            .cta-final h2 {
+                font-size: 1.35rem;
+            }
+
+            .cta-final .btn-white {
+                padding: 12px 24px;
+                font-size: 0.88rem;
+            }
+        }
+
+        /* ===============================================
+           PREVENIR OVERFLOW HORIZONTAL
+           =============================================== */
+
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* Ocultar decoraciones grandes en móvil */
+            .servicio-hero::before {
+                width: 300px;
+                height: 300px;
+                right: -150px;
+                top: -100px;
+            }
+
+            .galeria-section::before,
+            .galeria-section::after {
+                display: none;
+            }
+        }
+
+        /* ===============================================
+           SECCION DE CONTACTO - RESPONSIVE
+           =============================================== */
+
+        /* Base styles para contacto */
+        .contacto-section {
+            background: linear-gradient(180deg, #fdf7fa 0%, #fff 100%);
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contacto-info h2 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .contacto-intro {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(233, 30, 140, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .info-item h4 {
+            color: #E91E8C;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .info-item a {
+            color: #E91E8C;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .maps-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* Grid de info items */
+        .info-items-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Formulario */
+        .contacto-form-wrapper {
+            background: #fff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
+            border: 1px solid rgba(233, 30, 140, 0.08);
+        }
+
+        .contacto-form-wrapper h3 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .contacto-form-wrapper > p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #fafafa;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #E91E8C;
+            background: #fff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Tablet - 1024px */
+        @media (max-width: 1024px) {
+            .contacto-grid {
+                gap: 35px;
+            }
+
+            .contacto-form-wrapper {
+                padding: 30px;
+            }
+        }
+
+        /* Mobile - 768px */
+        @media (max-width: 768px) {
+            .contacto-section {
+                padding: 50px 0;
+            }
+
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .contacto-info h2 {
+                font-size: 1.6rem;
+                text-align: center;
+            }
+
+            .contacto-intro {
+                text-align: center;
+                font-size: 0.95rem;
+            }
+
+            /* Info items en grid */
+            .info-items-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            /* Sucursales ocupan ancho completo */
+            .info-item.info-sucursal {
+                grid-column: span 2;
+            }
+
+            /* Horario ocupa ancho completo */
+            .info-item.info-horario {
+                grid-column: span 2;
+                text-align: center;
+                background: linear-gradient(135deg, rgba(233, 30, 140, 0.05) 0%, rgba(255, 107, 179, 0.05) 100%);
+            }
+
+            .info-item {
+                padding: 15px;
+                margin-bottom: 0;
+            }
+
+            .info-item h4 {
+                font-size: 0.75rem;
+            }
+
+            .info-item p {
+                font-size: 0.85rem;
+            }
+
+            .contacto-form-wrapper {
+                padding: 25px 20px;
+                border-radius: 16px;
+            }
+
+            .contacto-form-wrapper h3 {
+                font-size: 1.3rem;
+                text-align: center;
+            }
+
+            .contacto-form-wrapper > p {
+                text-align: center;
+                font-size: 0.85rem;
+            }
+
+            /* Form row en 1 columna */
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px 12px;
+                font-size: 16px; /* Prevenir zoom iOS */
+            }
+
+            .btn-submit {
+                padding: 16px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Mobile pequeño - 480px */
+        @media (max-width: 480px) {
+            .contacto-section {
+                padding: 40px 0;
+            }
+
+            .contacto-info h2 {
+                font-size: 1.4rem;
+            }
+
+            .contacto-intro {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .info-items-grid {
+                gap: 10px;
+            }
+
+            .info-item {
+                padding: 14px 12px;
+            }
+
+            /* Contacto items más compactos */
+            .info-item.info-contacto {
+                padding: 12px 10px;
+                text-align: center;
+            }
+
+            .info-item h4 {
+                font-size: 0.7rem;
+                margin-bottom: 6px;
+            }
+
+            .info-item p {
+                font-size: 0.8rem;
+            }
+
+            .maps-link {
+                font-size: 0.8rem;
+            }
+
+            .contacto-form-wrapper {
+                padding: 20px 16px;
+            }
+
+            .contacto-form-wrapper h3 {
+                font-size: 1.2rem;
+            }
+
+            .form-group {
+                margin-bottom: 14px;
+            }
+
+            .form-group label {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -1914,31 +2856,33 @@
                     <h2>Cotiza tu Mesa de Dulces</h2>
                     <p class="contacto-intro">Estamos listos para crear la mesa perfecta para tu evento en Ciudad de México. Contáctanos y recibe una cotización a tu medida sin compromiso.</p>
 
-                    <div class="info-item">
-                        <h4>Sucursal Condesa</h4>
-                        <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
-                        <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                    <div class="info-items-grid">
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Condesa</h4>
+                            <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+                            <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Sucursal Anzures</h4>
-                        <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-                        <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
-                    </div>
+                        <div class="info-item info-sucursal">
+                            <h4>Sucursal Anzures</h4>
+                            <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+                            <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Telefono y WhatsApp</h4>
-                        <p><a href="tel:+525525226442">55 2522 6442</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>WhatsApp</h4>
+                            <p><a href="tel:+525525226442">55 2522 6442</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Email</h4>
-                        <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
-                    </div>
+                        <div class="info-item info-contacto">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
+                        </div>
 
-                    <div class="info-item">
-                        <h4>Horario de Atencion</h4>
-                        <p>Lunes a Viernes: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        <div class="info-item info-horario">
+                            <h4>Horario de Atencion</h4>
+                            <p>Lun - Vie: 9:00 AM - 7:00 PM<br>Sabados: 10:00 AM - 3:00 PM</p>
+                        </div>
                     </div>
                 </div>
 
@@ -2071,10 +3015,46 @@
                         <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
                     </div>
                 </div>
-                <div class="footer-zona-col"><h5>Colonias CDMX</h5><ul><li>Polanco</li><li>Lomas de Chapultepec</li><li>Santa Fe</li><li>Condesa</li><li>Roma</li></ul></div>
-                <div class="footer-zona-col"><h5>Alcaldias CDMX</h5><ul><li>Miguel Hidalgo</li><li>Benito Juarez</li><li>Cuauhtemoc</li><li>Coyoacan</li><li>Alvaro Obregon</li></ul></div>
-                <div class="footer-zona-col"><h5>Zona Metropolitana</h5><ul><li>Huixquilucan</li><li>Naucalpan</li><li>Tlalnepantla</li><li>Atizapan</li><li>Metepec</li></ul></div>
-                <div class="footer-zona-col"><h5>Zonas Exclusivas</h5><ul><li>Pedregal</li><li>Tecamachalco</li><li>Interlomas</li><li>Bosques de las Lomas</li><li>San Angel</li></ul></div>
+                <div class="footer-zona-col">
+                    <h5>Colonias CDMX</h5>
+                    <ul>
+                        <li>Polanco</li>
+                        <li>Lomas de Chapultepec</li>
+                        <li>Santa Fe</li>
+                        <li>Condesa</li>
+                        <li>Roma</li>
+                    </ul>
+                </div>
+                <div class="footer-zona-col">
+                    <h5>Alcaldias CDMX</h5>
+                    <ul>
+                        <li>Miguel Hidalgo</li>
+                        <li>Benito Juarez</li>
+                        <li>Cuauhtemoc</li>
+                        <li>Coyoacan</li>
+                        <li>Alvaro Obregon</li>
+                    </ul>
+                </div>
+                <div class="footer-zona-col">
+                    <h5>Zona Metropolitana</h5>
+                    <ul>
+                        <li>Huixquilucan</li>
+                        <li>Naucalpan</li>
+                        <li>Tlalnepantla</li>
+                        <li>Atizapan</li>
+                        <li>Metepec</li>
+                    </ul>
+                </div>
+                <div class="footer-zona-col">
+                    <h5>Zonas Exclusivas</h5>
+                    <ul>
+                        <li>Pedregal</li>
+                        <li>Tecamachalco</li>
+                        <li>Interlomas</li>
+                        <li>Bosques de las Lomas</li>
+                        <li>San Angel</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -2092,7 +3072,9 @@
 </footer>
 <a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" onclick="if(typeof rybbit!=='undefined')rybbit.event('whatsapp_click',{page:location.pathname})">
     <span class="whatsapp-badge">1</span>
-    <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 3.348s1.44 3.88 1.64 4.148c.2.268 2.832 4.32 6.864 6.06.96.416 1.708.664 2.292.848.964.308 1.84.264 2.532.16.772-.116 2.368-.968 2.704-1.904.332-.936.332-1.74.232-1.904-.1-.168-.368-.268-.768-.468z"/></svg>
+    <svg viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 3.348s1.44 3.88 1.64 4.148c.2.268 2.832 4.32 6.864 6.06.96.416 1.708.664 2.292.848.964.308 1.84.264 2.532.16.772-.116 2.368-.968 2.704-1.904.332-.936.332-1.74.232-1.904-.1-.168-.368-.268-.768-.468z"/>
+    </svg>
 </a>
 
     <script>
