@@ -2656,3 +2656,289 @@ header.article-hero,
         min-height: 44px;
     }
 }
+
+/* ============================================
+   ESTILOS PARA CONTENIDO GENERADO POR WORKFLOW
+   Clases usadas por N8N que no estaban definidas
+   ============================================ */
+
+/* CTA Box - Contenedor de llamada a la acción inline */
+.cta-box {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, var(--rosa-claro) 100%);
+    border-radius: 16px;
+    padding: 35px 30px;
+    text-align: center;
+    color: #fff;
+    margin: 40px 0;
+    box-shadow: 0 10px 30px rgba(233, 30, 140, 0.2);
+}
+
+.cta-box h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.cta-box p {
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* CTA Section - Sección completa de CTA */
+.cta-section {
+    margin: 50px 0;
+}
+
+.cta-section h2 {
+    color: var(--rosa-principal);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.cta-section > p {
+    text-align: center;
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+/* Botón WhatsApp genérico del workflow */
+.btn.btn-whatsapp,
+a.btn.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff !important;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    background: linear-gradient(135deg, #22c55e 0%, #0d7a6b 100%);
+}
+
+.btn.btn-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* Benefits List del workflow */
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.benefits-list li {
+    padding: 15px 0 15px 35px;
+    position: relative;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.1);
+    line-height: 1.7;
+}
+
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+
+.benefits-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--rosa-principal), var(--rosa-claro));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.benefits-list li strong {
+    color: var(--rosa-principal);
+}
+
+/* Steps List del workflow */
+.steps-list {
+    counter-reset: step-counter;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.steps-list li {
+    counter-increment: step-counter;
+    padding: 25px 0 25px 70px;
+    position: relative;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.1);
+}
+
+.steps-list li:last-child {
+    border-bottom: none;
+}
+
+.steps-list li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 25px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--rosa-principal), var(--rosa-claro));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
+}
+
+.steps-list li strong {
+    display: block;
+    color: var(--rosa-principal);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.steps-list li p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* FAQ Section del workflow */
+.faq-section .faq-item {
+    margin-bottom: 15px;
+    border: 1px solid rgba(233, 30, 140, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.faq-section .faq-question {
+    padding: 20px 50px 20px 20px;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.faq-section .faq-question:hover {
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.faq-section .faq-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: var(--rosa-principal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+.faq-section .faq-answer {
+    padding: 0 20px 20px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.faq-section .faq-answer p {
+    margin: 0;
+}
+
+/* Responsive para clases del workflow */
+@media (max-width: 768px) {
+    .cta-box {
+        padding: 28px 20px;
+        margin: 30px 0;
+    }
+
+    .cta-box h3 {
+        font-size: 1.3rem;
+    }
+
+    .cta-box p {
+        font-size: 0.95rem;
+    }
+
+    .btn.btn-whatsapp {
+        padding: 14px 24px;
+        font-size: 0.95rem;
+        width: 100%;
+    }
+
+    .benefits-list li {
+        padding: 12px 0 12px 30px;
+    }
+
+    .benefits-list li::before {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+
+    .steps-list li {
+        padding: 20px 0 20px 55px;
+    }
+
+    .steps-list li::before {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .steps-list li strong {
+        font-size: 1.05rem;
+    }
+
+    .faq-section .faq-question {
+        padding: 16px 45px 16px 16px;
+        font-size: 0.95rem;
+    }
+
+    .faq-section .faq-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        right: 15px;
+    }
+
+    .faq-section .faq-answer {
+        padding: 0 16px 16px;
+        font-size: 0.9rem;
+    }
+}
