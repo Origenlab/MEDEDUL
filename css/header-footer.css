@@ -875,64 +875,7 @@
     width: 100%;
 }
 
-.whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #25D366;
-    border-radius: 50%;
-    color: #ffffff;
-    text-decoration: none;
-    z-index: 999;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-    transition: all 0.3s ease;
-}
-
-.whatsapp-float svg {
-    width: 32px;
-    height: 32px;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-}
-
-.whatsapp-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 22px;
-    height: 22px;
-    background: #e53935;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.5);
-}
-
-@media (max-width: 480px) {
-    .whatsapp-float {
-        bottom: 16px;
-        right: 16px;
-        width: 56px;
-        height: 56px;
-    }
-
-    .whatsapp-float svg {
-        width: 30px;
-        height: 30px;
-    }
-}
+/* WhatsApp Float - Estilos completos al final del archivo */
 
 /* =====================================================
    MEJORAS RESPONSIVE PROFESIONALES - MOBILE FIRST
@@ -1566,11 +1509,284 @@
         gap: 15px;
         text-align: center;
     }
+}
 
+/* =====================================================
+   WHATSAPP FLOTANTE - RESPONSIVE COMPLETO
+   ===================================================== */
+
+/* Base mejorada para todos los dispositivos */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    border-radius: 50%;
+    color: #ffffff;
+    text-decoration: none;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.whatsapp-float svg {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.whatsapp-float:active {
+    transform: scale(0.95);
+}
+
+/* Badge de notificación */
+.whatsapp-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #ff5252 0%, #e53935 100%);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.5);
+    border: 2px solid #fff;
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* =====================================================
+   TABLETS (768px - 1024px)
+   ===================================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .whatsapp-float {
+        bottom: 25px;
+        right: 25px;
+        width: 58px;
+        height: 58px;
+    }
+
+    .whatsapp-float svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* =====================================================
+   MÓVILES GRANDES (481px - 768px)
+   ===================================================== */
+@media (max-width: 768px) {
     .whatsapp-float {
         bottom: 20px;
         right: 20px;
-        width: 55px;
-        height: 55px;
+        width: 56px;
+        height: 56px;
+        /* Safe area para navegación móvil */
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        right: calc(20px + env(safe-area-inset-right, 0px));
+    }
+
+    .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .whatsapp-badge {
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        top: -3px;
+        right: -3px;
+    }
+}
+
+/* =====================================================
+   MÓVILES MEDIANOS (376px - 480px)
+   ===================================================== */
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: 16px;
+        right: 16px;
+        width: 54px;
+        height: 54px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        right: calc(16px + env(safe-area-inset-right, 0px));
+    }
+
+    .whatsapp-float svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .whatsapp-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        top: -2px;
+        right: -2px;
+        border-width: 1.5px;
+    }
+}
+
+/* =====================================================
+   MÓVILES PEQUEÑOS (hasta 375px - iPhone SE, etc)
+   ===================================================== */
+@media (max-width: 375px) {
+    .whatsapp-float {
+        bottom: 14px;
+        right: 14px;
+        width: 50px;
+        height: 50px;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        right: calc(14px + env(safe-area-inset-right, 0px));
+    }
+
+    .whatsapp-float svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .whatsapp-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+        top: -2px;
+        right: -2px;
+    }
+}
+
+/* =====================================================
+   MÓVILES MUY PEQUEÑOS (hasta 320px)
+   ===================================================== */
+@media (max-width: 320px) {
+    .whatsapp-float {
+        bottom: 12px;
+        right: 12px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .whatsapp-float svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .whatsapp-badge {
+        width: 15px;
+        height: 15px;
+        font-size: 8px;
+    }
+}
+
+/* =====================================================
+   LANDSCAPE MODE EN MÓVILES
+   ===================================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .whatsapp-float {
+        bottom: 10px;
+        right: 10px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .whatsapp-float svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .whatsapp-badge {
+        width: 14px;
+        height: 14px;
+        font-size: 8px;
+        top: -1px;
+        right: -1px;
+    }
+}
+
+/* =====================================================
+   DISPOSITIVOS TÁCTILES - MEJORAS DE UX
+   ===================================================== */
+@media (hover: none) and (pointer: coarse) {
+    .whatsapp-float {
+        /* Desactivar hover en táctiles */
+        transition: transform 0.2s ease;
+    }
+
+    .whatsapp-float:hover {
+        transform: none;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+                    0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .whatsapp-float:active {
+        transform: scale(0.92);
+        box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
+    }
+
+    /* Animación de pulso sutil para llamar atención */
+    .whatsapp-badge {
+        animation: pulse-badge-mobile 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge-mobile {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.15); opacity: 0.9; }
+    }
+}
+
+/* =====================================================
+   ACCESIBILIDAD - REDUCED MOTION
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .whatsapp-float {
+        transition: none;
+    }
+
+    .whatsapp-float:hover,
+    .whatsapp-float:active {
+        transform: none;
+    }
+
+    .whatsapp-badge {
+        animation: none;
+    }
+}
+
+/* =====================================================
+   MODO OSCURO (si el usuario lo tiene activo)
+   ===================================================== */
+@media (prefers-color-scheme: dark) {
+    .whatsapp-float {
+        box-shadow: 0 4px 25px rgba(37, 211, 102, 0.5),
+                    0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-badge {
+        border-color: #1a1a1a;
     }
 }

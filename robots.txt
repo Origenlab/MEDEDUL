@@ -17,8 +17,6 @@ Allow: /img/
 
 # Bloquear paginas de sistema
 Disallow: /404.html
-Disallow: /menu.html
-Disallow: /footer.html
 
 # Bloquear archivos sensibles
 Disallow: /.htaccess
