@@ -1,0 +1,52 @@
+---
+// Breadcrumbs Component
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
+
+// Prepend home if not already included
+const breadcrumbs = items[0]?.name === 'Inicio'
+  ? items
+  : [{ name: 'Inicio', url: '/' }, ...items];
+---
+
+<section class="breadcrumb-section">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      {breadcrumbs.map((item, index) => (
+        <>
+          {index > 0 && (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          )}
+          {index < breadcrumbs.length - 1 ? (
+            <a href={item.url}>{item.name}</a>
+          ) : (
+            <span aria-current="page">{item.name}</span>
+          )}
+        </>
+      ))}
+    </nav>
+  </div>
+</section>
+
+<!-- Breadcrumb JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`
+  }))
+})} />

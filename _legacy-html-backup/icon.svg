@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Fondo blanco -->
+  <circle cx="50" cy="50" r="48" fill="white"/>
+
+  <!-- Espirales rojas -->
+  <path d="M50 2 A48 48 0 0 1 98 50 L50 50 Z" fill="#EF4444"/>
+  <path d="M98 50 A48 48 0 0 1 50 98 L50 50 Z" fill="white"/>
+  <path d="M50 98 A48 48 0 0 1 2 50 L50 50 Z" fill="#EF4444"/>
+  <path d="M2 50 A48 48 0 0 1 50 2 L50 50 Z" fill="white"/>
+
+  <!-- Más sectores para efecto espiral -->
+  <path d="M50 2 A48 48 0 0 1 85.4 14.6 L50 50 Z" fill="#EF4444"/>
+  <path d="M85.4 14.6 A48 48 0 0 1 98 50 L50 50 Z" fill="white"/>
+  <path d="M98 50 A48 48 0 0 1 85.4 85.4 L50 50 Z" fill="#EF4444"/>
+  <path d="M85.4 85.4 A48 48 0 0 1 50 98 L50 50 Z" fill="white"/>
+  <path d="M50 98 A48 48 0 0 1 14.6 85.4 L50 50 Z" fill="#EF4444"/>
+  <path d="M14.6 85.4 A48 48 0 0 1 2 50 L50 50 Z" fill="white"/>
+  <path d="M2 50 A48 48 0 0 1 14.6 14.6 L50 50 Z" fill="#EF4444"/>
+  <path d="M14.6 14.6 A48 48 0 0 1 50 2 L50 50 Z" fill="white"/>
+
+  <!-- Centro rosa -->
+  <circle cx="50" cy="50" r="20" fill="#EC4899"/>
+
+  <!-- Centro blanco -->
+  <circle cx="50" cy="50" r="10" fill="white"/>
+
+  <!-- Brillo -->
+  <circle cx="45" cy="45" r="5" fill="white" opacity="0.8"/>
+
+  <!-- Borde -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#DB2777" stroke-width="3"/>
+</svg>

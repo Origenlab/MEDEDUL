@@ -1,0 +1,243 @@
+---
+interface Props {
+  type: 'Organization' | 'LocalBusiness' | 'Article' | 'FAQPage' | 'BreadcrumbList' | 'Service';
+  data?: any;
+}
+
+const { type, data = {} } = Astro.props;
+const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
+
+// Organization Schema
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Mededul",
+  "alternateName": "Mededul Mesas de Dulces",
+  "url": siteUrl,
+  "logo": `${siteUrl}/img/branding/logo-mededul-mesas-de-dulces.avif`,
+  "description": "Empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México",
+  "foundingDate": "2020",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ciudad de México",
+    "addressLocality": "Mexico City",
+    "addressRegion": "CDMX",
+    "postalCode": "06600",
+    "addressCountry": "MX"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+52-55-2522-6442",
+    "contactType": "customer service",
+    "areaServed": ["MX-CMX", "MX-MEX"],
+    "availableLanguage": "Spanish"
+  },
+  "sameAs": [
+    "https://www.facebook.com/mededul",
+    "https://www.instagram.com/mededul",
+    "https://www.tiktok.com/@mededul"
+  ]
+};
+
+// LocalBusiness Schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${siteUrl}/#localbusiness`,
+  "name": "Mededul - Mesas de Dulces CDMX",
+  "image": [
+    `${siteUrl}/img/seo/mesas-de-dulces-cdmx-mededul-1x1.avif`,
+    `${siteUrl}/img/seo/mesas-de-dulces-cdmx-mededul-4x3.avif`,
+    `${siteUrl}/img/seo/mesas-de-dulces-cdmx-mededul-16x9.avif`
+  ],
+  "description": "Servicio profesional de renta de mesas de dulces, candy bar, fuente de chocolate y mesa de postres para bodas, XV años, baby shower, cumpleaños y eventos corporativos en Ciudad de México y área metropolitana.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Polanco, Miguel Hidalgo",
+    "addressLocality": "Ciudad de México",
+    "addressRegion": "CDMX",
+    "postalCode": "11560",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 19.4326,
+    "longitude": -99.1332
+  },
+  "url": siteUrl,
+  "telephone": "+52-55-2522-6442",
+  "email": "info@mesas-de-dulces.com",
+  "priceRange": "$$$",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "09:00",
+    "closes": "19:00"
+  }],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Ciudad de México" },
+    { "@type": "City", "name": "Naucalpan" },
+    { "@type": "City", "name": "Tlalnepantla" },
+    { "@type": "City", "name": "Huixquilucan" },
+    { "@type": "City", "name": "Atizapán" }
+  ],
+  "serviceType": [
+    "Renta de mesas de dulces",
+    "Candy bar para eventos",
+    "Mesa de postres para bodas",
+    "Fuente de chocolate",
+    "Mesa de dulces para XV años",
+    "Mesa de dulces para baby shower",
+    "Candy bar personalizado",
+    "Mesa de dulces infantiles"
+  ]
+};
+
+// Article Schema (requires data prop)
+function getArticleSchema(articleData: any) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": articleData.image,
+    "datePublished": articleData.publishDate,
+    "dateModified": articleData.modifiedDate || articleData.publishDate,
+    "author": {
+      "@type": "Organization",
+      "name": "Mededul",
+      "url": siteUrl
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Mededul",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/img/branding/logo-mededul-mesas-de-dulces.avif`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": articleData.url
+    }
+  };
+}
+
+// FAQPage Schema (requires data.faqs prop)
+function getFAQSchema(faqs: Array<{question: string, answer: string}>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+}
+
+// BreadcrumbList Schema (requires data.items prop)
+function getBreadcrumbSchema(items: Array<{name: string, url: string}>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  };
+}
+
+// Service Schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Renta de Mesas de Dulces",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Mededul"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Ciudad de México"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de Mesas de Dulces",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Mesa de Dulces para Bodas",
+          "description": "Candy bar elegante y personalizado para tu boda con dulces premium y montaje profesional"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Mesa de Dulces para XV Años",
+          "description": "Mesa de dulces temática para quinceaños con decoración personalizada"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Fuente de Chocolate",
+          "description": "Renta de fuente de chocolate con frutas y complementos para eventos"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Mesa de Dulces para Baby Shower",
+          "description": "Candy bar tierno y dulce para celebrar la llegada de tu bebé"
+        }
+      }
+    ]
+  }
+};
+
+// Select schema based on type
+let schema: any;
+
+switch (type) {
+  case 'Organization':
+    schema = organizationSchema;
+    break;
+  case 'LocalBusiness':
+    schema = localBusinessSchema;
+    break;
+  case 'Article':
+    schema = getArticleSchema(data);
+    break;
+  case 'FAQPage':
+    schema = getFAQSchema(data.faqs);
+    break;
+  case 'BreadcrumbList':
+    schema = getBreadcrumbSchema(data.items);
+    break;
+  case 'Service':
+    schema = serviceSchema;
+    break;
+  default:
+    schema = organizationSchema;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

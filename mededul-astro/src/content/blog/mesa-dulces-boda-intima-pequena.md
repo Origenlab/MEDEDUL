@@ -1,0 +1,164 @@
+---
+title: "Mesa de Dulces para Boda Intima y Pequena"
+description: "Mesas de dulces para bodas íntimas en CDMX. Candy bar para bodas pequeñas de 20-50 invitados. Renta tu mesa de dulces."
+publishDate: 2026-01-15
+category: "bodas"
+heroImage: "/img/galeria/candy-bar-boda-blanca-total-minimalista.avif"
+heroImageAlt: "Mesa de Dulces para Boda Intima: Pequena, Perfecta y Memorable"
+tags: ["bodas", "boda", "matrimonio", "mesa de dulces", "candy bar"]
+readTime: "8 min lectura"
+location: "CDMX"
+faqs:
+  - question: "Cuanto cuesta una mesa de dulces para boda de 30 personas?"
+    answer: "El costo varia segun el numero de invitados y nivel de personalizacion. Contactanos para una cotizacion personalizada."
+  - question: "Cuantos dulces necesito para 50 invitados?"
+    answer: "Para 50 invitados recomendamos 400-500 dulces totales (8-10 piezas por persona) distribuidos en 8-10 variedades diferentes. En bodas intimas los invitados suelen probar mas opciones que en eventos grandes, asi que es mejor calcular generosamente."
+  - question: "Vale la pena contratar servicio profesional para boda pequena?"
+    answer: "Absolutamente. En bodas intimas cada detalle se nota mas. Un servicio profesional incluye diseno personalizado, montaje perfecto, servicio durante el evento y desmontaje, permitiendo que la familia disfrute sin preocupaciones. Ademas, los proveedores profesionales tienen acceso a dulces premium que no encontraras en retail."
+  - question: "Puedo tener fuente de chocolate en boda de 20 personas?"
+    answer: "Si, tenemos fuentes pequenas perfectas para 20-30 personas. Tambien ofrecemos estaciones de fondue individual que son mas intimas y elegantes para grupos pequenos. El efecto es el mismo pero mas personalizado."
+---
+
+## Ventajas de las Mesas de Dulces Intimas
+
+                        
+Una boda pequena no significa una experiencia menor. De hecho, las mesas de dulces para celebraciones intimas tienen **ventajas unicas** que no son posibles en eventos masivos.
+
+                        
+
+                            - **Mayor calidad por invitado:** El presupuesto se distribuye entre menos personas, permitiendo dulces premium
+                            - **Personalizacion extrema:** Puedes incluir los dulces favoritos de cada invitado importante
+                            - **Atencion al detalle:** Cada elemento puede ser perfecto sin comprometer por volumen
+                            - **Flexibilidad de ubicacion:** Cabe en departamentos, restaurantes pequenos, jardines privados
+                            - **Menos desperdicio:** Cantidades exactas, nada sobra
+                        
+
+                        
+
+                        
+## Cantidades Ideales por Numero de Invitados
+
+                        
+La formula magica para calcular dulces en bodas intimas es diferente a eventos grandes. Al ser menos personas, **cada invitado consume mas variedad**.
+
+                        
+                            
+                                
+                                    Invitados
+                                    Total Dulces
+                                    Variedades
+                                    Por Variedad
+                                
+                            
+                            
+                                
+                                    20 personas
+                                    160-200
+                                    5-6 tipos
+                                    30-35 piezas
+                                
+                                
+                                    30 personas
+                                    250-300
+                                    6-7 tipos
+                                    35-45 piezas
+                                
+                                
+                                    40 personas
+                                    320-400
+                                    7-8 tipos
+                                    45-55 piezas
+                                
+                                
+                                    50 personas
+                                    400-500
+                                    8-10 tipos
+                                    45-60 piezas
+                                
+                            
+                        
+
+                        
+
+                        
+## Ideas de Diseno para Espacios Reducidos
+
+                        
+El secreto de las mesas de dulces para bodas intimas es **maximizar el impacto visual en espacios compactos**. No necesitas una mesa enorme para crear algo espectacular.
+
+                        
+### Diseno Vertical
+
+                        
+En espacios reducidos, construimos hacia arriba. Torres de macarons, exhibidores de varios niveles y estructuras verticales que maximizan el impacto visual sin ocupar mucho espacio.
+
+                        
+### Mesa Integrada
+
+                        
+En departamentos de **Polanco o Condesa**, a menudo integramos la mesa de dulces con la de postres o la barra de bebidas, creando una estacion multifuncional elegante.
+
+                        
+### Estilo Grazing
+
+                        
+Para bodas muy intimas (menos de 25 personas), el estilo "grazing" donde los dulces se presentan artisticamente sobre la mesa de comedor es perfecto. Todo luce como una obra de arte comestible.
+
+                        
+
+                        
+## Personalizacion de Alto Impacto
+
+                        
+Las bodas intimas permiten niveles de personalizacion que serian imposibles en eventos grandes. Aprovechalo.
+
+                        
+
+                            - **Dulces con historia:** Incluye las galletas de la abuela, el chocolate del primer viaje juntos
+                            - **Etiquetas personalizadas:** Cada dulce puede tener el nombre de a quien esta dedicado
+                            - **Sabores unicos:** Podemos crear un sabor exclusivo para ustedes
+                            - **Empaque especial:** Bolsitas de recuerdo personalizadas para cada invitado
+                            - **Colores exactos:** Igualamos pantones especificos para coordinacion perfecta
+                        
+
+                        
+
+                        
+## Venues Ideales para Micro Weddings en CDMX
+
+                        
+Las bodas intimas abren posibilidades de venues que serian imposibles para 150 personas. Estos son algunos de nuestros favoritos:
+
+                        
+                            
+                                
+                                    Tipo de Venue
+                                    Capacidad
+                                    Zonas Recomendadas
+                                
+                            
+                            
+                                
+                                    Restaurantes privados
+                                    20-50
+                                    Polanco, Roma, Condesa
+                                
+                                
+                                    Rooftops exclusivos
+                                    30-60
+                                    Santa Fe, Reforma, Polanco
+                                
+                                
+                                    Jardines privados
+                                    20-40
+                                    Coyoacan, San Angel, Pedregal
+                                
+                                
+                                    Penthouses
+                                    15-30
+                                    Polanco, Lomas, Bosques
+                                
+                                
+                                    Galerias de arte
+                                    30-50
+                                    Roma Norte, San Rafael

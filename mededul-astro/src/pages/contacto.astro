@@ -1,0 +1,539 @@
+---
+// Contacto Page
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+
+const breadcrumbItems = [
+  { name: 'Contacto', url: '/contacto' }
+];
+---
+
+<BaseLayout
+  title="Contacto - Cotiza tu Mesa de Dulces | Mededul CDMX"
+  description="Cotiza gratis tu mesa de dulces para bodas, XV años, baby shower y eventos corporativos en CDMX. Respuesta en menos de 24 horas. WhatsApp: 55 2522 6442"
+>
+  <JsonLd type="LocalBusiness" />
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Cotiza tu Mesa de Dulces</h1>
+      <p class="hero-subtitle">
+        Cuéntanos sobre tu evento y recibe una propuesta personalizada en menos de 24 horas.
+        Sin compromiso, sin costos ocultos.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h2>Solicita tu Cotización</h2>
+          <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono / WhatsApp *</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="55 1234 5678">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo electrónico *</label>
+              <input type="email" id="email" name="email" required placeholder="tu@email.com">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="evento">Tipo de evento *</label>
+                <select id="evento" name="evento" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="boda">Boda</option>
+                  <option value="xv-anos">XV Años</option>
+                  <option value="baby-shower">Baby Shower</option>
+                  <option value="bautizo">Bautizo / Primera Comunión</option>
+                  <option value="cumpleanos-infantil">Cumpleaños Infantil</option>
+                  <option value="corporativo">Evento Corporativo</option>
+                  <option value="graduacion">Graduación</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="invitados">Número de invitados *</label>
+                <select id="invitados" name="invitados" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="20-50">20-50 personas</option>
+                  <option value="50-100">50-100 personas</option>
+                  <option value="100-150">100-150 personas</option>
+                  <option value="150-200">150-200 personas</option>
+                  <option value="200+">Más de 200 personas</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fecha">Fecha del evento</label>
+                <input type="date" id="fecha" name="fecha">
+              </div>
+              <div class="form-group">
+                <label for="ubicacion">Zona del evento</label>
+                <select id="ubicacion" name="ubicacion">
+                  <option value="">Selecciona una opción</option>
+                  <option value="polanco">Polanco</option>
+                  <option value="santa-fe">Santa Fe</option>
+                  <option value="pedregal">Pedregal</option>
+                  <option value="condesa-roma">Condesa / Roma</option>
+                  <option value="interlomas">Interlomas</option>
+                  <option value="lomas">Lomas de Chapultepec</option>
+                  <option value="coyoacan">Coyoacán</option>
+                  <option value="otro-cdmx">Otra zona CDMX</option>
+                  <option value="edo-mex">Estado de México</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje">Cuéntanos más sobre tu evento</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Temática, colores, estilo preferido, presupuesto aproximado..."></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="privacidad" name="privacidad" required>
+              <label for="privacidad">Acepto el <a href="/aviso-privacidad" target="_blank">aviso de privacidad</a> *</label>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+              Enviar Solicitud
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <div class="info-card whatsapp-card">
+            <div class="info-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+            </div>
+            <h3>WhatsApp</h3>
+            <p>Respuesta inmediata</p>
+            <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+              Enviar mensaje
+            </a>
+            <span class="phone-number">55 2522 6442</span>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon email-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <h3>Email</h3>
+            <a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon location-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <h3>Ubicación</h3>
+            <p>Ciudad de México y Área Metropolitana</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon hours-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>Horario de Atención</h3>
+            <p>Lunes a Sábado: 9:00 - 19:00</p>
+            <p class="small">WhatsApp disponible 24/7</p>
+          </div>
+
+          <div class="social-links">
+            <h4>Síguenos</h4>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Preguntas Frecuentes</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>¿Con cuánta anticipación debo reservar?</h4>
+          <p>Recomendamos reservar con 2-4 semanas de anticipación. En temporada alta (mayo, octubre-diciembre), es mejor reservar con 6-8 semanas.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Qué incluye el servicio?</h4>
+          <p>Todos nuestros paquetes incluyen diseño personalizado, dulces de calidad, montaje, supervisión durante el evento y desmontaje.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Atienden fuera de CDMX?</h4>
+          <p>Sí, atendemos eventos en todo el área metropolitana y ciudades cercanas. Consulta por disponibilidad y costos adicionales de traslado.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Cómo es el proceso de pago?</h4>
+          <p>Solicitamos 50% de anticipo para confirmar la reserva y el 50% restante 3 días antes del evento. Aceptamos transferencia, depósito y tarjeta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
+    padding: 80px 0;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .contact-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .contact-section {
+    padding: 80px 0;
+    background: var(--gris-claro);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  .contact-form-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .contact-form-wrapper h2 {
+    font-size: 1.8rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 30px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #ffffff;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.1);
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .checkbox-group input {
+    width: auto;
+  }
+
+  .checkbox-group label {
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  .checkbox-group a {
+    color: var(--rosa-principal);
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gradiente-rosa);
+    color: #ffffff;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(233, 30, 140, 0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(233, 30, 140, 0.4);
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .info-card.whatsapp-card {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .info-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+  }
+
+  .info-card:not(.whatsapp-card) .info-icon {
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
+    color: var(--rosa-principal);
+  }
+
+  .info-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .info-card:not(.whatsapp-card) h3 {
+    color: var(--texto-oscuro);
+  }
+
+  .info-card p {
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .info-card:not(.whatsapp-card) p {
+    color: var(--texto-light);
+  }
+
+  .info-card .small {
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+
+  .info-card a {
+    color: var(--rosa-principal);
+    text-decoration: none;
+  }
+
+  .whatsapp-btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #25D366 !important;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin: 15px 0 10px;
+    transition: all 0.3s ease;
+  }
+
+  .whatsapp-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  }
+
+  .phone-number {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .social-links {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .social-links h4 {
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .social-icons a {
+    width: 50px;
+    height: 50px;
+    background: var(--gris-claro);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-oscuro);
+    transition: all 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    background: var(--rosa-principal);
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+
+  .faq-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 50px;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--gris-claro);
+    padding: 30px;
+    border-radius: 16px;
+  }
+
+  .faq-item h4 {
+    color: var(--texto-oscuro);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  .faq-item p {
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-hero {
+      padding: 60px 0;
+    }
+
+    .contact-section {
+      padding: 50px 0;
+    }
+
+    .contact-form-wrapper {
+      padding: 25px;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

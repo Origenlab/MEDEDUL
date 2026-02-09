@@ -1,0 +1,162 @@
+---
+// Footer Component - Complete site footer
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="container">
+      <!-- Row 1: Brand + Links -->
+      <div class="footer-row-1">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <img
+              src="/img/branding/logo-mededul-mesas-de-dulces.avif"
+              alt="Mededul - Mesas de Dulces"
+              width="180"
+              height="55"
+              loading="lazy"
+            />
+          </a>
+          <p class="footer-tagline">
+            Creamos experiencias dulces e inolvidables para tus eventos especiales en CDMX y área metropolitana.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
+            <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+            <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener noreferrer" class="social-link">TikTok</a>
+            <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="/tipos-de-mesas/mesa-de-dulces-clasica">Mesa Clásica</a></li>
+            <li><a href="/tipos-de-mesas/mesa-de-dulces-premium">Mesa Premium</a></li>
+            <li><a href="/tipos-de-mesas/mesa-de-dulces-tematica">Mesa Temática</a></li>
+            <li><a href="/tipos-de-mesas/mesa-de-dulces-infantil">Mesa Infantil</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Eventos</h4>
+          <ul>
+            <li><a href="/candy-bar-eventos/mesa-dulces-bodas">Bodas</a></li>
+            <li><a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a></li>
+            <li><a href="/candy-bar-eventos/mesa-dulces-baby-shower">Baby Shower</a></li>
+            <li><a href="/candy-bar-eventos/mesa-dulces-bautizos">Bautizos</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Estaciones</h4>
+          <ul>
+            <li><a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a></li>
+            <li><a href="/estaciones-interactivas/barra-de-palomitas">Barra de Palomitas</a></li>
+            <li><a href="/estaciones-interactivas/estacion-de-helados">Estación de Helados</a></li>
+            <li><a href="/estaciones-interactivas/barra-de-nachos">Barra de Nachos</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="/nosotros">Nosotros</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+            <li><a href="/porque-mededul">¿Por qué Mededul?</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 2: Zones + Contact -->
+      <div class="footer-row-2">
+        <div class="footer-contact">
+          <h4>Contacto</h4>
+
+          <div class="sucursal-card">
+            <span class="sucursal-badge">Sucursal Polanco</span>
+            <p class="sucursal-direccion">Polanco, Miguel Hidalgo<br/>Ciudad de México, CDMX</p>
+            <a href="https://maps.google.com/?q=Polanco,+CDMX" target="_blank" rel="noopener noreferrer" class="footer-maps-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver en Mapa
+            </a>
+          </div>
+
+          <div class="sucursal-card">
+            <span class="sucursal-badge">Sucursal Pedregal</span>
+            <p class="sucursal-direccion">Pedregal de San Ángel<br/>Ciudad de México, CDMX</p>
+            <a href="https://maps.google.com/?q=Pedregal+de+San+Angel,+CDMX" target="_blank" rel="noopener noreferrer" class="footer-maps-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver en Mapa
+            </a>
+          </div>
+
+          <div class="contacto-directo">
+            <a href="tel:+525525226442" class="footer-phone">55 2522 6442</a>
+            <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
+          </div>
+        </div>
+
+        <div class="footer-zona-col">
+          <h5>Zona Poniente</h5>
+          <ul>
+            <li>Polanco</li>
+            <li>Santa Fe</li>
+            <li>Lomas de Chapultepec</li>
+            <li>Interlomas</li>
+          </ul>
+        </div>
+
+        <div class="footer-zona-col">
+          <h5>Zona Sur</h5>
+          <ul>
+            <li>Coyoacán</li>
+            <li>Pedregal</li>
+            <li>Tlalpan</li>
+            <li>San Ángel</li>
+          </ul>
+        </div>
+
+        <div class="footer-zona-col">
+          <h5>Zona Norte</h5>
+          <ul>
+            <li>Naucalpan</li>
+            <li>Tlalnepantla</li>
+            <li>Satélite</li>
+            <li>Atizapán</li>
+          </ul>
+        </div>
+
+        <div class="footer-zona-col">
+          <h5>Zona Centro</h5>
+          <ul>
+            <li>Roma</li>
+            <li>Condesa</li>
+            <li>Del Valle</li>
+            <li>Nápoles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom-content">
+        <p>&copy; {currentYear} Mededul - Mesas de Dulces CDMX. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="/privacidad">Aviso de Privacidad</a>
+          <a href="/terminos">Términos y Condiciones</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

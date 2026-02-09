@@ -1,0 +1,69 @@
+# =====================================================
+# MEDEDUL - ROBOTS.TXT
+# Mesas de Dulces CDMX
+# https://mesas-de-dulces.com
+# =====================================================
+
+# Configuracion para todos los crawlers
+User-agent: *
+
+# Permitir todo el sitio
+Allow: /
+
+# Permitir recursos CSS y JS (importante para renderizado)
+Allow: /css/
+Allow: /js/
+Allow: /img/
+
+# Bloquear paginas de sistema
+Disallow: /404.html
+
+# Bloquear archivos sensibles
+Disallow: /.htaccess
+Disallow: /.git/
+Disallow: /.well-known/
+
+# Bloquear archivos de desarrollo
+Disallow: /webpack.common.js
+Disallow: /webpack.config.dev.js
+Disallow: /webpack.config.prod.js
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /convertir-webp.py
+
+# Crawl-delay para ser amigable con el servidor
+Crawl-delay: 1
+
+# =====================================================
+# GOOGLE BOT - Configuracion especifica
+# =====================================================
+User-agent: Googlebot
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /img/
+
+# =====================================================
+# GOOGLE IMAGES BOT
+# =====================================================
+User-agent: Googlebot-Image
+Allow: /img/
+Allow: /*.avif$
+Allow: /*.webp$
+Allow: /*.png$
+Allow: /*.jpg$
+
+# =====================================================
+# BING BOT
+# =====================================================
+User-agent: Bingbot
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /img/
+Crawl-delay: 2
+
+# =====================================================
+# SITEMAP
+# =====================================================
+Sitemap: https://mesas-de-dulces.com/sitemap.xml

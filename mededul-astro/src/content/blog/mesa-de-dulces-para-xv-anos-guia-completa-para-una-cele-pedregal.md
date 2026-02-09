@@ -1,0 +1,25 @@
+---
+title: "Mesa de Dulces para XV Años: Guía Completa para una Celebración Memorable"
+description: "Descubre cómo crear la mesa de dulces perfecta para XV años en CDMX. Desde diseño hasta montaje, todo lo que necesitas para una quinceañera inolvidable."
+publishDate: 2026-01-15
+category: "xv-anos"
+heroImage: "/img/galeria/candy-bar-tema-princesa-castillo-rosa.avif"
+heroImageAlt: "Mesa de Dulces para XV Años: Guía Completa para una Celebración Memorable | Mededul"
+tags: ["XV años", "quinceañera", "quince años", "mesa de dulces", "candy bar"]
+readTime: "8 min lectura"
+location: "Pedregal, CDMX"
+faqs:
+  - question: "¿Qué incluye exactamente el servicio de mesa de dulces para XV años?"
+    answer: "Nuestro servicio integral incluye diseño personalizado, selección de 25-40 variedades de dulces artesanales, montaje completo con estructuras decorativas, iluminación especializada, personal de supervisión durante el evento y desmontaje posterior. También proporcionamos elementos como platos, servilletas temáticas, utensilios especializados y señalización elegante. Cada elemento se personaliza según la temática y colores específicos de tu celebración."
+  - question: "¿Pueden personalizar los dulces con el nombre de mi hija o elementos específicos?"
+    answer: "Absolutamente. Ofrecemos personalización completa incluyendo dulces con nombres, iniciales, fechas y elementos temáticos específicos. Nuestros maestros reposteros pueden crear chocolates con moldes exclusivos, macarons con diseños únicos, galletas decoradas artísticamente y postres que reflejen pasiones o intereses particulares de la quinceañera. La personalización también se extiende a colores, sabores y presentaciones que complementen perfectamente la decoración general del evento."
+  - question: "¿Brindan servicio en Pedregal, Bosques de las Lomas y Santa Fe?"
+    answer: "Sí, proporcionamos servicio completo en todas las zonas premium de CDMX incluyendo Pedregal, Bosques de las Lomas, Santa Fe, Interlomas y áreas circundantes. Nuestro equipo conoce perfectamente los venues más exclusivos de estas zonas y maneja todos los protocolos específicos requeridos por cada ubicación. También coordinamos con administraciones de salones, clubes privados y residencias particulares para garantizar instalaciones fluidas y profesionales."
+  - question: "¿Cómo solicito una cotización personalizada para mi evento?"
+    answer: "El proceso es muy sencillo. Puedes contactarnos directamente por WhatsApp donde nuestros especialistas en eventos te guiarán a través de una consulta personalizada. Necesitaremos detalles como fecha del evento, número aproximado de invitados, venue seleccionado, preferencias temáticas y cualquier requerimiento especial. Basándose en esta información, crearemos una propuesta detallada con visualizaciones, selección gastronómica y cronograma específico para tu celebración."
+  - question: "¿Con cuánta anticipación debo reservar el servicio?"
+    answer: "Recomendamos reservar entre 8-12 semanas antes de tu evento, especialmente para celebraciones en temporadas altas como primavera y otoño. Esta anticipación permite tiempo suficiente para desarrollo creativo, pruebas gastronómicas, coordinación con venues y creación de elementos personalizados. Para eventos con requerimientos muy específicos o durante fechas de alta demanda, sugerimos contactarnos incluso antes para garantizar disponibilidad y tiempo adecuado para planificación detallada."
+  - question: "¿Pueden acomodar restricciones dietéticas como diabetes o intolerancias alimentarias?"
+    answer: "Definitivamente. Nuestros especialistas en repostería pueden crear secciones completas de dulces sin azúcar, opciones veganas, preparaciones sin gluten y alternativas para diversas restricciones alimentarias. Utilizamos edulcorantes naturales, harinas alternativas y técnicas especializadas que mantienen sabor y presentación excepcionales. Cada opción especial se identifica discretamente y se presenta con la misma elegancia que el resto de la mesa, asegurando que todos los invitados disfruten plenamente de la experiencia."
+---
+

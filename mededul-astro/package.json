@@ -1,0 +1,23 @@
+{
+  "name": "mededul-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "MEDEDUL - Mesas de Dulces Profesionales para Eventos en CDMX",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && node scripts/generate-sitemap.cjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^4.15.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "typescript": "^5.5.0"
+  }
+}

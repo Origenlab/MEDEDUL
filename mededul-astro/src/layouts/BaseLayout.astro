@@ -1,0 +1,101 @@
+---
+// BaseLayout - Main layout for all pages
+import SEO from '@/components/seo/SEO.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import TopBar from '@/components/global/TopBar.astro';
+import Header from '@/components/global/Header.astro';
+import Footer from '@/components/global/Footer.astro';
+import WhatsAppButton from '@/components/global/WhatsAppButton.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  article?: {
+    publishDate: Date;
+    modifiedDate?: Date;
+    category: string;
+    tags?: string[];
+  };
+  noindex?: boolean;
+  includeOrganizationSchema?: boolean;
+  includeLocalBusinessSchema?: boolean;
+  includeServiceSchema?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  article,
+  noindex = false,
+  includeOrganizationSchema = false,
+  includeLocalBusinessSchema = false,
+  includeServiceSchema = false
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      article={article}
+      noindex={noindex}
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/branding/favicon-mededul-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/branding/favicon-mededul-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/branding/apple-touch-icon-mededul.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#E91E8C" />
+    <meta name="msapplication-TileColor" content="#E91E8C" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Schemas -->
+    {includeOrganizationSchema && <JsonLd type="Organization" />}
+    {includeLocalBusinessSchema && <JsonLd type="LocalBusiness" />}
+    {includeServiceSchema && <JsonLd type="Service" />}
+
+    <!-- Analytics placeholder -->
+    <slot name="head" />
+  </head>
+  <body>
+    <TopBar />
+    <Header currentPath={currentPath} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <WhatsAppButton />
+
+    <slot name="scripts" />
+  </body>
+</html>

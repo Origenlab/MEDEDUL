@@ -1,0 +1,23 @@
+---
+title: "Mesa de Dulces Infantil: Un Sueño Hecho Realidad"
+description: "Descubre la magia de una mesa de dulces infantil en las fiestas de CDMX. Inspiración, creatividad y arte en cada detalle. Vive esta experiencia efímera."
+publishDate: 2026-01-15
+category: "fiestas-infantiles"
+heroImage: "/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+heroImageAlt: "Mesa de Dulces Infantil: Un Sueño Hecho Realidad | Mededul"
+tags: ["fiesta infantil", "cumpleaños", "niños", "mesa de dulces", "candy bar"]
+readTime: "8 min lectura"
+location: "Interlomas, CDMX"
+faqs:
+  - question: "¿Cómo elegir los dulces adecuados?"
+    answer: "Elegir los dulces para una mesa infantil implica considerar tanto los gustos del homenajeado como el tema de la fiesta. Opta por una variedad que incluya diferentes texturas y colores, y que se alinee con el mensaje que deseas transmitir, ya sea a través de la tradición o la innovación."
+  - question: "¿Qué papel juega la presentación?"
+    answer: "La presentación es crucial, ya que es lo primero que impacta a los invitados. Un diseño armonioso y bien curado asegura que la mesa de dulces no solo sea visualmente atractiva, sino también una experiencia completa para los sentidos, fomentando la interacción y el gozo."
+  - question: "¿Es posible personalizar la mesa de dulces?"
+    answer: "Definitivamente, la personalización es una de las claves para hacer la mesa de dulces única e inolvidable. Al incluir elementos que reflejen los intereses y personalidades de los anfitriones, se asegura que cada detalle resuene con autenticidad y encanto."
+  - question: "¿Cómo integrar tendencias internacionales?"
+    answer: "Integrar tendencias internacionales requiere un equilibrio cuidadoso. Selecciona elementos que complementen el tema general de la fiesta y que aporten un aire fresco e innovador, asegurando que estos elementos se sientan parte integral de la experiencia."
+  - question: "¿Cuál es el papel de la artesanía en la mesa de dulces?"
+    answer: "La artesanía juega un papel fundamental, aportando un toque humano y auténtico a cada dulce. Dulces hechos a mano llevan consigo una historia y una dedicación que elevan la experiencia, creando un vínculo único entre el creador y los invitados."
+---
+
