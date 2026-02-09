@@ -1,0 +1,327 @@
+---
+title: "Guía de Componentes de Contenido MDX"
+description: "Documentación completa para usar componentes de contenido en posts MDX"
+---
+
+# Componentes de Contenido MDX
+
+Esta guía documenta los componentes disponibles para crear contenido enriquecido en los posts del blog.
+
+## Cómo Importar Componentes
+
+En cualquier archivo `.mdx`, importa los componentes que necesites:
+
+```mdx
+---
+title: "Mi Post"
+---
+import AlertBox from '@/components/content/AlertBox.astro';
+import Quote from '@/components/content/Quote.astro';
+
+Tu contenido aquí...
+
+<AlertBox variant="info" title="Nota">
+  Este es un mensaje informativo.
+</AlertBox>
+```
+
+---
+
+## 1. AlertBox
+
+**Propósito:** Callouts, notas, advertencias, tips dentro del contenido.
+
+### Variantes
+
+| Variante | Uso |
+|----------|-----|
+| `info` | Información general, datos curiosos |
+| `success` | Confirmaciones, resultados positivos |
+| `warning` | Advertencias, precauciones |
+| `danger` | Errores, restricciones importantes |
+
+### Ejemplo
+
+```mdx
+<AlertBox variant="info" title="Dato importante">
+  Reserva con 2-3 semanas de anticipación para mejores resultados.
+</AlertBox>
+
+<AlertBox variant="warning" title="Considera esto">
+  Los chocolates requieren temperatura controlada.
+</AlertBox>
+```
+
+---
+
+## 2. StatCard y StatsGrid
+
+**Propósito:** Destacar métricas o números clave.
+
+### StatCard Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `value` | string/number | El número o valor principal |
+| `label` | string | Descripción del valor |
+| `suffix` | string? | Sufijo opcional (ej: "/5") |
+| `icon` | string? | Emoji o icono opcional |
+| `accent` | boolean? | Variante con fondo rosa |
+
+### Ejemplo
+
+```mdx
+<StatsGrid columns={3}>
+  <StatCard value="500+" label="Eventos realizados" />
+  <StatCard value="4.9" label="Calificación" suffix="/5" icon="⭐" />
+  <StatCard value="7" label="Años de experiencia" accent />
+</StatsGrid>
+```
+
+---
+
+## 3. ComparisonTable
+
+**Propósito:** Tablas de comparación estructuradas y responsive.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `headers` | string[] | Encabezados de columnas |
+| `rows` | string[][] | Filas de datos |
+| `highlight` | number? | Índice de columna a resaltar |
+| `caption` | string? | Título de la tabla |
+
+### Ejemplo
+
+```mdx
+<ComparisonTable
+  headers={["Característica", "Mesa Clásica", "Mesa Premium"]}
+  rows={[
+    ["Dulces incluidos", "6-8 variedades", "12-15 variedades"],
+    ["Montaje", "Básico", "Profesional completo"],
+    ["Decoración", "Estándar", "Personalizada"],
+    ["Precio desde", "$4,500 MXN", "$7,500 MXN"]
+  ]}
+  highlight={2}
+/>
+```
+
+---
+
+## 4. FeatureList
+
+**Propósito:** Lista de características con íconos.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `items` | string[] | Lista de características |
+| `title` | string? | Título opcional |
+| `icon` | string? | Ícono personalizado (default: ✓) |
+| `columns` | 1\|2 | Número de columnas |
+| `variant` | string? | 'default' \| 'compact' \| 'card' |
+
+### Ejemplo
+
+```mdx
+<FeatureList
+  title="Nuestro servicio incluye:"
+  items={[
+    "Diseño personalizado",
+    "Dulces premium seleccionados",
+    "Montaje y desmontaje",
+    "Coordinación con el venue"
+  ]}
+  variant="card"
+/>
+```
+
+---
+
+## 5. Quote
+
+**Propósito:** Testimoniales, citas, opiniones de expertos.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `text` | string | El texto de la cita |
+| `author` | string? | Nombre del autor |
+| `role` | string? | Rol o descripción del autor |
+| `avatar` | string? | URL de imagen de avatar |
+| `variant` | string? | 'testimonial' \| 'citation' \| 'highlight' |
+
+### Ejemplo
+
+```mdx
+<Quote
+  text="La mesa de dulces fue el centro de atención de nuestra boda."
+  author="María García"
+  role="Novia - Boda en Polanco"
+  variant="testimonial"
+/>
+```
+
+---
+
+## 6. CTABox
+
+**Propósito:** Llamadas a la acción dentro del contenido.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `title` | string | Título del CTA |
+| `description` | string? | Texto descriptivo |
+| `buttonText` | string | Texto del botón |
+| `buttonUrl` | string | URL de destino |
+| `variant` | string? | 'default' \| 'whatsapp' \| 'subtle' |
+| `icon` | string? | Ícono opcional |
+
+### Ejemplo
+
+```mdx
+<CTABox
+  title="¿Listo para tu mesa de dulces?"
+  description="Cotiza gratis y sin compromiso"
+  buttonText="Cotizar Ahora"
+  buttonUrl="/contacto"
+/>
+
+<CTABox
+  title="¿Preguntas?"
+  buttonText="WhatsApp"
+  buttonUrl="https://wa.me/525525226442"
+  variant="whatsapp"
+/>
+```
+
+---
+
+## 7. StepList
+
+**Propósito:** Procesos paso a paso numerados.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `steps` | Step[] | Array de pasos |
+| `title` | string? | Título opcional |
+| `variant` | string? | 'default' \| 'compact' \| 'timeline' |
+
+### Step Object
+
+```typescript
+interface Step {
+  title: string;
+  description?: string;
+}
+```
+
+### Ejemplo
+
+```mdx
+<StepList
+  title="Proceso de reservación"
+  variant="timeline"
+  steps={[
+    { title: "Consulta inicial", description: "Cuéntanos sobre tu evento" },
+    { title: "Propuesta", description: "Diseñamos una propuesta personalizada" },
+    { title: "Confirmación", description: "Apruebas el diseño y reservamos" },
+    { title: "Evento", description: "Montamos tu mesa perfecta" }
+  ]}
+/>
+```
+
+---
+
+## 8. InfoCard
+
+**Propósito:** Tarjetas informativas para conceptos, definiciones, destacados.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `title` | string | Título de la tarjeta |
+| `icon` | string? | Ícono personalizado |
+| `variant` | string? | 'default' \| 'tip' \| 'definition' \| 'highlight' |
+
+### Ejemplo
+
+```mdx
+<InfoCard title="¿Qué son los macarons?" variant="definition">
+  Los macarons son delicados dulces franceses hechos con merengue,
+  almendra molida y rellenos cremosos variados.
+</InfoCard>
+
+<InfoCard title="Tip profesional" variant="tip">
+  Reserva con 3 semanas de anticipación para mejores resultados.
+</InfoCard>
+```
+
+---
+
+## 9. ProsCons
+
+**Propósito:** Comparación clara de ventajas y desventajas.
+
+### Props
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `pros` | string[] | Lista de ventajas |
+| `cons` | string[] | Lista de desventajas |
+| `prosTitle` | string? | Título de ventajas (default: "Ventajas") |
+| `consTitle` | string? | Título de desventajas (default: "Desventajas") |
+| `variant` | string? | 'default' \| 'compact' |
+
+### Ejemplo
+
+```mdx
+<ProsCons
+  prosTitle="Ventajas"
+  consTitle="Consideraciones"
+  pros={[
+    "Experiencia única para invitados",
+    "Decoración elegante incluida",
+    "Servicio profesional completo"
+  ]}
+  cons={[
+    "Requiere espacio adicional",
+    "Necesita planificación anticipada"
+  ]}
+/>
+```
+
+---
+
+## Mejores Prácticas
+
+### Cuándo Usar Cada Componente
+
+| Situación | Componente Recomendado |
+|-----------|----------------------|
+| Dato importante o advertencia | `AlertBox` |
+| Números o métricas clave | `StatsGrid` + `StatCard` |
+| Comparar opciones o paquetes | `ComparisonTable` |
+| Lista de características | `FeatureList` |
+| Testimonial o cita | `Quote` |
+| Llamada a la acción | `CTABox` |
+| Proceso o tutorial | `StepList` |
+| Definición o concepto | `InfoCard` |
+| Ventajas vs desventajas | `ProsCons` |
+
+### Consejos de Escritura
+
+1. **No abuses de los componentes** - Úsalos donde realmente mejoren la comprensión.
+2. **Mantén el contenido conciso** - Los componentes funcionan mejor con texto breve.
+3. **Combina Markdown y componentes** - Usa Markdown para párrafos normales.
+4. **Un CTA por artículo** - Evita saturar con múltiples llamadas a la acción.
+5. **Consistencia** - Usa el mismo tipo de componente para situaciones similares.

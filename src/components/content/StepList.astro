@@ -1,0 +1,214 @@
+---
+/**
+ * StepList Component
+ * Purpose: Numbered step-by-step processes
+ *
+ * @example
+ * <StepList
+ *   title="Proceso de reservación"
+ *   steps={[
+ *     { title: "Consulta inicial", description: "Cuéntanos sobre tu evento" },
+ *     { title: "Propuesta", description: "Diseñamos una propuesta personalizada" },
+ *     { title: "Confirmación", description: "Apruebas el diseño y reservamos fecha" },
+ *     { title: "Evento", description: "Montamos tu mesa de dulces perfecta" }
+ *   ]}
+ * />
+ */
+
+interface Step {
+  title: string;
+  description?: string;
+}
+
+interface Props {
+  steps: Step[];
+  title?: string;
+  variant?: 'default' | 'compact' | 'timeline';
+}
+
+const { steps, title, variant = 'default' } = Astro.props;
+---
+
+<div class={`step-list step-${variant}`}>
+  {title && <h4 class="step-list-title">{title}</h4>}
+  <ol class="steps">
+    {steps.map((step, index) => (
+      <li class="step">
+        <span class="step-number">{index + 1}</span>
+        <div class="step-content">
+          <strong class="step-title">{step.title}</strong>
+          {step.description && <p class="step-description">{step.description}</p>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .step-list {
+    margin: 32px 0;
+  }
+
+  .step-list-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--negro-suave, #2D3436);
+    margin-bottom: 24px;
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: step;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-bottom: 32px;
+  }
+
+  .step:last-child .step-content {
+    padding-bottom: 0;
+  }
+
+  .step-title {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--negro-suave, #2D3436);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .step-description {
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Timeline connector */
+  .step-default .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(233, 30, 140, 0.3) 0%, rgba(233, 30, 140, 0.1) 100%);
+  }
+
+  /* Compact variant */
+  .step-compact .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .step-compact .step {
+    gap: 16px;
+  }
+
+  .step-compact .step-content {
+    padding-bottom: 20px;
+  }
+
+  .step-compact .step-title {
+    font-size: 0.95rem;
+  }
+
+  .step-compact .step-description {
+    font-size: 0.9rem;
+  }
+
+  .step-compact .step:not(:last-child)::before {
+    left: 15px;
+    top: 32px;
+  }
+
+  /* Timeline variant */
+  .step-timeline {
+    background: var(--gris-claro, #F8F9FA);
+    padding: 32px;
+    border-radius: 20px;
+  }
+
+  .step-timeline .step-number {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
+  }
+
+  .step-timeline .step {
+    gap: 24px;
+  }
+
+  .step-timeline .step:not(:last-child)::before {
+    left: 23px;
+    top: 48px;
+    width: 3px;
+    background: linear-gradient(180deg, #E91E8C 0%, rgba(233, 30, 140, 0.2) 100%);
+  }
+
+  .step-timeline .step-content {
+    padding-bottom: 40px;
+    background: var(--blanco, #ffffff);
+    padding: 20px 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px;
+  }
+
+  .step-timeline .step:last-child .step-content {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 640px) {
+    .step {
+      gap: 16px;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      font-size: 0.9rem;
+    }
+
+    .step-default .step:not(:last-child)::before {
+      left: 17px;
+      top: 36px;
+    }
+
+    .step-timeline {
+      padding: 24px 20px;
+    }
+
+    .step-timeline .step-content {
+      padding: 16px 20px;
+    }
+  }
+</style>

@@ -1,0 +1,195 @@
+---
+/**
+ * CTABox Component
+ * Purpose: Call-to-action blocks inside content
+ * Should visually stand out without hurting performance
+ *
+ * @example
+ * <CTABox
+ *   title="¿Listo para crear tu mesa de dulces?"
+ *   description="Cotiza gratis y sin compromiso"
+ *   buttonText="Cotizar Ahora"
+ *   buttonUrl="/contacto"
+ * />
+ *
+ * @example with WhatsApp
+ * <CTABox
+ *   title="¿Tienes preguntas?"
+ *   description="Escríbenos directo por WhatsApp"
+ *   buttonText="WhatsApp"
+ *   buttonUrl="https://wa.me/525525226442"
+ *   variant="whatsapp"
+ * />
+ */
+
+interface Props {
+  title: string;
+  description?: string;
+  buttonText: string;
+  buttonUrl: string;
+  variant?: 'default' | 'whatsapp' | 'subtle';
+  icon?: string;
+}
+
+const { title, description, buttonText, buttonUrl, variant = 'default', icon } = Astro.props;
+
+const isExternal = buttonUrl.startsWith('http') || buttonUrl.startsWith('https://wa.me');
+---
+
+<aside class={`cta-box cta-${variant}`}>
+  <div class="cta-content">
+    {icon && <span class="cta-icon">{icon}</span>}
+    <h4 class="cta-title">{title}</h4>
+    {description && <p class="cta-description">{description}</p>}
+  </div>
+  <a
+    href={buttonUrl}
+    class="cta-button"
+    target={isExternal ? '_blank' : undefined}
+    rel={isExternal ? 'noopener noreferrer' : undefined}
+  >
+    {variant === 'whatsapp' && (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      </svg>
+    )}
+    {buttonText}
+  </a>
+</aside>
+
+<style>
+  .cta-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 40px 0;
+    padding: 32px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .cta-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .cta-description {
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Default variant */
+  .cta-default {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+  }
+
+  .cta-default .cta-button {
+    background: #ffffff;
+    color: var(--rosa-principal, #E91E8C);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-default .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  /* WhatsApp variant */
+  .cta-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+  }
+
+  .cta-whatsapp .cta-button {
+    background: #ffffff;
+    color: #128C7E;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-whatsapp .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Subtle variant */
+  .cta-subtle {
+    background: var(--gris-claro, #F8F9FA);
+    color: var(--negro-suave, #2D3436);
+    border: 2px solid rgba(233, 30, 140, 0.15);
+  }
+
+  .cta-subtle::before {
+    display: none;
+  }
+
+  .cta-subtle .cta-description {
+    color: var(--gris-texto, #636E72);
+  }
+
+  .cta-subtle .cta-button {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
+  }
+
+  .cta-subtle .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
+  }
+
+  @media (max-width: 640px) {
+    .cta-box {
+      flex-direction: column;
+      text-align: center;
+      padding: 28px 24px;
+      gap: 20px;
+    }
+
+    .cta-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

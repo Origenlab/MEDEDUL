@@ -1,0 +1,160 @@
+---
+/**
+ * ComparisonTable Component
+ * Purpose: Structured, styled comparison tables
+ * Must be responsive and readable on mobile
+ *
+ * @example
+ * <ComparisonTable
+ *   headers={["Característica", "Mesa Clásica", "Mesa Premium"]}
+ *   rows={[
+ *     ["Dulces incluidos", "6-8 variedades", "12-15 variedades"],
+ *     ["Montaje", "Básico", "Profesional completo"],
+ *     ["Decoración", "Estándar", "Personalizada"],
+ *   ]}
+ *   highlight={2}
+ * />
+ */
+
+interface Props {
+  headers: string[];
+  rows: string[][];
+  highlight?: number; // Column index to highlight (0-based)
+  caption?: string;
+}
+
+const { headers, rows, highlight, caption } = Astro.props;
+---
+
+<div class="comparison-wrapper">
+  <div class="comparison-scroll">
+    <table class="comparison-table">
+      {caption && <caption>{caption}</caption>}
+      <thead>
+        <tr>
+          {headers.map((header, i) => (
+            <th class={highlight === i ? 'highlight' : ''}>
+              {highlight === i && <span class="highlight-badge">Recomendado</span>}
+              {header}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            {row.map((cell, i) => (
+              <td class={highlight === i ? 'highlight' : ''}>
+                {cell}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .comparison-wrapper {
+    margin: 32px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .comparison-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+  }
+
+  caption {
+    padding: 16px 20px;
+    background: var(--gris-claro, #F8F9FA);
+    font-weight: 600;
+    text-align: left;
+    color: var(--negro-suave, #2D3436);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  thead {
+    background: var(--gris-claro, #F8F9FA);
+  }
+
+  th {
+    padding: 18px 20px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--negro-suave, #2D3436);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+  }
+
+  th.highlight {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+    border-bottom-color: #C4177A;
+  }
+
+  .highlight-badge {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 4px;
+  }
+
+  td {
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    background: var(--blanco, #ffffff);
+    line-height: 1.5;
+  }
+
+  td.highlight {
+    background: rgba(233, 30, 140, 0.04);
+    color: var(--negro-suave, #2D3436);
+    font-weight: 500;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover td {
+    background: rgba(233, 30, 140, 0.02);
+  }
+
+  tbody tr:hover td.highlight {
+    background: rgba(233, 30, 140, 0.08);
+  }
+
+  /* First column styling */
+  td:first-child {
+    font-weight: 600;
+    color: var(--negro-suave, #2D3436);
+  }
+
+  @media (max-width: 640px) {
+    th, td {
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+
+    .highlight-badge {
+      font-size: 0.65rem;
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+/**
+ * FeatureList Component
+ * Purpose: List of features with icons or markers
+ *
+ * @example
+ * <FeatureList
+ *   title="Incluye:"
+ *   items={[
+ *     "Diseño personalizado",
+ *     "Dulces premium seleccionados",
+ *     "Montaje y desmontaje",
+ *     "Coordinación con el venue"
+ *   ]}
+ * />
+ *
+ * @example with custom icon
+ * <FeatureList
+ *   items={["Feature 1", "Feature 2"]}
+ *   icon="⭐"
+ *   columns={2}
+ * />
+ */
+
+interface Props {
+  items: string[];
+  title?: string;
+  icon?: string;
+  columns?: 1 | 2;
+  variant?: 'default' | 'compact' | 'card';
+}
+
+const { items, title, icon = '✓', columns = 1, variant = 'default' } = Astro.props;
+---
+
+<div class={`feature-list feature-${variant} feature-cols-${columns}`}>
+  {title && <h4 class="feature-title">{title}</h4>}
+  <ul class="feature-items">
+    {items.map((item) => (
+      <li class="feature-item">
+        <span class="feature-icon">{icon}</span>
+        <span class="feature-text">{item}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .feature-list {
+    margin: 24px 0;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--negro-suave, #2D3436);
+    margin-bottom: 16px;
+  }
+
+  .feature-items {
+    display: grid;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-cols-2 .feature-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
+    color: var(--rosa-principal, #E91E8C);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .feature-text {
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+  }
+
+  /* Compact variant */
+  .feature-compact .feature-items {
+    gap: 8px;
+  }
+
+  .feature-compact .feature-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+  }
+
+  .feature-compact .feature-text {
+    font-size: 0.9rem;
+  }
+
+  /* Card variant */
+  .feature-card {
+    background: var(--gris-claro, #F8F9FA);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .feature-card .feature-title {
+    margin-bottom: 20px;
+  }
+
+  .feature-card .feature-items {
+    gap: 16px;
+  }
+
+  .feature-card .feature-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+    background: var(--blanco, #ffffff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .feature-card .feature-text {
+    color: var(--negro-suave, #2D3436);
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .feature-cols-2 .feature-items {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      padding: 20px;
+    }
+  }
+</style>

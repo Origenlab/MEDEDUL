@@ -1,0 +1,106 @@
+---
+/**
+ * StatCard Component
+ * Purpose: Highlight a single metric or key number
+ *
+ * @example
+ * <StatCard value="500+" label="Eventos realizados" />
+ * <StatCard value="4.9" label="Calificación" suffix="/5" icon="⭐" />
+ */
+
+interface Props {
+  value: string | number;
+  label: string;
+  suffix?: string;
+  icon?: string;
+  accent?: boolean;
+}
+
+const { value, label, suffix, icon, accent = false } = Astro.props;
+---
+
+<div class={`stat-card ${accent ? 'stat-accent' : ''}`}>
+  {icon && <span class="stat-icon">{icon}</span>}
+  <div class="stat-value">
+    {value}
+    {suffix && <span class="stat-suffix">{suffix}</span>}
+  </div>
+  <div class="stat-label">{label}</div>
+</div>
+
+<style>
+  .stat-card {
+    background: var(--blanco, #ffffff);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(233, 30, 140, 0.12);
+  }
+
+  .stat-accent {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+  }
+
+  .stat-accent .stat-label {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .stat-icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-accent .stat-value {
+    background: none;
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+  }
+
+  .stat-suffix {
+    font-size: 1.25rem;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    .stat-card {
+      padding: 20px 16px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+    }
+  }
+</style>

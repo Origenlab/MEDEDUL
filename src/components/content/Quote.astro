@@ -1,0 +1,186 @@
+---
+/**
+ * Quote Component
+ * Purpose: Testimonials, citations, expert quotes
+ *
+ * @example
+ * <Quote
+ *   text="La mesa de dulces fue el centro de atención de nuestra boda. Todos quedaron encantados."
+ *   author="María García"
+ *   role="Novia - Boda en Polanco"
+ * />
+ *
+ * @example citation style
+ * <Quote
+ *   text="Una mesa de dulces bien diseñada puede incrementar la satisfacción de los invitados en un 40%."
+ *   author="Revista Eventos CDMX"
+ *   variant="citation"
+ * />
+ */
+
+interface Props {
+  text: string;
+  author?: string;
+  role?: string;
+  avatar?: string;
+  variant?: 'testimonial' | 'citation' | 'highlight';
+}
+
+const { text, author, role, avatar, variant = 'testimonial' } = Astro.props;
+---
+
+<figure class={`quote quote-${variant}`}>
+  <blockquote class="quote-text">
+    <span class="quote-mark">"</span>
+    {text}
+  </blockquote>
+  {(author || role) && (
+    <figcaption class="quote-footer">
+      {avatar && <img src={avatar} alt={author} class="quote-avatar" width="48" height="48" />}
+      <div class="quote-attribution">
+        {author && <cite class="quote-author">{author}</cite>}
+        {role && <span class="quote-role">{role}</span>}
+      </div>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .quote {
+    margin: 32px 0;
+    padding: 0;
+  }
+
+  .quote-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--negro-suave, #2D3436);
+    font-style: italic;
+    position: relative;
+    margin: 0;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    line-height: 0;
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    opacity: 0.1;
+    color: var(--rosa-principal, #E91E8C);
+  }
+
+  .quote-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .quote-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .quote-attribution {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .quote-author {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--negro-suave, #2D3436);
+    font-style: normal;
+  }
+
+  .quote-role {
+    font-size: 0.85rem;
+    color: var(--gris-texto, #636E72);
+  }
+
+  /* Testimonial variant */
+  .quote-testimonial {
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.04) 0%, rgba(255, 107, 179, 0.02) 100%);
+    padding: 32px;
+    border-radius: 20px;
+    border-left: 4px solid var(--rosa-principal, #E91E8C);
+  }
+
+  .quote-testimonial .quote-mark {
+    left: 20px;
+  }
+
+  /* Citation variant */
+  .quote-citation {
+    background: var(--gris-claro, #F8F9FA);
+    padding: 28px 32px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .quote-citation .quote-text {
+    font-style: normal;
+    font-size: 1rem;
+    color: var(--gris-texto, #636E72);
+  }
+
+  .quote-citation .quote-mark {
+    display: none;
+  }
+
+  .quote-citation .quote-author {
+    color: var(--rosa-principal, #E91E8C);
+  }
+
+  /* Highlight variant */
+  .quote-highlight {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    padding: 32px;
+    border-radius: 20px;
+    color: #ffffff;
+  }
+
+  .quote-highlight .quote-text {
+    color: #ffffff;
+    font-size: 1.25rem;
+  }
+
+  .quote-highlight .quote-mark {
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+  }
+
+  .quote-highlight .quote-author {
+    color: #ffffff;
+  }
+
+  .quote-highlight .quote-role {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (max-width: 640px) {
+    .quote-testimonial,
+    .quote-citation,
+    .quote-highlight {
+      padding: 24px 20px;
+    }
+
+    .quote-text {
+      font-size: 1rem;
+    }
+
+    .quote-highlight .quote-text {
+      font-size: 1.1rem;
+    }
+
+    .quote-mark {
+      font-size: 3rem;
+      left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+/**
+ * StatsGrid Component
+ * Purpose: Layout container for multiple StatCard components
+ *
+ * @example
+ * <StatsGrid>
+ *   <StatCard value="500+" label="Eventos" />
+ *   <StatCard value="4.9" label="Calificación" />
+ *   <StatCard value="7" label="Años de experiencia" />
+ * </StatsGrid>
+ *
+ * @example with 4 columns
+ * <StatsGrid columns={4}>
+ *   ...stats
+ * </StatsGrid>
+ */
+
+interface Props {
+  columns?: 2 | 3 | 4;
+}
+
+const { columns = 3 } = Astro.props;
+---
+
+<div class={`stats-grid stats-cols-${columns}`}>
+  <slot />
+</div>
+
+<style>
+  .stats-grid {
+    display: grid;
+    gap: 20px;
+    margin: 32px 0;
+  }
+
+  .stats-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stats-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    .stats-cols-3,
+    .stats-cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+</style>
