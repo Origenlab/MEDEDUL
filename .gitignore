@@ -1,14 +1,39 @@
-# Carpeta workflow con credenciales sensibles
-workflow/
+# Dependencies
+node_modules/
 
-# Archivos de sistema
+# Build output
+dist/
+
+# Astro
+.astro/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# System files
 .DS_Store
 *.DS_Store
 **/.DS_Store
+Thumbs.db
 
 # Logs
 *.log
+npm-debug.log*
 
-# Archivos temporales
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files
 *.tmp
 *.temp
+
+# Legacy backup (optional - remove if you want to track)
+_legacy-html-backup/
+
+# Sensitive folders
+workflow/

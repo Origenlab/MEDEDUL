@@ -1,0 +1,371 @@
+---
+// Blog Index Page
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { categoryMeta } from '@/content/config';
+import { getCdnUrl } from '@/lib/cdn';
+
+// Get all published blog posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Sort by publish date (newest first)
+const posts = allPosts.sort((a, b) =>
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+// Get unique categories from posts
+const categories = [...new Set(posts.map(post => post.data.category))];
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { name: 'Blog', url: '/blog' }
+];
+---
+
+<BaseLayout
+  title="Blog - Tips y Consejos para Mesas de Dulces | Mededul"
+  description="Descubre consejos, tendencias e inspiración para tu mesa de dulces. Guías completas para bodas, XV años, baby showers y más eventos."
+>
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Blog Hero -->
+  <section class="blog-hero">
+    <div class="container">
+      <h1>Blog de Mesas de Dulces</h1>
+      <p class="blog-hero-subtitle">
+        Descubre tendencias, consejos e inspiración para crear la mesa de dulces perfecta para tu evento
+      </p>
+
+      <!-- Categories -->
+      <div class="blog-categories">
+        <a href="/blog" class="category-tag active">Todos</a>
+        {categories.map(category => {
+          const meta = categoryMeta[category as keyof typeof categoryMeta];
+          return (
+            <a href={`/blog/categoria/${category}`} class="category-tag">
+              {meta?.icon} {meta?.name || category}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Content -->
+  <section class="blog-content">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="posts-grid">
+          {posts.map(post => {
+            const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
+            const formattedDate = post.data.publishDate.toLocaleDateString('es-MX', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            });
+
+            return (
+              <article class="post-card">
+                <a href={`/blog/${post.slug}`}>
+                  <img
+                    src={getCdnUrl(post.data.heroImage)}
+                    alt={post.data.heroImageAlt}
+                    width="400"
+                    height="250"
+                    loading="lazy"
+                  />
+                </a>
+                <div class="post-meta">
+                  <span class="category">
+                    <span class="category-icon">{meta?.icon}</span>
+                    {meta?.name || post.data.category}
+                  </span>
+                  {post.data.readTime && (
+                    <span class="read-time">{post.data.readTime}</span>
+                  )}
+                </div>
+                <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
+                <p>{post.data.description}</p>
+                <a href={`/blog/${post.slug}`} class="btn btn-primary">Leer Artículo</a>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="no-articles">
+          <p>Próximamente publicaremos artículos interesantes sobre mesas de dulces.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Blog CTA -->
+  <section class="blog-cta">
+    <div class="container">
+      <div class="blog-cta-content">
+        <h2>¿Listo para crear tu mesa de dulces?</h2>
+        <p>Contáctanos y recibe una cotización personalizada para tu evento</p>
+        <a href="/contacto" class="btn-cta">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Cotiza Gratis
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
+    padding: 60px 0 70px;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blog-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .blog-hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .blog-categories {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+
+  .category-tag {
+    padding: 10px 22px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .category-tag:hover,
+  .category-tag.active {
+    background: #fff;
+    border-color: #fff;
+    color: var(--rosa-principal);
+  }
+
+  .blog-content {
+    padding: 60px 0;
+    background: var(--gris-claro);
+    min-height: 50vh;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .post-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(233, 30, 140, 0.05);
+  }
+
+  .post-card > a:first-child {
+    display: block;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .post-card > a:first-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-card .post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px 0;
+    font-size: 0.8rem;
+  }
+
+  .post-card .read-time {
+    color: var(--texto-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+  }
+
+  .post-card .category {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.12) 0%, rgba(255, 107, 179, 0.08) 100%);
+    color: var(--rosa-principal);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(233, 30, 140, 0.15);
+  }
+
+  .post-card h3 {
+    font-size: 1.18rem;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 14px 0 10px;
+    padding: 0 22px;
+    color: var(--texto-oscuro);
+  }
+
+  .post-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card > p {
+    font-size: 0.93rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    padding: 0 22px;
+    margin-bottom: 18px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card .btn.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gradiente-rosa);
+    color: #fff;
+    padding: 13px 26px;
+    margin: 0 22px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
+  }
+
+  .post-card .btn.btn-primary:hover {
+    background: linear-gradient(135deg, var(--rosa-hover) 0%, #a01365 100%);
+  }
+
+  .no-articles {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--texto-light);
+  }
+
+  .blog-cta {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d44 100%);
+    padding: 90px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .blog-cta h2 {
+    color: #ffffff;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .blog-cta p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.15rem;
+    margin-bottom: 35px;
+    line-height: 1.6;
+  }
+
+  .blog-cta .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--rosa-principal);
+    color: #ffffff;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(233, 30, 140, 0.4);
+  }
+
+  .blog-cta .btn-cta:hover {
+    background: var(--rosa-hover);
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-hero {
+      padding: 45px 0 55px;
+    }
+
+    .blog-hero h1 {
+      font-size: 1.7rem;
+    }
+
+    .blog-hero-subtitle {
+      font-size: 1rem;
+      padding: 0 15px;
+    }
+
+    .blog-content {
+      padding: 40px 0;
+    }
+
+    .posts-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+      padding: 0 16px;
+    }
+
+    .blog-cta {
+      padding: 60px 0;
+    }
+  }
+</style>

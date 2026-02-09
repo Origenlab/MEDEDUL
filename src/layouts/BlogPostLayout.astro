@@ -1,0 +1,459 @@
+---
+// BlogPostLayout - Layout for individual blog articles
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { categoryMeta } from '@/content/config';
+import { getCdnUrl } from '@/lib/cdn';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, publishDate, modifiedDate, category, heroImage, heroImageAlt, tags, readTime, faqs } = post.data;
+
+const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
+const articleUrl = `${siteUrl}/blog/${post.slug}`;
+const categoryInfo = categoryMeta[category as keyof typeof categoryMeta];
+
+// Format dates
+const formattedDate = publishDate.toLocaleDateString('es-MX', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { name: 'Blog', url: '/blog' },
+  { name: categoryInfo?.name || category, url: `/blog/categoria/${category}` },
+  { name: title, url: articleUrl }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  article={{
+    publishDate,
+    modifiedDate,
+    category: categoryInfo?.name || category,
+    tags
+  }}
+>
+  <!-- Article JSON-LD -->
+  <JsonLd
+    type="Article"
+    data={{
+      title,
+      description,
+      image: getCdnUrl(heroImage),
+      publishDate: publishDate.toISOString(),
+      modifiedDate: modifiedDate?.toISOString() || publishDate.toISOString(),
+      url: articleUrl
+    }}
+  />
+
+  <!-- FAQ JSON-LD if FAQs exist -->
+  {faqs && faqs.length > 0 && (
+    <JsonLd type="FAQPage" data={{ faqs }} />
+  )}
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Article Hero -->
+  <section class="article-hero">
+    <div class="container">
+      <span class="article-category-tag" style={`background-color: ${categoryInfo?.color || '#E91E8C'}`}>
+        {categoryInfo?.icon} {categoryInfo?.name || category}
+      </span>
+
+      <h1>{title}</h1>
+
+      <div class="article-hero-meta">
+        <span class="article-date">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          {formattedDate}
+        </span>
+        {readTime && (
+          <span class="article-read-time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {readTime}
+          </span>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Layout -->
+  <div class="article-layout">
+    <div class="container">
+      <div class="article-grid">
+        <!-- Main Content -->
+        <article class="article-content">
+          {heroImage && (
+            <img
+              src={getCdnUrl(heroImage)}
+              alt={heroImageAlt}
+              class="article-hero-image"
+              width="800"
+              height="500"
+              loading="eager"
+            />
+          )}
+
+          <div class="article-body">
+            <slot />
+          </div>
+
+          <!-- FAQs Section -->
+          {faqs && faqs.length > 0 && (
+            <section class="article-faqs">
+              <h2>Preguntas Frecuentes</h2>
+              <div class="faq-container">
+                {faqs.map((faq) => (
+                  <div class="faq-item">
+                    <button class="faq-question">
+                      {faq.question}
+                      <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Article CTA -->
+          <div class="article-cta">
+            <h2>¿Listo para crear tu mesa de dulces perfecta?</h2>
+            <p>Contáctanos hoy y recibe una cotización personalizada para tu evento.</p>
+            <a href="/contacto" class="btn btn-primary">Cotizar Ahora</a>
+          </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          <div class="sidebar-widget sidebar-cta">
+            <h3>¿Necesitas una mesa de dulces?</h3>
+            <p>Cotiza gratis tu evento</p>
+            <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="sidebar-cta-btn-wa">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              WhatsApp
+            </a>
+            <a href="/contacto" class="sidebar-cta-btn">Ver Paquetes</a>
+          </div>
+
+          {tags && tags.length > 0 && (
+            <div class="sidebar-widget sidebar-tags">
+              <h4>Etiquetas</h4>
+              <div class="tags-list">
+                {tags.map(tag => (
+                  <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question?.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .article-hero {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
+    padding: 60px 0 70px;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-category-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+  }
+
+  .article-hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.3;
+  }
+
+  .article-hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .article-hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .article-layout {
+    padding: 60px 0;
+    background: var(--gris-claro);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .article-content {
+    background: var(--blanco);
+    border-radius: var(--radio-medio);
+    padding: 40px;
+    box-shadow: var(--sombra-suave);
+  }
+
+  .article-hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radio-pequeno);
+    margin-bottom: 30px;
+  }
+
+  .article-body :global(h2) {
+    font-size: 1.6rem;
+    margin: 40px 0 20px;
+    color: var(--negro-suave);
+  }
+
+  .article-body :global(h3) {
+    font-size: 1.3rem;
+    margin: 30px 0 15px;
+    color: var(--negro-suave);
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: var(--gris-texto);
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 20px 0;
+    padding-left: 25px;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    color: var(--gris-texto);
+  }
+
+  .article-body :global(a) {
+    color: var(--rosa-principal);
+    text-decoration: underline;
+  }
+
+  .article-body :global(a:hover) {
+    color: var(--rosa-hover);
+  }
+
+  .article-faqs {
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 2px solid var(--gris-claro);
+  }
+
+  .article-faqs h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--negro-suave);
+  }
+
+  .article-cta {
+    background: var(--gradiente-dulce);
+    padding: 40px;
+    border-radius: var(--radio-medio);
+    text-align: center;
+    margin-top: 50px;
+    color: var(--blanco);
+  }
+
+  .article-cta h2 {
+    color: var(--blanco);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+  }
+
+  .article-cta p {
+    margin-bottom: 25px;
+    opacity: 0.95;
+  }
+
+  .article-cta .btn-primary {
+    background: var(--blanco);
+    color: var(--rosa-principal);
+  }
+
+  /* Sidebar */
+  .article-sidebar {
+    position: sticky;
+    top: 200px;
+  }
+
+  .sidebar-widget {
+    background: var(--blanco);
+    border-radius: var(--radio-medio);
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: var(--sombra-suave);
+  }
+
+  .sidebar-cta {
+    text-align: center;
+  }
+
+  .sidebar-cta h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--negro-suave);
+  }
+
+  .sidebar-cta p {
+    color: var(--gris-texto);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .sidebar-cta-btn-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: #25D366;
+    color: var(--blanco);
+    border-radius: var(--radio-redondo);
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-cta-btn-wa:hover {
+    background: #128C7E;
+  }
+
+  .sidebar-cta-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--rosa-principal);
+    color: var(--blanco);
+    border-radius: var(--radio-redondo);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-cta-btn:hover {
+    background: var(--rosa-hover);
+  }
+
+  .sidebar-tags h4 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--negro-suave);
+  }
+
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 6px 14px;
+    background: var(--gris-claro);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--gris-texto);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .tag:hover {
+    background: var(--rosa-principal);
+    color: var(--blanco);
+  }
+
+  @media (max-width: 1024px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .article-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .article-hero {
+      padding: 40px 0 50px;
+    }
+
+    .article-hero h1 {
+      font-size: 1.6rem;
+    }
+
+    .article-content {
+      padding: 25px;
+    }
+
+    .article-layout {
+      padding: 40px 0;
+    }
+  }
+</style>

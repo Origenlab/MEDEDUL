@@ -1,0 +1,513 @@
+---
+// Nosotros Page
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Nosotros', url: '/nosotros' }
+];
+---
+
+<BaseLayout
+  title="Nosotros - Mesas de Dulces Premium en CDMX | Mededul"
+  description="Conoce a Mededul, empresa líder en mesas de dulces y candy bar para eventos en Ciudad de México. Más de 500 eventos realizados con excelencia."
+>
+  <JsonLd type="Organization" />
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>Creamos Experiencias Dulces Inolvidables</h1>
+      <p class="hero-subtitle">
+        Somos especialistas en transformar momentos especiales en recuerdos memorables
+        a través de mesas de dulces diseñadas con pasión y creatividad.
+      </p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-content">
+          <span class="section-tag">Nuestra Historia</span>
+          <h2>De la Pasión a la Excelencia</h2>
+          <p>
+            <strong>Mededul</strong> nació de la pasión por crear momentos especiales.
+            Lo que comenzó como un pequeño proyecto familiar se ha convertido en una
+            de las empresas líderes en mesas de dulces para eventos en la Ciudad de México.
+          </p>
+          <p>
+            Cada mesa que creamos cuenta una historia única. Nos especializamos en entender
+            la visión de nuestros clientes y transformarla en una experiencia dulce que
+            supera sus expectativas.
+          </p>
+          <p>
+            Desde bodas elegantes en Polanco hasta fiestas infantiles llenas de color
+            en Santa Fe, hemos tenido el privilegio de ser parte de los momentos más
+            importantes de cientos de familias.
+          </p>
+        </div>
+        <div class="story-image">
+          <img
+            src={getCdnUrl("/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif")}
+            alt="Mesa de dulces elegante Mededul"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Eventos Realizados</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4.9</span>
+          <span class="stat-label">Calificación Promedio</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">7+</span>
+          <span class="stat-label">Años de Experiencia</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Clientes Satisfechos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <span class="section-tag">Nuestros Valores</span>
+      <h2>Lo Que Nos Define</h2>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3>Excelencia</h3>
+          <p>Cada detalle cuenta. Nos esforzamos por superar las expectativas en cada evento.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3>Pasión</h3>
+          <p>Amamos lo que hacemos y eso se refleja en cada mesa que creamos.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <h3>Creatividad</h3>
+          <p>Diseños únicos y personalizados que hacen especial cada evento.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Compromiso</h3>
+          <p>Tu evento es nuestra prioridad. Estamos contigo de principio a fin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Section -->
+  <section class="coverage-section">
+    <div class="container">
+      <span class="section-tag">Cobertura</span>
+      <h2>Donde Estamos</h2>
+      <p class="coverage-intro">
+        Atendemos eventos en toda la Ciudad de México y área metropolitana,
+        con especial presencia en las zonas más exclusivas.
+      </p>
+
+      <div class="zones-grid">
+        <div class="zone-item">
+          <h4>Polanco</h4>
+          <p>Eventos de alta gama en la zona más exclusiva</p>
+        </div>
+        <div class="zone-item">
+          <h4>Santa Fe</h4>
+          <p>Corporativos y eventos empresariales</p>
+        </div>
+        <div class="zone-item">
+          <h4>Pedregal</h4>
+          <p>Bodas y celebraciones elegantes</p>
+        </div>
+        <div class="zone-item">
+          <h4>Condesa / Roma</h4>
+          <p>Eventos con estilo único y moderno</p>
+        </div>
+        <div class="zone-item">
+          <h4>Interlomas</h4>
+          <p>Fiestas familiares y quinceaños</p>
+        </div>
+        <div class="zone-item">
+          <h4>Lomas de Chapultepec</h4>
+          <p>Celebraciones de lujo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="about-cta">
+    <div class="container">
+      <h2>¿Listo para crear algo increíble juntos?</h2>
+      <p>Cuéntanos sobre tu evento y hagamos realidad tu visión</p>
+      <div class="cta-buttons">
+        <a href="/contacto" class="btn btn-primary">Cotizar Ahora</a>
+        <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
+    padding: 80px 0;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .section-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
+    color: var(--rosa-principal);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+
+  .story-section {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .story-content h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 25px;
+  }
+
+  .story-content p {
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .story-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+
+  .stats-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    text-align: center;
+  }
+
+  .stat-item {
+    color: #ffffff;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradiente-rosa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .values-section {
+    padding: 80px 0;
+    background: var(--gris-claro);
+    text-align: center;
+  }
+
+  .values-section h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 50px;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .value-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
+  }
+
+  .value-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--rosa-principal);
+  }
+
+  .value-card h3 {
+    font-size: 1.3rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .value-card p {
+    color: var(--texto-light);
+    line-height: 1.6;
+  }
+
+  .coverage-section {
+    padding: 80px 0;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  .coverage-section h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 20px;
+  }
+
+  .coverage-intro {
+    color: var(--texto-light);
+    max-width: 600px;
+    margin: 0 auto 50px;
+    line-height: 1.7;
+  }
+
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .zone-item {
+    padding: 30px;
+    background: var(--gris-claro);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .zone-item:hover {
+    background: var(--rosa-principal);
+    color: #ffffff;
+  }
+
+  .zone-item:hover p {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .zone-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .zone-item p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .about-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #a01365 100%);
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .about-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .about-cta p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 30px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cta-buttons .btn {
+    padding: 16px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: #ffffff;
+    color: var(--rosa-principal);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: #ffffff;
+  }
+
+  .btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1024px) {
+    .stats-grid,
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .zones-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: 60px 0;
+    }
+
+    .story-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .story-image {
+      order: -1;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .zones-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
