@@ -5,6 +5,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
+import { getBlogCardCta } from '@/lib/blogCardCta';
 
 // Get all published blog posts
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -13,9 +14,6 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) =>
   a.data.title.localeCompare(b.data.title, 'es')
 );
-
-// Get unique categories from posts
-const categories = [...new Set(posts.map(post => post.data.category))];
 
 // Breadcrumb items
 const breadcrumbItems = [
@@ -38,19 +36,6 @@ const breadcrumbItems = [
       <p class="blog-hero-subtitle">
         Descubre tendencias, consejos e inspiración para crear la mesa de dulces perfecta para tu evento
       </p>
-
-      <!-- Categories -->
-      <div class="blog-categories">
-        <a href="/blog" class="category-tag active">Todos</a>
-        {categories.map(category => {
-          const meta = categoryMeta[category as keyof typeof categoryMeta];
-          return (
-            <a href={`/blog/categoria/${category}`} class="category-tag">
-              {meta?.icon} {meta?.name || category}
-            </a>
-          );
-        })}
-      </div>
     </div>
   </section>
 
@@ -81,7 +66,7 @@ const breadcrumbItems = [
                 </div>
                 <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
                 <p>{post.data.description}</p>
-                <a href={`/blog/${post.slug}`} class="btn btn-primary">Leer Artículo</a>
+                <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category)}</a>
               </article>
             );
           })}
@@ -135,34 +120,6 @@ const breadcrumbItems = [
     margin: 0 auto;
     line-height: 1.7;
     font-weight: 300;
-  }
-
-  .blog-categories {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    padding: 0 20px;
-  }
-
-  .category-tag {
-    padding: 10px 22px;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 50px;
-    color: #fff;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-  }
-
-  .category-tag:hover,
-  .category-tag.active {
-    background: #fff;
-    border-color: #fff;
-    color: var(--rosa-principal);
   }
 
   .blog-content {

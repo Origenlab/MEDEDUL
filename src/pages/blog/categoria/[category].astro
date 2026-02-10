@@ -5,6 +5,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
+import { getBlogCardCta } from '@/lib/blogCardCta';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -79,7 +80,7 @@ const breadcrumbItems = [
                 </div>
                 <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
                 <p>{post.data.description}</p>
-                <a href={`/blog/${post.slug}`} class="btn btn-primary">Leer Artículo</a>
+                <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category)}</a>
               </article>
             );
           })}
