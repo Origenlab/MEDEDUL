@@ -12,18 +12,11 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, publishDate, modifiedDate, category, heroImage, heroImageAlt, tags, readTime, faqs } = post.data;
+const { title, description, category, heroImage, heroImageAlt, tags, faqs } = post.data;
 
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const articleUrl = `${siteUrl}/blog/${post.slug}`;
 const categoryInfo = categoryMeta[category as keyof typeof categoryMeta];
-
-// Format dates
-const formattedDate = publishDate.toLocaleDateString('es-MX', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
 
 // Breadcrumb items
 const breadcrumbItems = [
@@ -38,8 +31,6 @@ const breadcrumbItems = [
   description={description}
   ogType="article"
   article={{
-    publishDate,
-    modifiedDate,
     category: categoryInfo?.name || category,
     tags
   }}
@@ -51,8 +42,6 @@ const breadcrumbItems = [
       title,
       description,
       image: getCdnUrl(heroImage),
-      publishDate: publishDate.toISOString(),
-      modifiedDate: modifiedDate?.toISOString() || publishDate.toISOString(),
       url: articleUrl
     }}
   />
@@ -75,26 +64,6 @@ const breadcrumbItems = [
 
       <h1>{title}</h1>
 
-      <div class="article-hero-meta">
-        <span class="article-date">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-            <line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/>
-            <line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          {formattedDate}
-        </span>
-        {readTime && (
-          <span class="article-read-time">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-            {readTime}
-          </span>
-        )}
-      </div>
     </div>
   </section>
 
@@ -189,7 +158,7 @@ const breadcrumbItems = [
 
 <style>
   .blog-header-spacer {
-    height: 120px !important;
+    height: 104px !important;
   }
 
   /* Homologa breadcrumbs del blog con el diseño global y los centra visualmente */
@@ -481,7 +450,7 @@ const breadcrumbItems = [
 
   @media (max-width: 768px) {
     .blog-header-spacer {
-      height: 95px !important;
+      height: 82px !important;
     }
 
     :global(.breadcrumb-section .breadcrumb) {

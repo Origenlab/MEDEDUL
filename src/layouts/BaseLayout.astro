@@ -15,8 +15,6 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   article?: {
-    publishDate: Date;
-    modifiedDate?: Date;
     category: string;
     tags?: string[];
   };
@@ -95,6 +93,22 @@ const currentPath = Astro.url.pathname;
 
     <Footer />
     <WhatsAppButton />
+
+    <script is:inline>
+      (() => {
+        const applyHeaderOffset = () => {
+          const topBar = document.querySelector('.top-bar');
+          const header = document.querySelector('.header');
+          const offset = (topBar?.offsetHeight || 0) + (header?.offsetHeight || 0);
+          document.documentElement.style.setProperty('--site-header-offset', `${offset}px`);
+        };
+
+        applyHeaderOffset();
+        window.addEventListener('load', applyHeaderOffset);
+        window.addEventListener('resize', applyHeaderOffset);
+        document.addEventListener('astro:page-load', applyHeaderOffset);
+      })();
+    </script>
 
     <slot name="scripts" />
   </body>

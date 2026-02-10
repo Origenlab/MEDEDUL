@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     params: { category },
     props: {
       posts: posts.filter(post => post.data.category === category)
-        .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()),
+        .sort((a, b) => a.data.title.localeCompare(b.data.title, 'es')),
       category
     }
   }));
@@ -76,9 +76,6 @@ const breadcrumbItems = [
                     <span class="category-icon">{postMeta?.icon}</span>
                     {postMeta?.name || post.data.category}
                   </span>
-                  {post.data.readTime && (
-                    <span class="read-time">{post.data.readTime}</span>
-                  )}
                 </div>
                 <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
                 <p>{post.data.description}</p>
@@ -192,11 +189,6 @@ const breadcrumbItems = [
     align-items: center;
     padding: 18px 22px 0;
     font-size: 0.8rem;
-  }
-
-  .post-card .read-time {
-    color: var(--texto-light);
-    font-size: 0.82rem;
   }
 
   .post-card .category {

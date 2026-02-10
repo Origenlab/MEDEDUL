@@ -104,14 +104,12 @@ const localBusinessSchema = {
 
 // Article Schema (requires data prop)
 function getArticleSchema(articleData: any) {
-  return {
+  const schema: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": articleData.title,
     "description": articleData.description,
     "image": articleData.image,
-    "datePublished": articleData.publishDate,
-    "dateModified": articleData.modifiedDate || articleData.publishDate,
     "author": {
       "@type": "Organization",
       "name": "Mededul",
@@ -130,6 +128,8 @@ function getArticleSchema(articleData: any) {
       "@id": articleData.url
     }
   };
+
+  return schema;
 }
 
 // FAQPage Schema (requires data.faqs prop)

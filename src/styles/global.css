@@ -9290,3 +9290,26 @@ a.btn.btn-whatsapp {
         font-size: 0.9rem;
     }
 }
+
+/* ==========================================
+   HEADER OFFSET FINAL (GLOBAL)
+   El offset se calcula dinámicamente en BaseLayout
+   ========================================== */
+:root {
+    --site-header-offset: 120px;
+}
+
+main {
+    padding-top: var(--site-header-offset);
+}
+
+.header-spacer {
+    display: none !important;
+    height: 0 !important;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --site-header-offset: 95px;
+    }
+}

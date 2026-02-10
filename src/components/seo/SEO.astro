@@ -8,8 +8,6 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   article?: {
-    publishDate: Date;
-    modifiedDate?: Date;
     category: string;
     tags?: string[];
   };
@@ -77,8 +75,6 @@ const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;
 
 {article && (
   <>
-    <meta property="article:published_time" content={article.publishDate.toISOString()} />
-    {article.modifiedDate && <meta property="article:modified_time" content={article.modifiedDate.toISOString()} />}
     <meta property="article:section" content={article.category} />
     {article.tags?.map(tag => (
       <meta property="article:tag" content={tag} />
