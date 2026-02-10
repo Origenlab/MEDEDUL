@@ -146,7 +146,7 @@ const itemListSchema = {
   title="Estaciones Interactivas para Eventos CDMX | Mesas de Dulces"
   description="Estaciones interactivas en CDMX: fuente de chocolate, fuente de chamoy, pared de dulces y stand para pastel. Cotiza gratis."
   canonical="https://mesas-de-dulces.com/estaciones-interactivas"
-  ogImage="https://mesas-de-dulces.com/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif"
+  ogImage={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif')}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
 

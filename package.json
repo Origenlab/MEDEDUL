@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint:content": "node scripts/validate-content.cjs",
-    "check": "npm run lint:content && astro check",
+    "lint:markdown": "node scripts/lint-markdown.cjs",
+    "check": "npm run lint:content && npm run lint:markdown && astro check",
     "qa": "npm run check && npm run build"
   },
   "dependencies": {

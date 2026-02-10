@@ -44,7 +44,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "Mededul",
-    "image": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
     "telephone": "+525525226442",
     "address": {
       "@type": "PostalAddress",
@@ -139,7 +139,7 @@ const otrasEstaciones = [
   title="Fuente de Chocolate para Eventos CDMX | Renta Cascada"
   description="Renta de fuente de chocolate en CDMX. Cascada de chocolate belga con frutas y malvaviscos. Operador incluido. Cotiza gratis."
   canonical="https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chocolate"
-  ogImage="https://mesas-de-dulces.com/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif"
+  ogImage={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif')}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />

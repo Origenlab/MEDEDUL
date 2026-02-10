@@ -44,7 +44,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "Mededul",
-    "image": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
     "telephone": "+525525226442",
     "address": {
       "@type": "PostalAddress",
@@ -124,7 +124,7 @@ const otrasEstaciones = [
   title="Pared de Dulces Candy Wall CDMX | Renta Muro de Golosinas | Mededul"
   description="Pared de dulces candy wall en CDMX. Muro decorativo con dispensadores de golosinas y colores personalizados. Cotiza gratis."
   canonical="https://mesas-de-dulces.com/estaciones-interactivas/pared-de-dulces"
-  ogImage="https://mesas-de-dulces.com/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif"
+  ogImage={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />

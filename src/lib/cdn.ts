@@ -14,6 +14,11 @@ export const CDN_CONFIG = {
   }
 } as const;
 
+const SITE_IMAGE_HOSTS = new Set([
+  'mesas-de-dulces.com',
+  'www.mesas-de-dulces.com'
+]);
+
 /**
  * Get CDN URL for an image path
  * @param imagePath - Local image path (e.g., "/img/galeria/mesa-dulces-elegante-01.avif")
@@ -25,20 +30,37 @@ export function getCdnUrl(imagePath: string, params?: Record<string, string | nu
     return imagePath;
   }
 
-  // Remove leading slash if present for clean concatenation
-  const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  let baseUrl = '';
 
-  let url = `${CDN_CONFIG.baseUrl}${cleanPath}`;
+  try {
+    if (/^https?:\/\//i.test(imagePath)) {
+      const parsed = new URL(imagePath);
+      if (parsed.hostname === new URL(CDN_CONFIG.baseUrl).hostname) {
+        baseUrl = `${CDN_CONFIG.baseUrl}${parsed.pathname}`;
+      } else if (SITE_IMAGE_HOSTS.has(parsed.hostname) && parsed.pathname.startsWith('/img/')) {
+        baseUrl = `${CDN_CONFIG.baseUrl}${parsed.pathname}`;
+      } else {
+        baseUrl = imagePath;
+      }
+    } else {
+      const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+      baseUrl = `${CDN_CONFIG.baseUrl}${cleanPath}`;
+    }
+  } catch {
+    const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+    baseUrl = `${CDN_CONFIG.baseUrl}${cleanPath}`;
+  }
 
   // Add optimization parameters if provided
   if (params && Object.keys(params).length > 0) {
-    const queryString = Object.entries(params)
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&');
-    url += `?${queryString}`;
+    const url = new URL(baseUrl, CDN_CONFIG.baseUrl);
+    Object.entries(params).forEach(([key, value]) => {
+      url.searchParams.set(key, String(value));
+    });
+    return /^https?:\/\//i.test(baseUrl) ? url.toString() : `${baseUrl}?${url.searchParams.toString()}`;
   }
 
-  return url;
+  return baseUrl;
 }
 
 /**

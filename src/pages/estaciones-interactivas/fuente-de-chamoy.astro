@@ -44,7 +44,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "Mededul",
-    "image": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
     "telephone": "+525525226442",
     "address": {
       "@type": "PostalAddress",
@@ -139,7 +139,7 @@ const otrasEstaciones = [
   title="Fuente de Chamoy para Fiestas CDMX | Renta Estacion Chamoy | Mededul"
   description="Fuente de chamoy para fiestas en CDMX. Chamoy artesanal con frutas y dulces enchilados. Sabor mexicano. Cotiza gratis."
   canonical="https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy"
-  ogImage="https://mesas-de-dulces.com/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif"
+  ogImage={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />

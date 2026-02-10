@@ -10,7 +10,8 @@ export default defineConfig({
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
-    }
+    },
+    domains: ['e2pex68gctc.exactdn.com', 'mesas-de-dulces.com', 'www.mesas-de-dulces.com']
   },
   build: {
     inlineStylesheets: 'auto'

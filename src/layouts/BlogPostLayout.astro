@@ -1,5 +1,5 @@
 ---
-// BlogPostLayout - Layout for individual blog articles
+// BlogPostLayout - Professional Blog Article Layout
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
@@ -17,13 +17,69 @@ const { title, description, category, heroImage, heroImageAlt, tags, faqs } = po
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const articleUrl = `${siteUrl}/blog/${post.slug}`;
 const categoryInfo = categoryMeta[category as keyof typeof categoryMeta];
-const heroSupportText = `En este articulo de ${categoryInfo?.name || category} compartimos recomendaciones claras para ayudarte a planear una mesa de dulces mejor organizada, mas atractiva y alineada a tu tipo de evento.`;
 
-// Breadcrumb items
 const breadcrumbItems = [
   { name: 'Blog', url: '/blog' },
   { name: categoryInfo?.name || category, url: `/blog/categoria/${category}` },
   { name: title, url: articleUrl }
+];
+
+// Servicios principales para eventos
+const serviciosEventos = [
+  { name: 'Bodas', url: '/candy-bar-eventos/mesa-dulces-boda', color: '#E91E8C' },
+  { name: 'XV Años', url: '/candy-bar-eventos/mesa-dulces-xv-anos', color: '#9B59B6' },
+  { name: 'Baby Shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower', color: '#3498DB' },
+  { name: 'Cumpleaños', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', color: '#E67E22' },
+  { name: 'Bautizos', url: '/candy-bar-eventos/mesa-dulces-bautizo', color: '#1ABC9C' },
+  { name: 'Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos', color: '#34495E' }
+];
+
+// Estaciones interactivas
+const estaciones = [
+  { name: 'Fuente de Chocolate', url: '/estaciones-interactivas/fuente-de-chocolate', icon: '🍫' },
+  { name: 'Fuente de Chamoy', url: '/estaciones-interactivas/fuente-de-chamoy', icon: '🌶️' },
+  { name: 'Pared de Dulces', url: '/estaciones-interactivas/pared-de-dulces', icon: '🍬' }
+];
+
+// Categorías del blog
+const categoriasBlog = [
+  { name: 'Bodas', slug: 'bodas', color: '#E91E8C' },
+  { name: 'XV Años', slug: 'xv-anos', color: '#9B59B6' },
+  { name: 'Tendencias', slug: 'tendencias', color: '#3498DB' },
+  { name: 'Guías', slug: 'guias', color: '#27AE60' }
+];
+
+// Enlaces rápidos
+const enlacesRapidos = [
+  { name: 'Mesa de Dulces', url: '/tipos-de-mesas-de-dulces/mesa-de-dulces' },
+  { name: 'Galería', url: '/galeria' },
+  { name: 'Nosotros', url: '/nosotros' },
+  { name: 'Contacto', url: '/contacto' }
+];
+
+// Cards de servicios destacados
+const servicioCards = [
+  {
+    title: 'Mesa de Dulces para Bodas',
+    desc: 'Diseños elegantes para tu día especial',
+    img: '/img/eventos/bodas/candy-bar-boda-romantico.avif',
+    url: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Popular'
+  },
+  {
+    title: 'Mesa de Dulces XV Años',
+    desc: 'Celebra con estilo y dulzura',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    url: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    badge: 'Destacado'
+  },
+  {
+    title: 'Fuente de Chocolate',
+    desc: 'La experiencia más deliciosa',
+    img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
+    url: '/estaciones-interactivas/fuente-de-chocolate',
+    badge: 'Favorito'
+  }
 ];
 ---
 
@@ -31,87 +87,54 @@ const breadcrumbItems = [
   title={title}
   description={description}
   ogType="article"
-  article={{
-    category: categoryInfo?.name || category,
-    tags
-  }}
+  article={{ category: categoryInfo?.name || category, tags }}
 >
-  <!-- Article JSON-LD -->
   <JsonLd
     type="Article"
-    data={{
-      title,
-      description,
-      image: getCdnUrl(heroImage),
-      url: articleUrl
-    }}
+    data={{ title, description, image: getCdnUrl(heroImage), url: articleUrl }}
   />
-
-  <!-- FAQ JSON-LD if FAQs exist -->
-  {faqs && faqs.length > 0 && (
-    <JsonLd type="FAQPage" data={{ faqs }} />
-  )}
+  {faqs && faqs.length > 0 && <JsonLd type="FAQPage" data={{ faqs }} />}
 
   <div class="header-spacer"></div>
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <!-- Article Hero -->
-  <section class="blog-article-hero">
-    <div class="article-hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-
+  <!-- HERO SECTION - Homologado con Blog Index -->
+  <section class="blog-hero">
     <div class="container">
-      <div class="article-hero-grid">
-        <div class="article-hero-left">
-          <span class="article-category-tag" style={`background-color: ${categoryInfo?.color || '#E91E8C'}`}>
-            {categoryInfo?.icon} {categoryInfo?.name || category}
-          </span>
-
-          <h1>{title}</h1>
-        </div>
-
-        <div class="article-hero-right">
-          <p>{description}</p>
-          <p>{heroSupportText}</p>
-        </div>
-      </div>
+      <span class="category-badge" style={`--cat-color: ${categoryInfo?.color || '#E91E8C'}`}>
+        {categoryInfo?.icon} {categoryInfo?.name || category}
+      </span>
+      <h1>{title}</h1>
+      <p>{description}</p>
     </div>
   </section>
 
-  <!-- Article Layout -->
-  <div class="article-layout">
-    <div class="container">
-      <div class="article-grid">
-        <!-- Main Content -->
-        <article class="article-content">
+  <!-- MAIN ARTICLE SECTION -->
+  <section class="article-section">
+    <div class="container-1400">
+      <div class="article-layout">
+
+        <!-- ARTICLE CONTENT -->
+        <article class="article-main">
           {heroImage && (
-            <img
-              src={getCdnUrl(heroImage)}
-              alt={heroImageAlt}
-              class="article-hero-image"
-              width="800"
-              height="500"
-              loading="eager"
-            />
+            <div class="article-featured-image">
+              <img src={getCdnUrl(heroImage)} alt={heroImageAlt || title} loading="eager" />
+            </div>
           )}
 
-          <div class="article-body">
+          <div class="article-content">
             <slot />
           </div>
 
-          <!-- FAQs Section -->
+          <!-- FAQs -->
           {faqs && faqs.length > 0 && (
-            <section class="article-faqs">
+            <div class="article-faqs">
               <h2>Preguntas Frecuentes</h2>
-              <div class="faq-container">
+              <div class="faq-list">
                 {faqs.map((faq) => (
                   <div class="faq-item">
-                    <button class="faq-question">
-                      {faq.question}
+                    <button class="faq-question" type="button">
+                      <span>{faq.question}</span>
                       <span class="icon">+</span>
                     </button>
                     <div class="faq-answer">
@@ -120,416 +143,1213 @@ const breadcrumbItems = [
                   </div>
                 ))}
               </div>
-            </section>
+            </div>
           )}
 
-          <!-- Article CTA -->
-          <div class="article-cta">
-            <h2>¿Listo para crear tu mesa de dulces perfecta?</h2>
-            <p>Contáctanos hoy y recibe una cotización personalizada para tu evento.</p>
-            <a href="/contacto" class="btn btn-primary">Cotizar Ahora</a>
+          <!-- CTA Final -->
+          <div class="article-cta-box">
+            <h3>¿Listo para crear tu mesa de dulces perfecta?</h3>
+            <p>Contáctanos hoy y recibe una cotización personalizada para tu evento. Sin compromiso.</p>
+            <div class="cta-buttons">
+              <a href="https://wa.me/525525226442?text=Hola%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces" class="cta-button cta-primary" target="_blank" rel="noopener">
+                Cotizar por WhatsApp
+              </a>
+              <a href="tel:+525525226442" class="cta-button cta-secondary">
+                Llamar: 55 2522 6442
+              </a>
+            </div>
+            <p class="cta-note">Respuesta en menos de 2 horas</p>
           </div>
         </article>
 
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
         <aside class="article-sidebar">
-          <div class="sidebar-widget sidebar-cta">
-            <h3>¿Necesitas una mesa de dulces?</h3>
-            <p>Cotiza gratis tu evento</p>
-            <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="sidebar-cta-btn-wa">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-              </svg>
-              WhatsApp
-            </a>
-            <a href="/contacto" class="sidebar-cta-btn">Ver Paquetes</a>
-          </div>
+          <div class="sidebar-inner">
 
-          {tags && tags.length > 0 && (
-            <div class="sidebar-widget sidebar-tags">
-              <h4>Etiquetas</h4>
-              <div class="tags-list">
-                {tags.map(tag => (
-                  <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+            <!-- WhatsApp CTA -->
+            <div class="sidebar-card sidebar-cta">
+              <div class="cta-header">
+                <span class="cta-badge">Cotiza Gratis</span>
+                <h4>¿Planeas tu Evento?</h4>
+                <p>Recibe una propuesta personalizada sin compromiso</p>
+              </div>
+              <a href="https://wa.me/525525226442?text=Hola%2C%20vi%20su%20blog%20y%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces" class="wa-button" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                Cotizar por WhatsApp
+              </a>
+              <div class="cta-contact">
+                <a href="tel:+525525226442" class="phone-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                  55 2522 6442
+                </a>
+              </div>
+            </div>
+
+            <!-- Cards de Servicios Destacados -->
+            <div class="sidebar-services-cards">
+              <h4 class="sidebar-section-title">Servicios Destacados</h4>
+              {servicioCards.map(card => (
+                <a href={card.url} class="service-card">
+                  <div class="service-card-image">
+                    <img src={getCdnUrl(card.img)} alt={card.title} loading="lazy" />
+                    <span class="service-card-badge">{card.badge}</span>
+                  </div>
+                  <div class="service-card-content">
+                    <h5>{card.title}</h5>
+                    <p>{card.desc}</p>
+                    <span class="service-card-link">
+                      Ver más
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <!-- Mesas para Eventos -->
+            <div class="sidebar-card">
+              <h4 class="sidebar-title">Mesas para Eventos</h4>
+              <div class="eventos-list">
+                {serviciosEventos.map(s => (
+                  <a href={s.url} class="evento-link" style={`--evento-color: ${s.color}`}>
+                    <span class="evento-dot"></span>
+                    <span class="evento-name">{s.name}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="evento-arrow"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                  </a>
                 ))}
               </div>
             </div>
-          )}
+
+            <!-- Estaciones Interactivas -->
+            <div class="sidebar-card sidebar-estaciones">
+              <h4 class="sidebar-title">Estaciones Interactivas</h4>
+              <p class="sidebar-subtitle">Complementa tu evento</p>
+              <div class="estaciones-list">
+                {estaciones.map(e => (
+                  <a href={e.url} class="estacion-link">
+                    <span class="estacion-icon">{e.icon}</span>
+                    <span class="estacion-name">{e.name}</span>
+                  </a>
+                ))}
+              </div>
+              <a href="/estaciones-interactivas" class="ver-todas-link">Ver todas las estaciones</a>
+            </div>
+
+            <!-- Stats -->
+            <div class="sidebar-card sidebar-stats">
+              <div class="stats-row">
+                <div class="stat">
+                  <span class="stat-num">500+</span>
+                  <span class="stat-label">Eventos</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-num">7+</span>
+                  <span class="stat-label">Años</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-num">98%</span>
+                  <span class="stat-label">Satisfacción</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categorías del Blog -->
+            <div class="sidebar-card">
+              <h4 class="sidebar-title">Categorías</h4>
+              <div class="categorias-list">
+                {categoriasBlog.map(cat => (
+                  <a href={`/blog/categoria/${cat.slug}`} class="categoria-link" style={`--cat-color: ${cat.color}`}>
+                    {cat.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Tags del Artículo -->
+            {tags && tags.length > 0 && (
+              <div class="sidebar-card">
+                <h4 class="sidebar-title">Etiquetas</h4>
+                <div class="tags-wrap">
+                  {tags.map(tag => (
+                    <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag-link">{tag}</a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <!-- Enlaces Rápidos -->
+            <div class="sidebar-card sidebar-enlaces">
+              <h4 class="sidebar-title">Explora Más</h4>
+              <div class="enlaces-list">
+                {enlacesRapidos.map(link => (
+                  <a href={link.url} class="enlace-item">
+                    <span>{link.name}</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </aside>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // FAQ accordion
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question?.addEventListener('click', () => {
-        item.classList.toggle('active');
-      });
-    });
-  </script>
 </BaseLayout>
 
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+        }
+      });
+      faqItem?.classList.toggle('active');
+    });
+  });
+</script>
+
 <style>
-  .blog-article-hero {
-    background: linear-gradient(135deg, #eaf7ff 0%, #f2fff8 52%, #fff8ee 100%);
-    padding: 56px 0 58px;
-    min-height: 0;
-    display: block;
-    align-items: initial;
+  /* ========================================
+     HERO SECTION - Homologado con Blog Index
+     ======================================== */
+  .blog-hero {
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, #eaf7ff 0%, #f2fff8 52%, #fff8ee 100%);
+    padding: 52px 0 56px;
+    border-bottom: 1px solid rgba(116, 185, 255, 0.2);
   }
 
-  .blog-article-hero .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-    text-align: left;
-  }
-
-  .blog-article-hero .article-hero-bg-shapes {
+  .blog-hero::before,
+  .blog-hero::after {
+    content: "";
     position: absolute;
-    inset: 0;
-    overflow: hidden;
+    border-radius: 999px;
     pointer-events: none;
   }
 
-  .blog-article-hero .shape-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(116, 185, 255, 0.26);
-    top: -100px;
-    right: -100px;
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.75;
+  .blog-hero::before {
+    width: 260px;
+    height: 260px;
+    right: -70px;
+    top: -70px;
+    background: rgba(116, 185, 255, 0.25);
   }
 
-  .blog-article-hero .shape-2 {
-    width: 300px;
-    height: 300px;
-    background: rgba(85, 239, 196, 0.28);
-    bottom: -50px;
-    left: -50px;
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.8;
+  .blog-hero::after {
+    width: 180px;
+    height: 180px;
+    left: -45px;
+    bottom: -45px;
+    background: rgba(85, 239, 196, 0.25);
   }
 
-  .blog-article-hero .shape-3 {
-    width: 200px;
-    height: 200px;
-    background: rgba(255, 230, 109, 0.3);
-    top: 40%;
-    right: 10%;
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.75;
-  }
-
-  .blog-article-hero .article-hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 42px;
-    align-items: start;
+  .blog-hero .container {
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
   }
 
-  .blog-article-hero .article-hero-left h1 {
-    margin-bottom: 0;
-    line-height: 1.2;
-    color: var(--negro-suave);
-  }
-
-  .article-category-tag {
+  .category-badge {
     display: inline-block;
+    background: var(--cat-color, #E91E8C);
+    color: #fff;
     padding: 8px 20px;
-    border-radius: 50px;
+    border-radius: 30px;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 18px;
-    color: #fff;
+    margin-bottom: 16px;
   }
 
-  .blog-article-hero .article-hero-right p {
-    color: var(--gris-texto);
-    line-height: 1.8;
-    margin-bottom: 14px;
-    font-size: 1rem;
-    max-width: 62ch;
-  }
-
-  .blog-article-hero .article-hero-right p:last-child {
-    margin-bottom: 0;
-  }
-
-  .blog-article-hero .article-hero-right strong {
-    color: var(--rosa-principal);
-  }
-
-  .blog-article-hero .article-hero-left h1 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  .blog-hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 14px;
     font-weight: 800;
-    line-height: 1.3;
+    letter-spacing: -0.3px;
+    color: var(--negro-suave);
   }
 
-  .article-hero-meta {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
-    opacity: 0.9;
+  .blog-hero p {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--gris-texto);
   }
 
-  .article-hero-meta span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  /* ========================================
+     CONTAINER 1400px
+     ======================================== */
+  .container-1400 {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ========================================
+     ARTICLE SECTION - Fondo general sin tarjeta
+     ======================================== */
+  .article-section {
+    background: #fff;
+    padding: 50px 0 80px;
   }
 
   .article-layout {
-    padding: 48px 0 60px;
-    background: var(--gris-claro);
-  }
-
-  .article-grid {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 40px;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
     align-items: start;
   }
 
-  .article-content {
-    background: var(--blanco);
-    border-radius: var(--radio-medio);
-    padding: 40px;
-    box-shadow: var(--sombra-suave);
+  /* ========================================
+     ARTICLE MAIN CONTENT - Sin tarjeta
+     ======================================== */
+  .article-main {
+    /* Sin fondo, sin sombra - contenido directo */
   }
 
-  .article-hero-image {
+  .article-featured-image {
     width: 100%;
-    height: auto;
-    border-radius: var(--radio-pequeno);
-    margin-bottom: 30px;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 45px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
   }
 
-  .article-body :global(h2) {
+  .article-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-content {
+    /* Sin padding extra - contenido directo */
+  }
+
+  /* ========================================
+     ARTICLE TYPOGRAPHY (MDX Content)
+     ======================================== */
+  .article-content :global(p) {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #444;
+    margin-bottom: 24px;
+  }
+
+  .article-content :global(h2) {
     font-size: 1.6rem;
-    margin: 40px 0 20px;
-    color: var(--negro-suave);
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 50px 0 24px;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.08) 0%, rgba(233, 30, 140, 0.02) 100%);
+    border-left: 5px solid #E91E8C;
+    border-radius: 0 12px 12px 0;
   }
 
-  .article-body :global(h3) {
-    font-size: 1.3rem;
-    margin: 30px 0 15px;
-    color: var(--negro-suave);
+  .article-content :global(h2:first-child) {
+    margin-top: 0;
   }
 
-  .article-body :global(p) {
-    margin-bottom: 20px;
-    line-height: 1.8;
-    color: var(--gris-texto);
+  .article-content :global(h3) {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 30px 0 16px;
+    padding: 16px 20px;
+    border-radius: 10px;
   }
 
-  .article-body :global(ul),
-  .article-body :global(ol) {
-    margin: 20px 0;
-    padding-left: 25px;
+  /* Problem h3 (contains ❌) */
+  .article-content :global(h3:nth-of-type(odd)) {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(231, 76, 60, 0.02) 100%);
+    border-left: 4px solid #e74c3c;
+    color: #c0392b;
   }
 
-  .article-body :global(li) {
-    margin-bottom: 10px;
-    line-height: 1.7;
-    color: var(--gris-texto);
+  /* Solution h3 (contains ✅) */
+  .article-content :global(h3:nth-of-type(even)) {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(39, 174, 96, 0.02) 100%);
+    border-left: 4px solid #27ae60;
+    color: #1e8449;
   }
 
-  .article-body :global(a) {
-    color: var(--rosa-principal);
+  .article-content :global(strong) {
+    color: #1a1a1a;
+    font-weight: 700;
+  }
+
+  .article-content :global(a) {
+    color: #E91E8C;
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  .article-body :global(a:hover) {
-    color: var(--rosa-hover);
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    margin: 24px 0;
+    padding-left: 28px;
   }
 
+  .article-content :global(li) {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 12px;
+  }
+
+  .article-content :global(hr) {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(233, 30, 140, 0.2), transparent);
+    margin: 45px 0;
+  }
+
+  /* ========================================
+     FAQs - Sin contenedor
+     ======================================== */
   .article-faqs {
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 2px solid var(--gris-claro);
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 2px solid #f0f0f0;
   }
 
   .article-faqs h2 {
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-    color: var(--negro-suave);
+    font-size: 1.6rem;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    font-weight: 800;
   }
 
-  .article-cta {
-    background: var(--gradiente-dulce);
-    padding: 40px;
-    border-radius: var(--radio-medio);
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 22px 26px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: left;
+  }
+
+  .faq-question .icon {
+    font-size: 1.4rem;
+    color: #E91E8C;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-question .icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    border-top: 1px solid #e9ecef;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+  }
+
+  .faq-answer p {
+    padding: 28px 32px;
+    color: #555;
+    line-height: 1.85;
+    margin: 0;
+    font-size: 1.02rem;
+    text-align: left;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ========================================
+     ARTICLE CTA BOX - Diseño Limpio
+     ======================================== */
+  .article-cta-box {
+    margin-top: 60px;
+    padding: 45px 40px;
+    background: #f8f9fa;
+    border-radius: 16px;
     text-align: center;
-    margin-top: 50px;
-    color: var(--blanco);
+    border: 1px solid #e9ecef;
   }
 
-  .article-cta h2 {
-    color: var(--blanco);
-    margin-bottom: 15px;
+  .article-cta-box h3 {
     font-size: 1.5rem;
+    margin: 0 0 12px;
+    font-weight: 700;
+    color: #1a1a1a;
   }
 
-  .article-cta p {
-    margin-bottom: 25px;
-    opacity: 0.95;
+  .article-cta-box > p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 0 28px;
+    line-height: 1.6;
   }
 
-  .article-cta .btn-primary {
-    background: var(--blanco);
-    color: var(--rosa-principal);
-  }
-
-  /* Sidebar */
-  .article-sidebar {
-    position: sticky;
-    top: 200px;
-  }
-
-  .sidebar-widget {
-    background: var(--blanco);
-    border-radius: var(--radio-medio);
-    padding: 25px;
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 20px;
-    box-shadow: var(--sombra-suave);
   }
 
+  .cta-button {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .cta-primary {
+    background: #25D366;
+    color: #fff;
+  }
+
+  .cta-secondary {
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #ddd;
+  }
+
+  .cta-note {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+  }
+
+  /* ========================================
+     SIDEBAR - Enhanced Design
+     ======================================== */
+  .article-sidebar {
+    position: relative;
+  }
+
+  .sidebar-inner {
+    position: sticky;
+    top: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .sidebar-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  .sidebar-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .sidebar-subtitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin: -8px 0 12px;
+  }
+
+  .sidebar-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  /* Service Cards */
+  .sidebar-services-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .service-card {
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-color: #E91E8C;
+  }
+
+  .service-card-image {
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+  }
+
+  .service-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover .service-card-image img {
+    transform: scale(1.05);
+  }
+
+  .service-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .service-card-content {
+    padding: 14px 16px;
+  }
+
+  .service-card-content h5 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+
+  .service-card-content p {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0 0 10px;
+    line-height: 1.4;
+  }
+
+  .service-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #E91E8C;
+  }
+
+  .service-card:hover .service-card-link {
+    gap: 6px;
+  }
+
+  /* CTA Card */
   .sidebar-cta {
+    background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%);
+    border: 1px solid rgba(37, 211, 102, 0.2);
     text-align: center;
   }
 
-  .sidebar-cta h3 {
+  .cta-header {
+    margin-bottom: 16px;
+  }
+
+  .cta-badge {
+    display: inline-block;
+    background: #25D366;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-cta h4 {
     font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: var(--negro-suave);
+    color: #1a1a1a;
+    margin: 0 0 6px;
+    font-weight: 700;
   }
 
   .sidebar-cta p {
-    color: var(--gris-texto);
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
   }
 
-  .sidebar-cta-btn-wa {
+  .wa-button {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     width: 100%;
-    padding: 14px;
+    padding: 13px 16px;
     background: #25D366;
-    color: var(--blanco);
-    border-radius: var(--radio-redondo);
+    color: #fff;
+    border-radius: 10px;
     font-weight: 600;
+    font-size: 0.9rem;
     text-decoration: none;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
+    margin-bottom: 10px;
   }
 
-  .sidebar-cta-btn-wa:hover {
-    background: #128C7E;
+  .cta-contact {
+    padding-top: 8px;
   }
 
-  .sidebar-cta-btn {
+  .phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .phone-link svg {
+    color: #E91E8C;
+  }
+
+  /* Eventos List */
+  .eventos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .evento-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #fafafa;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .evento-link:hover {
+    background: #f0f0f0;
+  }
+
+  .evento-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--evento-color, #E91E8C);
+    flex-shrink: 0;
+  }
+
+  .evento-name {
+    flex: 1;
+    font-size: 0.88rem;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .evento-arrow {
+    color: #bbb;
+    flex-shrink: 0;
+  }
+
+  /* Estaciones */
+  .sidebar-estaciones {
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border: 1px solid rgba(233, 30, 140, 0.1);
+  }
+
+  .estaciones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .estacion-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .estacion-link:hover {
+    border-color: #E91E8C;
+  }
+
+  .estacion-icon {
+    font-size: 1.2rem;
+  }
+
+  .estacion-name {
+    font-size: 0.88rem;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .ver-todas-link {
     display: block;
-    width: 100%;
-    padding: 14px;
-    background: var(--rosa-principal);
-    color: var(--blanco);
-    border-radius: var(--radio-redondo);
-    font-weight: 600;
     text-align: center;
+    font-size: 0.8rem;
+    color: #E91E8C;
     text-decoration: none;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    padding-top: 6px;
   }
 
-  .sidebar-cta-btn:hover {
-    background: var(--rosa-hover);
+  .ver-todas-link:hover {
+    text-decoration: underline;
   }
 
-  .sidebar-tags h4 {
-    font-size: 1rem;
-    margin-bottom: 15px;
-    color: var(--negro-suave);
+  /* Stats */
+  .sidebar-stats {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    padding: 18px;
   }
 
-  .tags-list {
+  .stats-row {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-num {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* Categorías */
+  .categorias-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
 
-  .tag {
-    padding: 6px 14px;
-    background: var(--gris-claro);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    color: var(--gris-texto);
+  .categoria-link {
+    display: inline-block;
+    padding: 7px 14px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-left: 3px solid var(--cat-color, #E91E8C);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: #444;
     text-decoration: none;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    transition: all 0.2s ease;
   }
 
-  .tag:hover {
-    background: var(--rosa-principal);
-    color: var(--blanco);
+  .categoria-link:hover {
+    background: #fafafa;
+    border-color: var(--cat-color, #E91E8C);
+  }
+
+  /* Tags */
+  .tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag-link {
+    padding: 5px 12px;
+    background: #f5f5f5;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s ease;
+  }
+
+  .tag-link:hover {
+    background: #eee;
+    color: #333;
+  }
+
+  /* Enlaces Rápidos */
+  .sidebar-enlaces {
+    background: #fafafa;
+  }
+
+  .enlaces-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .enlace-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    color: #444;
+    font-weight: 500;
+    border: 1px solid #eee;
+    transition: all 0.2s ease;
+  }
+
+  .enlace-item:hover {
+    border-color: #ddd;
+    color: #E91E8C;
+  }
+
+  .enlace-item svg {
+    color: #ccc;
+  }
+
+  .enlace-item:hover svg {
+    color: #E91E8C;
+  }
+
+  /* ========================================
+     RESPONSIVE
+     ======================================== */
+  @media (max-width: 1200px) {
+    .container-1400 {
+      padding: 0 30px;
+    }
+
+    .article-layout {
+      grid-template-columns: 1fr 320px;
+      gap: 45px;
+    }
   }
 
   @media (max-width: 1024px) {
-    .article-grid {
+    .article-layout {
       grid-template-columns: 1fr;
+      gap: 50px;
     }
 
     .article-sidebar {
+      order: 2;
+    }
+
+    .sidebar-inner {
       position: static;
-    }
-  }
-
-  @media (max-width: 968px) {
-    .blog-article-hero .article-hero-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
     }
 
-    .blog-article-hero {
-      padding: 46px 0 48px;
+    .sidebar-cta {
+      grid-column: span 2;
+    }
+
+    .sidebar-stats {
+      grid-column: span 2;
+    }
+
+    .sidebar-estaciones {
+      grid-column: span 2;
+    }
+
+    .sidebar-services-cards {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .sidebar-section-title {
+      grid-column: span 3;
+    }
+
+    .service-card-image {
+      height: 100px;
     }
   }
 
   @media (max-width: 768px) {
-    .blog-article-hero {
-      padding: 38px 0 42px;
+    .container-1400,
+    .blog-hero .container {
+      padding: 0 20px;
     }
 
-    .blog-article-hero .article-hero-left h1 {
-      font-size: 1.75rem;
+    .blog-hero {
+      padding: 40px 0 45px;
     }
 
-    .blog-article-hero .article-hero-right p {
-      font-size: 0.98rem;
-      line-height: 1.72;
+    .blog-hero h1 {
+      font-size: 1.8rem;
     }
 
-    .article-content {
-      padding: 25px;
+    .blog-hero p {
+      font-size: 1rem;
     }
 
-    .article-layout {
-      padding: 40px 0;
+    .article-section {
+      padding: 35px 0 50px;
+    }
+
+    .article-featured-image {
+      height: 280px;
+      margin-bottom: 35px;
+      border-radius: 16px;
+    }
+
+    .article-content :global(h2) {
+      font-size: 1.35rem;
+      padding: 16px 20px;
+    }
+
+    .article-content :global(h3) {
+      font-size: 1.1rem;
+      padding: 14px 16px;
+    }
+
+    .article-content :global(p) {
+      font-size: 1rem;
+    }
+
+    .article-faqs {
+      margin-top: 45px;
+      padding-top: 40px;
+    }
+
+    .article-cta-box {
+      margin-top: 45px;
+      padding: 35px 24px;
+      border-radius: 14px;
+    }
+
+    .article-cta-box h3 {
+      font-size: 1.3rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta-button {
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+    }
+
+    .sidebar-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar-cta,
+    .sidebar-stats,
+    .sidebar-estaciones {
+      grid-column: span 1;
+    }
+
+    .sidebar-services-cards {
+      grid-column: span 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sidebar-section-title {
+      grid-column: span 1;
+    }
+
+    .service-card {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+    }
+
+    .service-card-image {
+      height: 100%;
+      min-height: 90px;
+    }
+
+    .service-card-content {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .service-card-content h5 {
+      font-size: 0.88rem;
+    }
+
+    .service-card-content p {
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+    }
+
+    .eventos-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .evento-link {
+      padding: 8px 10px;
+    }
+
+    .evento-name {
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .article-featured-image {
+      height: 220px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+
+    .article-content :global(h2) {
+      font-size: 1.2rem;
+      padding: 14px 16px;
+      margin: 35px 0 20px;
+    }
+
+    .article-content :global(h3) {
+      font-size: 1rem;
+      padding: 12px 14px;
+    }
+
+    .article-faqs {
+      margin-top: 40px;
+      padding-top: 35px;
+    }
+
+    .article-faqs h2 {
+      font-size: 1.3rem;
+    }
+
+    .faq-question {
+      padding: 16px 18px;
+      font-size: 0.95rem;
+    }
+
+    .faq-answer p {
+      padding: 22px 20px;
+      font-size: 0.95rem;
+      max-width: 100%;
+    }
+
+    .article-cta-box {
+      margin-top: 40px;
+      padding: 30px 18px;
+    }
+
+    .article-cta-box h3 {
+      font-size: 1.2rem;
+    }
+
+    .article-cta-box > p {
+      font-size: 0.9rem;
+    }
+
+    .cta-button {
+      font-size: 0.9rem;
+      padding: 13px 20px;
+    }
+
+    .sidebar-card {
+      padding: 18px;
+    }
+
+    .sidebar-title {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .eventos-list {
+      grid-template-columns: 1fr;
+    }
+
+    .evento-link,
+    .estacion-link,
+    .enlace-item {
+      padding: 10px 12px;
+    }
+
+    .categorias-list {
+      gap: 6px;
+    }
+
+    .categoria-link {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+    }
+
+    .wa-button {
+      padding: 12px 14px;
+      font-size: 0.88rem;
+    }
+
+    .cta-note {
+      font-size: 0.8rem;
     }
   }
 </style>

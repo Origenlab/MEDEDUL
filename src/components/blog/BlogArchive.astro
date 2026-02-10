@@ -2,6 +2,7 @@
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
 import { getBlogCardCta } from '@/lib/blogCardCta';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -32,17 +33,21 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
       <div class="blog-main">
         {posts.length > 0 ? (
           <div class="posts-grid">
-            {posts.map(post => {
+            {posts.map((post, index) => {
               const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
               return (
                 <article class="post-card">
                   <a href={`/blog/${post.slug}`}>
-                    <img
+                    <Image
                       src={getCdnUrl(post.data.heroImage)}
                       alt={post.data.heroImageAlt}
-                      width="400"
-                      height="250"
-                      loading="lazy"
+                      width={400}
+                      height={250}
+                      format="webp"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      fetchpriority={index === 0 ? 'high' : 'auto'}
+                      widths={[320, 400, 560, 720]}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     />
                   </a>
                   <div class="post-meta">

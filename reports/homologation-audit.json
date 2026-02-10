@@ -1,0 +1,374 @@
+{
+  "generatedAt": "2026-02-10T07:12:34.517Z",
+  "total": 61,
+  "failing": 0,
+  "passing": 61,
+  "results": [
+    {
+      "file": "src/content/blog/barra-postres-gourmet-eventos-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/catering-dulces-eventos-empresariales-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/celebraciones-infantiles-ensueno-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/colores-tematicas-mesa-dulces-quinceanera.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/como-elegir-colores-mesa-dulces-boda.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/elegancia-dulce-mesas-bodas-exclusivas-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/errores-comunes-mesa-dulces-boda.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/errores-comunes-mesa-dulces-xv-anos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/estaciones-interactivas-gourmet-para-eventos-exquisitos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/estaciones-interactivas-team-building.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/experiencias-dulces-inolvidables-quinceaneras.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/guia-completa-fuentes-chocolate-eventos-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/ideas-mesa-dulces-baby-shower-perfecta.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/la-magia-de-la-mesa-de-dulces-en-baby-showers-bosques-de-las-loma.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/magia-de-mesas-dulces-en-fiestas-infantiles-condesa.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-baby-shower-transforma-tu-celebracion-con-enc-pedr.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-corporativo-catering-premium-para-eventos-emp-roma.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-corporativos-eleva-tus-eventos-empresari-condesa.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-corporativos-endulza-tus-eventos-empresariale-sant.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-corporativos-impresiona-en-eventos-empresaria-pola.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-cumpleanos-infantil-en-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-infantil-guia-completa-para-fiestas-magi-polanco.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-infantil-un-sueno-hecho-realidad-interlomas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-para-baby-shower-guia-completa.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-para-bodas-endulza-tu-dia-perfecto-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-para-xv-anos-guia-completa-para-una-cele-pedregal.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-para-xv-anos-guia-completa.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-de-dulces-xv-anos-crea-una-celebracion-inolvidable-santa-fe.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-baby-shower-ideas-creativas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-bautizo-elegante-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-boda-cdmx-elegancia-y-estilo.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-boda-intima-pequena.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-boda-jardin-exterior.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-bodas-exclusivas-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-bodas-guia-completa.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-conferencias-congresos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-cumpleanos-infantil-ideas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-estaciones-interactivas-gourmet-transforma-tu-evento.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-eventos-corporativos-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-eventos-corporativos-empresas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-lanzamiento-productos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-mexicanos-tradicionales-eventos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-xv-anos-elegante-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-xv-anos-elegante-sofisticada.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesa-dulces-xv-anos-ideas-tendencias.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesas-de-dulces-elegancia-y-singularidad-en-bodas-de-lujo.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-de-dulces-elegantes-para-baby-showers-en-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-de-dulces-elegantes-para-bodas-en-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-de-dulces-para-bodas-elegantes-en-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-cuspide-lujo-celebraciones.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-exclusivas-arte-sofisticacion-bodas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-exclusivas-eventos-corporativos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-magia-distincion-fiestas-infantiles.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-toque-lujo-bodas-exclusivas.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/mesas-dulces-xv-anos-alta-sociedad-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/presupuesto-mesa-dulces-quinceanera.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/roi-mesas-dulces-eventos-corporativos.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/tendencias-candy-bar-bodas-2025.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": false
+    },
+    {
+      "file": "src/content/blog/tendencias-mesa-dulces-xv-anos-2025.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    },
+    {
+      "file": "src/content/blog/tendencias-mesas-dulces-2025-cdmx.mdx",
+      "issues": [],
+      "score": 100,
+      "draft": true
+    }
+  ]
+}

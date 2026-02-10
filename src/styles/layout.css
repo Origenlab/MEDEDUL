@@ -1,0 +1,83 @@
+/* Layout domain styles extracted from global.css */
+
+/* ==========================================
+   HEADER SPACER - Reserva espacio del header fijo
+   ========================================== */
+.header-spacer {
+    height: 120px; /* top-bar (38px) + header (~82px) */
+    width: 100%;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .header-spacer {
+        height: 95px; /* top-bar (34px) + header móvil (~61px) */
+    }
+}
+
+/* ==========================================
+   BREADCRUMB - MODULO INDEPENDIENTE
+   ========================================== */
+
+/* Breadcrumb section para artículos del blog */
+.breadcrumb-section,
+section.breadcrumb-section {
+    background: #f8f9fa !important;
+    padding: 10px 0 5px 0 !important;
+    margin-top: -10px !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    border-bottom: 1px solid #eee !important;
+}
+
+.breadcrumb-section .breadcrumb,
+.breadcrumb-section nav.breadcrumb {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+article {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.breadcrumb-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb-section .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-section .breadcrumb a {
+    color: var(--rosa-principal);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.breadcrumb-section .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-section .breadcrumb svg {
+    width: 14px;
+    height: 14px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.breadcrumb-section .breadcrumb span {
+    color: var(--texto-oscuro);
+    font-weight: 500;
+}
+
+/* Legacy article-hero overrides removed.
+   Article page styles are scoped in src/layouts/BlogPostLayout.astro. */
