@@ -1,0 +1,313 @@
+---
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface CardItem {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  breadcrumbItems: BreadcrumbItem[];
+  heading: string;
+  headingHighlight: string;
+  intro: string[];
+  heroImage: string;
+  heroAlt: string;
+  badgeValue: string;
+  badgeLabel: string;
+  sectionTitle: string;
+  sectionSubtitle: string;
+  highlights: CardItem[];
+  includes: string[];
+  faqs: { question: string; answer: string }[];
+  ctaTitle: string;
+  ctaText: string;
+  whatsappMessage: string;
+}
+
+const {
+  breadcrumbItems,
+  heading,
+  headingHighlight,
+  intro,
+  heroImage,
+  heroAlt,
+  badgeValue,
+  badgeLabel,
+  sectionTitle,
+  sectionSubtitle,
+  highlights,
+  includes,
+  faqs,
+  ctaTitle,
+  ctaText,
+  whatsappMessage
+} = Astro.props;
+
+const whatsappUrl = `https://wa.me/525525226442?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<div class="header-spacer"></div>
+<Breadcrumbs items={breadcrumbItems} />
+
+<section class="service-hero">
+  <div class="container service-hero-grid">
+    <div class="service-copy">
+      <h1>
+        {heading} <span>{headingHighlight}</span>
+      </h1>
+      {intro.map((paragraph) => <p>{paragraph}</p>)}
+      <a href={whatsappUrl} class="btn-whatsapp" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+    </div>
+    <div class="service-media">
+      <img src={getCdnUrl(heroImage)} alt={heroAlt} width="640" height="420" loading="eager" />
+      <div class="service-badge">
+        <strong>{badgeValue}</strong>
+        <small>{badgeLabel}</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="service-highlights section-padding">
+  <div class="container">
+    <div class="section-head">
+      <h2>{sectionTitle}</h2>
+      <p class="subtitulo">{sectionSubtitle}</p>
+    </div>
+    <div class="highlight-grid">
+      {highlights.map((item) => (
+        <article class="highlight-card">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="service-includes section-padding">
+  <div class="container">
+    <h2>Que incluye el servicio</h2>
+    <ul>
+      {includes.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>
+
+<section class="service-faq section-padding">
+  <div class="container">
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq-list">
+      {faqs.map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="service-cta">
+  <div class="container">
+    <h2>{ctaTitle}</h2>
+    <p>{ctaText}</p>
+    <a href={whatsappUrl} class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+  </div>
+</section>
+
+<style>
+  .service-hero {
+    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 100%);
+    padding: 48px 0 72px;
+  }
+
+  .service-hero-grid {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+
+  .service-copy h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+
+  .service-copy h1 span {
+    color: var(--rosa-principal);
+  }
+
+  .service-copy p {
+    color: var(--gris-texto);
+    margin-bottom: 14px;
+  }
+
+  .btn-whatsapp {
+    display: inline-block;
+    margin-top: 12px;
+    text-decoration: none;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 999px;
+  }
+
+  .service-media {
+    position: relative;
+  }
+
+  .service-media img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-badge {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .service-badge strong {
+    display: block;
+    color: var(--rosa-principal);
+    font-size: 1.1rem;
+  }
+
+  .service-badge small {
+    color: var(--gris-texto);
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .highlight-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 107, 157, 0.18);
+  }
+
+  .highlight-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .highlight-card p {
+    color: var(--gris-texto);
+    margin: 0;
+  }
+
+  .service-includes {
+    background: #fff;
+  }
+
+  .service-includes h2,
+  .service-faq h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    margin-bottom: 20px;
+  }
+
+  .service-includes ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .service-includes li {
+    background: #fdf7fa;
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+  }
+
+  .faq-list details {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .faq-list p {
+    color: var(--gris-texto);
+    margin: 10px 0 2px;
+  }
+
+  .service-cta {
+    padding: 74px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #e91e8c 0%, #ff6bb3 100%);
+    color: #fff;
+  }
+
+  .service-cta h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 12px;
+  }
+
+  .service-cta p {
+    margin: 0 auto 24px;
+    max-width: 680px;
+    opacity: 0.95;
+  }
+
+  .btn-white {
+    display: inline-block;
+    text-decoration: none;
+    background: #fff;
+    color: #e91e8c;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 14px 28px;
+  }
+
+  @media (max-width: 900px) {
+    .service-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .highlight-grid,
+    .service-includes ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

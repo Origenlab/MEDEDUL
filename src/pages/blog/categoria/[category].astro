@@ -59,11 +59,6 @@ const breadcrumbItems = [
         <div class="posts-grid">
           {posts.map(post => {
             const postMeta = categoryMeta[post.data.category as keyof typeof categoryMeta];
-            const formattedDate = post.data.publishDate.toLocaleDateString('es-MX', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric'
-            });
 
             return (
               <article class="post-card">

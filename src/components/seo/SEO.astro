@@ -28,7 +28,7 @@ const {
 
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString();
-const defaultOgImage = getCdnUrl("/img/seo/mesas-de-dulces-cdmx-mededul-og.avif");
+const defaultOgImage = getCdnUrl("/img/galeria/mesa-dulces-elegante-03.avif");
 const finalOgImage = ogImage ? getCdnUrl(ogImage) : defaultOgImage;
 
 const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;

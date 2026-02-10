@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
+  { name: 'Quesos y Embutidos', url: '/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos' }
+];
+
+const highlights = [
+  { title: 'Perfil gourmet', description: 'Propuesta ideal para bodas, corporativos, networking y eventos premium.' },
+  { title: 'Selecciones equilibradas', description: 'Combinacion de quesos, carnes frias, panes y acompañamientos de calidad.' },
+  { title: 'Montaje sofisticado', description: 'Presentacion elegante que eleva la experiencia visual y gastronomica.' },
+  { title: 'Servicio profesional', description: 'Planeacion, montaje y retiro con estandar alto de ejecucion.' }
+];
+
+const includes = [
+  'Curaduria de quesos y embutidos por perfil de evento',
+  'Frutos secos, uvas, mermeladas y panes artesanales',
+  'Tablas, bases y montaje decorativo',
+  'Porciones definidas por numero de invitados',
+  'Montaje y desmontaje en el lugar del evento',
+  'Asesoria para combinacion con vino o cocteleria'
+];
+
+const faqs = [
+  { question: 'Sirve para eventos corporativos?', answer: 'Si, es una de las opciones mas elegantes para reuniones de negocio y eventos de marca.' },
+  { question: 'Manejan opciones internacionales y nacionales?', answer: 'Si, configuramos la seleccion con base en presupuesto y estilo del evento.' },
+  { question: 'Cuantas personas cubre un montaje?', answer: 'Se ajusta totalmente al numero de invitados; trabajamos desde eventos pequenos hasta formatos amplios.' },
+  { question: 'Pueden combinarlo con mesa de postres?', answer: 'Si, de hecho es una combinacion muy solicitada para equilibrar dulce y salado.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Quesos y Embutidos en CDMX',
+  description: 'Servicio de mesa de quesos y embutidos gourmet para eventos sociales y corporativos en CDMX.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Quesos y Embutidos en CDMX | Mededul"
+  description="Renta de mesa de quesos y embutidos gourmet para bodas y eventos corporativos en CDMX."
+  canonical="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
+  ogImage="/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de"
+    headingHighlight="Quesos y Embutidos"
+    intro={[
+      'Creamos mesas gourmet de quesos y embutidos con presentacion elegante para eventos de alto nivel.',
+      'Es una alternativa sofisticada para recibir invitados con una experiencia de sabor premium.'
+    ]}
+    heroImage="/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif"
+    heroAlt="Mesa de quesos y embutidos gourmet"
+    badgeValue="Gourmet"
+    badgeLabel="Premium"
+    sectionTitle="Una mesa salada con nivel profesional"
+    sectionSubtitle="Ideal para eventos donde la imagen y el sabor importan"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Cotiza tu mesa gourmet"
+    ctaText="Te ayudamos a crear una propuesta de quesos y embutidos a la altura de tu evento."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Quesos y Embutidos"
+  />
+</BaseLayout>

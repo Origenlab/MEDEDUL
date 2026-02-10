@@ -1,0 +1,1010 @@
+---
+// Mesa de Dulces para Boda
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
+  { name: 'Bodas', url: '/candy-bar-eventos/mesa-dulces-boda' }
+];
+
+const caracteristicas = [
+  { num: 1, title: 'Dulces Premium', desc: 'Macarons franceses, trufas artesanales y chocolates finos', image: '/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif' },
+  { num: 2, title: 'Decoracion Romantica', desc: 'Flores, velas y cristaleria que complementan tu estilo', image: '/img/eventos/bodas/candy-bar-boda-romantico.avif' },
+  { num: 3, title: 'Pastel Coordinado', desc: 'Opcion de pastel de boda integrado a tu mesa dulce', image: '/img/eventos/bodas/mesa-postres-boda-profesional.avif' },
+  { num: 4, title: 'Servicio Completo', desc: 'Montaje profesional y coordinacion con tu wedding planner', image: '/img/eventos/bodas/servicio-mesa-dulces-boda-cdmx.avif' }
+];
+
+const galeriaImages = [
+  { src: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif', alt: 'Mesa de dulces para boda elegante en CDMX' },
+  { src: '/img/eventos/bodas/candy-bar-boda-jardin-luces-elegante.avif', alt: 'Candy bar romantico para boda' },
+  { src: '/img/eventos/bodas/dulces-finos-boda.avif', alt: 'Dulces finos para boda' },
+  { src: '/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif', alt: 'Mesa de dulces boda con macarons' },
+  { src: '/img/galeria/mesa-postres-gourmet-premium-elegante.avif', alt: 'Postres gourmet para boda' },
+  { src: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', alt: 'Mesa de boda completa' }
+];
+
+const incluye = [
+  { num: 1, title: 'Dulces Finos', desc: 'Seleccion de 30-50 variedades de dulces premium incluyendo macarons, trufas, chocolates artesanales y mas.' },
+  { num: 2, title: 'Postres Gourmet', desc: 'Cupcakes, cake pops, petit fours y mini postres elaborados por nuestros reposteros.' },
+  { num: 3, title: 'Decoracion Premium', desc: 'Flores naturales o artificiales, velas, cristaleria de lujo y elementos decorativos.' },
+  { num: 4, title: 'Mobiliario de Lujo', desc: 'Mesas vintage, espejos, risers y accesorios que complementan tu estilo de boda.' },
+  { num: 5, title: 'Montaje Profesional', desc: 'Llegamos 3 horas antes para instalar todo perfectamente y nos retiramos al finalizar.' },
+  { num: 6, title: 'Personalizacion Total', desc: 'Coordinamos colores, tematica y estilo con tu paleta de boda y wedding planner.' }
+];
+
+const estilos = [
+  { title: 'Romantico Clasico', desc: 'Rosas, blancos y dorados', image: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif' },
+  { title: 'Rustico Campestre', desc: 'Madera, flores silvestres', image: '/img/galeria/mesa-dulces-boda-rustica-madera-flores.avif' },
+  { title: 'Moderno Minimalista', desc: 'Lineas limpias, elegancia', image: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif' },
+  { title: 'Bohemio Chic', desc: 'Colores tierra, macrame', image: '/img/galeria/candy-bar-boda-campestre-vintage-rustico.avif' }
+];
+
+// Service Schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Mesa de Dulces para Boda",
+  "description": "Servicio de renta de mesa de dulces y postres para bodas en CDMX. Incluye dulces finos, pastel de boda opcional, decoracion elegante y romantica, mobiliario de lujo e instalacion profesional.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Mededul",
+    "image": "https://mesas-de-dulces.com/img/branding/logo-mededul-mesas-de-dulces.avif",
+    "telephone": "+525525226442",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ciudad de Mexico",
+      "addressCountry": "MX"
+    }
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Ciudad de Mexico"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Paquetes Mesa de Dulces Boda",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Boda Clasica",
+          "description": "Para 80-150 invitados"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Boda Premium",
+          "description": "Para 150-250 invitados"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Boda Deluxe",
+          "description": "Para 250-400 invitados"
+        }
+      }
+    ]
+  }
+};
+
+// FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Que incluye una mesa de dulces y postres para boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nuestra mesa de dulces y postres para boda incluye: seleccion de dulces finos y chocolates premium (30-50 variedades), postres gourmet, decoracion elegante acorde a tu estilo de boda, mobiliario de lujo, contenedores de cristal, instalacion profesional y desmontaje al finalizar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pueden coordinar la mesa de postres con la decoracion de mi boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutamente. Trabajamos en coordinacion con tu wedding planner o decorador para asegurar que la mesa dulce complemente perfectamente el estilo de tu boda: rustico, vintage, moderno, bohemio, clasico o cualquier otra tematica de ambientacion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Para cuantas personas alcanza una mesa de dulces de boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nuestros paquetes van desde 80 hasta 400+ personas. El paquete clasico cubre 80-150 personas, el premium 150-250 personas, y el deluxe 250-400+ asistentes. Para bodas mas grandes, creamos paquetes a tu medida."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cuanto cuesta una mesa de dulces para boda en CDMX?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El precio varia segun el numero de personas. Paquete Clasico (80-150 personas): desde $8,500 MXN. Paquete Premium (150-250 personas): desde $14,500 MXN. Paquete Deluxe (250-400 personas): desde $22,000 MXN. Incluye dulces finos, postres, decoracion e instalacion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Se puede combinar mesa de dulces con pastel de boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si, ofrecemos paquetes combinados de mesa de dulces, mesa de postres gourmet y pastel de boda. Coordinamos la decoracion de todos los elementos para una presentacion armoniosa. Tambien podemos trabajar con tu pastelero de confianza."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Con cuanta anticipacion debo reservar para mi boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recomendamos reservar con 2-3 meses de anticipacion para bodas, especialmente en temporada alta (mayo, octubre, noviembre, diciembre). Esto nos permite planificar todos los detalles y coordinar con tus otros proveedores."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que estilos de decoracion ofrecen para bodas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nos adaptamos a cualquier estilo de boda: vintage romantico, moderno minimalista, rustico campestre, bohemio, clasico elegante, tropical, garden party y mas. Trabajamos con tu paleta de colores y tematica para crear la ambientacion perfecta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ofrecen degustacion antes de la boda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si, para paquetes premium y deluxe ofrecemos una sesion de degustacion donde pueden probar las opciones de dulces y postres. Tambien presentamos propuestas de diseno para que visualicen como quedara su mesa dulce nupcial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "El servicio incluye entrega en cualquier salon de eventos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si, cubrimos salones de eventos, haciendas, jardines, hoteles y cualquier ubicacion en CDMX y area metropolitana. El costo de envio varia segun la ubicacion. Llegamos 2-3 horas antes de la recepcion para instalar todo perfectamente."
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa de Dulces para Boda en CDMX | Candy Bar Elegante"
+  description="Mesa de dulces y postres para boda en CDMX. Candy bar elegante con decoracion de lujo, dulces finos y opcion de pastel. Cotiza gratis."
+  ogImage="/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero Section -->
+  <section class="servicio-hero">
+    <div class="container">
+      <div class="servicio-hero-grid">
+        <div class="servicio-hero-content">
+          <h1>Mesa de Dulces para <span>Bodas</span></h1>
+          <p class="descripcion">Tu <strong>boda</strong> merece una mesa de dulces y postres tan especial como tu historia de amor. Creamos montajes elegantes y romanticos que complementan perfectamente la decoracion de tu celebracion nupcial, con dulces finos, postres gourmet y una presentacion impecable.</p>
+          <p class="descripcion">Desde bodas intimas hasta grandes celebraciones, disenamos el candy bar nupcial perfecto que sera el deleite de tus asistentes y un elemento inolvidable de tu gran dia. Tambien ofrecemos pastel de boda coordinado con tu mesa dulce.</p>
+
+          <div class="hero-buttons">
+            <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces para Boda" class="btn-whatsapp-hero" target="_blank" rel="noopener">
+              <svg viewBox="0 0 32 32" fill="currentColor" width="28" height="28">
+                <path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 3.348s1.44 3.88 1.64 4.148c.2.268 2.832 4.32 6.864 6.06.96.416 1.708.664 2.292.848.964.308 1.84.264 2.532.16.772-.116 2.368-.968 2.704-1.904.332-.936.332-1.74.232-1.904-.1-.168-.368-.268-.768-.468z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="servicio-hero-image">
+          <img
+            src={getCdnUrl('/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif')}
+            alt="Mesa de dulces para boda en CDMX"
+            width="600"
+            height="400"
+            loading="eager"
+          />
+          <div class="servicio-hero-badge">
+            <span>100%</span>
+            <small>Romantico</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caracteristicas Section -->
+  <section class="caracteristicas-section">
+    <div class="container">
+      <div class="caracteristicas-layout">
+        <div class="caracteristicas-left">
+          <span class="header-badge">Especialistas en Bodas</span>
+          <h2>Por que elegir nuestra <span>Mesa de Dulces y Postres para Boda</span>?</h2>
+          <p class="header-description">Con mas de <strong>180 bodas</strong> realizadas en Ciudad de Mexico, somos expertos en crear mesas de postres que complementan perfectamente el dia mas importante de tu vida.</p>
+          <p class="header-description">Trabajamos en coordinacion con tu wedding planner para asegurar que cada detalle de la mesa dulce armonice con la decoracion de tu matrimonio.</p>
+          <div class="header-stats">
+            <div class="stat-item">
+              <span class="stat-number">180+</span>
+              <span class="stat-label">Bodas</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Elegante</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Variedades</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5 hrs</span>
+              <span class="stat-label">Respuesta</span>
+            </div>
+          </div>
+        </div>
+        <div class="caracteristicas-right">
+          {caracteristicas.map(car => (
+            <div class="caracteristica-card">
+              <div class="card-image">
+                <img src={getCdnUrl(car.image)} alt={car.title} loading="lazy" />
+                <div class="card-number">{car.num}</div>
+              </div>
+              <div class="card-content">
+                <h3>{car.title}</h3>
+                <p>{car.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria Section -->
+  <section class="galeria-section">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Galeria de <span>Bodas</span></h2>
+        <p class="subtitulo">Inspirate con nuestros montajes nupciales</p>
+      </div>
+      <div class="galeria-bento">
+        {galeriaImages.map((img, index) => (
+          <div class={`galeria-item ${index === 0 ? 'featured' : ''}`}>
+            <img src={getCdnUrl(img.src)} alt={img.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Que Incluye Section -->
+  <section class="incluye-section">
+    <div class="container">
+      <div class="incluye-header">
+        <span class="badge">Todo Incluido</span>
+        <h2>Que Incluye tu <span>Mesa de Dulces Nupcial</span></h2>
+        <p>Nos encargamos de todo para que tu unico trabajo sea disfrutar tu boda</p>
+      </div>
+      <div class="incluye-grid">
+        {incluye.map(item => (
+          <div class="incluye-card">
+            <div class="card-number">{item.num}</div>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Estilos Section -->
+  <section class="estilos-section">
+    <div class="container">
+      <div class="estilos-header">
+        <span class="badge">Tu Estilo</span>
+        <h2>Estilos de <span>Boda</span> que Manejamos</h2>
+        <p>Nos adaptamos a cualquier tematica y paleta de colores</p>
+      </div>
+      <div class="estilos-grid">
+        {estilos.map(estilo => (
+          <div class="estilo-card">
+            <div class="card-img">
+              <img src={getCdnUrl(estilo.image)} alt={estilo.title} loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h4>{estilo.title}</h4>
+              <p>{estilo.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso Section -->
+  <section class="proceso-section">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Nuestro <span>Proceso</span></h2>
+        <p class="subtitulo">4 simples pasos para tu mesa de dulces perfecta</p>
+      </div>
+      <div class="proceso-timeline">
+        <div class="proceso-step">
+          <div class="number">1</div>
+          <h4>Consulta</h4>
+          <p>Platicanos sobre tu boda y vision</p>
+        </div>
+        <div class="proceso-step">
+          <div class="number">2</div>
+          <h4>Propuesta</h4>
+          <p>Creamos el diseno personalizado</p>
+        </div>
+        <div class="proceso-step">
+          <div class="number">3</div>
+          <h4>Confirmacion</h4>
+          <p>Aprobamos detalles y reservamos</p>
+        </div>
+        <div class="proceso-step">
+          <div class="number">4</div>
+          <h4>Tu Gran Dia</h4>
+          <p>Montamos y tu disfrutas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>Tu Boda Merece lo Mejor</h2>
+      <p>Cotiza ahora y reserva tu fecha. Las mejores fechas se agotan rapidamente.</p>
+      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para mi boda" class="btn-white" target="_blank" rel="noopener">
+        Cotizar Mi Boda
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .servicio-hero {
+    padding: 60px 0 80px;
+    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicio-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .servicio-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .servicio-hero-content h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .servicio-hero-content h1 span {
+    color: var(--rosa-principal);
+  }
+
+  .servicio-hero-content .descripcion {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .servicio-hero-image {
+    position: relative;
+  }
+
+  .servicio-hero-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(233, 30, 140, 0.2);
+  }
+
+  .servicio-hero-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--rosa-principal);
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(233, 30, 140, 0.4);
+  }
+
+  .servicio-hero-badge span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .servicio-hero-badge small {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+
+  .btn-whatsapp-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: #25D366;
+    color: #fff;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .btn-whatsapp-hero:hover {
+    background: #20BA5C;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+  }
+
+  /* Caracteristicas */
+  .caracteristicas-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
+  }
+
+  .caracteristicas-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #FF6BB3 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .caracteristicas-left h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .caracteristicas-left h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .header-description {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .header-description strong {
+    color: var(--rosa-principal);
+  }
+
+  .header-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    margin-top: 30px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--rosa-principal);
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .caracteristicas-right {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .caracteristica-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .caracteristica-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.15);
+  }
+
+  .caracteristica-card .card-image {
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .caracteristica-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .caracteristica-card:hover .card-image img {
+    transform: scale(1.1);
+  }
+
+  .caracteristica-card .card-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    background: var(--rosa-principal);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    z-index: 2;
+  }
+
+  .caracteristica-card .card-content {
+    padding: 18px;
+    text-align: center;
+  }
+
+  .caracteristica-card h3 {
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .caracteristica-card p {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Galeria */
+  .galeria-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
+  }
+
+  .section-header.center {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #1a1a1a;
+    margin-bottom: 10px;
+  }
+
+  .section-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .subtitulo {
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .galeria-bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 20px;
+  }
+
+  .galeria-item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .galeria-item.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .galeria-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Incluye */
+  .incluye-section {
+    padding: 100px 0;
+    background: #fff;
+  }
+
+  .incluye-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .incluye-header .badge,
+  .estilos-header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #FF6BB3 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .incluye-header h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #1a1a1a;
+    margin-bottom: 15px;
+  }
+
+  .incluye-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .incluye-header p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .incluye-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .incluye-card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 35px 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .incluye-card .card-number {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #FF6BB3 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .incluye-card h4 {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .incluye-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Estilos */
+  .estilos-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff 100%);
+  }
+
+  .estilos-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .estilos-header h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #1a1a1a;
+    margin-bottom: 15px;
+  }
+
+  .estilos-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .estilos-header p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .estilos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .estilo-card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .estilo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
+  }
+
+  .estilo-card .card-img {
+    height: 150px;
+    overflow: hidden;
+  }
+
+  .estilo-card .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .estilo-card:hover .card-img img {
+    transform: scale(1.1);
+  }
+
+  .estilo-card .card-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .estilo-card h4 {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .estilo-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Proceso */
+  .proceso-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proceso-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 50px;
+  }
+
+  .proceso-timeline::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #eee;
+  }
+
+  .proceso-step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+  }
+
+  .proceso-step .number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #FF6BB3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+
+  .proceso-step h4 {
+    font-size: 1rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+
+  .proceso-step p {
+    font-size: 0.85rem;
+    color: #666;
+    max-width: 180px;
+    margin: 0 auto;
+  }
+
+  /* CTA Final */
+  .cta-final {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #FF6BB3 100%);
+    text-align: center;
+    color: #fff;
+  }
+
+  .cta-final h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    margin-bottom: 15px;
+  }
+
+  .cta-final p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-final .btn-white {
+    background: #fff;
+    color: var(--rosa-principal);
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+
+  .cta-final .btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .servicio-hero-grid,
+    .caracteristicas-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .caracteristicas-left {
+      text-align: center;
+    }
+
+    .header-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .galeria-bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .galeria-item.featured {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .incluye-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .estilos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .proceso-timeline {
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .proceso-timeline::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .servicio-hero {
+      padding: 40px 0 60px;
+    }
+
+    .caracteristicas-right {
+      grid-template-columns: 1fr;
+    }
+
+    .galeria-bento {
+      grid-template-columns: 1fr;
+    }
+
+    .galeria-item.featured {
+      grid-column: span 1;
+    }
+
+    .incluye-grid,
+    .estilos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

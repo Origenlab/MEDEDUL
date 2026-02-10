@@ -62,7 +62,7 @@ const breadcrumbItems = [
     <JsonLd type="FAQPage" data={{ faqs }} />
   )}
 
-  <div class="header-spacer"></div>
+  <div class="header-spacer blog-header-spacer"></div>
 
   <Breadcrumbs items={breadcrumbItems} />
 
@@ -188,6 +188,46 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <style>
+  .blog-header-spacer {
+    height: 120px !important;
+  }
+
+  /* Homologa breadcrumbs del blog con el diseño global y los centra visualmente */
+  :global(.breadcrumb-section) {
+    background: var(--gris-claro) !important;
+    padding: 10px 0 5px 0 !important;
+    margin-top: -10px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #eee !important;
+  }
+
+  :global(.breadcrumb-section .container) {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  :global(.breadcrumb-section .breadcrumb) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  :global(.breadcrumb-section .breadcrumb a),
+  :global(.breadcrumb-section .breadcrumb span) {
+    line-height: 1.4;
+  }
+
+  :global(.breadcrumb-section .breadcrumb span[aria-current="page"]) {
+    max-width: min(100%, 680px);
+    overflow-wrap: anywhere;
+  }
+
   .article-hero {
     background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
     padding: 60px 0 70px;
@@ -440,6 +480,15 @@ const breadcrumbItems = [
   }
 
   @media (max-width: 768px) {
+    .blog-header-spacer {
+      height: 95px !important;
+    }
+
+    :global(.breadcrumb-section .breadcrumb) {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
     .article-hero {
       padding: 40px 0 50px;
     }

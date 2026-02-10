@@ -16,7 +16,7 @@ export const CDN_CONFIG = {
 
 /**
  * Get CDN URL for an image path
- * @param imagePath - Local image path (e.g., "/img/galeria/image.avif")
+ * @param imagePath - Local image path (e.g., "/img/galeria/mesa-dulces-elegante-01.avif")
  * @param params - Optional ExactDN parameters
  * @returns Full CDN URL
  */

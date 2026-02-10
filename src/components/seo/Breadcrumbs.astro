@@ -40,7 +40,7 @@ const breadcrumbs = items[0]?.name === 'Inicio'
 </section>
 
 <!-- Breadcrumb JSON-LD -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": breadcrumbs.map((item, index) => ({

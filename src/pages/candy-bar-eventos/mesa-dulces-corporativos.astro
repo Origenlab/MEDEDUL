@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos' }
+];
+
+const highlights = [
+  { title: 'Imagen profesional', description: 'Montajes elegantes para reforzar la imagen de marca en lanzamientos, conferencias y networking.' },
+  { title: 'Personalizacion corporativa', description: 'Integramos paleta de color, branding, etiquetas y mensajes para tu empresa o campana.' },
+  { title: 'Logistica puntual', description: 'Instalacion y retiro en horarios estrictos, con equipo coordinado para salones, oficinas y recintos.' },
+  { title: 'Formatos flexibles', description: 'Opciones para coffee break premium, cocktail, aniversarios internos y activaciones de marca.' }
+];
+
+const includes = [
+  'Diseno y planeacion del candy bar corporativo',
+  'Selecciones de dulces finos y postres individuales',
+  'Mobiliario, cristaleria y elementos de presentacion',
+  'Personalizacion con branding (segun alcance)',
+  'Montaje y desmontaje profesional',
+  'Asesoria para cantidad segun numero de asistentes'
+];
+
+const faqs = [
+  { question: 'Atienden eventos en oficinas y hoteles?', answer: 'Si. Cubrimos oficinas corporativas, hoteles, centros de convenciones y venues privados en CDMX y area metropolitana.' },
+  { question: 'Se puede personalizar con logo de mi empresa?', answer: 'Si, podemos incluir branding en etiquetas, display y elementos graficos segun el tipo de paquete.' },
+  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Idealmente entre 2 y 4 semanas. Para eventos grandes o con branding especial recomendamos mayor anticipacion.' },
+  { question: 'Tambien manejan opciones sin azucar?', answer: 'Si, podemos integrar opciones reducidas en azucar y alternativas balanceadas segun requerimientos.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces Corporativos en CDMX',
+  description: 'Candy bar corporativo para eventos empresariales con montaje profesional y personalizacion de marca.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Dulces Corporativos en CDMX | Mededul"
+  description="Candy bar corporativo para eventos empresariales, lanzamientos y activaciones. Servicio profesional en CDMX."
+  canonical="/candy-bar-eventos/mesa-dulces-corporativos"
+  ogImage="/img/galeria/mesa-dulces-corporativo-elegante-negro.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de Dulces"
+    headingHighlight="Corporativos"
+    intro={[
+      'Creamos candy bars corporativos con presentacion premium para reuniones ejecutivas, congresos y celebraciones empresariales.',
+      'Cada montaje se diseña para que tu evento luzca profesional, organizado y memorable para clientes, colaboradores e invitados.'
+    ]}
+    heroImage="/img/galeria/mesa-dulces-corporativo-elegante-negro.avif"
+    heroAlt="Mesa de dulces corporativos en CDMX"
+    badgeValue="Empresas"
+    badgeLabel="Premium"
+    sectionTitle="Por que elegir nuestro candy bar corporativo"
+    sectionSubtitle="Servicio profesional, puntual y alineado a la imagen de tu marca"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Eleva tu evento corporativo"
+    ctaText="Solicita una propuesta a la medida para tu empresa y agenda tu fecha con anticipacion."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Dulces Corporativos para mi evento empresarial"
+  />
+</BaseLayout>

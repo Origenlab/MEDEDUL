@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
+  { name: 'Mesa de Frutas', url: '/tipos-de-mesas-de-dulces/mesa-de-frutas' }
+];
+
+const highlights = [
+  { title: 'Fruta fresca de temporada', description: 'Seleccion cuidada para lograr sabor, color y una presentacion impecable.' },
+  { title: 'Opcion saludable', description: 'Ideal para eventos que buscan balance entre indulgencia y opciones ligeras.' },
+  { title: 'Montaje elegante', description: 'Displays modernos para bodas, corporativos, brunch y celebraciones sociales.' },
+  { title: 'Combinable con otras mesas', description: 'Se integra perfecto con mesas de dulces, postres o estaciones interactivas.' }
+];
+
+const includes = [
+  'Planeacion segun tipo de evento y temporada',
+  'Variedad de frutas frescas seleccionadas',
+  'Mobiliario y cristaleria para presentacion',
+  'Decoracion acorde al concepto del evento',
+  'Montaje y desmontaje en sitio',
+  'Ajuste de porciones por cantidad de invitados'
+];
+
+const faqs = [
+  { question: 'Cuanto dura fresca la mesa de frutas?', answer: 'Usamos tecnicas de conservacion para mantener calidad durante varias horas de evento.' },
+  { question: 'Pueden incluir fruta exotica?', answer: 'Si, podemos integrar fruta exotica o premium segun disponibilidad y presupuesto.' },
+  { question: 'Funciona para eventos corporativos?', answer: 'Si, es una de las opciones mas solicitadas para desayunos, conferencias y eventos wellness.' },
+  { question: 'Se puede combinar con chamoy o toppings?', answer: 'Si, podemos complementarla con extras como chamoy, chile, limon y aderezos segun la propuesta.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Frutas para Eventos en CDMX',
+  description: 'Servicio de mesa de frutas frescas para eventos sociales y corporativos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Frutas para Eventos en CDMX | Mededul"
+  description="Renta de mesa de frutas frescas para eventos sociales y corporativos en CDMX."
+  canonical="/tipos-de-mesas-de-dulces/mesa-de-frutas"
+  ogImage="/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de"
+    headingHighlight="Frutas"
+    intro={[
+      'Nuestra mesa de frutas aporta frescura, color y una alternativa saludable para cualquier tipo de celebracion.',
+      'Disenamos presentaciones premium con fruta de calidad para que tu evento luzca y se disfrute al maximo.'
+    ]}
+    heroImage="/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif"
+    heroAlt="Mesa de frutas frescas para eventos"
+    badgeValue="Fresh"
+    badgeLabel="Healthy"
+    sectionTitle="Frescura real para tu evento"
+    sectionSubtitle="Una opcion elegante y saludable para invitados de todas las edades"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Solicita tu mesa de frutas"
+    ctaText="Te enviamos una propuesta personalizada para tu tipo de evento y numero de asistentes."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Frutas para mi evento"
+  />
+</BaseLayout>

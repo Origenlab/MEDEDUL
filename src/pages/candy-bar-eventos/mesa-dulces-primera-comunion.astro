@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Primera Comunion', url: '/candy-bar-eventos/mesa-dulces-primera-comunion' }
+];
+
+const highlights = [
+  { title: 'Estilo sobrio y delicado', description: 'Mesas con decoracion armoniosa en tonos blancos, dorados, azules o rosados.' },
+  { title: 'Detalles simbolicos', description: 'Elementos visuales acordes al evento, con enfoque elegante y familiar.' },
+  { title: 'Dulces para toda la familia', description: 'Variedad equilibrada para ninos y adultos durante la celebracion.' },
+  { title: 'Montaje profesional', description: 'Instalacion impecable para salones, jardines, casas y recintos.' }
+];
+
+const includes = [
+  'Diseno personalizado para primera comunion',
+  'Dulces, postres y chocolates seleccionados',
+  'Mobiliario y accesorios decorativos',
+  'Montaje acorde a la ceremonia y recepcion',
+  'Desmontaje al finalizar el evento',
+  'Asesoria integral por numero de invitados'
+];
+
+const faqs = [
+  { question: 'Manejan estilo tradicional para comunion?', answer: 'Si. Podemos montar propuestas clasicas y sobrias o estilos mas contemporaneos segun tu preferencia.' },
+  { question: 'Pueden adaptar colores del evento?', answer: 'Si, personalizamos decoracion y detalles para integrar la paleta de color de tu celebracion.' },
+  { question: 'Instalan en salon o domicilio?', answer: 'Si, trabajamos en salones, casas, jardines y recintos religiosos o sociales.' },
+  { question: 'Cuando recomiendan reservar?', answer: 'Idealmente con 2 a 4 semanas de anticipacion, especialmente en temporada alta de comuniones.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces para Primera Comunion en CDMX',
+  description: 'Candy bar para primera comunion con montaje elegante y servicio profesional en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Dulces para Primera Comunion | Mededul CDMX"
+  description="Candy bar para primera comunion con decoracion elegante, dulces premium y montaje profesional."
+  canonical="/candy-bar-eventos/mesa-dulces-primera-comunion"
+  ogImage="/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de Dulces para"
+    headingHighlight="Primera Comunion"
+    intro={[
+      'Creamos mesas de dulces elegantes para primera comunion, cuidando cada detalle visual del montaje.',
+      'Nuestro servicio combina estilo, calidad y organizacion para que disfrutes una celebracion familiar sin preocupaciones.'
+    ]}
+    heroImage="/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif"
+    heroAlt="Mesa de dulces para primera comunion"
+    badgeValue="Comunion"
+    badgeLabel="Especial"
+    sectionTitle="Una celebracion familiar con gran presentacion"
+    sectionSubtitle="Montajes de primera comunion con imagen limpia, elegante y memorable"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Cotiza tu mesa para primera comunion"
+    ctaText="Agenda tu fecha y recibe una propuesta personalizada para tu celebracion."
+    whatsappMessage="Hola! Me interesa cotizar una Mesa de Dulces para Primera Comunion"
+  />
+</BaseLayout>

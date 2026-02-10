@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Cumpleanos Infantil', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' }
+];
+
+const highlights = [
+  { title: 'Tematicas infantiles', description: 'Montajes personalizados por personaje, color o estilo de fiesta infantil.' },
+  { title: 'Dulces para ninos', description: 'Seleccion equilibrada de golosinas y postres pensados para peques y adultos.' },
+  { title: 'Presentacion colorida', description: 'Decoracion visualmente atractiva para fotos, videos y recuerdos familiares.' },
+  { title: 'Servicio sin estres', description: 'Nos encargamos del montaje y retiro para que disfrutes el festejo.' }
+];
+
+const includes = [
+  'Planeacion de tematica y paleta de color',
+  'Dulces, gomitas, chocolates y postres variados',
+  'Mobiliario y decoracion infantil',
+  'Etiquetas y elementos personalizados',
+  'Montaje y desmontaje en domicilio o salon',
+  'Asesoria segun edad y numero de invitados'
+];
+
+const faqs = [
+  { question: 'Pueden hacerlo de cualquier personaje?', answer: 'Si. Trabajamos temas clasicos y personalizados con base en tus referencias e ideas.' },
+  { question: 'Manejan paquetes para fiestas pequenas?', answer: 'Si, tenemos opciones desde eventos intimos hasta celebraciones grandes.' },
+  { question: 'Cuanto dura instalado el candy bar?', answer: 'Normalmente permanece durante toda la fiesta y programamos retiro al final del evento.' },
+  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Recomendamos reservar con 2 a 3 semanas para asegurar fecha y personalizacion completa.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces para Cumpleanos Infantil en CDMX',
+  description: 'Candy bar infantil tematico con dulces personalizados y montaje profesional para fiestas de cumpleanos.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Dulces para Cumpleanos Infantil | Mededul CDMX"
+  description="Candy bar infantil personalizado para cumpleanos en CDMX. Tematicas, montaje y dulces incluidos."
+  canonical="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+  ogImage="/img/eventos/cumpleanos/infantiles/mesa-dulces-cumpleanos-ninos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de Dulces para"
+    headingHighlight="Cumpleanos Infantil"
+    intro={[
+      'Disenamos candy bars infantiles con tematicas creativas, dulces vistosos y una presentacion que encanta a todos.',
+      'Nos adaptamos al concepto de tu fiesta para crear una experiencia divertida, segura y llena de sabor.'
+    ]}
+    heroImage="/img/eventos/cumpleanos/infantiles/mesa-dulces-cumpleanos-ninos.avif"
+    heroAlt="Mesa de dulces para cumpleanos infantil"
+    badgeValue="Infantil"
+    badgeLabel="Tematico"
+    sectionTitle="Fiestas que se vuelven inolvidables"
+    sectionSubtitle="Candy bars creados para sorprender a ninos e invitados"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Haz especial su proximo cumpleanos"
+    ctaText="Cotiza tu mesa de dulces infantil y define la tematica ideal para tu fiesta."
+    whatsappMessage="Hola! Me interesa cotizar una Mesa de Dulces para Cumpleanos Infantil"
+  />
+</BaseLayout>

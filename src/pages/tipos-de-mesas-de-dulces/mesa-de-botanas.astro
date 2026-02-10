@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
+  { name: 'Mesa de Botanas', url: '/tipos-de-mesas-de-dulces/mesa-de-botanas' }
+];
+
+const highlights = [
+  { title: 'Botanas para convivir', description: 'Formato social ideal para reuniones familiares, fiestas y celebraciones casuales.' },
+  { title: 'Opciones variadas', description: 'Selecciones saladas y antojitos que se adaptan al perfil del evento.' },
+  { title: 'Presentacion atractiva', description: 'Montaje visual limpio para que la mesa luzca tan bien como sabe.' },
+  { title: 'Servicio integral', description: 'Planeamos, montamos y retiramos para que tu solo te enfoques en disfrutar.' }
+];
+
+const includes = [
+  'Variedad de botanas saladas y antojitos',
+  'Montaje de mesa con elementos decorativos',
+  'Utensilios y contenedores para servicio',
+  'Planeacion por cantidad de invitados',
+  'Montaje y desmontaje en sitio',
+  'Asesoria para combinar con barra o candy bar'
+];
+
+const faqs = [
+  { question: 'Que tipo de botanas incluyen?', answer: 'Configuramos la propuesta con base en tu evento: clasicas, mexicanas, mixtas y opciones especiales.' },
+  { question: 'Sirve para eventos infantiles y adultos?', answer: 'Si, personalizamos el contenido segun edad, horario y tipo de celebracion.' },
+  { question: 'Pueden montar en exteriores?', answer: 'Si, podemos trabajar en jardines y terrazas cuidando la logistica del montaje.' },
+  { question: 'Tambien manejan formato empresarial?', answer: 'Si, ajustamos estilo y contenido para convivencias y eventos de oficina.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Botanas para Eventos en CDMX',
+  description: 'Servicio de mesa de botanas saladas para fiestas y reuniones en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Botanas para Eventos en CDMX | Mededul"
+  description="Renta de mesa de botanas saladas para fiestas, reuniones y eventos empresariales en CDMX."
+  canonical="/tipos-de-mesas-de-dulces/mesa-de-botanas"
+  ogImage="/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de"
+    headingHighlight="Botanas"
+    intro={[
+      'Nuestra mesa de botanas agrega sabor y dinamismo a cualquier celebracion con opciones saladas muy bien presentadas.',
+      'Es una excelente alternativa para reuniones donde quieres algo practico, rendidor y con gran impacto visual.'
+    ]}
+    heroImage="/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif"
+    heroAlt="Mesa de botanas saladas para eventos"
+    badgeValue="Saladas"
+    badgeLabel="Top"
+    sectionTitle="Botanas que mejoran la experiencia"
+    sectionSubtitle="Formato flexible para eventos sociales, familiares y empresariales"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Cotiza tu mesa de botanas"
+    ctaText="Te ayudamos a definir la mejor propuesta para tu evento y numero de asistentes."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Botanas para mi evento"
+  />
+</BaseLayout>

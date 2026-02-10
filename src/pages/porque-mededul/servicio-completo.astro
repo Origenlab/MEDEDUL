@@ -1,0 +1,903 @@
+---
+// Servicio Completo - Por que Mededul Subpage
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Por que Elegirnos', url: '/porque-mededul' },
+  { name: 'Servicio Completo', url: '/porque-mededul/servicio-completo' }
+];
+
+const stats = [
+  { number: '500+', label: 'Montajes' },
+  { number: '2 hrs', label: 'Instalacion' },
+  { number: '100%', label: 'Puntual' },
+  { number: '0', label: 'Preocupaciones' }
+];
+
+const caracteristicas = [
+  { number: 1, title: 'Diseno Incluido', description: 'Planificamos cada detalle de tu mesa segun tu tema y colores.' },
+  { number: 2, title: 'Dulces Premium', description: 'Productos seleccionados de la mas alta calidad.' },
+  { number: 3, title: 'Montaje Profesional', description: 'Equipo capacitado instala todo perfectamente.' },
+  { number: 4, title: 'Desmontaje Total', description: 'Al final recogemos todo, tu solo disfrutas.' }
+];
+
+const incluye = [
+  { number: '01', title: 'Dulces Premium', description: 'Seleccion de dulces de alta calidad, variedad garantizada.' },
+  { number: '02', title: 'Diseno Incluido', description: 'Propuesta personalizada segun tu evento y tematica.' },
+  { number: '03', title: 'Montaje Profesional', description: 'Equipo capacitado instala todo con precision y cuidado.' },
+  { number: '04', title: 'Acompanantes Variados', description: 'Malvaviscos, churros mini, pretzels, galletas y mas.' },
+  { number: '05', title: 'Operador Profesional', description: 'Personal que atiende, rellena y mantiene todo impecable.' },
+  { number: '06', title: 'Montaje y Decoracion', description: 'Mesa, mantel, base decorativa, platos y servilletas.' }
+];
+
+const proceso = [
+  { number: 1, title: 'Contactanos', description: 'Escribenos por WhatsApp con la fecha, lugar y numero de invitados.' },
+  { number: 2, title: 'Personalizamos', description: 'Elegimos juntos el tipo de dulces y decoracion que prefieras.' },
+  { number: 3, title: 'Montamos', description: 'Llegamos 1-2 horas antes para instalar todo perfectamente.' },
+  { number: 4, title: 'Disfrutas', description: 'Tu y tus invitados disfrutan sin preocupaciones.' }
+];
+
+const faqs = [
+  {
+    question: '¿Que incluye el servicio completo de mesa de dulces?',
+    answer: 'Nuestro servicio completo incluye: diseno personalizado, seleccion de dulces premium, montaje profesional con todo el equipo necesario (mesa, manteleria, recipientes de cristal, decoracion), operador durante el evento para mantener todo impecable, y desmontaje total al finalizar.'
+  },
+  {
+    question: '¿Cuanto tiempo antes llegan para el montaje?',
+    answer: 'Llegamos entre 1 y 2 horas antes del evento para realizar el montaje completo. Esto nos permite instalar todo con calma, verificar cada detalle y dejar la mesa perfecta antes de que lleguen tus invitados.'
+  },
+  {
+    question: '¿El servicio incluye operador durante el evento?',
+    answer: 'Si, todos nuestros paquetes incluyen un operador profesional que se encarga de mantener la mesa impecable, rellenar dulces cuando sea necesario y asistir a tus invitados durante todo el evento.'
+  },
+  {
+    question: '¿Que pasa al finalizar el evento?',
+    answer: 'Al terminar el evento, nuestro equipo se encarga del desmontaje completo. Recogemos todo el equipo, recipientes, decoracion y dejamos el espacio limpio. Tu no tienes que preocuparte por nada.'
+  },
+  {
+    question: '¿Puedo personalizar la seleccion de dulces?',
+    answer: 'Absolutamente. Trabajamos contigo para seleccionar los dulces que mejor se adapten a tu evento, tema y preferencias. Podemos incluir dulces especificos, evitar alergenos o crear combinaciones unicas.'
+  },
+  {
+    question: '¿El servicio incluye la mesa y decoracion?',
+    answer: 'Si, proporcionamos todo lo necesario: mesa, manteleria, recipientes de cristal o acrilico, bases decorativas, etiquetas para dulces, y elementos decorativos acordes a tu tema.'
+  }
+];
+---
+
+<BaseLayout
+  title="Servicio Completo Mesas de Dulces CDMX | Montaje y Decoracion"
+  description="Renta de mesas de dulces con servicio completo en CDMX. Candy bar con montaje, decoracion y desmontaje incluido. Cotiza gratis."
+  canonical="https://mesas-de-dulces.com/porque-mededul/servicio-completo"
+  ogImage="/img/home/hero-mesas-dulces-profesionales.avif"
+  includeServiceSchema={true}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero Section -->
+  <section class="servicio-hero">
+    <div class="container">
+      <div class="servicio-hero-grid">
+        <div class="servicio-hero-content">
+          <h1>Servicio <span>Completo</span> Todo Incluido</h1>
+          <p class="descripcion">Con nuestro <strong>servicio integral de mesas de dulces</strong> tu solo te preocupas por disfrutar. Nuestro equipo profesional llega antes, monta todo perfectamente y al final del evento recoge sin que tengas que mover un dedo.</p>
+          <p class="descripcion">La tranquilidad de tenerlo todo incluido: diseno, dulces premium, montaje profesional y desmontaje total.</p>
+
+          <div class="hero-buttons">
+            <a href="https://wa.me/525525226442?text=Hola! Me interesa el servicio completo de mesa de dulces" class="btn-whatsapp-hero" target="_blank" rel="noopener">
+              <svg viewBox="0 0 32 32" fill="currentColor" width="28" height="28">
+                <path d="M16.004 0C7.166 0 .004 7.16.004 15.996c0 2.816.736 5.576 2.136 8.004L.004 32l8.188-2.144a15.94 15.94 0 007.812 2.016C24.84 31.872 32 24.712 32 15.876 32 7.16 24.84 0 16.004 0zm0 29.312a13.36 13.36 0 01-6.812-1.868l-.488-.292-5.064 1.328 1.352-4.936-.32-.508a13.28 13.28 0 01-2.04-7.04c0-7.36 5.992-13.352 13.36-13.352 7.372 0 13.364 5.992 13.364 13.36 0 7.372-5.988 13.308-13.352 13.308zm7.328-9.996c-.4-.2-2.368-1.168-2.736-1.3-.368-.136-.636-.2-.904.2s-1.04 1.3-1.272 1.572c-.236.268-.468.304-.868.104-.4-.204-1.688-.624-3.216-1.984-1.188-1.06-1.992-2.368-2.224-2.768-.236-.4-.028-.616.176-.816.18-.18.4-.468.6-.704.2-.232.268-.4.4-.664.136-.268.068-.5-.032-.7-.1-.2-.904-2.176-1.24-2.98-.324-.78-.656-.676-.904-.688-.232-.008-.5-.012-.768-.012s-.7.1-1.068.5c-.368.4-1.404 1.372-1.404 3.348s1.44 3.88 1.64 4.148c.2.268 2.832 4.32 6.864 6.06.96.416 1.708.664 2.292.848.964.308 1.84.264 2.532.16.772-.116 2.368-.968 2.704-1.904.332-.936.332-1.74.232-1.904-.1-.168-.368-.268-.768-.468z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="servicio-hero-image">
+          <img
+            src={getCdnUrl('/img/home/hero-mesas-dulces-profesionales.avif')}
+            alt="Servicio completo de mesas de dulces en CDMX"
+            width="600"
+            height="400"
+            loading="eager"
+          />
+          <div class="servicio-hero-badge">
+            <span>TODO</span>
+            <small>Incluido</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caracteristicas Section -->
+  <section class="caracteristicas-section">
+    <div class="container">
+      <div class="caracteristicas-layout">
+        <div class="caracteristicas-left">
+          <span class="header-badge">Servicio Integral</span>
+          <h2>¿Que incluye nuestro <span>Servicio Completo</span>?</h2>
+          <p class="header-description">Con mas de <strong>500 eventos</strong> realizados, hemos perfeccionado cada paso del proceso. Desde la primera llamada hasta el ultimo dulce, todo esta cuidado.</p>
+          <p class="header-description">Nuestro equipo de <strong>montaje profesional</strong> conoce cada detalle y garantiza una instalacion impecable en tiempo record.</p>
+          <div class="header-stats">
+            {stats.map(stat => (
+              <div class="stat-item">
+                <span class="stat-number">{stat.number}</span>
+                <span class="stat-label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="caracteristicas-right">
+          {caracteristicas.map(item => (
+            <div class="caracteristica-card">
+              <div class="card-image">
+                <span class="card-number">{item.number}</span>
+                <img
+                  src={getCdnUrl('/img/home/hero-mesas-dulces-profesionales.avif')}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-content">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria Section -->
+  <section class="galeria-section" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nuestro <span>Servicio Completo</span> en Accion</h2>
+        <p class="subtitulo">Momentos deliciosos que hemos creado en eventos reales</p>
+      </div>
+
+      <div class="galeria-bento">
+        <div class="galeria-item">
+          <img src={getCdnUrl('/img/galeria/mesa-dulces-elegante-01.avif')} alt="Servicio completo mesas de dulces" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl('/img/galeria/candy-bar-tematico-eventos.avif')} alt="Montaje profesional candy bar" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl('/img/galeria/mesa-dulces-gourmet-premium.avif')} alt="Mesa de dulces gourmet" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl('/img/galeria/mesas-dulces-fiestas-variadas.avif')} alt="Mesas de dulces para fiestas" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl('/img/galeria/dulces-surtidos-eventos.avif')} alt="Dulces surtidos para eventos" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Que Incluye Section -->
+  <section class="incluye-section">
+    <div class="container">
+      <div class="incluye-header">
+        <span class="badge">Todo Incluido</span>
+        <h2>¿Que incluye nuestra <span>Mesa de Dulces</span>?</h2>
+        <p>Nos encargamos de cada detalle para que tu y tus invitados solo disfruten</p>
+      </div>
+
+      <div class="incluye-grid">
+        {incluye.map(item => (
+          <div class="incluye-card">
+            <span class="card-number">{item.number}</span>
+            <h4>{item.title}</h4>
+            <p>{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso Section -->
+  <section class="proceso-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>¿Como <span>Funciona</span>?</h2>
+        <p class="subtitulo">4 simples pasos para disfrutar tu servicio completo</p>
+      </div>
+
+      <div class="proceso-timeline">
+        {proceso.map(step => (
+          <div class="proceso-step">
+            <div class="number">{step.number}</div>
+            <h4>{step.title}</h4>
+            <p>{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="preguntas-frecuentes">
+    <div class="container">
+      <div class="section-header">
+        <h2>Preguntas <span>Frecuentes</span></h2>
+        <p class="subtitulo">Todo lo que necesitas saber sobre nuestro servicio completo</p>
+      </div>
+
+      <div class="faq-container">
+        {faqs.map(faq => (
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>{faq.question}</span>
+              <span class="icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-final">
+    <div class="container">
+      <h2>¿Listo para tu servicio completo?</h2>
+      <p>Cotiza sin compromiso y descubre por que somos la opcion preferida en CDMX para mesas de dulces con servicio integral.</p>
+      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar el servicio completo de mesa de dulces" class="btn-white" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+          <path d="M12.004 0C5.376 0 .004 5.372.004 12c0 2.124.559 4.118 1.535 5.85L.004 24l6.335-1.663A11.95 11.95 0 0012.004 24C18.628 24 24 18.628 24 12S18.628 0 12.004 0z"/>
+        </svg>
+        Cotizar por WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      faqItem?.classList.toggle('active');
+    });
+  });
+</script>
+
+<style>
+  .servicio-hero {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicio-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .servicio-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .servicio-hero-content h1 {
+    font-size: 3rem;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 800;
+  }
+
+  .servicio-hero-content h1 span {
+    color: #E91E8C;
+  }
+
+  .servicio-hero-content .descripcion {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .servicio-hero-content .descripcion strong {
+    color: #E91E8C;
+  }
+
+  .hero-buttons {
+    margin-top: 30px;
+  }
+
+  .btn-whatsapp-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: #25D366;
+    color: #fff;
+    padding: 20px 45px;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .btn-whatsapp-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+  }
+
+  .servicio-hero-image {
+    position: relative;
+  }
+
+  .servicio-hero-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(233, 30, 140, 0.2);
+  }
+
+  .servicio-hero-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: #E91E8C;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(233, 30, 140, 0.4);
+    text-align: center;
+  }
+
+  .servicio-hero-badge span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .servicio-hero-badge small {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+
+  .header-badge, .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .caracteristicas-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
+  }
+
+  .caracteristicas-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .caracteristicas-left h2 {
+    font-size: 2.4rem;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .caracteristicas-left h2 span {
+    color: #E91E8C;
+  }
+
+  .header-description {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .header-description strong {
+    color: #E91E8C;
+  }
+
+  .header-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    margin-top: 30px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #E91E8C;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .caracteristicas-right {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .caracteristica-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .caracteristica-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
+  }
+
+  .caracteristica-card .card-image {
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .caracteristica-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .caracteristica-card .card-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    background: #E91E8C;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    z-index: 2;
+  }
+
+  .caracteristica-card .card-content {
+    padding: 18px;
+    text-align: center;
+  }
+
+  .caracteristica-card h3 {
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .caracteristica-card p {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .galeria-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-header h2 {
+    font-size: 2.4rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .section-header h2 span {
+    color: #E91E8C;
+  }
+
+  .section-header .subtitulo {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .galeria-bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 220px);
+    gap: 20px;
+  }
+
+  .galeria-item {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .galeria-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
+  }
+
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .galeria-item:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  .galeria-item:nth-child(4) {
+    grid-column: span 2;
+  }
+
+  .incluye-section {
+    padding: 100px 0;
+    background: #fff;
+  }
+
+  .incluye-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .incluye-header h2 {
+    font-size: 2.4rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .incluye-header h2 span {
+    color: #E91E8C;
+  }
+
+  .incluye-header p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .incluye-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .incluye-card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 35px 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .incluye-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1);
+  }
+
+  .incluye-card .card-number {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .incluye-card h4 {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .incluye-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .proceso-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .proceso-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 50px;
+  }
+
+  .proceso-timeline::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: linear-gradient(90deg, #E91E8C, #FF6BB3);
+  }
+
+  .proceso-step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+    padding: 0 15px;
+  }
+
+  .proceso-step .number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
+  }
+
+  .proceso-step h4 {
+    font-size: 1rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .proceso-step p {
+    font-size: 0.85rem;
+    color: #666;
+    max-width: 180px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .faq-section {
+    padding: 100px 0;
+    background: #fff;
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border: 1px solid rgba(233, 30, 140, 0.15);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(233, 30, 140, 0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 25px 30px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .faq-question .icon {
+    font-size: 1.5rem;
+    color: #E91E8C;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-question .icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 0 30px 25px;
+  }
+
+  .faq-answer p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .cta-final {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    text-align: center;
+    color: #fff;
+  }
+
+  .cta-final h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+  }
+
+  .cta-final p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-final .btn-white {
+    background: #fff;
+    color: #E91E8C;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+
+  .cta-final .btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  }
+
+  @media (max-width: 1024px) {
+    .servicio-hero-grid,
+    .caracteristicas-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .servicio-hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .galeria-bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 180px);
+    }
+
+    .galeria-item:nth-child(1) {
+      grid-column: span 2;
+    }
+
+    .galeria-item:nth-child(4) {
+      grid-column: span 1;
+    }
+
+    .incluye-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .proceso-timeline {
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .proceso-timeline::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .servicio-hero {
+      padding: 60px 0;
+    }
+
+    .servicio-hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .header-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .incluye-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-final h2 {
+      font-size: 1.8rem;
+    }
+  }
+</style>

@@ -1,0 +1,21 @@
+{
+  "name": "Mededul - Mesas de Dulces CDMX",
+  "short_name": "Mededul",
+  "description": "Mesas de dulces, candy bar y estaciones interactivas para eventos en CDMX.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E91E8C",
+  "icons": [
+    {
+      "src": "/img/branding/favicon-mededul-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/branding/favicon-mededul-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Graduacion', url: '/candy-bar-eventos/mesa-dulces-graduacion' }
+];
+
+const highlights = [
+  { title: 'Estetica elegante', description: 'Candy bars para graduaciones de secundaria, preparatoria, universidad y posgrado.' },
+  { title: 'Concepto personalizado', description: 'Adaptamos colores, mensajes y estilo al tipo de ceremonia o fiesta.' },
+  { title: 'Servicio para grupos', description: 'Capacidad para eventos masivos en salones, escuelas y recintos.' },
+  { title: 'Operacion puntual', description: 'Equipo de montaje organizado para cumplir horarios de protocolo.' }
+];
+
+const includes = [
+  'Diseno de candy bar para graduacion',
+  'Dulces premium y postres individuales',
+  'Montaje visual con detalles academicos',
+  'Mobiliario, bases y elementos decorativos',
+  'Montaje y retiro en el venue',
+  'Ajustes de cantidad por numero de graduados e invitados'
+];
+
+const faqs = [
+  { question: 'Atienden graduaciones escolares grandes?', answer: 'Si. Tenemos capacidad para eventos de distintos tamanos, desde grupos pequenos hasta generaciones completas.' },
+  { question: 'Pueden integrar los colores de la escuela?', answer: 'Si. Diseñamos el montaje alineado a colores institucionales y estilo del evento.' },
+  { question: 'Trabajan en salones y auditorios?', answer: 'Si, nos adaptamos al tipo de sede y coordinamos acceso, montaje y retiro.' },
+  { question: 'Cuanto tiempo antes llegan a instalar?', answer: 'Generalmente llegamos entre 1 y 2 horas antes, segun el tamano del montaje.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces para Graduacion en CDMX',
+  description: 'Candy bar para graduaciones con estilo elegante, montaje profesional y dulces premium.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Dulces para Graduacion en CDMX | Mededul"
+  description="Candy bar para graduaciones con montaje profesional y presentacion elegante en CDMX."
+  canonical="/candy-bar-eventos/mesa-dulces-graduacion"
+  ogImage="/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de Dulces para"
+    headingHighlight="Graduacion"
+    intro={[
+      'Celebra este logro con una mesa de dulces elegante que acompañe el momento mas importante del cierre academico.',
+      'Creamos propuestas modernas y bien organizadas para que la celebracion se vea impecable de principio a fin.'
+    ]}
+    heroImage="/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif"
+    heroAlt="Mesa de dulces para graduacion"
+    badgeValue="Graduacion"
+    badgeLabel="Elegante"
+    sectionTitle="Un cierre academico con gran estilo"
+    sectionSubtitle="Candy bars listos para ceremonias y fiestas de graduacion"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Reserva tu fecha de graduacion"
+    ctaText="Te ayudamos a montar un candy bar memorable para celebrar este logro."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Dulces para Graduacion"
+  />
+</BaseLayout>

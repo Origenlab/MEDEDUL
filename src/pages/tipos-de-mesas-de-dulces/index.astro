@@ -1,0 +1,679 @@
+---
+// Tipos de Mesas de Dulces - Main Index Page
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Servicios', url: '/servicios' },
+  { name: 'Tipos de Mesas de Dulces', url: '/tipos-de-mesas-de-dulces' }
+];
+
+const tiposMesas = [
+  {
+    slug: 'mesa-de-dulces',
+    title: 'Mesa de Dulces',
+    image: '/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif',
+    alt: 'Renta de mesas de dulces infantiles personalizadas en CDMX - Candy bar para fiestas de ninos'
+  },
+  {
+    slug: 'mesa-de-frutas',
+    title: 'Mesa de Frutas',
+    image: '/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif',
+    alt: 'Mesas de frutas frescas para eventos y fiestas en CDMX - Servicio de catering frutal'
+  },
+  {
+    slug: 'mesa-de-postres',
+    title: 'Mesa de Postres',
+    image: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif',
+    alt: 'Mesas de postres gourmet para bodas y XV anos en Ciudad de Mexico'
+  },
+  {
+    slug: 'mesa-de-quesos-y-embutidos',
+    title: 'Quesos y Embutidos',
+    image: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif',
+    alt: 'Renta de mesa de quesos y embutidos gourmet para eventos corporativos y bodas CDMX'
+  },
+  {
+    slug: 'mesa-de-snacks',
+    title: 'Mesa de Snacks',
+    image: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif',
+    alt: 'Barra de snacks y botanas para fiestas infantiles y eventos empresariales'
+  },
+  {
+    slug: 'mesa-de-botanas',
+    title: 'Mesa de Botanas',
+    image: '/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif',
+    alt: 'Mesas de botanas saladas para fiestas y reuniones en Ciudad de Mexico'
+  },
+  {
+    slug: 'mesa-de-dulces-tradicionales',
+    title: 'Dulces Tradicionales',
+    image: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif',
+    alt: 'Mesa de dulces tipicos mexicanos - Candy bar tradicional con mazapanes y obleas'
+  },
+  {
+    slug: 'mesa-de-donas-y-cupcakes',
+    title: 'Donas y Cupcakes',
+    image: '/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif',
+    alt: 'Mesa de donas y cupcakes decorados para baby shower y cumpleanos CDMX'
+  }
+];
+
+const faqs = [
+  {
+    question: "Puedo combinar diferentes tipos de mesas en mi evento?",
+    answer: "Si, de hecho es lo que mas recomendamos. La combinacion de mesas crea una experiencia mas completa para tus invitados. Por ejemplo, una mesa de dulces con una mesa de frutas ofrece opciones dulces y saludables. O una mesa de postres con quesos y embutidos equilibra lo dulce con lo salado. Te asesoramos para crear la combinacion perfecta segun tu evento y presupuesto."
+  },
+  {
+    question: "Cual es la diferencia entre mesa de dulces y mesa de postres?",
+    answer: "La mesa de dulces incluye golosinas, chocolates, gomitas, paletas y dulces variados que los invitados toman directamente. La mesa de postres presenta piezas de reposteria fina como pastelitos, tartaletas, macarons, cake pops y postres individuales que requieren mayor elaboracion. Ambas son complementarias y muchos clientes optan por incluir las dos."
+  },
+  {
+    question: "Cuantos invitados puede atender cada tipo de mesa?",
+    answer: "Nuestros paquetes se adaptan al numero de invitados. El paquete basico atiende de 30 a 50 personas, el mediano de 50 a 100, y el grande de 100 a 200 invitados. Para eventos mayores, creamos paquetes personalizados. La cantidad de producto se calcula para que todos tus invitados puedan disfrutar sin que falte ni sobre."
+  },
+  {
+    question: "Las mesas de frutas y quesos necesitan refrigeracion?",
+    answer: "Nuestras mesas de frutas y quesos estan disenadas para mantenerse frescas durante 4-5 horas en condiciones normales. Utilizamos tecnicas de presentacion que conservan los productos y, si tu evento es en exterior con mucho calor, incluimos soluciones de enfriamiento discretas. Tambien hacemos reposicion durante el evento si es necesario."
+  },
+  {
+    question: "Puedo personalizar los dulces con la tematica de mi evento?",
+    answer: "Absolutamente. La personalizacion es nuestro fuerte. Adaptamos los colores de los dulces, etiquetas personalizadas, contenedores tematicos y decoracion acorde a tu evento. Ya sea una fiesta infantil de dinosaurios, una boda elegante en dorado y blanco, o un baby shower en tonos pastel, creamos el montaje perfecto para tu celebracion."
+  },
+  {
+    question: "Que tipo de mesa recomiendan para eventos corporativos?",
+    answer: "Para eventos corporativos recomendamos la mesa de quesos y embutidos por su sofisticacion, combinada con una mesa de snacks para opciones casuales. Si es un evento de celebracion como fin de ano, la mesa de postres gourmet es ideal. Para conferencias largas, la mesa de frutas ofrece opciones saludables. Todo depende del tipo de evento y la imagen que quieras proyectar."
+  },
+  {
+    question: "Con cuanta anticipacion debo reservar mi mesa?",
+    answer: "Recomendamos reservar con minimo 2 semanas de anticipacion para asegurar disponibilidad. En temporada alta (noviembre, diciembre, mayo) sugerimos 4-6 semanas. Para personalizaciones especiales o eventos grandes, entre mas tiempo tengamos, mejor resultado obtendremos. Sin embargo, tambien atendemos eventos de ultima hora segun disponibilidad."
+  },
+  {
+    question: "El servicio incluye montaje y desmontaje?",
+    answer: "Si, todos nuestros paquetes incluyen montaje profesional antes del evento y desmontaje al finalizar. Llegamos con anticipacion para instalar todo perfectamente. El mobiliario, decoracion, manteles y accesorios estan incluidos. Tu solo te preocupas por disfrutar, nosotros nos encargamos de todo lo demas."
+  }
+];
+
+// ItemList Schema for tipos de mesas
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Tipos de Mesas de Dulces para Rentar",
+  "description": "Catalogo completo de tipos de mesas de dulces disponibles para renta en Ciudad de Mexico",
+  "numberOfItems": 8,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Dulces Personalizada",
+        "description": "Renta de mesas de dulces infantiles personalizadas con candy bar tematico para fiestas de ninos en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Frutas",
+        "description": "Mesas de frutas frescas para eventos y fiestas con servicio de catering frutal profesional en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Postres Gourmet",
+        "description": "Mesas de postres gourmet para bodas y XV anos en Ciudad de Mexico",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Quesos y Embutidos",
+        "description": "Renta de mesa de quesos y embutidos gourmet para eventos corporativos y bodas en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Snacks",
+        "description": "Barra de snacks y botanas para fiestas infantiles y eventos empresariales",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Botanas",
+        "description": "Mesas de botanas saladas para fiestas y reuniones en Ciudad de Mexico",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Dulces Tradicionales",
+        "description": "Mesa de dulces tipicos mexicanos con candy bar tradicional, mazapanes y obleas",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Service",
+        "name": "Mesa de Donas y Cupcakes",
+        "description": "Mesa de donas y cupcakes decorados para baby shower y cumpleanos en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    }
+  ]
+};
+
+// FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Tipos de Mesas de Dulces en CDMX | Renta para Eventos"
+  description="Renta de mesas de dulces en CDMX: frutas, postres, quesos, snacks y dulces tradicionales. Montaje profesional incluido. Cotiza gratis."
+  canonical="/tipos-de-mesas-de-dulces"
+  ogImage="/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-elegante.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+      <div class="page-hero-grid">
+        <div class="page-hero-left">
+          <h1>Tipos de <span class="highlight">Mesas de Dulces</span> para Rentar en CDMX</h1>
+          <p class="page-hero-description">Descubre nuestra amplia variedad de <strong>mesas de dulces para eventos</strong> en Ciudad de Mexico. Desde clasicas mesas de dulces personalizadas hasta elegantes tablas de quesos gourmet, tenemos la opcion perfecta para cada celebracion.</p>
+        </div>
+        <div class="page-hero-right">
+          <p>En <strong>Mededul</strong> entendemos que cada evento tiene su propia personalidad. Por eso ofrecemos <strong>8 tipos diferentes de mesas</strong> que puedes combinar para crear una experiencia unica e inolvidable.</p>
+          <p>Ya sea que busques dulzura tradicional, frescura frutal o sofisticacion gourmet, nuestro equipo de expertos disenara el montaje perfecto para sorprender a tus invitados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tipos Grid -->
+  <section class="tipos-mesas section-padding" id="tipos-mesas">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>Tipos de <span class="titulo-decorativo">Mesas de Dulces</span> para Rentar</h2>
+          <p class="subtitulo">Variedad deliciosa para todos los gustos y ocasiones</p>
+        </div>
+        <div class="section-header-right">
+          <p>El secreto de una celebracion inolvidable esta en crear un punto de atraccion que sorprenda a todos. Mas alla del menu principal, la verdadera magia ocurre en ese rincon especial donde tus invitados pueden elegir entre una fresca <strong>mesa de frutas</strong> o una divertida <strong>mesa de donas y cupcakes</strong>.</p>
+          <p>Cada montaje tiene su propia personalidad y encanto. Desde la clasica <strong>mesa de dulces personalizados</strong> hasta la sofisticada <strong>tabla de quesos y embutidos</strong>, tenemos la opcion perfecta para hacer de tu evento algo extraordinario.</p>
+        </div>
+      </div>
+
+      <div class="tipos-grid">
+        {tiposMesas.map(tipo => (
+          <a href={`/tipos-de-mesas-de-dulces/${tipo.slug}`} class="tipo-card">
+            <img
+              src={getCdnUrl(tipo.image)}
+              alt={tipo.alt}
+              class="tipo-img"
+              loading="lazy"
+              width="560"
+              height="686"
+            />
+            <div class="tipo-card-content">
+              <h4>{tipo.title}</h4>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section section-padding">
+    <div class="container">
+      <div class="cta-content">
+        <h2>No sabes cual elegir? Te asesoramos</h2>
+        <p>Cada evento es unico y merece una combinacion perfecta. Cuentanos sobre tu celebracion y te ayudamos a crear la seleccion ideal de mesas para sorprender a tus invitados.</p>
+
+        <div class="cta-buttons">
+          <a href="https://wa.me/525525226442?text=Hola! Necesito asesoria para elegir el tipo de mesa ideal para mi evento" class="btn btn-white" target="_blank" rel="noopener">
+            Solicitar Asesoria Gratis
+          </a>
+          <a href="/servicios" class="btn btn-outline-white">
+            Ver todos los servicios
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section section-padding" id="preguntas-frecuentes">
+    <div class="container">
+      <div class="section-header-center">
+        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
+        <p class="subtitulo">Resolvemos tus dudas sobre nuestros tipos de mesas</p>
+      </div>
+
+      <div class="faq-container">
+        {faqs.map(faq => (
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>{faq.question}</span>
+              <span class="icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    padding: 60px 0 80px;
+    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+
+  .shape-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--rosa-principal);
+    top: -100px;
+    right: -100px;
+  }
+
+  .shape-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--rosa-principal);
+    bottom: -50px;
+    left: -50px;
+  }
+
+  .shape-3 {
+    width: 200px;
+    height: 200px;
+    background: var(--rosa-principal);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .page-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero h1 {
+    font-size: 2.5rem;
+    color: var(--texto-oscuro);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .page-hero h1 .highlight {
+    color: var(--rosa-principal);
+  }
+
+  .page-hero-description {
+    font-size: 1.1rem;
+    color: var(--texto-light);
+    line-height: 1.8;
+  }
+
+  .page-hero-right p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  /* Section Header */
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    margin-bottom: 50px;
+    align-items: start;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 10px;
+  }
+
+  .titulo-decorativo {
+    color: var(--rosa-principal);
+  }
+
+  .subtitulo {
+    color: var(--texto-light);
+    font-size: 1rem;
+  }
+
+  .section-header-right p {
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .section-header-center {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-header-center h2 {
+    font-size: 2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 10px;
+  }
+
+  /* Tipos Grid */
+  .tipos-mesas {
+    background: #ffffff;
+  }
+
+  .tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+
+  .tipo-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    display: block;
+    text-decoration: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .tipo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.2);
+  }
+
+  .tipo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .tipo-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .tipo-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  }
+
+  .tipo-card-content h4 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 100%);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .cta-content p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-white {
+    background: #ffffff;
+    color: var(--rosa-principal);
+    padding: 16px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  .btn-outline-white {
+    background: transparent;
+    color: #ffffff;
+    padding: 16px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-white:hover {
+    background: #ffffff;
+    color: var(--rosa-principal);
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: var(--gris-claro);
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 25px 30px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    text-align: left;
+  }
+
+  .faq-question .icon {
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-question .icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+  }
+
+  .faq-answer p {
+    padding: 0 30px 25px;
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .page-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .section-header {
+      grid-template-columns: 1fr;
+    }
+
+    .tipos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 40px 0 60px;
+    }
+
+    .page-hero h1 {
+      font-size: 1.8rem;
+    }
+
+    .tipos-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .tipo-card-content {
+      padding: 15px;
+    }
+
+    .tipo-card-content h4 {
+      font-size: 1rem;
+    }
+
+    .cta-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .faq-question {
+      padding: 20px;
+      font-size: 0.95rem;
+    }
+
+    .faq-answer p {
+      padding: 0 20px 20px;
+    }
+  }
+</style>
+
+<script>
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      faqItem?.classList.toggle('active');
+    });
+  });
+</script>

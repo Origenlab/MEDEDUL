@@ -9,5 +9,6 @@
       "@content/*": ["src/content/*"],
       "@styles/*": ["src/styles/*"]
     }
-  }
+  },
+  "exclude": ["dist", "node_modules"]
 }

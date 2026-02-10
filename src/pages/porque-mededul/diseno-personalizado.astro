@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Porque Mededul', url: '/porque-mededul' },
+  { name: 'Diseno Personalizado', url: '/porque-mededul/diseno-personalizado' }
+];
+
+const highlights = [
+  { title: 'Concepto a la medida', description: 'Cada propuesta parte de tu idea, tipo de evento y estilo de celebracion.' },
+  { title: 'Dirección visual clara', description: 'Definimos colores, materiales, alturas y elementos decorativos para un montaje coherente.' },
+  { title: 'Personalizacion real', description: 'Integramos detalles unicos para que tu mesa no se parezca a ninguna otra.' },
+  { title: 'Resultado fotografiable', description: 'Disenos pensados para que tu evento luzca premium en persona y en fotos.' }
+];
+
+const includes = [
+  'Sesion de levantamiento de idea y estilo',
+  'Propuesta de paleta de color y ambientacion',
+  'Seleccion de dulces y elementos decorativos',
+  'Ajustes segun venue y tipo de montaje',
+  'Montaje final apegado al concepto aprobado',
+  'Acompanamiento para afinar detalles finales'
+];
+
+const faqs = [
+  { question: 'Pueden trabajar desde una referencia de Pinterest?', answer: 'Si. Tomamos referencias como punto de partida y creamos una version personalizada para tu evento.' },
+  { question: 'Que tan personalizado puede ser el montaje?', answer: 'Podemos personalizar color, tematica, estilo de dulces, props y composicion general segun tu objetivo.' },
+  { question: 'Solo aplican diseno en mesas de dulces?', answer: 'No. Tambien aplicamos diseno personalizado en postres, estaciones y montajes complementarios.' },
+  { question: 'Cuanto tiempo toma definir un diseno?', answer: 'Depende de complejidad, pero en la primera fase ya podemos aterrizar una propuesta visual clara.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Diseno Personalizado de Mesas de Dulces en CDMX',
+  description: 'Servicio de diseno personalizado para mesas de dulces y montajes de eventos con enfoque premium.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Diseno Personalizado de Mesas de Dulces | Mededul"
+  description="Conoce por que el diseno personalizado de Mededul marca la diferencia en eventos de CDMX."
+  canonical="/porque-mededul/diseno-personalizado"
+  ogImage="/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Nuestro enfoque en"
+    headingHighlight="Diseno Personalizado"
+    intro={[
+      'En Mededul no trabajamos con montajes genericos. Cada mesa se diseña desde cero para reflejar tu estilo y objetivo del evento.',
+      'Por eso nuestros proyectos lucen unicos, mejor alineados a tu vision y con una presencia visual mucho mas fuerte.'
+    ]}
+    heroImage="/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif"
+    heroAlt="Diseno personalizado de mesas de dulces"
+    badgeValue="100%"
+    badgeLabel="Personalizado"
+    sectionTitle="Diseno que realmente representa tu evento"
+    sectionSubtitle="No es solo decorar: es construir una experiencia visual coherente"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Haz tu evento unico desde el diseno"
+    ctaText="Comparte tu idea y te proponemos un montaje personalizado de alto impacto."
+    whatsappMessage="Hola! Quiero cotizar una mesa de dulces con diseno personalizado"
+  />
+</BaseLayout>

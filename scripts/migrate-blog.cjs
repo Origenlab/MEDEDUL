@@ -11,7 +11,7 @@ const SOURCE_DIR = path.join(__dirname, '../../blog');
 const DEST_DIR = path.join(__dirname, '../src/content/blog');
 
 // Category detection rules - more specific patterns first
-function detectCategory(filename, title, content) {
+function detectCategory(filename, title, _content) {
   const fname = filename.toLowerCase();
   const titleLower = title.toLowerCase();
 
@@ -104,7 +104,7 @@ function extractHeroImage(html) {
     return imgMatch[1].replace(/^\.\.\//, '/');
   }
 
-  return '/img/galeria/default-blog.avif';
+  return '/img/galeria/mesa-dulces-elegante-01.avif';
 }
 
 function extractFAQs(html) {
@@ -260,7 +260,7 @@ function extractLocation(filename, title) {
   return 'CDMX';
 }
 
-function extractTags(title, category) {
+function extractTags(_title, category) {
   const tags = new Set();
 
   // Add category-based tags

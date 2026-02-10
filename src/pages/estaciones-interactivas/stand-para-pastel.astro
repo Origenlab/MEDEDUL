@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
+  { name: 'Stand para Pastel', url: '/estaciones-interactivas/stand-para-pastel' }
+];
+
+const highlights = [
+  { title: 'Punto focal del evento', description: 'El stand para pastel se convierte en uno de los espacios mas fotografiados de la celebracion.' },
+  { title: 'Diseno personalizado', description: 'Adaptamos estructura, decoracion y montaje al estilo de tu evento.' },
+  { title: 'Integracion con candy bar', description: 'Se puede combinar con mesa de dulces y postres para una experiencia completa.' },
+  { title: 'Montaje profesional', description: 'Instalacion segura y estetica para lucir el pastel en el momento ideal.' }
+];
+
+const includes = [
+  'Stand decorativo para presentacion de pastel',
+  'Diseño alineado a la tematica del evento',
+  'Elementos visuales de ambientacion',
+  'Montaje y desmontaje en sitio',
+  'Coordinacion con el momento de corte',
+  'Opciones para combinar con estaciones adicionales'
+];
+
+const faqs = [
+  { question: 'Solo funciona para bodas y XV?', answer: 'No. Tambien es ideal para cumpleanos, aniversarios y eventos corporativos.' },
+  { question: 'Ustedes incluyen el pastel?', answer: 'Podemos trabajar con tu pastelero o integrar opciones segun disponibilidad.' },
+  { question: 'Se puede personalizar el estilo?', answer: 'Si, personalizamos colores, flores, globos y props segun la vision del evento.' },
+  { question: 'Cuanto espacio necesita el stand?', answer: 'Te indicamos medidas recomendadas segun formato, venue y flujo de invitados.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Stand para Pastel en CDMX',
+  description: 'Estacion interactiva tipo stand para pastel con diseno personalizado y montaje profesional para eventos.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Stand para Pastel en CDMX | Estacion Interactiva Mededul"
+  description="Renta de stand para pastel con diseno personalizado y montaje profesional para eventos en CDMX."
+  canonical="/estaciones-interactivas/stand-para-pastel"
+  ogImage="/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Estacion"
+    headingHighlight="Stand para Pastel"
+    intro={[
+      'Creamos stands para pastel con montaje decorativo para que el momento del corte tenga el protagonismo que merece.',
+      'Es una estacion visualmente poderosa que eleva la produccion de bodas, XV anos y celebraciones especiales.'
+    ]}
+    heroImage="/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif"
+    heroAlt="Stand para pastel decorado para eventos"
+    badgeValue="Cake"
+    badgeLabel="Spot"
+    sectionTitle="La estacion perfecta para tu pastel"
+    sectionSubtitle="Diseno, montaje y presentacion para un momento memorable"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Reserva tu stand para pastel"
+    ctaText="Agenda tu fecha y recibe una propuesta visual alineada al estilo de tu evento."
+    whatsappMessage="Hola! Quiero cotizar un Stand para Pastel para mi evento"
+  />
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+
+const breadcrumbItems = [
+  { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
+  { name: 'Mesa de Snacks', url: '/tipos-de-mesas-de-dulces/mesa-de-snacks' }
+];
+
+const highlights = [
+  { title: 'Formato dinamico', description: 'Perfecta para eventos con alto flujo de invitados y consumo continuo.' },
+  { title: 'Variedad salada', description: 'Snacks clasicos y premium para todo tipo de publico.' },
+  { title: 'Ideal para corporativos', description: 'Excelente opcion para conferencias, activaciones y eventos empresariales.' },
+  { title: 'Montaje funcional', description: 'Disenado para que el servicio sea rapido, limpio y visualmente atractivo.' }
+];
+
+const includes = [
+  'Snacks y botanas en formato buffet',
+  'Bases, contenedores y elementos de presentacion',
+  'Combinacion de opciones clasicas y premium',
+  'Planeacion por duracion del evento',
+  'Montaje y desmontaje del servicio',
+  'Asesoria en cantidades por perfil de asistentes'
+];
+
+const faqs = [
+  { question: 'Se puede montar en oficinas?', answer: 'Si, adaptamos el servicio para oficinas, salones, auditorios y venues sociales.' },
+  { question: 'Manejan snacks picantes y neutros?', answer: 'Si, balanceamos opciones para distintos gustos y perfiles de invitados.' },
+  { question: 'Es buena opcion para eventos largos?', answer: 'Si, especialmente para congresos, workshops y celebraciones de varias horas.' },
+  { question: 'Pueden combinarlo con mesa de dulces?', answer: 'Si, es una combinacion muy efectiva para ofrecer opciones dulces y saladas.' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Snacks para Eventos en CDMX',
+  description: 'Barra y mesa de snacks para eventos sociales y corporativos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
+---
+
+<BaseLayout
+  title="Mesa de Snacks para Eventos en CDMX | Mededul"
+  description="Barra de snacks para eventos sociales y corporativos con montaje profesional."
+  canonical="/tipos-de-mesas-de-dulces/mesa-de-snacks"
+  ogImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <ServiceSubpage
+    breadcrumbItems={breadcrumbItems}
+    heading="Mesa de"
+    headingHighlight="Snacks"
+    intro={[
+      'Nuestra mesa de snacks es ideal para mantener a tus invitados activos y satisfechos durante todo el evento.',
+      'Integramos opciones saladas y practicas con una presentacion ordenada, moderna y funcional.'
+    ]}
+    heroImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
+    heroAlt="Mesa de snacks para eventos"
+    badgeValue="Snack Bar"
+    badgeLabel="Ready"
+    sectionTitle="La opcion salada mas practica"
+    sectionSubtitle="Perfecta para eventos sociales y empresariales de ritmo continuo"
+    highlights={highlights}
+    includes={includes}
+    faqs={faqs}
+    ctaTitle="Reserva tu barra de snacks"
+    ctaText="Cotiza una propuesta de snacks alineada a tu evento, horario y perfil de invitados."
+    whatsappMessage="Hola! Quiero cotizar una Mesa de Snacks para mi evento"
+  />
+</BaseLayout>

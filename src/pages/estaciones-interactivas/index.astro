@@ -1,0 +1,1049 @@
+---
+// Estaciones Interactivas - Main Page
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Servicios', url: '/servicios' },
+  { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' }
+];
+
+const estaciones = [
+  {
+    title: 'Fuente de Chocolate',
+    slug: 'fuente-de-chocolate',
+    image: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
+    alt: 'Fuente de chocolate para fiestas y eventos en CDMX - Renta de cascada de chocolate'
+  },
+  {
+    title: 'Fuente de Chamoy',
+    slug: 'fuente-de-chamoy',
+    image: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif',
+    alt: 'Fuente de chamoy para fiestas mexicanas en CDMX - Estacion interactiva'
+  },
+  {
+    title: 'Pared de Dulces',
+    slug: 'pared-de-dulces',
+    image: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif',
+    alt: 'Pared de dulces Candy Wall para eventos en CDMX - Muro de golosinas decorativo'
+  },
+  {
+    title: 'Stand para Pastel',
+    slug: 'stand-para-pastel',
+    image: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif',
+    alt: 'Stand para pastel con decoracion de globos CDMX - Estacion de pastel para fiestas'
+  }
+];
+
+const estacionesDetalle = [
+  {
+    id: 'fuente-chocolate',
+    title: 'Fuente de Chocolate',
+    slug: 'fuente-de-chocolate',
+    description: 'Una <strong>cascada de chocolate belga</strong> derretido que hipnotiza a tus invitados. Nuestra fuente profesional de 4 niveles crea un espectaculo visual mientras el aroma del chocolate invita a sumergir frutas frescas, malvaviscos y mas.',
+    incluye: 'Fuente profesional, chocolate belga (oscuro, leche o blanco), fresas, platano, malvaviscos, churros, brochetas, servilletas y operador durante el evento.',
+    caracteristicas: ['Chocolate belga premium', 'Fuente profesional 4 niveles', 'Frutas frescas incluidas', 'Montaje y operador incluido'],
+    images: [
+      { src: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif', alt: 'Fuente de chocolate para eventos en CDMX' },
+      { src: '/img/estaciones-interactivas/fuente-chocolate/alquiler-fuente-chocolate-cdmx.avif', alt: 'Alquiler de fuente de chocolate CDMX' },
+      { src: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif', alt: 'Fuente de chocolate para eventos CDMX' }
+    ]
+  },
+  {
+    id: 'fuente-chamoy',
+    title: 'Fuente de Chamoy',
+    slug: 'fuente-de-chamoy',
+    description: 'El sabor mexicano en su maxima expresion. Nuestra <strong>fuente de chamoy artesanal</strong> es perfecta para fiestas con toque mexicano: el chamoy cae en cascada mientras tus invitados sumergen frutas, gomitas y dulces enchilados.',
+    incluye: 'Fuente profesional, chamoy artesanal, mango, jicama, pepino, gomitas, tamarindos, chile Tajin, brochetas, servilletas y operador durante el evento.',
+    caracteristicas: ['Chamoy artesanal premium', 'Sabor mexicano autentico', 'Frutas y gomitas incluidas', 'Ideal para fiestas mexicanas'],
+    images: [
+      { src: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif', alt: 'Renta de fuente de chamoy en CDMX' },
+      { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif', alt: 'Fuente de chamoy para fiestas' },
+      { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif', alt: 'Fuente de chamoy para eventos mexicanos' }
+    ]
+  },
+  {
+    id: 'pared-dulces',
+    title: 'Pared de Dulces',
+    slug: 'pared-de-dulces',
+    description: 'Un <strong>muro de golosinas espectacular</strong> que se convierte en el centro de atencion de tu evento. Nuestra candy wall exhibe dulces coloridos en dispensadores elegantes, invitando a tus invitados a servirse y crear su propia mezcla perfecta.',
+    incluye: 'Estructura modular de pared, dispensadores de acrilico, variedad de gomitas, chocolates, dulces de colores coordinados con tu evento, bolsas para llevar y montaje completo.',
+    caracteristicas: ['Muro decorativo modular', 'Dispensadores elegantes', 'Variedad de golosinas', 'Colores personalizables'],
+    images: [
+      { src: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif', alt: 'Pared de dulces candy wall para eventos' },
+      { src: '/img/estaciones-interactivas/pared-dulces/candy-wall-pared-dulces-eventos.avif', alt: 'Candy wall pared de dulces para eventos' },
+      { src: '/img/estaciones-interactivas/pared-dulces/candy-wall-servicio-cdmx.avif', alt: 'Servicio candy wall CDMX' }
+    ]
+  },
+  {
+    id: 'stand-pastel',
+    title: 'Stand para Pastel',
+    slug: 'stand-para-pastel',
+    description: 'El pastel merece un escenario espectacular. Nuestro <strong>stand para pastel con decoracion de globos</strong> crea el marco perfecto para el momento de partir el pastel: arcos de globos, iluminacion y elementos decorativos que hacen de este momento algo magico.',
+    incluye: 'Mesa elegante, base para pastel, arco de globos en colores coordinados, elementos decorativos adicionales (flores artificiales, letrero con nombre) y montaje profesional.',
+    caracteristicas: ['Arco de globos incluido', 'Mesa y base para pastel', 'Colores a tu eleccion', 'Fondo para fotos perfecto'],
+    images: [
+      { src: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif', alt: 'Stand para pastel decorado para eventos' },
+      { src: '/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif', alt: 'Decoracion elegante para stand de pastel' },
+      { src: '/img/estaciones-interactivas/stand-pastel/decoracion-con-globos-para-estacion-de-pastel.avif', alt: 'Decoracion con globos para estacion de pastel' }
+    ]
+  }
+];
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones Interactivas para Fiestas y Eventos",
+  "description": "Catalogo de estaciones interactivas para eventos en Ciudad de Mexico: fuentes, paredes de dulces y stands decorativos",
+  "numberOfItems": 4,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Service",
+        "name": "Fuente de Chocolate para Eventos",
+        "description": "Renta de cascada de chocolate belga para fiestas y eventos en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Service",
+        "name": "Fuente de Chamoy para Fiestas",
+        "description": "Estacion interactiva de chamoy artesanal para fiestas mexicanas en Ciudad de Mexico",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Service",
+        "name": "Pared de Dulces Candy Wall",
+        "description": "Muro decorativo de golosinas para eventos elegantes en CDMX",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Service",
+        "name": "Stand para Pastel con Globos",
+        "description": "Estacion de pastel con decoracion de globos para fiestas en Ciudad de Mexico",
+        "provider": {"@type": "LocalBusiness", "name": "Mededul"}
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Estaciones Interactivas para Eventos CDMX | Mesas de Dulces"
+  description="Estaciones interactivas en CDMX: fuente de chocolate, fuente de chamoy, pared de dulces y stand para pastel. Cotiza gratis."
+  canonical="https://mesas-de-dulces.com/estaciones-interactivas"
+  ogImage="https://mesas-de-dulces.com/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
+
+  <div class="header-spacer"></div>
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+      <div class="page-hero-grid">
+        <div class="page-hero-left">
+          <h1>Estaciones Interactivas para <span class="highlight">Fiestas</span> en CDMX</h1>
+          <p class="page-hero-description">Experiencias unicas que tus invitados recordaran por siempre. Lleva tu evento al siguiente nivel con nuestras <strong>estaciones interactivas</strong> que generan sonrisas y momentos inolvidables.</p>
+        </div>
+        <div class="page-hero-right">
+          <p>Imagina a tus invitados disfrutando de una <strong>cascada de chocolate belga</strong> derretido o saboreando frutas banadas en <strong>chamoy artesanal</strong>. Cada estacion esta disenada para ser el centro de atencion.</p>
+          <p>Desde nuestra espectacular <strong>pared de dulces candy wall</strong> hasta el elegante <strong>stand para pastel decorado</strong>, convertimos tu celebracion en una experiencia sensorial que todos recordaran.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estaciones Grid -->
+  <section class="tipos-mesas section-padding" id="estaciones">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>Estaciones <span class="titulo-decorativo">Interactivas</span></h2>
+          <p class="subtitulo">Experiencias sensoriales para eventos memorables</p>
+        </div>
+        <div class="section-header-right">
+          <p>Nuestras estaciones interactivas van mas alla de lo visual: crean <strong>experiencias que involucran todos los sentidos</strong>. El aroma del chocolate derretido, el sabor del chamoy picosito, la emocion de elegir dulces de una pared colorida.</p>
+          <p>Cada estacion incluye todo lo necesario para que tus invitados disfruten sin preocupaciones: equipos profesionales, acompanantes frescos y montaje espectacular.</p>
+        </div>
+      </div>
+
+      <div class="tipos-grid">
+        {estaciones.map(estacion => (
+          <a href={`/estaciones-interactivas/${estacion.slug}`} class="tipo-card">
+            <picture>
+              <source srcset={getCdnUrl(estacion.image)} type="image/avif" />
+              <source srcset={getCdnUrl(estacion.image)} type="image/webp" />
+              <img
+                decoding="async"
+                src={getCdnUrl(estacion.image)}
+                alt={estacion.alt}
+                class="tipo-img"
+                loading="lazy"
+                width="560"
+                height="686"
+              />
+            </picture>
+            <div class="tipo-card-content"><h4>{estacion.title}</h4></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Estaciones Detalle -->
+  {estacionesDetalle.map((estacion, index) => (
+    <section class={`tipo-detalle-section ${index % 2 === 1 ? 'alt-bg' : ''}`} id={estacion.id}>
+      <div class="container">
+        <div class="tipo-detalle-grid">
+          <div class="tipo-galeria">
+            {estacion.images.map((img, imgIndex) => (
+              <div class={`tipo-galeria-item ${imgIndex === 0 ? 'main-image' : ''}`}>
+                <picture>
+                  <source srcset={getCdnUrl(img.src)} type="image/avif" />
+                  <source srcset={getCdnUrl(img.src)} type="image/webp" />
+                  <img
+                    decoding="async"
+                    src={getCdnUrl(img.src)}
+                    alt={img.alt}
+                    loading="lazy"
+                    width="560"
+                    height="686"
+                  />
+                </picture>
+              </div>
+            ))}
+          </div>
+
+          <div class="tipo-detalle-content">
+            <h2>{estacion.title.split(' ')[0]} de <span>{estacion.title.split(' ').slice(-1)[0]}</span></h2>
+            <p class="descripcion-principal" set:html={estacion.description} />
+
+            <div class="tipo-caracteristicas">
+              {estacion.caracteristicas.map(car => (
+                <div class="caracteristica-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <span>{car}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="ideal-para">
+              <h4>Incluye:</h4>
+              <p>{estacion.incluye}</p>
+            </div>
+
+            <div class="tipo-detalle-cta">
+              <a href={`/estaciones-interactivas/${estacion.slug}`} class="btn btn-primary">Ver {estacion.title}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA Section -->
+  <section class="cta-section section-padding">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Combina estaciones para una experiencia completa</h2>
+        <p>Imagina una fuente de chocolate junto a tu mesa de dulces, o una pared de golosinas complementando el stand del pastel. Creamos paquetes especiales combinando estaciones para eventos inolvidables.</p>
+
+        <div class="cta-buttons">
+          <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar estaciones interactivas para mi evento" class="btn btn-white" target="_blank" rel="noopener">
+            Cotizar Estaciones
+          </a>
+          <a href="/tipos-de-mesas-de-dulces" class="btn btn-outline-white">
+            Ver Mesas de Dulces
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contacto-section section-padding" id="contacto">
+    <div class="container">
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <h2>Cotiza tu Estacion Interactiva</h2>
+          <p class="contacto-intro">Cuentanos sobre tu evento y te ayudamos a elegir la estacion perfecta. Recibe una cotizacion personalizada sin compromiso.</p>
+
+          <div class="info-items-grid">
+            <div class="info-item info-sucursal">
+              <h4>Sucursal Condesa</h4>
+              <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
+              <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+            </div>
+
+            <div class="info-item info-sucursal">
+              <h4>Sucursal Anzures</h4>
+              <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+              <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver en Google Maps</a>
+            </div>
+
+            <div class="info-item info-contacto">
+              <h4>WhatsApp</h4>
+              <p><a href="tel:+525525226442">55 2522 6442</a></p>
+            </div>
+
+            <div class="info-item info-contacto">
+              <h4>Email</h4>
+              <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
+            </div>
+
+            <div class="info-item info-horario">
+              <h4>Horario de Atencion</h4>
+              <p>Lun - Vie: 9:00 AM - 7:00 PM<br />Sabados: 10:00 AM - 3:00 PM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contacto-form-wrapper">
+          <h3>Reserva tu Estacion</h3>
+          <p>Completa el formulario y te contactaremos por WhatsApp</p>
+
+          <form id="reserva-form" class="contacto-form">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" />
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Telefono / WhatsApp *</label>
+              <input type="tel" id="telefono" name="telefono" required placeholder="55 1234 5678" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tipo-estacion">Estacion de interes *</label>
+                <select id="tipo-estacion" name="tipo-estacion" required>
+                  <option value="">Selecciona...</option>
+                  <option value="Fuente de Chocolate">Fuente de Chocolate</option>
+                  <option value="Fuente de Chamoy">Fuente de Chamoy</option>
+                  <option value="Pared de Dulces">Pared de Dulces</option>
+                  <option value="Stand para Pastel">Stand para Pastel</option>
+                  <option value="Varias Estaciones">Varias Estaciones</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fecha">Fecha del evento *</label>
+                <input type="date" id="fecha" name="fecha" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="invitados">Numero de invitados aproximado</label>
+              <input type="number" id="invitados" name="invitados" placeholder="100" />
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje">Cuentanos sobre tu evento</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Tipo de evento, tematica, colores, preferencias..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Enviar por WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script slot="scripts" is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              window.scrollTo({
+                top: target.getBoundingClientRect().top + window.pageYOffset - 100,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+
+      // Form to WhatsApp
+      document.getElementById('reserva-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const getValue = (id) => {
+          const el = document.getElementById(id);
+          return el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement
+            ? el.value
+            : '';
+        };
+
+        const nombre = getValue('nombre');
+        const telefono = getValue('telefono');
+        const tipoEstacion = getValue('tipo-estacion');
+        const fecha = getValue('fecha');
+        const invitados = getValue('invitados');
+        const mensaje = getValue('mensaje');
+
+        let whatsappMsg = `Hola! Me interesa cotizar una Estacion Interactiva para mi evento.%0A%0A`;
+        whatsappMsg += `*Nombre:* ${nombre}%0A`;
+        whatsappMsg += `*Telefono:* ${telefono}%0A`;
+        whatsappMsg += `*Estacion:* ${tipoEstacion}%0A`;
+        whatsappMsg += `*Fecha:* ${fecha}%0A`;
+        if (invitados) whatsappMsg += `*Invitados:* ${invitados}%0A`;
+        if (mensaje) whatsappMsg += `%0A*Detalles:* ${mensaje}`;
+
+        window.open(`https://wa.me/525525226442?text=${whatsappMsg}`, '_blank');
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  /* Header spacer */
+  .header-spacer {
+    height: 120px;
+  }
+
+  /* Page Hero */
+  .page-hero {
+    padding: 60px 0 80px;
+    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .page-hero-bg-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .page-hero-bg-shapes .shape-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
+    top: -100px;
+    right: -50px;
+  }
+
+  .page-hero-bg-shapes .shape-2 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 107, 179, 0.06) 0%, transparent 70%);
+    bottom: -50px;
+    left: 10%;
+  }
+
+  .page-hero-bg-shapes .shape-3 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.05) 0%, transparent 70%);
+    top: 30%;
+    left: -30px;
+  }
+
+  .page-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero-left h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .page-hero-left h1 .highlight {
+    color: #E91E8C;
+  }
+
+  .page-hero-description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .page-hero-right p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .page-hero-right p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Section Padding */
+  .section-padding {
+    padding: 80px 0;
+  }
+
+  /* Section Header */
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+
+  .section-header-left h2 {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+  }
+
+  .titulo-decorativo {
+    color: #E91E8C;
+  }
+
+  .subtitulo {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .section-header-right p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .section-header-right p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Tipos Grid */
+  .tipos-mesas {
+    background: #fff;
+  }
+
+  .tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+
+  .tipo-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+  }
+
+  .tipo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.2);
+  }
+
+  .tipo-card .tipo-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .tipo-card:hover .tipo-img {
+    transform: scale(1.05);
+  }
+
+  .tipo-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  }
+
+  .tipo-card-content h4 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* Tipo Detalle Sections */
+  .tipo-detalle-section {
+    padding: 80px 0;
+  }
+
+  .tipo-detalle-section.alt-bg {
+    background: #f8f9fa;
+  }
+
+  .tipo-detalle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .tipo-galeria {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .tipo-galeria-item {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+
+  .tipo-galeria-item.main-image {
+    grid-column: span 2;
+  }
+
+  .tipo-galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tipo-galeria-item.main-image img {
+    height: 300px;
+  }
+
+  .tipo-galeria-item:not(.main-image) img {
+    height: 180px;
+  }
+
+  .tipo-detalle-content h2 {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .tipo-detalle-content h2 span {
+    color: #E91E8C;
+  }
+
+  .descripcion-principal {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  .tipo-caracteristicas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .caracteristica-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .tipo-detalle-section.alt-bg .caracteristica-item {
+    background: #fff;
+  }
+
+  .caracteristica-item svg {
+    width: 20px;
+    height: 20px;
+    color: #E91E8C;
+    flex-shrink: 0;
+  }
+
+  .caracteristica-item span {
+    font-size: 0.9rem;
+    color: #444;
+    font-weight: 500;
+  }
+
+  .ideal-para {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #fff5f8 0%, #fff 100%);
+    border-left: 4px solid #E91E8C;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .ideal-para h4 {
+    font-size: 0.9rem;
+    color: #E91E8C;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .ideal-para p {
+    font-size: 0.88rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .tipo-detalle-cta {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #E91E8C 0%, #c4177a 50%, #a01365 100%);
+    text-align: center;
+    color: #fff;
+  }
+
+  .cta-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: #E91E8C;
+  }
+
+  .btn-white:hover {
+    background: #f8f8f8;
+    transform: translateY(-3px);
+  }
+
+  .btn-outline-white {
+    border: 2px solid #fff;
+    color: #fff;
+    background: transparent;
+  }
+
+  .btn-outline-white:hover {
+    background: #fff;
+    color: #E91E8C;
+  }
+
+  /* Contact Section */
+  .contacto-section {
+    background: #f8f9fa;
+  }
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .contacto-info h2 {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+  }
+
+  .contacto-intro {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .info-items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .info-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .info-item h4 {
+    font-size: 1rem;
+    color: #E91E8C;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .info-item p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .info-item a {
+    color: #E91E8C;
+    text-decoration: none;
+  }
+
+  .info-item a:hover {
+    text-decoration: underline;
+  }
+
+  .maps-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+
+  .info-item.info-horario {
+    grid-column: span 2;
+    text-align: center;
+  }
+
+  .contacto-form-wrapper {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+
+  .contacto-form-wrapper h3 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+
+  .contacto-form-wrapper > p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 25px;
+  }
+
+  .contacto-form .form-group {
+    margin-bottom: 20px;
+  }
+
+  .contacto-form label {
+    display: block;
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .contacto-form input,
+  .contacto-form select,
+  .contacto-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .contacto-form input:focus,
+  .contacto-form select:focus,
+  .contacto-form textarea:focus {
+    outline: none;
+    border-color: #E91E8C;
+    box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .page-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .tipos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tipo-detalle-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .contacto-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-spacer {
+      height: 100px;
+    }
+
+    .page-hero {
+      padding: 40px 0 60px;
+    }
+
+    .page-hero-left h1 {
+      font-size: 1.8rem;
+    }
+
+    .section-padding {
+      padding: 60px 0;
+    }
+
+    .tipos-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tipo-caracteristicas {
+      grid-template-columns: 1fr;
+    }
+
+    .tipo-galeria-item.main-image img {
+      height: 250px;
+    }
+
+    .info-items-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .info-item.info-horario {
+      grid-column: span 1;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .tipo-galeria {
+      grid-template-columns: 1fr;
+    }
+
+    .tipo-galeria-item.main-image {
+      grid-column: span 1;
+    }
+
+    .tipo-galeria-item.main-image img,
+    .tipo-galeria-item:not(.main-image) img {
+      height: 200px;
+    }
+
+    .tipo-detalle-cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .contacto-form-wrapper {
+      padding: 25px;
+    }
+  }
+</style>
