@@ -17,6 +17,7 @@ const { title, description, category, heroImage, heroImageAlt, tags, faqs } = po
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const articleUrl = `${siteUrl}/blog/${post.slug}`;
 const categoryInfo = categoryMeta[category as keyof typeof categoryMeta];
+const heroSupportText = `En este articulo de ${categoryInfo?.name || category} compartimos recomendaciones claras para ayudarte a planear una mesa de dulces mejor organizada, mas atractiva y alineada a tu tipo de evento.`;
 
 // Breadcrumb items
 const breadcrumbItems = [
@@ -51,19 +52,33 @@ const breadcrumbItems = [
     <JsonLd type="FAQPage" data={{ faqs }} />
   )}
 
-  <div class="header-spacer blog-header-spacer"></div>
+  <div class="header-spacer"></div>
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <!-- Article Hero -->
-  <section class="article-hero">
+  <section class="blog-article-hero">
+    <div class="article-hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
-      <span class="article-category-tag" style={`background-color: ${categoryInfo?.color || '#E91E8C'}`}>
-        {categoryInfo?.icon} {categoryInfo?.name || category}
-      </span>
+      <div class="article-hero-grid">
+        <div class="article-hero-left">
+          <span class="article-category-tag" style={`background-color: ${categoryInfo?.color || '#E91E8C'}`}>
+            {categoryInfo?.icon} {categoryInfo?.name || category}
+          </span>
 
-      <h1>{title}</h1>
+          <h1>{title}</h1>
+        </div>
 
+        <div class="article-hero-right">
+          <p>{description}</p>
+          <p>{heroSupportText}</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -157,53 +172,76 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <style>
-  .blog-header-spacer {
-    height: 104px !important;
+  .blog-article-hero {
+    background: linear-gradient(135deg, #eaf7ff 0%, #f2fff8 52%, #fff8ee 100%);
+    padding: 56px 0 58px;
+    min-height: 0;
+    display: block;
+    align-items: initial;
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Homologa breadcrumbs del blog con el diseño global y los centra visualmente */
-  :global(.breadcrumb-section) {
-    background: var(--gris-claro) !important;
-    padding: 10px 0 5px 0 !important;
-    margin-top: -10px !important;
-    margin-bottom: 0 !important;
-    border-bottom: 1px solid #eee !important;
-  }
-
-  :global(.breadcrumb-section .container) {
+  .blog-article-hero .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
+    text-align: left;
   }
 
-  :global(.breadcrumb-section .breadcrumb) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-align: center;
-  }
-
-  :global(.breadcrumb-section .breadcrumb a),
-  :global(.breadcrumb-section .breadcrumb span) {
-    line-height: 1.4;
-  }
-
-  :global(.breadcrumb-section .breadcrumb span[aria-current="page"]) {
-    max-width: min(100%, 680px);
-    overflow-wrap: anywhere;
-  }
-
-  .article-hero {
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
-    padding: 60px 0 70px;
-    text-align: center;
-    color: #ffffff;
-    position: relative;
+  .blog-article-hero .article-hero-bg-shapes {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
+    pointer-events: none;
+  }
+
+  .blog-article-hero .shape-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(116, 185, 255, 0.26);
+    top: -100px;
+    right: -100px;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.75;
+  }
+
+  .blog-article-hero .shape-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(85, 239, 196, 0.28);
+    bottom: -50px;
+    left: -50px;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+
+  .blog-article-hero .shape-3 {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 230, 109, 0.3);
+    top: 40%;
+    right: 10%;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.75;
+  }
+
+  .blog-article-hero .article-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 42px;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+  }
+
+  .blog-article-hero .article-hero-left h1 {
+    margin-bottom: 0;
+    line-height: 1.2;
+    color: var(--negro-suave);
   }
 
   .article-category-tag {
@@ -214,16 +252,29 @@ const breadcrumbItems = [
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    color: #fff;
   }
 
-  .article-hero h1 {
+  .blog-article-hero .article-hero-right p {
+    color: var(--gris-texto);
+    line-height: 1.8;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    max-width: 62ch;
+  }
+
+  .blog-article-hero .article-hero-right p:last-child {
+    margin-bottom: 0;
+  }
+
+  .blog-article-hero .article-hero-right strong {
+    color: var(--rosa-principal);
+  }
+
+  .blog-article-hero .article-hero-left h1 {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 800;
-    margin-bottom: 20px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
     line-height: 1.3;
   }
 
@@ -243,7 +294,7 @@ const breadcrumbItems = [
   }
 
   .article-layout {
-    padding: 60px 0;
+    padding: 48px 0 60px;
     background: var(--gris-claro);
   }
 
@@ -448,22 +499,29 @@ const breadcrumbItems = [
     }
   }
 
+  @media (max-width: 968px) {
+    .blog-article-hero .article-hero-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .blog-article-hero {
+      padding: 46px 0 48px;
+    }
+  }
+
   @media (max-width: 768px) {
-    .blog-header-spacer {
-      height: 82px !important;
+    .blog-article-hero {
+      padding: 38px 0 42px;
     }
 
-    :global(.breadcrumb-section .breadcrumb) {
-      justify-content: flex-start;
-      text-align: left;
+    .blog-article-hero .article-hero-left h1 {
+      font-size: 1.75rem;
     }
 
-    .article-hero {
-      padding: 40px 0 50px;
-    }
-
-    .article-hero h1 {
-      font-size: 1.6rem;
+    .blog-article-hero .article-hero-right p {
+      font-size: 0.98rem;
+      line-height: 1.72;
     }
 
     .article-content {

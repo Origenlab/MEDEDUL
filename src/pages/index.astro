@@ -34,45 +34,47 @@ import { getCdnUrl } from '@/lib/cdn';
     ]
   }} />
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-bg-shapes">
+  <!-- Page Hero Section -->
+  <section class="page-hero" id="inicio">
+    <div class="page-hero-bg-shapes">
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
       <div class="shape shape-3"></div>
     </div>
+
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
+      <div class="page-hero-grid">
+        <div class="page-hero-left">
           <h1>
-            <span class="highlight">Mesas de Dulces</span><br/>
-            para Eventos Inolvidables
+            Mesas de Dulces para Fiestas en CDMX -
+            <span class="highlight">Candy Bar</span> Profesional
           </h1>
-          <p class="hero-description">
-            Transforma tu celebración con nuestras mesas de dulces personalizadas.
-            Candy bar profesional para bodas, XV años, baby showers y todo tipo de eventos en CDMX.
+          <p class="page-hero-description">
+            En Mededul creamos
+            <strong>mesas de dulces espectaculares</strong> para bodas, XV
+            años, baby shower, cumpleaños y eventos corporativos en Ciudad de
+            México y área metropolitana. Tú solo disfrutas, nosotros nos
+            encargamos de todo con servicio de montaje incluido.
           </p>
-          <p class="hero-marketing">
-            <strong>+500 eventos</strong> realizados con éxito. Diseños únicos que sorprenden a tus invitados.
-          </p>
-          <div class="hero-buttons">
-            <a href="/contacto" class="btn btn-primary">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              </svg>
-              Cotiza Gratis
-            </a>
-            <a href="/servicios" class="btn btn-secondary">Ver Servicios</a>
-          </div>
         </div>
-        <div class="hero-image">
-          <img
-            src={getCdnUrl("/img/home/hero-mesas-dulces-profesionales.avif")}
-            alt="Mesa de dulces profesional para eventos en CDMX"
-            width="600"
-            height="500"
-            loading="eager"
-          />
+        <div class="page-hero-right">
+          <p>
+            Somos especialistas en la
+            <strong>renta de mesas de dulces en CDMX</strong> y área
+            metropolitana. Cada montaje que creamos está diseñado para
+            convertirse en el centro de atención de tu celebración, combinando
+            dulces de la más alta calidad con una presentación impecable que
+            dejará a tus invitados sin palabras.
+          </p>
+          <p>
+            Ya sea que busques una elegante
+            <strong>mesa de postres para boda</strong>, una divertida
+            <strong>candy bar para fiesta infantil</strong> o una sofisticada
+            <strong>barra de dulces para evento corporativo</strong>, en
+            Mededul transformamos tus ideas en experiencias dulces e
+            inolvidables. Servicio profesional, puntualidad garantizada y
+            atención personalizada en cada detalle.
+          </p>
         </div>
       </div>
     </div>
@@ -83,37 +85,64 @@ import { getCdnUrl } from '@/lib/cdn';
     <div class="container">
       <div class="section-header">
         <div class="section-header-left">
-          <h2>Tipos de <span class="titulo-decorativo">Mesas</span></h2>
-          <p class="subtitulo">Encuentra la mesa perfecta para tu evento</p>
+          <h2>
+            Tipos de
+            <span class="titulo-decorativo">Mesas de Dulces</span> para Rentar
+          </h2>
+          <p class="subtitulo">
+            Variedad deliciosa para todos los gustos y ocasiones
+          </p>
         </div>
         <div class="section-header-right">
-          <p>Cada celebración es única y merece una <strong>mesa de dulces</strong> que refleje tu estilo. Desde diseños clásicos hasta propuestas temáticas innovadoras.</p>
+          <p>
+            El secreto de una celebración inolvidable está en crear un punto
+            de atracción que sorprenda a todos. Más allá del menú principal,
+            la verdadera magia ocurre en ese rincón especial donde tus
+            invitados pueden elegir entre una fresca
+            <strong>mesa de frutas</strong> o una divertida
+            <strong>mesa de donas y cupcakes</strong>.
+          </p>
+          <p>
+            Cada montaje tiene su propia personalidad y encanto. Desde la
+            clásica <strong>mesa de dulces personalizados</strong> hasta la
+            sofisticada <strong>tabla de quesos y embutidos</strong>, tenemos
+            la opción perfecta para hacer de tu evento algo extraordinario.
+          </p>
         </div>
       </div>
+
       <div class="tipos-grid">
         <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces" class="tipo-card">
-          <img src={getCdnUrl("/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif")} alt="Mesa de dulces clásica" width="560" height="686" loading="lazy" class="tipo-img" />
-          <div class="tipo-card-content">
-            <h4>Mesa de Dulces</h4>
-          </div>
-        </a>
-        <a href="/tipos-de-mesas-de-dulces/mesa-de-postres" class="tipo-card">
-          <img src={getCdnUrl("/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif")} alt="Mesa de dulces premium" width="560" height="686" loading="lazy" class="tipo-img" />
-          <div class="tipo-card-content">
-            <h4>Mesa de Postres</h4>
-          </div>
+          <img src={getCdnUrl("/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif")} alt="Renta de mesas de dulces infantiles personalizadas en CDMX - Candy bar para fiestas de niños" class="tipo-img" loading="lazy" width="653" height="800" />
+          <div class="tipo-card-content"><h4>Mesa de Dulces</h4></div>
         </a>
         <a href="/tipos-de-mesas-de-dulces/mesa-de-frutas" class="tipo-card">
-          <img src={getCdnUrl("/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif")} alt="Mesa de dulces temática" width="560" height="686" loading="lazy" class="tipo-img" />
-          <div class="tipo-card-content">
-            <h4>Mesa de Frutas</h4>
-          </div>
+          <img src={getCdnUrl("/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif")} alt="Mesas de frutas frescas para eventos y fiestas en CDMX - Servicio de catering frutal" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Mesa de Frutas</h4></div>
+        </a>
+        <a href="/tipos-de-mesas-de-dulces/mesa-de-postres" class="tipo-card">
+          <img src={getCdnUrl("/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif")} alt="Mesas de postres gourmet para bodas y XV años en Ciudad de México" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Mesa de Postres</h4></div>
+        </a>
+        <a href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos" class="tipo-card">
+          <img src={getCdnUrl("/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif")} alt="Renta de mesa de quesos y embutidos gourmet para eventos corporativos y bodas CDMX" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Quesos y Embutidos</h4></div>
+        </a>
+        <a href="/tipos-de-mesas-de-dulces/mesa-de-snacks" class="tipo-card">
+          <img src={getCdnUrl("/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif")} alt="Barra de snacks y botanas para fiestas infantiles y eventos empresariales" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Mesa de Snacks</h4></div>
+        </a>
+        <a href="/tipos-de-mesas-de-dulces/mesa-de-botanas" class="tipo-card">
+          <img src={getCdnUrl("/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif")} alt="Mesas de botanas saladas para fiestas y reuniones en Ciudad de México" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Mesa de Botanas</h4></div>
+        </a>
+        <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales" class="tipo-card">
+          <img src={getCdnUrl("/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif")} alt="Mesa de dulces típicos mexicanos - Candy bar tradicional con mazapanes y obleas" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Dulces Tradicionales</h4></div>
         </a>
         <a href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes" class="tipo-card">
-          <img src={getCdnUrl("/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif")} alt="Mesa de dulces infantil" width="560" height="686" loading="lazy" class="tipo-img" />
-          <div class="tipo-card-content">
-            <h4>Donas y Cupcakes</h4>
-          </div>
+          <img src={getCdnUrl("/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif")} alt="Mesa de donas y cupcakes decorados para baby shower y cumpleaños CDMX" class="tipo-img" loading="lazy" width="560" height="686" />
+          <div class="tipo-card-content"><h4>Donas y Cupcakes</h4></div>
         </a>
       </div>
     </div>
@@ -124,145 +153,722 @@ import { getCdnUrl } from '@/lib/cdn';
     <div class="container">
       <div class="section-header">
         <div class="section-header-left">
-          <h2>Candy Bar para <span class="titulo-decorativo">Eventos</span></h2>
-          <p class="subtitulo">Especializados en todo tipo de celebraciones</p>
+          <h2>
+            Candy Bar para cada
+            <span class="titulo-decorativo">Tipo de Evento</span>
+          </h2>
+          <p class="subtitulo">
+            Cada evento es único, y tu mesa de dulces también debe serlo
+          </p>
         </div>
         <div class="section-header-right">
-          <p>Ya sea tu boda, los XV años de tu princesa, un baby shower o un evento corporativo, tenemos la <strong>experiencia</strong> para crear algo extraordinario.</p>
+          <p>
+            No estás planeando solo una fiesta, estás creando un recuerdo que
+            durará para siempre. En ese día tan especial, cada detalle debe
+            contar tu historia. Una
+            <strong>mesa de dulces temática</strong> es mucho más que postres:
+            es el corazón de tu celebración, ese rincón mágico que refleja tu
+            estilo.
+          </p>
+          <p>
+            En Mededul, nuestra pasión es transformar tu idea en una dulce
+            realidad. Desde tiernas
+            <strong>mesas para baby shower</strong> hasta elegantes
+            <strong>candy bars para bodas</strong>, nos especializamos en
+            crear el ambiente perfecto que dejará a todos tus invitados
+            fascinados.
+          </p>
         </div>
       </div>
+
       <div class="eventos-grid">
-        <a href="/candy-bar-eventos/mesa-dulces-boda" class="evento-card">
-          <img src={getCdnUrl("/img/eventos/bodas/mesa-de-dulces-para-bodas.avif")} alt="Mesa de dulces para bodas" width="560" height="686" loading="lazy" />
-          <div class="evento-card-content">
-            <h4>Bodas</h4>
-          </div>
+        <a href="/candy-bar-eventos" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif")} alt="Mesa de dulces para baby shower en CDMX - Candy bar temático para bebé" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesas Temáticas</h4></div>
         </a>
         <a href="/candy-bar-eventos/mesa-dulces-xv-anos" class="evento-card">
-          <img src={getCdnUrl("/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif")} alt="Mesa de dulces para XV años" width="560" height="686" loading="lazy" />
-          <div class="evento-card-content">
-            <h4>XV Años</h4>
-          </div>
+          <img src={getCdnUrl("/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif")} alt="Mesa de dulces para XV años en Ciudad de México - Candy bar elegante quinceañeros" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa para XV años</h4></div>
         </a>
-        <a href="/candy-bar-eventos/mesa-dulces-baby-shower" class="evento-card">
-          <img src={getCdnUrl("/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif")} alt="Mesa de dulces para baby shower" width="560" height="686" loading="lazy" />
-          <div class="evento-card-content">
-            <h4>Baby Shower</h4>
-          </div>
+        <a href="/candy-bar-eventos/mesa-dulces-boda" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/bodas/mesa-de-dulces-para-bodas.avif")} alt="Mesa de dulces para boda elegante CDMX - Candy bar nupcial personalizado" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa para Boda</h4></div>
+        </a>
+        <a href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif")} alt="Mesa de dulces para cumpleaños infantil en CDMX - Candy bar temático niños" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa para cumple</h4></div>
         </a>
         <a href="/candy-bar-eventos/mesa-dulces-bautizo" class="evento-card">
-          <img src={getCdnUrl("/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif")} alt="Mesa de dulces para bautizos" width="560" height="686" loading="lazy" />
-          <div class="evento-card-content">
-            <h4>Bautizos</h4>
-          </div>
+          <img src={getCdnUrl("/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif")} alt="Renta de mesa de dulces para bautizo en CDMX - Candy bar blanco y dorado" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa para bautizo</h4></div>
+        </a>
+        <a href="/candy-bar-eventos/mesa-dulces-primera-comunion" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/comuniones/mesa-de-dulces-para-primera-comunion.avif")} alt="Mesa de dulces para primera comunión en Ciudad de México - Candy bar religioso" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa de comunión</h4></div>
+        </a>
+        <a href="/candy-bar-eventos/mesa-dulces-corporativos" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/corporativos/barra-de-dulces-para-oficinas.avif")} alt="Barra de dulces para eventos corporativos y oficinas CDMX - Candy bar empresarial" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa corporativa</h4></div>
+        </a>
+        <a href="/candy-bar-eventos/mesa-dulces-baby-shower" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower-nino.avif")} alt="Mesa de dulces para baby shower de niño en CDMX - Candy bar azul celeste" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Mesa Baby shower</h4></div>
+        </a>
+        <a href="/candy-bar-eventos/mesa-dulces-graduacion" class="evento-card">
+          <img src={getCdnUrl("/img/eventos/graduaciones/mesa-de-dulces-para-fiesta-de-compromiso.avif")} alt="Mesa de dulces para graduación en CDMX - Candy bar para fiestas de egresados" loading="lazy" width="560" height="686" />
+          <div class="evento-card-content"><h4>Graduaciones</h4></div>
         </a>
       </div>
     </div>
   </section>
 
   <!-- Estaciones Section -->
-  <section class="estaciones section-padding">
+  <section class="estaciones section-padding" id="estaciones">
     <div class="container">
       <div class="section-header">
         <div class="section-header-left">
-          <h2>Estaciones <span class="titulo-decorativo">Interactivas</span></h2>
-          <p class="subtitulo">Experiencias únicas para tus invitados</p>
+          <h2>
+            Estaciones
+            <span class="titulo-decorativo">Interactivas</span> para Fiestas
+          </h2>
+          <p class="subtitulo">
+            Experiencias únicas que tus invitados recordarán por siempre
+          </p>
         </div>
         <div class="section-header-right">
-          <p>Complementa tu mesa de dulces con nuestras <strong>estaciones interactivas</strong>. Una experiencia que tus invitados recordarán por siempre.</p>
+          <p>
+            Lleva tu evento al siguiente nivel con nuestras
+            <strong>estaciones interactivas en CDMX</strong>. Imagina a tus
+            invitados disfrutando de una cascada de
+            <strong>chocolate belga derretido</strong> o saboreando frutas
+            bañadas en <strong>chamoy artesanal</strong>. Son experiencias que
+            generan sonrisas y momentos inolvidables.
+          </p>
+          <p>
+            Cada estación está diseñada para ser el centro de atención: desde
+            nuestra espectacular
+            <strong>pared de dulces candy wall</strong> hasta el elegante
+            <strong>stand para pastel decorado</strong>. Convertimos tu
+            celebración en una experiencia sensorial que todos recordarán.
+          </p>
         </div>
       </div>
+
       <div class="estaciones-grid">
         <a href="/estaciones-interactivas/fuente-de-chocolate" class="estacion-card">
-          <img src={getCdnUrl("/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif")} alt="Fuente de chocolate" width="560" height="686" loading="lazy" />
+          <img src={getCdnUrl("/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif")} alt="Fuente de chocolate para fiestas y eventos en CDMX - Renta de cascada de chocolate" loading="lazy" width="560" height="686" />
           <div class="estacion-card-content">
             <h4>Fuente de Chocolate</h4>
           </div>
         </a>
         <a href="/estaciones-interactivas/fuente-de-chamoy" class="estacion-card">
-          <img src={getCdnUrl("/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif")} alt="Barra de palomitas" width="560" height="686" loading="lazy" />
-          <div class="estacion-card-content">
-            <h4>Fuente de Chamoy</h4>
-          </div>
+          <img src={getCdnUrl("/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif")} alt="Renta de fuente de chamoy para fiestas mexicanas en CDMX - Estación interactiva" loading="lazy" width="560" height="686" />
+          <div class="estacion-card-content"><h4>Fuente de Chamoy</h4></div>
         </a>
         <a href="/estaciones-interactivas/pared-de-dulces" class="estacion-card">
-          <img src={getCdnUrl("/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif")} alt="Estación de helados" width="560" height="686" loading="lazy" />
-          <div class="estacion-card-content">
-            <h4>Pared de Dulces</h4>
-          </div>
+          <img src={getCdnUrl("/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif")} alt="Pared de dulces Candy Wall para eventos en CDMX - Muro de golosinas decorativo" loading="lazy" width="560" height="686" />
+          <div class="estacion-card-content"><h4>Pared de Dulces</h4></div>
         </a>
         <a href="/estaciones-interactivas/stand-para-pastel" class="estacion-card">
-          <img src={getCdnUrl("/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif")} alt="Barra de nachos" width="560" height="686" loading="lazy" />
-          <div class="estacion-card-content">
-            <h4>Stand para Pastel</h4>
-          </div>
+          <img src={getCdnUrl("/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif")} alt="Stand para pastel con decoración de globos CDMX - Estación de pastel para fiestas" loading="lazy" width="560" height="686" />
+          <div class="estacion-card-content"><h4>Stand para Pastel</h4></div>
         </a>
       </div>
     </div>
   </section>
 
+  <!-- Por qué Elegirnos Section -->
+  <section class="porque-elegirnos section-padding" id="nosotros">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>
+            Por qué Rentar tu Mesa de Dulces con
+            <span class="titulo-decorativo">Mededul</span>
+          </h2>
+          <p class="subtitulo">
+            No solo hacemos mesas de dulces, creamos experiencias memorables
+          </p>
+        </div>
+        <div class="section-header-right">
+          <p>
+            Con años de experiencia en el
+            <strong>servicio de mesas de dulces en Ciudad de México</strong>,
+            hemos perfeccionado cada detalle para ofrecerte un servicio
+            impecable. Desde la selección de los mejores dulces hasta el
+            montaje final, cuidamos cada aspecto para que tú solo te preocupes
+            por disfrutar.
+          </p>
+          <p>
+            Somos más que proveedores, somos cómplices de tus momentos más
+            dulces. Nuestro equipo profesional garantiza
+            <strong>puntualidad, calidad premium y atención personalizada</strong>
+            en cada evento. Tu satisfacción es nuestra mejor carta de
+            presentación.
+          </p>
+        </div>
+      </div>
+
+      <div class="porque-grid">
+        <a href="/porque-mededul" class="porque-card">
+          <img src={getCdnUrl("/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif")} alt="Diseño personalizado de mesas de dulces en CDMX - Candy bar a la medida de tu evento" loading="lazy" width="560" height="686" />
+          <div class="porque-card-content"><h4>Diseño Personalizado</h4></div>
+        </a>
+        <a href="/porque-mededul" class="porque-card">
+          <img src={getCdnUrl("/img/porque-elegirnos/calidad-premium-dulces.avif")} alt="Dulces y postres de calidad premium para mesas de dulces CDMX - Golosinas gourmet" loading="lazy" width="560" height="686" />
+          <div class="porque-card-content"><h4>Calidad Premium</h4></div>
+        </a>
+        <a href="/porque-mededul" class="porque-card">
+          <img src={getCdnUrl("/img/porque-elegirnos/servicio-completo-mesas.avif")} alt="Servicio completo de mesas de dulces con montaje y decoración en Ciudad de México" loading="lazy" width="560" height="686" />
+          <div class="porque-card-content"><h4>Servicio Completo</h4></div>
+        </a>
+        <a href="/porque-mededul" class="porque-card">
+          <img src={getCdnUrl("/img/porque-elegirnos/cero-estres-eventos.avif")} alt="Servicio profesional de mesas de dulces sin estrés - Montaje puntual garantizado CDMX" loading="lazy" width="560" height="686" />
+          <div class="porque-card-content"><h4>Cero Estrés</h4></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería Section -->
+  <section class="galeria-section section-padding" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>
+            Galería de
+            <span class="titulo-decorativo">Mesas de Dulces</span> en CDMX
+          </h2>
+          <p class="subtitulo">
+            Un vistazo a nuestro trabajo y la magia que creamos en cada evento
+          </p>
+        </div>
+        <div class="section-header-right">
+          <p>
+            Cada imagen cuenta una historia de celebración y alegría. Aquí
+            puedes ver ejemplos reales de nuestras
+            <strong>mesas de dulces para bodas, XV años, bautizos y fiestas infantiles</strong>. Cada montaje es único, diseñado especialmente para cada cliente.
+          </p>
+          <p>
+            Nos enorgullece mostrar el resultado de nuestra dedicación:
+            colores vibrantes, dulces irresistibles y presentaciones que roban
+            suspiros. <strong>Tu próximo evento podría estar aquí</strong>,
+            déjanos ser parte de tu historia.
+          </p>
+        </div>
+      </div>
+
+      <div class="galeria-grid">
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif")} alt="Mesa de dulces elegante para bodas con cristalería y flores CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif")} alt="Candy bar para XV años rosa elegante con globos CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif")} alt="Mesa de dulces para baby shower rosa con macarons y fresas CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif")} alt="Candy bar colorido para fiestas infantiles arcoíris CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif")} alt="Mesa de dulces corporativa de lujo con chocolates premium CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif")} alt="Candy bar para bautizo y comunión celeste con palomas CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/candy-bar-boda-jardin-luces-elegante.avif")} alt="Mesa de dulces para boda en jardín con luces elegantes CDMX" loading="lazy" height="438" width="800" />
+        </div>
+        <div class="galeria-item">
+          <img src={getCdnUrl("/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif")} alt="Mesa de dulces lujosa para XV años con cristalería rosa CDMX" loading="lazy" height="438" width="800" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
-  <section class="cta-section section-padding">
+  <section class="cta-section section-padding" id="cotizar">
     <div class="container">
       <div class="cta-content">
-        <h2>¿Listo para crear tu mesa de dulces perfecta?</h2>
-        <p>Contáctanos hoy y recibe una cotización personalizada para tu evento. Sin compromiso.</p>
+        <h2>¿Listo para endulzar tu evento?</h2>
+        <p>
+          Cuéntanos sobre tu celebración y recibe una cotización personalizada
+          sin compromiso. Respondemos en menos de 24 horas.
+        </p>
+
         <div class="cta-buttons">
-          <a href="/contacto" class="btn btn-white">Cotiza Gratis</a>
-          <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-            </svg>
-            WhatsApp
+          <a
+            href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para mi evento"
+            class="btn btn-white"
+            target="_blank"
+            rel="noopener"
+          >
+            Cotizar por WhatsApp
+          </a>
+          <a href="#contacto" class="btn btn-outline-white">
+            Enviar mensaje
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section section-padding">
+  <!-- Reseñas Section -->
+  <section class="resenas-section section-padding" id="resenas">
     <div class="container">
-      <div class="text-center" style="margin-bottom: 50px;">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Todo lo que necesitas saber sobre nuestras mesas de dulces</p>
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>
+            Reseñas de Clientes -
+            <span class="titulo-decorativo">Candy Bar CDMX</span>
+          </h2>
+          <p class="subtitulo">Historias dulces de eventos inolvidables</p>
+        </div>
+        <div class="section-header-right">
+          <p>
+            Nada nos hace más felices que ver la sonrisa de nuestros clientes.
+            Cada <strong>mesa de dulces</strong> que creamos es una
+            oportunidad para hacer realidad sus sueños y convertir sus
+            celebraciones en momentos mágicos.
+          </p>
+          <p>
+            Estas son algunas de las experiencias que han compartido con
+            nosotros. <strong>Tu historia podría ser la siguiente</strong>.
+          </p>
+        </div>
       </div>
+
+      <div class="resenas-grid">
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">MF</div>
+            <div class="resena-info">
+              <h4>María Fernanda G.</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Mi boda fue PERFECTA gracias a Mededul. Los invitados no dejaban
+            de tomar fotos de la mesa de dulces. Mi suegra dijo que fue lo
+            mejor de la fiesta... y eso que ella organizó el banquete!"
+          </p>
+          <span class="resena-evento">Boda en Polanco</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">RM</div>
+            <div class="resena-info">
+              <h4>Roberto Martínez</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Contraté para el evento de mi empresa pensando que sería 'solo
+            dulces'. ERROR. Fue una EXPERIENCIA. Mis empleados siguen hablando
+            de la fuente de chocolate 3 meses después."
+          </p>
+          <span class="resena-evento">Evento Corporativo</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">LH</div>
+            <div class="resena-info">
+              <h4>Lupita Hernández</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Los XV de mi hija fueron un sueño. Ella quería tema de mariposas
+            y Mededul creó una mesa que parecía sacada de Pinterest. Lloré de
+            la emoción (y del azúcar que comí)."
+          </p>
+          <span class="resena-evento">XV Años en Coyoacán</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">AS</div>
+            <div class="resena-info">
+              <h4>Ana Sofía Ruiz</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Baby shower con tema de ositos. Mi bebé aún no nace y ya tiene
+            más fotos con la mesa de dulces que yo en toda mi vida. 10/10
+            volvería a embarazarme solo por otra mesa así."
+          </p>
+          <span class="resena-evento">Baby Shower</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">CM</div>
+            <div class="resena-info">
+              <h4>Carlos Mendoza</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Sorprendí a mi esposa en nuestro aniversario. Cuando vio la mesa
+            de postres se puso a llorar. Punto extra: los niños se
+            entretuvieron tanto que tuvimos 2 horas de paz. INVALUABLE."
+          </p>
+          <span class="resena-evento">Aniversario</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">PV</div>
+            <div class="resena-info">
+              <h4>Patricia Vega</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Mi hijo de 6 años dijo que fue 'el mejor día de su vida
+            universal'. La mesa de dulces de dinosaurios fue ESPECTACULAR. Los
+            papás de sus amigos me siguen pidiendo el contacto."
+          </p>
+          <span class="resena-evento">Cumpleaños Infantil</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">DT</div>
+            <div class="resena-info">
+              <h4>Daniela Torres</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Pedí mesa de quesos para mi graduación porque quería ser
+            'diferente y sofisticada'. Resultado: todos mis amigos abandonaron
+            el DJ para quedarse comiendo queso. Misión cumplida."
+          </p>
+          <span class="resena-evento">Graduación</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">FL</div>
+            <div class="resena-info">
+              <h4>Fernando López</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Bautizo de mi sobrino. La abuela no paraba de decir 'en mis
+            tiempos no había esto'. Procedió a comerse media mesa ella sola.
+            La mejor inversión de la familia este año."
+          </p>
+          <span class="resena-evento">Bautizo</span>
+        </div>
+
+        <div class="resena-card">
+          <div class="resena-header">
+            <div class="resena-avatar">VR</div>
+            <div class="resena-info">
+              <h4>Valentina Ríos</h4>
+              <div class="resena-stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+          </div>
+          <p class="resena-texto">
+            "Segunda vez que contrato a Mededul. La primera fue tan buena que
+            mi hermana me dejó de hablar un mes porque 'opacó su boda'. Este
+            año contraté para MI boda. Venganza dulce."
+          </p>
+          <span class="resena-evento">Boda en Santa Fe</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section section-padding" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>
+            Preguntas <span class="titulo-decorativo">Frecuentes</span> sobre
+            Mesas de Dulces
+          </h2>
+          <p class="subtitulo">
+            Resolvemos todas tus dudas para que tu decisión sea más dulce
+          </p>
+        </div>
+        <div class="section-header-right">
+          <p>
+            Sabemos que planear un evento puede generar muchas preguntas. Por
+            eso hemos recopilado las dudas más comunes sobre nuestro
+            <strong>servicio de renta de mesas de dulces</strong> para
+            ayudarte a tomar la mejor decisión.
+          </p>
+          <p>
+            Si no encuentras la respuesta que buscas, no dudes en
+            contactarnos. Nuestro equipo está listo para asesorarte y crear
+            junto a ti la
+            <strong>mesa de dulces perfecta para tu celebración</strong>.
+          </p>
+        </div>
+      </div>
+
       <div class="faq-container">
         <div class="faq-item">
           <button class="faq-question">
-            ¿Cuánto cuesta una mesa de dulces en CDMX?
-            <span class="icon">+</span>
+            ¿Con cuánta anticipación debo reservar mi mesa de dulces?<span class="icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>El precio de una mesa de dulces varía según el número de invitados, tipo de dulces y complejidad del diseño. En Mededul manejamos paquetes desde $3,500 MXN para eventos pequeños hasta $15,000 MXN para grandes celebraciones.</p>
+            <p>
+              Recomendamos reservar con al menos 2-3 semanas de anticipación
+              para eventos regulares. Para temporadas altas (diciembre, mayo,
+              noviembre) sugerimos 4-6 semanas. Esto nos permite diseñar tu
+              mesa con calma y asegurar todos los productos especiales.
+            </p>
           </div>
         </div>
+
         <div class="faq-item">
           <button class="faq-question">
-            ¿Con cuánta anticipación debo reservar mi mesa de dulces?
-            <span class="icon">+</span>
+            ¿Qué incluye el servicio de mesa de dulces?<span class="icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Recomendamos reservar con 2-3 semanas de anticipación para eventos regulares. Para temporadas altas como diciembre, mayo y noviembre, sugerimos 4-6 semanas de anticipación.</p>
+            <p>
+              Nuestro servicio incluye: diseño personalizado según tu
+              temática, selección de dulces y productos, montaje profesional
+              en tu evento, mobiliario y decoración de la mesa, supervisión
+              durante el evento y desmontaje al finalizar. Tú solo disfrutas
+              con tus invitados.
+            </p>
           </div>
         </div>
+
         <div class="faq-item">
           <button class="faq-question">
-            ¿Qué incluye el servicio de renta de mesa de dulces?
-            <span class="icon">+</span>
+            ¿Pueden adaptar la mesa a mi tema o colores específicos?<span class="icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Nuestro servicio incluye: diseño personalizado, selección de dulces premium, montaje profesional, mobiliario y decoración, supervisión durante el evento y desmontaje al finalizar.</p>
+            <p>
+              ¡Absolutamente! Eso es lo que mejor hacemos. Ya sea Barbie,
+              superhéroes, elegante en dorado, temática mexicana o cualquier
+              idea que tengas, la hacemos realidad. Trabajamos contigo para
+              que cada detalle refleje tu visión.
+            </p>
           </div>
         </div>
+
         <div class="faq-item">
           <button class="faq-question">
-            ¿Qué zonas cubren en CDMX?
-            <span class="icon">+</span>
+            ¿Cuánto cuesta una mesa de dulces?<span class="icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Cubrimos toda la Ciudad de México y área metropolitana incluyendo Polanco, Santa Fe, Coyoacán, Naucalpan, Tlalnepantla, Huixquilucan e Interlomas.</p>
+            <p>
+              El precio varía según el número de invitados, tipo de dulces
+              seleccionados, complejidad del diseño y extras como estaciones
+              interactivas. Manejamos paquetes desde $3,500 MXN para eventos
+              pequeños. Contáctanos para una cotización personalizada sin
+              compromiso.
+            </p>
           </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Qué zonas cubren en CDMX?<span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Cubrimos toda la Ciudad de México y área metropolitana
+              (Naucalpan, Tlalnepantla, Huixquilucan, Coyoacán, Polanco, Santa
+              Fe, Interlomas, etc.). Para ubicaciones fuera de CDMX,
+              contáctanos para verificar disponibilidad y costos de traslado.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Ofrecen opciones para personas con restricciones alimenticias?<span class="icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>
+              ¡Sí! Podemos incluir opciones sin azúcar, sin gluten, veganas o
+              para cualquier restricción alimenticia. Solo cuéntanos las
+              necesidades de tus invitados y las integramos al diseño de tu
+              mesa sin problema.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto Section -->
+  <section class="contacto-section section-padding" id="contacto">
+    <div class="container">
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <h2>Contáctanos</h2>
+          <p class="contacto-intro">
+            Estamos listos para hacer de tu evento algo inolvidable.
+            Contáctanos por cualquiera de estos medios:
+          </p>
+
+          <div class="info-items-grid">
+            <div class="info-item info-sucursal">
+              <h4>Sucursal Condesa</h4>
+              <p>
+                Torre A, Av. Baja California 255, Col. Condesa, Cuauhtémoc,
+                06170 CDMX
+              </p>
+              <a
+                href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z"
+                target="_blank"
+                rel="noopener"
+                class="maps-link"
+              >Ver en Google Maps</a>
+            </div>
+
+            <div class="info-item info-sucursal">
+              <h4>Sucursal Anzures</h4>
+              <p>
+                Av. Ejército Nacional Mexicano 216, Anzures, Miguel Hidalgo,
+                11590 CDMX
+              </p>
+              <a
+                href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z"
+                target="_blank"
+                rel="noopener"
+                class="maps-link"
+              >Ver en Google Maps</a>
+            </div>
+
+            <div class="info-item info-contacto">
+              <h4>WhatsApp</h4>
+              <p><a href="tel:+525525226442">55 2522 6442</a></p>
+            </div>
+
+            <div class="info-item info-contacto">
+              <h4>Email</h4>
+              <p>
+                <a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a>
+              </p>
+            </div>
+
+            <div class="info-item info-horario">
+              <h4>Horario de Atención</h4>
+              <p>
+                Lun - Vie: 9:00 AM - 7:00 PM<br />Sábados: 10:00 AM - 3:00 PM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contacto-form-wrapper">
+          <h3>Reserva tu Evento</h3>
+          <p>Completa el formulario y te contactaremos por WhatsApp</p>
+
+          <form id="reserva-form" class="contacto-form">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                required
+                placeholder="Tu nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Teléfono / WhatsApp *</label>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                required
+                placeholder="55 1234 5678"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tipo-evento">Tipo de evento *</label>
+                <select id="tipo-evento" name="tipo-evento" required>
+                  <option value="">Selecciona...</option>
+                  <option value="Boda">Boda</option>
+                  <option value="XV Anos">XV Años</option>
+                  <option value="Baby Shower">Baby Shower</option>
+                  <option value="Cumpleanos">Cumpleaños</option>
+                  <option value="Bautizo">Bautizo</option>
+                  <option value="Comunion">Primera Comunión</option>
+                  <option value="Corporativo">Evento Corporativo</option>
+                  <option value="Graduacion">Graduación</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fecha">Fecha del evento *</label>
+                <input type="date" id="fecha" name="fecha" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="invitados">Número de invitados aproximado</label>
+              <input
+                type="number"
+                id="invitados"
+                name="invitados"
+                placeholder="100"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje">Cuéntanos sobre tu evento</label>
+              <textarea
+                id="mensaje"
+                name="mensaje"
+                rows="4"
+                placeholder="Describe tu evento, temática, colores, servicios que te interesan..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              Enviar por WhatsApp
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -279,6 +885,33 @@ import { getCdnUrl } from '@/lib/cdn';
         });
         item.classList.toggle('active');
       });
+    });
+
+    // Formulario de reserva
+    const reservaForm = document.getElementById('reserva-form');
+    reservaForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(reservaForm as HTMLFormElement);
+      const nombre = formData.get('nombre');
+      const telefono = formData.get('telefono');
+      const email = formData.get('email');
+      const tipoEvento = formData.get('tipo-evento');
+      const fecha = formData.get('fecha');
+      const invitados = formData.get('invitados');
+      const mensaje = formData.get('mensaje');
+
+      let whatsappMsg = `¡Hola! Me gustaría cotizar una mesa de dulces.\n\n`;
+      whatsappMsg += `*Nombre:* ${nombre}\n`;
+      whatsappMsg += `*Teléfono:* ${telefono}\n`;
+      if (email) whatsappMsg += `*Email:* ${email}\n`;
+      whatsappMsg += `*Tipo de evento:* ${tipoEvento}\n`;
+      whatsappMsg += `*Fecha:* ${fecha}\n`;
+      if (invitados) whatsappMsg += `*Invitados:* ${invitados}\n`;
+      if (mensaje) whatsappMsg += `\n*Detalles:* ${mensaje}`;
+
+      const encodedMsg = encodeURIComponent(whatsappMsg);
+      window.open(`https://wa.me/525525226442?text=${encodedMsg}`, '_blank');
     });
   </script>
 </BaseLayout>

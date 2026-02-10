@@ -58,10 +58,42 @@ const breadcrumbItems = [
 
 <style>
   .blog-hero {
-    background: linear-gradient(135deg, #E91E8C 0%, #c4177a 50%, #a01365 100%);
-    padding: 56px 0 62px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eaf7ff 0%, #f2fff8 52%, #fff8ee 100%);
+    padding: 52px 0 56px;
+    border-bottom: 1px solid rgba(116, 185, 255, 0.2);
+  }
+
+  .blog-hero::before,
+  .blog-hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .blog-hero::before {
+    width: 260px;
+    height: 260px;
+    right: -70px;
+    top: -70px;
+    background: rgba(116, 185, 255, 0.25);
+  }
+
+  .blog-hero::after {
+    width: 180px;
+    height: 180px;
+    left: -45px;
+    bottom: -45px;
+    background: rgba(85, 239, 196, 0.25);
+  }
+
+  .blog-hero .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
     text-align: center;
-    color: #fff;
   }
 
   .blog-hero h1 {
@@ -69,6 +101,7 @@ const breadcrumbItems = [
     margin: 0 0 14px;
     font-weight: 800;
     letter-spacing: -0.3px;
+    color: var(--negro-suave);
   }
 
   .blog-hero p {
@@ -76,6 +109,6 @@ const breadcrumbItems = [
     margin: 0 auto;
     font-size: 1.05rem;
     line-height: 1.75;
-    opacity: 0.95;
+    color: var(--gris-texto);
   }
 </style>

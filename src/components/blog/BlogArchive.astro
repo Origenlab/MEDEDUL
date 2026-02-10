@@ -129,7 +129,10 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
 <style>
   .blog-content {
     padding: 50px 0 70px;
-    background: var(--gris-claro);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(116, 185, 255, 0.12), transparent 38%),
+      radial-gradient(circle at 0% 100%, rgba(85, 239, 196, 0.11), transparent 36%),
+      var(--gris-claro);
   }
 
   .blog-layout {
@@ -137,6 +140,8 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     grid-template-columns: minmax(0, 1fr) 320px;
     gap: 30px;
     align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   .posts-grid {
@@ -149,10 +154,17 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(233, 30, 140, 0.05);
+    border: 1px solid rgba(116, 185, 255, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-color: rgba(116, 185, 255, 0.38);
   }
 
   .post-card > a:first-child {
@@ -180,15 +192,15 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: linear-gradient(135deg, rgba(233, 30, 140, 0.12) 0%, rgba(255, 107, 179, 0.08) 100%);
-    color: var(--rosa-principal);
+    background: linear-gradient(135deg, rgba(116, 185, 255, 0.18) 0%, rgba(85, 239, 196, 0.12) 100%);
+    color: #1d4f7a;
     padding: 6px 12px;
     border-radius: 50px;
     font-weight: 700;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    border: 1px solid rgba(233, 30, 140, 0.15);
+    border: 1px solid rgba(116, 185, 255, 0.25);
   }
 
   .post-card h3 {
@@ -223,7 +235,7 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
   }
 
   .post-card .btn.btn-primary {
-    background: var(--gradiente-rosa);
+    background: linear-gradient(135deg, #2f8fd8 0%, #4ecdc4 100%);
     color: #fff;
     padding: 12px 16px;
     margin: 0 20px 20px;
@@ -237,18 +249,18 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     justify-content: center;
     text-align: center;
     min-height: 44px;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
+    box-shadow: 0 4px 15px rgba(47, 143, 216, 0.3);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
   .post-card .btn.btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(233, 30, 140, 0.35);
+    box-shadow: 0 6px 18px rgba(47, 143, 216, 0.4);
   }
 
   .blog-sidebar {
     position: sticky;
-    top: 140px;
+    top: 126px;
     display: grid;
     gap: 16px;
   }
