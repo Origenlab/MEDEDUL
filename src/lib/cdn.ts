@@ -6,12 +6,6 @@
 export const CDN_CONFIG = {
   enabled: true,
   baseUrl: 'https://e2pex68gctc.exactdn.com',
-  // ExactDN optimization parameters
-  defaultParams: {
-    // Auto WebP/AVIF conversion
-    // Lazy loading support
-    // Responsive images
-  }
 } as const;
 
 const SITE_IMAGE_HOSTS = new Set([
@@ -61,45 +55,4 @@ export function getCdnUrl(imagePath: string, params?: Record<string, string | nu
   }
 
   return baseUrl;
-}
-
-/**
- * Get responsive image srcset for ExactDN
- * @param imagePath - Local image path
- * @param widths - Array of widths for srcset
- * @returns srcset string
- */
-export function getCdnSrcset(imagePath: string, widths: number[] = [320, 640, 960, 1280, 1920]): string {
-  if (!CDN_CONFIG.enabled || !imagePath) {
-    return '';
-  }
-
-  return widths
-    .map(width => `${getCdnUrl(imagePath, { w: width })} ${width}w`)
-    .join(', ');
-}
-
-/**
- * Image component props helper
- * @param imagePath - Local image path
- * @param alt - Alt text
- * @param width - Display width
- * @param height - Display height
- */
-export function getImageProps(
-  imagePath: string,
-  alt: string,
-  width?: number,
-  height?: number
-) {
-  return {
-    src: getCdnUrl(imagePath),
-    srcset: getCdnSrcset(imagePath),
-    sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
-    alt,
-    width,
-    height,
-    loading: 'lazy' as const,
-    decoding: 'async' as const,
-  };
 }

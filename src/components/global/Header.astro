@@ -1,5 +1,6 @@
 ---
 // Header Component - Professional Navigation
+import { getCdnUrl } from '@/lib/cdn';
 
 interface Props {
   currentPath?: string;
@@ -17,7 +18,7 @@ const menuItems = [
       {
         title: 'Tipos de Mesas',
         icon: '🍬',
-        color: '#E91E8C',
+        color: '#B31263',
         items: [
           { label: 'Mesa de Dulces', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces' },
           { label: 'Mesa de Frutas', href: '/tipos-de-mesas-de-dulces/mesa-de-frutas' },
@@ -89,13 +90,22 @@ const isActive = (item: typeof menuItems[0]) => {
   <div class="header__container">
     <!-- Logo -->
     <a href="/" class="header__logo">
-      <img
-        src="/img/mededul.png"
-        alt="Mededul - Mesas de Dulces CDMX"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <picture>
+        <source
+          type="image/avif"
+          srcset={`${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 190 })} 190w, ${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 280 })} 280w, ${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 560 })} 560w`}
+          sizes="(max-width: 480px) 190px, (max-width: 768px) 230px, 280px"
+        />
+        <img
+          src={getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 560 })}
+          alt="Mededul - Mesas de Dulces CDMX"
+          width="1296"
+          height="330"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
     </a>
 
     <!-- Desktop Navigation -->
@@ -307,6 +317,7 @@ const isActive = (item: typeof menuItems[0]) => {
     max-width: 1400px;
     margin: 0 auto;
     padding: 28px 30px;
+    min-height: 111px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -361,12 +372,12 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .header__link:hover {
-    color: #E91E8C;
+    color: #B31263;
     background: rgba(233, 30, 140, 0.05);
   }
 
   .header__link.active {
-    color: #E91E8C;
+    color: #B31263;
   }
 
   .header__link.active::after {
@@ -376,7 +387,7 @@ const isActive = (item: typeof menuItems[0]) => {
     left: 16px;
     right: 16px;
     height: 2px;
-    background: #E91E8C;
+    background: #B31263;
     border-radius: 2px;
   }
 
@@ -430,7 +441,7 @@ const isActive = (item: typeof menuItems[0]) => {
     gap: 8px;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--column-color, #E91E8C);
+    border-bottom: 2px solid var(--column-color, #B31263);
   }
 
   .mega-menu__icon {
@@ -466,7 +477,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mega-menu__link:hover {
-    color: #E91E8C;
+    color: #B31263;
     background: rgba(233, 30, 140, 0.06);
     padding-left: 16px;
   }
@@ -477,7 +488,7 @@ const isActive = (item: typeof menuItems[0]) => {
     gap: 6px;
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--column-color, #E91E8C);
+    color: var(--column-color, #B31263);
     text-decoration: none;
     padding: 8px 0;
     transition: gap 0.2s ease;
@@ -509,12 +520,12 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .header__phone:hover {
-    color: #E91E8C;
+    color: #B31263;
     background: rgba(233, 30, 140, 0.05);
   }
 
   .header__phone svg {
-    color: #E91E8C;
+    color: #B31263;
   }
 
   .header__cta {
@@ -524,7 +535,7 @@ const isActive = (item: typeof menuItems[0]) => {
     font-size: 0.95rem;
     font-weight: 600;
     color: #ffffff;
-    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
     border-radius: 50px;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
@@ -630,7 +641,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__link.active {
-    color: #E91E8C;
+    color: #B31263;
   }
 
   .mobile-menu__link svg {
@@ -666,7 +677,7 @@ const isActive = (item: typeof menuItems[0]) => {
     color: #333;
     background: rgba(0, 0, 0, 0.02);
     border: none;
-    border-left: 3px solid var(--column-color, #E91E8C);
+    border-left: 3px solid var(--column-color, #B31263);
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     text-align: left;
@@ -706,7 +717,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__sublink:hover {
-    color: #E91E8C;
+    color: #B31263;
     background: rgba(233, 30, 140, 0.05);
   }
 
@@ -715,7 +726,7 @@ const isActive = (item: typeof menuItems[0]) => {
     padding: 10px 16px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #E91E8C;
+    color: #B31263;
     text-decoration: none;
   }
 
@@ -742,7 +753,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__phone svg {
-    color: #E91E8C;
+    color: #B31263;
   }
 
   .mobile-menu__cta {
@@ -754,7 +765,7 @@ const isActive = (item: typeof menuItems[0]) => {
     color: #ffffff;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
   }
@@ -794,6 +805,7 @@ const isActive = (item: typeof menuItems[0]) => {
 
     .header__container {
       padding: 22px 16px;
+      min-height: 92px;
     }
 
     .header__logo img {
@@ -813,6 +825,7 @@ const isActive = (item: typeof menuItems[0]) => {
 
     .header__container {
       padding: 18px 12px;
+      min-height: 78px;
     }
 
     .header__logo img {

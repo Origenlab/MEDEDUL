@@ -8,8 +8,8 @@ import Footer from '@/components/global/Footer.astro';
 import WhatsAppButton from '@/components/global/WhatsAppButton.astro';
 import '@/styles/global.css';
 import '@/styles/layout.css';
-import '@/styles/blog.css';
-import '@/styles/article.css';
+import blogStylesHref from '@/styles/blog.css?url';
+import articleStylesHref from '@/styles/article.css?url';
 
 interface Props {
   title: string;
@@ -25,6 +25,8 @@ interface Props {
   includeOrganizationSchema?: boolean;
   includeLocalBusinessSchema?: boolean;
   includeServiceSchema?: boolean;
+  includeBlogStyles?: boolean;
+  includeArticleStyles?: boolean;
 }
 
 const {
@@ -37,7 +39,9 @@ const {
   noindex = false,
   includeOrganizationSchema = false,
   includeLocalBusinessSchema = false,
-  includeServiceSchema = false
+  includeServiceSchema = false,
+  includeBlogStyles = false,
+  includeArticleStyles = false
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -65,18 +69,25 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/png" sizes="16x16" href="/img/branding/favicon-mededul-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/img/branding/apple-touch-icon-mededul.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#E91E8C" />
-    <meta name="msapplication-TileColor" content="#E91E8C" />
+    <meta name="theme-color" content="#B31263" />
+    <meta name="msapplication-TileColor" content="#B31263" />
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: preload stylesheet to reduce text reflow -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=optional"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=optional"
       rel="stylesheet"
     />
+    {includeBlogStyles && <link rel="stylesheet" href={blogStylesHref} />}
+    {includeArticleStyles && <link rel="stylesheet" href={articleStylesHref} />}
 
     <!-- JSON-LD Schemas -->
     {includeOrganizationSchema && <JsonLd type="Organization" />}
@@ -99,17 +110,23 @@ const currentPath = Astro.url.pathname;
 
     <script is:inline>
       (() => {
+        let lastOffset = -1;
         const applyHeaderOffset = () => {
           const topBar = document.querySelector('.top-bar');
           const header = document.querySelector('.header');
           const offset = (topBar?.offsetHeight || 0) + (header?.offsetHeight || 0);
-          document.documentElement.style.setProperty('--site-header-offset', `${offset}px`);
+          if (offset !== lastOffset) {
+            lastOffset = offset;
+            document.documentElement.style.setProperty('--site-header-offset', `${offset}px`);
+          }
         };
 
-        applyHeaderOffset();
-        window.addEventListener('load', applyHeaderOffset);
-        window.addEventListener('resize', applyHeaderOffset);
-        document.addEventListener('astro:page-load', applyHeaderOffset);
+        const applyOnNextFrame = () => window.requestAnimationFrame(applyHeaderOffset);
+
+        applyOnNextFrame();
+        window.addEventListener('load', applyOnNextFrame, { passive: true });
+        window.addEventListener('resize', applyOnNextFrame, { passive: true });
+        document.addEventListener('astro:page-load', applyOnNextFrame);
       })();
     </script>
 

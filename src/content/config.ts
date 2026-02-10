@@ -66,7 +66,7 @@ export const categoryMeta = {
   'bodas': {
     name: 'Bodas',
     icon: '💒',
-    color: '#E91E8C',
+    color: '#B31263',
     description: 'Mesas de dulces para bodas elegantes'
   },
   'xv-anos': {
@@ -126,7 +126,7 @@ export const categoryMeta = {
   'tendencias': {
     name: 'Tendencias',
     icon: '✨',
-    color: '#FF6BB3',
+    color: '#C4177A',
     description: 'Las últimas tendencias en candy bar'
   },
   'estaciones': {
