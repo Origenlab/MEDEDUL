@@ -80,7 +80,7 @@ const breadcrumbItems = [
                 </div>
                 <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
                 <p>{post.data.description}</p>
-                <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category)}</a>
+                <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category, post.data.title)}</a>
               </article>
             );
           })}

@@ -7,20 +7,35 @@ import { getCollection } from 'astro:content';
 const PAGE_SIZE = 9;
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => a.data.title.localeCompare(b.data.title, 'es'));
-
-const posts = allPosts.slice(0, PAGE_SIZE);
 const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
+
+export async function getStaticPaths() {
+  const PAGE_SIZE = 9;
+  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+    .sort((a, b) => a.data.title.localeCompare(b.data.title, 'es'));
+  const totalPages = Math.ceil(posts.length / PAGE_SIZE);
+
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, idx) => ({
+    params: { page: String(idx + 2) },
+    props: { currentPage: idx + 2, totalPages }
+  }));
+}
+
+const { currentPage } = Astro.props;
+const pageIndex = (currentPage - 1) * PAGE_SIZE;
+const posts = allPosts.slice(pageIndex, pageIndex + PAGE_SIZE);
 const categories = [...new Set(allPosts.map(post => post.data.category))];
 const featuredPosts = allPosts.slice(0, 4);
 
 const breadcrumbItems = [
-  { name: 'Blog', url: '/blog' }
+  { name: 'Blog', url: '/blog' },
+  { name: `Pagina ${currentPage}`, url: `/blog/pagina/${currentPage}` }
 ];
 ---
 
 <BaseLayout
-  title="Blog de Mesas de Dulces y Candy Bar | Mededul"
-  description="Articulos sobre mesas de dulces para bodas, XV anos, eventos corporativos y fiestas. Ideas, tendencias y guias para tu evento."
+  title={`Blog - Pagina ${currentPage} | Mededul`}
+  description={`Pagina ${currentPage} del blog de Mededul con articulos y contenido sobre mesas de dulces, candy bar y eventos.`}
 >
   <div class="header-spacer"></div>
   <Breadcrumbs items={breadcrumbItems} />
@@ -28,9 +43,7 @@ const breadcrumbItems = [
   <section class="blog-hero">
     <div class="container">
       <h1>Blog de Mesas de Dulces</h1>
-      <p>
-        Ideas y guias practicas sobre candy bar, eventos sociales y contenido relacionado con nuestros servicios.
-      </p>
+      <p>Pagina {currentPage} de {totalPages}. Contenido relacionado, ideas y enlaces importantes para tu evento.</p>
     </div>
   </section>
 
@@ -38,7 +51,7 @@ const breadcrumbItems = [
     posts={posts}
     featuredPosts={featuredPosts}
     categories={categories}
-    currentPage={1}
+    currentPage={currentPage}
     totalPages={totalPages}
   />
 </BaseLayout>
