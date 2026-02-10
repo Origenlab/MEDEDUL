@@ -13,6 +13,8 @@ Esta guía documenta los componentes reutilizables del sitio. Cada componente ti
 | SectionHeader | `@/components/global/SectionHeader.astro` | Encabezados de sección con dos columnas |
 | ServiceCard | `@/components/global/ServiceCard.astro` | Cards de servicios con extracto SEO |
 | ReviewCard | `@/components/global/ReviewCard.astro` | Cards de reseñas/testimonios |
+| FAQ | `@/components/global/FAQ.astro` | Acordeón de preguntas frecuentes |
+| ContactSection | `@/components/global/ContactSection.astro` | Sección de contacto con formulario WhatsApp |
 
 ---
 
@@ -345,6 +347,152 @@ El grid es responsive:
 
 ---
 
+## 6. FAQ Component
+
+Acordeón de preguntas frecuentes con diseño moderno usando el elemento nativo `<details>`. Solo permite una pregunta abierta a la vez.
+
+### Props
+
+| Prop | Tipo | Requerido | Default | Descripción |
+|------|------|-----------|---------|-------------|
+| `items` | FAQItem[] | ✅ | - | Array de preguntas y respuestas |
+| `id` | string | ❌ | 'faq' | ID del contenedor |
+
+### Interface FAQItem
+```typescript
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+```
+
+### Ejemplo Básico
+```astro
+---
+import FAQ from '@/components/global/FAQ.astro';
+
+const faqItems = [
+  {
+    question: "¿Con cuánta anticipación debo reservar?",
+    answer: "Recomendamos reservar con 2-3 semanas de anticipación."
+  },
+  {
+    question: "¿Qué incluye el servicio?",
+    answer: "Diseño personalizado, montaje profesional y desmontaje."
+  }
+];
+---
+
+<FAQ items={faqItems} />
+```
+
+### Con ID Personalizado (para anchor links)
+```astro
+<FAQ items={faqItems} id="preguntas-frecuentes" />
+```
+
+### Características del diseño
+- Elemento nativo `<details>` para accesibilidad
+- Ícono + que rota a × cuando está abierto
+- Solo una pregunta abierta a la vez (JavaScript)
+- Animación de fade-in en las respuestas
+- Bordes y sombras sutiles con hover states
+- Color rosa principal en estados activos
+- Responsive para todos los dispositivos
+
+---
+
+## 7. ContactSection Component
+
+Sección completa de contacto con información de sucursales, datos de contacto y formulario integrado con WhatsApp. Diseño moderno con cards e iconos.
+
+### Props
+
+| Prop | Tipo | Requerido | Default | Descripción |
+|------|------|-----------|---------|-------------|
+| `phone` | string | ❌ | '55 2522 6442' | Número de teléfono mostrado |
+| `email` | string | ❌ | 'info@mesas-de-dulces.com' | Email de contacto |
+| `whatsappNumber` | string | ❌ | '525525226442' | Número WhatsApp (sin +) |
+
+### Ejemplo Básico
+```astro
+---
+import ContactSection from '@/components/global/ContactSection.astro';
+---
+
+<ContactSection />
+```
+
+### Con Props Personalizados
+```astro
+<ContactSection
+  phone="55 1234 5678"
+  email="ventas@mesas-de-dulces.com"
+  whatsappNumber="5551234567"
+/>
+```
+
+### Estructura del Componente
+
+**Columna Izquierda (Info):**
+- Badge "Contáctanos"
+- Título con highlight decorativo
+- Texto introductorio
+- Cards de sucursales (Condesa y Anzures)
+- Cards de WhatsApp y Email
+- Card de horario de atención
+
+**Columna Derecha (Formulario):**
+- Campos: nombre, teléfono (con ícono WhatsApp), email
+- Selects: tipo de evento (con emojis), fecha
+- Campo: número de invitados
+- Textarea: mensaje/detalles
+- Botón verde de WhatsApp
+- Disclaimer de redirección
+
+### Campos del Formulario
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| nombre | text | ✅ | Nombre completo |
+| telefono | tel | ✅ | WhatsApp del cliente |
+| email | email | ❌ | Email opcional |
+| tipo-evento | select | ✅ | Tipo de evento (con emojis) |
+| fecha | date | ✅ | Fecha del evento |
+| invitados | number | ❌ | Número aproximado |
+| mensaje | textarea | ❌ | Detalles del evento |
+
+### Opciones de Tipo de Evento
+- Boda, XV Años, Baby Shower
+- Cumpleaños, Bautizo, Primera Comunión
+- Evento Corporativo, Graduación, Otro
+
+### Integración WhatsApp
+El formulario construye automáticamente un mensaje estructurado y abre WhatsApp Web/App con los datos pre-llenados:
+
+```
+¡Hola! Me gustaría cotizar una mesa de dulces.
+
+*Nombre:* Juan Pérez
+*Teléfono:* 55 1234 5678
+*Email:* juan@email.com
+*Tipo de evento:* Boda
+*Fecha:* 2026-06-15
+*Invitados:* 150
+
+*Detalles:* Mesa de dulces elegante con colores blanco y dorado...
+```
+
+### Características del diseño
+- Layout de 2 columnas (1 columna en mobile)
+- Cards con iconos de colores (rosa, verde, morado)
+- Inputs con bordes redondeados y estados de focus
+- Botón verde WhatsApp con ícono
+- Totalmente responsive
+- CSS scoped (no afecta otros componentes)
+
+---
+
 ## Estructura de Archivos
 
 ```
@@ -356,6 +504,8 @@ src/
 │       ├── SectionHeader.astro  # Headers de sección
 │       ├── ServiceCard.astro    # Cards de servicios
 │       ├── ReviewCard.astro     # Cards de reseñas
+│       ├── FAQ.astro            # Acordeón de FAQs
+│       ├── ContactSection.astro # Formulario de contacto
 │       ├── Header.astro         # Navegación
 │       ├── Footer.astro         # Pie de página
 │       ├── TopBar.astro         # Barra superior
@@ -411,7 +561,9 @@ Los componentes usan estas variables definidas en `global.css`:
 3. [ ] Usar `Hero` con props apropiados
 4. [ ] Usar `SectionHeader` para cada sección con título
 5. [ ] Considerar `showCTA={true}` en Hero para retención
-6. [ ] Verificar meta tags (title, description) en BaseLayout
+6. [ ] Agregar `FAQ` si la página tiene preguntas frecuentes
+7. [ ] Agregar `ContactSection` si necesita formulario de contacto
+8. [ ] Verificar meta tags (title, description) en BaseLayout
 
 ---
 
@@ -423,9 +575,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
 
 const breadcrumbItems = [
   { name: 'Mi Página', url: '/mi-pagina' }
+];
+
+const faqItems = [
+  { question: "¿Primera pregunta?", answer: "Primera respuesta." },
+  { question: "¿Segunda pregunta?", answer: "Segunda respuesta." }
 ];
 ---
 
@@ -459,6 +618,19 @@ const breadcrumbItems = [
       <!-- Contenido de la sección -->
     </div>
   </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas Frecuentes"
+        titleHighlight="Frecuentes"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqItems} />
+    </div>
+  </section>
+
+  <ContactSection />
 </BaseLayout>
 ```
 

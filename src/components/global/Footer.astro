@@ -1,164 +1,1087 @@
 ---
-// Footer Component - Complete site footer
-import { getCdnUrl } from '@/lib/cdn';
+/**
+ * Footer Component - Professional Modern Design
+ * =============================================
+ * Footer elegante y moderno para el sitio.
+ * Incluye brand, navegación, contacto, zonas y legal.
+ */
 
 const currentYear = new Date().getFullYear();
+
+// Navigation Links
+const serviciosLinks = [
+  { label: 'Mesa de Dulces', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces' },
+  { label: 'Mesa de Postres', href: '/tipos-de-mesas-de-dulces/mesa-de-postres' },
+  { label: 'Mesa de Frutas', href: '/tipos-de-mesas-de-dulces/mesa-de-frutas' },
+  { label: 'Dulces Tradicionales', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales' },
+  { label: 'Donas y Cupcakes', href: '/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes' }
+];
+
+const eventosLinks = [
+  { label: 'Bodas', href: '/candy-bar-eventos/mesa-dulces-boda' },
+  { label: 'XV Años', href: '/candy-bar-eventos/mesa-dulces-xv-anos' },
+  { label: 'Baby Shower', href: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { label: 'Bautizos', href: '/candy-bar-eventos/mesa-dulces-bautizo' },
+  { label: 'Corporativos', href: '/candy-bar-eventos/mesa-dulces-corporativos' }
+];
+
+const estacionesLinks = [
+  { label: 'Fuente de Chocolate', href: '/estaciones-interactivas/fuente-de-chocolate' },
+  { label: 'Fuente de Chamoy', href: '/estaciones-interactivas/fuente-de-chamoy' },
+  { label: 'Pared de Dulces', href: '/estaciones-interactivas/pared-de-dulces' },
+  { label: 'Stand para Pastel', href: '/estaciones-interactivas/stand-para-pastel' }
+];
+
+const empresaLinks = [
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Blog', href: '/blog' },
+  { label: '¿Por qué Mededul?', href: '/porque-mededul' },
+  { label: 'Galería', href: '/galeria' },
+  { label: 'Contacto', href: '/#contacto' }
+];
+
+// Legal y Recursos
+const legalLinks = [
+  { label: 'Aviso de Privacidad', href: '/aviso-privacidad' },
+  { label: 'Términos y Condiciones', href: '/terminos-condiciones' },
+  { label: 'Preguntas Frecuentes', href: '/#faq' },
+  { label: 'Mapa del Sitio', href: '/sitemap.xml' }
+];
+
+// Sucursales
+const sucursales = [
+  {
+    nombre: 'Sucursal Anzures',
+    direccion: 'Av. Ejército Nacional Mexicano 216',
+    colonia: 'Anzures, Miguel Hidalgo, 11590',
+    ciudad: 'Ciudad de México, CDMX',
+    telefono: '55 2522 6442',
+    horario: 'Abierto 24 horas',
+    mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9'
+  },
+  {
+    nombre: 'Sucursal Condesa',
+    direccion: 'Torre A, Av. Baja California 255',
+    colonia: 'Colonia Condesa, Cuauhtémoc, 06170',
+    ciudad: 'Ciudad de México, CDMX',
+    telefono: '55 2522 6442',
+    horario: 'Lun - Sáb: 10:00 - 19:00',
+    mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86'
+  }
+];
+
+// Zonas de servicio
+const zonas = [
+  { nombre: 'Poniente', areas: ['Polanco', 'Santa Fe', 'Lomas', 'Interlomas'] },
+  { nombre: 'Sur', areas: ['Coyoacán', 'Pedregal', 'Tlalpan', 'San Ángel'] },
+  { nombre: 'Norte', areas: ['Satélite', 'Naucalpan', 'Tlalnepantla', 'Atizapán'] },
+  { nombre: 'Centro', areas: ['Roma', 'Condesa', 'Del Valle', 'Nápoles'] }
+];
 ---
 
 <footer class="footer">
-  <div class="footer-top">
-    <div class="container">
-      <!-- Row 1: Brand + Links -->
-      <div class="footer-row-1">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo">
-            <img
-              src={getCdnUrl("/img/branding/logo-mededul-mesas-de-dulces.avif")}
-              alt="Mededul - Mesas de Dulces"
-              width="180"
-              height="55"
-              loading="lazy"
-            />
+  <!-- Main Footer -->
+  <div class="footer__main">
+    <div class="footer__container">
+      <!-- Brand Column -->
+      <div class="footer__brand">
+        <a href="/" class="footer__logo">
+          <span class="footer__logo-text">Mededul</span>
+          <span class="footer__logo-sub">Mesas de Dulces</span>
+        </a>
+        <p class="footer__tagline">
+          Creamos experiencias dulces e inolvidables para tus eventos especiales en CDMX y área metropolitana.
+        </p>
+
+        <!-- Social Links -->
+        <div class="footer__social">
+          <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
           </a>
-          <p class="footer-tagline">
-            Creamos experiencias dulces e inolvidables para tus eventos especiales en CDMX y área metropolitana.
-          </p>
-          <div class="footer-social">
-            <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
-            <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
-            <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener noreferrer" class="social-link">TikTok</a>
-            <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
-          </div>
+          <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="footer__social-link footer__social-link--whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
         </div>
 
-        <div class="footer-links">
-          <h4>Servicios</h4>
-          <ul>
-            <li><a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a></li>
-            <li><a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a></li>
-            <li><a href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales">Tradicionales</a></li>
-            <li><a href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes">Donas y Cupcakes</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>Eventos</h4>
-          <ul>
-            <li><a href="/candy-bar-eventos/mesa-dulces-boda">Bodas</a></li>
-            <li><a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a></li>
-            <li><a href="/candy-bar-eventos/mesa-dulces-baby-shower">Baby Shower</a></li>
-            <li><a href="/candy-bar-eventos/mesa-dulces-bautizo">Bautizos</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>Estaciones</h4>
-          <ul>
-            <li><a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a></li>
-            <li><a href="/estaciones-interactivas/fuente-de-chamoy">Fuente de Chamoy</a></li>
-            <li><a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a></li>
-            <li><a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>Empresa</h4>
-          <ul>
-            <li><a href="/nosotros">Nosotros</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/contacto">Contacto</a></li>
-            <li><a href="/porque-mededul">¿Por qué Mededul?</a></li>
-          </ul>
+        <!-- Contact Quick -->
+        <div class="footer__contact-quick">
+          <a href="tel:+525525226442" class="footer__phone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            55 2522 6442
+          </a>
+          <a href="mailto:info@mesas-de-dulces.com" class="footer__email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+            info@mesas-de-dulces.com
+          </a>
         </div>
       </div>
 
-      <!-- Row 2: Zones + Contact -->
-      <div class="footer-row-2">
-        <div class="footer-contact">
-          <h4>Contacto</h4>
-
-          <div class="sucursal-card">
-            <span class="sucursal-badge">Sucursal Polanco</span>
-            <p class="sucursal-direccion">Polanco, Miguel Hidalgo<br/>Ciudad de México, CDMX</p>
-            <a href="https://maps.google.com/?q=Polanco,+CDMX" target="_blank" rel="noopener noreferrer" class="footer-maps-link">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              Ver en Mapa
-            </a>
-          </div>
-
-          <div class="sucursal-card">
-            <span class="sucursal-badge">Sucursal Pedregal</span>
-            <p class="sucursal-direccion">Pedregal de San Ángel<br/>Ciudad de México, CDMX</p>
-            <a href="https://maps.google.com/?q=Pedregal+de+San+Angel,+CDMX" target="_blank" rel="noopener noreferrer" class="footer-maps-link">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              Ver en Mapa
-            </a>
-          </div>
-
-          <div class="contacto-directo">
-            <a href="tel:+525525226442" class="footer-phone">55 2522 6442</a>
-            <a href="mailto:info@mesas-de-dulces.com" class="footer-email">info@mesas-de-dulces.com</a>
-          </div>
-        </div>
-
-        <div class="footer-zona-col">
-          <h5>Zona Poniente</h5>
-          <ul>
-            <li>Polanco</li>
-            <li>Santa Fe</li>
-            <li>Lomas de Chapultepec</li>
-            <li>Interlomas</li>
+      <!-- Navigation Columns -->
+      <div class="footer__nav">
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-title">Servicios</h4>
+          <ul class="footer__nav-list">
+            {serviciosLinks.map(link => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
           </ul>
         </div>
 
-        <div class="footer-zona-col">
-          <h5>Zona Sur</h5>
-          <ul>
-            <li>Coyoacán</li>
-            <li>Pedregal</li>
-            <li>Tlalpan</li>
-            <li>San Ángel</li>
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-title">Eventos</h4>
+          <ul class="footer__nav-list">
+            {eventosLinks.map(link => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
           </ul>
         </div>
 
-        <div class="footer-zona-col">
-          <h5>Zona Norte</h5>
-          <ul>
-            <li>Naucalpan</li>
-            <li>Tlalnepantla</li>
-            <li>Satélite</li>
-            <li>Atizapán</li>
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-title">Estaciones</h4>
+          <ul class="footer__nav-list">
+            {estacionesLinks.map(link => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
           </ul>
         </div>
 
-        <div class="footer-zona-col">
-          <h5>Zona Centro</h5>
-          <ul>
-            <li>Roma</li>
-            <li>Condesa</li>
-            <li>Del Valle</li>
-            <li>Nápoles</li>
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-title">Empresa</h4>
+          <ul class="footer__nav-list">
+            {empresaLinks.map(link => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="footer__nav-col">
+          <h4 class="footer__nav-title">Legal</h4>
+          <ul class="footer__nav-list">
+            {legalLinks.map(link => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <div class="container">
-      <div class="footer-bottom-content">
-        <p>&copy; {currentYear} Mededul - Mesas de Dulces CDMX. Todos los derechos reservados.</p>
-        <div class="footer-legal">
-          <a href="/aviso-privacidad">Aviso de Privacidad</a>
-          <a href="/terminos-condiciones">Términos y Condiciones</a>
+  <!-- Sucursales Section -->
+  <div class="footer__sucursales">
+    <div class="footer__container">
+      <div class="footer__sucursales-header">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <h3>Nuestras Sucursales</h3>
+      </div>
+      <div class="footer__sucursales-grid">
+        {sucursales.map(suc => (
+          <div class="footer__sucursal">
+            <div class="footer__sucursal-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="footer__sucursal-info">
+              <h4 class="footer__sucursal-nombre">{suc.nombre}</h4>
+              <p class="footer__sucursal-direccion">{suc.direccion}</p>
+              <p class="footer__sucursal-colonia">{suc.colonia}</p>
+              <p class="footer__sucursal-ciudad">{suc.ciudad}</p>
+              <div class="footer__sucursal-detalles">
+                <span class="footer__sucursal-tel">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                  {suc.telefono}
+                </span>
+                <span class="footer__sucursal-horario">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  {suc.horario}
+                </span>
+              </div>
+              <a href={suc.mapsUrl} target="_blank" rel="noopener noreferrer" class="footer__sucursal-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Ver en Google Maps
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Zones Section -->
+  <div class="footer__zones">
+    <div class="footer__container">
+      <div class="footer__zones-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>Servicio en toda la CDMX y Área Metropolitana</span>
+      </div>
+      <div class="footer__zones-grid">
+        {zonas.map(zona => (
+          <div class="footer__zone">
+            <h5 class="footer__zone-title">Zona {zona.nombre}</h5>
+            <ul class="footer__zone-list">
+              {zona.areas.map(area => (
+                <li>{area}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer__bottom">
+    <div class="footer__container">
+      <div class="footer__bottom-content">
+        <p class="footer__copyright">
+          &copy; {currentYear} <strong>Mededul</strong> - Mesas de Dulces CDMX. Todos los derechos reservados.
+        </p>
+        <div class="footer__bottom-links">
+          <a href="/aviso-privacidad">Privacidad</a>
+          <span class="footer__link-divider"></span>
+          <a href="/terminos-condiciones">Términos</a>
+          <span class="footer__link-divider"></span>
+          <a href="/sitemap.xml">Sitemap</a>
+          <span class="footer__link-divider"></span>
+          <a href="/#faq">FAQ</a>
         </div>
+        <p class="footer__made">
+          Hecho con <span class="footer__heart">♥</span> en CDMX
+        </p>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  /* =====================================================
+     FOOTER COMPONENT - Professional Modern Design
+     ===================================================== */
+
+  .footer {
+    background: linear-gradient(180deg, #2d2d3a 0%, #1e1e28 100%);
+    color: #ffffff;
+  }
+
+  .footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* =========================
+     MAIN SECTION
+     ========================= */
+  .footer__main {
+    padding: 70px 0 50px;
+  }
+
+  .footer__main .footer__container {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 60px;
+  }
+
+  /* Brand Column */
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer__logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .footer__logo-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2rem;
+    color: var(--rosa-principal, #D1007A);
+    line-height: 1;
+  }
+
+  .footer__logo-sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .footer__tagline {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    max-width: 300px;
+  }
+
+  /* Social Links */
+  .footer__social {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .footer__social-link:hover {
+    background: var(--rosa-principal, #D1007A);
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  .footer__social-link--whatsapp:hover {
+    background: #25D366;
+  }
+
+  /* Contact Quick */
+  .footer__contact-quick {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__phone,
+  .footer__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer__phone:hover,
+  .footer__email:hover {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__phone svg,
+  .footer__email svg {
+    color: var(--rosa-principal, #D1007A);
+    flex-shrink: 0;
+  }
+
+  /* =========================
+     NAVIGATION
+     ========================= */
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+  }
+
+  .footer__nav-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__nav-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--rosa-principal, #D1007A);
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .footer__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer__nav-list li a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+    position: relative;
+  }
+
+  .footer__nav-list li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background: var(--rosa-principal, #D1007A);
+    transition: width 0.3s ease;
+  }
+
+  .footer__nav-list li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+  }
+
+  .footer__nav-list li a:hover::before {
+    width: 100%;
+  }
+
+  /* =========================
+     SUCURSALES SECTION
+     ========================= */
+  .footer__sucursales {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer__sucursales-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .footer__sucursales-header svg {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__sucursales-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .footer__sucursales-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer__sucursal {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .footer__sucursal:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(209, 0, 122, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .footer__sucursal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.2) 0%, rgba(160, 0, 95, 0.15) 100%);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .footer__sucursal-icon svg {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__sucursal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer__sucursal-nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .footer__sucursal-direccion {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .footer__sucursal-colonia {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .footer__sucursal-ciudad {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+  }
+
+  .footer__sucursal-detalles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-top: 8px;
+  }
+
+  .footer__sucursal-tel,
+  .footer__sucursal-horario {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .footer__sucursal-tel svg,
+  .footer__sucursal-horario svg {
+    color: var(--rosa-principal, #D1007A);
+    opacity: 0.8;
+  }
+
+  .footer__sucursal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.15) 0%, rgba(160, 0, 95, 0.1) 100%);
+    border: 1px solid rgba(209, 0, 122, 0.3);
+    border-radius: 8px;
+    color: var(--rosa-principal, #D1007A);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+
+  .footer__sucursal-link:hover {
+    background: var(--rosa-principal, #D1007A);
+    color: #ffffff;
+    border-color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__sucursal-link svg {
+    transition: transform 0.2s ease;
+  }
+
+  .footer__sucursal-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* =========================
+     ZONES SECTION
+     ========================= */
+  .footer__zones {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 30px 0;
+  }
+
+  .footer__zones-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+  }
+
+  .footer__zones-header svg {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__zones-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .footer__zone {
+    text-align: center;
+  }
+
+  .footer__zone-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--rosa-principal, #D1007A);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer__zone-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .footer__zone-list li {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+  }
+
+  /* =========================
+     BOTTOM BAR
+     ========================= */
+  .footer__bottom {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .footer__bottom-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer__copyright {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }
+
+  .footer__copyright strong {
+    color: var(--rosa-principal, #D1007A);
+    font-weight: 600;
+  }
+
+  .footer__bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer__bottom-links a {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer__bottom-links a:hover {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .footer__link-divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .footer__made {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+
+  .footer__heart {
+    color: var(--rosa-principal, #D1007A);
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* =========================
+     RESPONSIVE - Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .footer__main .footer__container {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .footer__brand {
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer__tagline {
+      max-width: 400px;
+    }
+
+    .footer__social {
+      justify-content: center;
+    }
+
+    .footer__contact-quick {
+      align-items: center;
+    }
+
+    .footer__nav {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
+
+    .footer__nav-title {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .footer__nav {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px 24px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .footer__main {
+      padding: 50px 0 40px;
+    }
+
+    .footer__nav {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px 24px;
+    }
+
+    .footer__sucursales {
+      padding: 35px 0;
+    }
+
+    .footer__sucursales-grid {
+      gap: 24px;
+    }
+
+    .footer__sucursal {
+      padding: 20px;
+    }
+
+    .footer__zones-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .footer__container {
+      padding: 0 20px;
+    }
+
+    .footer__main {
+      padding: 45px 0 35px;
+    }
+
+    .footer__logo-text {
+      font-size: 1.9rem;
+    }
+
+    .footer__logo-sub {
+      font-size: 0.75rem;
+    }
+
+    .footer__tagline {
+      font-size: 0.9rem;
+    }
+
+    .footer__social-link {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
+
+    .footer__social-link svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer__nav {
+      gap: 30px 20px;
+    }
+
+    .footer__nav-title {
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+    }
+
+    .footer__nav-list {
+      gap: 10px;
+    }
+
+    .footer__nav-list li a {
+      font-size: 0.85rem;
+    }
+
+    .footer__zones {
+      padding: 24px 0;
+    }
+
+    .footer__zones-header {
+      font-size: 0.8rem;
+      margin-bottom: 20px;
+    }
+
+    .footer__zone-title {
+      font-size: 0.75rem;
+    }
+
+    .footer__zone-list li {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+    }
+
+    .footer__sucursales {
+      padding: 30px 0;
+    }
+
+    .footer__sucursales-header {
+      margin-bottom: 24px;
+    }
+
+    .footer__sucursales-header h3 {
+      font-size: 1.1rem;
+    }
+
+    .footer__sucursales-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .footer__sucursal {
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .footer__sucursal-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .footer__sucursal-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer__sucursal-nombre {
+      font-size: 0.95rem;
+    }
+
+    .footer__sucursal-direccion {
+      font-size: 0.85rem;
+    }
+
+    .footer__sucursal-colonia {
+      font-size: 0.8rem;
+    }
+
+    .footer__sucursal-ciudad {
+      font-size: 0.78rem;
+    }
+
+    .footer__sucursal-detalles {
+      gap: 10px 16px;
+    }
+
+    .footer__sucursal-tel,
+    .footer__sucursal-horario {
+      font-size: 0.78rem;
+    }
+
+    .footer__sucursal-link {
+      font-size: 0.78rem;
+      padding: 7px 14px;
+    }
+
+    .footer__bottom {
+      padding: 20px 0;
+    }
+
+    .footer__bottom-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .footer__copyright {
+      font-size: 0.78rem;
+      order: 2;
+    }
+
+    .footer__bottom-links {
+      order: 1;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer__bottom-links a {
+      font-size: 0.76rem;
+    }
+
+    .footer__made {
+      order: 3;
+      font-size: 0.76rem;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Small Mobile
+     ========================= */
+  @media (max-width: 540px) {
+    .footer__main {
+      padding: 40px 0 30px;
+    }
+
+    .footer__container {
+      padding: 0 16px;
+    }
+
+    .footer__logo-text {
+      font-size: 1.7rem;
+    }
+
+    .footer__logo-sub {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+    }
+
+    .footer__tagline {
+      font-size: 0.85rem;
+    }
+
+    .footer__nav {
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 16px;
+    }
+
+    .footer__zones-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .footer__zone-list {
+      gap: 6px;
+    }
+
+    .footer__sucursales {
+      padding: 28px 0;
+    }
+
+    .footer__sucursal {
+      padding: 16px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer__sucursal-info {
+      align-items: center;
+    }
+
+    .footer__sucursal-detalles {
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .footer__nav {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      text-align: center;
+    }
+
+    .footer__nav-col {
+      align-items: center;
+    }
+
+    .footer__zones-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .footer__bottom-links {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer__link-divider {
+      display: none;
+    }
+  }
+</style>

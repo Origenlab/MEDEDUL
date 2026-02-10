@@ -1,0 +1,895 @@
+---
+/**
+ * ContactSection Component - Modern Contact & Form Design
+ * =======================================================
+ * Sección de contacto profesional con información y formulario.
+ * Diseño moderno con íconos, cards y formulario optimizado.
+ */
+
+interface Props {
+  phone?: string;
+  email?: string;
+  whatsappNumber?: string;
+}
+
+const {
+  phone = '55 2522 6442',
+  email = 'info@mesas-de-dulces.com',
+  whatsappNumber = '525525226442'
+} = Astro.props;
+---
+
+<section class="contact-section" id="contacto">
+  <div class="contact-container">
+    <!-- Info Column -->
+    <div class="contact-info">
+      <div class="contact-info__header">
+        <span class="contact-info__badge">Contáctanos</span>
+        <h2 class="contact-info__title">
+          Hagamos tu evento <span>inolvidable</span>
+        </h2>
+        <p class="contact-info__intro">
+          Nuestro equipo está listo para asesorarte y crear la mesa de dulces perfecta para tu celebración.
+        </p>
+      </div>
+
+      <div class="contact-cards">
+        <!-- Sucursal Condesa -->
+        <div class="contact-card">
+          <div class="contact-card__icon contact-card__icon--location">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-card__content">
+            <h3>Sucursal Condesa</h3>
+            <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtémoc, 06170 CDMX</p>
+            <a
+              href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z"
+              target="_blank"
+              rel="noopener"
+              class="contact-card__link"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+              </svg>
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Sucursal Anzures -->
+        <div class="contact-card">
+          <div class="contact-card__icon contact-card__icon--location">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-card__content">
+            <h3>Sucursal Anzures</h3>
+            <p>Av. Ejército Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
+            <a
+              href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z"
+              target="_blank"
+              rel="noopener"
+              class="contact-card__link"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+              </svg>
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Info Row -->
+        <div class="contact-cards__row">
+          <!-- WhatsApp -->
+          <div class="contact-card contact-card--small">
+            <div class="contact-card__icon contact-card__icon--whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </div>
+            <div class="contact-card__content">
+              <h3>WhatsApp</h3>
+              <a href={`tel:+${whatsappNumber}`}>{phone}</a>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="contact-card contact-card--small">
+            <div class="contact-card__icon contact-card__icon--email">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 6l-10 7L2 6"/>
+              </svg>
+            </div>
+            <div class="contact-card__content">
+              <h3>Email</h3>
+              <a href={`mailto:${email}`}>{email}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horario -->
+        <div class="contact-card contact-card--schedule">
+          <div class="contact-card__icon contact-card__icon--clock">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="contact-card__content">
+            <h3>Horario de Atención</h3>
+            <div class="schedule-grid">
+              <span>Lun - Vie:</span><strong>9:00 AM - 7:00 PM</strong>
+              <span>Sábados:</span><strong>10:00 AM - 3:00 PM</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Column -->
+    <div class="contact-form-wrapper">
+      <div class="contact-form__header">
+        <h3>Reserva tu Evento</h3>
+        <p>Completa el formulario y te contactaremos por WhatsApp para darte una cotización personalizada</p>
+      </div>
+
+      <form id="reserva-form" class="contact-form">
+        <div class="form-group">
+          <label for="nombre">Nombre completo <span class="required">*</span></label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            placeholder="Tu nombre completo"
+            autocomplete="name"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefono">WhatsApp <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </span>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                required
+                placeholder="55 1234 5678"
+                autocomplete="tel"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="tu@email.com"
+              autocomplete="email"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo-evento">Tipo de evento <span class="required">*</span></label>
+            <select id="tipo-evento" name="tipo-evento" required>
+              <option value="">Selecciona tu evento...</option>
+              <option value="Boda">💒 Boda</option>
+              <option value="XV Anos">👑 XV Años</option>
+              <option value="Baby Shower">👶 Baby Shower</option>
+              <option value="Cumpleanos">🎂 Cumpleaños</option>
+              <option value="Bautizo">⛪ Bautizo</option>
+              <option value="Comunion">✝️ Primera Comunión</option>
+              <option value="Corporativo">🏢 Evento Corporativo</option>
+              <option value="Graduacion">🎓 Graduación</option>
+              <option value="Otro">✨ Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">Fecha del evento <span class="required">*</span></label>
+            <input type="date" id="fecha" name="fecha" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="invitados">Número de invitados aproximado</label>
+          <input
+            type="number"
+            id="invitados"
+            name="invitados"
+            placeholder="Ej: 100 personas"
+            min="1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Cuéntanos sobre tu evento</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="4"
+            placeholder="Describe tu evento: temática, colores preferidos, servicios que te interesan, ubicación..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Enviar por WhatsApp
+        </button>
+
+        <p class="form-disclaimer">
+          Al enviar este formulario serás redirigido a WhatsApp para completar tu solicitud
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ whatsappNumber }}>
+  // Formulario de reserva - WhatsApp integration
+  function initContactForm() {
+    const reservaForm = document.getElementById('reserva-form');
+
+    reservaForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(reservaForm);
+      const nombre = formData.get('nombre');
+      const telefono = formData.get('telefono');
+      const email = formData.get('email');
+      const tipoEvento = formData.get('tipo-evento');
+      const fecha = formData.get('fecha');
+      const invitados = formData.get('invitados');
+      const mensaje = formData.get('mensaje');
+
+      let whatsappMsg = `¡Hola! Me gustaría cotizar una mesa de dulces.\n\n`;
+      whatsappMsg += `*Nombre:* ${nombre}\n`;
+      whatsappMsg += `*Teléfono:* ${telefono}\n`;
+      if (email) whatsappMsg += `*Email:* ${email}\n`;
+      whatsappMsg += `*Tipo de evento:* ${tipoEvento}\n`;
+      whatsappMsg += `*Fecha:* ${fecha}\n`;
+      if (invitados) whatsappMsg += `*Invitados:* ${invitados}\n`;
+      if (mensaje) whatsappMsg += `\n*Detalles:* ${mensaje}`;
+
+      const encodedMsg = encodeURIComponent(whatsappMsg);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
+    });
+  }
+
+  // Init on load and on navigation
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>
+
+<style>
+  /* =====================================================
+     CONTACT SECTION - Modern Professional Design
+     ===================================================== */
+
+  .contact-section {
+    background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+    padding: 80px 0 100px;
+  }
+
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* =========================
+     INFO COLUMN
+     ========================= */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-info__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.1) 0%, rgba(160, 0, 95, 0.05) 100%);
+    color: var(--rosa-principal, #D1007A);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    width: fit-content;
+  }
+
+  .contact-info__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a2e;
+    margin: 12px 0 0 0;
+  }
+
+  .contact-info__title span {
+    font-family: 'Pacifico', cursive;
+    color: var(--rosa-principal, #D1007A);
+    font-weight: 400;
+  }
+
+  .contact-info__intro {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 8px 0 0 0;
+  }
+
+  /* =========================
+     CONTACT CARDS
+     ========================= */
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-cards__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contact-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .contact-card--small {
+    padding: 16px;
+  }
+
+  .contact-card--schedule {
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.03) 0%, #ffffff 100%);
+    border-color: rgba(209, 0, 122, 0.1);
+  }
+
+  .contact-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    color: #ffffff;
+  }
+
+  .contact-card--small .contact-card__icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+
+  .contact-card__icon--location {
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+  }
+
+  .contact-card__icon--whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  }
+
+  .contact-card__icon--email {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .contact-card__icon--clock {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  .contact-card__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .contact-card__content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 6px 0;
+  }
+
+  .contact-card--small .contact-card__content h3 {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .contact-card__content p {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .contact-card__content a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .contact-card__content a:hover {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .contact-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal, #D1007A) !important;
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    border-radius: 20px;
+    text-decoration: none !important;
+  }
+
+  .contact-card__link:hover {
+    background: var(--rosa-principal, #D1007A);
+    color: #ffffff !important;
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    font-size: 0.88rem;
+  }
+
+  .schedule-grid span {
+    color: #666;
+  }
+
+  .schedule-grid strong {
+    color: #1a1a2e;
+    font-weight: 600;
+  }
+
+  /* =========================
+     FORM WRAPPER
+     ========================= */
+  .contact-form-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 10px 30px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .contact-form__header {
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .contact-form__header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+  }
+
+  .contact-form__header p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* =========================
+     FORM STYLES
+     ========================= */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .form-group label .required {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 14px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1a1a2e;
+    background: #fafafa;
+    transition: all 0.2s ease;
+  }
+
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover {
+    border-color: #d1d5db;
+    background: #ffffff;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--rosa-principal, #D1007A);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.1);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .input-with-icon {
+    position: relative;
+  }
+
+  .input-with-icon .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-with-icon input {
+    padding-left: 42px;
+  }
+
+  /* =========================
+     WHATSAPP BUTTON
+     ========================= */
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+  }
+
+  .btn-whatsapp:hover {
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  }
+
+  .form-disclaimer {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    text-align: center;
+    margin: 8px 0 0 0;
+  }
+
+  /* =========================
+     RESPONSIVE - Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .contact-container {
+      gap: 40px;
+    }
+
+    .contact-form-wrapper {
+      padding: 32px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .contact-section {
+      padding: 60px 0 80px;
+    }
+
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .contact-info__title {
+      font-size: 1.8rem;
+    }
+
+    .contact-cards__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: 50px 0 70px;
+    }
+
+    .contact-container {
+      padding: 0 20px;
+      gap: 40px;
+    }
+
+    .contact-info__badge {
+      font-size: 0.75rem;
+      padding: 5px 14px;
+    }
+
+    .contact-info__title {
+      font-size: 1.6rem;
+    }
+
+    .contact-info__intro {
+      font-size: 0.95rem;
+    }
+
+    .contact-cards__row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+      padding: 16px;
+      border-radius: 14px;
+    }
+
+    .contact-card__icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 10px;
+    }
+
+    .contact-card__content h3 {
+      font-size: 0.9rem;
+    }
+
+    .contact-card__content p {
+      font-size: 0.85rem;
+    }
+
+    .contact-form-wrapper {
+      padding: 28px 24px;
+      border-radius: 20px;
+    }
+
+    .contact-form__header h3 {
+      font-size: 1.3rem;
+    }
+
+    .contact-form__header p {
+      font-size: 0.9rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      border-radius: 10px;
+    }
+
+    .btn-whatsapp {
+      padding: 14px 28px;
+      font-size: 0.95rem;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Small Mobile
+     ========================= */
+  @media (max-width: 480px) {
+    .contact-section {
+      padding: 40px 0 60px;
+    }
+
+    .contact-container {
+      padding: 0 16px;
+      gap: 36px;
+    }
+
+    .contact-info__header {
+      text-align: center;
+    }
+
+    .contact-info__badge {
+      margin: 0 auto;
+    }
+
+    .contact-info__title {
+      font-size: 1.4rem;
+    }
+
+    .contact-info__intro {
+      font-size: 0.9rem;
+    }
+
+    .contact-cards {
+      gap: 12px;
+    }
+
+    .contact-card {
+      padding: 14px;
+      gap: 12px;
+      border-radius: 12px;
+    }
+
+    .contact-card__icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 10px;
+    }
+
+    .contact-card__icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .contact-card__content h3 {
+      font-size: 0.85rem;
+    }
+
+    .contact-card__content p,
+    .contact-card__content a {
+      font-size: 0.82rem;
+    }
+
+    .contact-card__link {
+      font-size: 0.75rem !important;
+      padding: 5px 10px;
+    }
+
+    .schedule-grid {
+      font-size: 0.82rem;
+    }
+
+    .contact-form-wrapper {
+      padding: 24px 20px;
+      border-radius: 18px;
+    }
+
+    .contact-form__header h3 {
+      font-size: 1.2rem;
+    }
+
+    .contact-form__header p {
+      font-size: 0.85rem;
+    }
+
+    .contact-form {
+      gap: 16px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 11px 12px;
+      font-size: 0.88rem;
+    }
+
+    .input-with-icon input {
+      padding-left: 38px;
+    }
+
+    .input-with-icon .input-icon {
+      left: 12px;
+    }
+
+    .btn-whatsapp {
+      padding: 13px 24px;
+      font-size: 0.9rem;
+      border-radius: 12px;
+    }
+
+    .btn-whatsapp svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .form-disclaimer {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .contact-info__title {
+      font-size: 1.3rem;
+    }
+
+    .contact-form-wrapper {
+      padding: 20px 16px;
+    }
+
+    .contact-form__header h3 {
+      font-size: 1.1rem;
+    }
+  }
+</style>
