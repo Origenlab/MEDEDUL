@@ -2,6 +2,7 @@
 // Por que Mededul - Main Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -127,30 +128,23 @@ const galeriaImages = [
     })} />
   </Fragment>
 
-  <div class="header-spacer"></div>
 
   <Breadcrumbs items={breadcrumbItems} />
 
-  <!-- Hero Section -->
-  <section class="porque-hero">
-    <div class="container">
-      <div class="porque-hero-content">
-        <span class="porque-hero-badge">Nuestra Promesa</span>
-        <h1>Por que Rentar tu Mesa de Dulces <span>con Mededul</span></h1>
-        <p class="subtitulo-hero">No solo hacemos mesas de dulces, creamos experiencias memorables que transforman tus celebraciones en momentos inolvidables.</p>
-        <p class="descripcion-hero">Con anos de experiencia en el servicio de mesas de dulces en Ciudad de Mexico, hemos perfeccionado cada detalle para ofrecerte un servicio impecable. Desde la seleccion de los mejores dulces hasta el montaje final, cuidamos cada aspecto para que tu solo te preocupes por disfrutar.</p>
-
-        <div class="hero-stats-row">
-          {heroStats.map(stat => (
-            <div class="hero-stat">
-              <span class="hero-stat-number">{stat.number}</span>
-              <span class="hero-stat-label">{stat.label}</span>
-            </div>
-          ))}
+  <Hero
+    title="Por que Rentar tu Mesa de Dulces <span>con Mededul</span>"
+    description="No solo hacemos mesas de dulces, creamos experiencias memorables que transforman tus celebraciones en momentos inolvidables."
+    secondaryContent="<p><strong>Experiencia</strong> comprobada en cientos de eventos nos permite ejecutar mesas de dulces con estandares consistentes de calidad, puntualidad y presentacion en CDMX. Nuestro equipo transforma cada requerimiento en un plan claro de produccion para que el resultado final supere expectativas y mantenga coherencia con tu celebracion.</p><p><strong>Confianza</strong> operativa significa trabajar con procesos definidos en diseno, seleccion de producto, montaje y desmontaje, reduciendo riesgos e improvisaciones. En Mededul te acompanamos de principio a fin para que obtengas una experiencia premium, funcional y perfectamente alineada con tus objetivos de evento.</p>"
+  >
+    <div class="hero-stats-row">
+      {heroStats.map(stat => (
+        <div class="hero-stat">
+          <span class="hero-stat-number">{stat.number}</span>
+          <span class="hero-stat-label">{stat.label}</span>
         </div>
-      </div>
+      ))}
     </div>
-  </section>
+  </Hero>
 
   <!-- Historia Section -->
   <section class="historia-section">
@@ -388,85 +382,7 @@ const galeriaImages = [
 </script>
 
 <style>
-  /* Hero Section - Por que Mededul */
-  .porque-hero {
-    padding: 80px 0 100px;
-    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .porque-hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(233, 30, 140, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .porque-hero::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255, 182, 213, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .porque-hero-content {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .porque-hero-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
-    color: #fff;
-    padding: 10px 25px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 25px;
-  }
-
-  .porque-hero h1 {
-    font-size: 3.2rem;
-    color: #1a1a1a;
-    line-height: 1.2;
-    margin-bottom: 25px;
-    font-weight: 800;
-  }
-
-  .porque-hero h1 span {
-    color: #E91E8C;
-    display: block;
-  }
-
-  .porque-hero .subtitulo-hero {
-    font-size: 1.35rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    font-weight: 400;
-  }
-
-  .porque-hero .descripcion-hero {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 40px;
-  }
-
+  /* Hero Stats Row - kept for slot content */
   .hero-stats-row {
     display: flex;
     justify-content: center;
@@ -1186,10 +1102,6 @@ const galeriaImages = [
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .porque-hero h1 {
-      font-size: 2.5rem;
-    }
-
     .hero-stats-row {
       gap: 40px;
     }
@@ -1245,18 +1157,6 @@ const galeriaImages = [
   }
 
   @media (max-width: 768px) {
-    .porque-hero {
-      padding: 60px 0 80px;
-    }
-
-    .porque-hero h1 {
-      font-size: 2rem;
-    }
-
-    .porque-hero .subtitulo-hero {
-      font-size: 1.15rem;
-    }
-
     .hero-stats-row {
       gap: 30px;
     }

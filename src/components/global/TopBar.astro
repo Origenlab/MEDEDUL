@@ -1,30 +1,42 @@
 ---
-// TopBar Component - Fixed top bar with contact info and social links
+// TopBar Component - Professional top bar with brand + contact info
 ---
 
 <div class="top-bar">
   <div class="container">
-    <div class="top-bar-content">
-      <div class="top-bar-left">
-        <span class="top-bar-highlight">Mesas de Dulces</span>
-        <span class="top-bar-separator">|</span>
-        <span class="top-bar-text">Servicio en toda la CDMX y Área Metropolitana</span>
+    <div class="top-bar__content">
+      <!-- Brand -->
+      <div class="top-bar__brand">
+        <span class="top-bar__icon">🍬</span>
+        <span class="top-bar__name">Mesas de Dulces</span>
       </div>
-      <div class="top-bar-right">
-        <a href="tel:+525525226442" class="top-bar-link">
+
+      <!-- Contact & Social -->
+      <div class="top-bar__contact">
+        <a href="tel:+525525226442" class="top-bar__link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
           </svg>
           <span>55 2522 6442</span>
         </a>
-        <a href="mailto:info@mesas-de-dulces.com" class="top-bar-link">
+
+        <a href="mailto:info@mesas-de-dulces.com" class="top-bar__link top-bar__link--email">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <path d="M22 6l-10 7L2 6"/>
           </svg>
           <span>info@mesas-de-dulces.com</span>
         </a>
-        <div class="top-bar-social">
+
+        <span class="top-bar__location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>CDMX</span>
+        </span>
+
+        <div class="top-bar__social">
           <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
@@ -47,3 +59,229 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* =====================================================
+     TOP BAR - Professional design
+     ===================================================== */
+  .top-bar {
+    background: #1a1a1a;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+  }
+
+  .top-bar .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .top-bar__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Brand Section */
+  .top-bar__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .top-bar__icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .top-bar__name {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Contact Section */
+  .top-bar__contact {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .top-bar__link,
+  .top-bar__location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .top-bar__link:hover {
+    color: #E91E8C;
+  }
+
+  .top-bar__link svg,
+  .top-bar__location svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .top-bar__location {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+  }
+
+  /* Social Icons */
+  .top-bar__social {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+    padding-left: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .top-bar__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+
+  .top-bar__social a:hover {
+    background: #E91E8C;
+    transform: translateY(-2px);
+  }
+
+  .top-bar__social a svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* =====================================================
+     RESPONSIVE - Tablet
+     ===================================================== */
+  @media (max-width: 1024px) {
+    .top-bar__link--email span {
+      display: none;
+    }
+  }
+
+  /* =====================================================
+     RESPONSIVE - Mobile
+     ===================================================== */
+  @media (max-width: 768px) {
+    .top-bar {
+      padding: 8px 0;
+    }
+
+    .top-bar .container {
+      padding: 0 16px;
+    }
+
+    .top-bar__content {
+      gap: 12px;
+    }
+
+    .top-bar__brand {
+      gap: 6px;
+    }
+
+    .top-bar__name {
+      font-size: 12px;
+    }
+
+    .top-bar__contact {
+      gap: 10px;
+    }
+
+    .top-bar__link span,
+    .top-bar__location span {
+      display: none;
+    }
+
+    .top-bar__link svg,
+    .top-bar__location svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .top-bar__social {
+      gap: 6px;
+      margin-left: 4px;
+      padding-left: 10px;
+    }
+
+    .top-bar__social a {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      min-height: 32px;
+    }
+
+    .top-bar__social a svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  /* =====================================================
+     RESPONSIVE - Small Mobile
+     ===================================================== */
+  @media (max-width: 480px) {
+    .top-bar {
+      padding: 6px 0;
+    }
+
+    .top-bar .container {
+      padding: 0 12px;
+    }
+
+    .top-bar__icon {
+      font-size: 14px;
+    }
+
+    .top-bar__name {
+      font-size: 11px;
+    }
+
+    .top-bar__link--email {
+      display: none;
+    }
+
+    .top-bar__social a {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      min-height: 30px;
+    }
+  }
+
+  /* =====================================================
+     RESPONSIVE - Very Small
+     ===================================================== */
+  @media (max-width: 380px) {
+    .top-bar__location {
+      display: none;
+    }
+
+    .top-bar__social {
+      border-left: none;
+      padding-left: 6px;
+      margin-left: 0;
+    }
+  }
+</style>

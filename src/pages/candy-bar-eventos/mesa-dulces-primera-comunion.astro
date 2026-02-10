@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
@@ -55,25 +56,176 @@ const faqSchema = {
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <ServiceSubpage
-    breadcrumbItems={breadcrumbItems}
-    heading="Mesa de Dulces para"
-    headingHighlight="Primera Comunion"
-    intro={[
-      'Creamos mesas de dulces elegantes para primera comunion, cuidando cada detalle visual del montaje.',
-      'Nuestro servicio combina estilo, calidad y organizacion para que disfrutes una celebracion familiar sin preocupaciones.'
-    ]}
-    heroImage="/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif"
-    heroAlt="Mesa de dulces para primera comunion"
-    badgeValue="Comunion"
-    badgeLabel="Especial"
-    sectionTitle="Una celebracion familiar con gran presentacion"
-    sectionSubtitle="Montajes de primera comunion con imagen limpia, elegante y memorable"
-    highlights={highlights}
-    includes={includes}
-    faqs={faqs}
-    ctaTitle="Cotiza tu mesa para primera comunion"
-    ctaText="Agenda tu fecha y recibe una propuesta personalizada para tu celebracion."
-    whatsappMessage="Hola! Me interesa cotizar una Mesa de Dulces para Primera Comunion"
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa de Dulces para <span>Primera Comunion</span>"
+    description="Creamos mesas de dulces elegantes para primera comunion, cuidando cada detalle visual del montaje."
+    subtitle="Nuestro servicio combina estilo, calidad y organizacion para que disfrutes una celebracion familiar sin preocupaciones."
   />
+
+  <section class="service-highlights section-padding">
+    <div class="container">
+      <div class="section-head">
+        <h2>Una celebracion familiar con gran presentacion</h2>
+        <p class="subtitulo">Montajes de primera comunion con imagen limpia, elegante y memorable</p>
+      </div>
+      <div class="highlight-grid">
+        {highlights.map((item) => (
+          <article class="highlight-card">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="service-includes section-padding">
+    <div class="container">
+      <h2>Que incluye el servicio</h2>
+      <ul>
+        {includes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="service-faq section-padding">
+    <div class="container">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="service-cta">
+    <div class="container">
+      <h2>Cotiza tu mesa para primera comunion</h2>
+      <p>Agenda tu fecha y recibe una propuesta personalizada para tu celebracion.</p>
+      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces para Primera Comunion" class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .section-head {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .highlight-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 107, 157, 0.18);
+  }
+
+  .highlight-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .highlight-card p {
+    color: var(--gris-texto);
+    margin: 0;
+  }
+
+  .service-includes {
+    background: #fff;
+  }
+
+  .service-includes h2,
+  .service-faq h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    margin-bottom: 20px;
+  }
+
+  .service-includes ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .service-includes li {
+    background: #fdf7fa;
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+  }
+
+  .faq-list details {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .faq-list p {
+    color: var(--gris-texto);
+    margin: 10px 0 2px;
+  }
+
+  .service-cta {
+    padding: 74px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #e91e8c 0%, #ff6bb3 100%);
+    color: #fff;
+  }
+
+  .service-cta h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 12px;
+  }
+
+  .service-cta p {
+    margin: 0 auto 24px;
+    max-width: 680px;
+    opacity: 0.95;
+  }
+
+  .btn-white {
+    display: inline-block;
+    text-decoration: none;
+    background: #fff;
+    color: #e91e8c;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 14px 28px;
+  }
+
+  @media (max-width: 900px) {
+    .highlight-grid,
+    .service-includes ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

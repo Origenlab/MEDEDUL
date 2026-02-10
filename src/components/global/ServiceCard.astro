@@ -1,0 +1,353 @@
+---
+/**
+ * ServiceCard Component - Professional Service Cards
+ * ===================================================
+ * Card reutilizable para servicios, tipos de mesas y eventos.
+ * Diseño optimizado para SEO con extracto descriptivo.
+ *
+ * Props:
+ * @param {string} href - URL del enlace (required)
+ * @param {string} image - URL de la imagen (required)
+ * @param {string} alt - Alt text para SEO (required)
+ * @param {string} title - Título de la card (required)
+ * @param {string} excerpt - Extracto SEO descriptivo (required)
+ * @param {string} cta - Texto del CTA (default: 'Ver más')
+ * @param {string} badge - Badge opcional (ej: 'Popular', 'Nuevo')
+ * @param {number} width - Width de imagen para optimización
+ * @param {number} height - Height de imagen para optimización
+ * @param {'default' | 'featured'} variant - Variante de diseño
+ */
+
+interface Props {
+  href: string;
+  image: string;
+  alt: string;
+  title: string;
+  excerpt: string;
+  cta?: string;
+  badge?: string;
+  width?: number;
+  height?: number;
+  variant?: 'default' | 'featured';
+}
+
+const {
+  href,
+  image,
+  alt,
+  title,
+  excerpt,
+  cta = 'Ver más',
+  badge,
+  width = 560,
+  height = 686,
+  variant = 'default'
+} = Astro.props;
+---
+
+<a href={href} class={`service-card ${variant === 'featured' ? 'service-card--featured' : ''}`}>
+  {badge && <span class="service-card__badge">{badge}</span>}
+
+  <div class="service-card__image-wrapper">
+    <img
+      src={image}
+      alt={alt}
+      class="service-card__image"
+      loading="lazy"
+      width={width}
+      height={height}
+    />
+    <div class="service-card__overlay"></div>
+  </div>
+
+  <div class="service-card__content">
+    <h4 class="service-card__title">{title}</h4>
+    <p class="service-card__excerpt">{excerpt}</p>
+    <span class="service-card__cta">
+      {cta}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </span>
+  </div>
+</a>
+
+<style>
+  /* =====================================================
+     SERVICE CARD COMPONENT - Professional Design
+     Single scoped CSS - SEO optimized
+     ===================================================== */
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 20px;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(233, 30, 140, 0.15);
+  }
+
+  /* Badge */
+  .service-card__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(233, 30, 140, 0.35);
+  }
+
+  /* Image wrapper */
+  .service-card__image-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .service-card:hover .service-card__image {
+    transform: scale(1.08);
+  }
+
+  /* Overlay gradient */
+  .service-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .service-card:hover .service-card__overlay {
+    opacity: 1;
+  }
+
+  /* Content */
+  .service-card__content {
+    padding: 24px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+
+  /* Title */
+  .service-card__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .service-card:hover .service-card__title {
+    color: var(--rosa-principal, #E91E8C);
+  }
+
+  /* Excerpt */
+  .service-card__excerpt {
+    font-size: 0.88rem;
+    color: var(--gris-texto, #666);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* CTA */
+  .service-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal, #E91E8C);
+    margin-top: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .service-card__cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover .service-card__cta {
+    gap: 12px;
+  }
+
+  .service-card:hover .service-card__cta svg {
+    transform: translateX(4px);
+  }
+
+  /* =========================
+     FEATURED VARIANT
+     ========================= */
+  .service-card--featured {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+
+  .service-card--featured .service-card__image-wrapper {
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  .service-card--featured .service-card__image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .service-card--featured .service-card__content {
+    padding: 32px 28px;
+    justify-content: center;
+  }
+
+  .service-card--featured .service-card__title {
+    font-size: 1.4rem;
+  }
+
+  .service-card--featured .service-card__excerpt {
+    font-size: 0.95rem;
+    -webkit-line-clamp: 4;
+  }
+
+  /* =========================
+     RESPONSIVE - Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .service-card {
+      border-radius: 16px;
+    }
+
+    .service-card__content {
+      padding: 20px 18px 24px;
+      gap: 10px;
+    }
+
+    .service-card__title {
+      font-size: 1.05rem;
+    }
+
+    .service-card__excerpt {
+      font-size: 0.85rem;
+      -webkit-line-clamp: 2;
+    }
+
+    .service-card--featured {
+      grid-column: span 1;
+      flex-direction: column;
+    }
+
+    .service-card--featured .service-card__image-wrapper {
+      width: 100%;
+    }
+
+    .service-card--featured .service-card__title {
+      font-size: 1.1rem;
+    }
+
+    .service-card--featured .service-card__excerpt {
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .service-card {
+      border-radius: 14px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .service-card__badge {
+      top: 12px;
+      left: 12px;
+      padding: 5px 10px;
+      font-size: 0.65rem;
+    }
+
+    .service-card__content {
+      padding: 16px 14px 20px;
+      gap: 8px;
+    }
+
+    .service-card__title {
+      font-size: 0.95rem;
+    }
+
+    .service-card__excerpt {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      -webkit-line-clamp: 2;
+    }
+
+    .service-card__cta {
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    .service-card__cta svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Small Mobile
+     ========================= */
+  @media (max-width: 480px) {
+    .service-card {
+      border-radius: 12px;
+    }
+
+    .service-card__content {
+      padding: 14px 12px 18px;
+    }
+
+    .service-card__title {
+      font-size: 0.9rem;
+    }
+
+    .service-card__excerpt {
+      font-size: 0.78rem;
+    }
+
+    .service-card__cta {
+      font-size: 0.75rem;
+    }
+  }
+</style>

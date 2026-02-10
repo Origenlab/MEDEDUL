@@ -1,0 +1,824 @@
+---
+/**
+ * Hero Component - Mededul Site Hero
+ * ===================================
+ * Unified hero component for all pages with scoped CSS.
+ * Optionally includes a CTA section after the hero.
+ *
+ * Usage:
+ * - Full hero (index): title, highlight, subtitle, secondaryContent
+ * - Simple hero (subpages): title, subtitle
+ * - With CTA: showCTA={true} + cta props
+ *
+ * Props:
+ * @param {string} title - Main heading (required)
+ * @param {string} subtitle - Secondary text below title
+ * @param {string} description - Optional description in primary column
+ * @param {string} secondaryContent - HTML content for second column
+ * @param {string} highlight - Word in title to style with Pacifico font
+ * @param {string} id - Section ID for anchor links
+ *
+ * CTA Props (optional):
+ * @param {boolean} showCTA - Show CTA section after hero
+ * @param {string} ctaHref - CTA button link
+ * @param {string} ctaBadge - CTA badge text
+ * @param {string} ctaTitle - CTA title
+ * @param {string} ctaTitleHighlight - Word to highlight in CTA title
+ * @param {string} ctaText - CTA description text
+ * @param {string} ctaButtonText - CTA button text
+ */
+
+import CTAServices from './CTAServices.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  secondaryContent?: string;
+  highlight?: string;
+  id?: string;
+  // CTA props
+  showCTA?: boolean;
+  ctaHref?: string;
+  ctaBadge?: string;
+  ctaTitle?: string;
+  ctaTitleHighlight?: string;
+  ctaText?: string;
+  ctaButtonText?: string;
+  // Backward-compatible props
+  variant?: 'page' | 'service' | 'simple';
+  image?: string;
+  imageAlt?: string;
+  badge?: { value?: string; label?: string };
+  ctaUrl?: string;
+  icon?: string;
+  count?: number;
+  countLabel?: string;
+  tagLabel?: string;
+  updateDate?: string;
+  [key: string]: unknown;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  secondaryContent,
+  highlight,
+  id,
+  // CTA props
+  showCTA = true,
+  ctaHref,
+  ctaBadge,
+  ctaTitle,
+  ctaTitleHighlight,
+  ctaText,
+  ctaButtonText
+} = Astro.props;
+
+const stripHtml = (value: string) => value.replace(/<[^>]*>/g, '').trim();
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+const buildSeoSecondaryContent = () => {
+  const path = Astro.url.pathname;
+  const cleanTitle = escapeHtml(stripHtml(title));
+
+  const humanize = (value: string) =>
+    decodeURIComponent(value)
+      .replace(/-/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  const pickKeyword = (value: string) => {
+    const words = stripHtml(value)
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .split(/\s+/)
+      .filter(Boolean);
+    return escapeHtml(words.slice(0, 2).join(' ') || 'Mesa de dulces');
+  };
+
+  const specificCopy: Record<string, { p1: string; p2: string }> = {
+    '/servicios': {
+      p1: 'Servicios de mesas de dulces en CDMX con enfoque consultivo te ayudan a elegir la opcion correcta segun tipo de evento, numero de invitados y objetivo visual, evitando decisiones costosas por prueba y error. En Mededul convertimos tu requerimiento en un plan claro de produccion con alcance definido y ejecucion profesional.',
+      p2: 'Cobertura integral de diseno, montaje y desmontaje reduce carga operativa y garantiza que cada detalle se entregue en tiempo, forma y calidad. Asi obtienes una solucion confiable para cotizar, reservar y ejecutar tu evento con mayor control y mejores resultados comerciales o sociales.',
+    },
+    '/contacto': {
+      p1: 'Cotizacion personalizada para tu mesa de dulces te permite conocer inversion, alcances y alternativas reales antes de contratar, con base en datos concretos de tu evento. Nuestro equipo analiza sede, aforo, estilo y objetivos para entregarte una propuesta profesional y accionable.',
+      p2: 'Asesoria comercial experta acelera tu decision al resolver dudas de montaje, tiempos y seleccion de productos sin tecnicismos innecesarios. Recibes acompanamiento directo para reservar con seguridad y avanzar a una produccion ordenada, rentable y alineada a tu expectativa.',
+    },
+    '/nosotros': {
+      p1: 'Mededul es una marca especializada en mesas de dulces premium en CDMX, enfocada en combinar creatividad, operacion y detalle para construir experiencias memorables. Nuestra metodologia prioriza coherencia visual, calidad de producto y ejecucion impecable en cada tipo de evento.',
+      p2: 'Experiencia comprobada en celebraciones sociales y corporativas nos permite anticipar riesgos, optimizar montaje y mantener estandares altos de servicio en cada proyecto. El resultado es una produccion consistente que eleva la imagen de tu evento y genera confianza desde la primera reunion.',
+    },
+    '/aviso-privacidad': {
+      p1: 'Privacidad de datos personales en Mededul se administra con criterios de seguridad, legalidad y transparencia para proteger la informacion de clientes y prospectos durante todo el ciclo de relacion comercial. Este aviso detalla de forma clara como recabamos, utilizamos y resguardamos tus datos.',
+      p2: 'Derechos ARCO y mecanismos de contacto te permiten solicitar acceso, rectificacion, cancelacion u oposicion con procedimientos definidos y respuesta formal. Nuestra politica prioriza control del titular, trazabilidad operativa y cumplimiento normativo en cada interaccion.',
+    },
+    '/terminos-condiciones': {
+      p1: 'Terminos de contratacion establecen con precision el alcance del servicio, responsabilidades de ambas partes y criterios operativos para ejecutar tu evento con certidumbre. Este documento define pagos, ajustes, cancelaciones y tiempos para evitar interpretaciones ambiguas.',
+      p2: 'Condiciones comerciales claras protegen tu inversion y facilitan una relacion profesional basada en expectativas realistas y cumplimiento verificable. Revisar este marco te permite contratar con mayor seguridad y planificar tu evento con mejor control.',
+    },
+    '/404': {
+      p1: 'Navegacion alternativa en esta pagina te ayuda a recuperar rapidamente el contenido correcto sobre mesas de dulces, candy bar y servicios para eventos en CDMX. Organizamos rutas principales para que no pierdas tiempo y puedas continuar con informacion relevante.',
+      p2: 'Soporte comercial disponible te permite retomar tu busqueda con orientacion directa si necesitas cotizar o validar una seccion especifica del sitio. Nuestro objetivo es que encuentres una solucion clara y avances sin friccion hacia la mejor opcion para tu evento.',
+    },
+    '/candy-bar-eventos/mesa-dulces-boda': {
+      p1: 'Boda elegante necesita una mesa de dulces nupcial que se integre a la decoracion, al protocolo y al ritmo de la recepcion para mantener una experiencia premium de principio a fin. Disenamos candy bars con composicion armonica, producto de alta calidad y montaje puntual para realzar tu gran dia.',
+      p2: 'Candy bar para boda bien planificado mejora percepcion de lujo, fortalece el resultado fotografico y aporta un cierre memorable en la experiencia de tus invitados. En Mededul te ayudamos a cotizar una propuesta a medida para asegurar coherencia visual, operacion limpia y alto impacto.',
+    },
+    '/candy-bar-eventos/mesa-dulces-xv-anos': {
+      p1: 'XV anos con produccion profesional requiere una mesa de dulces que conecte con la tematica, luzca impecable en fotografia y mantenga una experiencia fluida durante toda la fiesta. Disenamos montajes personalizados en color, volumen y estilo para reflejar la personalidad de la quinceanera con nivel premium.',
+      p2: 'Quinceanera con candy bar estrategico mejora impacto visual, experiencia de invitadas y orden de servicio en momentos clave de la celebracion. En Mededul te ayudamos a cotizar una propuesta integral que combina diseno, seleccion de producto y ejecucion puntual en CDMX.',
+    },
+    '/candy-bar-eventos/mesa-dulces-baby-shower': {
+      p1: 'Baby shower con mesa de dulces personalizada crea un ambiente emotivo, armonico y perfectamente alineado al concepto de bienvenida del bebe. Disenamos propuestas en paletas tematicas con montaje profesional para lograr una celebracion tierna, elegante y altamente fotografiable.',
+      p2: 'Dulces de baby shower seleccionados con criterio estetico y operativo mejoran la experiencia de invitadas y facilitan toda la organizacion del evento. Nuestro servicio integra diseno, montaje y coordinacion para que cotices con claridad y disfrutes sin estres.',
+    },
+    '/candy-bar-eventos/mesa-dulces-bautizo': {
+      p1: 'Bautizo con mesa de dulces bien conceptualizada aporta una imagen sobria, familiar y coherente con el valor simbolico de la ceremonia. En Mededul creamos montajes elegantes que equilibran decoracion, color y seleccion de producto para un resultado distinguido.',
+      p2: 'Mesa de bautizo ejecutada con criterios profesionales mejora la experiencia de convivencia, eleva la presentacion general y fortalece el recuerdo fotografico del evento. Coordinamos cada detalle para que tengas una celebracion ordenada y de alta calidad.',
+    },
+    '/candy-bar-eventos/mesa-dulces-corporativos': {
+      p1: 'Corporativos orientados a marca requieren un candy bar que comunique profesionalismo, hospitalidad y coherencia visual en cada punto de contacto con clientes y colaboradores. Disenamos montajes para lanzamientos, activaciones y eventos internos con criterios de imagen y operacion ejecutiva.',
+      p2: 'Eventos empresariales con mesa de dulces estrategica incrementan recordacion, mejoran experiencia del asistente y respaldan tus objetivos de relacionamiento comercial. Adaptamos surtido, tiempos y montaje para que puedas contratar una solucion eficiente y medible para tu empresa.',
+    },
+    '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil': {
+      p1: 'Cumpleanos infantil con candy bar tematico transforma la fiesta en una experiencia divertida, visualmente impactante y adaptada al personaje o estilo favorito de tu hijo. Disenamos mesas seguras y creativas para sorprender a ninos, familias e invitados desde el primer momento.',
+      p2: 'Fiesta infantil con montaje profesional mejora el flujo de servicio, ordena la experiencia de consumo y garantiza una ambientacion coherente en toda la celebracion. Nuestro equipo te acompana en cada paso para lograr un resultado memorable y sin improvisaciones.',
+    },
+    '/candy-bar-eventos/mesa-dulces-graduacion': {
+      p1: 'Graduacion con candy bar premium refuerza la importancia del logro academico con una propuesta elegante, ordenada y de alto impacto visual en recepcion y fotografias. Disenamos mesas de dulces que elevan el cierre del evento y aportan presencia institucional.',
+      p2: 'Ceremonia de graduacion con montaje profesional asegura continuidad operativa, buena experiencia de invitados y una presentacion impecable durante todo el servicio. Adaptamos la produccion al tipo de sede y aforo para garantizar ejecucion precisa.',
+    },
+    '/candy-bar-eventos/mesa-dulces-primera-comunion': {
+      p1: 'Primera comunion con mesa de dulces profesional integra simbolismo, elegancia y calidez familiar en una propuesta visual coherente con la ceremonia. Disenamos montajes sobrios que respetan el estilo religioso y elevan la experiencia de recepcion.',
+      p2: 'Comunion con candy bar bien planificado simplifica la organizacion, mejora el servicio a invitados y mantiene una estetica limpia durante toda la celebracion. Nuestro equipo ejecuta cada detalle con puntualidad y calidad para que todo fluya sin friccion.',
+    },
+    '/estaciones-interactivas/fuente-de-chocolate': {
+      p1: 'Fuente de chocolate profesional convierte tu evento en una experiencia sensorial de alto impacto, ideal para aumentar participacion y permanencia de invitados en la zona de servicio. Operamos con control de temperatura, flujo estable y montaje premium para garantizar calidad continua.',
+      p2: 'Chocolate belga con frutas y toppings seleccionados eleva el valor percibido de la celebracion y refuerza el contenido fotografico y social del evento. Nuestro equipo se encarga de montaje, operacion e higiene para que puedas reservar esta estacion con total confianza.',
+    },
+    '/estaciones-interactivas/fuente-de-chamoy': {
+      p1: 'Fuente de chamoy artesanal aporta un diferencial mexicano, divertido y altamente compartible para eventos que buscan experiencia interactiva con personalidad. Configuramos insumos, montaje y flujo de servicio para mantener sabor consistente durante toda la celebracion.',
+      p2: 'Chamoy en estacion profesional incrementa participacion de invitados, mejora dinamica social y genera contenido visual de alto impacto para fotos y redes. Nuestro servicio incluye operacion y coordinacion para integrarse al ritmo de tu evento sin complicaciones.',
+    },
+    '/estaciones-interactivas/pared-de-dulces': {
+      p1: 'Pared de dulces tipo candy wall convierte el montaje en un elemento escenografico premium que combina decoracion, servicio y alto impacto visual en un solo punto. Disenamos distribucion y surtido para que tu evento luzca ordenado, moderno y fotografiable.',
+      p2: 'Candy wall operado profesionalmente mejora experiencia de invitados, refuerza la tematica y optimiza la presentacion del producto durante toda la recepcion. En Mededul cuidamos montaje, reposicion y detalle estetico para sostener calidad constante.',
+    },
+    '/estaciones-interactivas/stand-para-pastel': {
+      p1: 'Stand para pastel con diseno profesional convierte el corte en un momento escenico de alto impacto y coherente con la narrativa visual de tu evento. Integramos decoracion, iluminacion y distribucion para resaltar el postre principal con presencia premium.',
+      p2: 'Pastel en una estacion estructurada mejora fotografia, orden ceremonial y experiencia de invitados sin comprometer seguridad ni funcionalidad operativa. Nuestro equipo ejecuta montaje y styling para que el resultado luzca elegante, estable y memorable.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-dulces': {
+      p1: 'Mesa de dulces personalizada te permite construir una experiencia visual y gastronomica alineada al estilo de tu celebracion y al perfil de tus invitados. Definimos surtido, volumen y presentacion para que el montaje sea funcional, atractivo y estrategico.',
+      p2: 'Candy bar profesional en CDMX mejora percepcion de calidad, optimiza servicio y genera un punto memorable dentro del evento. Nuestro enfoque combina creatividad y operacion para entregar resultados consistentes, elegantes y totalmente adaptados a tus objetivos.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-postres': {
+      p1: 'Postres gourmet en mesa profesional elevan la propuesta gastronomica de tu evento con una exhibicion sofisticada que combina sabor, textura y presentacion de alto nivel. Curamos surtido y montaje para que cada pieza aporte valor visual y una experiencia de consumo memorable.',
+      p2: 'Mesa de postres bien estructurada mejora flujo de servicio, mantiene coherencia con la decoracion y proyecta una imagen premium ante tus invitados. En Mededul te asesoramos para cotizar una configuracion equilibrada entre estetica, volumen y presupuesto.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales': {
+      p1: 'Dulces tradicionales mexicanos aportan identidad cultural, cercania emocional y una propuesta diferenciada para celebraciones con esencia local. Disenamos mesas autenticas con presentacion cuidada para que cada invitado conecte con sabores clasicos en formato premium.',
+      p2: 'Tradicion en mesa de dulces profesional mejora recordacion del evento y agrega valor narrativo a la experiencia general de tus invitados. Nuestro montaje integra decoracion y surtido con coherencia estetica para lograr un resultado distintivo.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes': {
+      p1: 'Donas y cupcakes en montaje tematico elevan el atractivo visual de tu evento con una propuesta moderna, colorida y altamente fotografiable. Curamos sabores, acabados y presentacion para que cada pieza aporte impacto estetico y excelente experiencia de consumo.',
+      p2: 'Cupcakes personalizados y donas artesanales bien distribuidos facilitan servicio, mejoran flujo de invitados y aumentan valor percibido de la celebracion. En Mededul cuidamos produccion y montaje para que obtengas una mesa funcional, creativa y memorable.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-frutas': {
+      p1: 'Frutas frescas en mesa premium ofrecen una alternativa saludable y visualmente sofisticada para eventos donde el equilibrio de menu es clave. Seleccionamos producto, cortes y presentacion para garantizar frescura, color y apetito durante toda la recepcion.',
+      p2: 'Mesa de frutas bien operada amplía opciones de consumo, mejora percepcion de calidad y aporta una experiencia ligera sin perder impacto estetico. En Mededul cuidamos montaje, reposicion y detalle visual para mantener estandar profesional constante.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-snacks': {
+      p1: 'Snacks en formato de mesa interactiva generan dinamica constante y mejoran la experiencia de invitados en eventos sociales y corporativos con ritmo continuo. Estructuramos surtido, porcionado y presentacion para facilitar consumo y mantener orden visual.',
+      p2: 'Mesa de snacks con operacion profesional optimiza flujo de servicio, reduce saturaciones y aporta variedad practica sin sacrificar estilo. Nuestro montaje asegura funcionalidad, limpieza y coherencia estetica de principio a fin.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-botanas': {
+      p1: 'Botanas saladas en mesa especializada aportan contraste de sabor, mayor tiempo de convivencia y una experiencia mas completa para tus invitados. Disenamos combinaciones y presentacion para equilibrar practicidad, volumen y atractivo visual.',
+      p2: 'Mesa de botanas ejecutada por profesionales evita improvisaciones, mejora servicio y mantiene una imagen ordenada durante todo el evento. Nuestro equipo coordina montaje, reposicion y limpieza para sostener calidad operativa constante.',
+    },
+    '/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos': {
+      p1: 'Quesos y embutidos gourmet aportan sofisticacion inmediata a eventos donde la experiencia culinaria y la imagen del montaje son decisivas. Disenamos mesas balanceadas en sabor, textura y presentacion para crear una propuesta premium que destaque en recepciones sociales y corporativas.',
+      p2: 'Tabla gourmet ejecutada por profesionales mejora percepcion de valor, fomenta convivencia y complementa formatos de networking, coctel o celebracion formal. Nuestro servicio cuida frescura, reposicion y estetica para que contrates una solucion elegante y funcional.',
+    },
+    '/porque-mededul/servicio-completo': {
+      p1: 'Servicio completo en mesas de dulces elimina fricciones de coordinacion al integrar planeacion, montaje y desmontaje bajo un mismo equipo experto. Esta metodologia reduce errores, optimiza tiempos y te permite mantener control total del evento.',
+      p2: 'Cobertura integral con estandares profesionales garantiza ejecucion puntual, calidad consistente y una experiencia sin carga operativa para el cliente. Asi puedes enfocarte en disfrutar mientras nosotros resolvemos cada detalle con precision.',
+    },
+    '/porque-mededul/calidad-premium': {
+      p1: 'Calidad premium en insumos, acabados y presentacion garantiza una experiencia superior que se percibe en sabor, imagen y detalle desde el primer momento. Seleccionamos productos de alto nivel para asegurar coherencia con eventos exigentes.',
+      p2: 'Detalle profesional en composicion, montaje y servicio convierte tu mesa de dulces en un diferenciador tangible de la celebracion. Nuestro estandar de excelencia protege tu imagen y eleva el valor percibido de todo el evento.',
+    },
+    '/porque-mededul/cero-estres': {
+      p1: 'Cero estres en la organizacion del evento se logra con procesos claros, coordinacion anticipada y un equipo que ejecuta sin improvisaciones. En Mededul asumimos la operacion completa de tu mesa de dulces para que tu agenda quede libre de fricciones.',
+      p2: 'Tranquilidad operativa significa contar con puntualidad, control de montaje y respuesta profesional ante cualquier ajuste durante la celebracion. Nuestra metodologia te permite disfrutar el evento con confianza y resultados previsibles.',
+    },
+    '/porque-mededul/diseno-personalizado': {
+      p1: 'Diseno personalizado transforma una mesa de dulces comun en una propuesta visual alineada al concepto, tono y objetivo especifico de tu evento. Desarrollamos composicion, paleta y narrativa estetica para construir una experiencia verdaderamente unica.',
+      p2: 'Personalizacion estrategica integra estilo, funcionalidad y experiencia de invitado para generar montajes diferenciados con impacto real en percepcion y recordacion. Nuestro enfoque garantiza coherencia visual sin perder eficiencia operativa.',
+    },
+  };
+
+  if (path === '/') return undefined;
+
+  if (specificCopy[path]) {
+    const { p1, p2 } = specificCopy[path];
+    return `<p>${p1}</p><p>${p2}</p>`;
+  }
+
+  if (path === '/blog' || path === '/blog/') {
+    return `<p>Blog especializado en mesas de dulces y candy bar que te ayuda a investigar, comparar y decidir con criterios profesionales antes de contratar un servicio para tu evento. Aqui publicamos guias accionables sobre tendencias, costos, formatos y ejecucion para elevar tus resultados.</p><p>Contenido informativo con enfoque comercial te permite pasar de la inspiracion a una decision concreta, entendiendo que opcion se adapta mejor a tu celebracion. Cada articulo esta disenado para aumentar claridad, reducir incertidumbre y mejorar tu proceso de compra.</p>`;
+  }
+
+  if (path.startsWith('/blog/categoria/')) {
+    const category = humanize(path.replace('/blog/categoria/', '').replace(/\/$/, ''));
+    const keyword = pickKeyword(category);
+    return `<p>${keyword} agrupa articulos especializados para que analices opciones reales y tomes decisiones informadas segun el tipo de evento que estas organizando. Esta categoria concentra recomendaciones practicas, errores frecuentes y criterios de seleccion con enfoque profesional.</p><p>${keyword} como eje tematico te permite profundizar en tendencias, presupuesto y ejecucion para planear con mayor precision y menor riesgo. El objetivo editorial es ayudarte a convertir informacion util en una contratacion mas inteligente y efectiva.</p>`;
+  }
+
+  if (path.startsWith('/blog/tag/')) {
+    const tag = humanize(path.replace('/blog/tag/', '').replace(/\/$/, ''));
+    const keyword = pickKeyword(tag);
+    return `<p>${keyword} funciona como etiqueta de navegacion para localizar contenido puntual sobre el tema que estas investigando para tu evento. Esta vista concentra articulos relacionados que te permiten avanzar mas rapido en decisiones clave de estilo, producto y montaje.</p><p>${keyword} como criterio de filtrado mejora la relevancia tematica de tu lectura y te da contexto especifico para comparar opciones con mayor precision. Asi puedes planear una propuesta mejor estructurada y alineada a tus necesidades reales.</p>`;
+  }
+
+  if (path.startsWith('/blog/pagina/')) {
+    return `<p>Articulos especializados en mesas de dulces y candy bar se organizan aqui para facilitar una exploracion continua y eficiente de todo el contenido del blog. Cada pagina incluye recursos utiles para mejorar decisiones de diseno, logistica y presupuesto en eventos de CDMX.</p><p>Publicaciones profesionales con enfoque practico te ayudan a identificar oportunidades de mejora en experiencia de invitado, presentacion visual y ejecucion operativa. Navega por esta seccion para construir una estrategia mas solida para tu proxima celebracion.</p>`;
+  }
+
+  if (path.startsWith('/blog/')) {
+    const keyword = pickKeyword(cleanTitle);
+    return `<p>${keyword} se desarrolla en este articulo con enfoque practico para que puedas evaluar alternativas, entender implicaciones y elegir la mejor estrategia para tu evento. Encontraras recomendaciones aplicables en diseno, logistica y experiencia de invitado, sin contenido de relleno.</p><p>${keyword} tambien se aborda desde una perspectiva comercial para ayudarte a convertir informacion en acciones concretas de planificacion y contratacion. La meta es que tomes decisiones con mayor seguridad y logres un montaje mas eficiente, atractivo y rentable.</p>`;
+  }
+
+  return `<p>${cleanTitle} representa una oportunidad para elevar la calidad de tu evento con una ejecucion mas estrategica y orientada a resultados. En Mededul abordamos cada servicio con metodologia profesional para alinear diseno, operacion y experiencia de invitado en una sola propuesta coherente.</p><p>${cleanTitle} dentro de nuestra oferta se desarrolla con enfoque en valor real: mejor presentacion, mejor flujo operativo y mayor impacto visual durante toda la celebracion. Asi aseguramos una implementacion confiable que responde a objetivos concretos de cada cliente.</p>`;
+};
+
+const buildContextualCta = () => {
+  const path = Astro.url.pathname;
+  const ctaByPath: Record<string, {
+    href: string;
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    text: string;
+    buttonText: string;
+  }> = {
+    '/': {
+      href: '/servicios',
+      badge: 'Servicios Profesionales',
+      title: 'Descubre Nuestra Variedad de Mesas',
+      titleHighlight: 'Variedad',
+      text: 'Desde elegantes mesas de postres hasta estaciones interactivas para fiestas. Encuentra el montaje ideal para tu celebracion en CDMX.',
+      buttonText: 'Ver Todos los Servicios',
+    },
+    '/servicios': {
+      href: '/contacto',
+      badge: 'Cotizacion Personalizada',
+      title: 'Solicita Tu Propuesta Profesional',
+      titleHighlight: 'Profesional',
+      text: 'Comparte los datos de tu evento y recibe una recomendacion precisa con opciones reales segun tipo de celebracion y presupuesto.',
+      buttonText: 'Ir a Contacto',
+    },
+    '/contacto': {
+      href: '/servicios',
+      badge: 'Respuesta Rapida',
+      title: 'Activa Tu Cotizacion Hoy',
+      titleHighlight: 'Cotizacion',
+      text: 'Nuestro equipo te responde con una propuesta clara para que avances con seguridad en la planeacion de tu evento.',
+      buttonText: 'Ver Servicios',
+    },
+    '/nosotros': {
+      href: '/servicios',
+      badge: 'Experiencia Comprobada',
+      title: 'Conoce Nuestros Servicios Premium',
+      titleHighlight: 'Premium',
+      text: 'Lleva esa experiencia a tu celebracion con una mesa de dulces disenada y ejecutada por especialistas.',
+      buttonText: 'Explorar Servicios',
+    },
+    '/blog': {
+      href: '/servicios',
+      badge: 'Del Blog al Evento',
+      title: 'Convierte Ideas en Resultados',
+      titleHighlight: 'Resultados',
+      text: 'Aplica lo que aprendiste y descubre el servicio ideal para tu evento con asesoria profesional en CDMX.',
+      buttonText: 'Ver Servicios',
+    },
+    '/aviso-privacidad': {
+      href: '/servicios',
+      badge: 'Atencion Directa',
+      title: 'Resuelve Tus Dudas con Nuestro Equipo',
+      titleHighlight: 'Dudas',
+      text: 'Si necesitas aclaraciones sobre tus datos o sobre el servicio, estamos disponibles para ayudarte.',
+      buttonText: 'Ver Servicios',
+    },
+    '/terminos-condiciones': {
+      href: '/servicios',
+      badge: 'Asesoria Comercial',
+      title: 'Contrata con Informacion Clara',
+      titleHighlight: 'Clara',
+      text: 'Te ayudamos a revisar alcances, tiempos y condiciones para que tomes una decision segura.',
+      buttonText: 'Ver Servicios',
+    },
+    '/404': {
+      href: '/servicios',
+      badge: 'Ruta Recomendada',
+      title: 'Encuentra el Servicio Correcto',
+      titleHighlight: 'Servicio',
+      text: 'Explora nuestras opciones de mesas de dulces y estaciones interactivas para tu proximo evento.',
+      buttonText: 'Ir a Servicios',
+    },
+  };
+
+  if (ctaByPath[path]) return ctaByPath[path];
+
+  if (path.startsWith('/candy-bar-eventos/')) {
+    return {
+      href: '/servicios',
+      badge: 'Candy Bar Personalizado',
+      title: 'Cotiza Tu Candy Bar Ideal',
+      titleHighlight: 'Ideal',
+      text: 'Recibe una propuesta a medida para tu tipo de evento, numero de invitados y estilo de celebracion.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  if (path === '/candy-bar-eventos' || path === '/candy-bar-eventos/') {
+    return {
+      href: '/candy-bar-eventos/mesa-dulces-boda',
+      badge: 'Eventos Especiales',
+      title: 'Elige Tu Tipo de Candy Bar',
+      titleHighlight: 'Candy Bar',
+      text: 'Selecciona la opcion ideal para boda, XV anos, baby shower, corporativo y mas.',
+      buttonText: 'Ver Opciones',
+    };
+  }
+
+  if (path.startsWith('/tipos-de-mesas-de-dulces/')) {
+    return {
+      href: '/servicios',
+      badge: 'Tipo de Mesa',
+      title: 'Reserva la Mesa Perfecta',
+      titleHighlight: 'Perfecta',
+      text: 'Te asesoramos para elegir el formato que mejor funciona para tu evento y tus invitados.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  if (path === '/tipos-de-mesas-de-dulces' || path === '/tipos-de-mesas-de-dulces/') {
+    return {
+      href: '/tipos-de-mesas-de-dulces/mesa-de-dulces',
+      badge: 'Variedad de Mesas',
+      title: 'Descubre Todos Los Formatos',
+      titleHighlight: 'Formatos',
+      text: 'Compara tipos de mesas y define la combinacion ideal para una celebracion memorable.',
+      buttonText: 'Ver Tipos de Mesa',
+    };
+  }
+
+  if (path.startsWith('/estaciones-interactivas/')) {
+    return {
+      href: '/servicios',
+      badge: 'Experiencia Interactiva',
+      title: 'Activa Tu Estacion Estrella',
+      titleHighlight: 'Estacion',
+      text: 'Cotiza fuente de chocolate, chamoy, candy wall o stand para pastel con montaje profesional.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  if (path === '/estaciones-interactivas' || path === '/estaciones-interactivas/') {
+    return {
+      href: '/estaciones-interactivas/fuente-de-chocolate',
+      badge: 'Experiencias Memorables',
+      title: 'Explora Nuestras Estaciones',
+      titleHighlight: 'Estaciones',
+      text: 'Elige la experiencia interactiva que mejor se adapte al estilo y dinamica de tu evento.',
+      buttonText: 'Ver Estaciones',
+    };
+  }
+
+  if (path.startsWith('/porque-mededul/')) {
+    return {
+      href: '/servicios',
+      badge: 'Ventaja Mededul',
+      title: 'Lleva Esta Ventaja a Tu Evento',
+      titleHighlight: 'Ventaja',
+      text: 'Solicita asesoria y descubre como aplicar este diferencial en tu mesa de dulces.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  if (path === '/porque-mededul' || path === '/porque-mededul/') {
+    return {
+      href: '/servicios',
+      badge: 'Por Que Elegirnos',
+      title: 'Conoce Nuestro Enfoque Profesional',
+      titleHighlight: 'Profesional',
+      text: 'Descubre como convertimos cada celebracion en una experiencia visual y operativa impecable.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  if (path.startsWith('/blog/categoria/')) {
+    return {
+      href: '/blog',
+      badge: 'Mas Contenido Relacionado',
+      title: 'Sigue Explorando Esta Categoria',
+      titleHighlight: 'Categoria',
+      text: 'Profundiza con mas articulos especializados y aplica mejores practicas a tu evento.',
+      buttonText: 'Ver Mas Articulos',
+    };
+  }
+
+  if (path.startsWith('/blog/tag/')) {
+    return {
+      href: '/blog',
+      badge: 'Tema Relacionado',
+      title: 'Descubre Mas Contenido Util',
+      titleHighlight: 'Contenido',
+      text: 'Encuentra mas publicaciones relacionadas para planear tu celebracion con mayor claridad.',
+      buttonText: 'Ir al Blog',
+    };
+  }
+
+  if (path.startsWith('/blog/pagina/')) {
+    return {
+      href: '/blog',
+      badge: 'Lectura Recomendada',
+      title: 'Explora Todo Nuestro Blog',
+      titleHighlight: 'Blog',
+      text: 'Accede a guias y estrategias para mejorar diseno, presupuesto y ejecucion de tu evento.',
+      buttonText: 'Ver Blog Completo',
+    };
+  }
+
+  if (path.startsWith('/blog/')) {
+    return {
+      href: '/servicios',
+      badge: 'Siguiente Paso',
+      title: 'Lleva Este Tema a Tu Evento',
+      titleHighlight: 'Evento',
+      text: 'Recibe una propuesta personalizada para convertir estas ideas en una experiencia real.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  return {
+    href: '/servicios',
+    badge: 'Asesoria Personalizada',
+    title: 'Planea Tu Evento con Expertos',
+    titleHighlight: 'Expertos',
+    text: 'Hablemos de tu celebracion y definamos juntos la mejor propuesta para tu mesa de dulces.',
+    buttonText: 'Ver Servicios',
+  };
+};
+
+// Layout logic
+const hasExplicitSecondaryContent = Boolean(secondaryContent);
+const computedSecondaryContent =
+  secondaryContent || buildSeoSecondaryContent() || (subtitle ? `<p>${subtitle}</p>` : undefined);
+const hasTwoColumns = Boolean(computedSecondaryContent || Astro.slots.has('default'));
+const showSubtitleInPrimary = Boolean(subtitle && hasExplicitSecondaryContent);
+const contextualCta = buildContextualCta();
+
+// Parse title to apply highlight styling
+const renderTitle = () => {
+  if (highlight && title.includes(highlight)) {
+    const parts = title.split(highlight);
+    return `${parts[0]}<span class="highlight">${highlight}</span>${parts[1] || ''}`;
+  }
+  return title;
+};
+---
+
+<section class={`hero ${hasTwoColumns ? 'hero--full' : 'hero--simple'}`} id={id}>
+  <div class="hero__bg">
+    <div class="hero__shape hero__shape--1"></div>
+    <div class="hero__shape hero__shape--2"></div>
+    <div class="hero__shape hero__shape--3"></div>
+  </div>
+  <div class="hero__container">
+    <div class="hero__grid">
+      <div class="hero__primary">
+        <h1 set:html={renderTitle()} />
+        {showSubtitleInPrimary && <p class="hero__subtitle">{subtitle}</p>}
+        {description && <p class="hero__description" set:html={description} />}
+      </div>
+      {computedSecondaryContent && (
+        <div class="hero__secondary" set:html={computedSecondaryContent} />
+      )}
+      <slot />
+    </div>
+  </div>
+</section>
+
+{showCTA && (
+  <CTAServices
+    href={ctaHref || contextualCta.href}
+    badge={ctaBadge || contextualCta.badge}
+    title={ctaTitle || contextualCta.title}
+    titleHighlight={ctaTitleHighlight || contextualCta.titleHighlight}
+    text={ctaText || contextualCta.text}
+    buttonText={ctaButtonText || contextualCta.buttonText}
+  />
+)}
+
+<style>
+  /* =====================================================
+     HERO COMPONENT - Mededul Site Hero
+     Single scoped CSS - No external dependencies
+     ===================================================== */
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    margin-top: calc(-1 * var(--site-header-offset, 120px));
+    padding: calc(var(--site-header-offset, 120px) + 80px) 0 85px;
+    background: linear-gradient(135deg, #fefefe 0%, #f8f5f9 50%, #faf8fc 100%);
+  }
+
+  /* Background decorative shapes */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero__shape {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .hero__shape--1 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
+    top: -180px;
+    right: -120px;
+  }
+
+  .hero__shape--2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(255, 107, 179, 0.06) 0%, transparent 70%);
+    bottom: -120px;
+    left: -80px;
+  }
+
+  .hero__shape--3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.05) 0%, transparent 70%);
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Container */
+  .hero__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Grid layout - Two columns for full hero */
+  .hero--full .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  /* Grid layout - Single column centered for simple hero */
+  .hero--simple .hero__grid {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Title */
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 14px 0;
+  }
+
+  .hero h1 :global(span),
+  .hero h1 :global(.highlight) {
+    font-family: 'Pacifico', cursive;
+    color: var(--rosa-principal, #E91E8C);
+    font-weight: 400;
+  }
+
+  /* Subtitle */
+  .hero__subtitle {
+    font-size: 1.1rem;
+    color: var(--gris-texto, #666);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Description (optional in primary column) */
+  .hero__description {
+    font-size: 0.95rem;
+    color: var(--texto-gris, #555);
+    line-height: 1.7;
+    margin: 16px 0 0 0;
+  }
+
+  .hero__description :global(strong) {
+    color: var(--rosa-principal, #E91E8C);
+    font-weight: 600;
+  }
+
+  /* Secondary content (right column) */
+  .hero__secondary {
+    padding-top: 5px;
+  }
+
+  .hero__secondary :global(p) {
+    color: var(--gris-texto, #555);
+    line-height: 1.75;
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+  }
+
+  .hero__secondary :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .hero__secondary :global(strong) {
+    color: var(--rosa-principal, #E91E8C);
+    font-weight: 600;
+  }
+
+  /* =========================
+     RESPONSIVE - Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .hero--full .hero__grid {
+      gap: 40px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      padding: calc(var(--site-header-offset, 100px) + 35px) 0 40px;
+    }
+
+    .hero--full .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .hero h1 {
+      font-size: 1.9rem;
+    }
+
+    .hero__subtitle {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .hero {
+      padding: calc(var(--site-header-offset, 70px) + 30px) 0 35px;
+    }
+
+    .hero__container {
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 1.65rem;
+      margin-bottom: 12px;
+    }
+
+    .hero__subtitle {
+      font-size: 1rem;
+    }
+
+    .hero__description {
+      font-size: 0.9rem;
+      margin-top: 14px;
+    }
+
+    .hero__secondary :global(p) {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .hero__shape--1 {
+      width: 280px;
+      height: 280px;
+      top: -100px;
+      right: -80px;
+    }
+
+    .hero__shape--2 {
+      width: 200px;
+      height: 200px;
+      bottom: -60px;
+      left: -50px;
+    }
+
+    .hero__shape--3 {
+      display: none;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Small Mobile
+     ========================= */
+  @media (max-width: 480px) {
+    .hero {
+      padding: calc(var(--site-header-offset, 60px) + 24px) 0 28px;
+    }
+
+    .hero__container {
+      padding: 0 16px;
+    }
+
+    .hero--full .hero__grid {
+      gap: 24px;
+    }
+
+    .hero h1 {
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+    }
+
+    .hero__subtitle {
+      font-size: 0.95rem;
+    }
+
+    .hero__description {
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .hero__secondary :global(p) {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Very Small
+     ========================= */
+  @media (max-width: 380px) {
+    .hero {
+      padding: calc(var(--site-header-offset, 60px) + 20px) 0 24px;
+    }
+
+    .hero h1 {
+      font-size: 1.3rem;
+    }
+
+    .hero__subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* =========================
+     LANDSCAPE MODE
+     ========================= */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+      padding: calc(var(--site-header-offset, 70px) + 20px) 0 24px;
+    }
+
+    .hero--full .hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .hero h1 {
+      font-size: 1.4rem;
+    }
+  }
+</style>

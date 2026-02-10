@@ -1,21 +1,6 @@
 /* Layout domain styles extracted from global.css */
 
 /* ==========================================
-   HEADER SPACER - Reserva espacio del header fijo
-   ========================================== */
-.header-spacer {
-    height: 120px; /* top-bar (38px) + header (~82px) */
-    width: 100%;
-    display: block;
-}
-
-@media (max-width: 768px) {
-    .header-spacer {
-        height: 95px; /* top-bar (34px) + header móvil (~61px) */
-    }
-}
-
-/* ==========================================
    BREADCRUMB - MODULO INDEPENDIENTE
    ========================================== */
 

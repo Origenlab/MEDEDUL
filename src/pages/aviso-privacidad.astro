@@ -2,6 +2,7 @@
 // Aviso de Privacidad Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 
 const breadcrumbItems = [
   { name: 'Aviso de Privacidad', url: '/aviso-privacidad' }
@@ -28,20 +29,12 @@ const breadcrumbItems = [
     })} />
   </Fragment>
 
-  <div class="header-spacer"></div>
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <section class="legal-hero">
-    <div class="container">
-      <div class="legal-hero-content">
-        <span class="legal-hero-badge">Documento Legal</span>
-        <h1>Aviso de Privacidad</h1>
-        <p>En Mededul nos comprometemos a proteger tu privacidad y tus datos personales. Este aviso de privacidad describe como recopilamos, usamos y protegemos tu informacion personal.</p>
-        <span class="legal-update">Ultima actualizacion: Diciembre 2025</span>
-      </div>
-    </div>
-  </section>
+  <Hero
+    title="Aviso de Privacidad"
+    subtitle="En Mededul nos comprometemos a proteger tu privacidad y tus datos personales. Este aviso de privacidad describe como recopilamos, usamos y protegemos tu informacion personal."
+  />
 
   <section class="legal-content">
     <div class="container">
@@ -229,57 +222,6 @@ const breadcrumbItems = [
 
 <style>
   /* Hero Legal */
-  .legal-hero {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
-    position: relative;
-  }
-
-  .legal-hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(233, 30, 140, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .legal-hero-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .legal-hero-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .legal-hero h1 {
-    font-size: 2.8rem;
-    color: #1a1a1a;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    font-weight: 800;
-  }
-
-  .legal-hero p {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.7;
-  }
 
   .legal-update {
     display: inline-block;
@@ -485,13 +427,6 @@ const breadcrumbItems = [
 
   /* Responsive */
   @media (max-width: 768px) {
-    .legal-hero {
-      padding: 60px 0;
-    }
-
-    .legal-hero h1 {
-      font-size: 2rem;
-    }
 
     .legal-content {
       padding: 60px 0 80px;

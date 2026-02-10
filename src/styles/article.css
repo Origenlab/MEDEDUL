@@ -1778,9 +1778,6 @@
 
 @media (max-width: 768px) {
     /* Header spacer optimizado para móvil */
-    .header-spacer {
-        height: 90px;
-    }
 
     /* Hero del artículo mejorado */
     .article-hero {
@@ -2273,9 +2270,6 @@
 
 /* Mejoras para pantallas muy pequeñas */
 @media (max-width: 380px) {
-    .header-spacer {
-        height: 85px;
-    }
 
     .article-hero {
         padding: 60px 0 40px;

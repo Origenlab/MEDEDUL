@@ -1,0 +1,262 @@
+---
+/**
+ * CTA Services Component
+ * =======================
+ * Llamada a acción profesional con contenido dinámico.
+ * Puede usarse standalone o integrado en el Hero.
+ */
+
+interface Props {
+  href?: string;
+  badge?: string;
+  title?: string;
+  titleHighlight?: string;
+  text?: string;
+  buttonText?: string;
+}
+
+const {
+  href = '/servicios',
+  badge = 'Servicios Profesionales',
+  title = 'Descubre Nuestra Variedad de Mesas',
+  titleHighlight = 'Variedad',
+  text = 'Desde elegantes mesas de postres hasta refrescantes barras de frutas. Encuentra el montaje perfecto para hacer de tu evento algo extraordinario.',
+  buttonText = 'Ver Todos los Servicios'
+} = Astro.props;
+
+// Procesar título para aplicar highlight
+const renderTitle = () => {
+  if (titleHighlight && title.includes(titleHighlight)) {
+    const parts = title.split(titleHighlight);
+    return `${parts[0]}<span>${titleHighlight}</span>${parts[1] || ''}`;
+  }
+  return title;
+};
+---
+
+<section class="cta-services">
+  <div class="cta-services__bg">
+    <div class="cta-services__glow cta-services__glow--1"></div>
+    <div class="cta-services__glow cta-services__glow--2"></div>
+  </div>
+
+  <div class="cta-services__container">
+    <div class="cta-services__content">
+      <span class="cta-services__badge">{badge}</span>
+      <h2 class="cta-services__title" set:html={renderTitle()} />
+      <p class="cta-services__text">{text}</p>
+      <a href={href} class="cta-services__button">{buttonText}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =====================================================
+     CTA SERVICES COMPONENT - Professional Design
+     ===================================================== */
+
+  .cta-services {
+    position: relative;
+    padding: 70px 0 80px;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+    overflow: hidden;
+  }
+
+  /* Background Glows */
+  .cta-services__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .cta-services__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .cta-services__glow--1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(233, 30, 140, 0.15);
+    top: -150px;
+    left: -100px;
+  }
+
+  .cta-services__glow--2 {
+    width: 350px;
+    height: 350px;
+    background: rgba(255, 107, 179, 0.12);
+    bottom: -120px;
+    right: -80px;
+  }
+
+  /* Container */
+  .cta-services__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Content */
+  .cta-services__content {
+    text-align: center;
+  }
+
+  /* Badge */
+  .cta-services__badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(233, 30, 140, 0.15);
+    border: 1px solid rgba(233, 30, 140, 0.3);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #FF6BB3;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+  }
+
+  /* Title */
+  .cta-services__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    margin: 0 0 20px 0;
+  }
+
+  .cta-services__title :global(span) {
+    font-family: 'Pacifico', cursive;
+    background: linear-gradient(135deg, #FF6BB3 0%, #E91E8C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+  }
+
+  /* Text */
+  .cta-services__text {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    margin: 0 0 35px 0;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Button */
+  .cta-services__button {
+    display: inline-block;
+    padding: 18px 50px;
+    background: linear-gradient(135deg, #E91E8C 0%, #FF6BB3 100%);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 60px;
+    box-shadow: 0 8px 30px rgba(233, 30, 140, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-services__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.45);
+  }
+
+  /* =========================
+     RESPONSIVE
+     ========================= */
+  @media (max-width: 768px) {
+    .cta-services {
+      padding: 55px 0 65px;
+    }
+
+    .cta-services__container {
+      padding: 0 20px;
+    }
+
+    .cta-services__badge {
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-services__title {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+
+    .cta-services__text {
+      font-size: 0.98rem;
+      margin-bottom: 28px;
+    }
+
+    .cta-services__button {
+      padding: 16px 40px;
+      font-size: 0.95rem;
+    }
+
+    .cta-services__glow--1 {
+      width: 280px;
+      height: 280px;
+    }
+
+    .cta-services__glow--2 {
+      width: 240px;
+      height: 240px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta-services {
+      padding: 45px 0 55px;
+    }
+
+    .cta-services__container {
+      padding: 0 16px;
+    }
+
+    .cta-services__badge {
+      padding: 5px 14px;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    .cta-services__title {
+      font-size: 1.4rem;
+    }
+
+    .cta-services__text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .cta-services__button {
+      padding: 14px 32px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .cta-services__title {
+      font-size: 1.25rem;
+    }
+
+    .cta-services__button {
+      padding: 13px 28px;
+      font-size: 0.85rem;
+    }
+  }
+</style>

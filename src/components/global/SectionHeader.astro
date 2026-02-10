@@ -1,0 +1,232 @@
+---
+/**
+ * SectionHeader Component - Unified Section Headers
+ * ==================================================
+ * Componente reutilizable para encabezados de sección con dos columnas.
+ * Incluye título con highlight decorativo, subtítulo y contenido secundario.
+ *
+ * Usage:
+ * <SectionHeader
+ *   title="Tipos de Mesas de Dulces para Rentar"
+ *   titleHighlight="Mesas de Dulces"
+ *   subtitle="Variedad deliciosa para todos los gustos"
+ *   content="<p>Primer párrafo...</p><p>Segundo párrafo...</p>"
+ * />
+ *
+ * Props:
+ * @param {string} title - Título principal (required)
+ * @param {string} titleHighlight - Palabra(s) a destacar con Pacifico font
+ * @param {string} subtitle - Subtítulo debajo del título
+ * @param {string} content - HTML content para columna derecha
+ * @param {string} align - Alineación: 'left' | 'center' (default: 'left')
+ */
+
+interface Props {
+  title: string;
+  titleHighlight?: string;
+  subtitle?: string;
+  content?: string;
+  align?: 'left' | 'center';
+}
+
+const {
+  title,
+  titleHighlight,
+  subtitle,
+  content,
+  align = 'left'
+} = Astro.props;
+
+// Procesar título para aplicar highlight
+const renderTitle = () => {
+  if (titleHighlight && title.includes(titleHighlight)) {
+    const parts = title.split(titleHighlight);
+    return `${parts[0]}<span class="highlight">${titleHighlight}</span>${parts[1] || ''}`;
+  }
+  return title;
+};
+
+const hasTwoColumns = Boolean(content);
+---
+
+<div class={`section-header ${hasTwoColumns ? 'section-header--two-col' : ''} ${align === 'center' ? 'section-header--center' : ''}`}>
+  <div class="section-header__primary">
+    <h2 class="section-header__title" set:html={renderTitle()} />
+    {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
+  </div>
+  {content && (
+    <div class="section-header__secondary" set:html={content} />
+  )}
+</div>
+
+<style>
+  /* =====================================================
+     SECTION HEADER COMPONENT - Unified Section Headers
+     Single scoped CSS - No external dependencies
+     ===================================================== */
+
+  .section-header {
+    margin-bottom: 50px;
+  }
+
+  /* Two column layout */
+  .section-header--two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  /* Center alignment (single column) */
+  .section-header--center {
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Primary column - Title & Subtitle */
+  .section-header__primary {
+    /* No additional styles needed */
+  }
+
+  /* Title */
+  .section-header__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 16px 0;
+  }
+
+  .section-header__title :global(.highlight),
+  .section-header__title :global(span) {
+    font-family: 'Pacifico', cursive;
+    color: var(--rosa-principal, #E91E8C);
+    font-weight: 400;
+  }
+
+  /* Subtitle */
+  .section-header__subtitle {
+    font-size: 1.1rem;
+    color: var(--gris-texto, #666);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Secondary column - Content paragraphs */
+  .section-header__secondary {
+    padding-top: 5px;
+  }
+
+  .section-header__secondary :global(p) {
+    color: var(--gris-texto, #555);
+    line-height: 1.75;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+
+  .section-header__secondary :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .section-header__secondary :global(strong) {
+    color: var(--rosa-principal, #E91E8C);
+    font-weight: 600;
+  }
+
+  /* =========================
+     RESPONSIVE - Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .section-header--two-col {
+      gap: 40px;
+    }
+
+    .section-header__title {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-header--two-col {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .section-header__title {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .section-header__subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .section-header {
+      margin-bottom: 35px;
+    }
+
+    .section-header__title {
+      font-size: 1.5rem;
+    }
+
+    .section-header__subtitle {
+      font-size: 0.95rem;
+    }
+
+    .section-header__secondary :global(p) {
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE - Small Mobile
+     ========================= */
+  @media (max-width: 480px) {
+    .section-header {
+      margin-bottom: 30px;
+    }
+
+    .section-header--two-col {
+      gap: 20px;
+    }
+
+    .section-header__title {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .section-header__subtitle {
+      font-size: 0.9rem;
+    }
+
+    .section-header__secondary :global(p) {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .section-header__title {
+      font-size: 1.25rem;
+    }
+
+    .section-header__subtitle {
+      font-size: 0.85rem;
+    }
+  }
+</style>

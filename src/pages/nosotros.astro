@@ -2,6 +2,7 @@
 // Nosotros Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
@@ -16,20 +17,12 @@ const breadcrumbItems = [
 >
   <JsonLd type="Organization" />
 
-  <div class="header-spacer"></div>
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <!-- Hero Section -->
-  <section class="about-hero">
-    <div class="container">
-      <h1>Creamos Experiencias Dulces Inolvidables</h1>
-      <p class="hero-subtitle">
-        Somos especialistas en transformar momentos especiales en recuerdos memorables
-        a través de mesas de dulces diseñadas con pasión y creatividad.
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Creamos Experiencias Dulces Inolvidables"
+    subtitle="Somos especialistas en transformar momentos especiales en recuerdos memorables a través de mesas de dulces diseñadas con pasión y creatividad."
+  />
 
   <!-- Story Section -->
   <section class="story-section">
@@ -205,29 +198,6 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <style>
-  .about-hero {
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
-    padding: 80px 0;
-    text-align: center;
-    color: #ffffff;
-  }
-
-  .about-hero h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    margin-bottom: 20px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-    opacity: 0.95;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
 
   .section-tag {
     display: inline-block;
@@ -479,9 +449,6 @@ const breadcrumbItems = [
   }
 
   @media (max-width: 768px) {
-    .about-hero {
-      padding: 60px 0;
-    }
 
     .story-grid {
       grid-template-columns: 1fr;

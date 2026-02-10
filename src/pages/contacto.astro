@@ -2,6 +2,7 @@
 // Contacto Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 
 const breadcrumbItems = [
@@ -15,20 +16,12 @@ const breadcrumbItems = [
 >
   <JsonLd type="LocalBusiness" />
 
-  <div class="header-spacer"></div>
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <!-- Hero Section -->
-  <section class="contact-hero">
-    <div class="container">
-      <h1>Cotiza tu Mesa de Dulces</h1>
-      <p class="hero-subtitle">
-        Cuéntanos sobre tu evento y recibe una propuesta personalizada en menos de 24 horas.
-        Sin compromiso, sin costos ocultos.
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Cotiza tu Mesa de Dulces"
+    subtitle="Cuéntanos sobre tu evento y recibe una propuesta personalizada en menos de 24 horas. Sin compromiso, sin costos ocultos."
+  />
 
   <!-- Contact Section -->
   <section class="contact-section">
@@ -226,27 +219,6 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <style>
-  .contact-hero {
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #c4177a 50%, #a01365 100%);
-    padding: 80px 0;
-    text-align: center;
-    color: #ffffff;
-  }
-
-  .contact-hero h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    margin-bottom: 20px;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-    opacity: 0.95;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
   .contact-section {
     padding: 80px 0;
     background: var(--gris-claro);

@@ -2,6 +2,7 @@
 // Tipos de Mesas de Dulces - Main Index Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -210,31 +211,16 @@ const faqSchema = {
   <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <div class="header-spacer"></div>
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="page-hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-
-    <div class="container">
-      <div class="page-hero-grid">
-        <div class="page-hero-left">
-          <h1>Tipos de <span class="highlight">Mesas de Dulces</span> para Rentar en CDMX</h1>
-          <p class="page-hero-description">Descubre nuestra amplia variedad de <strong>mesas de dulces para eventos</strong> en Ciudad de Mexico. Desde clasicas mesas de dulces personalizadas hasta elegantes tablas de quesos gourmet, tenemos la opcion perfecta para cada celebracion.</p>
-        </div>
-        <div class="page-hero-right">
-          <p>En <strong>Mededul</strong> entendemos que cada evento tiene su propia personalidad. Por eso ofrecemos <strong>8 tipos diferentes de mesas</strong> que puedes combinar para crear una experiencia unica e inolvidable.</p>
-          <p>Ya sea que busques dulzura tradicional, frescura frutal o sofisticacion gourmet, nuestro equipo de expertos disenara el montaje perfecto para sorprender a tus invitados.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Hero
+    title="Tipos de Mesas de Dulces para Rentar en CDMX"
+    highlight="Mesas de Dulces"
+    description="Descubre nuestra amplia variedad de <strong>mesas de dulces para eventos</strong> en Ciudad de Mexico. Desde clasicas mesas de dulces personalizadas hasta elegantes tablas de quesos gourmet, tenemos la opcion perfecta para cada celebracion."
+    secondaryContent={`<p><strong>Tipos de mesas de dulces</strong> disenados para necesidades distintas te ayudan a elegir una solucion mas inteligente segun estilo de evento, perfil de invitados y objetivo visual. En Mededul estructuramos cada formato con criterios de funcionalidad, presentacion y equilibrio para maximizar valor en cada montaje.</p><p><strong>Variedad</strong> de opciones como postres, frutas, botanas, snacks, donas, dulces tradicionales y propuestas gourmet permite construir una experiencia personalizada y competitiva en CDMX. Nuestro equipo te asesora para combinar formatos con sentido estrategico y obtener una mesa atractiva, operativa y memorable.</p>`}
+  />
 
   <!-- Tipos Grid -->
   <section class="tipos-mesas section-padding" id="tipos-mesas">
@@ -315,84 +301,6 @@ const faqSchema = {
 </BaseLayout>
 
 <style>
-  /* Page Hero */
-  .page-hero {
-    padding: 60px 0 80px;
-    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .page-hero-bg-shapes {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.1;
-  }
-
-  .shape-1 {
-    width: 400px;
-    height: 400px;
-    background: var(--rosa-principal);
-    top: -100px;
-    right: -100px;
-  }
-
-  .shape-2 {
-    width: 300px;
-    height: 300px;
-    background: var(--rosa-principal);
-    bottom: -50px;
-    left: -50px;
-  }
-
-  .shape-3 {
-    width: 200px;
-    height: 200px;
-    background: var(--rosa-principal);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .page-hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .page-hero h1 {
-    font-size: 2.5rem;
-    color: var(--texto-oscuro);
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-
-  .page-hero h1 .highlight {
-    color: var(--rosa-principal);
-  }
-
-  .page-hero-description {
-    font-size: 1.1rem;
-    color: var(--texto-light);
-    line-height: 1.8;
-  }
-
-  .page-hero-right p {
-    font-size: 1rem;
-    color: var(--texto-light);
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
   /* Section Header */
   .section-header {
     display: grid;
@@ -612,11 +520,6 @@ const faqSchema = {
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .page-hero-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-
     .section-header {
       grid-template-columns: 1fr;
     }
@@ -627,14 +530,6 @@ const faqSchema = {
   }
 
   @media (max-width: 768px) {
-    .page-hero {
-      padding: 40px 0 60px;
-    }
-
-    .page-hero h1 {
-      font-size: 1.8rem;
-    }
-
     .tipos-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 15px;

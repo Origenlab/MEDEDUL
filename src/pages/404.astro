@@ -1,6 +1,7 @@
 ---
 // 404 Error Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/global/Hero.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
@@ -20,7 +21,11 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
   description="Lo sentimos, la página que buscas no existe. Descubre nuestros servicios de mesas de dulces para eventos en CDMX."
   noindex={true}
 >
-  <div class="header-spacer"></div>
+  <Hero
+    title="Página no encontrada"
+    subtitle="Error 404"
+    description="La página que buscas no existe o fue movida. Te ayudamos a volver a una ruta útil del sitio."
+  />
 
   <section class="error-section">
     <div class="container">

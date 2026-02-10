@@ -2,6 +2,7 @@
 // Candy Bar Eventos - Main Index Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -167,31 +168,16 @@ const itemListSchema = {
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} />
 
-  <div class="header-spacer"></div>
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <!-- Hero Section -->
-  <section class="page-hero">
-    <div class="page-hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-
-    <div class="container">
-      <div class="page-hero-grid">
-        <div class="page-hero-left">
-          <h1>Candy Bar para <span class="highlight">Cada Tipo de Evento</span> en CDMX</h1>
-          <p class="page-hero-description">Cada celebracion merece una <strong>mesa de dulces unica</strong>. Ofrecemos candy bars personalizados que se adaptan perfectamente al estilo y tematica de tu evento, ya sea una boda elegante, un baby shower tierno o una fiesta de XV anos espectacular.</p>
-        </div>
-        <div class="page-hero-right">
-          <p>En <strong>Mededul</strong> sabemos que cada evento tiene su propia esencia. Por eso hemos desarrollado <strong>8 tipos de candy bar especializados</strong> que capturan la magia de cada ocasion.</p>
-          <p>Desde la ternura de un baby shower hasta la elegancia de una boda, nuestro equipo de expertos creara el montaje perfecto para que tu celebracion sea inolvidable.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Hero
+    title="Candy Bar para Cada Tipo de Evento en CDMX"
+    highlight="Cada Tipo de Evento"
+    description="Cada celebracion merece una <strong>mesa de dulces unica</strong>. Ofrecemos candy bars personalizados que se adaptan perfectamente al estilo y tematica de tu evento, ya sea una boda elegante, un baby shower tierno o una fiesta de XV anos espectacular."
+    secondaryContent={`<p><strong>Candy bar</strong> especializado por tipo de celebracion te permite lograr una propuesta visual coherente con la esencia de tu evento, ya sea social, familiar o corporativo. En Mededul adaptamos concepto, paleta y seleccion de productos para que cada montaje comunique estilo, calidad y personalidad propia.</p><p><strong>Eventos</strong> como bodas, XV anos, baby shower, bautizos y celebraciones empresariales requieren soluciones distintas en diseno y operacion para alcanzar resultados premium. Nuestro equipo planifica cada detalle de principio a fin para que tu mesa de dulces en CDMX genere impacto real en experiencia, fotografias y recordacion de marca o anfitrion.</p>`}
+  />
 
   <!-- Tipos de Eventos Grid -->
   <section class="tipos-mesas section-padding" id="tipos-eventos">
@@ -294,79 +280,6 @@ const itemListSchema = {
 </BaseLayout>
 
 <style>
-  /* Page Hero */
-  .page-hero {
-    padding: 60px 0 80px;
-    background: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #fff0f5 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .page-hero-bg-shapes .shape {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
-  }
-
-  .shape-1 {
-    width: 400px;
-    height: 400px;
-    top: -100px;
-    right: -100px;
-  }
-
-  .shape-2 {
-    width: 300px;
-    height: 300px;
-    bottom: -50px;
-    left: -50px;
-  }
-
-  .shape-3 {
-    width: 200px;
-    height: 200px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .page-hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .page-hero h1 {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    color: #1a1a1a;
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-
-  .page-hero h1 .highlight {
-    color: var(--rosa-principal);
-  }
-
-  .page-hero-description {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.8;
-  }
-
-  .page-hero-right p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .page-hero-right strong {
-    color: var(--rosa-principal);
-  }
-
   /* Section Header */
   .section-header {
     display: grid;
@@ -608,7 +521,6 @@ const itemListSchema = {
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .page-hero-grid,
     .section-header,
     .tipo-detalle-grid {
       grid-template-columns: 1fr;
