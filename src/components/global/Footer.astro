@@ -1,9 +1,8 @@
 ---
 /**
- * Footer Component - Professional Modern Design
- * =============================================
- * Footer elegante y moderno para el sitio.
- * Incluye brand, navegación, contacto, zonas y legal.
+ * Footer Component - Premium Professional Design
+ * ===============================================
+ * Footer moderno y elegante con diseño premium.
  */
 
 const currentYear = new Date().getFullYear();
@@ -40,7 +39,6 @@ const empresaLinks = [
   { label: 'Contacto', href: '/#contacto' }
 ];
 
-// Legal y Recursos
 const legalLinks = [
   { label: 'Aviso de Privacidad', href: '/aviso-privacidad' },
   { label: 'Términos y Condiciones', href: '/terminos-condiciones' },
@@ -51,94 +49,87 @@ const legalLinks = [
 // Sucursales
 const sucursales = [
   {
-    nombre: 'Sucursal Anzures',
+    nombre: 'Anzures',
     direccion: 'Av. Ejército Nacional Mexicano 216',
     colonia: 'Anzures, Miguel Hidalgo, 11590',
-    ciudad: 'Ciudad de México, CDMX',
     telefono: '55 2522 6442',
-    horario: 'Abierto 24 horas',
+    horario: '24 horas',
     mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9'
   },
   {
-    nombre: 'Sucursal Condesa',
+    nombre: 'Condesa',
     direccion: 'Torre A, Av. Baja California 255',
-    colonia: 'Colonia Condesa, Cuauhtémoc, 06170',
-    ciudad: 'Ciudad de México, CDMX',
+    colonia: 'Condesa, Cuauhtémoc, 06170',
     telefono: '55 2522 6442',
-    horario: 'Lun - Sáb: 10:00 - 19:00',
+    horario: 'Lun-Sáb 10-19h',
     mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86'
   }
-];
-
-// Zonas de servicio
-const zonas = [
-  { nombre: 'Poniente', areas: ['Polanco', 'Santa Fe', 'Lomas', 'Interlomas'] },
-  { nombre: 'Sur', areas: ['Coyoacán', 'Pedregal', 'Tlalpan', 'San Ángel'] },
-  { nombre: 'Norte', areas: ['Satélite', 'Naucalpan', 'Tlalnepantla', 'Atizapán'] },
-  { nombre: 'Centro', areas: ['Roma', 'Condesa', 'Del Valle', 'Nápoles'] }
 ];
 ---
 
 <footer class="footer">
-  <!-- Main Footer -->
+  <!-- Top Accent Line -->
+  <div class="footer__accent"></div>
+
+  <!-- Main Content -->
   <div class="footer__main">
     <div class="footer__container">
-      <!-- Brand Column -->
-      <div class="footer__brand">
+
+      <!-- Brand Section -->
+      <div class="footer__brand-section">
         <a href="/" class="footer__logo">
-          <span class="footer__logo-text">Mededul</span>
-          <span class="footer__logo-sub">Mesas de Dulces</span>
+          <span class="footer__logo-icon">🍬</span>
+          <div class="footer__logo-text">
+            <span class="footer__logo-name">Mededul</span>
+            <span class="footer__logo-tagline">Mesas de Dulces Premium</span>
+          </div>
         </a>
-        <p class="footer__tagline">
-          Creamos experiencias dulces e inolvidables para tus eventos especiales en CDMX y área metropolitana.
+
+        <p class="footer__description">
+          Transformamos tus eventos en experiencias inolvidables con nuestras mesas de dulces personalizadas.
+          Más de 500 eventos exitosos en CDMX.
         </p>
 
-        <!-- Social Links -->
+        <!-- Social Icons -->
         <div class="footer__social">
-          <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer__social-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
+          <a href="https://www.facebook.com/mededul" target="_blank" rel="noopener" class="footer__social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
-          <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer__social-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
+          <a href="https://www.instagram.com/mededul" target="_blank" rel="noopener" class="footer__social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </a>
-          <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer__social-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-            </svg>
+          <a href="https://www.tiktok.com/@mededul" target="_blank" rel="noopener" class="footer__social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
           </a>
-          <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="footer__social-link footer__social-link--whatsapp">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
+          <a href="https://wa.me/525525226442" target="_blank" rel="noopener" class="footer__social-btn footer__social-btn--whatsapp" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </a>
         </div>
 
-        <!-- Contact Quick -->
-        <div class="footer__contact-quick">
-          <a href="tel:+525525226442" class="footer__phone">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-            </svg>
-            55 2522 6442
+        <!-- Contact Info -->
+        <div class="footer__contact-info">
+          <a href="tel:+525525226442" class="footer__contact-item">
+            <span class="footer__contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </span>
+            <span>55 2522 6442</span>
           </a>
-          <a href="mailto:info@mesas-de-dulces.com" class="footer__email">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="M22 6l-10 7L2 6"/>
-            </svg>
-            info@mesas-de-dulces.com
+          <a href="mailto:info@mesas-de-dulces.com" class="footer__contact-item">
+            <span class="footer__contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+            </span>
+            <span>info@mesas-de-dulces.com</span>
           </a>
         </div>
       </div>
 
-      <!-- Navigation Columns -->
-      <div class="footer__nav">
-        <div class="footer__nav-col">
-          <h4 class="footer__nav-title">Servicios</h4>
+      <!-- Navigation Grid -->
+      <div class="footer__nav-grid">
+        <div class="footer__nav-column">
+          <h4 class="footer__nav-title">
+            <span class="footer__nav-icon">🍰</span>
+            Servicios
+          </h4>
           <ul class="footer__nav-list">
             {serviciosLinks.map(link => (
               <li><a href={link.href}>{link.label}</a></li>
@@ -146,8 +137,11 @@ const zonas = [
           </ul>
         </div>
 
-        <div class="footer__nav-col">
-          <h4 class="footer__nav-title">Eventos</h4>
+        <div class="footer__nav-column">
+          <h4 class="footer__nav-title">
+            <span class="footer__nav-icon">🎉</span>
+            Eventos
+          </h4>
           <ul class="footer__nav-list">
             {eventosLinks.map(link => (
               <li><a href={link.href}>{link.label}</a></li>
@@ -155,8 +149,11 @@ const zonas = [
           </ul>
         </div>
 
-        <div class="footer__nav-col">
-          <h4 class="footer__nav-title">Estaciones</h4>
+        <div class="footer__nav-column">
+          <h4 class="footer__nav-title">
+            <span class="footer__nav-icon">⭐</span>
+            Estaciones
+          </h4>
           <ul class="footer__nav-list">
             {estacionesLinks.map(link => (
               <li><a href={link.href}>{link.label}</a></li>
@@ -164,125 +161,90 @@ const zonas = [
           </ul>
         </div>
 
-        <div class="footer__nav-col">
-          <h4 class="footer__nav-title">Empresa</h4>
+        <div class="footer__nav-column">
+          <h4 class="footer__nav-title">
+            <span class="footer__nav-icon">💎</span>
+            Empresa
+          </h4>
           <ul class="footer__nav-list">
             {empresaLinks.map(link => (
               <li><a href={link.href}>{link.label}</a></li>
             ))}
           </ul>
         </div>
-
-        <div class="footer__nav-col">
-          <h4 class="footer__nav-title">Legal</h4>
-          <ul class="footer__nav-list">
-            {legalLinks.map(link => (
-              <li><a href={link.href}>{link.label}</a></li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Sucursales Section -->
-  <div class="footer__sucursales">
+  <!-- Locations Section -->
+  <div class="footer__locations">
     <div class="footer__container">
-      <div class="footer__sucursales-header">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-        <h3>Nuestras Sucursales</h3>
+      <div class="footer__locations-header">
+        <h3 class="footer__locations-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nuestras Sucursales
+        </h3>
+        <p class="footer__locations-subtitle">Visítanos en cualquiera de nuestras ubicaciones</p>
       </div>
-      <div class="footer__sucursales-grid">
+
+      <div class="footer__locations-grid">
         {sucursales.map(suc => (
-          <div class="footer__sucursal">
-            <div class="footer__sucursal-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
+          <div class="footer__location-card">
+            <div class="footer__location-header">
+              <span class="footer__location-badge">{suc.nombre}</span>
+              <span class="footer__location-hours">{suc.horario}</span>
             </div>
-            <div class="footer__sucursal-info">
-              <h4 class="footer__sucursal-nombre">{suc.nombre}</h4>
-              <p class="footer__sucursal-direccion">{suc.direccion}</p>
-              <p class="footer__sucursal-colonia">{suc.colonia}</p>
-              <p class="footer__sucursal-ciudad">{suc.ciudad}</p>
-              <div class="footer__sucursal-detalles">
-                <span class="footer__sucursal-tel">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                  </svg>
-                  {suc.telefono}
-                </span>
-                <span class="footer__sucursal-horario">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                  {suc.horario}
-                </span>
-              </div>
-              <a href={suc.mapsUrl} target="_blank" rel="noopener noreferrer" class="footer__sucursal-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                Ver en Google Maps
+            <div class="footer__location-body">
+              <p class="footer__location-address">{suc.direccion}</p>
+              <p class="footer__location-colonia">{suc.colonia}</p>
+              <a href={`tel:+52${suc.telefono.replace(/\s/g, '')}`} class="footer__location-phone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                {suc.telefono}
               </a>
             </div>
+            <a href={suc.mapsUrl} target="_blank" rel="noopener" class="footer__location-map-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Ver en Maps
+            </a>
           </div>
         ))}
       </div>
     </div>
   </div>
 
-  <!-- Zones Section -->
-  <div class="footer__zones">
-    <div class="footer__container">
-      <div class="footer__zones-header">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-          <circle cx="12" cy="10" r="3"/>
-        </svg>
-        <span>Servicio en toda la CDMX y Área Metropolitana</span>
-      </div>
-      <div class="footer__zones-grid">
-        {zonas.map(zona => (
-          <div class="footer__zone">
-            <h5 class="footer__zone-title">Zona {zona.nombre}</h5>
-            <ul class="footer__zone-list">
-              {zona.areas.map(area => (
-                <li>{area}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Bar -->
+  <!-- Bottom Section -->
   <div class="footer__bottom">
     <div class="footer__container">
       <div class="footer__bottom-content">
-        <p class="footer__copyright">
-          &copy; {currentYear} <strong>Mededul</strong> - Mesas de Dulces CDMX. Todos los derechos reservados.
-        </p>
-        <div class="footer__bottom-links">
-          <a href="/aviso-privacidad">Privacidad</a>
-          <span class="footer__link-divider"></span>
-          <a href="/terminos-condiciones">Términos</a>
-          <span class="footer__link-divider"></span>
-          <a href="/sitemap.xml">Sitemap</a>
-          <span class="footer__link-divider"></span>
-          <a href="/#faq">FAQ</a>
+        <!-- Legal Links -->
+        <div class="footer__legal-links">
+          {legalLinks.map((link, index) => (
+            <>
+              <a href={link.href}>{link.label}</a>
+              {index < legalLinks.length - 1 && <span class="footer__divider">•</span>}
+            </>
+          ))}
         </div>
-        <p class="footer__made">
-          Hecho con <span class="footer__heart">♥</span> en CDMX
-        </p>
+
+        <!-- Copyright -->
+        <div class="footer__copyright">
+          <p>&copy; {currentYear} <strong>Mededul</strong> — Mesas de Dulces CDMX</p>
+          <p class="footer__made-with">
+            Hecho con <span class="footer__heart">♥</span> en Ciudad de México
+          </p>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="footer__badges">
+          <span class="footer__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Pago Seguro
+          </span>
+          <span class="footer__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            +500 Eventos
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -290,156 +252,224 @@ const zonas = [
 
 <style>
   /* =====================================================
-     FOOTER COMPONENT - Professional Modern Design
+     FOOTER - Premium Professional Design
      ===================================================== */
 
   .footer {
-    background: linear-gradient(180deg, #2d2d3a 0%, #1e1e28 100%);
+    position: relative;
+    background: #0a0a0f;
     color: #ffffff;
+    overflow: hidden;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 40%, rgba(209, 0, 122, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(160, 0, 95, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Accent Line */
+  .footer__accent {
+    height: 4px;
+    background: linear-gradient(90deg,
+      #D1007A 0%,
+      #ff6b9d 25%,
+      #D1007A 50%,
+      #A0005F 75%,
+      #D1007A 100%
+    );
+    background-size: 200% 100%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   .footer__container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
   }
 
   /* =========================
      MAIN SECTION
      ========================= */
   .footer__main {
-    padding: 70px 0 50px;
+    padding: 80px 0 60px;
   }
 
   .footer__main .footer__container {
     display: grid;
-    grid-template-columns: 1.2fr 2fr;
-    gap: 60px;
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
   }
 
-  /* Brand Column */
-  .footer__brand {
+  /* Brand Section */
+  .footer__brand-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
 
   .footer__logo {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     text-decoration: none;
   }
 
-  .footer__logo-text {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.2rem;
-    color: var(--rosa-principal, #D1007A);
-    line-height: 1;
+  .footer__logo-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 4px 12px rgba(209, 0, 122, 0.4));
   }
 
-  .footer__logo-sub {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
+  .footer__logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer__logo-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, #D1007A 0%, #ff6b9d 50%, #D1007A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+
+  .footer__logo-tagline {
+    font-size: 0.75rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 3px;
     text-transform: uppercase;
     margin-top: 4px;
   }
 
-  .footer__tagline {
+  .footer__description {
     font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.65);
     margin: 0;
-    max-width: 300px;
   }
 
-  /* Social Links */
+  /* Social Buttons */
   .footer__social {
     display: flex;
     gap: 12px;
-    margin-top: 8px;
   }
 
-  .footer__social-link {
+  .footer__social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .footer__social-link:hover {
-    background: var(--rosa-principal, #D1007A);
+  .footer__social-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .footer__social-btn:hover {
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    border-color: transparent;
     color: #ffffff;
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(209, 0, 122, 0.35);
   }
 
-  .footer__social-link--whatsapp:hover {
-    background: #25D366;
+  .footer__social-btn--whatsapp:hover {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    box-shadow: 0 12px 24px rgba(37, 211, 102, 0.35);
   }
 
-  /* Contact Quick */
-  .footer__contact-quick {
+  /* Contact Info */
+  .footer__contact-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 12px;
+    gap: 12px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .footer__phone,
-  .footer__email {
-    display: inline-flex;
+  .footer__contact-item {
+    display: flex;
     align-items: center;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.8);
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease;
   }
 
-  .footer__phone:hover,
-  .footer__email:hover {
-    color: var(--rosa-principal, #D1007A);
+  .footer__contact-item:hover {
+    color: #D1007A;
   }
 
-  .footer__phone svg,
-  .footer__email svg {
-    color: var(--rosa-principal, #D1007A);
-    flex-shrink: 0;
+  .footer__contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(209, 0, 122, 0.12);
+  }
+
+  .footer__contact-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #D1007A;
   }
 
   /* =========================
-     NAVIGATION
+     NAVIGATION GRID
      ========================= */
-  .footer__nav {
+  .footer__nav-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
   }
 
-  .footer__nav-col {
+  .footer__nav-column {
     display: flex;
     flex-direction: column;
   }
 
   .footer__nav-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #ffffff;
-    margin: 0 0 20px 0;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--rosa-principal, #D1007A);
-    display: inline-block;
-    width: fit-content;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(209, 0, 122, 0.4);
+  }
+
+  .footer__nav-icon {
+    font-size: 1.1rem;
   }
 
   .footer__nav-list {
@@ -448,260 +478,198 @@ const zonas = [
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
-  .footer__nav-list li a {
-    color: rgba(255, 255, 255, 0.65);
+  .footer__nav-list a {
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 0.88rem;
-    transition: all 0.2s ease;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
     position: relative;
   }
 
-  .footer__nav-list li a::before {
+  .footer__nav-list a::before {
     content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
     width: 0;
     height: 1px;
-    background: var(--rosa-principal, #D1007A);
+    background: linear-gradient(90deg, #D1007A, transparent);
+    position: absolute;
+    bottom: -2px;
+    left: 0;
     transition: width 0.3s ease;
   }
 
-  .footer__nav-list li a:hover {
+  .footer__nav-list a:hover {
     color: #ffffff;
-    padding-left: 8px;
+    transform: translateX(6px);
   }
 
-  .footer__nav-list li a:hover::before {
+  .footer__nav-list a:hover::before {
     width: 100%;
   }
 
   /* =========================
-     SUCURSALES SECTION
+     LOCATIONS SECTION
      ========================= */
-  .footer__sucursales {
-    background: rgba(0, 0, 0, 0.15);
-    padding: 40px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  .footer__locations {
+    padding: 50px 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .footer__sucursales-header {
-    display: flex;
+  .footer__locations-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .footer__locations-title {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 12px;
-    margin-bottom: 32px;
-  }
-
-  .footer__sucursales-header svg {
-    color: var(--rosa-principal, #D1007A);
-  }
-
-  .footer__sucursales-header h3 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #ffffff;
+    margin: 0 0 8px 0;
+  }
+
+  .footer__locations-title svg {
+    width: 26px;
+    height: 26px;
+    color: #D1007A;
+  }
+
+  .footer__locations-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
   }
 
-  .footer__sucursales-grid {
+  .footer__locations-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 24px;
     max-width: 900px;
     margin: 0 auto;
   }
 
-  .footer__sucursal {
-    display: flex;
-    gap: 16px;
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 16px;
+  .footer__location-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 28px;
     transition: all 0.3s ease;
   }
 
-  .footer__sucursal:hover {
-    background: rgba(255, 255, 255, 0.07);
+  .footer__location-card:hover {
     border-color: rgba(209, 0, 122, 0.3);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
-  .footer__sucursal-icon {
+  .footer__location-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, rgba(209, 0, 122, 0.2) 0%, rgba(160, 0, 95, 0.15) 100%);
-    border-radius: 12px;
-    flex-shrink: 0;
+    margin-bottom: 16px;
   }
 
-  .footer__sucursal-icon svg {
-    color: var(--rosa-principal, #D1007A);
-  }
-
-  .footer__sucursal-info {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .footer__sucursal-nombre {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0;
-  }
-
-  .footer__sucursal-direccion {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .footer__sucursal-colonia {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.65);
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .footer__sucursal-ciudad {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.55);
-    margin: 0;
-  }
-
-  .footer__sucursal-detalles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    margin-top: 8px;
-  }
-
-  .footer__sucursal-tel,
-  .footer__sucursal-horario {
+  .footer__location-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.65);
-  }
-
-  .footer__sucursal-tel svg,
-  .footer__sucursal-horario svg {
-    color: var(--rosa-principal, #D1007A);
-    opacity: 0.8;
-  }
-
-  .footer__sucursal-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, rgba(209, 0, 122, 0.15) 0%, rgba(160, 0, 95, 0.1) 100%);
-    border: 1px solid rgba(209, 0, 122, 0.3);
-    border-radius: 8px;
-    color: var(--rosa-principal, #D1007A);
-    font-size: 0.82rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    width: fit-content;
-  }
-
-  .footer__sucursal-link:hover {
-    background: var(--rosa-principal, #D1007A);
-    color: #ffffff;
-    border-color: var(--rosa-principal, #D1007A);
-  }
-
-  .footer__sucursal-link svg {
-    transition: transform 0.2s ease;
-  }
-
-  .footer__sucursal-link:hover svg {
-    transform: translate(2px, -2px);
-  }
-
-  /* =========================
-     ZONES SECTION
-     ========================= */
-  .footer__zones {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 30px 0;
-  }
-
-  .footer__zones-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 24px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.85rem;
-  }
-
-  .footer__zones-header svg {
-    color: var(--rosa-principal, #D1007A);
-  }
-
-  .footer__zones-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-  }
-
-  .footer__zone {
-    text-align: center;
-  }
-
-  .footer__zone-title {
-    font-family: 'Poppins', sans-serif;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--rosa-principal, #D1007A);
-    margin: 0 0 12px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
   }
 
-  .footer__zone-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .footer__zone-list li {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.55);
-    padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.05);
+  .footer__location-hours {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 20px;
   }
 
+  .footer__location-body {
+    margin-bottom: 20px;
+  }
+
+  .footer__location-address {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 4px 0;
+    font-weight: 500;
+  }
+
+  .footer__location-colonia {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 12px 0;
+  }
+
+  .footer__location-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #D1007A;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer__location-phone svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer__location-phone:hover {
+    color: #ff6b9d;
+  }
+
+  .footer__location-map-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .footer__location-map-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer__location-map-btn:hover {
+    background: rgba(209, 0, 122, 0.15);
+    border-color: rgba(209, 0, 122, 0.3);
+    color: #D1007A;
+  }
+
   /* =========================
-     BOTTOM BAR
+     BOTTOM SECTION
      ========================= */
   .footer__bottom {
-    background: rgba(0, 0, 0, 0.35);
-    padding: 24px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 32px 0;
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .footer__bottom-content {
@@ -709,379 +677,260 @@ const zonas = [
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 24px;
+  }
+
+  .footer__legal-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .footer__legal-links a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  .footer__legal-links a:hover {
+    color: #D1007A;
+    background: rgba(209, 0, 122, 0.1);
+  }
+
+  .footer__divider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.7rem;
   }
 
   .footer__copyright {
+    text-align: center;
+  }
+
+  .footer__copyright p {
+    margin: 0;
     font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.5);
-    margin: 0;
   }
 
   .footer__copyright strong {
-    color: var(--rosa-principal, #D1007A);
+    color: #D1007A;
     font-weight: 600;
   }
 
-  .footer__bottom-links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .footer__bottom-links a {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer__bottom-links a:hover {
-    color: var(--rosa-principal, #D1007A);
-  }
-
-  .footer__link-divider {
-    width: 1px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  .footer__made {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0;
+  .footer__made-with {
+    margin-top: 6px !important;
+    font-size: 0.78rem !important;
+    color: rgba(255, 255, 255, 0.35) !important;
   }
 
   .footer__heart {
-    color: var(--rosa-principal, #D1007A);
-    animation: heartbeat 1.5s ease-in-out infinite;
+    color: #D1007A;
+    display: inline-block;
+    animation: heartPulse 1.2s ease-in-out infinite;
   }
 
-  @keyframes heartbeat {
+  @keyframes heartPulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
+  }
+
+  .footer__badges {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer__badge svg {
+    width: 16px;
+    height: 16px;
+    color: #25D366;
   }
 
   /* =========================
      RESPONSIVE - Tablet
      ========================= */
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     .footer__main .footer__container {
       grid-template-columns: 1fr;
-      gap: 50px;
+      gap: 60px;
     }
 
-    .footer__brand {
+    .footer__brand-section {
       align-items: center;
       text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    .footer__tagline {
-      max-width: 400px;
+    .footer__logo {
+      justify-content: center;
     }
 
     .footer__social {
       justify-content: center;
     }
 
-    .footer__contact-quick {
+    .footer__contact-info {
       align-items: center;
     }
 
-    .footer__nav {
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-    }
-
-    .footer__nav-title {
-      font-size: 0.85rem;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .footer__nav {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px 24px;
+    .footer__nav-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
     }
   }
 
   @media (max-width: 900px) {
+    .footer__container {
+      padding: 0 24px;
+    }
+
     .footer__main {
-      padding: 50px 0 40px;
+      padding: 60px 0 50px;
     }
 
-    .footer__nav {
+    .footer__nav-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 36px 24px;
+      gap: 40px 30px;
     }
 
-    .footer__sucursales {
-      padding: 35px 0;
+    .footer__locations-grid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
     }
 
-    .footer__sucursales-grid {
-      gap: 24px;
+    .footer__bottom-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
     }
 
-    .footer__sucursal {
-      padding: 20px;
+    .footer__legal-links {
+      justify-content: center;
     }
 
-    .footer__zones-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+    .footer__badges {
+      justify-content: center;
     }
   }
 
   /* =========================
      RESPONSIVE - Mobile
      ========================= */
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .footer__container {
       padding: 0 20px;
     }
 
     .footer__main {
-      padding: 45px 0 35px;
+      padding: 50px 0 40px;
     }
 
-    .footer__logo-text {
-      font-size: 1.9rem;
+    .footer__logo-name {
+      font-size: 2rem;
     }
 
-    .footer__logo-sub {
-      font-size: 0.75rem;
+    .footer__logo-icon {
+      font-size: 2rem;
     }
 
-    .footer__tagline {
+    .footer__description {
       font-size: 0.9rem;
     }
 
-    .footer__social-link {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+    .footer__social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
     }
 
-    .footer__social-link svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .footer__nav {
-      gap: 30px 20px;
+    .footer__nav-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 20px;
     }
 
     .footer__nav-title {
-      font-size: 0.82rem;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
     }
 
     .footer__nav-list {
-      gap: 10px;
+      gap: 12px;
     }
 
-    .footer__nav-list li a {
-      font-size: 0.85rem;
+    .footer__nav-list a {
+      font-size: 0.84rem;
     }
 
-    .footer__zones {
-      padding: 24px 0;
+    .footer__locations {
+      padding: 40px 0;
     }
 
-    .footer__zones-header {
-      font-size: 0.8rem;
-      margin-bottom: 20px;
-    }
-
-    .footer__zone-title {
-      font-size: 0.75rem;
-    }
-
-    .footer__zone-list li {
-      font-size: 0.75rem;
-      padding: 3px 8px;
-    }
-
-    .footer__sucursales {
-      padding: 30px 0;
-    }
-
-    .footer__sucursales-header {
-      margin-bottom: 24px;
-    }
-
-    .footer__sucursales-header h3 {
+    .footer__locations-title {
       font-size: 1.1rem;
     }
 
-    .footer__sucursales-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .footer__sucursal {
-      padding: 18px;
-      gap: 14px;
-    }
-
-    .footer__sucursal-icon {
-      width: 44px;
-      height: 44px;
-    }
-
-    .footer__sucursal-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .footer__sucursal-nombre {
-      font-size: 0.95rem;
-    }
-
-    .footer__sucursal-direccion {
-      font-size: 0.85rem;
-    }
-
-    .footer__sucursal-colonia {
-      font-size: 0.8rem;
-    }
-
-    .footer__sucursal-ciudad {
-      font-size: 0.78rem;
-    }
-
-    .footer__sucursal-detalles {
-      gap: 10px 16px;
-    }
-
-    .footer__sucursal-tel,
-    .footer__sucursal-horario {
-      font-size: 0.78rem;
-    }
-
-    .footer__sucursal-link {
-      font-size: 0.78rem;
-      padding: 7px 14px;
+    .footer__location-card {
+      padding: 22px;
     }
 
     .footer__bottom {
-      padding: 20px 0;
+      padding: 24px 0;
     }
 
-    .footer__bottom-content {
-      flex-direction: column;
-      text-align: center;
-      gap: 14px;
-    }
-
-    .footer__copyright {
-      font-size: 0.78rem;
-      order: 2;
-    }
-
-    .footer__bottom-links {
-      order: 1;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .footer__bottom-links a {
-      font-size: 0.76rem;
-    }
-
-    .footer__made {
-      order: 3;
-      font-size: 0.76rem;
-    }
-  }
-
-  /* =========================
-     RESPONSIVE - Small Mobile
-     ========================= */
-  @media (max-width: 540px) {
-    .footer__main {
-      padding: 40px 0 30px;
-    }
-
-    .footer__container {
-      padding: 0 16px;
-    }
-
-    .footer__logo-text {
-      font-size: 1.7rem;
-    }
-
-    .footer__logo-sub {
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-    }
-
-    .footer__tagline {
-      font-size: 0.85rem;
-    }
-
-    .footer__nav {
-      grid-template-columns: 1fr 1fr;
-      gap: 28px 16px;
-    }
-
-    .footer__zones-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .footer__zone-list {
+    .footer__legal-links {
       gap: 6px;
     }
 
-    .footer__sucursales {
-      padding: 28px 0;
+    .footer__legal-links a {
+      font-size: 0.75rem;
+      padding: 3px 6px;
     }
 
-    .footer__sucursal {
-      padding: 16px;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .footer__badges {
+      flex-wrap: wrap;
     }
 
-    .footer__sucursal-info {
-      align-items: center;
-    }
-
-    .footer__sucursal-detalles {
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
+    .footer__badge {
+      font-size: 0.7rem;
+      padding: 6px 12px;
     }
   }
 
   @media (max-width: 400px) {
-    .footer__nav {
+    .footer__nav-grid {
       grid-template-columns: 1fr;
       gap: 28px;
       text-align: center;
     }
 
-    .footer__nav-col {
+    .footer__nav-column {
       align-items: center;
     }
 
-    .footer__zones-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
+    .footer__nav-title {
+      justify-content: center;
     }
 
-    .footer__bottom-links {
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer__link-divider {
-      display: none;
+    .footer__nav-list a:hover {
+      transform: none;
     }
   }
 </style>
