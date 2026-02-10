@@ -66,25 +66,25 @@ export const categoryMeta = {
   'bodas': {
     name: 'Bodas',
     icon: '💒',
-    color: '#B31263',
+    color: '#D1007A',
     description: 'Mesas de dulces para bodas elegantes'
   },
   'xv-anos': {
     name: 'XV Años',
     icon: '👑',
-    color: '#9B59B6',
+    color: '#7A2BC2',
     description: 'Candy bar para fiestas de quinceañera'
   },
   'baby-shower': {
     name: 'Baby Shower',
     icon: '👶',
-    color: '#74B9FF',
+    color: '#7A2BC2',
     description: 'Mesas de dulces tiernas para baby shower'
   },
   'bautizos': {
     name: 'Bautizos',
     icon: '✝️',
-    color: '#55EFC4',
+    color: '#8E5AD3',
     description: 'Candy bar para bautizos y primeras comuniones'
   },
   'corporativos': {
@@ -96,13 +96,13 @@ export const categoryMeta = {
   'fiestas-infantiles': {
     name: 'Fiestas Infantiles',
     icon: '🎈',
-    color: '#FF8C42',
+    color: '#FF149A',
     description: 'Candy bar divertido para niños'
   },
   'infantiles': {
     name: 'Fiestas Infantiles',
     icon: '🎈',
-    color: '#FF8C42',
+    color: '#FF149A',
     description: 'Candy bar divertido para niños'
   },
   'graduaciones': {
@@ -120,13 +120,13 @@ export const categoryMeta = {
   'tips-consejos': {
     name: 'Tips y Consejos',
     icon: '💡',
-    color: '#4ECDC4',
+    color: '#7A2BC2',
     description: 'Consejos para tu mesa de dulces'
   },
   'tendencias': {
     name: 'Tendencias',
     icon: '✨',
-    color: '#C4177A',
+    color: '#A0005F',
     description: 'Las últimas tendencias en candy bar'
   },
   'estaciones': {

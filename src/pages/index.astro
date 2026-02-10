@@ -8,6 +8,35 @@ import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQ from '@/components/global/FAQ.astro';
+
+// FAQ Data
+const faqItems = [
+  {
+    question: "¿Con cuánta anticipación debo reservar mi mesa de dulces?",
+    answer: "Recomendamos reservar con al menos 2-3 semanas de anticipación para eventos regulares. Para temporadas altas (diciembre, mayo, noviembre) sugerimos 4-6 semanas. Esto nos permite diseñar tu mesa con calma y asegurar todos los productos especiales."
+  },
+  {
+    question: "¿Qué incluye el servicio de mesa de dulces?",
+    answer: "Nuestro servicio incluye: diseño personalizado según tu temática, selección de dulces y productos, montaje profesional en tu evento, mobiliario y decoración de la mesa, supervisión durante el evento y desmontaje al finalizar. Tú solo disfrutas con tus invitados."
+  },
+  {
+    question: "¿Pueden adaptar la mesa a mi tema o colores específicos?",
+    answer: "¡Absolutamente! Eso es lo que mejor hacemos. Ya sea Barbie, superhéroes, elegante en dorado, temática mexicana o cualquier idea que tengas, la hacemos realidad. Trabajamos contigo para que cada detalle refleje tu visión."
+  },
+  {
+    question: "¿Cuánto cuesta una mesa de dulces?",
+    answer: "El precio varía según el número de invitados, tipo de dulces seleccionados, complejidad del diseño y extras como estaciones interactivas. Manejamos paquetes desde $3,500 MXN para eventos pequeños. Contáctanos para una cotización personalizada sin compromiso."
+  },
+  {
+    question: "¿Qué zonas cubren en CDMX?",
+    answer: "Cubrimos toda la Ciudad de México y área metropolitana (Naucalpan, Tlalnepantla, Huixquilucan, Coyoacán, Polanco, Santa Fe, Interlomas, etc.). Para ubicaciones fuera de CDMX, contáctanos para verificar disponibilidad y costos de traslado."
+  },
+  {
+    question: "¿Ofrecen opciones para personas con restricciones alimenticias?",
+    answer: "¡Sí! Podemos incluir opciones sin azúcar, sin gluten, veganas o para cualquier restricción alimenticia. Solo cuéntanos las necesidades de tus invitados y las integramos al diseño de tu mesa sin problema."
+  }
+];
 ---
 
 <BaseLayout
@@ -457,93 +486,7 @@ import ReviewCard from '@/components/global/ReviewCard.astro';
         content={`<p>Sabemos que planear un evento puede generar muchas preguntas. Por eso hemos recopilado las dudas más comunes sobre nuestro <strong>servicio de renta de mesas de dulces</strong> para ayudarte a tomar la mejor decisión.</p><p>Si no encuentras la respuesta que buscas, no dudes en contactarnos. Nuestro equipo está listo para asesorarte y crear junto a ti la <strong>mesa de dulces perfecta para tu celebración</strong>.</p>`}
       />
 
-      <div class="faq-container">
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Con cuánta anticipación debo reservar mi mesa de dulces?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Recomendamos reservar con al menos 2-3 semanas de anticipación
-              para eventos regulares. Para temporadas altas (diciembre, mayo,
-              noviembre) sugerimos 4-6 semanas. Esto nos permite diseñar tu
-              mesa con calma y asegurar todos los productos especiales.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Qué incluye el servicio de mesa de dulces?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Nuestro servicio incluye: diseño personalizado según tu
-              temática, selección de dulces y productos, montaje profesional
-              en tu evento, mobiliario y decoración de la mesa, supervisión
-              durante el evento y desmontaje al finalizar. Tú solo disfrutas
-              con tus invitados.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Pueden adaptar la mesa a mi tema o colores específicos?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              ¡Absolutamente! Eso es lo que mejor hacemos. Ya sea Barbie,
-              superhéroes, elegante en dorado, temática mexicana o cualquier
-              idea que tengas, la hacemos realidad. Trabajamos contigo para
-              que cada detalle refleje tu visión.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Cuánto cuesta una mesa de dulces?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              El precio varía según el número de invitados, tipo de dulces
-              seleccionados, complejidad del diseño y extras como estaciones
-              interactivas. Manejamos paquetes desde $3,500 MXN para eventos
-              pequeños. Contáctanos para una cotización personalizada sin
-              compromiso.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Qué zonas cubren en CDMX?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Cubrimos toda la Ciudad de México y área metropolitana
-              (Naucalpan, Tlalnepantla, Huixquilucan, Coyoacán, Polanco, Santa
-              Fe, Interlomas, etc.). Para ubicaciones fuera de CDMX,
-              contáctanos para verificar disponibilidad y costos de traslado.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            ¿Ofrecen opciones para personas con restricciones alimenticias?<span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>
-              ¡Sí! Podemos incluir opciones sin azúcar, sin gluten, veganas o
-              para cualquier restricción alimenticia. Solo cuéntanos las
-              necesidades de tus invitados y las integramos al diseño de tu
-              mesa sin problema.
-            </p>
-          </div>
-        </div>
-      </div>
+      <FAQ items={faqItems} />
     </div>
   </section>
 
@@ -698,18 +641,6 @@ import ReviewCard from '@/components/global/ReviewCard.astro';
   </section>
 
   <script>
-    // FAQ accordion
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question?.addEventListener('click', () => {
-        // Close other items
-        document.querySelectorAll('.faq-item').forEach(other => {
-          if (other !== item) other.classList.remove('active');
-        });
-        item.classList.toggle('active');
-      });
-    });
-
     // Formulario de reserva
     const reservaForm = document.getElementById('reserva-form');
     reservaForm?.addEventListener('submit', (e) => {

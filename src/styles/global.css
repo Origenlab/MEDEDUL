@@ -2,14 +2,14 @@
 
 :root {
 
-    --rosa-principal: #B31263;
-    --rosa-claro: #E06A9D;
-    --amarillo-dulce: #FFE66D;
-    --turquesa-fresco: #4ECDC4;
-    --morado-fiesta: #9B59B6;
-    --naranja-alegre: #FF8C42;
-    --azul-cielo: #74B9FF;
-    --verde-menta: #55EFC4;
+    --rosa-principal: #D1007A;
+    --rosa-claro: #F548AA;
+    --amarillo-dulce: #F4EED9;
+    --turquesa-fresco: #5A1AA3;
+    --morado-fiesta: #5A1AA3;
+    --naranja-alegre: #FF149A;
+    --azul-cielo: #7A2BC2;
+    --verde-menta: #8E5AD3;
 
     --blanco: #FFFFFF;
     --negro-suave: #2D3436;
@@ -22,18 +22,18 @@
     --borde-light: #eee;
     --fondo-rosa: #fff5f8;
 
-    --gradiente-dulce: linear-gradient(135deg, #FF6B9D 0%, #FF8C42 50%, #FFE66D 100%);
-    --gradiente-rosa: linear-gradient(135deg, #B31263 0%, #C2185B 100%);
-    --gradiente-fresco: linear-gradient(135deg, #4ECDC4 0%, #74B9FF 100%);
-    --gradiente-fiesta: linear-gradient(135deg, #9B59B6 0%, #FF6B9D 100%);
-    --rosa-hover: #C4177A;
+    --gradiente-dulce: linear-gradient(135deg, #B10068 0%, #A0005F 55%, #5A1AA3 100%);
+    --gradiente-rosa: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    --gradiente-fresco: linear-gradient(135deg, #5A1AA3 0%, #7A2BC2 100%);
+    --gradiente-fiesta: linear-gradient(135deg, #5A1AA3 0%, #D1007A 100%);
+    --rosa-hover: #A0005F;
 
     --font-principal: 'Poppins', sans-serif;
     --font-decorativa: 'Pacifico', cursive;
 
     --sombra-suave: 0 4px 20px rgba(0,0,0,0.08);
     --sombra-media: 0 8px 30px rgba(0,0,0,0.12);
-    --sombra-rosa: 0 8px 30px rgba(255,107,157,0.3);
+    --sombra-rosa: 0 8px 30px rgba(209,0,122,0.3);
 
     --radio-pequeno: 12px;
     --radio-medio: 20px;
@@ -1730,8 +1730,8 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .social-link:hover {
-    background: #B31263;
-    border-color: #B31263;
+    background: #D1007A;
+    border-color: #D1007A;
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 5px 20px rgba(233, 30, 140, 0.3);
@@ -1756,7 +1756,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     left: 0;
     width: 30px;
     height: 2px;
-    background: #B31263;
+    background: #D1007A;
     border-radius: 2px;
 }
 
@@ -1786,7 +1786,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     left: 0;
     width: 0;
     height: 1px;
-    background: #B31263;
+    background: #D1007A;
     transition: width 0.3s ease;
 }
 
@@ -1814,7 +1814,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 
 .sucursal-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #ffffff;
     font-size: 0.7rem;
     font-weight: 600;
@@ -1852,7 +1852,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     background: transparent;
     border: 1px solid rgba(233, 30, 140, 0.4);
     border-radius: 20px;
-    color: #B31263;
+    color: #D1007A;
     font-size: 0.8rem;
     font-weight: 500;
     text-decoration: none;
@@ -1860,8 +1860,8 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .footer-maps-link:hover {
-    background: #B31263;
-    border-color: #B31263;
+    background: #D1007A;
+    border-color: #D1007A;
     color: #ffffff;
 }
 
@@ -1888,7 +1888,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .footer-phone:hover {
-    color: #B31263;
+    color: #D1007A;
 }
 
 .footer-email {
@@ -1900,7 +1900,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 }
 
 .footer-email:hover {
-    color: #B31263;
+    color: #D1007A;
 }
 
 .footer-bottom {
@@ -1939,12 +1939,12 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     left: 0;
     width: 0;
     height: 1px;
-    background: #B31263;
+    background: #D1007A;
     transition: width 0.3s ease;
 }
 
 .footer-legal a:hover {
-    color: #B31263;
+    color: #D1007A;
 }
 
 .footer-legal a:hover::after {

@@ -296,7 +296,7 @@
 }
 
 .comparison-table thead {
-    background: linear-gradient(135deg, #B31263 0%, #c4177a 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     position: relative;
 }
 
@@ -1170,7 +1170,7 @@
 
 .sidebar-zone-tag {
     background: rgba(233,30,140,0.08);
-    color: #B31263;
+    color: #D1007A;
     padding: 6px 14px;
     border-radius: 50px;
     font-size: 0.8rem;
@@ -1265,7 +1265,7 @@
 }
 
 .share-links a:hover {
-    background: #B31263;
+    background: #D1007A;
     color: #fff;
 }
 
@@ -1419,7 +1419,7 @@
 }
 
 .sidebar-cta-whatsapp {
-    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #fff;
     text-align: center;
     border: none;
@@ -1587,7 +1587,7 @@
     justify-content: center;
     width: 24px;
     height: 24px;
-    background: linear-gradient(135deg, #B31263, #C4177A);
+    background: linear-gradient(135deg, #D1007A, #A0005F);
     color: #fff;
     border-radius: 50%;
     font-size: 0.75rem;
@@ -1693,7 +1693,7 @@
 /* Sin animaciones en links */
 
 .sidebar-cta-final {
-    background: linear-gradient(135deg, #B31263 0%, #c4167a 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #fff;
     text-align: center;
     border: none;

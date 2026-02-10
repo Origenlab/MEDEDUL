@@ -18,7 +18,7 @@ const menuItems = [
       {
         title: 'Tipos de Mesas',
         icon: '🍬',
-        color: '#B31263',
+        color: '#D1007A',
         items: [
           { label: 'Mesa de Dulces', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces' },
           { label: 'Mesa de Frutas', href: '/tipos-de-mesas-de-dulces/mesa-de-frutas' },
@@ -34,7 +34,7 @@ const menuItems = [
       {
         title: 'Candy Bar por Evento',
         icon: '🎉',
-        color: '#9B59B6',
+        color: '#A0005F',
         items: [
           { label: 'Bodas', href: '/candy-bar-eventos/mesa-dulces-boda' },
           { label: 'XV Años', href: '/candy-bar-eventos/mesa-dulces-xv-anos' },
@@ -50,7 +50,7 @@ const menuItems = [
       {
         title: 'Estaciones Interactivas',
         icon: '⭐',
-        color: '#F39C12',
+        color: '#7A2BC2',
         items: [
           { label: 'Fuente de Chocolate', href: '/estaciones-interactivas/fuente-de-chocolate' },
           { label: 'Fuente de Chamoy', href: '/estaciones-interactivas/fuente-de-chamoy' },
@@ -62,7 +62,7 @@ const menuItems = [
       {
         title: 'Por qué Elegirnos',
         icon: '💎',
-        color: '#3498DB',
+        color: '#3A0A74',
         items: [
           { label: 'Diseño Personalizado', href: '/porque-mededul/diseno-personalizado' },
           { label: 'Calidad Premium', href: '/porque-mededul/calidad-premium' },
@@ -90,22 +90,15 @@ const isActive = (item: typeof menuItems[0]) => {
   <div class="header__container">
     <!-- Logo -->
     <a href="/" class="header__logo">
-      <picture>
-        <source
-          type="image/avif"
-          srcset={`${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 190 })} 190w, ${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 280 })} 280w, ${getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 560 })} 560w`}
-          sizes="(max-width: 480px) 190px, (max-width: 768px) 230px, 280px"
-        />
-        <img
-          src={getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif', { w: 560 })}
-          alt="Mededul - Mesas de Dulces CDMX"
-          width="1296"
-          height="330"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </picture>
+      <img
+        src={getCdnUrl('/img/mededul.png')}
+        alt="Mededul - Mesas de Dulces CDMX"
+        width="280"
+        height="71"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
     </a>
 
     <!-- Desktop Navigation -->
@@ -372,12 +365,12 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .header__link:hover {
-    color: #B31263;
+    color: #D1007A;
     background: rgba(233, 30, 140, 0.05);
   }
 
   .header__link.active {
-    color: #B31263;
+    color: #D1007A;
   }
 
   .header__link.active::after {
@@ -387,7 +380,7 @@ const isActive = (item: typeof menuItems[0]) => {
     left: 16px;
     right: 16px;
     height: 2px;
-    background: #B31263;
+    background: #D1007A;
     border-radius: 2px;
   }
 
@@ -441,7 +434,7 @@ const isActive = (item: typeof menuItems[0]) => {
     gap: 8px;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--column-color, #B31263);
+    border-bottom: 2px solid var(--column-color, #D1007A);
   }
 
   .mega-menu__icon {
@@ -477,7 +470,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mega-menu__link:hover {
-    color: #B31263;
+    color: #D1007A;
     background: rgba(233, 30, 140, 0.06);
     padding-left: 16px;
   }
@@ -488,7 +481,7 @@ const isActive = (item: typeof menuItems[0]) => {
     gap: 6px;
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--column-color, #B31263);
+    color: var(--column-color, #D1007A);
     text-decoration: none;
     padding: 8px 0;
     transition: gap 0.2s ease;
@@ -520,12 +513,12 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .header__phone:hover {
-    color: #B31263;
+    color: #D1007A;
     background: rgba(233, 30, 140, 0.05);
   }
 
   .header__phone svg {
-    color: #B31263;
+    color: #D1007A;
   }
 
   .header__cta {
@@ -535,7 +528,7 @@ const isActive = (item: typeof menuItems[0]) => {
     font-size: 0.95rem;
     font-weight: 600;
     color: #ffffff;
-    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     border-radius: 50px;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
@@ -641,7 +634,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__link.active {
-    color: #B31263;
+    color: #D1007A;
   }
 
   .mobile-menu__link svg {
@@ -677,7 +670,7 @@ const isActive = (item: typeof menuItems[0]) => {
     color: #333;
     background: rgba(0, 0, 0, 0.02);
     border: none;
-    border-left: 3px solid var(--column-color, #B31263);
+    border-left: 3px solid var(--column-color, #D1007A);
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     text-align: left;
@@ -717,7 +710,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__sublink:hover {
-    color: #B31263;
+    color: #D1007A;
     background: rgba(233, 30, 140, 0.05);
   }
 
@@ -726,7 +719,7 @@ const isActive = (item: typeof menuItems[0]) => {
     padding: 10px 16px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #B31263;
+    color: #D1007A;
     text-decoration: none;
   }
 
@@ -753,7 +746,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__phone svg {
-    color: #B31263;
+    color: #D1007A;
   }
 
   .mobile-menu__cta {
@@ -765,7 +758,7 @@ const isActive = (item: typeof menuItems[0]) => {
     color: #ffffff;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(135deg, #B31263 0%, #C4177A 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
   }
