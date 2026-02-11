@@ -34,8 +34,22 @@ Objetivo: homologar todos los articulos de `src/content/blog/` al nuevo template
 - [x] src/content/blog/mesa-de-dulces-xv-anos-crea-una-celebracion-inolvidable-santa-fe.mdx
 
 ## Siguiente bloque (uno por uno)
-- [ ] src/content/blog/mesa-dulces-baby-shower-ideas-creativas.mdx
-- [ ] src/content/blog/mesa-dulces-bautizo-elegante-cdmx.mdx
-- [ ] src/content/blog/mesa-dulces-boda-cdmx-elegancia-y-estilo.mdx
-- [ ] src/content/blog/mesa-dulces-boda-intima-pequena.mdx
-- [ ] src/content/blog/mesa-dulces-boda-jardin-exterior.mdx
+- [x] src/content/blog/mesa-dulces-baby-shower-ideas-creativas.mdx
+- [x] src/content/blog/mesa-dulces-bautizo-elegante-cdmx.mdx
+- [x] src/content/blog/mesa-dulces-boda-cdmx-elegancia-y-estilo.mdx
+- [x] src/content/blog/mesa-dulces-boda-intima-pequena.mdx
+- [x] src/content/blog/mesa-dulces-boda-jardin-exterior.mdx
+
+## Siguiente bloque (uno por uno)
+- [x] src/content/blog/mesa-dulces-bodas-exclusivas-cdmx.mdx
+- [x] src/content/blog/mesa-dulces-bodas-guia-completa.mdx
+- [x] src/content/blog/mesa-dulces-conferencias-congresos.mdx
+- [x] src/content/blog/mesa-dulces-cumpleanos-infantil-ideas.mdx
+- [x] src/content/blog/mesa-dulces-estaciones-interactivas-gourmet-transforma-tu-evento.mdx
+
+## Siguiente bloque (uno por uno)
+- [ ] src/content/blog/mesa-dulces-eventos-corporativos-cdmx.mdx
+- [ ] src/content/blog/mesa-dulces-eventos-corporativos-empresas.mdx
+- [ ] src/content/blog/mesa-dulces-lanzamiento-productos.mdx
+- [ ] src/content/blog/mesa-dulces-mexicanos-tradicionales-eventos.mdx
+- [ ] src/content/blog/mesa-dulces-xv-anos-elegante-cdmx.mdx
