@@ -17,12 +17,30 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
-  { question: 'Que dulces tradicionales incluyen?', answer: 'Incluimos seleccion de dulces mexicanos tradicionales como mazapan, obleas, cocadas, tamarindos, glorias y otras referencias tipicas segun disponibilidad.' },
-  { question: 'La seleccion se puede personalizar?', answer: 'Si. Ajustamos surtido segun perfil de invitados, estilo del evento y preferencia regional.' },
-  { question: 'Es ideal para eventos tematicos mexicanos?', answer: 'Si. Es una opcion excelente para fiestas patrias, celebraciones tematicas y eventos con identidad cultural mexicana.' },
-  { question: 'Incluyen decoracion acorde al concepto?', answer: 'Si. Estructuramos presentacion visual con elementos coherentes al estilo tradicional solicitado.' },
-  { question: 'Manejan formatos para eventos grandes?', answer: 'Si, contamos con configuraciones para aforos pequenos, medianos y grandes.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio contempla montaje profesional y desmontaje al finalizar.' }
+  {
+    question: 'Que dulces tradicionales mexicanos incluyen para fiestas?',
+    answer: 'Nuestra gastronomia mexicana incluye cocadas, jamoncillos, glorias de Linares, mazapan, obleas, tamarindos con chamoy, palanquetas y dulces regionales de todo Mexico. Cada golosina es autentica y deliciosa para tu fiesta familiar o celebracion.'
+  },
+  {
+    question: 'Sirve para fiestas familiares y bodas mexicanas?',
+    answer: 'Si, es ideal para fiestas familiares, bodas con toque mexicano, XV anos, baby showers y celebraciones tradicionales. Los dulces tipicos crean una experiencia nostalgica que sorprende el paladar de tus invitados.'
+  },
+  {
+    question: 'Que dulces regionales ofrecen para fiestas tematicas?',
+    answer: 'Ofrecemos dulces de Celaya, cajeta de Guanajuato, borrachitos, alegrias de amaranto, dulces cristalizados de Puebla y golosinas tradicionales de cada region. Perfectos para fiestas con tematica mexicana.'
+  },
+  {
+    question: 'Es ideal para fiestas patrias y posadas navidenas?',
+    answer: 'Si, es la opcion perfecta para fiestas patrias, posadas, Dia de Muertos y celebraciones tradicionales. Incluimos calaveras de azucar, dulces de temporada y decoracion acorde a cada fiesta.'
+  },
+  {
+    question: 'Incluyen ideas de mesa y centro de mesa decorativo?',
+    answer: 'Si, creamos ideas de mesa de dulces con centro de mesa tradicional, papel picado, ceramica talavera y textiles tipicos. Cada presentacion honra nuestras tradiciones mexicanas.'
+  },
+  {
+    question: 'Ofrecen renta de mesa de dulces tradicionales?',
+    answer: 'Si, nuestra renta incluye dulces y postres tradicionales, instalacion con decoracion tematica y todo listo para tu fiesta o boda mexicana en CDMX.'
+  }
 ];
 
 const packages = [
@@ -32,23 +50,36 @@ const packages = [
     price: '$4,300',
     currency: 'MXN',
     guests: '30-50 personas',
-    tagline: 'Ideal para eventos intimos',
-    features: ['Surtido base de dulces tradicionales', 'Montaje profesional', 'Presentacion tematica', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    tagline: 'Ideal para fiestas familiares',
+    features: [
+      'Cocadas, jamoncillos y glorias',
+      'Mazapan, obleas y tamarindos',
+      'Centro de mesa tradicional',
+      'Decoracion con papel picado',
+      'Desmontaje al finalizar'
+    ],
     popular: false,
     ctaText: 'Cotizar Paquete',
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Favorito',
     icon: '⭐',
     price: '$7,200',
     currency: 'MXN',
     guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Variedad ampliada de dulces tipicos', 'Diseno personalizado', 'Composicion tradicional premium', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    tagline: 'La opcion mas solicitada para fiestas',
+    features: [
+      'Dulces regionales de todo Mexico',
+      'Palanquetas, alegrias y borrachitos',
+      'Tematica mexicana personalizada',
+      'Instalacion y coordinacion en sitio',
+      'Asesoria de diseno previa',
+      'Mejor equilibrio costo-beneficio'
+    ],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Favorito'
   },
   {
     name: 'Luxury',
@@ -56,8 +87,15 @@ const packages = [
     price: '$11,500',
     currency: 'MXN',
     guests: '100+ personas',
-    tagline: 'Experiencia cultural premium',
-    features: ['Curaduria de alto volumen', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor variedad regional'],
+    tagline: 'Experiencia completa para bodas y fiestas grandes',
+    features: [
+      'Gastronomia mexicana de alto volumen',
+      'Dulces tipicos de cada region',
+      'Direccion estetica tradicional',
+      'Configuracion para grandes fiestas',
+      'Acompanamiento integral',
+      'Golosinas artesanales selectas'
+    ],
     popular: false,
     ctaText: 'Cotizar Paquete',
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Luxury'
@@ -65,38 +103,83 @@ const packages = [
 ];
 
 const whyStats = [
-  { number: '30+', label: 'Dulces Tipicos' },
-  { number: '100%', label: 'Identidad Mexicana' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
+  { number: '30+', label: 'Dulces Tradicionales' },
+  { number: '100%', label: 'Sabor Mexicano' },
+  { number: '500+', label: 'Fiestas Realizadas' },
+  { number: '24h', label: 'Respuesta Rapida' }
 ];
 
 const whyFeatures = [
-  { num: 1, title: 'Sabor Tradicional', desc: 'Curaduria de dulces mexicanos para una experiencia autentica y memorable.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
-  { num: 2, title: 'Identidad Cultural', desc: 'Propuesta ideal para eventos con enfoque mexicano y valor simbolico.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' },
-  { num: 3, title: 'Presentacion Tematica', desc: 'Montaje visual alineado con el concepto tradicional del evento.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
-  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion y ejecucion para mantener orden y calidad de servicio.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' }
+  {
+    num: 1,
+    title: 'Cocadas, Jamoncillos y Dulces de Leche',
+    desc: 'Seleccionamos cocadas frescas, jamoncillos de leche quemada y glorias de Linares. Dulces tradicionales que conquistan el paladar en fiestas familiares.',
+    img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif'
+  },
+  {
+    num: 2,
+    title: 'Dulces Regionales de Todo Mexico',
+    desc: 'Incluimos golosinas de Celaya, Puebla, Oaxaca y cada region. Palanquetas, alegrias y borrachitos que celebran nuestra gastronomia mexicana.',
+    img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif'
+  },
+  {
+    num: 3,
+    title: 'Tematica Mexicana Autentica',
+    desc: 'Decoracion con papel picado, ceramica talavera y textiles tipicos. Centro de mesa que honra tradiciones para fiestas con toque mexicano.',
+    img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif'
+  },
+  {
+    num: 4,
+    title: 'Mesa para Todo Tipo de Fiestas',
+    desc: 'Armamos mesas de dulces tradicionales para fiestas patrias, bodas mexicanas, XV anos, posadas y celebraciones que celebran nuestras raices.',
+    img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif'
+  }
 ];
 
 const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, aforo y objetivo del evento.' },
-  { num: 2, title: 'Disenamos', desc: 'Definimos surtido tradicional y estilo de presentacion.' },
-  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica, montaje y tiempos de ejecucion.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa tradicional con estandar profesional.' }
+  { num: 1, title: 'Contactanos', desc: 'Platicanos sobre tu fiesta, boda o celebracion: fecha, lugar e invitados.' },
+  { num: 2, title: 'Disenamos', desc: 'Creamos tu mesa de dulces tradicionales con cocadas, jamoncillos y la tematica que imaginas.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, dulces regionales y logistica para tu fiesta.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos tu mesa tradicional lista para celebrar con sabor mexicano.' }
 ];
 
 const eventCards = [
-  { title: 'Tradicionales para Fiestas Patrias', excerpt: 'Formato ideal para celebraciones con identidad mexicana.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif', href: '/servicios', badge: 'Tematico', cta: 'Ver Servicios' },
-  { title: 'Tradicionales para Bodas', excerpt: 'Propuesta cultural elegante para recepciones con estilo mexicano.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Tradicionales para XV Anos', excerpt: 'Montaje de dulceria tipica para eventos sociales de alta recordacion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Tradicionales para Corporativos', excerpt: 'Experiencia con narrativa mexicana para activaciones de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' }
+  {
+    title: 'Dulces Tradicionales para Fiestas Familiares',
+    excerpt: 'Mesa de dulces mexicanos para fiestas patrias, posadas y celebraciones tradicionales. Sabor autentico que conquista.',
+    img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif',
+    href: '/servicios',
+    badge: 'Popular',
+    cta: 'Ver Servicios'
+  },
+  {
+    title: 'Dulces Tradicionales para Bodas',
+    excerpt: 'Boda mexicana con cocadas, glorias y dulces regionales. Toque mexicano elegante que tus invitados recordaran.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    cta: 'Ver Bodas'
+  },
+  {
+    title: 'Dulces Tradicionales para XV Anos',
+    excerpt: 'Fiesta de XV anos con dulces tipicos y decoracion tematica mexicana. Celebra tus raices con estilo.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    cta: 'Ver XV Anos'
+  },
+  {
+    title: 'Dulces para Baby Showers y Fiestas',
+    excerpt: 'Baby shower con toque mexicano y golosinas tradicionales. Ideas de mesa que celebran nuestra gastronomia.',
+    img: '/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif',
+    href: '/candy-bar-eventos/mesa-dulces-baby-shower',
+    cta: 'Ver Baby Shower'
+  }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Dulces Tradicionales en CDMX',
-  description: 'Servicio de mesa de dulces tradicionales mexicanos para eventos en Ciudad de Mexico.',
+  name: 'Mesa de Dulces Tradicionales Mexicanos para Fiestas en CDMX',
+  description: 'Renta de mesa de dulces tradicionales con cocadas, jamoncillos, glorias y dulces regionales para fiestas, bodas y XV anos. Gastronomia mexicana autentica con tematica tradicional en Ciudad de Mexico.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
@@ -133,8 +216,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Dulces Tradicionales en CDMX | Mededul"
-  description="Renta de mesa de dulces tradicionales mexicanos en CDMX con montaje profesional para eventos sociales y tematicos."
+  title="Mesa de Dulces Tradicionales Mexicanos para Fiestas en CDMX | Mededul"
+  description="Renta de mesa de dulces tradicionales con cocadas, jamoncillos, glorias y dulces regionales para fiestas, bodas y XV anos. Gastronomia mexicana autentica en CDMX."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
   ogImage="/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif"
   includeCategoryStyles={true}
@@ -146,32 +229,77 @@ const faqSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces Tradicionales en CDMX"
+    title="Mesa de Dulces Tradicionales Mexicanos en CDMX"
     highlight="Dulces Tradicionales"
-    subtitle="Sabor mexicano autentico con montaje profesional para eventos memorables"
-    secondaryContent={`<p><strong>Tradicionales</strong> bien curados aportan identidad cultural y conexion emocional en celebraciones donde el detalle simbolico es clave. En Mededul disenamos mesas de dulces mexicanos que combinan autenticidad, presentacion y funcionalidad.</p><p><strong>Mexicanos</strong> y profesionales: estructuramos surtido, montaje y operacion para que tu evento proyecte una experiencia coherente con tus objetivos. Adaptamos propuesta a aforo, estilo y tipo de celebracion en CDMX.</p>`}
+    subtitle="Cocadas, jamoncillos, glorias y sabores autenticos para fiestas, bodas y XV anos"
+    secondaryContent={`<p><strong>Dulces tradicionales mexicanos</strong> son mucho mas que golosinas: son memoria viva de nuestra gastronomia mexicana, testigos de fiestas familiares y celebraciones que han pasado de generacion en generacion. En Mededul creamos mesas de dulces tradicionales con cocadas, jamoncillos, glorias de Linares, mazapan y dulces regionales que transforman cualquier fiesta en un viaje por los sabores que nos definen como mexicanos.</p><p><strong>Tematica mexicana</strong> autentica con papel picado, ceramica talavera y textiles tipicos que honran nuestras tradiciones. Ofrecemos renta de mesa con dulces tipicos para fiestas patrias, bodas mexicanas, XV anos, posadas navidenas, baby showers y celebraciones con toque mexicano. Ideas de mesa que celebran nuestras raices y sorprenden el paladar de tus invitados en Ciudad de Mexico.</p>`}
     showCTA={true}
     ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa Tradicional"
+    ctaBadge="Ideas y Cotizacion"
+    ctaTitle="Disena Tu Mesa Tradicional"
     ctaTitleHighlight="Tradicional"
-    ctaText="Comparte tipo de evento e invitados para recomendarte una configuracion mexicana profesional y personalizada."
-    ctaButtonText="Solicitar Asesoria"
+    ctaText="Comparte detalles de tu fiesta o boda para recibir ideas de dulces mexicanos y cotizacion."
+    ctaButtonText="Solicitar Ideas"
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de dulces tradicionales al aforo y estilo de tu evento." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <PricingPackages
+    id="paquetes"
+    badge="Paquetes para Fiestas"
+    title="Escoge el"
+    titleHighlight="Sabor Mexicano Ideal"
+    subtitle="Ajustamos cocadas, jamoncillos, dulces regionales y decoracion de tu mesa tradicional segun tu fiesta o boda."
+    packages={packages}
+    note="<strong>Tienes ideas de mesa especificas?</strong> Creamos una propuesta con los dulces tipicos y tematica mexicana que imaginas."
+  />
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Tradicional" descriptions={['Mesa de dulces tradicionales diseniada para eventos con identidad mexicana y alto valor cultural.', 'Integramos seleccion de producto, presentacion tematica y operacion profesional para resultados consistentes.']} stats={whyStats} features={whyFeatures} />
+  <WhyChooseUs
+    id="ventajas"
+    badge="Ideas y Ventajas"
+    title="Por que elegir nuestra"
+    titleHighlight="Mesa de Dulces Tradicionales"
+    descriptions={[
+      'Mesa de dulces tradicionales con cocadas, jamoncillos, glorias y golosinas regionales para fiestas familiares, bodas y XV anos en Ciudad de Mexico.',
+      'Combinamos gastronomia mexicana autentica, tematica tradicional con papel picado y sabores que honran nuestras raices para crear una experiencia que conquista el paladar.'
+    ]}
+    stats={whyStats}
+    features={whyFeatures}
+  />
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa tradicional sin improvisaciones." steps={processSteps} />
+  <ProcessSteps
+    id="proceso"
+    badge="Asi Funciona"
+    title="Como Armamos tu"
+    titleHighlight="Mesa Tradicional"
+    subtitle="Cuatro pasos para disenar la mesa de dulces mexicanos ideal para tu fiesta o boda."
+    steps={processSteps}
+  />
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Dulces Tradicionales para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos surtido y presentacion segun la intencion comercial y cultural de cada celebracion." events={eventCards} />
+  <EventsGrid
+    id="ocasiones"
+    badge="Ideas para tu Fiesta"
+    title="Dulces Tradicionales para"
+    titleHighlight="Todo Tipo de Fiestas"
+    subtitle="Cocadas, jamoncillos y dulces regionales adaptados al estilo de tu boda mexicana, XV anos o fiesta familiar."
+    events={eventCards}
+  />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Activa Tu Evento con una Propuesta" titleHighlight="Mexicana" text="Te ayudamos a construir una mesa de dulces tradicionales con identidad, calidad y montaje profesional." buttonText="Cotizar Mesa Tradicional" />
+  <CTAServices
+    href="/contacto"
+    badge="Cotizacion sin Costo"
+    title="Celebra tus Raices con una"
+    titleHighlight="Fiesta Mexicana Inolvidable"
+    text="Te ayudamos a disenar una mesa de dulces tradicionales con cocadas, glorias, dulces regionales y tematica mexicana para tu boda o celebracion."
+    buttonText="Cotizar Mesa Tradicional"
+  />
 
   <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Dulces Tradicionales" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion tradicional adecuada para tu evento.</p>`} />
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Dulces Tradicionales"
+        titleHighlight="Frecuentes"
+        subtitle="Ideas y respuestas para tu fiesta mexicana"
+        content={`<p>Resolvemos dudas sobre cocadas, jamoncillos, dulces regionales, tematica mexicana y renta de mesa tradicional para tu celebracion en CDMX.</p>`}
+      />
       <FAQ items={faqs} id="faq-tradicionales" />
     </div>
   </section>

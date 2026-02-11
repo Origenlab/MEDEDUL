@@ -48,8 +48,29 @@ Objetivo: homologar todos los articulos de `src/content/blog/` al nuevo template
 - [x] src/content/blog/mesa-dulces-estaciones-interactivas-gourmet-transforma-tu-evento.mdx
 
 ## Siguiente bloque (uno por uno)
-- [ ] src/content/blog/mesa-dulces-eventos-corporativos-cdmx.mdx
-- [ ] src/content/blog/mesa-dulces-eventos-corporativos-empresas.mdx
-- [ ] src/content/blog/mesa-dulces-lanzamiento-productos.mdx
-- [ ] src/content/blog/mesa-dulces-mexicanos-tradicionales-eventos.mdx
-- [ ] src/content/blog/mesa-dulces-xv-anos-elegante-cdmx.mdx
+- [x] src/content/blog/mesa-dulces-eventos-corporativos-cdmx.mdx
+- [x] src/content/blog/mesa-dulces-eventos-corporativos-empresas.mdx
+- [x] src/content/blog/mesa-dulces-lanzamiento-productos.mdx
+- [x] src/content/blog/mesa-dulces-mexicanos-tradicionales-eventos.mdx
+- [x] src/content/blog/mesa-dulces-xv-anos-elegante-cdmx.mdx
+
+## Siguiente bloque (uno por uno)
+- [x] src/content/blog/mesa-dulces-xv-anos-elegante-sofisticada.mdx
+- [x] src/content/blog/mesa-dulces-xv-anos-ideas-tendencias.mdx
+- [x] src/content/blog/presupuesto-mesa-dulces-quinceanera.mdx
+- [x] src/content/blog/tendencias-mesa-dulces-xv-anos-2025.mdx
+
+## Bloque final (completado)
+- [x] src/content/blog/mesas-de-dulces-elegancia-y-singularidad-en-bodas-de-lujo.mdx
+- [x] src/content/blog/mesas-de-dulces-elegantes-para-baby-showers-en-cdmx.mdx
+- [x] src/content/blog/mesas-de-dulces-elegantes-para-bodas-en-cdmx.mdx
+- [x] src/content/blog/mesas-de-dulces-para-bodas-elegantes-en-cdmx.mdx
+- [x] src/content/blog/mesas-dulces-cuspide-lujo-celebraciones.mdx
+- [x] src/content/blog/mesas-dulces-exclusivas-arte-sofisticacion-bodas.mdx
+- [x] src/content/blog/mesas-dulces-exclusivas-eventos-corporativos.mdx
+- [x] src/content/blog/mesas-dulces-magia-distincion-fiestas-infantiles.mdx
+- [x] src/content/blog/mesas-dulces-toque-lujo-bodas-exclusivas.mdx
+- [x] src/content/blog/mesas-dulces-xv-anos-alta-sociedad-cdmx.mdx
+- [x] src/content/blog/roi-mesas-dulces-eventos-corporativos.mdx
+- [x] src/content/blog/tendencias-candy-bar-bodas-2025.mdx
+- [x] src/content/blog/tendencias-mesas-dulces-2025-cdmx.mdx

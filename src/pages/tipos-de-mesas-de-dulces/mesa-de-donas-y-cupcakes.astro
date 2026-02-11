@@ -10,6 +10,7 @@ import EventsGrid from '@/components/global/EventsGrid.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import FAQ from '@/components/global/FAQ.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -17,12 +18,14 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
-  { question: 'Que incluye la mesa de donas y cupcakes?', answer: 'Incluye surtido de donas y cupcakes, presentacion decorativa, montaje profesional y desmontaje al finalizar.' },
-  { question: 'Pueden personalizar colores y tematica?', answer: 'Si. Ajustamos paleta, estilo y acabados segun el concepto de tu evento.' },
-  { question: 'Que volumen de piezas manejan?', answer: 'Contamos con paquetes para eventos pequenos, medianos y grandes, ajustados a numero de invitados.' },
-  { question: 'Manejan sabores distintos?', answer: 'Si. Definimos combinaciones segun preferencias del cliente y perfil del evento.' },
-  { question: 'Es ideal para baby shower y cumpleanos?', answer: 'Si, es una de las opciones mas solicitadas para celebraciones con enfoque visual y tematico.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con estandar profesional.' }
+  { question: 'Que incluye la mesa de donas y cupcakes?', answer: 'Incluye surtido de donas glaseadas y rellenas, cupcakes decorados, presentacion visual en barra o centro de mesa, preparacion profesional y recogida al finalizar.' },
+  { question: 'Pueden adaptar colores y tematica a mi celebracion?', answer: 'Si. Ajustamos la decoracion, paleta de colores y estilo visual segun el concepto de tu fiesta de cumpleanos, boda o reunion.' },
+  { question: 'Que cantidad de piezas manejan por reunion?', answer: 'Contamos con paquetes para ocasiones pequenas, medianas y grandes, ajustados al numero de invitados y tipo de celebracion.' },
+  { question: 'Ofrecen variedad de sabores en donas y cupcakes?', answer: 'Si. Incluimos donas clasicas, donuts rellenas, mini donas y cupcakes con diferentes frostings segun preferencias.' },
+  { question: 'Es ideal para fiestas de cumpleanos y baby shower?', answer: 'Si, es una de las opciones mas solicitadas para celebraciones con enfoque visual y mesa dulce atractiva.' },
+  { question: 'El servicio incluye instalacion y recogida?', answer: 'Si, el servicio es integral con estandar profesional, desde la preparacion hasta el desmontaje.' },
+  { question: 'Pueden combinarlo con mesa de postres?', answer: 'Si, ofrecemos paquetes combinados con mesa de postres y otras estaciones interactivas para ocasiones especiales.' },
+  { question: 'Que formato de presentacion utilizan?', answer: 'Ofrecemos diferentes configuraciones: barra de donas, buffet de cupcakes o centro de mesa destacado, segun el espacio disponible.' }
 ];
 
 const packages = [
@@ -33,22 +36,22 @@ const packages = [
     currency: 'MXN',
     guests: '30-50 personas',
     tagline: 'Ideal para celebraciones pequenas',
-    features: ['Surtido base de donas y cupcakes', 'Montaje profesional', 'Presentacion tematica', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    features: ['Surtido base de donas y cupcakes', 'Preparacion profesional', 'Presentacion con decoracion basica', 'Mobiliario incluido', 'Recogida al finalizar'],
     popular: false,
     ctaText: 'Cotizar Paquete',
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Destacado',
     icon: '⭐',
     price: '$7,300',
     currency: 'MXN',
     guests: '50-100 personas',
     tagline: 'La opcion mas solicitada',
-    features: ['Variedad ampliada de sabores', 'Diseno personalizado', 'Presentacion premium', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    features: ['Variedad ampliada con mini donas', 'Diseno adaptado a tu ocasion', 'Presentacion destacada con decoracion', 'Instalacion y coordinacion en sitio', 'Asesoria previa de la celebracion', 'Mejor equilibrio costo-beneficio'],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Destacado'
   },
   {
     name: 'Luxury',
@@ -57,7 +60,7 @@ const packages = [
     currency: 'MXN',
     guests: '100+ personas',
     tagline: 'Experiencia visual de alto impacto',
-    features: ['Surtido premium de alto volumen', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor variedad y personalizacion'],
+    features: ['Surtido de alto volumen con donas artesanales', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para reuniones grandes', 'Acompanamiento operativo integral', 'Mayor variedad y personalizacion'],
     popular: false,
     ctaText: 'Cotizar Paquete',
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Luxury'
@@ -66,37 +69,50 @@ const packages = [
 
 const whyStats = [
   { number: '20+', label: 'Sabores Disponibles' },
-  { number: '100%', label: 'Personalizable' },
-  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '100%', label: 'Adaptable' },
+  { number: '500+', label: 'Celebraciones' },
   { number: '24h', label: 'Respuesta Comercial' }
 ];
 
 const whyFeatures = [
-  { num: 1, title: 'Diseno Tematico', desc: 'Personalizamos paleta, estilo y acabados segun tu evento.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif' },
-  { num: 2, title: 'Variedad de Sabores', desc: 'Combinamos referencias clasicas y premium para distintos perfiles.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif' },
-  { num: 3, title: 'Presentacion Premium', desc: 'Montaje visual pensado para fotos y alto impacto en invitados.', img: '/img/tipos-de-mesas/donas-cupcakes/barra-donas-postres-eventos.avif' },
-  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion, montaje y control de servicio para una ejecucion impecable.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-donas-decoradas-cdmx.avif' }
+  { num: 1, title: 'Diseno Tematico', desc: 'Adaptamos paleta, estilo y decoracion segun tu celebracion.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif' },
+  { num: 2, title: 'Variedad de Opciones', desc: 'Combinamos referencias clasicas y artesanales para distintos perfiles.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif' },
+  { num: 3, title: 'Presentacion Destacada', desc: 'Instalacion visual pensada para fotos y alto impacto en invitados.', img: '/img/tipos-de-mesas/donas-cupcakes/barra-donas-postres-eventos.avif' },
+  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion, preparacion y control de servicio para una ejecucion impecable.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-donas-decoradas-cdmx.avif' }
 ];
 
 const processSteps = [
   { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, aforo y tipo de celebracion.' },
   { num: 2, title: 'Disenamos', desc: 'Definimos surtido, estilo y configuracion visual.' },
-  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica y tiempos de montaje.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa con estandar profesional.' }
+  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica y tiempos de preparacion.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la mesa con estandar profesional.' }
 ];
 
 const eventCards = [
   { title: 'Donas para Baby Shower', excerpt: 'Formato visual y dulce ideal para celebraciones de bienvenida.', img: '/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Cupcakes para Cumpleanos', excerpt: 'Propuesta tematica para fiestas infantiles y eventos familiares.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', badge: 'Popular', cta: 'Ver Cumpleanos' },
-  { title: 'Donas para XV Anos', excerpt: 'Montaje creativo para eventos sociales de alta recordacion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Cupcakes para Cumpleanos', excerpt: 'Propuesta con temática para fiestas infantiles y reuniones familiares.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', badge: 'Popular', cta: 'Ver Cumpleanos' },
+  { title: 'Donas para XV Anos', excerpt: 'Configuracion creativa para celebraciones de alta recordacion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
   { title: 'Cupcakes para Bodas', excerpt: 'Alternativa elegante para complementar postres en bodas modernas.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' }
+];
+
+const variedadDonas = [
+  { title: 'Donas Glaseadas Clasicas', desc: 'Receta tradicional con coberturas de chocolate, vainilla y fresa. Ideales para cualquier ocasion.' },
+  { title: 'Donuts Rellenas Artesanales', desc: 'Rellenos cremosos de Bavarian, Nutella y dulce de leche con toppings exclusivos.' },
+  { title: 'Mini Donas para Eventos', desc: 'Formato compacto perfecto para buffet y facil consumo en reuniones.' },
+  { title: 'Cupcakes Decorados', desc: 'Frostings de buttercream y fondant con disenos que complementan tu tematica.' }
+];
+
+const ideasPresentacion = [
+  { num: '01', title: 'Barra de Donas Vertical', desc: 'Estructura tipo torre o pared donde las donas se exhiben colgantes. Ideal para fotos y facil acceso.' },
+  { num: '02', title: 'Buffet Estilo Mesa', desc: 'Configuracion horizontal con bases escalonadas, exhibidores de cristal y etiquetas decorativas.' },
+  { num: '03', title: 'Centro de Mesa Destacado', desc: 'Pieza central focal que combina donas y cupcakes como elemento protagonista de la decoracion.' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Donas y Cupcakes en CDMX',
-  description: 'Servicio de mesa de donas y cupcakes para eventos en Ciudad de Mexico con presentacion personalizada.',
+  description: 'Servicio de mesa de donas y cupcakes para celebraciones en Ciudad de Mexico con presentacion adaptada y decoracion tematica.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
@@ -130,11 +146,14 @@ const faqSchema = {
   '@type': 'FAQPage',
   mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
 };
+
+const galleryWidths = [320, 480, 640, 800];
+const gallerySizes = '(max-width: 768px) 100vw, 50vw';
 ---
 
 <BaseLayout
   title="Mesa de Donas y Cupcakes en CDMX | Mededul"
-  description="Renta de mesa de donas y cupcakes en CDMX con diseno personalizado, montaje profesional y servicio integral para eventos."
+  description="Renta de mesa de donas y cupcakes en CDMX con decoracion tematica, variedad de sabores y servicio integral para fiestas y celebraciones."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
   ogImage="/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif"
   includeCategoryStyles={true}
@@ -148,31 +167,487 @@ const faqSchema = {
   <Hero
     title="Mesa de Donas y Cupcakes en CDMX"
     highlight="Donas y Cupcakes"
-    subtitle="Diseno tematico, variedad de sabores y presentacion premium para eventos memorables"
-    secondaryContent={`<p><strong>Donas</strong> y cupcakes bien presentados elevan el impacto visual del evento y mejoran la experiencia de invitados desde el primer vistazo. En Mededul estructuramos cada montaje para combinar creatividad, sabor y funcionalidad operativa.</p><p><strong>Cupcakes</strong> personalizados por tipo de celebracion permiten alinear detalle estetico con identidad del evento. Nuestro equipo integra curaduria, montaje y ejecucion profesional para resultados consistentes en CDMX.</p>`}
+    subtitle="Decoracion tematica, variedad de sabores y presentacion destacada para celebraciones memorables"
+    secondaryContent={`<p><strong>Donas</strong> y cupcakes bien presentados elevan el impacto visual de cualquier celebracion y mejoran la experiencia de invitados desde el primer vistazo. En Mededul estructuramos cada instalacion para combinar creatividad, variedad de sabores y funcionalidad operativa en Ciudad de Mexico.</p><p><strong>Cupcakes</strong> adaptados al tipo de ocasion permiten alinear detalle estetico con la identidad de tu fiesta de cumpleanos, boda o reunion. Nuestro equipo integra curaduria, preparacion y ejecucion profesional para resultados consistentes en CDMX.</p>`}
     showCTA={true}
     ctaHref="/contacto"
     ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa Tematica"
-    ctaTitleHighlight="Tematica"
-    ctaText="Comparte tipo de evento e invitados para recibir una propuesta profesional de donas y cupcakes."
+    ctaTitle="Define Tu Mesa con Decoracion Unica"
+    ctaTitleHighlight="Decoracion"
+    ctaText="Comparte tipo de ocasion e invitados para recibir una propuesta profesional de donas y cupcakes."
     ctaButtonText="Solicitar Asesoria"
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de donas y cupcakes al aforo y nivel de personalizacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de donas y cupcakes al aforo y nivel de adaptacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta adaptada para tu celebracion." />
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Tematica" descriptions={['Mesa de donas y cupcakes diseniada para eventos donde la imagen y la experiencia dulce son prioridad.', 'Integramos variedad, personalizacion y operacion profesional para sostener calidad de servicio.']} stats={whyStats} features={whyFeatures} />
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Donas" descriptions={['Mesa de donas y cupcakes disenada para ocasiones donde la imagen y la experiencia dulce son prioridad.', 'Integramos variedad, adaptacion a tu estilo y operacion profesional para sostener calidad de servicio.']} stats={whyStats} features={whyFeatures} />
+
+  <!-- Seccion: Variedad de Donas y Cupcakes -->
+  <section class="variedad-section" id="variedad">
+    <div class="container">
+      <div class="variedad-header">
+        <span class="badge">Variedad Disponible</span>
+        <h2>Donas Artesanales y <span>Cupcakes para tu Mesa</span></h2>
+        <p>Desde donas glaseadas clasicas hasta donuts rellenas y mini donas, cada pieza se selecciona para crear una experiencia visual y de sabor unica.</p>
+      </div>
+
+      <div class="variedad-grid">
+        {variedadDonas.map(item => (
+          <div class="variedad-card">
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="variedad-complemento">
+        <p>Complementa tu seleccion con <strong>mesa de postres</strong> adicional o crea una <strong>mesa dulce</strong> completa que combine donas, cupcakes y otras opciones gourmet. Ideal para una <strong>fiesta de donas</strong> tematica o celebraciones donde la variedad es clave.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seccion: Ideas de Decoracion y Presentacion -->
+  <section class="ideas-section" id="ideas">
+    <div class="container">
+      <div class="ideas-header">
+        <span class="badge">Inspiracion Visual</span>
+        <h2>Ideas de Decoracion para tu <span>Mesa de Donas</span></h2>
+        <p>Las ideas de presentacion para una mesa de donas son infinitas. Desde configuraciones modernas minimalistas hasta instalaciones tematicas elaboradas, la decoracion de tu mesa puede transformar simples donas en el centro de atencion de tu celebracion.</p>
+      </div>
+
+      <div class="ideas-grid">
+        {ideasPresentacion.map(idea => (
+          <div class="idea-card">
+            <span class="idea-number">{idea.num}</span>
+            <h4>{idea.title}</h4>
+            <p>{idea.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="ideas-tips">
+        <h3>Tips para Decorar tu Mesa</h3>
+        <p>Considera elementos como stands escalonados, bases de acrilico, flores naturales y letreros con el nombre del festejado. La <strong>decoracion</strong> debe complementar la <strong>tematica</strong> de tu celebracion sin sobrecargar visualmente. Si buscas un toque creativo, incorpora elementos de <strong>manualidad</strong> como banderines o etiquetas hechas a mano que agreguen calidez.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seccion: Ocasiones Especificas -->
+  <section class="ocasiones-section" id="ocasiones">
+    <div class="container">
+      <div class="ocasiones-header">
+        <span class="badge">Para Cada Celebracion</span>
+        <h2>Mesa de Donas para <span>Todo Tipo de Ocasiones</span></h2>
+        <p>Adaptamos composicion y estilo segun el objetivo de cada reunion, desde fiestas infantiles hasta bodas elegantes.</p>
+      </div>
+
+      <div class="ocasiones-content">
+        <div class="ocasion-item">
+          <h3>Fiestas de Cumpleanos y Celebraciones Infantiles</h3>
+          <p>Una <strong>fiesta de cumpleanos</strong> con donas tematicas se convierte en una experiencia memorable para ninos y adultos. Los disenos coloridos y divertidos hacen que cada invitado quiera probar y fotografiar la mesa.</p>
+        </div>
+
+        <div class="ocasion-item">
+          <h3>Bodas, XV Anos y Celebraciones Elegantes</h3>
+          <p>Para <strong>XV anos</strong> modernos y bodas sofisticadas, ofrecemos presentaciones elegantes con acabados finos. Las donas pueden coordinar con la paleta de colores del salon, creando una mesa dulce que impresiona.</p>
+        </div>
+
+        <div class="ocasion-item">
+          <h3>Reuniones Corporativas y Sociales</h3>
+          <p>En ocasiones profesionales y reuniones informales, una barra de donas ofrece practicidad y sabor. Configuramos el servicio para que fluya naturalmente durante breaks y networking.</p>
+        </div>
+
+        <div class="ocasion-item ocasion-highlight">
+          <h3>Otras Celebraciones</h3>
+          <p>Baby showers, despedidas de soltera, graduaciones y cualquier ocasion especial merece una presentacion a la altura. Cada proyecto recibe atencion detallada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de donas y cupcakes sin errores." steps={processSteps} />
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Donas y Cupcakes para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos composicion y estilo segun el objetivo de cada celebracion." events={eventCards} />
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Donas y Cupcakes para" titleHighlight="Cada Tipo de Ocasion" subtitle="Adaptamos composicion y estilo segun el objetivo de cada celebracion." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Evento una Experiencia" titleHighlight="Memorable" text="Te ayudamos a construir una mesa de donas y cupcakes alineada al concepto de tu celebracion." buttonText="Cotizar Mesa Tematica" />
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Celebracion una Experiencia" titleHighlight="Memorable" text="Te ayudamos a construir una mesa de donas y cupcakes alineada al concepto de tu ocasion." buttonText="Cotizar Mesa de Donas" />
+
+  <!-- Seccion: Servicio en CDMX -->
+  <section class="servicio-cdmx-section">
+    <div class="container">
+      <div class="servicio-cdmx-content">
+        <h2>Servicio de Mesas de Donas en <span>Ciudad de Mexico</span></h2>
+        <p>Cubrimos toda la Ciudad de Mexico y area metropolitana: Polanco, Condesa, Roma, Santa Fe, Coyoacan, Del Valle, Naucalpan, Interlomas y mas. Nuestro equipo realiza la <strong>preparacion</strong> completa, <strong>instalacion</strong> en tu venue y recogida al finalizar.</p>
+        <p>El proceso de adaptacion a tu estilo incluye asesoria previa donde definimos colores, cantidades y configuracion visual. Cada detalle se planea para que tu celebracion fluya sin contratiempos.</p>
+        <a href="/contacto" class="btn-servicio">Solicitar Cotizacion en CDMX</a>
+      </div>
+    </div>
+  </section>
 
   <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Donas y Cupcakes" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir la mejor configuracion para tu evento con mayor claridad.</p>`} />
+      <SectionHeader title="Preguntas Frecuentes sobre Donas y Cupcakes" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir la mejor configuracion para tu celebracion con mayor claridad.</p>`} />
       <FAQ items={faqs} id="faq-donas-cupcakes" />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Variedad Section */
+  .variedad-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .variedad-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+  }
+
+  .variedad-header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .variedad-header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .variedad-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .variedad-header p {
+    color: var(--texto-light);
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .variedad-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .variedad-card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+  }
+
+  .variedad-card h3 {
+    font-size: 1.1rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 12px;
+  }
+
+  .variedad-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .variedad-complemento {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(233, 30, 140, 0.03);
+    border-radius: 16px;
+  }
+
+  .variedad-complemento p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .variedad-complemento strong {
+    color: var(--rosa-principal);
+  }
+
+  /* Ideas Section */
+  .ideas-section {
+    padding: 100px 0;
+    background: #fff;
+  }
+
+  .ideas-header {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 50px;
+  }
+
+  .ideas-header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .ideas-header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .ideas-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .ideas-header p {
+    color: var(--texto-light);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 50px;
+  }
+
+  .idea-card {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 35px 30px;
+  }
+
+  .idea-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .idea-card h4 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 12px;
+  }
+
+  .idea-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ideas-tips {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 35px;
+    background: rgba(233, 30, 140, 0.03);
+    border-radius: 20px;
+  }
+
+  .ideas-tips h3 {
+    font-size: 1.3rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .ideas-tips p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ideas-tips strong {
+    color: var(--rosa-principal);
+  }
+
+  /* Ocasiones Section */
+  .ocasiones-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
+  }
+
+  .ocasiones-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+  }
+
+  .ocasiones-header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .ocasiones-header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 15px;
+  }
+
+  .ocasiones-header h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .ocasiones-header p {
+    color: var(--texto-light);
+    font-size: 1.05rem;
+  }
+
+  .ocasiones-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .ocasion-item {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 35px 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+  }
+
+  .ocasion-item h3 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 12px;
+  }
+
+  .ocasion-item p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ocasion-item strong {
+    color: var(--rosa-principal);
+  }
+
+  .ocasion-highlight {
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.05) 0%, rgba(255, 107, 179, 0.05) 100%);
+    border-color: rgba(233, 30, 140, 0.15);
+  }
+
+  /* Servicio CDMX Section */
+  .servicio-cdmx-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .servicio-cdmx-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .servicio-cdmx-content h2 {
+    font-size: 2rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 20px;
+  }
+
+  .servicio-cdmx-content h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .servicio-cdmx-content p {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .servicio-cdmx-content strong {
+    color: var(--texto-oscuro);
+  }
+
+  .btn-servicio {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .variedad-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ideas-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .variedad-section,
+    .ideas-section,
+    .ocasiones-section {
+      padding: 60px 0;
+    }
+
+    .variedad-header h2,
+    .ideas-header h2,
+    .ocasiones-header h2 {
+      font-size: 1.6rem;
+    }
+
+    .variedad-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ocasiones-content {
+      grid-template-columns: 1fr;
+    }
+
+    .servicio-cdmx-section {
+      padding: 50px 0;
+    }
+
+    .servicio-cdmx-content h2 {
+      font-size: 1.6rem;
+    }
+  }
+</style>
