@@ -1,41 +1,103 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
   { name: 'Mesa de Snacks', url: '/tipos-de-mesas-de-dulces/mesa-de-snacks' }
 ];
 
-const highlights = [
-  { title: 'Formato dinamico', description: 'Perfecta para eventos con alto flujo de invitados y consumo continuo.' },
-  { title: 'Variedad salada', description: 'Snacks clasicos y premium para todo tipo de publico.' },
-  { title: 'Ideal para corporativos', description: 'Excelente opcion para conferencias, activaciones y eventos empresariales.' },
-  { title: 'Montaje funcional', description: 'Disenado para que el servicio sea rapido, limpio y visualmente atractivo.' }
-];
-
-const includes = [
-  'Snacks y botanas en formato buffet',
-  'Bases, contenedores y elementos de presentacion',
-  'Combinacion de opciones clasicas y premium',
-  'Planeacion por duracion del evento',
-  'Montaje y desmontaje del servicio',
-  'Asesoria en cantidades por perfil de asistentes'
-];
-
 const faqs = [
-  { question: 'Se puede montar en oficinas?', answer: 'Si, adaptamos el servicio para oficinas, salones, auditorios y venues sociales.' },
-  { question: 'Manejan snacks picantes y neutros?', answer: 'Si, balanceamos opciones para distintos gustos y perfiles de invitados.' },
-  { question: 'Es buena opcion para eventos largos?', answer: 'Si, especialmente para congresos, workshops y celebraciones de varias horas.' },
-  { question: 'Pueden combinarlo con mesa de dulces?', answer: 'Si, es una combinacion muy efectiva para ofrecer opciones dulces y saladas.' }
+  { question: 'Que incluye una mesa de snacks?', answer: 'Incluye seleccion de snacks salados, montaje profesional, contenedores de servicio, presentacion visual y desmontaje al finalizar.' },
+  { question: 'Funciona para eventos corporativos?', answer: 'Si. Es uno de los formatos mas funcionales para congresos, reuniones, activaciones y eventos empresariales.' },
+  { question: 'Pueden combinar snacks clasicos y premium?', answer: 'Si, configuramos la mezcla segun tipo de evento, presupuesto y perfil de invitados.' },
+  { question: 'Se puede integrar con mesa de dulces?', answer: 'Si, es una combinacion ideal para ofrecer variedad salada y dulce en un mismo montaje.' },
+  { question: 'Manejan formatos para eventos largos?', answer: 'Si. Ajustamos volumen y reposicion para eventos de varias horas con flujo continuo.' },
+  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral y se ejecuta con estandar profesional.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🍿',
+    price: '$3,900',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para eventos compactos',
+    features: ['Surtido base de snacks', 'Montaje profesional', 'Presentacion funcional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Esencial'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$6,900',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Variedad ampliada de snacks', 'Diseno personalizado', 'Composicion de alto flujo', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Premium'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$10,900',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Operacion de alto volumen',
+    features: ['Surtido premium ampliado', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor capacidad de reposicion'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Luxury'
+  }
+];
+
+const whyStats = [
+  { number: '30+', label: 'Opciones de Snack' },
+  { number: '100%', label: 'Formato Funcional' },
+  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Alto Flujo de Servicio', desc: 'Disenada para eventos con movimiento continuo de invitados.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' },
+  { num: 2, title: 'Variedad Balanceada', desc: 'Combinamos opciones clasicas y premium segun objetivo del evento.', img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif' },
+  { num: 3, title: 'Montaje Funcional', desc: 'Estructura de servicio limpia, rapida y visualmente ordenada.', img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif' },
+  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion y ejecucion para mantener continuidad de servicio.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance de servicio.' },
+  { num: 2, title: 'Disenamos', desc: 'Proponemos mezcla de snacks y configuracion de montaje.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta y logistica de operacion en sitio.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la mesa con flujo continuo y ordenado.' }
+];
+
+const eventCards = [
+  { title: 'Snacks para Corporativos', excerpt: 'Formato funcional para eventos empresariales y de networking.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
+  { title: 'Snacks para Cumpleanos', excerpt: 'Mesa dinamica para celebraciones con invitados de todas las edades.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
+  { title: 'Snacks para XV Anos', excerpt: 'Complemento salado ideal para eventos de larga duracion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Snacks para Graduacion', excerpt: 'Servicio practico para aforos medios y altos con montaje profesional.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Snacks para Eventos en CDMX',
-  description: 'Barra y mesa de snacks para eventos sociales y corporativos en Ciudad de Mexico.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de mesa de snacks para eventos sociales y corporativos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -48,32 +110,45 @@ const faqSchema = {
 
 <BaseLayout
   title="Mesa de Snacks para Eventos en CDMX | Mededul"
-  description="Barra de snacks para eventos sociales y corporativos con montaje profesional."
+  description="Renta de mesa de snacks en CDMX con montaje profesional para eventos sociales y corporativos de alto flujo."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-snacks"
   ogImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <ServiceSubpage
-    breadcrumbItems={breadcrumbItems}
-    heading="Mesa de"
-    headingHighlight="Snacks"
-    intro={[
-      'Nuestra mesa de snacks es ideal para mantener a tus invitados activos y satisfechos durante todo el evento.',
-      'Integramos opciones saladas y practicas con una presentacion ordenada, moderna y funcional.'
-    ]}
-    heroImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
-    heroAlt="Mesa de snacks para eventos"
-    badgeValue="Snack Bar"
-    badgeLabel="Ready"
-    sectionTitle="La opcion salada mas practica"
-    sectionSubtitle="Perfecta para eventos sociales y empresariales de ritmo continuo"
-    highlights={highlights}
-    includes={includes}
-    faqs={faqs}
-    ctaTitle="Reserva tu barra de snacks"
-    ctaText="Cotiza una propuesta de snacks alineada a tu evento, horario y perfil de invitados."
-    whatsappMessage="Hola! Quiero cotizar una Mesa de Snacks para mi evento"
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa de Snacks para Eventos en CDMX"
+    highlight="Mesa de Snacks"
+    subtitle="Servicio salado de alto flujo para celebraciones sociales y corporativas"
+    secondaryContent={`<p><strong>Snacks</strong> bien estructurados mantienen ritmo de consumo y mejoran experiencia de invitados en eventos largos o de alta movilidad. En Mededul disenamos mesas funcionales que combinan practicidad, imagen y operacion profesional.</p><p><strong>Salado</strong> estrategico dentro de tu montaje permite balancear menu y elevar satisfaccion general de asistentes. Adaptamos surtido, volumen y presentacion para que el servicio responda al tipo de evento en CDMX.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Mesa de Snacks"
+    ctaTitleHighlight="Snacks"
+    ctaText="Comparte aforo y tipo de evento para recomendarte una configuracion funcional y rentable."
+    ctaButtonText="Solicitar Asesoria"
   />
+
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de snacks al volumen de invitados y dinamica de tu evento." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Snacks" descriptions={['Mesa de snacks disenada para operar con fluidez en eventos con alta movilidad de invitados.', 'Combinamos funcionalidad, presentacion y control operativo para sostener calidad de servicio.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu mesa de snacks sin fricciones." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Mesa de Snacks para" titleHighlight="Cada Tipo de Evento" subtitle="Configuramos surtido y operacion segun el formato especifico de cada celebracion." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Activa Tu Evento con un Servicio" titleHighlight="Funcional" text="Te ayudamos a montar una mesa de snacks con flujo constante y gran experiencia para tus invitados." buttonText="Cotizar Mesa de Snacks" />
+
+  <section class="section-faq section-padding" id="faq">
+    <div class="container">
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Snacks" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir una configuracion de snacks mas eficiente para tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-snacks" />
+    </div>
+  </section>
 </BaseLayout>

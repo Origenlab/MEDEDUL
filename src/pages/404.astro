@@ -2,6 +2,7 @@
 // 404 Error Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/global/Hero.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
@@ -25,6 +26,7 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
     title="Página no encontrada"
     subtitle="Error 404"
     description="La página que buscas no existe o fue movida. Te ayudamos a volver a una ruta útil del sitio."
+    showCTA={false}
   />
 
   <section class="error-section">
@@ -116,6 +118,15 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
       )}
     </div>
   </section>
+
+  <CTAServices
+    href="/servicios"
+    badge="Ruta Recomendada"
+    title="Continua Explorando Nuestros"
+    titleHighlight="Servicios"
+    text="Encuentra categorias, eventos y formatos para elegir la mejor opcion para tu celebracion."
+    buttonText="Ir a Servicios"
+  />
 </BaseLayout>
 
 <style>

@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import BlogArchive from '@/components/blog/BlogArchive.astro';
 import Hero from '@/components/global/Hero.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 
 const PAGE_SIZE = 9;
@@ -43,7 +44,8 @@ const breadcrumbItems = [
 
   <Hero
     title="Blog de Mesas de Dulces"
-    subtitle={`Página ${currentPage} de ${totalPages}. Contenido relacionado, ideas y enlaces importantes para tu evento.`}
+    subtitle={`Pagina ${currentPage} de ${totalPages}. Contenido relacionado, ideas y enlaces importantes para tu evento.`}
+    showCTA={false}
   />
 
   <BlogArchive
@@ -52,5 +54,14 @@ const breadcrumbItems = [
     categories={categories}
     currentPage={currentPage}
     totalPages={totalPages}
+  />
+
+  <CTAServices
+    href="/contacto"
+    badge="Asesoria Profesional"
+    title="Ya Revisaste Opciones, Ahora"
+    titleHighlight="Cotiza"
+    text="Te ayudamos a convertir la inspiracion del blog en una propuesta concreta para tu evento."
+    buttonText="Solicitar Cotizacion"
   />
 </BaseLayout>

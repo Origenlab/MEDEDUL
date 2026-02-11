@@ -1,813 +1,154 @@
 ---
-// Mesa de Dulces para XV Anos
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'XV Anos', url: '/candy-bar-eventos/mesa-dulces-xv-anos' }
 ];
 
-const caracteristicas = [
-  { num: 1, title: 'Colores Personalizados', desc: 'Rosa, azul, dorado o cualquier paleta de tu eleccion', image: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif' },
-  { num: 2, title: 'Decoracion Brillante', desc: 'Toques de glitter, luces y elementos espectaculares', image: '/img/eventos/xv-anos/candy-bar-quinceanos-moderno-rosa-plateado.avif' },
-  { num: 3, title: 'Dulces Premium', desc: 'Macarons, trufas y dulces finos para tu fiesta', image: '/img/eventos/xv-anos/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif' },
-  { num: 4, title: 'Tematicas Unicas', desc: 'Princesa, Paris, jardin encantado y mas', image: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif' }
+const faqs = [
+  { question: 'Que incluye una mesa de dulces para XV anos?', answer: 'Incluye diseno tematico, surtido premium, montaje profesional y desmontaje al finalizar.' },
+  { question: 'Pueden personalizar segun tematica de la quinceanera?', answer: 'Si. Adaptamos paleta, estilo, grafica y composicion visual a la tematica elegida.' },
+  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Sugerimos reservar con 2 a 6 semanas segun temporada y nivel de personalizacion.' },
+  { question: 'Atienden salones y jardines de eventos?', answer: 'Si. Cubrimos CDMX y area metropolitana en distintos formatos de venue.' },
+  { question: 'Manejan propuestas para gran numero de invitados?', answer: 'Si. Escalamos diseno y volumen para celebraciones de alto aforo.' },
+  { question: 'Se puede combinar con estaciones interactivas?', answer: 'Si. Podemos integrar fuente de chocolate, chamoy y otras estaciones para elevar impacto.' }
 ];
 
-const galeriaImages = [
-  { src: '/img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif', alt: 'Mesa de dulces para XV anos en CDMX' },
-  { src: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif', alt: 'Mesa de dulces tematica para quinceanera' },
-  { src: '/img/eventos/xv-anos/mesa-postres-quinceanera-elegante.avif', alt: 'Mesa de postres elegante XV anos' }
-];
-
-const incluye = [
-  { num: 1, title: 'Dulces Premium', desc: 'Seleccion de 25-40 variedades de dulces incluyendo macarons, trufas, chocolates y mas.' },
-  { num: 2, title: 'Personalizacion Total', desc: 'Decoracion en los colores de tu fiesta: rosa, azul, dorado, plateado o cualquier tono.' },
-  { num: 3, title: 'Postres Tematicos', desc: 'Cupcakes, cake pops con glitter comestible y galletas decoradas con el numero 15.' },
-  { num: 4, title: 'Mobiliario Elegante', desc: 'Mesas, risers, cristaleria y accesorios que hacen lucir tu mesa espectacular.' },
-  { num: 5, title: 'Montaje Profesional', desc: 'Instalacion 2-3 horas antes del evento y desmontaje al finalizar.' },
-  { num: 6, title: 'Empaque de Sobrantes', desc: 'Los dulces que sobren se empacan para que los disfrutes despues.' }
-];
-
-const tematicas = [
-  { title: 'Princesa', desc: 'Coronas, carrozas y castillos', image: '/img/eventos/xv-anos/mesa-dulces-quinceanera-romantica-flores.avif' },
-  { title: 'Paris', desc: 'Torre Eiffel y romanticismo', image: '/img/galeria/candy-bar-quinceanera-violeta-macarons.avif' },
-  { title: 'Jardin Encantado', desc: 'Flores y naturaleza magica', image: '/img/galeria/mesa-dulces-quinceanera-romantica-flores.avif' },
-  { title: 'Hollywood', desc: 'Glamour y estrellas', image: '/img/eventos/xv-anos/candy-bar-quinceanos-moderno-rosa-plateado.avif' }
-];
-
-// Service Schema
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Mesa de Dulces para XV Anos",
-  "description": "Ideas y servicio de mesa de dulces para fiesta de 15 anos y quinceanera en Ciudad de Mexico. Decoracion en rosa, azul, dorado. Incluye dulces premium, tematicas personalizadas e instalacion profesional.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Mededul",
-    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
-    "telephone": "+525525226442",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ciudad de Mexico",
-      "addressCountry": "MX"
-    }
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '👑',
+    price: '$5,400',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Ideal para celebracion intima',
+    features: ['Mesa principal para XV anos', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Esencial)'
   },
-  "areaServed": {
-    "@type": "City",
-    "name": "Ciudad de Mexico"
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$9,500',
+    currency: 'MXN',
+    guests: '70-140 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado de quinceanera', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Premium)'
   },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Paquetes Mesa de Dulces XV Anos",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "XV Anos Basico",
-          "description": "Para 50-100 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "XV Anos Premium",
-          "description": "Para 100-200 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "XV Anos Deluxe",
-          "description": "Para 200-300 invitados"
-        }
-      }
-    ]
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$14,900',
+    currency: 'MXN',
+    guests: '140+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Luxury)'
   }
+];
+
+const whyStats = [
+  { number: '170+', label: 'XV Anos' },
+  { number: '100%', label: 'Tematico' },
+  { number: '45+', label: 'Opciones Dulces' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Diseno de Quinceanera', desc: 'Montajes de alto impacto alineados al concepto de la festejada.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif' },
+  { num: 2, title: 'Surtido Premium', desc: 'Producto curado para combinar experiencia de sabor y presentacion.', img: '/img/eventos/xv-anos/candy-bar-quinceanos-moderno-rosa-plateado.avif' },
+  { num: 3, title: 'Montaje Escenografico', desc: 'Implementacion visual para destacar en fotos y video del evento.', img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif' },
+  { num: 4, title: 'Operacion de Evento', desc: 'Coordinacion puntual para mantener servicio continuo y ordenado.', img: '/img/eventos/xv-anos/mesa-postres-quinceanera-elegante.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief de XV Anos', desc: 'Recibimos tematica, sede, aforo y objetivo del evento.' },
+  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo de la mesa.' },
+  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos accesos, horarios y requerimientos de venue.' },
+  { num: 4, title: 'Ejecucion del Evento', desc: 'Montamos y operamos con estandar premium de principio a fin.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Bodas', excerpt: 'Candy bar elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
+  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para celebraciones familiares.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
+  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
+  { title: 'Mesa de Dulces para Graduacion', excerpt: 'Montajes para eventos academicos y ceremonias.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduacion' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces para XV Anos en CDMX',
+  description: 'Servicio de mesa de dulces para XV anos en Ciudad de Mexico con diseno personalizado y montaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
-// FAQ Schema
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Que incluye una mesa de dulces para fiesta de 15 anos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nuestra mesa de dulces para quinceanera incluye: amplia seleccion de dulces premium (25-40 variedades), decoracion elegante en rosa, azul, dorado o tu color favorito, mobiliario profesional, contenedores de cristal, instalacion y desmontaje profesional, y empaque de dulces sobrantes."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Cuanto cuesta una mesa de dulces para XV anos en Mexico?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "El precio varia segun el numero de personas. Paquete Basico (50-100 personas): desde $4,500 MXN. Paquete Premium (100-200 personas): desde $7,500 MXN. Paquete Deluxe (200-300 personas): desde $12,000 MXN. Todos incluyen decoracion, dulces premium e instalacion."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Que colores son populares para fiesta de quinceanera?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Los colores mas solicitados para XV anos son: rosa (el clasico), azul (elegante y moderno), dorado (glamour), morado (tendencia), plateado, blanco y coral. Podemos combinar cualquier paleta de colores para tu decoracion."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Tienen ideas de tematicas para mesa de dulces de quinceanera?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Si, ofrecemos muchas ideas: princesa, Paris, jardin encantado, Hollywood, vintage, moderno minimalista, tropical, mariposas, estrellas y mas. Nos adaptamos a cualquier tematica para tu cumpleanos 15."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Para cuantas personas alcanza una mesa de dulces de XV anos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nuestros paquetes van desde 50 hasta 300+ personas. El paquete basico cubre 50-100 asistentes, el premium 100-200 personas, y el deluxe 200-300+. Para fiestas mas grandes, creamos opciones personalizadas."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Incluyen pastel de quinceanera en el servicio?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ofrecemos la opcion de incluir pastel de quinceanera coordinado con tu mesa de dulces. Tambien podemos trabajar con tu pastelero de confianza para integrar el pastel a la decoracion de tu fiesta de 15 anos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Con cuanta anticipacion debo reservar para mis XV anos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Recomendamos reservar con 4-6 semanas de anticipacion para garantizar disponibilidad, especialmente en temporada alta. Para decoraciones especiales o fiestas muy grandes, sugerimos reservar con 2-3 meses de anticipacion."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Pueden personalizar dulces con mi nombre para mis quince anos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Si, ofrecemos dulces personalizados con el nombre de la quinceanera, fecha del cumpleanos o logo especial. Incluimos chocolates con etiquetas personalizadas y elementos unicos para hacer tu fiesta memorable."
-      }
-    }
-  ]
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para XV Anos CDMX | Ideas Quinceanera Rosa, Azul, Dorado"
-  description="Ideas de mesa de dulces para XV anos y quinceanera en Mexico. Decoracion en rosa, azul y dorado. Candy bar tematico para tu cumpleanos 15. Cotiza GRATIS!"
-  ogImage="/img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif"
+  title="Mesa de Dulces para XV Anos en CDMX | Mededul"
+  description="Mesa de dulces para XV anos en CDMX con diseno tematico, montaje profesional y propuesta personalizada para quinceaneras."
+  canonical="/candy-bar-eventos/mesa-dulces-xv-anos"
+  ogImage="/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif"
+  includeCategoryStyles={true}
 >
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  <JsonLd type="Service" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para <span>Fiesta de 15 Anos</span>"
-    description="Tu cumpleanos 15 merece una celebracion espectacular, y nuestra mesa de dulces sera el centro de atencion. Creamos montajes elegantes en colores rosa, azul, dorado o la paleta que elijas, con una amplia seleccion de dulces premium que complementan perfectamente la magia de tu fiesta de quinceanera."
-    subtitle="Buscas ideas para tu candy bar de XV anos? Desde estilos clasicos y romanticos hasta tematicas modernas, disenamos la decoracion perfecta que hara de tus quince anos un evento inolvidable en Mexico."
+    title="Mesa de Dulces para XV Anos en CDMX"
+    highlight="XV Anos"
+    subtitle="Candy bar de alto impacto para una quinceanera inolvidable con diseno tematico y ejecucion profesional"
+    secondaryContent={`<p><strong>XV</strong> anos con mesa de dulces profesional transforma la celebracion en una experiencia visual impactante y totalmente alineada al estilo de la quinceanera. En Mededul desarrollamos propuestas personalizadas para potenciar estetica, servicio y recordacion del evento.</p><p><strong>Quinceanera</strong> con candy bar premium mejora la presentacion general, genera un punto fotografico memorable y eleva la experiencia de invitadas e invitados. Ejecutamos montaje integral en CDMX con puntualidad y estandar de calidad superior.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Disena Tu Evento de"
+    ctaTitleHighlight="XV Anos"
+    ctaText="Comparte tematica, aforo y sede para recibir una propuesta profesional para tu quinceanera."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Especialistas en Quinceaneras</span>
-          <h2>Ideas de Mesa de Dulces para <span>Quinceanera en CDMX</span></h2>
-          <p class="header-description">Con mas de <strong>150 fiestas de 15 anos</strong> realizadas en Ciudad de Mexico, somos expertos en crear montajes espectaculares para este cumpleanos tan importante.</p>
-          <p class="header-description">Entendemos que tus quince anos son unicos. Ofrecemos ideas de decoracion en rosa, azul, dorado, plateado y mas opciones para crear la mesa de dulces perfecta que merece tu celebracion.</p>
-          <div class="header-stats">
-            <div class="stat-item">
-              <span class="stat-number">150+</span>
-              <span class="stat-label">XV Anos</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Personalizado</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">40+</span>
-              <span class="stat-label">Variedades</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">5 hrs</span>
-              <span class="stat-label">Respuesta</span>
-            </div>
-          </div>
-        </div>
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <img src={getCdnUrl(car.image)} alt={car.title} loading="lazy" />
-                <div class="card-number">{car.num}</div>
-              </div>
-              <div class="card-content">
-                <h3>{car.title}</h3>
-                <p>{car.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de XV anos al nivel de personalizacion y aforo del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu quinceanera." />
 
-  <!-- Galeria Section -->
-  <section class="galeria-section">
-    <div class="container">
-      <div class="section-header center">
-        <h2>Galeria de <span>XV Anos</span></h2>
-        <p class="subtitulo">Inspirate con nuestras mesas para quinceaneras</p>
-      </div>
-      <div class="galeria-bento three-cols">
-        {galeriaImages.map((img) => (
-          <div class="galeria-item">
-            <img src={getCdnUrl(img.src)} alt={img.alt} loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de XV Anos" descriptions={['Montajes personalizados de alto impacto con enfoque en detalle y operacion.', 'Integramos diseno, producto y ejecucion para una celebracion impecable.']} stats={whyStats} features={whyFeatures} />
 
-  <!-- Que Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que Incluye tu <span>Mesa de Dulces XV Anos</span></h2>
-        <p>Nos encargamos de todo para que tu unico trabajo sea disfrutar tu fiesta</p>
-      </div>
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card">
-            <div class="card-number">{item.num}</div>
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de XV anos sin errores." steps={processSteps} />
 
-  <!-- Tematicas Section -->
-  <section class="estilos-section">
-    <div class="container">
-      <div class="estilos-header">
-        <span class="badge">Tu Estilo</span>
-        <h2>Tematicas Populares para <span>Quinceaneras</span></h2>
-        <p>Elige tu tematica favorita o creamos una nueva para ti</p>
-      </div>
-      <div class="estilos-grid">
-        {tematicas.map(tema => (
-          <div class="estilo-card">
-            <div class="card-img">
-              <img src={getCdnUrl(tema.image)} alt={tema.title} loading="lazy" />
-            </div>
-            <div class="card-content">
-              <h4>{tema.title}</h4>
-              <p>{tema.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones sociales." events={eventCards} />
 
-  <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header center">
-        <h2>Nuestro <span>Proceso</span></h2>
-        <p class="subtitulo">4 simples pasos para tu mesa de dulces perfecta</p>
-      </div>
-      <div class="proceso-timeline">
-        <div class="proceso-step">
-          <div class="number">1</div>
-          <h4>Consulta</h4>
-          <p>Platicanos sobre tu fiesta y tematica</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">2</div>
-          <h4>Propuesta</h4>
-          <p>Creamos el diseno en tus colores</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">3</div>
-          <h4>Confirmacion</h4>
-          <p>Aprobamos detalles y reservamos</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">4</div>
-          <h4>Tu Gran Fiesta</h4>
-          <p>Montamos y tu disfrutas tus XV</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Quinceanera una Experiencia" titleHighlight="Inolvidable" text="Te ayudamos a implementar una mesa de dulces para XV anos con diseno profesional y ejecucion impecable." buttonText="Cotizar XV Anos" />
 
-  <!-- CTA Final -->
-  <section class="cta-final">
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Tus XV Anos Merecen lo Mejor</h2>
-      <p>Cotiza ahora y reserva tu fecha. Las mejores fechas se agotan rapidamente.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para mis XV anos" class="btn-white" target="_blank" rel="noopener">
-        Cotizar Mis XV Anos
-      </a>
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para XV Anos" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu quinceanera.</p>`} />
+      <FAQ items={faqs} id="faq-xv-anos" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  /* Caracteristicas */
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .header-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .header-description {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-description strong {
-    color: var(--rosa-principal);
-  }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    margin-top: 30px;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--rosa-principal);
-    line-height: 1.2;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-  }
-
-  .caracteristica-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.15);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: var(--rosa-principal);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content {
-    padding: 18px;
-    text-align: center;
-  }
-
-  .caracteristica-card h3 {
-    font-size: 0.95rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .caracteristica-card p {
-    font-size: 0.85rem;
-    color: #666;
-    margin: 0;
-  }
-
-  /* Galeria */
-  .galeria-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
-  }
-
-  .section-header.center {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .section-header h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    margin-bottom: 10px;
-  }
-
-  .section-header h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .subtitulo {
-    color: #666;
-    font-size: 1.1rem;
-  }
-
-  .galeria-bento.three-cols {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .galeria-item {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    height: 300px;
-  }
-
-  .galeria-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .galeria-item:hover img {
-    transform: scale(1.05);
-  }
-
-  /* Incluye */
-  .incluye-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .incluye-header,
-  .estilos-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .incluye-header .badge,
-  .estilos-header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .incluye-header h2,
-  .estilos-header h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    margin-bottom: 15px;
-  }
-
-  .incluye-header h2 span,
-  .estilos-header h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .incluye-header p,
-  .estilos-header p {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .incluye-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .incluye-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 20px;
-    padding: 35px 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-  }
-
-  .incluye-card .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 10px;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .incluye-card h4 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-
-  .incluye-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Estilos/Tematicas */
-  .estilos-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .estilos-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  .estilo-card {
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-  }
-
-  .estilo-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .estilo-card .card-img {
-    height: 150px;
-    overflow: hidden;
-  }
-
-  .estilo-card .card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .estilo-card .card-content {
-    padding: 20px;
-    text-align: center;
-  }
-
-  .estilo-card h4 {
-    font-size: 1.1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .estilo-card p {
-    font-size: 0.9rem;
-    color: #666;
-    margin: 0;
-  }
-
-  /* Proceso */
-  .proceso-section {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 50px;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: #eee;
-  }
-
-  .proceso-step {
-    text-align: center;
-    flex: 1;
-  }
-
-  .proceso-step .number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-  }
-
-  .proceso-step h4 {
-    font-size: 1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-  }
-
-  .proceso-step p {
-    font-size: 0.85rem;
-    color: #666;
-    max-width: 180px;
-    margin: 0 auto;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    margin-bottom: 15px;
-  }
-
-  .cta-final p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 30px;
-  }
-
-  .cta-final .btn-white {
-    background: #fff;
-    color: var(--rosa-principal);
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .cta-final .btn-white:hover {
-    transform: translateY(-3px);
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .caracteristicas-layout {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .caracteristicas-left {
-      text-align: center;
-    }
-
-    .header-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .galeria-bento.three-cols {
-      grid-template-columns: 1fr;
-    }
-
-    .galeria-item {
-      height: 250px;
-    }
-
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .estilos-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .proceso-timeline {
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .proceso-timeline::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .caracteristicas-right {
-      grid-template-columns: 1fr;
-    }
-
-    .incluye-grid,
-    .estilos-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

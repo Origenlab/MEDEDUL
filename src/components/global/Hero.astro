@@ -29,6 +29,7 @@
  */
 
 import CTAServices from './CTAServices.astro';
+import TrustBadge from './TrustBadge.astro';
 
 interface Props {
   title: string;
@@ -521,14 +522,17 @@ const renderTitle = () => {
 </section>
 
 {showCTA && (
-  <CTAServices
-    href={ctaHref || contextualCta.href}
-    badge={ctaBadge || contextualCta.badge}
-    title={ctaTitle || contextualCta.title}
-    titleHighlight={ctaTitleHighlight || contextualCta.titleHighlight}
-    text={ctaText || contextualCta.text}
-    buttonText={ctaButtonText || contextualCta.buttonText}
-  />
+  <>
+    <CTAServices
+      href={ctaHref || contextualCta.href}
+      badge={ctaBadge || contextualCta.badge}
+      title={ctaTitle || contextualCta.title}
+      titleHighlight={ctaTitleHighlight || contextualCta.titleHighlight}
+      text={ctaText || contextualCta.text}
+      buttonText={ctaButtonText || contextualCta.buttonText}
+    />
+    <TrustBadge />
+  </>
 )}
 
 <style>

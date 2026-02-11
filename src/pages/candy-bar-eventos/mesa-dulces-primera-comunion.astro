@@ -2,41 +2,102 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'Primera Comunion', url: '/candy-bar-eventos/mesa-dulces-primera-comunion' }
 ];
 
-const highlights = [
-  { title: 'Estilo sobrio y delicado', description: 'Mesas con decoracion armoniosa en tonos blancos, dorados, azules o rosados.' },
-  { title: 'Detalles simbolicos', description: 'Elementos visuales acordes al evento, con enfoque elegante y familiar.' },
-  { title: 'Dulces para toda la familia', description: 'Variedad equilibrada para ninos y adultos durante la celebracion.' },
-  { title: 'Montaje profesional', description: 'Instalacion impecable para salones, jardines, casas y recintos.' }
-];
-
-const includes = [
-  'Diseno personalizado para primera comunion',
-  'Dulces, postres y chocolates seleccionados',
-  'Mobiliario y accesorios decorativos',
-  'Montaje acorde a la ceremonia y recepcion',
-  'Desmontaje al finalizar el evento',
-  'Asesoria integral por numero de invitados'
-];
-
 const faqs = [
-  { question: 'Manejan estilo tradicional para comunion?', answer: 'Si. Podemos montar propuestas clasicas y sobrias o estilos mas contemporaneos segun tu preferencia.' },
-  { question: 'Pueden adaptar colores del evento?', answer: 'Si, personalizamos decoracion y detalles para integrar la paleta de color de tu celebracion.' },
-  { question: 'Instalan en salon o domicilio?', answer: 'Si, trabajamos en salones, casas, jardines y recintos religiosos o sociales.' },
-  { question: 'Cuando recomiendan reservar?', answer: 'Idealmente con 2 a 4 semanas de anticipacion, especialmente en temporada alta de comuniones.' }
+  { question: 'Que incluye una mesa de dulces para primera comunion?', answer: 'Incluye diseno sobrio, surtido de producto, montaje profesional y desmontaje del servicio.' },
+  { question: 'Pueden adaptar la estetica a la ceremonia religiosa?', answer: 'Si. Ajustamos colores, composicion y nivel decorativo al tono de la celebracion.' },
+  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Recomendamos reservar con 2 a 4 semanas para asegurar disponibilidad.' },
+  { question: 'Atienden eventos en salon, casa o jardin?', answer: 'Si. Cubrimos diversas sedes en CDMX y area metropolitana.' },
+  { question: 'Manejan propuestas para pocas personas?', answer: 'Si. Escalamos la propuesta segun aforo y objetivos del evento.' },
+  { question: 'Se puede combinar con mesa de postres?', answer: 'Si, podemos integrar formatos complementarios para elevar experiencia y presentacion.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🙏',
+    price: '$4,800',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para celebracion familiar',
+    features: ['Mesa principal para comunion', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,000',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado para comunion', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion elegante', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,600',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '130+', label: 'Comuniones' },
+  { number: '100%', label: 'Estilo Sobrio' },
+  { number: '30+', label: 'Opciones Dulces' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Diseno Sobrio', desc: 'Composicion visual alineada al tono religioso de la celebracion.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif' },
+  { num: 2, title: 'Surtido Equilibrado', desc: 'Seleccion de dulces y postres para una recepcion familiar armonica.', img: '/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif' },
+  { num: 3, title: 'Montaje Profesional', desc: 'Implementacion limpia y puntual para una experiencia sin fricciones.', img: '/img/eventos/comunion/decoracion-mesa-comunion.avif' },
+  { num: 4, title: 'Formato Flexible', desc: 'Propuestas para reuniones intimas o celebraciones de mayor aforo.', img: '/img/eventos/comunion/servicio-mesa-comunion-cdmx.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief de Comunion', desc: 'Recibimos datos de sede, aforo y estilo de la celebracion.' },
+  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo.' },
+  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos horarios y accesos con familia y venue.' },
+  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos la mesa con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Bautizo', excerpt: 'Montajes familiares para celebraciones religiosas.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
+  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
+  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
+  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Dulces para Primera Comunion en CDMX',
-  description: 'Candy bar para primera comunion con montaje elegante y servicio profesional en Ciudad de Mexico.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de mesa de dulces para primera comunion en Ciudad de Mexico con diseno elegante y montaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -48,184 +109,46 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Primera Comunion | Mededul CDMX"
-  description="Candy bar para primera comunion con decoracion elegante, dulces premium y montaje profesional."
+  title="Mesa de Dulces para Primera Comunion en CDMX | Mededul"
+  description="Mesa de dulces para primera comunion en CDMX con diseno sobrio, montaje profesional y propuesta personalizada para celebraciones familiares."
   canonical="/candy-bar-eventos/mesa-dulces-primera-comunion"
-  ogImage="/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif"
+  ogImage="/img/eventos/comunion/mesa-dulces-primera-comunion.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para <span>Primera Comunion</span>"
-    description="Creamos mesas de dulces elegantes para primera comunion, cuidando cada detalle visual del montaje."
-    subtitle="Nuestro servicio combina estilo, calidad y organizacion para que disfrutes una celebracion familiar sin preocupaciones."
+    title="Mesa de Dulces para Primera Comunion en CDMX"
+    highlight="Primera Comunion"
+    subtitle="Montaje elegante y familiar para una celebracion religiosa con experiencia cuidada y presentacion impecable"
+    secondaryContent={`<p><strong>Comunion</strong> con mesa de dulces profesional aporta armonia visual, orden en el servicio y una experiencia familiar coherente con la ceremonia. En Mededul disenamos propuestas sobrias que equilibran estilo, calidad y funcionalidad operativa.</p><p><strong>Celebracion</strong> religiosa bien acompanada por un candy bar elegante mejora la convivencia, fortalece el recuerdo fotografico y eleva la presentacion general del evento. Ejecutamos cada detalle en CDMX con puntualidad y estandar premium.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Planea Tu"
+    ctaTitleHighlight="Primera Comunion"
+    ctaText="Comparte sede, invitados y estilo para recibir una propuesta profesional para tu celebracion."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="service-highlights section-padding">
-    <div class="container">
-      <div class="section-head">
-        <h2>Una celebracion familiar con gran presentacion</h2>
-        <p class="subtitulo">Montajes de primera comunion con imagen limpia, elegante y memorable</p>
-      </div>
-      <div class="highlight-grid">
-        {highlights.map((item) => (
-          <article class="highlight-card">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de comunion al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
 
-  <section class="service-includes section-padding">
-    <div class="container">
-      <h2>Que incluye el servicio</h2>
-      <ul>
-        {includes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Comunion" descriptions={['Integracion de diseno sobrio, montaje profesional y experiencia familiar.', 'Cuidamos presentacion y operacion para lograr una celebracion impecable.']} stats={whyStats} features={whyFeatures} />
 
-  <section class="service-faq section-padding">
-    <div class="container">
-      <h2>Preguntas frecuentes</h2>
-      <div class="faq-list">
-        {faqs.map((faq) => (
-          <details>
-            <summary>{faq.question}</summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de comunion sin fricciones." steps={processSteps} />
 
-  <section class="service-cta">
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones familiares." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Eleva Tu Celebracion de" titleHighlight="Comunion" text="Te ayudamos a crear una mesa de dulces elegante y profesional para una celebracion familiar memorable." buttonText="Cotizar Comunion" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Cotiza tu mesa para primera comunion</h2>
-      <p>Agenda tu fecha y recibe una propuesta personalizada para tu celebracion.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces para Primera Comunion" class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Primera Comunion" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la propuesta ideal para tu comunion.</p>`} />
+      <FAQ items={faqs} id="faq-primera-comunion" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .section-head {
-    text-align: center;
-    margin-bottom: 28px;
-  }
-
-  .highlight-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .highlight-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(255, 107, 157, 0.18);
-  }
-
-  .highlight-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-  }
-
-  .highlight-card p {
-    color: var(--gris-texto);
-    margin: 0;
-  }
-
-  .service-includes {
-    background: #fff;
-  }
-
-  .service-includes h2,
-  .service-faq h2 {
-    text-align: center;
-    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-    margin-bottom: 20px;
-  }
-
-  .service-includes ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .service-includes li {
-    background: #fdf7fa;
-    border: 1px solid rgba(255, 107, 157, 0.2);
-    border-radius: 12px;
-    padding: 14px;
-  }
-
-  .faq-list {
-    max-width: 860px;
-    margin: 0 auto;
-    display: grid;
-    gap: 12px;
-  }
-
-  .faq-list details {
-    background: #fff;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    padding: 12px 14px;
-  }
-
-  .faq-list summary {
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .faq-list p {
-    color: var(--gris-texto);
-    margin: 10px 0 2px;
-  }
-
-  .service-cta {
-    padding: 74px 0;
-    text-align: center;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-  }
-
-  .service-cta h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    margin-bottom: 12px;
-  }
-
-  .service-cta p {
-    margin: 0 auto 24px;
-    max-width: 680px;
-    opacity: 0.95;
-  }
-
-  .btn-white {
-    display: inline-block;
-    text-decoration: none;
-    background: #fff;
-    color: #D1007A;
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 14px 28px;
-  }
-
-  @media (max-width: 900px) {
-    .highlight-grid,
-    .service-includes ul {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

@@ -1,839 +1,154 @@
 ---
-// Mesa de Dulces para Bautizo
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'Bautizo', url: '/candy-bar-eventos/mesa-dulces-bautizo' }
 ];
 
-const caracteristicas = [
-  { num: 1, title: 'Decoracion Religiosa', desc: 'Cruces, angeles y palomas del Espiritu Santo', image: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif' },
-  { num: 2, title: 'Colores Delicados', desc: 'Blancos, celestes y rosas pasteles elegantes', image: '/img/eventos/bautizo/mesa-dulces-bautizo-blanco-angeles-pastel.avif' },
-  { num: 3, title: 'Postres Personalizados', desc: 'Galletas con cruces y macarons con el nombre', image: '/img/eventos/bautizo/servicio-mesa-bautizo-cdmx.avif' },
-  { num: 4, title: 'Arreglos con Globos', desc: 'Complementa tu mesa con arreglos elegantes', image: '/img/decoracion/globos/globos-bautizo-decoracion.avif' }
+const faqs = [
+  { question: 'Que incluye una mesa de dulces para bautizo?', answer: 'Incluye diseno sobrio, surtido de dulces y postres, montaje profesional y desmontaje al finalizar el evento.' },
+  { question: 'Pueden alinear el estilo con la ceremonia?', answer: 'Si. Adaptamos paleta de color y composicion visual al tono familiar y religioso del bautizo.' },
+  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para garantizar disponibilidad y personalizacion.' },
+  { question: 'Atienden iglesias, salones y casas?', answer: 'Si. Cubrimos CDMX y area metropolitana en sedes familiares, salones y venues privados.' },
+  { question: 'Manejan opciones para nino y nina?', answer: 'Si, personalizamos estilo, colores y detalles segun el enfoque de tu celebracion.' },
+  { question: 'La propuesta puede combinar dulces y botanas?', answer: 'Si. Podemos integrar formatos mixtos para ampliar experiencia y variedad para invitados.' }
 ];
 
-const galeriaImages = [
-  { src: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif', alt: 'Mesa de dulces para bautizo elegante en CDMX' },
-  { src: '/img/eventos/bautizo/mesa-dulces-bautizo-blanco-angeles-pastel.avif', alt: 'Decoracion blanco y dorado para bautizo' },
-  { src: '/img/galeria/mesa-dulces-bautizo-elegante-blanco-angeles-flores.avif', alt: 'Postres decorados con angeles para bautizo' }
-];
-
-const incluye = [
-  { num: 1, title: 'Dulces Finos', desc: 'Seleccion de 20-30 variedades en colores delicados: blancos, celestes, rosas pasteles y dorados.' },
-  { num: 2, title: 'Postres Personalizados', desc: 'Macarons, galletas decoradas con cruces y angeles, cake pops con el nombre del bebe.' },
-  { num: 3, title: 'Decoracion Religiosa', desc: 'Cruces elegantes, angeles, palomas, velas, rosarios y flores blancas que reflejan la espiritualidad.' },
-  { num: 4, title: 'Mobiliario Completo', desc: 'Mesa elegante, manteles, risers y contenedores acordes a la tematica del sacramento.' },
-  { num: 5, title: 'Montaje Profesional', desc: 'Llegamos 2 horas antes para instalar todo perfectamente y nos retiramos al finalizar.' },
-  { num: 6, title: 'Arreglos con Globos', desc: 'Opcional: arreglos de globos en tonos blancos, dorados, plateados o pasteles.' }
-];
-
-const ideal = [
-  { title: 'Bautizo de Nina', desc: 'Rosa, blanco y dorado', image: '/img/galeria/mesa-dulces-primera-comunion-rosa-galletas-angeles.avif' },
-  { title: 'Bautizo de Nino', desc: 'Celeste, blanco y plata', image: '/img/eventos/bautizo/mesa-dulces-bautizo-nino.avif' },
-  { title: 'Bautizo Clasico', desc: 'Blanco puro elegante', image: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif' },
-  { title: 'Bautizo Moderno', desc: 'Minimalista con detalles', image: '/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif' }
-];
-
-// Service Schema
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Mesa Dulce para Bautizo",
-  "description": "Servicio de mesa dulce para bautizo en CDMX. Incluye postres premium, decoracion para bautizo con simbolos religiosos, arreglos con globos opcionales y montaje profesional.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Mededul",
-    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
-    "telephone": "+525525226442",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ciudad de Mexico",
-      "addressCountry": "MX"
-    }
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '⛪',
+    price: '$4,900',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para celebracion familiar',
+    features: ['Mesa principal para bautizo', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Esencial)'
   },
-  "areaServed": {
-    "@type": "City",
-    "name": "Ciudad de Mexico"
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,100',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado por ceremonia', 'Mayor variedad de postres y dulces', 'Montaje y coordinacion en sitio', 'Presentacion elegante', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Premium)'
   },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Paquetes Mesa de Dulces Bautizo",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Bautizo Basico",
-          "description": "Para 30-50 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Bautizo Premium",
-          "description": "Para 50-100 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Bautizo Deluxe",
-          "description": "Para 100-150 invitados"
-        }
-      }
-    ]
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,700',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Luxury)'
   }
+];
+
+const whyStats = [
+  { number: '120+', label: 'Bautizos' },
+  { number: '100%', label: 'Elegancia Familiar' },
+  { number: '30+', label: 'Opciones Dulces' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Estetica Sobria', desc: 'Montajes armonicos que respetan el tono de una ceremonia de bautizo.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif' },
+  { num: 2, title: 'Surtido Equilibrado', desc: 'Seleccion de dulces y postres con buena rotacion y presentacion limpia.', img: '/img/eventos/bautizo/candy-bar-bautizo-celeste-cruz-macarons.avif' },
+  { num: 3, title: 'Montaje Puntual', desc: 'Implementacion profesional para evitar contratiempos el dia del evento.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-blanco-angeles-pastel.avif' },
+  { num: 4, title: 'Formato Escalable', desc: 'Ajustamos propuesta para reuniones intimas o celebraciones amplias.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-nino.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief de Ceremonia', desc: 'Recibimos datos de fecha, sede, invitados y estilo buscado.' },
+  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos composicion visual, surtido y alcance operativo.' },
+  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos horarios y accesos con familia y venue.' },
+  { num: 4, title: 'Montaje y Servicio', desc: 'Ejecutamos montaje integral y cierre ordenado al finalizar.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Primera Comunion', excerpt: 'Montajes sobrios para celebraciones religiosas familiares.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Comunion' },
+  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno y personalizado para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
+  { title: 'Mesa de Dulces para Bodas', excerpt: 'Propuestas elegantes para celebraciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
+  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Experiencias visuales para fiestas de quinceanera.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces para Bautizo en CDMX',
+  description: 'Servicio de mesa de dulces para bautizo en Ciudad de Mexico con diseno elegante, montaje profesional y surtido premium.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
-// FAQ Schema
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Que incluye una mesa dulce para bautizo?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Incluye: seleccion de postres y golosinas en colores delicados (20-30 variedades), personalizacion con el nombre del bebe, decoracion para bautizo con cruces, angeles y palomas, mobiliario completo y montaje profesional."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Cuanto cuesta el servicio de bautizo?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Los paquetes van desde $4,500 MXN (30-50 personas) hasta $12,000 MXN (100-150 personas). Incluye postres, decoracion religiosa, mobiliario y montaje. Los arreglos con globos tienen costo adicional."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Pueden incluir arreglos con globos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Si, ofrecemos arreglos de globos en tonos blancos, dorados, plateados o pasteles que complementan perfectamente la decoracion para bautizo."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Manejan decoracion con simbolos religiosos?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutamente. Incluimos cruces elegantes, angeles, palomas del Espiritu Santo, velas, rosarios y flores blancas. Todo refleja la espiritualidad del sacramento."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Que postres recomiendan para bautizo?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Recomendamos macarons blancos, cake pops con cruces, galletas decoradas con angeles, chocolates personalizados, cupcakes elegantes y dulces tradicionales mexicanos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Con cuanta anticipacion debo reservar?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Recomendamos 2-3 semanas de anticipacion. Para postres personalizados o arreglos especiales, sugerimos 3 semanas. En temporada alta (mayo, diciembre), reserva con 4 semanas."
-      }
-    }
-  ]
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Bautizo en CDMX | Candy Bar Elegante"
-  description="Mesa dulce para bautizo en CDMX. Candy bar con decoracion para bautizo, postres personalizados y arreglos con globos. Padrinos felices. Cotiza gratis!"
-  ogImage="/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif"
+  title="Mesa de Dulces para Bautizo en CDMX | Mededul"
+  description="Mesa de dulces para bautizo en CDMX con diseno sobrio, montaje profesional y propuesta personalizada para tu ceremonia familiar."
+  canonical="/candy-bar-eventos/mesa-dulces-bautizo"
+  ogImage="/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif"
+  includeCategoryStyles={true}
 >
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  <JsonLd type="Service" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para <span>Bautizo</span>"
-    description="El bautizo de tu bebe es un momento sagrado que merece una celebracion especial. Creamos mesas de dulces con decoracion religiosa elegante que refleja la espiritualidad del sacramento."
-    subtitle="Desde cruces elegantes hasta angeles y palomas, cada elemento esta cuidadosamente seleccionado para complementar este dia tan importante. Tambien ofrecemos arreglos con globos opcionales."
+    title="Mesa de Dulces para Bautizo en CDMX"
+    highlight="Bautizo"
+    subtitle="Montaje elegante y familiar para acompanar una celebracion religiosa con presentacion impecable"
+    secondaryContent={`<p><strong>Bautizo</strong> con mesa de dulces profesional aporta orden visual, experiencia cuidada y coherencia con el tono simbolico de la ceremonia. En Mededul desarrollamos propuestas sobrias que equilibran estilo, calidad de producto y funcionalidad operativa.</p><p><strong>Ceremonia</strong> bien acompanada por un candy bar elegante mejora la convivencia, refuerza el recuerdo fotografico y facilita la atencion a invitados durante la recepcion. Ejecutamos montaje y servicio en CDMX con estandar premium y puntualidad total.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Organiza Tu Bautizo"
+    ctaTitleHighlight="Bautizo"
+    ctaText="Comparte sede, invitados y estilo para recibir una propuesta profesional adaptada a tu celebracion."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Especialistas en Bautizos</span>
-          <h2>Por que elegir nuestra <span>Mesa de Dulces para Bautizo</span>?</h2>
-          <p class="header-description">Con mas de <strong>120 bautizos</strong> realizados en Ciudad de Mexico, somos expertos en crear mesas de postres que honran este sacramento tan especial.</p>
-          <p class="header-description">Cada elemento esta pensado para reflejar la espiritualidad y la alegria de dar la bienvenida a tu bebe a la fe cristiana.</p>
-          <div class="header-stats">
-            <div class="stat-item">
-              <span class="stat-number">120+</span>
-              <span class="stat-label">Bautizos</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Elegante</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">30+</span>
-              <span class="stat-label">Variedades</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">5 hrs</span>
-              <span class="stat-label">Respuesta</span>
-            </div>
-          </div>
-        </div>
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <img src={getCdnUrl(car.image)} alt={car.title} loading="lazy" />
-                <div class="card-number">{car.num}</div>
-              </div>
-              <div class="card-content">
-                <h3>{car.title}</h3>
-                <p>{car.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de bautizo al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
 
-  <!-- Galeria Section -->
-  <section class="galeria-section">
-    <div class="container">
-      <div class="section-header center">
-        <h2>Galeria de <span>Bautizos</span></h2>
-        <p class="subtitulo">Inspirate con nuestros montajes para bautizo</p>
-      </div>
-      <div class="galeria-bento">
-        {galeriaImages.map((img) => (
-          <div class="galeria-item">
-            <img src={getCdnUrl(img.src)} alt={img.alt} loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Bautizo" descriptions={['Integramos diseno elegante y operacion profesional para una celebracion familiar impecable.', 'Cuidamos cada detalle de presentacion y servicio para elevar la experiencia del evento.']} stats={whyStats} features={whyFeatures} />
 
-  <!-- Que Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que Incluye tu <span>Mesa de Dulces para Bautizo</span></h2>
-        <p>Nos encargamos de todo para que disfrutes este dia tan especial</p>
-      </div>
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card">
-            <div class="card-number">{item.num}</div>
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de bautizo sin fricciones." steps={processSteps} />
 
-  <!-- Ideal Para Section -->
-  <section class="ideal-section">
-    <div class="container">
-      <div class="ideal-header">
-        <span class="badge">Estilos</span>
-        <h2>Ideal para Todo Tipo de <span>Bautizo</span></h2>
-        <p>Nos adaptamos a tus preferencias y colores</p>
-      </div>
-      <div class="ideal-grid">
-        {ideal.map(item => (
-          <div class="ideal-card">
-            <div class="card-img">
-              <img src={getCdnUrl(item.image)} alt={item.title} loading="lazy" />
-            </div>
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para diferentes celebraciones." events={eventCards} />
 
-  <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header center">
-        <h2>Nuestro <span>Proceso</span></h2>
-        <p class="subtitulo">4 simples pasos para tu mesa de dulces perfecta</p>
-      </div>
-      <div class="proceso-timeline">
-        <div class="proceso-step">
-          <div class="number">1</div>
-          <h4>Consulta</h4>
-          <p>Platicanos sobre el bautizo</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">2</div>
-          <h4>Propuesta</h4>
-          <p>Creamos el diseno personalizado</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">3</div>
-          <h4>Confirmacion</h4>
-          <p>Aprobamos detalles y reservamos</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">4</div>
-          <h4>El Gran Dia</h4>
-          <p>Montamos y tu disfrutas</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Eleva Tu Celebracion de" titleHighlight="Bautizo" text="Te ayudamos a crear una mesa de dulces elegante, funcional y alineada al estilo de tu ceremonia." buttonText="Cotizar Bautizo" />
 
-  <!-- CTA Final -->
-  <section class="cta-final">
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Celebra el Bautizo con Estilo</h2>
-      <p>Cotiza ahora y reserva tu fecha. Haz de este sacramento un momento inolvidable.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para bautizo" class="btn-white" target="_blank" rel="noopener">
-        Cotizar Mi Bautizo
-      </a>
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Bautizo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir el formato adecuado para tu bautizo.</p>`} />
+      <FAQ items={faqs} id="faq-bautizo" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  /* Caracteristicas */
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .header-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .header-description {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-description strong {
-    color: var(--rosa-principal);
-  }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    margin-top: 30px;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--rosa-principal);
-    line-height: 1.2;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-  }
-
-  .caracteristica-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.15);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .caracteristica-card:hover .card-image img {
-    transform: scale(1.1);
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: var(--rosa-principal);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.95rem;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content {
-    padding: 18px;
-    text-align: center;
-  }
-
-  .caracteristica-card h3 {
-    font-size: 0.95rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .caracteristica-card p {
-    font-size: 0.85rem;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Galeria */
-  .galeria-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
-  }
-
-  .section-header.center {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .section-header h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    margin-bottom: 10px;
-  }
-
-  .section-header h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .subtitulo {
-    color: #666;
-    font-size: 1.1rem;
-  }
-
-  .galeria-bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 300px;
-    gap: 20px;
-  }
-
-  .galeria-item {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  }
-
-  .galeria-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .galeria-item:hover img {
-    transform: scale(1.05);
-  }
-
-  /* Incluye */
-  .incluye-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .incluye-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .incluye-header .badge,
-  .ideal-header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .incluye-header h2,
-  .ideal-header h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    color: #1a1a1a;
-    margin-bottom: 15px;
-  }
-
-  .incluye-header h2 span,
-  .ideal-header h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .incluye-header p,
-  .ideal-header p {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .incluye-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .incluye-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 20px;
-    padding: 35px 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-  }
-
-  .incluye-card .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .incluye-card h4 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-
-  .incluye-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Ideal */
-  .ideal-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff 100%);
-  }
-
-  .ideal-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .ideal-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  .ideal-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 16px;
-    padding: 30px 25px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-  }
-
-  .ideal-card .card-img {
-    width: 100%;
-    height: 120px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
-  .ideal-card .card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .ideal-card h4 {
-    font-size: 1.1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .ideal-card p {
-    font-size: 0.9rem;
-    color: #666;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* Proceso */
-  .proceso-section {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 50px;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: #eee;
-  }
-
-  .proceso-step {
-    text-align: center;
-    position: relative;
-    flex: 1;
-  }
-
-  .proceso-step .number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-  }
-
-  .proceso-step h4 {
-    font-size: 1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-  }
-
-  .proceso-step p {
-    font-size: 0.85rem;
-    color: #666;
-    max-width: 180px;
-    margin: 0 auto;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    margin-bottom: 15px;
-  }
-
-  .cta-final p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-final .btn-white {
-    background: #fff;
-    color: var(--rosa-principal);
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .cta-final .btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .caracteristicas-layout {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-
-    .caracteristicas-left {
-      text-align: center;
-    }
-
-    .galeria-bento {
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 250px;
-    }
-
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .ideal-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .proceso-timeline {
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .proceso-timeline::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .header-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .caracteristicas-right {
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .galeria-bento {
-      grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 200px);
-    }
-
-    .incluye-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .ideal-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .caracteristicas-right {
-      grid-template-columns: 1fr;
-    }
-
-    .ideal-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .proceso-timeline {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .proceso-step .number {
-      width: 50px;
-      height: 50px;
-      font-size: 1.1rem;
-    }
-  }
-</style>

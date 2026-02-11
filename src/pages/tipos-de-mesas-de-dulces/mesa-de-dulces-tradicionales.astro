@@ -1,9 +1,15 @@
 ---
-// Mesa de Dulces Tradicionales - Subpage
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -11,277 +17,138 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
+  { question: 'Que dulces tradicionales incluyen?', answer: 'Incluimos seleccion de dulces mexicanos tradicionales como mazapan, obleas, cocadas, tamarindos, glorias y otras referencias tipicas segun disponibilidad.' },
+  { question: 'La seleccion se puede personalizar?', answer: 'Si. Ajustamos surtido segun perfil de invitados, estilo del evento y preferencia regional.' },
+  { question: 'Es ideal para eventos tematicos mexicanos?', answer: 'Si. Es una opcion excelente para fiestas patrias, celebraciones tematicas y eventos con identidad cultural mexicana.' },
+  { question: 'Incluyen decoracion acorde al concepto?', answer: 'Si. Estructuramos presentacion visual con elementos coherentes al estilo tradicional solicitado.' },
+  { question: 'Manejan formatos para eventos grandes?', answer: 'Si, contamos con configuraciones para aforos pequenos, medianos y grandes.' },
+  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio contempla montaje profesional y desmontaje al finalizar.' }
+];
+
+const packages = [
   {
-    question: "Que dulces tradicionales mexicanos incluyen?",
-    answer: "Nuestra mesa incluye una amplia variedad de dulces tipicos: mazapan, obleas con cajeta, tamarindos enchilados, cocadas, alegrias de amaranto, palanquetas, glorias, dulces de leche, borrachitos, mueganos, camotes, ate con queso y muchos mas dulces nostalgicos mexicanos."
+    name: 'Esencial',
+    icon: '🍭',
+    price: '$4,300',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para eventos intimos',
+    features: ['Surtido base de dulces tradicionales', 'Montaje profesional', 'Presentacion tematica', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Esencial'
   },
   {
-    question: "Pueden personalizar la seleccion de dulces tradicionales?",
-    answer: "Si, puedes elegir los dulces que mas te gusten de nuestro catalogo de dulces tradicionales. Tambien podemos incluir dulces especificos de alguna region de Mexico si nos los solicitas con anticipacion."
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,200',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Variedad ampliada de dulces tipicos', 'Diseno personalizado', 'Composicion tradicional premium', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Premium'
   },
   {
-    question: "La mesa de dulces tradicionales es ideal para que tipo de eventos?",
-    answer: "Es perfecta para fiestas mexicanas, dia de muertos, fiestas patrias, bodas con tematica mexicana, cumpleanos nostalgicos, y cualquier evento donde quieras celebrar las tradiciones mexicanas con sabores autenticos."
-  },
-  {
-    question: "Incluyen decoracion mexicana en la mesa?",
-    answer: "Si, la presentacion incluye elementos decorativos mexicanos como papel picado, canastas de palma, cazuelas de barro, rebozos como manteles y otros elementos que realzan la tematica tradicional mexicana."
-  },
-  {
-    question: "Los dulces son artesanales o industriales?",
-    answer: "Trabajamos principalmente con dulces artesanales de productores mexicanos tradicionales. Esto garantiza el sabor autentico y la calidad que caracteriza a los dulces tipicos mexicanos de toda la vida."
-  },
-  {
-    question: "Para cuantas personas alcanza una mesa de dulces tradicionales?",
-    answer: "Calculamos aproximadamente 150-200 gramos de dulces por persona. Paquete Basico: 30-50 personas. Paquete Premium: 50-100 personas. Paquete Deluxe: 100-200 personas. Ajustamos las cantidades segun tus necesidades."
+    name: 'Luxury',
+    icon: '💎',
+    price: '$11,500',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia cultural premium',
+    features: ['Curaduria de alto volumen', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor variedad regional'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Dulces Tradicionales - Paquete Luxury'
   }
+];
+
+const whyStats = [
+  { number: '30+', label: 'Dulces Tipicos' },
+  { number: '100%', label: 'Identidad Mexicana' },
+  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Sabor Tradicional', desc: 'Curaduria de dulces mexicanos para una experiencia autentica y memorable.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
+  { num: 2, title: 'Identidad Cultural', desc: 'Propuesta ideal para eventos con enfoque mexicano y valor simbolico.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' },
+  { num: 3, title: 'Presentacion Tematica', desc: 'Montaje visual alineado con el concepto tradicional del evento.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
+  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion y ejecucion para mantener orden y calidad de servicio.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, aforo y objetivo del evento.' },
+  { num: 2, title: 'Disenamos', desc: 'Definimos surtido tradicional y estilo de presentacion.' },
+  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica, montaje y tiempos de ejecucion.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa tradicional con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Tradicionales para Fiestas Patrias', excerpt: 'Formato ideal para celebraciones con identidad mexicana.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif', href: '/servicios', badge: 'Tematico', cta: 'Ver Servicios' },
+  { title: 'Tradicionales para Bodas', excerpt: 'Propuesta cultural elegante para recepciones con estilo mexicano.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
+  { title: 'Tradicionales para XV Anos', excerpt: 'Montaje de dulceria tipica para eventos sociales de alta recordacion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Tradicionales para Corporativos', excerpt: 'Experiencia con narrativa mexicana para activaciones de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' }
 ];
 
 const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Mesa de Dulces Tradicionales Mexicanos",
-  "description": "Servicio de renta de mesas de dulces tradicionales mexicanos para eventos en CDMX. Incluye mazapan, obleas, tamarindo, cocadas, alegrias y dulces tipicos con presentacion elegante y montaje profesional.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Mededul",
-    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
-    "telephone": "+525525226442",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ciudad de Mexico",
-      "addressCountry": "MX"
-    }
-  },
-  "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Paquetes de Mesa de Dulces Tradicionales",
-    "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Tradicional Basica", "description": "Para 30-50 invitados" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Tradicional Premium", "description": "Para 50-100 invitados" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Tradicional Deluxe", "description": "Para 100-200 invitados" } }
-    ]
-  }
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Dulces Tradicionales en CDMX',
+  description: 'Servicio de mesa de dulces tradicionales mexicanos para eventos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
-  }))
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
 };
-
-const caracteristicas = [
-  { num: 1, title: 'Dulces 100% Mexicanos', desc: 'Autenticos dulces artesanales de productores tradicionales de todo Mexico.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
-  { num: 2, title: 'Recetas Artesanales', desc: 'Sabores nostalgicos que evocan los mejores recuerdos de la infancia.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' },
-  { num: 3, title: 'Decoracion Mexicana', desc: 'Papel picado, canastas de palma y elementos tipicos mexicanos incluidos.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif' },
-  { num: 4, title: 'Nostalgia en Cada Bocado', desc: 'Mazapanes, obleas, cocadas, tamarindos y todos los clasicos que amamos.', img: '/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif' }
-];
-
-const incluye = [
-  { num: '01', title: 'Dulces Tipicos Mexicanos', desc: 'Mazapanes, obleas con cajeta, cocadas, alegrias de amaranto, tamarindos, glorias, palanquetas, borrachitos, camotes y mas.' },
-  { num: '02', title: 'Decoracion Tradicional', desc: 'Papel picado colorido, canastas de palma, cazuelas de barro, rebozos y elementos tipicos mexicanos.' },
-  { num: '03', title: 'Mobiliario Rustico', desc: 'Mesas de madera, cajas decorativas, exhibidores tradicionales y contenedores de barro.' },
-  { num: '04', title: 'Montaje y Desmontaje', desc: 'Instalacion profesional con cuidado artesanal y retiro al finalizar tu evento.' },
-  { num: '05', title: 'Etiquetas Personalizadas', desc: 'Identificadores para cada dulce con nombres tradicionales y tu personalizacion.' },
-  { num: '06', title: 'Empaque de Recuerdo', desc: 'Bolsitas o cajas decoradas con motivos mexicanos para los dulces sobrantes.' }
-];
 ---
 
 <BaseLayout
-  title="Mesa de Dulces Tradicionales CDMX | Dulces Mexicanos"
-  description="Mesa de dulces tradicionales mexicanos en CDMX. Mazapan, obleas, tamarindo, cocadas y mas. Montaje incluido. Cotiza gratis."
+  title="Mesa de Dulces Tradicionales en CDMX | Mededul"
+  description="Renta de mesa de dulces tradicionales mexicanos en CDMX con montaje profesional para eventos sociales y tematicos."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
   ogImage="/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de <span>Dulces Tradicionales</span> Mexicanos"
-    description="Un homenaje a nuestras raices. Nuestra mesa de dulces tradicionales mexicanos presenta los sabores que nos definen: mazapanes, obleas, cocadas, alegrias, tamarindos, borrachitos, jamoncillos y todos esos dulces tipicos que evocan los mejores recuerdos."
-    subtitle="Perfecta para fiestas mexicanas, dia de muertos, fiestas patrias, bodas con tematica mexicana y cualquier ocasion donde quieras celebrar nuestras tradiciones."
+    title="Mesa de Dulces Tradicionales en CDMX"
+    highlight="Dulces Tradicionales"
+    subtitle="Sabor mexicano autentico con montaje profesional para eventos memorables"
+    secondaryContent={`<p><strong>Tradicionales</strong> bien curados aportan identidad cultural y conexion emocional en celebraciones donde el detalle simbolico es clave. En Mededul disenamos mesas de dulces mexicanos que combinan autenticidad, presentacion y funcionalidad.</p><p><strong>Mexicanos</strong> y profesionales: estructuramos surtido, montaje y operacion para que tu evento proyecte una experiencia coherente con tus objetivos. Adaptamos propuesta a aforo, estilo y tipo de celebracion en CDMX.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Mesa Tradicional"
+    ctaTitleHighlight="Tradicional"
+    ctaText="Comparte tipo de evento e invitados para recomendarte una configuracion mexicana profesional y personalizada."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Sabor Autentico</span>
-          <h2>Por que elegir nuestra <span>Mesa de Dulces Tradicionales</span>?</h2>
-          <p class="header-description">Celebramos la riqueza de la dulceria mexicana con <strong>productos artesanales</strong> de productores tradicionales de todo el pais.</p>
-          <p class="header-description">Cada dulce cuenta una historia de tradicion y sabor que conecta generaciones.</p>
-          <div class="header-stats">
-            <div class="stat-item"><span class="stat-number">30+</span><span class="stat-label">Variedades</span></div>
-            <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Artesanal</span></div>
-            <div class="stat-item"><span class="stat-number">10+</span><span class="stat-label">Regiones</span></div>
-            <div class="stat-item"><span class="stat-number">5 hrs</span><span class="stat-label">Respuesta</span></div>
-          </div>
-        </div>
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <span class="card-number">{car.num}</span>
-                <img src={getCdnUrl(car.img)} alt={car.title} loading="lazy" />
-              </div>
-              <div class="card-content"><h3>{car.title}</h3><p>{car.desc}</p></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de dulces tradicionales al aforo y estilo de tu evento." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
 
-  <!-- Galeria Section -->
-  <section class="galeria-section">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Nuestras <span class="titulo-decorativo">Mesas Tradicionales</span></h2>
-        <p class="subtitulo">Dulces que evocan los mejores recuerdos</p>
-      </div>
-      <div class="galeria-grid">
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif')} alt="Mesa de dulces tipicos mexicanos" loading="lazy" /></div>
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/dulces-tradicionales/mesa-dulces-mexicanos-tradicionales.avif')} alt="Mesa dulces mexicanos tradicionales" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Tradicional" descriptions={['Mesa de dulces tradicionales diseniada para eventos con identidad mexicana y alto valor cultural.', 'Integramos seleccion de producto, presentacion tematica y operacion profesional para resultados consistentes.']} stats={whyStats} features={whyFeatures} />
 
-  <!-- Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que incluye nuestra <span>Mesa Tradicional</span>?</h2>
-        <p>Sabores autenticos con presentacion profesional</p>
-      </div>
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card">
-            <span class="card-number">{item.num}</span>
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa tradicional sin improvisaciones." steps={processSteps} />
 
-  <!-- CTA Final -->
-  <section class="cta-final">
-    <div class="container">
-      <h2>Celebra las tradiciones mexicanas</h2>
-      <p>Cotiza tu mesa de dulces tradicionales y sorprende a tus invitados con sabores autenticos.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces Tradicionales" class="btn-white" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
-    </div>
-  </section>
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Dulces Tradicionales para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos surtido y presentacion segun la intencion comercial y cultural de cada celebracion." events={eventCards} />
 
-  <!-- FAQ Section -->
-  <section class="faq-section section-padding">
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Activa Tu Evento con una Propuesta" titleHighlight="Mexicana" text="Te ayudamos a construir una mesa de dulces tradicionales con identidad, calidad y montaje profesional." buttonText="Cotizar Mesa Tradicional" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="section-header-center">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Resolvemos tus dudas sobre dulces tradicionales</p>
-      </div>
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item">
-            <button class="faq-question"><span>{faq.question}</span><span class="icon">+</span></button>
-            <div class="faq-answer"><p>{faq.answer}</p></div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader title="Preguntas Frecuentes sobre Dulces Tradicionales" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion tradicional adecuada para tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-tradicionales" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .caracteristicas-section { padding: 100px 0; background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%); }
-  .caracteristicas-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .caracteristicas-left .header-badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .caracteristicas-left h2 { font-size: 2.2rem; color: var(--texto-oscuro); line-height: 1.3; margin-bottom: 20px; }
-  .caracteristicas-left h2 span { color: var(--rosa-principal); }
-  .caracteristicas-left .header-description { font-size: 1.05rem; color: var(--texto-light); line-height: 1.8; margin-bottom: 15px; }
-  .header-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; background: #fff; padding: 25px 20px; border-radius: 15px; box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1); margin-top: 30px; }
-  .stat-item { text-align: center; }
-  .stat-number { display: block; font-size: 1.8rem; font-weight: 800; color: var(--rosa-principal); }
-  .stat-label { font-size: 0.7rem; color: var(--texto-light); text-transform: uppercase; }
-  .caracteristicas-right { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .caracteristica-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); transition: all 0.3s ease; }
-  .caracteristica-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15); }
-  .caracteristica-card .card-image { position: relative; height: 140px; overflow: hidden; }
-  .caracteristica-card .card-image img { width: 100%; height: 100%; object-fit: cover; }
-  .caracteristica-card .card-number { position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; background: var(--rosa-principal); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; z-index: 2; }
-  .caracteristica-card .card-content { padding: 18px; text-align: center; }
-  .caracteristica-card h3 { font-size: 0.95rem; color: var(--texto-oscuro); margin-bottom: 8px; }
-  .caracteristica-card p { font-size: 0.85rem; color: var(--texto-light); line-height: 1.6; margin: 0; }
-
-  .galeria-section { padding: 100px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%); }
-  .section-header-center { text-align: center; margin-bottom: 50px; }
-  .section-header-center h2 { font-size: 2rem; color: var(--texto-oscuro); margin-bottom: 10px; }
-  .titulo-decorativo { color: var(--rosa-principal); }
-  .subtitulo { color: var(--texto-light); }
-  .galeria-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; }
-  .galeria-item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-  .galeria-item img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.3s ease; }
-  .galeria-item:hover img { transform: scale(1.05); }
-
-  .incluye-section { padding: 100px 0; background: #fff; }
-  .incluye-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-  .incluye-header .badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .incluye-header h2 { font-size: 2.2rem; color: var(--texto-oscuro); margin-bottom: 15px; }
-  .incluye-header h2 span { color: var(--rosa-principal); }
-  .incluye-header p { color: var(--texto-light); font-size: 1.1rem; }
-  .incluye-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-  .incluye-card { background: #fff; border: 1px solid rgba(233, 30, 140, 0.1); border-radius: 20px; padding: 35px 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: all 0.3s ease; }
-  .incluye-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1); }
-  .incluye-card .card-number { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 20px; }
-  .incluye-card h4 { font-size: 1.15rem; color: var(--texto-oscuro); margin-bottom: 12px; }
-  .incluye-card p { font-size: 0.95rem; color: var(--texto-light); line-height: 1.7; margin: 0; }
-
-  .cta-final { padding: 80px 0; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); text-align: center; color: #fff; }
-  .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
-  .cta-final p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 30px; }
-  .cta-final .btn-white { background: #fff; color: var(--rosa-principal); padding: 18px 40px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-  .cta-final .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-
-  .faq-section { background: var(--gris-claro); }
-  .faq-container { max-width: 800px; margin: 0 auto; }
-  .faq-item { background: #ffffff; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-  .faq-question { width: 100%; padding: 25px 30px; background: none; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--texto-oscuro); text-align: left; }
-  .faq-question .icon { font-size: 1.5rem; color: var(--rosa-principal); transition: transform 0.3s ease; }
-  .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .faq-item.active .faq-answer { max-height: 500px; }
-  .faq-answer p { padding: 0 30px 25px; color: var(--texto-light); line-height: 1.8; margin: 0; }
-
-  @media (max-width: 1024px) {
-    .caracteristicas-layout { grid-template-columns: 1fr; gap: 50px; }
-    .caracteristicas-left { text-align: center; }
-    .incluye-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 768px) {
-    .header-stats { grid-template-columns: repeat(2, 1fr); }
-    .caracteristicas-right { grid-template-columns: 1fr; }
-    .galeria-grid { grid-template-columns: 1fr; }
-    .incluye-grid { grid-template-columns: 1fr; }
-    .cta-final h2 { font-size: 1.8rem; }
-    .faq-question { padding: 20px; font-size: 0.95rem; }
-  }
-</style>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      faqItem?.classList.toggle('active');
-    });
-  });
-</script>

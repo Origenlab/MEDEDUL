@@ -6,6 +6,10 @@ import Hero from '@/components/global/Hero.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 // Pasos del proceso
@@ -238,83 +242,62 @@ const incluye = [
 const eventos = [
   {
     title: 'Mesa de Dulces para Bodas',
-    desc: 'Montajes elegantes y romanticos que complementan tu gran dia. Disenos sofisticados con la paleta de colores de tu boda.',
+    excerpt: 'Montajes elegantes y romanticos que complementan tu gran dia. Disenos sofisticados con la paleta de colores de tu boda.',
     img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
-    badge: 'Mas Solicitado',
-    badgeStyle: 'gold',
-    link: '/candy-bar-eventos/mesa-dulces-boda',
-    features: ['Diseno elegante exclusivo', 'Coordinacion con tu decoracion', 'Dulces premium seleccionados']
+    badge: 'Favorito',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    cta: 'Ver Bodas Elegantes'
   },
   {
     title: 'Mesa de Dulces para XV Anos',
-    desc: 'Mesas espectaculares con la tematica y colores de la quinceañera. Hacemos realidad el sueno de tu princesa.',
+    excerpt: 'Mesas espectaculares con la tematica y colores de la quinceañera. Hacemos realidad el sueno de tu princesa.',
     img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
-    badge: 'Espectacular',
-    badgeStyle: 'purple',
-    link: '/candy-bar-eventos/mesa-dulces-xv-anos',
-    features: ['Tematica a tu eleccion', 'Montaje impresionante', 'Variedad de dulces modernos']
+    badge: 'Popular',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    cta: 'Ver Diseños XV Años'
   },
   {
     title: 'Mesa de Dulces Baby Shower',
-    desc: 'Disenos delicados en tonos pastel para dar la bienvenida al bebe. Creamos ambientes tiernos y memorables.',
+    excerpt: 'Disenos delicados en tonos pastel para dar la bienvenida al bebe. Creamos ambientes tiernos y memorables.',
     img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif',
-    badge: 'Delicado',
-    badgeStyle: 'blue',
-    link: '/candy-bar-eventos/mesa-dulces-baby-shower',
-    features: ['Tonos pastel a tu eleccion', 'Reveal de genero incluido', 'Detalles tiernos unicos']
+    href: '/candy-bar-eventos/mesa-dulces-baby-shower',
+    cta: 'Ver Mesas Baby Shower'
   },
   {
     title: 'Mesa de Dulces Cumpleanos',
-    desc: 'Fiestas infantiles y celebraciones de adultos con tematicas 100% a tu gusto. Cada edad merece algo especial.',
+    excerpt: 'Fiestas infantiles y celebraciones de adultos con tematicas 100% a tu gusto. Cada edad merece algo especial.',
     img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
-    badge: 'Divertido',
-    badgeStyle: 'orange',
-    link: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
-    features: ['Tematica favorita del festejado', 'Dulces para todas las edades', 'Decoracion alegre y colorida']
+    href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
+    cta: 'Ver Fiestas Infantiles'
   },
   {
     title: 'Mesa de Dulces para Bautizos',
-    desc: 'Presentaciones tiernas y delicadas para este momento tan especial. Disenos en blanco y tonos suaves.',
+    excerpt: 'Presentaciones tiernas y delicadas para este momento tan especial. Disenos en blanco y tonos suaves.',
     img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif',
-    badge: 'Tierno',
-    badgeStyle: 'white',
-    link: '/candy-bar-eventos/mesa-dulces-bautizo',
-    features: ['Estetica angelical y pura', 'Detalles religiosos opcionales', 'Recuerdos unicos']
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver Mesas Bautizo'
   },
   {
     title: 'Mesa de Dulces Graduacion',
-    desc: 'Celebra el logro academico con una mesa memorable. Desde kinder hasta universidad, cada etapa merece festejarse.',
+    excerpt: 'Celebra el logro academico con una mesa memorable. Desde kinder hasta universidad, cada etapa merece festejarse.',
     img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
-    badge: 'Logro',
-    badgeStyle: 'black',
-    link: '/candy-bar-eventos/mesa-dulces-graduacion',
-    features: ['Colores de tu institucion', 'Detalles de birrete y diploma', 'Ideales para fotos memorables']
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Mesas Graduación'
   },
   {
     title: 'Mesa de Dulces Corporativos',
-    desc: 'Eventos empresariales con presentacion profesional y elegante. Ideal para lanzamientos, aniversarios y convenciones.',
+    excerpt: 'Eventos empresariales con presentacion profesional y elegante. Ideal para lanzamientos, aniversarios y convenciones.',
     img: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif',
-    badge: 'Profesional',
-    badgeStyle: 'navy',
-    link: '/candy-bar-eventos/mesa-dulces-corporativos',
-    features: ['Branding de tu empresa', 'Facturacion disponible', 'Servicio puntual garantizado']
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Eventos Empresariales'
   },
   {
     title: 'Mesa Primera Comunion',
-    desc: 'Celebra este sacramento con una mesa elegante y significativa. Disenos en blanco con toques dorados y simbolos religiosos.',
+    excerpt: 'Celebra este sacramento con una mesa elegante y significativa. Disenos en blanco con toques dorados y simbolos religiosos.',
     img: '/img/galeria/mesa-tematica-decorada.avif',
-    badge: 'Sagrado',
-    badgeStyle: 'cream',
-    link: '/candy-bar-eventos/mesa-dulces-primera-comunion',
-    features: ['Simbolos religiosos elegantes', 'Tonos blancos y dorados', 'Dulces finos y delicados']
+    href: '/candy-bar-eventos/mesa-dulces-primera-comunion',
+    cta: 'Ver Primera Comunión'
   }
-];
-
-const procesoSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Escribenos por WhatsApp o llena el formulario con los detalles de tu evento.' },
-  { num: 2, title: 'Disenamos', desc: 'Creamos una propuesta a tu medida segun tu tematica, colores y presupuesto.' },
-  { num: 3, title: 'Confirmamos', desc: 'Apartas tu fecha con un anticipo y seleccionas los dulces de nuestro catalogo.' },
-  { num: 4, title: 'Disfrutas', desc: 'Llegamos, montamos todo y tu solo te dedicas a pasarla increible.' }
 ];
 
 const estaciones = [
@@ -353,6 +336,7 @@ const estaciones = [
   description="Renta de mesa de dulces y postres en Ciudad de Mexico. Servicio completo para bodas, XV anos y fiestas. Cotiza gratis tu candy bar."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-dulces"
   ogImage="/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif"
+  includeCategoryStyles={true}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
@@ -443,74 +427,33 @@ const estaciones = [
   />
 
   <!-- Eventos Section -->
-  <section class="eventos-section">
-    <div class="container">
-      <div class="eventos-header">
-        <span class="badge">Versatilidad Total</span>
-        <h2>Tu Mesa de Dulces para <span>Cualquier Evento</span></h2>
-        <p>Disenamos mesas de dulces unicas que se adaptan perfectamente a cada tipo de celebracion. Cada evento es especial y merece una experiencia a la medida.</p>
-      </div>
-
-      <div class="eventos-grid">
-        {eventos.map(evento => (
-          <div class="evento-card">
-            <div class="evento-image">
-              <img src={getCdnUrl(evento.img)} alt={evento.title} loading="lazy" />
-              <span class={`evento-badge ${evento.badgeStyle}`}>{evento.badge}</span>
-            </div>
-            <div class="evento-content">
-              <h3>{evento.title}</h3>
-              <p>{evento.desc}</p>
-              <ul>
-                {evento.features.map(f => (
-                  <li>
-                    <svg width="14" height="14" fill="var(--rosa-principal)" viewBox="0 0 20 20">
-                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-                    </svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a href={evento.link} class="evento-link">Ver mas</a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <EventsGrid
+    badge="Versatilidad Total"
+    title="Tu Mesa de Dulces para"
+    titleHighlight="Cualquier Evento"
+    subtitle="Disenamos mesas de dulces unicas que se adaptan perfectamente a cada tipo de celebracion. Cada evento es especial y merece una experiencia a la medida."
+    events={eventos}
+  />
 
   <!-- CTA Final -->
-  <section class="cta-final">
-    <div class="container">
-      <h2>Listo para endulzar tu evento?</h2>
-      <p>Cotiza gratis y sin compromiso. Te respondemos en menos de 24 horas.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces" class="btn-white" target="_blank" rel="noopener">
-        Cotizar por WhatsApp
-      </a>
-    </div>
-  </section>
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces"
+    badge="Cotiza Sin Compromiso"
+    title="Listo para Endulzar tu Evento?"
+    titleHighlight="Endulzar"
+    text="Cotiza gratis y sin compromiso. Te respondemos en menos de 24 horas."
+    buttonText="Cotizar por WhatsApp"
+  />
 
   <!-- FAQ Section -->
   <section class="faq-section section-padding">
     <div class="container">
-      <div class="section-header-center">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Resolvemos tus dudas sobre nuestra mesa de dulces</p>
-      </div>
-
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>{faq.question}</span>
-              <span class="icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        title="Preguntas Frecuentes"
+        titleHighlight="Frecuentes"
+        subtitle="Resolvemos tus dudas sobre nuestra mesa de dulces"
+      />
+      <FAQ items={faqs} id="faq-mesa-dulces" />
     </div>
   </section>
 
@@ -791,259 +734,6 @@ const estaciones = [
     font-size: 0.95rem;
     color: var(--texto-light);
     line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Eventos Section */
-  .eventos-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .eventos-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .eventos-header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .eventos-header h2 {
-    font-size: 2.2rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 15px;
-  }
-
-  .eventos-header h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .eventos-header p {
-    color: var(--texto-light);
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
-
-  .eventos-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-  }
-
-  .evento-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  }
-
-  .evento-image {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-  }
-
-  .evento-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .evento-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .evento-badge.gold {
-    background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%);
-    color: #1a1a1a;
-  }
-
-  .evento-badge.purple {
-    background: linear-gradient(135deg, #7A2BC2 0%, #D1007A 100%);
-    color: #fff;
-  }
-
-  .evento-badge.blue {
-    background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
-    color: #1a1a1a;
-  }
-
-  .evento-badge.orange {
-    background: linear-gradient(135deg, #D1007A 0%, #FFE66D 100%);
-    color: #1a1a1a;
-  }
-
-  .evento-badge.white {
-    background: linear-gradient(135deg, #FFFFFF 0%, #E8E8E8 100%);
-    color: #1a1a1a;
-    border: 1px solid #ddd;
-  }
-
-  .evento-badge.black {
-    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-    color: #fff;
-  }
-
-  .evento-badge.navy {
-    background: linear-gradient(135deg, #3A0A74 0%, #5A1AA3 100%);
-    color: #fff;
-  }
-
-  .evento-badge.cream {
-    background: linear-gradient(135deg, #F5F5DC 0%, #DDD 100%);
-    color: #1a1a1a;
-    border: 1px solid #ccc;
-  }
-
-  .evento-content {
-    padding: 22px;
-  }
-
-  .evento-content h3 {
-    font-size: 1.15rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 10px;
-  }
-
-  .evento-content p {
-    font-size: 0.88rem;
-    color: var(--texto-light);
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-
-  .evento-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 16px 0;
-  }
-
-  .evento-content li {
-    font-size: 0.8rem;
-    color: var(--texto-light);
-    padding: 4px 0;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .evento-link {
-    display: block;
-    text-align: center;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.88rem;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-
-  .cta-final p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 30px;
-  }
-
-  .cta-final .btn-white {
-    background: #fff;
-    color: var(--rosa-principal);
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  }
-
-  /* FAQ Section */
-  .faq-section {
-    background: var(--gris-claro);
-  }
-
-  .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
-    background: #ffffff;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 25px 30px;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--texto-oscuro);
-    text-align: left;
-  }
-
-  .faq-question .icon {
-    font-size: 1.5rem;
-    color: var(--rosa-principal);
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-question .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-  }
-
-  .faq-answer p {
-    padding: 0 30px 25px;
-    color: var(--texto-light);
-    line-height: 1.8;
     margin: 0;
   }
 
@@ -1364,10 +1054,6 @@ const estaciones = [
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .eventos-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .estaciones-grid {
       grid-template-columns: 1fr;
     }
@@ -1380,19 +1066,6 @@ const estaciones = [
   @media (max-width: 768px) {
     .incluye-grid {
       grid-template-columns: 1fr;
-    }
-
-    .eventos-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cta-final h2 {
-      font-size: 1.8rem;
-    }
-
-    .faq-question {
-      padding: 20px;
-      font-size: 0.95rem;
     }
 
     .otras-estaciones {
@@ -1528,20 +1201,6 @@ const estaciones = [
 </style>
 
 <script>
-  // FAQ Accordion
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      // Close other FAQs
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem && item.classList.contains('active')) {
-          item.classList.remove('active');
-        }
-      });
-      faqItem?.classList.toggle('active');
-    });
-  });
-
   // Formulario a WhatsApp
   const form = document.getElementById('contacto-form');
   if (form) {

@@ -1,0 +1,152 @@
+---
+/**
+ * TrustBadge Component
+ * ====================
+ * Displays trust signals: rating, reviews count, and events count.
+ * Can be placed after Hero or in any prominent location.
+ */
+
+import StarRating from './StarRating.astro';
+
+interface Props {
+  rating?: number;
+  reviewCount?: number;
+  eventsCount?: string;
+  variant?: 'inline' | 'card';
+}
+
+const {
+  rating = 4.9,
+  reviewCount = 127,
+  eventsCount = '500+',
+  variant = 'inline'
+} = Astro.props;
+---
+
+<div class={`trust-badge trust-badge--${variant}`}>
+  <div class="trust-badge__rating">
+    <StarRating rating={rating} reviewCount={reviewCount} size="md" />
+  </div>
+  <div class="trust-badge__divider"></div>
+  <div class="trust-badge__events">
+    <span class="trust-badge__events-count">{eventsCount}</span>
+    <span class="trust-badge__events-label">eventos realizados</span>
+  </div>
+  <div class="trust-badge__divider"></div>
+  <div class="trust-badge__guarantee">
+    <svg class="trust-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12l2 2 4-4"/>
+    </svg>
+    <span>Servicio garantizado</span>
+  </div>
+</div>
+
+<style>
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #fff 0%, #fdf8fa 100%);
+    border-top: 1px solid rgba(233, 30, 99, 0.08);
+    border-bottom: 1px solid rgba(233, 30, 99, 0.08);
+    flex-wrap: wrap;
+  }
+
+  .trust-badge--card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(233, 30, 99, 0.1);
+    max-width: fit-content;
+    margin: 0 auto;
+  }
+
+  .trust-badge__divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .trust-badge__events {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+
+  .trust-badge__events-count {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--rosa-principal, #e91e63);
+  }
+
+  .trust-badge__events-label {
+    font-size: 0.75rem;
+    color: var(--texto-light, #64748b);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .trust-badge__guarantee {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--texto-oscuro, #1e293b);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .trust-badge__icon {
+    width: 20px;
+    height: 20px;
+    color: #22c55e;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .trust-badge {
+      gap: 1rem;
+      padding: 0.875rem 1rem;
+    }
+
+    .trust-badge__divider {
+      height: 24px;
+    }
+
+    .trust-badge__events-count {
+      font-size: 1.1rem;
+    }
+
+    .trust-badge__guarantee {
+      font-size: 0.8rem;
+    }
+
+    .trust-badge__icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .trust-badge {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .trust-badge__divider {
+      display: none;
+    }
+
+    .trust-badge__events {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    .trust-badge__events-label {
+      text-transform: none;
+    }
+  }
+</style>

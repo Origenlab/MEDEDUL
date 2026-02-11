@@ -3,6 +3,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Aviso de Privacidad', url: '/aviso-privacidad' }
@@ -12,8 +14,10 @@ const breadcrumbItems = [
 <BaseLayout
   title="Aviso de Privacidad | Mededul - Mesas de Dulces CDMX"
   description="Aviso de privacidad de Mededul, empresa de mesas de dulces en CDMX. Proteccion de datos personales conforme a la ley."
-  canonical="https://mesas-de-dulces.com/aviso-privacidad"
+  canonical="/aviso-privacidad"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Organization" />
   <Fragment slot="head">
     <meta property="og:title" content="Aviso de Privacidad | Mededul" />
     <meta property="og:description" content="Consulta el aviso de privacidad de Mededul. Protegemos tus datos personales conforme a la ley." />
@@ -34,6 +38,7 @@ const breadcrumbItems = [
   <Hero
     title="Aviso de Privacidad"
     subtitle="En Mededul nos comprometemos a proteger tu privacidad y tus datos personales. Este aviso de privacidad describe como recopilamos, usamos y protegemos tu informacion personal."
+    showCTA={false}
   />
 
   <section class="legal-content">
@@ -218,6 +223,15 @@ const breadcrumbItems = [
       </div>
     </div>
   </section>
+
+  <CTAServices
+    href="/contacto"
+    badge="Soporte y Dudas"
+    title="Necesitas Aclarar un Tema de"
+    titleHighlight="Privacidad"
+    text="Si tienes dudas sobre el tratamiento de tus datos personales, nuestro equipo puede ayudarte de forma directa."
+    buttonText="Contactar Soporte"
+  />
 </BaseLayout>
 
 <style>

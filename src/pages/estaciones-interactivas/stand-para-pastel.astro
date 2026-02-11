@@ -1,41 +1,103 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
   { name: 'Stand para Pastel', url: '/estaciones-interactivas/stand-para-pastel' }
 ];
 
-const highlights = [
-  { title: 'Punto focal del evento', description: 'El stand para pastel se convierte en uno de los espacios mas fotografiados de la celebracion.' },
-  { title: 'Diseno personalizado', description: 'Adaptamos estructura, decoracion y montaje al estilo de tu evento.' },
-  { title: 'Integracion con candy bar', description: 'Se puede combinar con mesa de dulces y postres para una experiencia completa.' },
-  { title: 'Montaje profesional', description: 'Instalacion segura y estetica para lucir el pastel en el momento ideal.' }
-];
-
-const includes = [
-  'Stand decorativo para presentacion de pastel',
-  'Diseño alineado a la tematica del evento',
-  'Elementos visuales de ambientacion',
-  'Montaje y desmontaje en sitio',
-  'Coordinacion con el momento de corte',
-  'Opciones para combinar con estaciones adicionales'
-];
-
 const faqs = [
-  { question: 'Solo funciona para bodas y XV?', answer: 'No. Tambien es ideal para cumpleanos, aniversarios y eventos corporativos.' },
-  { question: 'Ustedes incluyen el pastel?', answer: 'Podemos trabajar con tu pastelero o integrar opciones segun disponibilidad.' },
-  { question: 'Se puede personalizar el estilo?', answer: 'Si, personalizamos colores, flores, globos y props segun la vision del evento.' },
-  { question: 'Cuanto espacio necesita el stand?', answer: 'Te indicamos medidas recomendadas segun formato, venue y flujo de invitados.' }
+  { question: 'Que incluye el stand para pastel?', answer: 'Incluye concepto visual, estructura decorativa, montaje profesional y desmontaje al finalizar el evento.' },
+  { question: 'Se puede personalizar por tematica?', answer: 'Si. Ajustamos estilo, color, elementos decorativos y composicion al concepto de tu celebracion.' },
+  { question: 'Solo aplica para bodas?', answer: 'No. Tambien lo implementamos en XV anos, aniversarios, graduaciones y eventos corporativos.' },
+  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para asegurar agenda y planeacion de montaje.' },
+  { question: 'Se puede combinar con candy bar?', answer: 'Si. Es una combinacion ideal para elevar impacto visual y experiencia de invitados.' },
+  { question: 'Atienden en CDMX y area metropolitana?', answer: 'Si. Cubrimos diferentes tipos de venues en CDMX y zona metropolitana.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🎂',
+    price: '$4,600',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para celebraciones intimas',
+    features: ['Stand para pastel base', 'Composicion decorativa inicial', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,900',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado por evento', 'Mayor nivel de detalle visual', 'Montaje y coordinacion en sitio', 'Integracion con narrativa del evento', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,200',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Produccion visual premium', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Acabado escenografico de alto nivel'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '140+', label: 'Montajes' },
+  { number: '100%', label: 'Personalizable' },
+  { number: '4 hrs', label: 'Ventana Operativa' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Punto Focal del Evento', desc: 'Convertimos el area del pastel en un espacio protagonista y fotografiable.', img: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif' },
+  { num: 2, title: 'Diseno Personalizado', desc: 'Alineamos estructura y decoracion al concepto de la celebracion.', img: '/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif' },
+  { num: 3, title: 'Montaje Seguro', desc: 'Implementacion profesional para una presentacion estetica y funcional.', img: '/img/estaciones-interactivas/stand-pastel/stand-pastel-globos-decorativo.avif' },
+  { num: 4, title: 'Integracion Escenografica', desc: 'Combinamos el stand con candy bar y ambientacion para coherencia visual.', img: '/img/estaciones-interactivas/stand-pastel/arco-globos-estacion-pastel.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief del Evento', desc: 'Levantamos tipo de celebracion, estilo y requerimientos del corte.' },
+  { num: 2, title: 'Propuesta Visual', desc: 'Definimos estructura, elementos decorativos y alcance operativo.' },
+  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos horarios, accesos y coordinacion con venue.' },
+  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos el stand con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Fuente de Chocolate', excerpt: 'Estacion interactiva premium para elevar experiencia de invitados.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif', href: '/estaciones-interactivas/fuente-de-chocolate', cta: 'Ver Fuente de Chocolate' },
+  { title: 'Fuente de Chamoy', excerpt: 'Formato diferencial con identidad y alta participacion.', img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif', href: '/estaciones-interactivas/fuente-de-chamoy', cta: 'Ver Fuente de Chamoy' },
+  { title: 'Pared de Dulces', excerpt: 'Candy wall escenografica para eventos de alto impacto visual.', img: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif', href: '/estaciones-interactivas/pared-de-dulces', cta: 'Ver Pared de Dulces' },
+  { title: 'Mesa de Dulces para Bodas', excerpt: 'Candy bar nupcial para recepciones elegantes.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Stand para Pastel en CDMX',
-  description: 'Estacion interactiva tipo stand para pastel con diseno personalizado y montaje profesional para eventos.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de stand para pastel en Ciudad de Mexico con diseno personalizado y montaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -47,33 +109,46 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Stand para Pastel en CDMX | Estacion Interactiva Mededul"
-  description="Renta de stand para pastel con diseno personalizado y montaje profesional para eventos en CDMX."
+  title="Stand para Pastel en CDMX | Mededul"
+  description="Stand para pastel en CDMX con diseno personalizado, montaje profesional e integracion escenografica para eventos."
   canonical="/estaciones-interactivas/stand-para-pastel"
   ogImage="/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <ServiceSubpage
-    breadcrumbItems={breadcrumbItems}
-    heading="Estacion"
-    headingHighlight="Stand para Pastel"
-    intro={[
-      'Creamos stands para pastel con montaje decorativo para que el momento del corte tenga el protagonismo que merece.',
-      'Es una estacion visualmente poderosa que eleva la produccion de bodas, XV anos y celebraciones especiales.'
-    ]}
-    heroImage="/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif"
-    heroAlt="Stand para pastel decorado para eventos"
-    badgeValue="Cake"
-    badgeLabel="Spot"
-    sectionTitle="La estacion perfecta para tu pastel"
-    sectionSubtitle="Diseno, montaje y presentacion para un momento memorable"
-    highlights={highlights}
-    includes={includes}
-    faqs={faqs}
-    ctaTitle="Reserva tu stand para pastel"
-    ctaText="Agenda tu fecha y recibe una propuesta visual alineada al estilo de tu evento."
-    whatsappMessage="Hola! Quiero cotizar un Stand para Pastel para mi evento"
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Stand para Pastel en CDMX"
+    highlight="Stand para Pastel"
+    subtitle="Estacion escenografica para convertir el corte de pastel en un momento protagonista"
+    secondaryContent={`<p><strong>Stand</strong> para pastel profesional transforma un momento tradicional en una escena memorable, coherente con el concepto visual de tu evento. En Mededul diseniamos cada montaje para elevar presencia, fotografia y narrativa del corte.</p><p><strong>Pastel</strong> presentado en una estructura bien ejecutada mejora el impacto estetico, ordena la experiencia de invitados y aporta valor percibido a toda la celebracion. Operamos con planeacion y montaje preciso para resultados premium.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Planea Tu"
+    ctaTitleHighlight="Stand para Pastel"
+    ctaText="Comparte estilo, sede y formato para recibir una propuesta profesional y cotizacion clara."
+    ctaButtonText="Solicitar Asesoria"
   />
+
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el stand para pastel segun aforo, estilo y complejidad del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Stand para Pastel" descriptions={['Combinamos diseno escenografico y operacion para lograr un montaje impecable.', 'Integramos el stand con el resto del evento para mantener coherencia visual total.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu stand para pastel sin errores." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Estaciones Relacionadas" title="Complementa Tu Evento con" titleHighlight="Mas Experiencias" subtitle="Tambien implementamos otras estaciones interactivas y candy bar profesional." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz del Corte de Pastel un Momento" titleHighlight="Inolvidable" text="Te ayudamos a implementar un stand para pastel con diseno premium y montaje profesional." buttonText="Cotizar Stand para Pastel" />
+
+  <section class="section-faq section-padding" id="faq">
+    <div class="container">
+      <SectionHeader title="Preguntas Frecuentes sobre Stand para Pastel" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-stand-pastel" />
+    </div>
+  </section>
 </BaseLayout>

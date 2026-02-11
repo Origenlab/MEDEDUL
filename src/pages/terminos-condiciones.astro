@@ -3,6 +3,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Terminos y Condiciones', url: '/terminos-condiciones' }
@@ -12,8 +14,10 @@ const breadcrumbItems = [
 <BaseLayout
   title="Terminos y Condiciones | Mededul - Mesas de Dulces CDMX"
   description="Consulta los terminos y condiciones del servicio de renta de mesas de dulces de Mededul. Politicas de reservacion, pagos, cancelaciones y garantias."
-  canonical="https://mesas-de-dulces.com/terminos-condiciones"
+  canonical="/terminos-condiciones"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Organization" />
   <Fragment slot="head">
     <meta property="og:title" content="Terminos y Condiciones | Mededul" />
     <meta property="og:description" content="Consulta los terminos y condiciones del servicio de mesas de dulces de Mededul." />
@@ -34,6 +38,7 @@ const breadcrumbItems = [
   <Hero
     title="Terminos y Condiciones"
     subtitle="Al contratar los servicios de Mededul, aceptas los siguientes terminos y condiciones. Te recomendamos leerlos detenidamente antes de realizar tu reservacion."
+    showCTA={false}
   />
 
   <section class="legal-content">
@@ -348,6 +353,15 @@ const breadcrumbItems = [
       </div>
     </div>
   </section>
+
+  <CTAServices
+    href="/contacto"
+    badge="Asesoria Comercial"
+    title="Aclara Tus Dudas Antes de"
+    titleHighlight="Contratar"
+    text="Si necesitas contexto adicional sobre alcances, pagos o condiciones, te ayudamos a revisar tu caso."
+    buttonText="Hablar con un Asesor"
+  />
 </BaseLayout>
 
 <style>

@@ -1,9 +1,15 @@
 ---
-// Mesa de Donas y Cupcakes - Subpage
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -11,202 +17,138 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
-  { question: "Que incluye el servicio de mesa de donas y cupcakes?", answer: "Nuestro servicio incluye: variedad de donas decoradas y cupcakes personalizados, presentacion en torre o exhibidor elegante, decoraciones tematicas segun tu evento, mobiliario completo, montaje profesional y desmontaje al finalizar." },
-  { question: "Pueden personalizar las donas y cupcakes con mi tematica?", answer: "Si, personalizamos todo segun tu tematica. Podemos hacer donas con glaseados de colores especificos, cupcakes con toppers personalizados, decoraciones con el tema de tu fiesta (personajes, colores, logos) y presentaciones unicas." },
-  { question: "Cuantas donas y cupcakes incluye cada paquete?", answer: "Calculamos 1-2 piezas por persona. Paquete Basico: 50-80 piezas (30-50 personas). Paquete Premium: 80-150 piezas (50-100 personas). Paquete Deluxe: 150-300 piezas (100-200 personas). Puedes elegir la proporcion entre donas y cupcakes." },
-  { question: "Que sabores de donas y cupcakes ofrecen?", answer: "Donas: glaseadas, chocolate, rellenas de crema, Nutella, fresas, matcha, red velvet y mas. Cupcakes: vainilla, chocolate, red velvet, limon, zanahoria, Oreo, nutella, dulce de leche y sabores de temporada." },
-  { question: "Ofrecen opciones sin gluten o veganas?", answer: "Si, podemos preparar opciones sin gluten y veganas con previo aviso. Solo necesitamos que nos indiques con al menos una semana de anticipacion para asegurar los ingredientes especiales." },
-  { question: "Con cuanta anticipacion debo reservar?", answer: "Recomendamos reservar con 2-3 semanas de anticipacion para eventos regulares. Para eventos grandes o personalizaciones especiales, sugerimos 4 semanas. En temporada alta (noviembre-enero), reserva con mayor anticipacion." }
+  { question: 'Que incluye la mesa de donas y cupcakes?', answer: 'Incluye surtido de donas y cupcakes, presentacion decorativa, montaje profesional y desmontaje al finalizar.' },
+  { question: 'Pueden personalizar colores y tematica?', answer: 'Si. Ajustamos paleta, estilo y acabados segun el concepto de tu evento.' },
+  { question: 'Que volumen de piezas manejan?', answer: 'Contamos con paquetes para eventos pequenos, medianos y grandes, ajustados a numero de invitados.' },
+  { question: 'Manejan sabores distintos?', answer: 'Si. Definimos combinaciones segun preferencias del cliente y perfil del evento.' },
+  { question: 'Es ideal para baby shower y cumpleanos?', answer: 'Si, es una de las opciones mas solicitadas para celebraciones con enfoque visual y tematico.' },
+  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con estandar profesional.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🍩',
+    price: '$4,200',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para celebraciones pequenas',
+    features: ['Surtido base de donas y cupcakes', 'Montaje profesional', 'Presentacion tematica', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Esencial'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,300',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Variedad ampliada de sabores', 'Diseno personalizado', 'Presentacion premium', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Premium'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$11,800',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia visual de alto impacto',
+    features: ['Surtido premium de alto volumen', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor variedad y personalizacion'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Donas y Cupcakes - Paquete Luxury'
+  }
+];
+
+const whyStats = [
+  { number: '20+', label: 'Sabores Disponibles' },
+  { number: '100%', label: 'Personalizable' },
+  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Diseno Tematico', desc: 'Personalizamos paleta, estilo y acabados segun tu evento.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif' },
+  { num: 2, title: 'Variedad de Sabores', desc: 'Combinamos referencias clasicas y premium para distintos perfiles.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif' },
+  { num: 3, title: 'Presentacion Premium', desc: 'Montaje visual pensado para fotos y alto impacto en invitados.', img: '/img/tipos-de-mesas/donas-cupcakes/barra-donas-postres-eventos.avif' },
+  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion, montaje y control de servicio para una ejecucion impecable.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-donas-decoradas-cdmx.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, aforo y tipo de celebracion.' },
+  { num: 2, title: 'Disenamos', desc: 'Definimos surtido, estilo y configuracion visual.' },
+  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica y tiempos de montaje.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Donas para Baby Shower', excerpt: 'Formato visual y dulce ideal para celebraciones de bienvenida.', img: '/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
+  { title: 'Cupcakes para Cumpleanos', excerpt: 'Propuesta tematica para fiestas infantiles y eventos familiares.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', badge: 'Popular', cta: 'Ver Cumpleanos' },
+  { title: 'Donas para XV Anos', excerpt: 'Montaje creativo para eventos sociales de alta recordacion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Cupcakes para Bodas', excerpt: 'Alternativa elegante para complementar postres en bodas modernas.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' }
 ];
 
 const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Mesa de Donas y Cupcakes para Eventos",
-  "description": "Servicio de renta de mesas de donas decoradas y cupcakes personalizados para eventos en CDMX. Incluye variedad de sabores, decoraciones tematicas, presentacion elegante y montaje profesional.",
-  "provider": { "@type": "LocalBusiness", "name": "Mededul", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressCountry": "MX" } },
-  "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
-  "hasOfferCatalog": { "@type": "OfferCatalog", "name": "Paquetes de Mesa de Donas y Cupcakes", "itemListElement": [
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Donas y Cupcakes Basica", "description": "Para 30-50 invitados" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Donas y Cupcakes Premium", "description": "Para 50-100 invitados" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa Donas y Cupcakes Deluxe", "description": "Para 100-200 invitados" } }
-  ]}
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Donas y Cupcakes en CDMX',
+  description: 'Servicio de mesa de donas y cupcakes para eventos en Ciudad de Mexico con presentacion personalizada.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
-const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer } })) };
-
-const caracteristicas = [
-  { num: 1, title: 'Donas Artesanales', desc: 'Donas frescas con glaseados coloridos y decoraciones unicas para tu evento.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif' },
-  { num: 2, title: 'Cupcakes Personalizados', desc: 'Cupcakes decorados con toppers tematicos y betun de sabores variados.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif' },
-  { num: 3, title: 'Torre de Exhibicion', desc: 'Presentacion en torre elegante que sera el centro de atencion de tu evento.', img: '/img/tipos-de-mesas/donas-cupcakes/barra-donas-postres-eventos.avif' },
-  { num: 4, title: 'Tematicas Unicas', desc: 'Diseños personalizados para bodas, cumpleanos, baby showers y mas.', img: '/img/tipos-de-mesas/donas-cupcakes/mesa-donas-decoradas-cdmx.avif' }
-];
-
-const incluye = [
-  { num: '01', title: 'Donas Decoradas Variadas', desc: 'Glaseadas, de chocolate, rellenas, con toppings premium y decoraciones especiales.' },
-  { num: '02', title: 'Cupcakes Gourmet', desc: 'Sabores clasicos y especiales con betun cremoso y toppers decorativos.' },
-  { num: '03', title: 'Torre o Exhibidor Elegante', desc: 'Presentacion vertical atractiva que destaca tus donas y cupcakes.' },
-  { num: '04', title: 'Decoracion Tematica', desc: 'Elementos decorativos acordes a los colores y tema de tu evento.' },
-  { num: '05', title: 'Montaje Profesional', desc: 'Instalacion cuidadosa y acomodo estetico de cada pieza.' },
-  { num: '06', title: 'Etiquetas de Sabores', desc: 'Identificadores elegantes para cada variedad de dona y cupcake.' }
-];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
 ---
 
 <BaseLayout
-  title="Mesa de Donas y Cupcakes CDMX | Postres para Eventos"
-  description="Mesa de donas y cupcakes en CDMX. Postres decorados y personalizados para fiestas y eventos. Montaje incluido. Cotiza gratis."
+  title="Mesa de Donas y Cupcakes en CDMX | Mededul"
+  description="Renta de mesa de donas y cupcakes en CDMX con diseno personalizado, montaje profesional y servicio integral para eventos."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
   ogImage="/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de <span>Donas y Cupcakes</span>"
-    description="Dulzura y color en cada bocado con nuestra mesa de donas y cupcakes. La combinacion perfecta de donas glaseadas artesanales y cupcakes decorados que haran de tu evento una experiencia inolvidable."
-    subtitle="Perfecta para fiestas infantiles, cumpleanos, baby showers, bodas modernas, despedidas de soltera y cualquier celebracion que necesite un toque dulce y divertido."
+    title="Mesa de Donas y Cupcakes en CDMX"
+    highlight="Donas y Cupcakes"
+    subtitle="Diseno tematico, variedad de sabores y presentacion premium para eventos memorables"
+    secondaryContent={`<p><strong>Donas</strong> y cupcakes bien presentados elevan el impacto visual del evento y mejoran la experiencia de invitados desde el primer vistazo. En Mededul estructuramos cada montaje para combinar creatividad, sabor y funcionalidad operativa.</p><p><strong>Cupcakes</strong> personalizados por tipo de celebracion permiten alinear detalle estetico con identidad del evento. Nuestro equipo integra curaduria, montaje y ejecucion profesional para resultados consistentes en CDMX.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Mesa Tematica"
+    ctaTitleHighlight="Tematica"
+    ctaText="Comparte tipo de evento e invitados para recibir una propuesta profesional de donas y cupcakes."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Dulce Tentacion</span>
-          <h2>Por que elegir nuestra <span>Mesa de Donas y Cupcakes</span>?</h2>
-          <p class="header-description">Cada dona y cupcake es preparado con <strong>ingredientes de primera calidad</strong> y decorado con atencion al detalle.</p>
-          <p class="header-description">Personalizamos colores, sabores y decoraciones para que combinen perfectamente con tu evento.</p>
-          <div class="header-stats">
-            <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">Sabores</span></div>
-            <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Frescos</span></div>
-            <div class="stat-item"><span class="stat-number">Toppers</span><span class="stat-label">Incluidos</span></div>
-            <div class="stat-item"><span class="stat-number">5 hrs</span><span class="stat-label">Respuesta</span></div>
-          </div>
-        </div>
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image"><span class="card-number">{car.num}</span><img src={getCdnUrl(car.img)} alt={car.title} loading="lazy" /></div>
-              <div class="card-content"><h3>{car.title}</h3><p>{car.desc}</p></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de donas y cupcakes al aforo y nivel de personalizacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
 
-  <section class="galeria-section">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Nuestras <span class="titulo-decorativo">Mesas de Donas y Cupcakes</span></h2>
-        <p class="subtitulo">Creatividad y sabor en cada presentacion</p>
-      </div>
-      <div class="galeria-grid">
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif')} alt="Mesa de donas y cupcakes CDMX" loading="lazy" /></div>
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif')} alt="Cupcakes decorados eventos" loading="lazy" /></div>
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/barra-donas-postres-eventos.avif')} alt="Torre de donas decorativa" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Tematica" descriptions={['Mesa de donas y cupcakes diseniada para eventos donde la imagen y la experiencia dulce son prioridad.', 'Integramos variedad, personalizacion y operacion profesional para sostener calidad de servicio.']} stats={whyStats} features={whyFeatures} />
 
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que incluye nuestra <span>Mesa de Donas y Cupcakes</span>?</h2>
-        <p>Dulzura personalizada con servicio profesional</p>
-      </div>
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card"><span class="card-number">{item.num}</span><h4>{item.title}</h4><p>{item.desc}</p></div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de donas y cupcakes sin errores." steps={processSteps} />
 
-  <section class="cta-final">
-    <div class="container">
-      <h2>Endulza tu evento con donas y cupcakes</h2>
-      <p>Cotiza tu mesa de donas y cupcakes y sorprende a tus invitados con sabores irresistibles.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Donas y Cupcakes" class="btn-white" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
-    </div>
-  </section>
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Donas y Cupcakes para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos composicion y estilo segun el objetivo de cada celebracion." events={eventCards} />
 
-  <section class="faq-section section-padding">
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Evento una Experiencia" titleHighlight="Memorable" text="Te ayudamos a construir una mesa de donas y cupcakes alineada al concepto de tu celebracion." buttonText="Cotizar Mesa Tematica" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="section-header-center">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Resolvemos tus dudas sobre la mesa de donas y cupcakes</p>
-      </div>
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item"><button class="faq-question"><span>{faq.question}</span><span class="icon">+</span></button><div class="faq-answer"><p>{faq.answer}</p></div></div>
-        ))}
-      </div>
+      <SectionHeader title="Preguntas Frecuentes sobre Donas y Cupcakes" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir la mejor configuracion para tu evento con mayor claridad.</p>`} />
+      <FAQ items={faqs} id="faq-donas-cupcakes" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .caracteristicas-section { padding: 100px 0; background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%); }
-  .caracteristicas-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .caracteristicas-left .header-badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .caracteristicas-left h2 { font-size: 2.2rem; color: var(--texto-oscuro); line-height: 1.3; margin-bottom: 20px; }
-  .caracteristicas-left h2 span { color: var(--rosa-principal); }
-  .caracteristicas-left .header-description { font-size: 1.05rem; color: var(--texto-light); line-height: 1.8; margin-bottom: 15px; }
-  .header-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; background: #fff; padding: 25px 20px; border-radius: 15px; box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1); margin-top: 30px; }
-  .stat-item { text-align: center; }
-  .stat-number { display: block; font-size: 1.8rem; font-weight: 800; color: var(--rosa-principal); }
-  .stat-label { font-size: 0.7rem; color: var(--texto-light); text-transform: uppercase; }
-  .caracteristicas-right { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .caracteristica-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); transition: all 0.3s ease; }
-  .caracteristica-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15); }
-  .caracteristica-card .card-image { position: relative; height: 140px; overflow: hidden; }
-  .caracteristica-card .card-image img { width: 100%; height: 100%; object-fit: cover; }
-  .caracteristica-card .card-number { position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; background: var(--rosa-principal); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; z-index: 2; }
-  .caracteristica-card .card-content { padding: 18px; text-align: center; }
-  .caracteristica-card h3 { font-size: 0.95rem; color: var(--texto-oscuro); margin-bottom: 8px; }
-  .caracteristica-card p { font-size: 0.85rem; color: var(--texto-light); line-height: 1.6; margin: 0; }
-  .galeria-section { padding: 100px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%); }
-  .section-header-center { text-align: center; margin-bottom: 50px; }
-  .section-header-center h2 { font-size: 2rem; color: var(--texto-oscuro); margin-bottom: 10px; }
-  .titulo-decorativo { color: var(--rosa-principal); }
-  .subtitulo { color: var(--texto-light); }
-  .galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-  .galeria-item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-  .galeria-item img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.3s ease; }
-  .galeria-item:hover img { transform: scale(1.05); }
-  .incluye-section { padding: 100px 0; background: #fff; }
-  .incluye-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-  .incluye-header .badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .incluye-header h2 { font-size: 2.2rem; color: var(--texto-oscuro); margin-bottom: 15px; }
-  .incluye-header h2 span { color: var(--rosa-principal); }
-  .incluye-header p { color: var(--texto-light); font-size: 1.1rem; }
-  .incluye-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-  .incluye-card { background: #fff; border: 1px solid rgba(233, 30, 140, 0.1); border-radius: 20px; padding: 35px 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: all 0.3s ease; }
-  .incluye-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1); }
-  .incluye-card .card-number { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 20px; }
-  .incluye-card h4 { font-size: 1.15rem; color: var(--texto-oscuro); margin-bottom: 12px; }
-  .incluye-card p { font-size: 0.95rem; color: var(--texto-light); line-height: 1.7; margin: 0; }
-  .cta-final { padding: 80px 0; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); text-align: center; color: #fff; }
-  .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
-  .cta-final p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 30px; }
-  .cta-final .btn-white { background: #fff; color: var(--rosa-principal); padding: 18px 40px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-  .cta-final .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-  .faq-section { background: var(--gris-claro); }
-  .faq-container { max-width: 800px; margin: 0 auto; }
-  .faq-item { background: #ffffff; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-  .faq-question { width: 100%; padding: 25px 30px; background: none; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--texto-oscuro); text-align: left; }
-  .faq-question .icon { font-size: 1.5rem; color: var(--rosa-principal); transition: transform 0.3s ease; }
-  .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .faq-item.active .faq-answer { max-height: 500px; }
-  .faq-answer p { padding: 0 30px 25px; color: var(--texto-light); line-height: 1.8; margin: 0; }
-  @media (max-width: 1024px) { .caracteristicas-layout { grid-template-columns: 1fr; gap: 50px; } .caracteristicas-left { text-align: center; } .galeria-grid { grid-template-columns: repeat(2, 1fr); } .incluye-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 768px) { .header-stats { grid-template-columns: repeat(2, 1fr); } .caracteristicas-right { grid-template-columns: 1fr; } .galeria-grid { grid-template-columns: 1fr; } .incluye-grid { grid-template-columns: 1fr; } .cta-final h2 { font-size: 1.8rem; } .faq-question { padding: 20px; font-size: 0.95rem; } }
-</style>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => { button.addEventListener('click', () => { button.parentElement?.classList.toggle('active'); }); });
-</script>

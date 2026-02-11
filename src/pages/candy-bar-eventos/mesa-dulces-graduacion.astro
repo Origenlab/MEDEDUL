@@ -2,41 +2,102 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'Graduacion', url: '/candy-bar-eventos/mesa-dulces-graduacion' }
 ];
 
-const highlights = [
-  { title: 'Estetica elegante', description: 'Candy bars para graduaciones de secundaria, preparatoria, universidad y posgrado.' },
-  { title: 'Concepto personalizado', description: 'Adaptamos colores, mensajes y estilo al tipo de ceremonia o fiesta.' },
-  { title: 'Servicio para grupos', description: 'Capacidad para eventos masivos en salones, escuelas y recintos.' },
-  { title: 'Operacion puntual', description: 'Equipo de montaje organizado para cumplir horarios de protocolo.' }
-];
-
-const includes = [
-  'Diseno de candy bar para graduacion',
-  'Dulces premium y postres individuales',
-  'Montaje visual con detalles academicos',
-  'Mobiliario, bases y elementos decorativos',
-  'Montaje y retiro en el venue',
-  'Ajustes de cantidad por numero de graduados e invitados'
-];
-
 const faqs = [
-  { question: 'Atienden graduaciones escolares grandes?', answer: 'Si. Tenemos capacidad para eventos de distintos tamanos, desde grupos pequenos hasta generaciones completas.' },
-  { question: 'Pueden integrar los colores de la escuela?', answer: 'Si. Diseñamos el montaje alineado a colores institucionales y estilo del evento.' },
-  { question: 'Trabajan en salones y auditorios?', answer: 'Si, nos adaptamos al tipo de sede y coordinamos acceso, montaje y retiro.' },
-  { question: 'Cuanto tiempo antes llegan a instalar?', answer: 'Generalmente llegamos entre 1 y 2 horas antes, segun el tamano del montaje.' }
+  { question: 'Que incluye una mesa de dulces para graduacion?', answer: 'Incluye diseno tematico academico, surtido de producto, montaje profesional y desmontaje.' },
+  { question: 'Pueden personalizar por escuela o carrera?', answer: 'Si. Ajustamos paleta, detalles y estilo segun institucion, facultad o generacion.' },
+  { question: 'Atienden graduaciones escolares y universitarias?', answer: 'Si. Operamos graduaciones de colegios, preparatorias, universidades y posgrados.' },
+  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para asegurar disponibilidad y produccion.' },
+  { question: 'Cubren salones y recintos de graduacion?', answer: 'Si. Atendemos venues en CDMX y area metropolitana con logistica profesional.' },
+  { question: 'Manejan opciones para grupos grandes?', answer: 'Si. Escalamos la propuesta segun aforo, tiempos y formato del evento.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🎓',
+    price: '$5,100',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Ideal para celebracion academica',
+    features: ['Mesa de graduacion base', 'Surtido inicial de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,900',
+    currency: 'MXN',
+    guests: '70-140 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado por generacion', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$13,900',
+    currency: 'MXN',
+    guests: '140+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos masivos', 'Acompanamiento operativo total'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '140+', label: 'Graduaciones' },
+  { number: '100%', label: 'Personalizable' },
+  { number: '35+', label: 'Opciones Dulces' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Concepto Academico', desc: 'Montajes alineados a identidad de escuela, carrera o generacion.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif' },
+  { num: 2, title: 'Surtido de Alto Impacto', desc: 'Producto seleccionado para mantener experiencia y rotacion del servicio.', img: '/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif' },
+  { num: 3, title: 'Montaje en Recinto', desc: 'Implementacion precisa para operar en salones y venues academicos.', img: '/img/eventos/graduaciones/mesa-dulces-fiesta-graduacion.avif' },
+  { num: 4, title: 'Escala Flexible', desc: 'Propuestas para grupos pequenos o graduaciones de gran aforo.', img: '/img/eventos/graduaciones/servicio-mesa-graduacion.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief de Graduacion', desc: 'Levantamos sede, aforo, timing y necesidades del evento.' },
+  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, volumen de producto y alcance operativo.' },
+  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos accesos y horarios con organizadores y venue.' },
+  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos la mesa con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Corporativos', excerpt: 'Candy bar para eventos empresariales y activaciones.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
+  { title: 'Mesa de Dulces para Bodas', excerpt: 'Diseno elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
+  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Dulces para Graduacion en CDMX',
-  description: 'Candy bar para graduaciones con estilo elegante, montaje profesional y dulces premium.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de mesa de dulces para graduacion en Ciudad de Mexico con diseno personalizado y montaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -49,183 +110,45 @@ const faqSchema = {
 
 <BaseLayout
   title="Mesa de Dulces para Graduacion en CDMX | Mededul"
-  description="Candy bar para graduaciones con montaje profesional y presentacion elegante en CDMX."
+  description="Mesa de dulces para graduacion en CDMX con diseno academico, montaje profesional y propuesta personalizada por institucion."
   canonical="/candy-bar-eventos/mesa-dulces-graduacion"
-  ogImage="/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif"
+  ogImage="/img/eventos/graduaciones/mesa-dulces-graduacion.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para <span>Graduacion</span>"
-    description="Celebra este logro con una mesa de dulces elegante que acompane el momento mas importante del cierre academico."
-    subtitle="Creamos propuestas modernas y bien organizadas para que la celebracion se vea impecable de principio a fin."
+    title="Mesa de Dulces para Graduacion en CDMX"
+    highlight="Graduacion"
+    subtitle="Candy bar profesional para celebrar logros academicos con una propuesta visual elegante y bien ejecutada"
+    secondaryContent={`<p><strong>Graduacion</strong> con mesa de dulces profesional convierte el cierre academico en una experiencia mas memorable para estudiantes, familias e invitados. En Mededul creamos montajes que combinan identidad institucional, calidad de producto y operacion eficiente.</p><p><strong>Ceremonia</strong> de graduacion bien acompanada por un candy bar premium mejora la presentacion general del evento, optimiza servicio y aporta un punto fotografico de alto valor. Ejecutamos cada detalle en CDMX con puntualidad y estandar profesional.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Planea Tu Evento de"
+    ctaTitleHighlight="Graduacion"
+    ctaText="Comparte sede, aforo y formato para recibir una propuesta profesional adaptada a tu ceremonia."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="service-highlights section-padding">
-    <div class="container">
-      <div class="section-head">
-        <h2>Un cierre academico con gran estilo</h2>
-        <p class="subtitulo">Candy bars listos para ceremonias y fiestas de graduacion</p>
-      </div>
-      <div class="highlight-grid">
-        {highlights.map((item) => (
-          <article class="highlight-card">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de graduacion segun aforo y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu graduacion." />
 
-  <section class="service-includes section-padding">
-    <div class="container">
-      <h2>Que incluye el servicio</h2>
-      <ul>
-        {includes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Graduacion" descriptions={['Disenamos candy bars academicos con equilibrio entre impacto visual y operacion.', 'Integramos montaje profesional para garantizar una ejecucion impecable en cada sede.']} stats={whyStats} features={whyFeatures} />
 
-  <section class="service-faq section-padding">
-    <div class="container">
-      <h2>Preguntas frecuentes</h2>
-      <div class="faq-list">
-        {faqs.map((faq) => (
-          <details>
-            <summary>{faq.question}</summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de graduacion sin errores." steps={processSteps} />
 
-  <section class="service-cta">
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y corporativas." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Celebra Tu Logro con una Experiencia" titleHighlight="Memorable" text="Te ayudamos a implementar una mesa de dulces para graduacion con diseno profesional y operacion impecable." buttonText="Cotizar Graduacion" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Reserva tu fecha de graduacion</h2>
-      <p>Te ayudamos a montar un candy bar memorable para celebrar este logro.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una Mesa de Dulces para Graduacion" class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Graduacion" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la propuesta ideal para tu graduacion.</p>`} />
+      <FAQ items={faqs} id="faq-graduacion" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .section-head {
-    text-align: center;
-    margin-bottom: 28px;
-  }
-
-  .highlight-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .highlight-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(255, 107, 157, 0.18);
-  }
-
-  .highlight-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-  }
-
-  .highlight-card p {
-    color: var(--gris-texto);
-    margin: 0;
-  }
-
-  .service-includes {
-    background: #fff;
-  }
-
-  .service-includes h2,
-  .service-faq h2 {
-    text-align: center;
-    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-    margin-bottom: 20px;
-  }
-
-  .service-includes ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .service-includes li {
-    background: #fdf7fa;
-    border: 1px solid rgba(255, 107, 157, 0.2);
-    border-radius: 12px;
-    padding: 14px;
-  }
-
-  .faq-list {
-    max-width: 860px;
-    margin: 0 auto;
-    display: grid;
-    gap: 12px;
-  }
-
-  .faq-list details {
-    background: #fff;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    padding: 12px 14px;
-  }
-
-  .faq-list summary {
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .faq-list p {
-    color: var(--gris-texto);
-    margin: 10px 0 2px;
-  }
-
-  .service-cta {
-    padding: 74px 0;
-    text-align: center;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-  }
-
-  .service-cta h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    margin-bottom: 12px;
-  }
-
-  .service-cta p {
-    margin: 0 auto 24px;
-    max-width: 680px;
-    opacity: 0.95;
-  }
-
-  .btn-white {
-    display: inline-block;
-    text-decoration: none;
-    background: #fff;
-    color: #D1007A;
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 14px 28px;
-  }
-
-  @media (max-width: 900px) {
-    .highlight-grid,
-    .service-includes ul {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

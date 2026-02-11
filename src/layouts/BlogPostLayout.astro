@@ -4,6 +4,9 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
 import type { CollectionEntry } from 'astro:content';
@@ -104,6 +107,7 @@ const servicioCards = [
     title={title}
     subtitle={`${categoryInfo?.icon || '📝'} ${categoryInfo?.name || category}`}
     description={description}
+    showCTA={false}
   />
 
   <!-- MAIN ARTICLE SECTION -->
@@ -123,40 +127,16 @@ const servicioCards = [
             <slot />
           </div>
 
-          <!-- FAQs -->
           {faqs && faqs.length > 0 && (
-            <div class="article-faqs">
-              <h2>Preguntas Frecuentes</h2>
-              <div class="faq-list">
-                {faqs.map((faq) => (
-                  <div class="faq-item">
-                    <button class="faq-question" type="button">
-                      <span>{faq.question}</span>
-                      <span class="icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                      <p>{faq.answer}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <section class="article-faqs">
+              <SectionHeader
+                title="Preguntas Frecuentes del Articulo"
+                titleHighlight="Frecuentes"
+                subtitle="Resolvemos las dudas clave relacionadas con este contenido"
+              />
+              <FAQ items={faqs} id={`faq-${post.slug}`} />
+            </section>
           )}
-
-          <!-- CTA Final -->
-          <div class="article-cta-box">
-            <h3>¿Listo para crear tu mesa de dulces perfecta?</h3>
-            <p>Contáctanos hoy y recibe una cotización personalizada para tu evento. Sin compromiso.</p>
-            <div class="cta-buttons">
-              <a href="https://wa.me/525525226442?text=Hola%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces" class="cta-button cta-primary" target="_blank" rel="noopener">
-                Cotizar por WhatsApp
-              </a>
-              <a href="tel:+525525226442" class="cta-button cta-secondary">
-                Llamar: 55 2522 6442
-              </a>
-            </div>
-            <p class="cta-note">Respuesta en menos de 2 horas</p>
-          </div>
         </article>
 
         <!-- SIDEBAR -->
@@ -293,21 +273,16 @@ const servicioCards = [
     </div>
   </section>
 
-</BaseLayout>
+  <CTAServices
+    href="/contacto"
+    badge="Asesoria Especializada"
+    title="Convierte Esta Informacion en una"
+    titleHighlight="Cotizacion"
+    text="Si este articulo se alinea a tu evento, te ayudamos a convertirlo en una propuesta real y personalizada."
+    buttonText="Solicitar Cotizacion"
+  />
 
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem && item.classList.contains('active')) {
-          item.classList.remove('active');
-        }
-      });
-      faqItem?.classList.toggle('active');
-    });
-  });
-</script>
+</BaseLayout>
 
 <style>
   /* ========================================
@@ -446,135 +421,6 @@ const servicioCards = [
     margin-top: 60px;
     padding-top: 50px;
     border-top: 2px solid #f0f0f0;
-  }
-
-  .article-faqs h2 {
-    font-size: 1.6rem;
-    color: #1a1a1a;
-    margin-bottom: 30px;
-    font-weight: 800;
-  }
-
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .faq-item {
-    background: #fff;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 22px 26px;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    text-align: left;
-  }
-
-  .faq-question .icon {
-    font-size: 1.4rem;
-    color: #D1007A;
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-question .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-    border-top: 1px solid #e9ecef;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-  }
-
-  .faq-answer p {
-    padding: 28px 32px;
-    color: #555;
-    line-height: 1.85;
-    margin: 0;
-    font-size: 1.02rem;
-    text-align: left;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* ========================================
-     ARTICLE CTA BOX - Diseño Limpio
-     ======================================== */
-  .article-cta-box {
-    margin-top: 60px;
-    padding: 45px 40px;
-    background: #f8f9fa;
-    border-radius: 16px;
-    text-align: center;
-    border: 1px solid #e9ecef;
-  }
-
-  .article-cta-box h3 {
-    font-size: 1.5rem;
-    margin: 0 0 12px;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
-
-  .article-cta-box > p {
-    font-size: 1rem;
-    color: #666;
-    margin: 0 0 28px;
-    line-height: 1.6;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-
-  .cta-button {
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-  }
-
-  .cta-primary {
-    background: #25D366;
-    color: #fff;
-  }
-
-  .cta-secondary {
-    background: #fff;
-    color: #1a1a1a;
-    border: 1px solid #ddd;
-  }
-
-  .cta-note {
-    font-size: 0.85rem;
-    color: #888;
-    margin: 0;
   }
 
   /* ========================================
@@ -1087,27 +933,6 @@ const servicioCards = [
       padding-top: 40px;
     }
 
-    .article-cta-box {
-      margin-top: 45px;
-      padding: 35px 24px;
-      border-radius: 14px;
-    }
-
-    .article-cta-box h3 {
-      font-size: 1.3rem;
-    }
-
-    .cta-buttons {
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .cta-button {
-      width: 100%;
-      text-align: center;
-      padding: 14px 24px;
-    }
-
     .sidebar-inner {
       grid-template-columns: 1fr;
     }
@@ -1193,39 +1018,6 @@ const servicioCards = [
       padding-top: 35px;
     }
 
-    .article-faqs h2 {
-      font-size: 1.3rem;
-    }
-
-    .faq-question {
-      padding: 16px 18px;
-      font-size: 0.95rem;
-    }
-
-    .faq-answer p {
-      padding: 22px 20px;
-      font-size: 0.95rem;
-      max-width: 100%;
-    }
-
-    .article-cta-box {
-      margin-top: 40px;
-      padding: 30px 18px;
-    }
-
-    .article-cta-box h3 {
-      font-size: 1.2rem;
-    }
-
-    .article-cta-box > p {
-      font-size: 0.9rem;
-    }
-
-    .cta-button {
-      font-size: 0.9rem;
-      padding: 13px 20px;
-    }
-
     .sidebar-card {
       padding: 18px;
     }
@@ -1259,8 +1051,5 @@ const servicioCards = [
       font-size: 0.88rem;
     }
 
-    .cta-note {
-      font-size: 0.8rem;
-    }
   }
 </style>

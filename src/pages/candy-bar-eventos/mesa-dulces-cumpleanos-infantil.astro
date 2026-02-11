@@ -2,41 +2,102 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'Cumpleanos Infantil', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' }
 ];
 
-const highlights = [
-  { title: 'Tematicas infantiles', description: 'Montajes personalizados por personaje, color o estilo de fiesta infantil.' },
-  { title: 'Dulces para ninos', description: 'Seleccion equilibrada de golosinas y postres pensados para peques y adultos.' },
-  { title: 'Presentacion colorida', description: 'Decoracion visualmente atractiva para fotos, videos y recuerdos familiares.' },
-  { title: 'Servicio sin estres', description: 'Nos encargamos del montaje y retiro para que disfrutes el festejo.' }
-];
-
-const includes = [
-  'Planeacion de tematica y paleta de color',
-  'Dulces, gomitas, chocolates y postres variados',
-  'Mobiliario y decoracion infantil',
-  'Etiquetas y elementos personalizados',
-  'Montaje y desmontaje en domicilio o salon',
-  'Asesoria segun edad y numero de invitados'
-];
-
 const faqs = [
-  { question: 'Pueden hacerlo de cualquier personaje?', answer: 'Si. Trabajamos temas clasicos y personalizados con base en tus referencias e ideas.' },
-  { question: 'Manejan paquetes para fiestas pequenas?', answer: 'Si, tenemos opciones desde eventos intimos hasta celebraciones grandes.' },
-  { question: 'Cuanto dura instalado el candy bar?', answer: 'Normalmente permanece durante toda la fiesta y programamos retiro al final del evento.' },
-  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Recomendamos reservar con 2 a 3 semanas para asegurar fecha y personalizacion completa.' }
+  { question: 'Que incluye una mesa de dulces para cumpleanos infantil?', answer: 'Incluye diseno tematico, dulces y postres personalizados, montaje profesional y desmontaje al finalizar.' },
+  { question: 'Pueden trabajar tematicas de personajes?', answer: 'Si. Adaptamos colores, grafica, props y estilo al personaje o concepto de la fiesta.' },
+  { question: 'Manejan opciones seguras para ninos?', answer: 'Si. Curamos producto y presentacion pensando en seguridad, orden y practicidad para fiestas infantiles.' },
+  { question: 'Con cuanta anticipacion se recomienda reservar?', answer: 'Recomendamos reservar con 2 a 4 semanas para asegurar agenda y personalizacion.' },
+  { question: 'Atienden fiestas en casa y salon?', answer: 'Si. Cubrimos domicilios, salones y jardines en CDMX y area metropolitana.' },
+  { question: 'Pueden combinar con estaciones interactivas?', answer: 'Si. Podemos integrar fuente de chocolate, chamoy u otras experiencias para elevar la fiesta.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🎉',
+    price: '$4,700',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para fiesta infantil intima',
+    features: ['Mesa principal tematizada', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,900',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado por personaje', 'Mayor variedad de dulces y postres', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,300',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para fiestas grandes', 'Acompanamiento operativo total'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '220+', label: 'Fiestas Infantiles' },
+  { number: '100%', label: 'Tematico' },
+  { number: '40+', label: 'Opciones Dulces' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Diseno por Personaje', desc: 'Composicion visual alineada al tema favorito de la fiesta.', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif' },
+  { num: 2, title: 'Surtido Divertido', desc: 'Dulces y postres pensados para sorprender a ninos e invitados.', img: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif' },
+  { num: 3, title: 'Montaje Ordenado', desc: 'Ejecucion limpia y funcional para mantener flujo en la celebracion.', img: '/img/eventos/cumpleanos/infantiles/decoracion-mesa-barbie.avif' },
+  { num: 4, title: 'Formato Escalable', desc: 'Adaptamos propuesta para reuniones familiares o fiestas amplias.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief de Fiesta', desc: 'Recibimos tema, edad, invitados y sede del cumpleanos.' },
+  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo.' },
+  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos tiempos, accesos y necesidades del venue.' },
+  { num: 4, title: 'Ejecucion del Evento', desc: 'Montamos y operamos la mesa con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
+  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Mesa de Dulces para Bautizo', excerpt: 'Propuestas familiares con estilo elegante.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
+  { title: 'Mesa de Dulces para Primera Comunion', excerpt: 'Montajes sobrios para celebraciones religiosas.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Comunion' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Dulces para Cumpleanos Infantil en CDMX',
-  description: 'Candy bar infantil tematico con dulces personalizados y montaje profesional para fiestas de cumpleanos.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de mesa de dulces para cumpleanos infantil en Ciudad de Mexico con diseno tematico y montaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -48,184 +109,46 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Cumpleanos Infantil | Mededul CDMX"
-  description="Candy bar infantil personalizado para cumpleanos en CDMX. Tematicas, montaje y dulces incluidos."
+  title="Mesa de Dulces para Cumpleanos Infantil en CDMX | Mededul"
+  description="Mesa de dulces para cumpleanos infantil en CDMX con diseno tematico, montaje profesional y propuesta personalizada por personaje."
   canonical="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
-  ogImage="/img/eventos/cumpleanos/infantiles/mesa-dulces-cumpleanos-ninos.avif"
+  ogImage="/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para <span>Cumpleanos Infantil</span>"
-    description="Disenamos candy bars infantiles con tematicas creativas, dulces vistosos y una presentacion que encanta a todos."
-    subtitle="Nos adaptamos al concepto de tu fiesta para crear una experiencia divertida, segura y llena de sabor."
+    title="Mesa de Dulces para Cumpleanos Infantil en CDMX"
+    highlight="Cumpleanos Infantil"
+    subtitle="Candy bar tematico para crear una fiesta divertida, ordenada y memorable para ninos y familias"
+    secondaryContent={`<p><strong>Cumpleanos</strong> infantil con mesa de dulces profesional transforma la fiesta en una experiencia visual y emocional que sorprende desde el primer minuto. En Mededul disenamos propuestas tematicas por personaje para mantener coherencia estetica y alto impacto.</p><p><strong>Fiesta</strong> infantil bien planificada mejora el flujo de servicio, reduce improvisaciones y permite que la familia disfrute el evento con tranquilidad total. Ejecutamos montaje integral en CDMX con enfoque en calidad, seguridad y detalle.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Disena Tu Fiesta"
+    ctaTitleHighlight="Infantil"
+    ctaText="Comparte tema, invitados y sede para recibir una propuesta profesional de candy bar infantil."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="service-highlights section-padding">
-    <div class="container">
-      <div class="section-head">
-        <h2>Fiestas que se vuelven inolvidables</h2>
-        <p class="subtitulo">Candy bars creados para sorprender a ninos e invitados</p>
-      </div>
-      <div class="highlight-grid">
-        {highlights.map((item) => (
-          <article class="highlight-card">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta infantil al tamano de la fiesta y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu cumpleanos infantil." />
 
-  <section class="service-includes section-padding">
-    <div class="container">
-      <h2>Que incluye el servicio</h2>
-      <ul>
-        {includes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Infantil" descriptions={['Creamos montajes tematicos con equilibrio entre impacto visual y funcionalidad.', 'Integramos diseno, montaje y operacion para una fiesta infantil sin errores.']} stats={whyStats} features={whyFeatures} />
 
-  <section class="service-faq section-padding">
-    <div class="container">
-      <h2>Preguntas frecuentes</h2>
-      <div class="faq-list">
-        {faqs.map((faq) => (
-          <details>
-            <summary>{faq.question}</summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa infantil con precision profesional." steps={processSteps} />
 
-  <section class="service-cta">
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y familiares." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Su Cumpleanos una Fiesta" titleHighlight="Inolvidable" text="Te ayudamos a implementar una mesa de dulces infantil tematica con montaje profesional y alta calidad." buttonText="Cotizar Cumpleanos Infantil" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Haz especial su proximo cumpleanos</h2>
-      <p>Cotiza tu mesa de dulces infantil y define la tematica ideal para tu fiesta.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Dulces para Cumpleanos Infantil" class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Cumpleanos Infantil" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir el formato ideal para tu fiesta infantil.</p>`} />
+      <FAQ items={faqs} id="faq-cumpleanos-infantil" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .section-head {
-    text-align: center;
-    margin-bottom: 28px;
-  }
-
-  .highlight-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .highlight-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(255, 107, 157, 0.18);
-  }
-
-  .highlight-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-  }
-
-  .highlight-card p {
-    color: var(--gris-texto);
-    margin: 0;
-  }
-
-  .service-includes {
-    background: #fff;
-  }
-
-  .service-includes h2,
-  .service-faq h2 {
-    text-align: center;
-    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-    margin-bottom: 20px;
-  }
-
-  .service-includes ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .service-includes li {
-    background: #fdf7fa;
-    border: 1px solid rgba(255, 107, 157, 0.2);
-    border-radius: 12px;
-    padding: 14px;
-  }
-
-  .faq-list {
-    max-width: 860px;
-    margin: 0 auto;
-    display: grid;
-    gap: 12px;
-  }
-
-  .faq-list details {
-    background: #fff;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    padding: 12px 14px;
-  }
-
-  .faq-list summary {
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .faq-list p {
-    color: var(--gris-texto);
-    margin: 10px 0 2px;
-  }
-
-  .service-cta {
-    padding: 74px 0;
-    text-align: center;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-  }
-
-  .service-cta h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    margin-bottom: 12px;
-  }
-
-  .service-cta p {
-    margin: 0 auto 24px;
-    max-width: 680px;
-    opacity: 0.95;
-  }
-
-  .btn-white {
-    display: inline-block;
-    text-decoration: none;
-    background: #fff;
-    color: #D1007A;
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 14px 28px;
-  }
-
-  @media (max-width: 900px) {
-    .highlight-grid,
-    .service-includes ul {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

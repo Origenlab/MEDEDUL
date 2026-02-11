@@ -1,41 +1,103 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Porque Mededul', url: '/porque-mededul' },
+  { name: 'Por que Mededul', url: '/porque-mededul' },
   { name: 'Diseno Personalizado', url: '/porque-mededul/diseno-personalizado' }
 ];
 
-const highlights = [
-  { title: 'Concepto a la medida', description: 'Cada propuesta parte de tu idea, tipo de evento y estilo de celebracion.' },
-  { title: 'Dirección visual clara', description: 'Definimos colores, materiales, alturas y elementos decorativos para un montaje coherente.' },
-  { title: 'Personalizacion real', description: 'Integramos detalles unicos para que tu mesa no se parezca a ninguna otra.' },
-  { title: 'Resultado fotografiable', description: 'Disenos pensados para que tu evento luzca premium en persona y en fotos.' }
-];
-
-const includes = [
-  'Sesion de levantamiento de idea y estilo',
-  'Propuesta de paleta de color y ambientacion',
-  'Seleccion de dulces y elementos decorativos',
-  'Ajustes segun venue y tipo de montaje',
-  'Montaje final apegado al concepto aprobado',
-  'Acompanamiento para afinar detalles finales'
-];
-
 const faqs = [
-  { question: 'Pueden trabajar desde una referencia de Pinterest?', answer: 'Si. Tomamos referencias como punto de partida y creamos una version personalizada para tu evento.' },
-  { question: 'Que tan personalizado puede ser el montaje?', answer: 'Podemos personalizar color, tematica, estilo de dulces, props y composicion general segun tu objetivo.' },
-  { question: 'Solo aplican diseno en mesas de dulces?', answer: 'No. Tambien aplicamos diseno personalizado en postres, estaciones y montajes complementarios.' },
-  { question: 'Cuanto tiempo toma definir un diseno?', answer: 'Depende de complejidad, pero en la primera fase ya podemos aterrizar una propuesta visual clara.' }
+  { question: 'Que tan personalizado puede ser el diseno?', answer: 'Podemos personalizar paleta, estilo, composicion, tipos de producto y narrativa visual segun tu objetivo.' },
+  { question: 'Pueden trabajar referencias visuales?', answer: 'Si. Tomamos referencias como base para crear una propuesta original adaptada a tu evento.' },
+  { question: 'Incluye asesoria de concepto?', answer: 'Si. Definimos direccion visual para asegurar coherencia entre montaje, espacio y tipo de celebracion.' },
+  { question: 'Con cuanta anticipacion debo iniciar?', answer: 'Sugerimos iniciar de 2 a 4 semanas antes para aterrizar idea y ejecutar sin presion.' },
+  { question: 'Aplica para eventos sociales y corporativos?', answer: 'Si. Adaptamos el enfoque de diseno segun naturaleza del evento y perfil de invitados.' },
+  { question: 'Se puede combinar con estaciones interactivas?', answer: 'Si. Integrar estaciones permite ampliar experiencia y mantener unidad visual del proyecto.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🎨',
+    price: '$4,900',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para concepto base',
+    features: ['Direccion visual inicial', 'Composicion base del montaje', 'Surtido seleccionado', 'Montaje profesional', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar diseno personalizado (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,600',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno integral por concepto', 'Mayor nivel de personalizacion', 'Montaje y coordinacion en sitio', 'Curaduria de producto y props', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar diseno personalizado (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$13,900',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Produccion visual avanzada', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Acabado premium de alto nivel'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar diseno personalizado (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '100%', label: 'A la Medida' },
+  { number: '500+', label: 'Montajes' },
+  { number: '4+', label: 'Etapas de Diseno' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Concepto Unico', desc: 'Cada proyecto parte de una idea propia alineada al tipo de evento.', img: '/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif' },
+  { num: 2, title: 'Direccion Visual', desc: 'Definimos colores, alturas, materiales y lenguaje estetico coherente.', img: '/img/galeria/mesa-dulces-tematica-personalizada.avif' },
+  { num: 3, title: 'Curaduria de Producto', desc: 'Seleccion estrategica de dulces y elementos para mejor impacto final.', img: '/img/galeria/candy-bar-tematico-eventos.avif' },
+  { num: 4, title: 'Resultado Fotografiable', desc: 'Montajes pensados para destacar en experiencia en sitio y contenido visual.', img: '/img/galeria/mesa-dulces-eventos-especiales.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief del Proyecto', desc: 'Definimos objetivo, estilo, invitados y contexto del evento.' },
+  { num: 2, title: 'Propuesta de Diseno', desc: 'Presentamos direccion visual, composicion y alcance del montaje.' },
+  { num: 3, title: 'Ajustes y Planeacion', desc: 'Refinamos detalles, cronograma y logistica de implementacion.' },
+  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos con fidelidad al concepto aprobado.' }
+];
+
+const eventCards = [
+  { title: 'Servicio Completo', excerpt: 'Ejecucion integral con montaje y desmontaje profesional.', img: '/img/porque-elegirnos/servicio-completo-mesas.avif', href: '/porque-mededul/servicio-completo', cta: 'Ver Servicio Completo' },
+  { title: 'Calidad Premium', excerpt: 'Curaduria de producto para elevar experiencia de invitados.', img: '/img/porque-elegirnos/calidad-premium-dulces.avif', href: '/porque-mededul/calidad-premium', cta: 'Ver Calidad Premium' },
+  { title: 'Cero Estres', excerpt: 'Operacion profesional para que disfrutes el evento sin fricciones.', img: '/img/porque-elegirnos/cero-estres-eventos.avif', href: '/porque-mededul/cero-estres', cta: 'Ver Cero Estres' },
+  { title: 'Mesa de Dulces', excerpt: 'Propuesta personalizada para todo tipo de celebraciones.', img: '/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-elegante.avif', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces', cta: 'Ver Mesa de Dulces' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Diseno Personalizado de Mesas de Dulces en CDMX',
-  description: 'Servicio de diseno personalizado para mesas de dulces y montajes de eventos con enfoque premium.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de diseno personalizado para mesas de dulces en Ciudad de Mexico con enfoque profesional y montaje premium.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -47,33 +109,46 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Diseno Personalizado de Mesas de Dulces | Mededul"
-  description="Conoce por que el diseno personalizado de Mededul marca la diferencia en eventos de CDMX."
+  title="Diseno Personalizado de Mesas de Dulces en CDMX | Mededul"
+  description="Diseno personalizado de mesas de dulces en CDMX para eventos sociales y corporativos con direccion visual profesional."
   canonical="/porque-mededul/diseno-personalizado"
   ogImage="/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <ServiceSubpage
-    breadcrumbItems={breadcrumbItems}
-    heading="Nuestro enfoque en"
-    headingHighlight="Diseno Personalizado"
-    intro={[
-      'En Mededul no trabajamos con montajes genericos. Cada mesa se diseña desde cero para reflejar tu estilo y objetivo del evento.',
-      'Por eso nuestros proyectos lucen unicos, mejor alineados a tu vision y con una presencia visual mucho mas fuerte.'
-    ]}
-    heroImage="/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif"
-    heroAlt="Diseno personalizado de mesas de dulces"
-    badgeValue="100%"
-    badgeLabel="Personalizado"
-    sectionTitle="Diseno que realmente representa tu evento"
-    sectionSubtitle="No es solo decorar: es construir una experiencia visual coherente"
-    highlights={highlights}
-    includes={includes}
-    faqs={faqs}
-    ctaTitle="Haz tu evento unico desde el diseno"
-    ctaText="Comparte tu idea y te proponemos un montaje personalizado de alto impacto."
-    whatsappMessage="Hola! Quiero cotizar una mesa de dulces con diseno personalizado"
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Diseno Personalizado de Mesas de Dulces en CDMX"
+    highlight="Diseno Personalizado"
+    subtitle="Direccion visual a la medida para crear montajes unicos, coherentes y memorables"
+    secondaryContent={`<p><strong>Diseno</strong> personalizado profesional evita montajes genericos y te permite construir una experiencia visual alineada al objetivo real de tu evento. En Mededul convertimos idea, estilo y contexto en una propuesta clara, funcional y de alto impacto.</p><p><strong>Personalizado</strong> no significa improvisado: implica metodologia, criterio estetico y ejecucion precisa para cuidar cada detalle del montaje. Asi logramos resultados consistentes que elevan imagen, experiencia de invitados y valor percibido.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Proyecto"
+    ctaTitleHighlight="Personalizado"
+    ctaText="Comparte estilo, sede y objetivo para recibir una propuesta profesional con direccion visual clara."
+    ctaButtonText="Solicitar Asesoria"
   />
+
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el nivel de diseno personalizado segun complejidad y aforo del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Diseno Personalizado" descriptions={['Traducimos ideas en montajes funcionales y esteticamente coherentes.', 'Integramos diseno, producto y operacion para resultados medibles en experiencia y presentacion.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu diseno personalizado sin errores." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Complementa tu decision con nuestros pilares de servicio y calidad." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Idea en un Montaje" titleHighlight="Unico" text="Te ayudamos a desarrollar una propuesta visual personalizada con ejecucion profesional de inicio a fin." buttonText="Cotizar Diseno Personalizado" />
+
+  <section class="section-faq section-padding" id="faq">
+    <div class="container">
+      <SectionHeader title="Preguntas Frecuentes sobre Diseno Personalizado" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir mejor el alcance de tu proyecto.</p>`} />
+      <FAQ items={faqs} id="faq-diseno-personalizado" />
+    </div>
+  </section>
 </BaseLayout>

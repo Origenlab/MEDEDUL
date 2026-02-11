@@ -1,756 +1,154 @@
 ---
-// Servicio Completo - Por que Mededul Subpage
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Por que Elegirnos', url: '/porque-mededul' },
+  { name: 'Por que Mededul', url: '/porque-mededul' },
   { name: 'Servicio Completo', url: '/porque-mededul/servicio-completo' }
 ];
 
-const stats = [
-  { number: '500+', label: 'Montajes' },
-  { number: '2 hrs', label: 'Instalacion' },
-  { number: '100%', label: 'Puntual' },
-  { number: '0', label: 'Preocupaciones' }
-];
-
-const caracteristicas = [
-  { number: 1, title: 'Diseno Incluido', description: 'Planificamos cada detalle de tu mesa segun tu tema y colores.' },
-  { number: 2, title: 'Dulces Premium', description: 'Productos seleccionados de la mas alta calidad.' },
-  { number: 3, title: 'Montaje Profesional', description: 'Equipo capacitado instala todo perfectamente.' },
-  { number: 4, title: 'Desmontaje Total', description: 'Al final recogemos todo, tu solo disfrutas.' }
-];
-
-const incluye = [
-  { number: '01', title: 'Dulces Premium', description: 'Seleccion de dulces de alta calidad, variedad garantizada.' },
-  { number: '02', title: 'Diseno Incluido', description: 'Propuesta personalizada segun tu evento y tematica.' },
-  { number: '03', title: 'Montaje Profesional', description: 'Equipo capacitado instala todo con precision y cuidado.' },
-  { number: '04', title: 'Acompanantes Variados', description: 'Malvaviscos, churros mini, pretzels, galletas y mas.' },
-  { number: '05', title: 'Operador Profesional', description: 'Personal que atiende, rellena y mantiene todo impecable.' },
-  { number: '06', title: 'Montaje y Decoracion', description: 'Mesa, mantel, base decorativa, platos y servilletas.' }
-];
-
-const proceso = [
-  { number: 1, title: 'Contactanos', description: 'Escribenos por WhatsApp con la fecha, lugar y numero de invitados.' },
-  { number: 2, title: 'Personalizamos', description: 'Elegimos juntos el tipo de dulces y decoracion que prefieras.' },
-  { number: 3, title: 'Montamos', description: 'Llegamos 1-2 horas antes para instalar todo perfectamente.' },
-  { number: 4, title: 'Disfrutas', description: 'Tu y tus invitados disfrutan sin preocupaciones.' }
-];
-
 const faqs = [
+  { question: 'Que incluye el servicio completo?', answer: 'Incluye planeacion, diseno, curaduria de producto, montaje, operacion en sitio y desmontaje al finalizar.' },
+  { question: 'Debo coordinar proveedores por separado?', answer: 'No. Centralizamos la operacion para reducir friccion y darte una sola linea de control.' },
+  { question: 'El servicio incluye acompanamiento durante el evento?', answer: 'Si. Nuestro equipo opera y supervisa para mantener presentacion y flujo de servicio.' },
+  { question: 'Con cuanta anticipacion debo contratar?', answer: 'Recomendamos entre 2 y 4 semanas para planear con precision y asegurar disponibilidad.' },
+  { question: 'Atienden eventos pequenos y grandes?', answer: 'Si. Escalamos el alcance segun aforo, venue y complejidad del montaje.' },
+  { question: 'Que pasa al finalizar el evento?', answer: 'Realizamos desmontaje total y cierre operativo para que no tengas carga adicional.' }
+];
+
+const packages = [
   {
-    question: '¿Que incluye el servicio completo de mesa de dulces?',
-    answer: 'Nuestro servicio completo incluye: diseno personalizado, seleccion de dulces premium, montaje profesional con todo el equipo necesario (mesa, manteleria, recipientes de cristal, decoracion), operador durante el evento para mantener todo impecable, y desmontaje total al finalizar.'
+    name: 'Esencial',
+    icon: '📦',
+    price: '$5,200',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para evento controlado',
+    features: ['Planeacion base del servicio', 'Montaje profesional', 'Surtido inicial de producto', 'Operacion en sitio', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar servicio completo (Esencial)'
   },
   {
-    question: '¿Cuanto tiempo antes llegan para el montaje?',
-    answer: 'Llegamos entre 1 y 2 horas antes del evento para realizar el montaje completo. Esto nos permite instalar todo con calma, verificar cada detalle y dejar la mesa perfecta antes de que lleguen tus invitados.'
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,900',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Planeacion integral del evento', 'Diseno personalizado', 'Mayor volumen y variedad', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar servicio completo (Premium)'
   },
   {
-    question: '¿El servicio incluye operador durante el evento?',
-    answer: 'Si, todos nuestros paquetes incluyen un operador profesional que se encarga de mantener la mesa impecable, rellenar dulces cuando sea necesario y asistir a tus invitados durante todo el evento.'
-  },
-  {
-    question: '¿Que pasa al finalizar el evento?',
-    answer: 'Al terminar el evento, nuestro equipo se encarga del desmontaje completo. Recogemos todo el equipo, recipientes, decoracion y dejamos el espacio limpio. Tu no tienes que preocuparte por nada.'
-  },
-  {
-    question: '¿Puedo personalizar la seleccion de dulces?',
-    answer: 'Absolutamente. Trabajamos contigo para seleccionar los dulces que mejor se adapten a tu evento, tema y preferencias. Podemos incluir dulces especificos, evitar alergenos o crear combinaciones unicas.'
-  },
-  {
-    question: '¿El servicio incluye la mesa y decoracion?',
-    answer: 'Si, proporcionamos todo lo necesario: mesa, manteleria, recipientes de cristal o acrilico, bases decorativas, etiquetas para dulces, y elementos decorativos acordes a tu tema.'
+    name: 'Luxury',
+    icon: '💎',
+    price: '$14,500',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion operativa completa', 'Produccion premium de alto volumen', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Acabado premium en cada etapa'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar servicio completo (Luxury)'
   }
 ];
+
+const whyStats = [
+  { number: '500+', label: 'Eventos' },
+  { number: '100%', label: 'Integral' },
+  { number: '0', label: 'Improvisacion' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Planeacion Integrada', desc: 'Concentramos decisiones clave para reducir errores operativos.', img: '/img/porque-elegirnos/servicio-completo-mesas.avif' },
+  { num: 2, title: 'Montaje Profesional', desc: 'Ejecucion puntual con criterios de calidad y presentacion.', img: '/img/home/servicio-profesional-mesas-dulces.avif' },
+  { num: 3, title: 'Operacion en Sitio', desc: 'Supervision continua para mantener experiencia y flujo de servicio.', img: '/img/galeria/mesa-dulces-evento-corporativo-profesional.avif' },
+  { num: 4, title: 'Desmontaje Total', desc: 'Cierre ordenado para que el cliente no asuma carga operativa.', img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief Comercial', desc: 'Recibimos alcance, fecha, aforo y requerimientos del evento.' },
+  { num: 2, title: 'Propuesta Integral', desc: 'Definimos diseno, producto, operacion y cronograma de ejecucion.' },
+  { num: 3, title: 'Planeacion Final', desc: 'Alineamos logistica, accesos y coordinacion con sede.' },
+  { num: 4, title: 'Ejecucion Completa', desc: 'Montamos, operamos y cerramos con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Calidad Premium', excerpt: 'Curaduria de producto para elevar experiencia y percepcion.', img: '/img/porque-elegirnos/calidad-premium-dulces.avif', href: '/porque-mededul/calidad-premium', cta: 'Ver Calidad Premium' },
+  { title: 'Cero Estres', excerpt: 'Operacion fluida para que disfrutes tu evento sin fricciones.', img: '/img/porque-elegirnos/cero-estres-eventos.avif', href: '/porque-mededul/cero-estres', cta: 'Ver Cero Estres' },
+  { title: 'Diseno Personalizado', excerpt: 'Direccion visual para montar propuestas unicas y memorables.', img: '/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif', href: '/porque-mededul/diseno-personalizado', cta: 'Ver Diseno Personalizado' },
+  { title: 'Mesa de Dulces', excerpt: 'Servicio completo aplicado a eventos sociales y corporativos.', img: '/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-eventos.avif', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces', cta: 'Ver Mesa de Dulces' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Servicio Completo de Mesas de Dulces en CDMX',
+  description: 'Servicio completo de mesas de dulces en Ciudad de Mexico con planeacion, montaje, operacion y desmontaje profesional.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
 ---
 
 <BaseLayout
-  title="Servicio Completo Mesas de Dulces CDMX | Montaje y Decoracion"
-  description="Renta de mesas de dulces con servicio completo en CDMX. Candy bar con montaje, decoracion y desmontaje incluido. Cotiza gratis."
-  canonical="https://mesas-de-dulces.com/porque-mededul/servicio-completo"
-  ogImage="/img/home/hero-mesas-dulces-profesionales.avif"
-  includeServiceSchema={true}
+  title="Servicio Completo de Mesas de Dulces en CDMX | Mededul"
+  description="Servicio completo de mesas de dulces en CDMX con planeacion, montaje y operacion profesional para eventos sin fricciones."
+  canonical="/porque-mededul/servicio-completo"
+  ogImage="/img/porque-elegirnos/servicio-completo-mesas.avif"
+  includeCategoryStyles={true}
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    })} />
-  </Fragment>
-
+  <JsonLd type="Service" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Servicio <span>Completo</span> Todo Incluido"
-    description="Con nuestro <strong>servicio integral de mesas de dulces</strong> tu solo te preocupas por disfrutar. Nuestro equipo profesional llega antes, monta todo perfectamente y al final del evento recoge sin que tengas que mover un dedo."
-    subtitle="La tranquilidad de tenerlo todo incluido: diseno, dulces premium, montaje profesional y desmontaje total."
+    title="Servicio Completo de Mesas de Dulces en CDMX"
+    highlight="Servicio Completo"
+    subtitle="Operacion integral para que tu evento se ejecute con calidad, control y cero improvisaciones"
+    secondaryContent={`<p><strong>Servicio</strong> completo profesional elimina fricciones de coordinacion y te permite concentrarte en disfrutar el evento sin asumir carga operativa. En Mededul integramos planeacion, montaje, operacion y desmontaje bajo un solo estandar de ejecucion.</p><p><strong>Completo</strong> no solo significa incluir mas tareas, sino garantizar continuidad, puntualidad y calidad en cada fase del proyecto. Nuestra metodologia protege tu inversion y mejora la experiencia de tus invitados con resultados consistentes.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Planea Tu"
+    ctaTitleHighlight="Servicio Completo"
+    ctaText="Comparte alcance, sede e invitados para construir una propuesta integral y clara para tu evento."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el servicio completo segun complejidad, aforo y nivel de produccion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Servicio Completo" descriptions={['Integramos planeacion, montaje y operacion para lograr ejecuciones estables.', 'Reducimos carga operativa del cliente y elevamos calidad final del evento.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu servicio completo sin errores." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Estos pilares complementan una operacion integral orientada a resultados." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Ejecuta Tu Evento con un Servicio" titleHighlight="Integral" text="Te ayudamos a implementar una operacion completa con calidad profesional de inicio a fin." buttonText="Cotizar Servicio Completo" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Servicio Integral</span>
-          <h2>¿Que incluye nuestro <span>Servicio Completo</span>?</h2>
-          <p class="header-description">Con mas de <strong>500 eventos</strong> realizados, hemos perfeccionado cada paso del proceso. Desde la primera llamada hasta el ultimo dulce, todo esta cuidado.</p>
-          <p class="header-description">Nuestro equipo de <strong>montaje profesional</strong> conoce cada detalle y garantiza una instalacion impecable en tiempo record.</p>
-          <div class="header-stats">
-            {stats.map(stat => (
-              <div class="stat-item">
-                <span class="stat-number">{stat.number}</span>
-                <span class="stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div class="caracteristicas-right">
-          {caracteristicas.map(item => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <span class="card-number">{item.number}</span>
-                <img
-                  src={getCdnUrl('/img/home/hero-mesas-dulces-profesionales.avif')}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-content">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Galeria Section -->
-  <section class="galeria-section" id="galeria">
-    <div class="container">
-      <div class="section-header">
-        <h2>Nuestro <span>Servicio Completo</span> en Accion</h2>
-        <p class="subtitulo">Momentos deliciosos que hemos creado en eventos reales</p>
-      </div>
-
-      <div class="galeria-bento">
-        <div class="galeria-item">
-          <img src={getCdnUrl('/img/galeria/mesa-dulces-elegante-01.avif')} alt="Servicio completo mesas de dulces" loading="lazy" />
-        </div>
-        <div class="galeria-item">
-          <img src={getCdnUrl('/img/galeria/candy-bar-tematico-eventos.avif')} alt="Montaje profesional candy bar" loading="lazy" />
-        </div>
-        <div class="galeria-item">
-          <img src={getCdnUrl('/img/galeria/mesa-dulces-gourmet-premium.avif')} alt="Mesa de dulces gourmet" loading="lazy" />
-        </div>
-        <div class="galeria-item">
-          <img src={getCdnUrl('/img/galeria/mesas-dulces-fiestas-variadas.avif')} alt="Mesas de dulces para fiestas" loading="lazy" />
-        </div>
-        <div class="galeria-item">
-          <img src={getCdnUrl('/img/galeria/dulces-surtidos-eventos.avif')} alt="Dulces surtidos para eventos" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Que Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>¿Que incluye nuestra <span>Mesa de Dulces</span>?</h2>
-        <p>Nos encargamos de cada detalle para que tu y tus invitados solo disfruten</p>
-      </div>
-
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card">
-            <span class="card-number">{item.number}</span>
-            <h4>{item.title}</h4>
-            <p>{item.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>¿Como <span>Funciona</span>?</h2>
-        <p class="subtitulo">4 simples pasos para disfrutar tu servicio completo</p>
-      </div>
-
-      <div class="proceso-timeline">
-        {proceso.map(step => (
-          <div class="proceso-step">
-            <div class="number">{step.number}</div>
-            <h4>{step.title}</h4>
-            <p>{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section" id="preguntas-frecuentes">
-    <div class="container">
-      <div class="section-header">
-        <h2>Preguntas <span>Frecuentes</span></h2>
-        <p class="subtitulo">Todo lo que necesitas saber sobre nuestro servicio completo</p>
-      </div>
-
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>{faq.question}</span>
-              <span class="icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="cta-final">
-    <div class="container">
-      <h2>¿Listo para tu servicio completo?</h2>
-      <p>Cotiza sin compromiso y descubre por que somos la opcion preferida en CDMX para mesas de dulces con servicio integral.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar el servicio completo de mesa de dulces" class="btn-white" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-          <path d="M12.004 0C5.376 0 .004 5.372.004 12c0 2.124.559 4.118 1.535 5.85L.004 24l6.335-1.663A11.95 11.95 0 0012.004 24C18.628 24 24 18.628 24 12S18.628 0 12.004 0z"/>
-        </svg>
-        Cotizar por WhatsApp
-      </a>
+      <SectionHeader title="Preguntas Frecuentes sobre Servicio Completo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a entender mejor el alcance integral del servicio.</p>`} />
+      <FAQ items={faqs} id="faq-servicio-completo" />
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      faqItem?.classList.toggle('active');
-    });
-  });
-</script>
-
-<style>
-  .header-badge, .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .caracteristicas-left h2 span {
-    color: #D1007A;
-  }
-
-  .header-description {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-description strong {
-    color: #D1007A;
-  }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    margin-top: 30px;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #D1007A;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-  }
-
-  .caracteristica-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: #D1007A;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.95rem;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content {
-    padding: 18px;
-    text-align: center;
-  }
-
-  .caracteristica-card h3 {
-    font-size: 0.95rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .caracteristica-card p {
-    font-size: 0.85rem;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .galeria-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .section-header h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .section-header h2 span {
-    color: #D1007A;
-  }
-
-  .section-header .subtitulo {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .galeria-bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 220px);
-    gap: 20px;
-  }
-
-  .galeria-item {
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-  }
-
-  .galeria-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .galeria-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .galeria-item:nth-child(1) {
-    grid-column: span 2;
-  }
-
-  .galeria-item:nth-child(4) {
-    grid-column: span 2;
-  }
-
-  .incluye-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .incluye-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .incluye-header h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .incluye-header h2 span {
-    color: #D1007A;
-  }
-
-  .incluye-header p {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .incluye-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .incluye-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 20px;
-    padding: 35px 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-  }
-
-  .incluye-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1);
-  }
-
-  .incluye-card .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .incluye-card h4 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-
-  .incluye-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .proceso-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 50px;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: linear-gradient(90deg, #D1007A, #A0005F);
-  }
-
-  .proceso-step {
-    text-align: center;
-    position: relative;
-    flex: 1;
-    padding: 0 15px;
-  }
-
-  .proceso-step .number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
-  }
-
-  .proceso-step h4 {
-    font-size: 1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .proceso-step p {
-    font-size: 0.85rem;
-    color: #666;
-    max-width: 180px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  .faq-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
-    border: 1px solid rgba(233, 30, 140, 0.15);
-    border-radius: 15px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    background: #fff;
-    transition: all 0.3s ease;
-  }
-
-  .faq-item:hover {
-    border-color: rgba(233, 30, 140, 0.3);
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 25px 30px;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    text-align: left;
-    font-family: inherit;
-  }
-
-  .faq-question .icon {
-    font-size: 1.5rem;
-    color: #D1007A;
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-question .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 0 30px 25px;
-  }
-
-  .faq-answer p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    font-weight: 800;
-  }
-
-  .cta-final p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-final .btn-white {
-    background: #fff;
-    color: #D1007A;
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .cta-final .btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-  }
-
-  @media (max-width: 1024px) {
-    .caracteristicas-layout {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .galeria-bento {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 180px);
-    }
-
-    .galeria-item:nth-child(1) {
-      grid-column: span 2;
-    }
-
-    .galeria-item:nth-child(4) {
-      grid-column: span 1;
-    }
-
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .proceso-timeline {
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .proceso-timeline::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .header-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .incluye-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cta-final h2 {
-      font-size: 1.8rem;
-    }
-  }
-</style>

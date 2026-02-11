@@ -1,244 +1,68 @@
 ---
-// Category Archive Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import BlogArchive from '@/components/blog/BlogArchive.astro';
 import Hero from '@/components/global/Hero.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
-import { getCdnUrl } from '@/lib/cdn';
-import { getBlogCardCta } from '@/lib/blogCardCta';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  const categories = [...new Set(posts.map(post => post.data.category))];
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const categories = [...new Set(allPosts.map(post => post.data.category))];
 
-  return categories.map(category => ({
-    params: { category },
-    props: {
-      posts: posts.filter(post => post.data.category === category)
-        .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()),
-      category
-    }
-  }));
+  return categories.map((category) => {
+    const categoryPosts = allPosts
+      .filter(post => post.data.category === category)
+      .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+    return {
+      params: { category },
+      props: { category, categoryPosts, allPosts }
+    };
+  });
 }
 
-const { posts, category } = Astro.props;
+const { category, categoryPosts, allPosts } = Astro.props;
 const meta = categoryMeta[category as keyof typeof categoryMeta];
 const categoryName = meta?.name || category;
 
-// Breadcrumb items
 const breadcrumbItems = [
   { name: 'Blog', url: '/blog' },
   { name: categoryName, url: `/blog/categoria/${category}` }
 ];
+
+const categories = [...new Set(allPosts.map((post: any) => post.data.category))];
+const featuredPosts = allPosts.slice(0, 4);
 ---
 
 <BaseLayout
-  title={`${categoryName} - Artículos sobre Mesas de Dulces | Mededul`}
-  description={`Descubre todos nuestros artículos sobre ${categoryName.toLowerCase()}. Consejos, tendencias e inspiración para tu mesa de dulces.`}
+  title={`${categoryName} - Articulos sobre Mesas de Dulces | Mededul`}
+  description={`Descubre todos nuestros articulos sobre ${String(categoryName).toLowerCase()}. Consejos, tendencias e inspiracion para tu mesa de dulces.`}
   includeBlogStyles={true}
 >
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
     title={categoryName}
-    subtitle={meta?.description || `Artículos sobre ${categoryName.toLowerCase()} para tu mesa de dulces`}
+    subtitle={meta?.description || `Articulos sobre ${String(categoryName).toLowerCase()} para tu mesa de dulces`}
+    showCTA={false}
   />
 
-  <!-- Posts Grid -->
-  <section class="category-content">
-    <div class="container">
-      {posts.length > 0 ? (
-        <div class="posts-grid">
-          {posts.map(post => {
-            const postMeta = categoryMeta[post.data.category as keyof typeof categoryMeta];
+  <BlogArchive
+    posts={categoryPosts}
+    featuredPosts={featuredPosts}
+    categories={categories}
+    currentPage={1}
+    totalPages={1}
+  />
 
-            return (
-              <article class="post-card">
-                <a href={`/blog/${post.slug}`}>
-                  <img
-                    src={getCdnUrl(post.data.heroImage)}
-                    alt={post.data.heroImageAlt}
-                    width="400"
-                    height="250"
-                    loading="lazy"
-                  />
-                </a>
-                <div class="post-meta">
-                  <span class="category">
-                    <span class="category-icon">{postMeta?.icon}</span>
-                    {postMeta?.name || post.data.category}
-                  </span>
-                </div>
-                <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-                <p>{post.data.description}</p>
-                <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category, post.data.title)}</a>
-              </article>
-            );
-          })}
-        </div>
-      ) : (
-        <div class="no-articles">
-          <p>No hay artículos en esta categoría todavía.</p>
-          <a href="/blog" class="btn btn-primary">Ver todos los artículos</a>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- Back to Blog -->
-  <section class="back-section">
-    <div class="container">
-      <a href="/blog" class="back-link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        Ver todas las categorías
-      </a>
-    </div>
-  </section>
+  <CTAServices
+    href="/contacto"
+    badge="Asesoria por Categoria"
+    title="Lleva Tu Categoria a un Resultado"
+    titleHighlight="Profesional"
+    text={`Si te interesa ${String(categoryName).toLowerCase()}, te ayudamos a convertir esa referencia en una propuesta real para tu evento.`}
+    buttonText="Solicitar Asesoria"
+  />
 </BaseLayout>
-
-<style>
-  .category-content {
-    padding: 60px 0;
-    background: var(--gris-claro);
-    min-height: 50vh;
-  }
-
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .post-card {
-    background: #ffffff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(233, 30, 140, 0.05);
-  }
-
-  .post-card > a:first-child {
-    display: block;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-  }
-
-  .post-card > a:first-child img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .post-card .post-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 22px 0;
-    font-size: 0.8rem;
-  }
-
-  .post-card .category {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: linear-gradient(135deg, rgba(233, 30, 140, 0.12) 0%, rgba(255, 107, 179, 0.08) 100%);
-    color: var(--rosa-principal);
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-  }
-
-  .post-card h3 {
-    font-size: 1.18rem;
-    font-weight: 700;
-    line-height: 1.45;
-    margin: 14px 0 10px;
-    padding: 0 22px;
-    color: var(--texto-oscuro);
-  }
-
-  .post-card h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .post-card > p {
-    font-size: 0.93rem;
-    color: var(--texto-light);
-    line-height: 1.7;
-    padding: 0 22px;
-    margin-bottom: 18px;
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .post-card .btn.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    background: var(--gradiente-rosa);
-    color: #fff;
-    padding: 13px 26px;
-    margin: 0 22px 22px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-decoration: none;
-    width: fit-content;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
-  }
-
-  .no-articles {
-    text-align: center;
-    padding: 80px 20px;
-  }
-
-  .no-articles p {
-    color: var(--texto-light);
-    margin-bottom: 20px;
-  }
-
-  .back-section {
-    padding: 40px 0;
-    background: var(--gris-claro);
-    border-top: 1px solid rgba(0,0,0,0.05);
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--rosa-principal);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  @media (max-width: 1024px) {
-    .posts-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .category-content {
-      padding: 40px 0;
-    }
-
-    .posts-grid {
-      grid-template-columns: 1fr;
-      gap: 25px;
-      padding: 0 16px;
-    }
-  }
-</style>

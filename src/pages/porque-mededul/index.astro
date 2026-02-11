@@ -1,342 +1,382 @@
 ---
-// Por que Mededul - Main Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
-  { name: 'Por que Elegirnos', url: '/porque-mededul' }
+  { name: 'Servicios', url: '/servicios' },
+  { name: 'Por que Mededul', url: '/porque-mededul' }
 ];
 
-const heroStats = [
-  { number: '500+', label: 'Eventos Exitosos' },
-  { number: '98%', label: 'Clientes Satisfechos' },
-  { number: '7+', label: 'Anos de Experiencia' },
-  { number: '50+', label: 'Variedades Premium' }
-];
-
-const pilares = [
+const faqItems = [
   {
-    title: 'Diseno Personalizado',
-    description: 'Cada mesa es unica, disenada a la medida de tu evento, tus colores y tu estilo. No usamos plantillas, creamos desde cero.',
-    link: '/porque-mededul/diseno-personalizado',
-    icon: 'layers'
+    question: 'Que hace diferente a Mededul frente a otros proveedores?',
+    answer: 'Combinamos diseno personalizado, calidad premium de producto, montaje profesional y coordinacion operativa completa para entregar resultados consistentes en cada evento.'
   },
   {
-    title: 'Calidad Premium',
-    description: 'Seleccionamos los mejores dulces y postres de proveedores certificados. Frescura y sabor garantizado en cada bocado.',
-    link: '/porque-mededul/calidad-premium',
-    icon: 'star'
+    question: 'Cuentan con experiencia comprobada en eventos?',
+    answer: 'Si. Hemos participado en cientos de eventos sociales y corporativos en CDMX, lo que nos permite anticipar riesgos y ejecutar con estandares claros de calidad y puntualidad.'
   },
   {
-    title: 'Servicio Completo',
-    description: 'Montaje, decoracion y desmontaje incluido. Llegamos, instalamos todo perfectamente y tu solo disfrutas tu evento.',
-    link: '/porque-mededul/servicio-completo',
-    icon: 'tool'
+    question: 'Puedo personalizar totalmente mi mesa de dulces?',
+    answer: 'Si. Adaptamos paleta, estilo visual, volumen de producto y composicion segun tipo de evento, perfil de invitados y presupuesto.'
   },
   {
-    title: 'Cero Estres',
-    description: 'Nos encargamos de todo: coordinacion, puntualidad y atencion a cada detalle. Tu unica preocupacion es pasarla increible.',
-    link: '/porque-mededul/cero-estres',
-    icon: 'thumbsup'
+    question: 'Incluyen montaje y desmontaje?',
+    answer: 'Si. El servicio contempla planeacion, montaje profesional, coordinacion en sitio y desmontaje al finalizar.'
+  },
+  {
+    question: 'Atienden eventos corporativos y sociales?',
+    answer: 'Si. Operamos bodas, XV anos, baby shower, bautizos, graduaciones, activaciones y eventos empresariales en CDMX y area metropolitana.'
+  },
+  {
+    question: 'Como solicito una cotizacion profesional?',
+    answer: 'Puedes contactarnos por formulario o WhatsApp con fecha, tipo de evento y numero de invitados para recibir una propuesta clara y personalizada.'
   }
 ];
 
-const diferenciadores = [
-  { number: 1, title: 'Experiencia Comprobada', description: 'Mas de 7 anos en el mercado y mas de 500 eventos exitosos nos respaldan. Conocemos cada detalle del negocio y anticipamos cualquier situacion para garantizar el exito de tu evento.' },
-  { number: 2, title: 'Atencion Personalizada 24/7', description: 'Desde tu primera consulta hasta el desmontaje, tienes comunicacion directa con nuestro equipo. Respondemos en menos de 2 horas y estamos disponibles para cualquier duda o cambio.' },
-  { number: 3, title: 'Dulces de Primera Calidad', description: 'No compramos dulces al mayoreo comun. Trabajamos con proveedores selectos que garantizan frescura, sabor y presentacion impecable. Cada dulce pasa por control de calidad.' },
-  { number: 4, title: 'Montaje Profesional', description: 'Nuestro equipo esta capacitado en tecnicas de decoracion y montaje. Llegamos con todo el equipo necesario, instalamos en el tiempo acordado y dejamos todo impecable.' },
-  { number: 5, title: 'Puntualidad Garantizada', description: 'Llegamos 1-2 horas antes del evento para montaje. En mas de 500 eventos, nunca hemos llegado tarde. Tu tranquilidad es nuestra prioridad.' },
-  { number: 6, title: 'Precios Transparentes', description: 'Sin costos ocultos ni sorpresas. Te damos una cotizacion clara y detallada desde el inicio. Lo que cotizamos es lo que pagas, sin cambios de ultimo momento.' },
-  { number: 7, title: 'Cobertura en toda CDMX', description: 'Con dos sucursales estrategicamente ubicadas (Condesa y Anzures), cubrimos toda la Zona Metropolitana. Llegamos a cualquier colonia, salon o venue de la ciudad.' },
-  { number: 8, title: 'Variedad para Todos los Gustos', description: 'Mas de 50 variedades de dulces, opciones sin azucar, postres gourmet, dulces mexicanos tradicionales y opciones para dietas especiales. Hay algo para cada invitado.' }
-];
-
-const compromisoItems = [
-  'Escuchar tus ideas y convertirlas en realidad, respetando tu vision y presupuesto',
-  'Utilizar unicamente productos frescos y de la mas alta calidad disponible',
-  'Cumplir puntualmente con cada compromiso acordado, sin excepciones',
-  'Resolver cualquier inconveniente de manera inmediata y profesional',
-  'Superar tus expectativas en cada detalle, desde el primer contacto hasta el ultimo dulce'
-];
-
-const procesoSteps = [
-  { number: 1, title: 'Contactanos', description: 'Escribenos por WhatsApp o llena el formulario. Te respondemos en menos de 2 horas.' },
-  { number: 2, title: 'Disenamos', description: 'Creamos una propuesta personalizada segun tu evento, tematica y presupuesto.' },
-  { number: 3, title: 'Confirmamos', description: 'Apartas con un anticipo y afinamos los ultimos detalles de tu mesa perfecta.' },
-  { number: 4, title: 'Disfrutas', description: 'Llegamos, montamos todo impecable y tu solo te dedicas a pasarla increible.' }
-];
-
-const faqs = [
+const packages = [
   {
-    question: '¿Que hace diferente a Mededul de otras empresas de mesas de dulces?',
-    answer: 'Mededul se distingue por su atencion 100% personalizada, dulces de calidad premium seleccionados cuidadosamente, montaje profesional con equipo capacitado, y mas de 500 eventos exitosos que respaldan nuestra experiencia. Cada mesa es unica y disenada especificamente para cada cliente, no usamos plantillas ni disenos genericos.'
+    name: 'Esencial',
+    icon: '🍬',
+    priceAmount: '$4,500',
+    priceNote: 'MXN',
+    guests: '30-50 personas',
+    description: 'Ideal para eventos pequenos',
+    features: [
+      'Diseno base personalizado',
+      'Montaje profesional',
+      'Seleccion de producto curada',
+      'Mobiliario incluido',
+      'Desmontaje al finalizar'
+    ],
+    popular: false
   },
   {
-    question: '¿Cuantos eventos ha realizado Mededul?',
-    answer: 'Hemos realizado mas de 500 eventos exitosos en Ciudad de Mexico, incluyendo bodas, XV anos, baby showers, cumpleanos, eventos corporativos y celebraciones de todo tipo. Nuestra experiencia nos permite adaptarnos a cualquier tipo de evento y anticipar cualquier situacion que pueda surgir.'
+    name: 'Signature',
+    icon: '⭐',
+    priceAmount: '$7,900',
+    priceNote: 'MXN',
+    guests: '50-100 personas',
+    description: 'La opcion mas solicitada',
+    features: [
+      'Diseno integral por concepto',
+      'Surtido premium ampliado',
+      'Montaje y coordinacion en sitio',
+      'Ajustes visuales personalizados',
+      'Asesoria previa de produccion',
+      'Mejor equilibrio costo-beneficio'
+    ],
+    popular: true
   },
   {
-    question: '¿Que garantia ofrece Mededul en sus servicios?',
-    answer: 'Garantizamos puntualidad en el montaje (llegamos 1-2 horas antes), calidad premium en todos los dulces (seleccionados de proveedores certificados), atencion personalizada desde la cotizacion hasta el desmontaje, y satisfaccion total. Si algo no cumple tus expectativas, lo solucionamos de inmediato sin costo adicional.'
-  },
-  {
-    question: '¿Mededul ofrece servicio en toda la Ciudad de Mexico?',
-    answer: 'Si, cubrimos toda la Zona Metropolitana de la Ciudad de Mexico, incluyendo todas las alcaldias (Benito Juarez, Coyoacan, Miguel Hidalgo, Cuauhtemoc, Alvaro Obregon, Tlalpan, etc.) y municipios conurbados como Naucalpan, Tlalnepantla, Huixquilucan, Atizapan, entre otros. Contamos con dos sucursales estrategicamente ubicadas en Condesa y Anzures.'
-  },
-  {
-    question: '¿Por que los dulces de Mededul son de calidad premium?',
-    answer: 'Trabajamos exclusivamente con proveedores seleccionados y certificados que garantizan frescura, sabor y presentacion impecable. Cada dulce pasa por un control de calidad antes de ser incluido en nuestras mesas. No usamos productos de segunda, cercanos a caducar ni dulces de baja calidad. Preferimos calidad sobre cantidad.'
-  },
-  {
-    question: '¿Como es el proceso de trabajo con Mededul?',
-    answer: 'Nuestro proceso es simple y transparente: 1) Contactanos por WhatsApp o formulario con los detalles de tu evento, 2) Te enviamos una propuesta personalizada en menos de 24 horas con opciones y precios claros, 3) Confirmas con un anticipo del 50% y afinamos los ultimos detalles, 4) El dia del evento llegamos 1-2 horas antes, montamos todo perfectamente y tu solo disfrutas. Al final recogemos todo.'
+    name: 'Premium',
+    icon: '💎',
+    priceAmount: '$12,500',
+    priceNote: 'MXN',
+    guests: '100+ personas',
+    description: 'Experiencia integral de alto impacto',
+    features: [
+      'Direccion estetica completa',
+      'Curaduria premium de producto',
+      'Operacion en sitio extendida',
+      'Configuracion para eventos grandes',
+      'Acompanamiento operativo total',
+      'Mayor volumen y variedad'
+    ],
+    popular: false
   }
 ];
 
-const galeriaImages = [
-  { src: '/img/galeria/mesas-dulces-fiestas-variadas.avif', alt: 'Mesas de dulces para fiestas variadas', wide: true },
-  { src: '/img/galeria/candy-bar-tematico-eventos.avif', alt: 'Candy bar tematico para eventos', wide: false },
-  { src: '/img/galeria/mesa-dulces-gourmet-premium.avif', alt: 'Mesa de dulces gourmet premium', wide: false },
-  { src: '/img/galeria/mesa-dulces-tema-especial.avif', alt: 'Mesa de dulces tema especial', wide: true },
-  { src: '/img/galeria/candy-bar-profesional-eventos.avif', alt: 'Candy bar profesional para eventos', wide: false },
-  { src: '/img/galeria/dulces-surtidos-eventos.avif', alt: 'Dulces surtidos para eventos', wide: false }
+const processSteps = [
+  {
+    number: 1,
+    title: 'Diagnostico del Evento',
+    description: 'Analizamos objetivo, tipo de celebracion, invitados y sede para definir una propuesta realista y efectiva.'
+  },
+  {
+    number: 2,
+    title: 'Propuesta y Curaduria',
+    description: 'Disenamos una propuesta visual y comercial con alcance claro, niveles de servicio y seleccion de producto.'
+  },
+  {
+    number: 3,
+    title: 'Planeacion Operativa',
+    description: 'Alineamos tiempos, montaje, logistica y coordinacion con venue para ejecutar sin improvisaciones.'
+  },
+  {
+    number: 4,
+    title: 'Montaje y Ejecucion',
+    description: 'Implementamos el servicio completo cuidando presentacion, experiencia de invitados y cierre operativo.'
+  }
 ];
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Razones para Elegir Mededul en CDMX',
+  description: 'Factores diferenciales de Mededul: diseno personalizado, calidad premium, servicio completo y cero estres',
+  numberOfItems: 4,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Diseno Personalizado' } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Calidad Premium' } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'Servicio Completo' } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Cero Estres' } }
+  ]
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Por que Elegirnos | Mesas de Dulces Profesionales CDMX"
-  description="Mesas de dulces profesionales en CDMX. Mas de 500 eventos exitosos, dulces premium y atencion personalizada. Conoce por que elegirnos."
-  canonical="https://mesas-de-dulces.com/porque-mededul"
+  title="Por que Elegir Mededul | Mesas de Dulces Profesionales en CDMX"
+  description="Conoce por que Mededul es una opcion confiable para mesas de dulces y candy bar en CDMX: diseno personalizado, calidad premium y operacion profesional."
+  canonical="/porque-mededul"
   ogImage="/img/home/hero-mesas-dulces-profesionales.avif"
   includeOrganizationSchema={true}
+  includeCategoryStyles={true}
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    })} />
-  </Fragment>
-
+  <JsonLd type="Service" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Por que Rentar tu Mesa de Dulces <span>con Mededul</span>"
-    description="No solo hacemos mesas de dulces, creamos experiencias memorables que transforman tus celebraciones en momentos inolvidables."
-    secondaryContent="<p><strong>Experiencia</strong> comprobada en cientos de eventos nos permite ejecutar mesas de dulces con estandares consistentes de calidad, puntualidad y presentacion en CDMX. Nuestro equipo transforma cada requerimiento en un plan claro de produccion para que el resultado final supere expectativas y mantenga coherencia con tu celebracion.</p><p><strong>Confianza</strong> operativa significa trabajar con procesos definidos en diseno, seleccion de producto, montaje y desmontaje, reduciendo riesgos e improvisaciones. En Mededul te acompanamos de principio a fin para que obtengas una experiencia premium, funcional y perfectamente alineada con tus objetivos de evento.</p>"
-  >
-    <div class="hero-stats-row">
-      {heroStats.map(stat => (
-        <div class="hero-stat">
-          <span class="hero-stat-number">{stat.number}</span>
-          <span class="hero-stat-label">{stat.label}</span>
-        </div>
-      ))}
-    </div>
-  </Hero>
+    id="porque-mededul"
+    title="Por que Elegir Mededul para tu Evento en CDMX"
+    highlight="Elegir Mededul"
+    subtitle="Metodologia profesional para disenar, montar y operar experiencias de mesas de dulces sin improvisaciones"
+    secondaryContent={`<p><strong>Experiencia</strong> comprobada en eventos sociales y corporativos nos permite ejecutar cada montaje con estandares consistentes de calidad, puntualidad y presentacion. En Mededul convertimos tus objetivos en una propuesta clara para que el resultado final sea visualmente potente y operativamente confiable.</p><p><strong>Confianza</strong> operativa significa procesos definidos en diseno, curaduria, montaje y desmontaje para reducir riesgos y asegurar una ejecucion impecable. Nuestro equipo te acompana de principio a fin para que vivas tu evento con control, tranquilidad y nivel premium.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Recibe una Propuesta Profesional"
+    ctaTitleHighlight="Profesional"
+    ctaText="Comparte fecha, tipo de evento y numero de invitados para recomendarte la mejor estrategia de servicio."
+    ctaButtonText="Solicitar Asesoria"
+  />
 
-  <!-- Historia Section -->
-  <section class="historia-section">
-    <div class="container">
-      <div class="historia-grid">
-        <div class="historia-content">
-          <span class="section-badge">Nuestra Historia</span>
-          <h2>Somos mas que proveedores, somos <span>complices de tus momentos mas dulces</span></h2>
-          <p>Mededul nacio de una pasion genuina por hacer especiales los momentos mas importantes de las personas. Comenzamos con un sueno simple: crear mesas de dulces que no solo fueran hermosas, sino que contaran historias y generaran sonrisas.</p>
-          <p>Hoy, despues de <strong>mas de 500 eventos exitosos</strong>, seguimos con el mismo entusiasmo del primer dia. Cada mesa que montamos es una oportunidad de superar expectativas y crear recuerdos que perduraran para siempre.</p>
-          <p>Nuestro equipo profesional garantiza <strong>puntualidad, calidad premium y atencion personalizada</strong> en cada evento. Tu satisfaccion es nuestra mejor carta de presentacion.</p>
-        </div>
-        <div class="historia-image">
-          <img
-            src={getCdnUrl('/img/galeria/mesa-dulces-elegante-01.avif')}
-            alt="Mesas de dulces elegantes Mededul CDMX"
-            width="600"
-            height="450"
-            loading="lazy"
-          />
-          <div class="historia-badge">
-            <span>500+</span>
-            <small>Eventos Realizados</small>
-          </div>
-        </div>
-      </div>
+  <section class="section-paquetes" id="paquetes">
+    <div class="paquetes-bg">
+      <div class="paquetes-glow paquetes-glow--1"></div>
+      <div class="paquetes-glow paquetes-glow--2"></div>
     </div>
-  </section>
 
-  <!-- Pilares Section -->
-  <section class="pilares-section">
-    <div class="container">
-      <div class="pilares-header">
-        <span class="badge">Nuestros Pilares</span>
-        <h2>Los valores que nos <span>definen</span></h2>
-        <p>Cada decision que tomamos esta guiada por estos cuatro pilares fundamentales que garantizan una experiencia excepcional para nuestros clientes.</p>
+    <div class="container paquetes-container">
+      <div class="paquetes-header">
+        <span class="paquetes-badge">Niveles de Servicio</span>
+        <h2 class="paquetes-title">
+          Escoge el <span>Formato Correcto</span>
+        </h2>
+        <p class="paquetes-subtitle">
+          Ajustamos cada propuesta a tu evento, volumen de invitados y nivel de personalizacion requerido.
+        </p>
       </div>
 
-      <div class="pilares-grid">
-        {pilares.map(pilar => (
-          <a href={pilar.link} class="pilar-card pilar-card-link">
-            <div class="pilar-icon">
-              {pilar.icon === 'layers' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                  <path d="M2 17l10 5 10-5"/>
-                  <path d="M2 12l10 5 10-5"/>
-                </svg>
-              )}
-              {pilar.icon === 'star' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              )}
-              {pilar.icon === 'tool' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                </svg>
-              )}
-              {pilar.icon === 'thumbsup' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
-                </svg>
-              )}
+      <div class="packages-grid">
+        {packages.map((pkg) => (
+          <div class:list={['package-card', { 'package-card--popular': pkg.popular }]}> 
+            {pkg.popular && (
+              <div class="package-ribbon">
+                <span>Mas Solicitado</span>
+              </div>
+            )}
+
+            <div class="package-top">
+              <div class="package-icon-wrapper">
+                <span class="package-icon">{pkg.icon}</span>
+              </div>
+              <h3 class="package-name">{pkg.name}</h3>
+              <p class="package-tagline">{pkg.description}</p>
             </div>
-            <h3>{pilar.title}</h3>
-            <p>{pilar.description}</p>
-            <span class="pilar-link">Conoce mas</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
 
-  <!-- Diferenciadores Section -->
-  <section class="diferenciadores-section">
-    <div class="container">
-      <div class="diferenciadores-header">
-        <span class="badge">Nuestras Ventajas</span>
-        <h2>¿Por que elegir <span>Mededul</span>?</h2>
-        <p>Estas son las razones por las que mas de 500 clientes nos han elegido para sus eventos mas importantes.</p>
-      </div>
-
-      <div class="diferenciadores-grid">
-        {diferenciadores.map(diff => (
-          <div class="diferenciador-card">
-            <div class="diferenciador-number">{diff.number}</div>
-            <div class="diferenciador-content">
-              <h3>{diff.title}</h3>
-              <p>{diff.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Compromiso Section -->
-  <section class="compromiso-section">
-    <div class="container">
-      <div class="compromiso-grid">
-        <div class="compromiso-image">
-          <img
-            src={getCdnUrl('/img/galeria/mesa-dulces-elegante-02.avif')}
-            alt="Servicio profesional mesas de dulces CDMX"
-            width="600"
-            height="450"
-            loading="lazy"
-          />
-        </div>
-        <div class="compromiso-content">
-          <span class="section-badge">Nuestro Compromiso</span>
-          <h2>Tu satisfaccion es nuestra <span>mejor publicidad</span></h2>
-          <p>En Mededul entendemos que cada evento es unico y especial. Por eso, nos comprometemos a tratarlo con la misma dedicacion y cuidado que si fuera nuestro propio evento.</p>
-          <p>Nuestro compromiso va mas alla de simplemente entregar una mesa de dulces bonita. Nos comprometemos a:</p>
-
-          <ul class="compromiso-list">
-            {compromisoItems.map(item => (
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"></polyline>
+            <div class="package-pricing">
+              <div class="package-price-wrapper">
+                <span class="package-price-label">Desde</span>
+                <span class="package-price-amount">{pkg.priceAmount}</span>
+                <span class="package-price-currency">{pkg.priceNote}</span>
+              </div>
+              <div class="package-guests">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                 </svg>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+                <span>{pkg.guests}</span>
+              </div>
+            </div>
 
-  <!-- Galeria Section -->
-  <section class="momentos-section">
-    <div class="container">
-      <div class="momentos-header">
-        <span class="badge">Nuestro Trabajo</span>
-        <h2>Momentos que hemos <span>creado</span></h2>
-        <p>Cada imagen representa un evento exitoso, una familia feliz y un recuerdo inolvidable</p>
-      </div>
+            <div class="package-separator">
+              <span class="package-separator-text">Incluye</span>
+            </div>
 
-      <div class="momentos-grid">
-        {galeriaImages.map((img, idx) => (
-          <div class={`momento-item ${idx === 0 || idx === 3 ? 'wide' : ''}`}>
-            <img
-              src={getCdnUrl(img.src)}
-              alt={img.alt}
-              loading="lazy"
-            />
+            <ul class="package-features">
+              {pkg.features.map(feature => (
+                <li>
+                  <span class="feature-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  </span>
+                  <span class="feature-text">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href="/contacto" class="package-cta">
+              <span>Solicitar Cotizacion</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
           </div>
         ))}
       </div>
+
+      <p class="paquetes-note">
+        <strong>Necesitas una propuesta distinta?</strong> Disenamos una configuracion personalizada con base en tus objetivos.
+      </p>
     </div>
   </section>
 
-  <!-- Proceso Section -->
-  <section class="proceso-section">
+  <section class="section-servicios section-padding" id="pilares">
+    <div class="container">
+      <SectionHeader
+        title="Nuestros Pilares de Servicio"
+        titleHighlight="Pilares"
+        subtitle="Factores que garantizan resultados consistentes"
+        content={`<p>Estos cuatro pilares resumen como trabajamos para convertir una idea en una experiencia bien ejecutada.</p><p>Cada uno integra criterios de diseno, operacion y calidad para reducir riesgos y elevar el nivel final del evento.</p>`}
+      />
+
+      <div class="service-grid service-grid--4">
+        <ServiceCard
+          href="/porque-mededul/diseno-personalizado"
+          image={getCdnUrl('/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif')}
+          alt="Diseno personalizado de mesas de dulces"
+          title="Diseno Personalizado"
+          excerpt="Conceptos visuales adaptados al tipo de evento, paleta y estilo del cliente."
+          cta="Ver Diseno"
+          badge="Pilar"
+        />
+        <ServiceCard
+          href="/porque-mededul/calidad-premium"
+          image={getCdnUrl('/img/porque-elegirnos/calidad-premium-dulces.avif')}
+          alt="Calidad premium en producto"
+          title="Calidad Premium"
+          excerpt="Curaduria de insumos y presentacion para sostener nivel premium en cada montaje."
+          cta="Ver Calidad"
+        />
+        <ServiceCard
+          href="/porque-mededul/servicio-completo"
+          image={getCdnUrl('/img/porque-elegirnos/servicio-completo-mesas.avif')}
+          alt="Servicio completo para eventos"
+          title="Servicio Completo"
+          excerpt="Planeacion, montaje y desmontaje con coordinacion profesional en cada fase."
+          cta="Ver Servicio"
+        />
+        <ServiceCard
+          href="/porque-mededul/cero-estres"
+          image={getCdnUrl('/img/porque-elegirnos/cero-estres-eventos.avif')}
+          alt="Servicio cero estres"
+          title="Cero Estres"
+          excerpt="Procesos claros para que disfrutes el evento mientras nosotros resolvemos la operacion."
+          cta="Ver Metodologia"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-estaciones section-padding" id="soluciones">
+    <div class="container">
+      <SectionHeader
+        title="Soluciones que Operamos"
+        titleHighlight="Soluciones"
+        subtitle="Servicios integrados para eventos sociales y corporativos"
+        content={`<p>Ademas de nuestra metodologia, operamos un portafolio completo de mesas y estaciones para ejecutar propuestas integrales.</p><p>Esto nos permite alinear diseno, experiencia y logistica en una sola solucion profesional.</p>`}
+      />
+
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-elegante.avif')}
+          alt="Tipos de mesas de dulces en CDMX"
+          title="Tipos de Mesas"
+          excerpt="Catalogo de mesas de dulces, postres, frutas, snacks y opciones gourmet para cada tipo de evento."
+          cta="Ver Tipos de Mesas"
+        />
+        <ServiceCard
+          href="/candy-bar-eventos"
+          image={getCdnUrl('/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif')}
+          alt="Candy bar por tipo de evento"
+          title="Candy Bar por Evento"
+          excerpt="Propuestas especificas para boda, XV anos, baby shower, bautizo, corporativo y graduacion."
+          cta="Ver Candy Bar"
+        />
+        <ServiceCard
+          href="/estaciones-interactivas"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif')}
+          alt="Estaciones interactivas para eventos"
+          title="Estaciones Interactivas"
+          excerpt="Fuente de chocolate, chamoy, candy wall y stand para pastel para elevar la experiencia."
+          cta="Ver Estaciones"
+        />
+        <ServiceCard
+          href="/servicios"
+          image={getCdnUrl('/img/home/hero-mesas-dulces-profesionales.avif')}
+          alt="Servicios integrales Mededul"
+          title="Servicios Integrales"
+          excerpt="Planeacion y ejecucion completa para producir eventos con resultados consistentes y premium."
+          cta="Ver Servicios"
+          badge="Integral"
+        />
+      </div>
+    </div>
+  </section>
+
+  <CTAServices
+    href="/contacto"
+    badge="Asesoria sin Costo"
+    title="Quieres una Propuesta sin Riesgo?"
+    titleHighlight="sin Riesgo"
+    text="Te ayudamos a definir una estrategia de montaje clara para tu evento con alcance, tiempos y presupuesto bien estructurados."
+    buttonText="Solicitar Asesoria"
+  />
+
+  <section class="section-proceso section-padding" id="proceso">
     <div class="container">
       <div class="proceso-header">
-        <span class="badge">Asi Trabajamos</span>
-        <h2>Nuestro <span>Proceso</span></h2>
-        <p>Trabajar con Mededul es facil, transparente y sin complicaciones</p>
+        <span class="proceso-badge">Nuestro Proceso</span>
+        <h2 class="proceso-title">Asi Ejecutamos Tu <span>Proyecto</span></h2>
+        <p class="proceso-subtitle">Una metodologia ordenada para entregar calidad de principio a fin.</p>
       </div>
 
-      <div class="proceso-timeline">
-        {procesoSteps.map(step => (
-          <div class="proceso-step">
-            <div class="number">{step.number}</div>
-            <h4>{step.title}</h4>
-            <p>{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section" id="preguntas-frecuentes">
-    <div class="container">
-      <div class="faq-header">
-        <h2>Preguntas <span>Frecuentes</span></h2>
-        <p>Resolvemos las dudas mas comunes sobre nuestros servicios</p>
-      </div>
-
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item">
-            <button class="faq-question">
-              <span>{faq.question}</span>
-              <span class="icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>{faq.answer}</p>
+      <div class="process-grid">
+        {processSteps.map((step) => (
+          <div class="process-card">
+            <div class="process-step-badge">Paso {step.number}</div>
+            <div class="process-content">
+              <h4 class="process-title">{step.title}</h4>
+              <p class="process-description">{step.description}</p>
             </div>
           </div>
         ))}
@@ -344,883 +384,18 @@ const galeriaImages = [
     </div>
   </section>
 
-  <!-- CTA Final -->
-  <section class="cta-final">
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>¿Listo para crear tu momento dulce?</h2>
-      <p>Mas de 500 familias ya confiaron en nosotros para sus eventos mas importantes. Ahora es tu turno de vivir la experiencia Mededul. Cotiza sin compromiso y descubre por que somos la opcion preferida en CDMX.</p>
-      <div class="cta-buttons">
-        <a href="https://wa.me/525525226442?text=Hola! Me gustaria cotizar una mesa de dulces para mi evento" class="btn-white" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-            <path d="M12.004 0C5.376 0 .004 5.372.004 12c0 2.124.559 4.118 1.535 5.85L.004 24l6.335-1.663A11.95 11.95 0 0012.004 24C18.628 24 24 18.628 24 12S18.628 0 12.004 0zm0 21.82a9.8 9.8 0 01-5.008-1.373l-.36-.213-3.727.978.996-3.64-.234-.373a9.77 9.77 0 01-1.497-5.199c0-5.415 4.405-9.82 9.82-9.82s9.82 4.405 9.82 9.82-4.405 9.82-9.82 9.82zm5.386-7.356c-.296-.148-1.75-.863-2.02-.962-.27-.1-.467-.148-.664.148-.197.296-.762.962-.935 1.16-.172.197-.345.222-.64.074-.296-.148-1.25-.46-2.38-1.47-.88-.784-1.474-1.752-1.647-2.048-.173-.296-.019-.456.13-.604.133-.133.296-.345.444-.518.148-.173.197-.296.296-.493.098-.197.05-.37-.025-.518-.074-.148-.664-1.6-.91-2.19-.24-.577-.484-.5-.664-.508l-.567-.01c-.197 0-.517.074-.788.37-.27.296-1.034 1.01-1.034 2.463 0 1.452 1.058 2.856 1.206 3.053.148.197 2.083 3.18 5.05 4.46.706.305 1.257.487 1.686.623.708.225 1.354.193 1.864.117.569-.085 1.75-.716 1.997-1.407.246-.69.246-1.283.172-1.407-.073-.123-.27-.197-.566-.345z"/>
-          </svg>
-          Cotizar por WhatsApp
-        </a>
-        <a href="/servicios" class="btn-outline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-            <polyline points="10 9 9 9 8 9"/>
-          </svg>
-          Ver Nuestros Servicios
-        </a>
-      </div>
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Mededul"
+        titleHighlight="Frecuentes"
+        subtitle="Resolvemos las dudas clave antes de contratar"
+        content={`<p>Estas respuestas te permiten evaluar con claridad nuestro enfoque de trabajo y tomar una decision informada.</p>`}
+      />
+
+      <FAQ items={faqItems} id="faq-porque-mededul" />
     </div>
   </section>
+
+  <ContactSection />
 </BaseLayout>
-
-<script>
-  // FAQ Toggle functionality
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const faqItem = button.parentElement;
-      faqItem?.classList.toggle('active');
-    });
-  });
-</script>
-
-<style>
-  /* Hero Stats Row - kept for slot content */
-  .hero-stats-row {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    margin-top: 50px;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat {
-    text-align: center;
-  }
-
-  .hero-stat-number {
-    display: block;
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: #D1007A;
-    line-height: 1;
-  }
-
-  .hero-stat-label {
-    font-size: 1rem;
-    color: #666;
-    font-weight: 500;
-    margin-top: 8px;
-  }
-
-  /* Section Badge */
-  .section-badge,
-  .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  /* Historia Section */
-  .historia-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .historia-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .historia-content {
-    padding-right: 20px;
-  }
-
-  .historia-content h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 25px;
-    font-weight: 700;
-  }
-
-  .historia-content h2 span {
-    color: #D1007A;
-  }
-
-  .historia-content p {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.9;
-    margin-bottom: 20px;
-  }
-
-  .historia-content p strong {
-    color: #D1007A;
-  }
-
-  .historia-image {
-    position: relative;
-  }
-
-  .historia-image img {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
-  }
-
-  .historia-badge {
-    position: absolute;
-    bottom: -25px;
-    right: -25px;
-    background: #D1007A;
-    color: #fff;
-    padding: 25px 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.4);
-    text-align: center;
-  }
-
-  .historia-badge span {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 800;
-  }
-
-  .historia-badge small {
-    font-size: 0.9rem;
-    opacity: 0.95;
-  }
-
-  /* Pilares Section */
-  .pilares-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff 100%);
-  }
-
-  .pilares-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 70px;
-  }
-
-  .pilares-header h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .pilares-header h2 span {
-    color: #D1007A;
-  }
-
-  .pilares-header p {
-    font-size: 1.15rem;
-    color: #666;
-    line-height: 1.8;
-  }
-
-  .pilares-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-  }
-
-  .pilar-card {
-    background: #fff;
-    border-radius: 24px;
-    padding: 40px 30px;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(233, 30, 140, 0.08);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .pilar-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #D1007A, #A0005F);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
-  .pilar-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 60px rgba(233, 30, 140, 0.15);
-  }
-
-  .pilar-card:hover::before {
-    transform: scaleX(1);
-  }
-
-  .pilar-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 25px;
-  }
-
-  .pilar-icon svg {
-    width: 40px;
-    height: 40px;
-    color: #D1007A;
-  }
-
-  .pilar-card h3 {
-    font-size: 1.25rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .pilar-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .pilar-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .pilar-link {
-    display: block;
-    margin-top: 15px;
-    color: #D1007A;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-  }
-
-  .pilar-card-link:hover .pilar-link {
-    color: #A0005F;
-  }
-
-  /* Diferenciadores Section */
-  .diferenciadores-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .diferenciadores-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 70px;
-  }
-
-  .diferenciadores-header h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .diferenciadores-header h2 span {
-    color: #D1007A;
-  }
-
-  .diferenciadores-header p {
-    font-size: 1.15rem;
-    color: #666;
-    line-height: 1.8;
-  }
-
-  .diferenciadores-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-
-  .diferenciador-card {
-    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
-    border-radius: 20px;
-    padding: 40px;
-    display: flex;
-    gap: 25px;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .diferenciador-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.1);
-  }
-
-  .diferenciador-number {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-
-  .diferenciador-content h3 {
-    font-size: 1.2rem;
-    color: #1a1a1a;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  .diferenciador-content p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Compromiso Section */
-  .compromiso-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 100%);
-  }
-
-  .compromiso-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .compromiso-image img {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
-  }
-
-  .compromiso-content {
-    padding-left: 20px;
-  }
-
-  .compromiso-content h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 25px;
-    font-weight: 700;
-  }
-
-  .compromiso-content h2 span {
-    color: #D1007A;
-  }
-
-  .compromiso-content p {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.9;
-    margin-bottom: 20px;
-  }
-
-  .compromiso-list {
-    list-style: none;
-    padding: 0;
-    margin: 30px 0 0 0;
-  }
-
-  .compromiso-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 20px;
-    font-size: 1rem;
-    color: #555;
-  }
-
-  .compromiso-list li svg {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    color: #D1007A;
-    margin-top: 2px;
-  }
-
-  /* Momentos/Galeria Section */
-  .momentos-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .momentos-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 60px;
-  }
-
-  .momentos-header h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .momentos-header h2 span {
-    color: #D1007A;
-  }
-
-  .momentos-header p {
-    font-size: 1.15rem;
-    color: #666;
-  }
-
-  .momentos-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 220px);
-    gap: 20px;
-  }
-
-  .momento-item {
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-  }
-
-  .momento-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .momento-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(233, 30, 140, 0.2);
-  }
-
-  .momento-item:hover img {
-    transform: scale(1.1);
-  }
-
-  .momento-item:nth-child(1),
-  .momento-item:nth-child(4) {
-    grid-column: span 2;
-  }
-
-  /* Proceso Section */
-  .proceso-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .proceso-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 70px;
-  }
-
-  .proceso-header h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .proceso-header h2 span {
-    color: #D1007A;
-  }
-
-  .proceso-header p {
-    font-size: 1.15rem;
-    color: #666;
-  }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 10%;
-    right: 10%;
-    height: 4px;
-    background: linear-gradient(90deg, #D1007A, #A0005F);
-    border-radius: 2px;
-  }
-
-  .proceso-step {
-    text-align: center;
-    position: relative;
-    flex: 1;
-    padding: 0 15px;
-  }
-
-  .proceso-step .number {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 25px;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 10px 30px rgba(233, 30, 140, 0.3);
-  }
-
-  .proceso-step h4 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  .proceso-step p {
-    font-size: 0.95rem;
-    color: #666;
-    max-width: 200px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* FAQ Section */
-  .faq-section {
-    padding: 100px 0;
-    background: #fff;
-  }
-
-  .faq-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .faq-header h2 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .faq-header h2 span {
-    color: #D1007A;
-  }
-
-  .faq-header p {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
-    border: 1px solid rgba(233, 30, 140, 0.15);
-    border-radius: 15px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    background: #fff;
-    transition: all 0.3s ease;
-  }
-
-  .faq-item:hover {
-    border-color: rgba(233, 30, 140, 0.3);
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 25px 30px;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    text-align: left;
-    font-family: inherit;
-  }
-
-  .faq-question .icon {
-    font-size: 1.5rem;
-    color: #D1007A;
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-question .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 0 30px 25px;
-  }
-
-  .faq-answer p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 100px 0;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-final::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -20%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-final::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-final .container {
-    position: relative;
-    z-index: 2;
-  }
-
-  .cta-final h2 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
-    font-weight: 800;
-  }
-
-  .cta-final p {
-    font-size: 1.2rem;
-    opacity: 0.95;
-    margin-bottom: 40px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-white {
-    background: #fff;
-    color: #D1007A;
-    padding: 20px 45px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: #fff;
-    padding: 20px 45px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    border: 2px solid rgba(255,255,255,0.5);
-    transition: all 0.3s ease;
-  }
-
-  .btn-outline:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: #fff;
-    transform: translateY(-3px);
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .hero-stats-row {
-      gap: 40px;
-    }
-
-    .hero-stat-number {
-      font-size: 2.8rem;
-    }
-
-    .historia-grid,
-    .compromiso-grid {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-
-    .historia-content,
-    .compromiso-content {
-      padding: 0;
-      text-align: center;
-    }
-
-    .historia-badge {
-      right: auto;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .pilares-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .diferenciadores-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .momentos-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 180px);
-    }
-
-    .momento-item:nth-child(1),
-    .momento-item:nth-child(4) {
-      grid-column: span 1;
-    }
-
-    .proceso-timeline {
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    .proceso-timeline::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-stats-row {
-      gap: 30px;
-    }
-
-    .hero-stat-number {
-      font-size: 2.2rem;
-    }
-
-    .hero-stat-label {
-      font-size: 0.85rem;
-    }
-
-    .historia-content h2,
-    .compromiso-content h2,
-    .pilares-header h2,
-    .diferenciadores-header h2,
-    .momentos-header h2,
-    .proceso-header h2,
-    .faq-header h2 {
-      font-size: 1.8rem;
-    }
-
-    .pilares-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .pilar-card {
-      padding: 30px 25px;
-    }
-
-    .diferenciador-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 30px 25px;
-    }
-
-    .diferenciador-number {
-      margin: 0 auto;
-    }
-
-    .momentos-grid {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, 150px);
-    }
-
-    .cta-final h2 {
-      font-size: 2rem;
-    }
-
-    .cta-final p {
-      font-size: 1rem;
-    }
-
-    .cta-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .btn-white,
-    .btn-outline {
-      width: 100%;
-      max-width: 300px;
-      justify-content: center;
-    }
-  }
-</style>

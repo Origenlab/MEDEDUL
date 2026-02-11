@@ -1,0 +1,126 @@
+---
+interface Props {
+  rating?: number;
+  reviewCount?: number;
+  showText?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  rating = 4.9,
+  reviewCount = 127,
+  showText = true,
+  size = 'md'
+} = Astro.props;
+
+const fullStars = Math.floor(rating);
+const hasHalfStar = rating % 1 >= 0.5;
+const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+const sizeClasses = {
+  sm: 'star-rating--sm',
+  md: 'star-rating--md',
+  lg: 'star-rating--lg'
+};
+---
+
+<div class={`star-rating ${sizeClasses[size]}`}>
+  <div class="star-rating__stars" aria-label={`Calificación: ${rating} de 5 estrellas`}>
+    {Array(fullStars).fill(null).map(() => (
+      <svg class="star star--full" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    ))}
+    {hasHalfStar && (
+      <svg class="star star--half" viewBox="0 0 24 24">
+        <defs>
+          <linearGradient id="halfGradient">
+            <stop offset="50%" stop-color="currentColor"/>
+            <stop offset="50%" stop-color="#e0e0e0"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#halfGradient)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    )}
+    {Array(emptyStars).fill(null).map(() => (
+      <svg class="star star--empty" viewBox="0 0 24 24" fill="#e0e0e0">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    ))}
+  </div>
+  {showText && (
+    <div class="star-rating__text">
+      <span class="star-rating__value">{rating}</span>
+      <span class="star-rating__separator">/5</span>
+      <span class="star-rating__reviews">({reviewCount} reseñas)</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .star-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .star-rating__stars {
+    display: flex;
+    gap: 0.125rem;
+  }
+
+  .star {
+    color: #f5a623;
+  }
+
+  .star--full,
+  .star--half {
+    color: #f5a623;
+  }
+
+  /* Tamaños */
+  .star-rating--sm .star {
+    width: 14px;
+    height: 14px;
+  }
+
+  .star-rating--sm .star-rating__text {
+    font-size: 0.75rem;
+  }
+
+  .star-rating--md .star {
+    width: 18px;
+    height: 18px;
+  }
+
+  .star-rating--md .star-rating__text {
+    font-size: 0.875rem;
+  }
+
+  .star-rating--lg .star {
+    width: 24px;
+    height: 24px;
+  }
+
+  .star-rating--lg .star-rating__text {
+    font-size: 1rem;
+  }
+
+  .star-rating__text {
+    color: var(--texto-light, #64748b);
+    font-weight: 500;
+  }
+
+  .star-rating__value {
+    color: var(--texto-oscuro, #1e293b);
+    font-weight: 700;
+  }
+
+  .star-rating__separator {
+    color: var(--texto-light, #64748b);
+  }
+
+  .star-rating__reviews {
+    color: var(--texto-light, #64748b);
+  }
+</style>

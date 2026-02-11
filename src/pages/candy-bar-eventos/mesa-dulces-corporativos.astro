@@ -2,41 +2,102 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Candy Bar Eventos', url: '/candy-bar-eventos' },
+  { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
   { name: 'Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos' }
 ];
 
-const highlights = [
-  { title: 'Imagen profesional', description: 'Montajes elegantes para reforzar la imagen de marca en lanzamientos, conferencias y networking.' },
-  { title: 'Personalizacion corporativa', description: 'Integramos paleta de color, branding, etiquetas y mensajes para tu empresa o campana.' },
-  { title: 'Logistica puntual', description: 'Instalacion y retiro en horarios estrictos, con equipo coordinado para salones, oficinas y recintos.' },
-  { title: 'Formatos flexibles', description: 'Opciones para coffee break premium, cocktail, aniversarios internos y activaciones de marca.' }
-];
-
-const includes = [
-  'Diseno y planeacion del candy bar corporativo',
-  'Selecciones de dulces finos y postres individuales',
-  'Mobiliario, cristaleria y elementos de presentacion',
-  'Personalizacion con branding (segun alcance)',
-  'Montaje y desmontaje profesional',
-  'Asesoria para cantidad segun numero de asistentes'
-];
-
 const faqs = [
-  { question: 'Atienden eventos en oficinas y hoteles?', answer: 'Si. Cubrimos oficinas corporativas, hoteles, centros de convenciones y venues privados en CDMX y area metropolitana.' },
-  { question: 'Se puede personalizar con logo de mi empresa?', answer: 'Si, podemos incluir branding en etiquetas, display y elementos graficos segun el tipo de paquete.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Idealmente entre 2 y 4 semanas. Para eventos grandes o con branding especial recomendamos mayor anticipacion.' },
-  { question: 'Tambien manejan opciones sin azucar?', answer: 'Si, podemos integrar opciones reducidas en azucar y alternativas balanceadas segun requerimientos.' }
+  { question: 'Que incluye un candy bar corporativo?', answer: 'Incluye planeacion, diseno visual, surtido de producto, montaje profesional, coordinacion en sitio y desmontaje.' },
+  { question: 'Se puede personalizar con branding de la empresa?', answer: 'Si. Podemos integrar paleta corporativa, mensajes, etiquetas y presentacion alineada a marca.' },
+  { question: 'Atienden congresos y lanzamientos?', answer: 'Si. Operamos eventos empresariales, activaciones, networking y celebraciones internas.' },
+  { question: 'Con cuanta anticipacion debo cotizar?', answer: 'Idealmente entre 2 y 4 semanas para asegurar planeacion y agenda del equipo.' },
+  { question: 'Cubren oficinas y centros de convenciones?', answer: 'Si. Cubrimos CDMX y area metropolitana en oficinas, hoteles y recintos empresariales.' },
+  { question: 'Manejan propuestas para distintos presupuestos?', answer: 'Si. Definimos configuraciones referenciales y ajustamos alcance segun objetivo y aforo.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🏢',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para reuniones ejecutivas',
+    features: ['Candy bar corporativo base', 'Surtido funcional para eventos empresariales', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Esencial)'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$9,400',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Diseno personalizado por objetivo del evento', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Personalizacion visual de marca', 'Asesoria comercial previa', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Premium)'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$15,500',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia integral de alto impacto',
+    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Produccion enfocada en imagen de marca'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Luxury)'
+  }
+];
+
+const whyStats = [
+  { number: '200+', label: 'Eventos Corporativos' },
+  { number: '100%', label: 'Alineado a Marca' },
+  { number: '50+', label: 'Formatos Ejecutados' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Imagen Profesional', desc: 'Montajes que refuerzan percepcion de marca en cada punto de contacto.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif' },
+  { num: 2, title: 'Personalizacion Comercial', desc: 'Ajustamos diseno y narrativa visual al objetivo del evento corporativo.', img: '/img/eventos/corporativos/mesa-dulces-corporativo-elegante-negro.avif' },
+  { num: 3, title: 'Logistica Puntual', desc: 'Ejecucion precisa para cumplir horarios de venue y agenda empresarial.', img: '/img/eventos/corporativos/mesa-dulces-evento-corporativo-profesional.avif' },
+  { num: 4, title: 'Operacion Escalable', desc: 'Propuestas para reuniones ejecutivas o eventos de alto aforo.', img: '/img/eventos/corporativos/servicio-mesa-corporativo-cdmx.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Brief Comercial', desc: 'Definimos objetivo del evento, audiencia y criterios de marca.' },
+  { num: 2, title: 'Propuesta Ejecutiva', desc: 'Entregamos configuracion de diseno, producto y operacion.' },
+  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos accesos, montaje y tiempos con venue o corporativo.' },
+  { num: 4, title: 'Ejecucion en Sitio', desc: 'Implementamos montaje y servicio con estandar profesional.' }
+];
+
+const eventCards = [
+  { title: 'Mesa de Dulces para Bodas', excerpt: 'Diseno elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
+  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para fiestas de quinceanera.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Mesa de Dulces para Graduacion', excerpt: 'Propuestas para celebraciones academicas memorables.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduacion' },
+  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Candy bar tematico para celebraciones familiares.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Dulces Corporativos en CDMX',
-  description: 'Candy bar corporativo para eventos empresariales con montaje profesional y personalizacion de marca.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  name: 'Candy Bar Corporativo en CDMX',
+  description: 'Servicio de candy bar corporativo en Ciudad de Mexico para eventos empresariales, activaciones y reuniones ejecutivas.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -49,183 +110,45 @@ const faqSchema = {
 
 <BaseLayout
   title="Mesa de Dulces Corporativos en CDMX | Mededul"
-  description="Candy bar corporativo para eventos empresariales, lanzamientos y activaciones. Servicio profesional en CDMX."
+  description="Candy bar corporativo en CDMX para lanzamientos, networking y eventos empresariales con diseno profesional y montaje puntual."
   canonical="/candy-bar-eventos/mesa-dulces-corporativos"
-  ogImage="/img/galeria/mesa-dulces-corporativo-elegante-negro.avif"
+  ogImage="/img/eventos/corporativos/candy-bar-empresarial.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces <span>Corporativos</span>"
-    description="Creamos candy bars corporativos con presentacion premium para reuniones ejecutivas, congresos y celebraciones empresariales."
-    subtitle="Cada montaje se diseña para que tu evento luzca profesional, organizado y memorable para clientes, colaboradores e invitados."
+    title="Mesa de Dulces Corporativos en CDMX"
+    highlight="Corporativos"
+    subtitle="Candy bar profesional para eventos empresariales con enfoque en imagen, hospitalidad y ejecucion puntual"
+    secondaryContent={`<p><strong>Corporativos</strong> exitosos necesitan un candy bar que comunique profesionalismo, refuerce identidad de marca y mejore la experiencia de asistentes en cada interaccion. En Mededul disenamos propuestas empresariales orientadas a impacto visual y operacion eficiente.</p><p><strong>Eventos</strong> de networking, lanzamientos y celebraciones internas se benefician de un montaje bien ejecutado que eleva percepcion de calidad y ordena el flujo de servicio. Entregamos una solucion integral para que tu empresa proyecte una imagen solida y memorable.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Planea Tu Evento"
+    ctaTitleHighlight="Corporativo"
+    ctaText="Comparte objetivo, aforo y sede para recibir una propuesta comercial clara y alineada a tu marca."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="service-highlights section-padding">
-    <div class="container">
-      <div class="section-head">
-        <h2>Por que elegir nuestro candy bar corporativo</h2>
-        <p class="subtitulo">Servicio profesional, puntual y alineado a la imagen de tu marca</p>
-      </div>
-      <div class="highlight-grid">
-        {highlights.map((item) => (
-          <article class="highlight-card">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el candy bar corporativo al tipo de evento y nivel de servicio requerido." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu evento empresarial." />
 
-  <section class="service-includes section-padding">
-    <div class="container">
-      <h2>Que incluye el servicio</h2>
-      <ul>
-        {includes.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-  </section>
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Candy Bar Corporativo" descriptions={['Combinamos diseno, logistica y operacion para eventos empresariales de alto nivel.', 'Alineamos cada montaje a objetivos de marca y experiencia de asistentes.']} stats={whyStats} features={whyFeatures} />
 
-  <section class="service-faq section-padding">
-    <div class="container">
-      <h2>Preguntas frecuentes</h2>
-      <div class="faq-list">
-        {faqs.map((faq) => (
-          <details>
-            <summary>{faq.question}</summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu candy bar corporativo sin errores." steps={processSteps} />
 
-  <section class="service-cta">
+  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para celebraciones sociales." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Profesional" text="Te ayudamos a implementar un candy bar corporativo alineado a imagen de marca y objetivos del evento." buttonText="Cotizar Corporativo" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>Eleva tu evento corporativo</h2>
-      <p>Solicita una propuesta a la medida para tu empresa y agenda tu fecha con anticipacion.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una Mesa de Dulces Corporativos para mi evento empresarial" class="btn-white" target="_blank" rel="noopener">Solicitar cotizacion</a>
+      <SectionHeader title="Preguntas Frecuentes sobre Candy Bar Corporativo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir una propuesta empresarial efectiva.</p>`} />
+      <FAQ items={faqs} id="faq-corporativos" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .section-head {
-    text-align: center;
-    margin-bottom: 28px;
-  }
-
-  .highlight-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .highlight-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(255, 107, 157, 0.18);
-  }
-
-  .highlight-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-  }
-
-  .highlight-card p {
-    color: var(--gris-texto);
-    margin: 0;
-  }
-
-  .service-includes {
-    background: #fff;
-  }
-
-  .service-includes h2,
-  .service-faq h2 {
-    text-align: center;
-    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-    margin-bottom: 20px;
-  }
-
-  .service-includes ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .service-includes li {
-    background: #fdf7fa;
-    border: 1px solid rgba(255, 107, 157, 0.2);
-    border-radius: 12px;
-    padding: 14px;
-  }
-
-  .faq-list {
-    max-width: 860px;
-    margin: 0 auto;
-    display: grid;
-    gap: 12px;
-  }
-
-  .faq-list details {
-    background: #fff;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    padding: 12px 14px;
-  }
-
-  .faq-list summary {
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .faq-list p {
-    color: var(--gris-texto);
-    margin: 10px 0 2px;
-  }
-
-  .service-cta {
-    padding: 74px 0;
-    text-align: center;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-  }
-
-  .service-cta h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    margin-bottom: 12px;
-  }
-
-  .service-cta p {
-    margin: 0 auto 24px;
-    max-width: 680px;
-    opacity: 0.95;
-  }
-
-  .btn-white {
-    display: inline-block;
-    text-decoration: none;
-    background: #fff;
-    color: #D1007A;
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 14px 28px;
-  }
-
-  @media (max-width: 900px) {
-    .highlight-grid,
-    .service-includes ul {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

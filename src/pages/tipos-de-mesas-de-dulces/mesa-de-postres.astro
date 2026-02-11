@@ -1,9 +1,15 @@
 ---
-// Mesa de Postres - Subpage
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -11,202 +17,280 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
-  { question: "Que postres incluye una mesa de postres?", answer: "Nuestras mesas incluyen una seleccion variada de postres gourmet: pasteles en rebanadas, pays, tartas, cheesecakes, brownies, galletas decoradas, cupcakes, macarons, profiteroles, mousse y postres individuales. Puedes personalizar la seleccion segun tus preferencias." },
-  { question: "Los postres son frescos o congelados?", answer: "Todos nuestros postres son preparados frescos por reposteros profesionales. Se elaboran 24-48 horas antes del evento para garantizar la maxima frescura y sabor. No utilizamos productos congelados ni industriales." },
-  { question: "Puedo elegir los sabores de los postres?", answer: "Si, puedes personalizar completamente tu mesa. Ofrecemos degustacion previa para que elijas tus sabores favoritos. Tenemos opciones clasicas y gourmet, incluyendo opciones sin azucar y sin gluten bajo pedido especial." },
-  { question: "Para cuantas personas alcanza una mesa de postres?", answer: "Calculamos 2-3 porciones de postre por persona. Nuestro paquete basico es para 30-50 personas, el premium para 50-100 y el deluxe para 100-200 invitados. Ajustamos las cantidades segun tus necesidades." },
-  { question: "Incluyen pastel principal o solo postres individuales?", answer: "Nuestras mesas de postres incluyen variedad de postres individuales y en porcion. Si deseas agregar un pastel principal para partir, lo ofrecemos como adicional con diseno personalizado para tu evento." },
-  { question: "Ofrecen opciones para alergias alimentarias?", answer: "Si, podemos incluir postres sin gluten, sin lactosa, sin nueces o sin azucar. Informanos sobre las restricciones alimentarias de tus invitados y prepararemos opciones seguras y deliciosas para todos." }
+  {
+    question: 'Que postres incluye una mesa de postres?',
+    answer: 'Incluimos una seleccion curada de postres gourmet como tartaletas, brownies, mini pasteles, cheesecakes, cupcakes y piezas de reposteria fina. Ajustamos surtido segun tipo de evento y perfil de invitados.'
+  },
+  {
+    question: 'Los postres son frescos o congelados?',
+    answer: 'Trabajamos con produccion fresca para eventos. Coordinamos tiempos de elaboracion y montaje para mantener textura, sabor y presentacion en condiciones optimas durante el servicio.'
+  },
+  {
+    question: 'Puedo personalizar sabores y estilo visual?',
+    answer: 'Si. Personalizamos sabores, presentacion y linea decorativa para alinear la mesa de postres con la identidad visual de tu celebracion.'
+  },
+  {
+    question: 'Para cuantas personas alcanza una mesa de postres?',
+    answer: 'Definimos porcionado y volumen segun numero de asistentes. Contamos con paquetes referenciales para eventos pequenos, medianos y grandes.'
+  },
+  {
+    question: 'Incluye montaje y desmontaje?',
+    answer: 'Si. El servicio contempla montaje profesional, coordinacion en sitio y desmontaje al cierre del evento.'
+  },
+  {
+    question: 'Atienden restricciones alimentarias?',
+    answer: 'Si, podemos integrar opciones especificas segun requerimiento previo. Recomendamos validar restricciones con anticipacion para planear surtido y etiquetado.'
+  }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🍰',
+    price: '$4,500',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para eventos intimos',
+    features: [
+      'Mesa de postres con surtido base',
+      'Montaje profesional',
+      'Presentacion elegante',
+      'Mobiliario incluido',
+      'Desmontaje al finalizar'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Esencial'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,900',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: [
+      'Surtido gourmet ampliado',
+      'Diseno personalizado',
+      'Curaduria por tipo de evento',
+      'Montaje y coordinacion en sitio',
+      'Asesoria previa del evento',
+      'Mejor equilibrio costo-beneficio'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Premium'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,500',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia integral premium',
+    features: [
+      'Surtido premium de alto volumen',
+      'Direccion estetica completa',
+      'Curaduria de reposteria fina',
+      'Operacion en sitio extendida',
+      'Configuracion para eventos grandes',
+      'Acompanamiento operativo integral'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Luxury'
+  }
+];
+
+const whyStats = [
+  { number: '25+', label: 'Variedades Gourmet' },
+  { number: '100%', label: 'Produccion Fresca' },
+  { number: '500+', label: 'Eventos Montados' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  {
+    num: 1,
+    title: 'Reposteria Curada',
+    desc: 'Seleccion profesional de piezas para balancear sabor, textura y presentacion.',
+    img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif'
+  },
+  {
+    num: 2,
+    title: 'Diseno de Exhibicion',
+    desc: 'Composicion visual elegante para maximizar impacto en fotos y experiencia.',
+    img: '/img/tipos-de-mesas/postres/mesa-postres-elegante-eventos.avif'
+  },
+  {
+    num: 3,
+    title: 'Operacion Profesional',
+    desc: 'Montaje, orden y flujo de servicio para mantener calidad durante todo el evento.',
+    img: '/img/tipos-de-mesas/postres/postres-gourmet-fiestas.avif'
+  },
+  {
+    num: 4,
+    title: 'Personalizacion Real',
+    desc: 'Alineamos paleta, estilo y surtido con el concepto especifico de tu celebracion.',
+    img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif'
+  }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, tipo de evento e invitados para definir alcance.' },
+  { num: 2, title: 'Disenamos', desc: 'Proponemos surtido, estilo visual y configuracion segun objetivos.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, agenda y detalles operativos de montaje.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa de postres con estandar profesional.' }
+];
+
+const eventCards = [
+  {
+    title: 'Mesa para Bodas',
+    excerpt: 'Postres elegantes para bodas con composicion visual premium y montaje impecable.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Popular',
+    cta: 'Ver Bodas'
+  },
+  {
+    title: 'Mesa para XV Anos',
+    excerpt: 'Propuesta gourmet personalizada para quinceaneras con alta recordacion visual.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    cta: 'Ver XV Anos'
+  },
+  {
+    title: 'Mesa para Graduacion',
+    excerpt: 'Formato de postres para eventos academicos con servicio ordenado y presentacion premium.',
+    img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Graduaciones'
+  },
+  {
+    title: 'Mesa para Corporativos',
+    excerpt: 'Postres para eventos empresariales con enfoque en imagen profesional y hospitalidad.',
+    img: '/img/eventos/corporativos/candy-bar-empresarial.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos'
+  }
 ];
 
 const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Mesa de Postres para Eventos",
-  "description": "Servicio de renta de mesas de postres gourmet para eventos en CDMX. Incluye variedad de pasteles, pays, tartas, cheesecakes, postres individuales, mobiliario elegante y montaje profesional.",
-  "provider": { "@type": "LocalBusiness", "name": "Mededul", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressCountry": "MX" } },
-  "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
-  "hasOfferCatalog": { "@type": "OfferCatalog", "name": "Paquetes de Mesa de Postres", "itemListElement": [
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Postres Basica", "description": "Para 30-50 invitados" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Postres Premium", "description": "Para 50-100 invitados" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Postres Deluxe", "description": "Para 100-200 invitados" } }
-  ]}
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mesa de Postres para Eventos en CDMX',
+  description: 'Servicio de mesa de postres gourmet para eventos sociales y corporativos en CDMX con montaje profesional.',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442'
+  },
+  areaServed: {
+    '@type': 'City',
+    name: 'Ciudad de Mexico'
+  }
 };
 
-const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer } })) };
-
-const caracteristicas = [
-  { num: 1, title: 'Reposteria Artesanal', desc: 'Postres elaborados por reposteros profesionales con ingredientes de primera calidad.', img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif' },
-  { num: 2, title: 'Variedad Gourmet', desc: 'Desde clasicos como cheesecake hasta creaciones modernas y sofisticadas.', img: '/img/tipos-de-mesas/postres/mesa-postres-elegante-eventos.avif' },
-  { num: 3, title: 'Presentacion Elegante', desc: 'Exhibidores de cristal, bases escalonadas y decoracion que impresiona.', img: '/img/tipos-de-mesas/postres/postres-gourmet-fiestas.avif' },
-  { num: 4, title: 'Frescos del Dia', desc: 'Preparados 24-48 horas antes para garantizar sabor y textura perfectos.', img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif' }
-];
-
-const incluye = [
-  { num: '01', title: 'Postres Gourmet Variados', desc: 'Cheesecakes, tartas, pays, brownies, macarons, cupcakes, profiteroles, mousse y postres de temporada.' },
-  { num: '02', title: 'Presentacion Premium', desc: 'Exhibidores de cristal, bases de diferentes alturas, bandejas elegantes y decoracion acorde a tu evento.' },
-  { num: '03', title: 'Mobiliario Profesional', desc: 'Mesa elegante con manteleria fina, iluminacion decorativa y elementos que realzan la presentacion.' },
-  { num: '04', title: 'Montaje y Desmontaje', desc: 'Instalacion cuidadosa de cada pieza y retiro profesional al finalizar el evento.' },
-  { num: '05', title: 'Etiquetas Descriptivas', desc: 'Identificadores elegantes para cada postre con nombre e ingredientes principales.' },
-  { num: '06', title: 'Asesoria de Sabores', desc: 'Te ayudamos a seleccionar la combinacion perfecta de postres para tu evento.' }
-];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Mesa de Postres para Eventos CDMX | Postres Gourmet"
-  description="Mesa de postres gourmet en CDMX. Pasteles, pays, tartas y cheesecakes para eventos. Montaje profesional. Cotiza gratis."
+  title="Mesa de Postres para Eventos en CDMX | Mededul"
+  description="Renta de mesa de postres gourmet en CDMX con montaje profesional, diseno personalizado y surtido premium para eventos sociales y corporativos."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-postres"
   ogImage="/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de <span>Postres Gourmet</span>"
-    description="Elegancia y sabor se unen en nuestra mesa de postres gourmet. Una exquisita seleccion de pasteles miniatura, macarons, profiteroles, tartaletas y creaciones de reposteria fina que elevaran tu evento a otro nivel."
-    subtitle="Ideal para bodas, XV anos, aniversarios, despedidas de soltera, eventos de gala y cualquier ocasion que requiera un toque de distincion y refinamiento."
+    title="Mesa de Postres Gourmet en CDMX"
+    highlight="Postres Gourmet"
+    subtitle="Surtido premium, diseno elegante y montaje profesional para eventos memorables"
+    secondaryContent={`<p><strong>Postres gourmet</strong> bien seleccionados elevan la experiencia del invitado y fortalecen la imagen global del evento desde la primera impresion. En Mededul disenamos mesas de postres con enfoque en sabor, presentacion y funcionalidad para lograr resultados consistentes.</p><p><strong>Reposteria</strong> personalizada por tipo de celebracion permite construir una propuesta visual coherente con tu concepto, aforo y presupuesto. Nuestro equipo integra curaduria, montaje y operacion para que tu evento en CDMX destaque por calidad y detalle.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Disena Tu Mesa de Postres"
+    ctaTitleHighlight="Postres"
+    ctaText="Comparte fecha, tipo de evento e invitados para recibir una propuesta profesional y personalizada."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Sabor Premium</span>
-          <h2>Por que elegir nuestra <span>Mesa de Postres</span>?</h2>
-          <p class="header-description">Cada postre es una obra de arte creada por <strong>reposteros profesionales</strong> con ingredientes de primera calidad.</p>
-          <p class="header-description">Desde clasicos hasta creaciones vanguardistas, ofrecemos opciones para todos los paladares.</p>
-          <div class="header-stats">
-            <div class="stat-item"><span class="stat-number">25+</span><span class="stat-label">Variedades</span></div>
-            <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Artesanal</span></div>
-            <div class="stat-item"><span class="stat-number">Frescos</span><span class="stat-label">Diarios</span></div>
-            <div class="stat-item"><span class="stat-number">5 hrs</span><span class="stat-label">Respuesta</span></div>
-          </div>
-        </div>
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image"><span class="card-number">{car.num}</span><img src={getCdnUrl(car.img)} alt={car.title} loading="lazy" /></div>
-              <div class="card-content"><h3>{car.title}</h3><p>{car.desc}</p></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PricingPackages
+    id="paquetes"
+    badge="Paquetes Referenciales"
+    title="Escoge el"
+    titleHighlight="Formato Correcto"
+    subtitle="Ajustamos cada propuesta de mesa de postres al perfil de tu evento y nivel de personalizacion requerido."
+    packages={packages}
+    note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion."
+  />
 
-  <section class="galeria-section">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Nuestras <span class="titulo-decorativo">Mesas de Postres</span></h2>
-        <p class="subtitulo">Elegancia y sabor en cada creacion</p>
-      </div>
-      <div class="galeria-grid">
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')} alt="Mesa de postres CDMX" loading="lazy" /></div>
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/postres/mesa-postres-elegante-eventos.avif')} alt="Mesa postres elegante" loading="lazy" /></div>
-        <div class="galeria-item"><img src={getCdnUrl('/img/tipos-de-mesas/postres/postres-gourmet-fiestas.avif')} alt="Postres gourmet fiestas" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
+  <WhyChooseUs
+    id="ventajas"
+    badge="Ventajas Diferenciales"
+    title="Por que elegir nuestra"
+    titleHighlight="Mesa de Postres"
+    descriptions={[
+      'Mesa de postres diseniada con criterio comercial y estetico para eventos que exigen nivel premium en experiencia y presentacion.',
+      'Integramos curaduria de producto, montaje profesional y control operativo para asegurar consistencia durante todo el servicio.'
+    ]}
+    stats={whyStats}
+    features={whyFeatures}
+  />
 
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que incluye nuestra <span>Mesa de Postres</span>?</h2>
-        <p>Dulzura gourmet con servicio profesional</p>
-      </div>
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card"><span class="card-number">{item.num}</span><h4>{item.title}</h4><p>{item.desc}</p></div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps
+    id="proceso"
+    badge="Nuestro Proceso"
+    title="Como"
+    titleHighlight="Trabajamos"
+    subtitle="Cuatro pasos claros para ejecutar tu mesa de postres sin fricciones."
+    steps={processSteps}
+  />
 
-  <section class="cta-final">
-    <div class="container">
-      <h2>Eleva tu evento con postres gourmet</h2>
-      <p>Cotiza tu mesa de postres y sorprende a tus invitados con sabores exquisitos.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Mesa de Postres" class="btn-white" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
-    </div>
-  </section>
+  <EventsGrid
+    id="eventos"
+    badge="Aplicaciones Reales"
+    title="Mesa de Postres para"
+    titleHighlight="Cada Tipo de Evento"
+    subtitle="Adaptamos surtido, estilo y operacion segun la naturaleza de cada celebracion."
+    events={eventCards}
+  />
 
-  <section class="faq-section section-padding">
+  <CTAServices
+    href="/contacto"
+    badge="Cotizacion sin Costo"
+    title="Lleva Tu Evento a Nivel"
+    titleHighlight="Premium"
+    text="Te ayudamos a definir la combinacion de postres ideal para impresionar a tus invitados con una propuesta de alto nivel."
+    buttonText="Cotizar Mesa de Postres"
+  />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="section-header-center">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Resolvemos tus dudas sobre la mesa de postres</p>
-      </div>
-      <div class="faq-container">
-        {faqs.map(faq => (
-          <div class="faq-item"><button class="faq-question"><span>{faq.question}</span><span class="icon">+</span></button><div class="faq-answer"><p>{faq.answer}</p></div></div>
-        ))}
-      </div>
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Mesa de Postres"
+        titleHighlight="Frecuentes"
+        subtitle="Resolvemos las dudas clave antes de contratar"
+        content={`<p>Estas respuestas te permiten elegir con mayor certeza la mejor configuracion para tu evento.</p>`}
+      />
+      <FAQ items={faqs} id="faq-postres" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .caracteristicas-section { padding: 100px 0; background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%); }
-  .caracteristicas-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .caracteristicas-left .header-badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .caracteristicas-left h2 { font-size: 2.2rem; color: var(--texto-oscuro); line-height: 1.3; margin-bottom: 20px; }
-  .caracteristicas-left h2 span { color: var(--rosa-principal); }
-  .caracteristicas-left .header-description { font-size: 1.05rem; color: var(--texto-light); line-height: 1.8; margin-bottom: 15px; }
-  .header-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; background: #fff; padding: 25px 20px; border-radius: 15px; box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1); margin-top: 30px; }
-  .stat-item { text-align: center; }
-  .stat-number { display: block; font-size: 1.8rem; font-weight: 800; color: var(--rosa-principal); }
-  .stat-label { font-size: 0.7rem; color: var(--texto-light); text-transform: uppercase; }
-  .caracteristicas-right { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .caracteristica-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); transition: all 0.3s ease; }
-  .caracteristica-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15); }
-  .caracteristica-card .card-image { position: relative; height: 140px; overflow: hidden; }
-  .caracteristica-card .card-image img { width: 100%; height: 100%; object-fit: cover; }
-  .caracteristica-card .card-number { position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; background: var(--rosa-principal); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; z-index: 2; }
-  .caracteristica-card .card-content { padding: 18px; text-align: center; }
-  .caracteristica-card h3 { font-size: 0.95rem; color: var(--texto-oscuro); margin-bottom: 8px; }
-  .caracteristica-card p { font-size: 0.85rem; color: var(--texto-light); line-height: 1.6; margin: 0; }
-  .galeria-section { padding: 100px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%); }
-  .section-header-center { text-align: center; margin-bottom: 50px; }
-  .section-header-center h2 { font-size: 2rem; color: var(--texto-oscuro); margin-bottom: 10px; }
-  .titulo-decorativo { color: var(--rosa-principal); }
-  .subtitulo { color: var(--texto-light); }
-  .galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-  .galeria-item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-  .galeria-item img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.3s ease; }
-  .galeria-item:hover img { transform: scale(1.05); }
-  .incluye-section { padding: 100px 0; background: #fff; }
-  .incluye-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-  .incluye-header .badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-  .incluye-header h2 { font-size: 2.2rem; color: var(--texto-oscuro); margin-bottom: 15px; }
-  .incluye-header h2 span { color: var(--rosa-principal); }
-  .incluye-header p { color: var(--texto-light); font-size: 1.1rem; }
-  .incluye-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-  .incluye-card { background: #fff; border: 1px solid rgba(233, 30, 140, 0.1); border-radius: 20px; padding: 35px 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.04); transition: all 0.3s ease; }
-  .incluye-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1); }
-  .incluye-card .card-number { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 20px; }
-  .incluye-card h4 { font-size: 1.15rem; color: var(--texto-oscuro); margin-bottom: 12px; }
-  .incluye-card p { font-size: 0.95rem; color: var(--texto-light); line-height: 1.7; margin: 0; }
-  .cta-final { padding: 80px 0; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); text-align: center; color: #fff; }
-  .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
-  .cta-final p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 30px; }
-  .cta-final .btn-white { background: #fff; color: var(--rosa-principal); padding: 18px 40px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-  .cta-final .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-  .faq-section { background: var(--gris-claro); }
-  .faq-container { max-width: 800px; margin: 0 auto; }
-  .faq-item { background: #ffffff; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-  .faq-question { width: 100%; padding: 25px 30px; background: none; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--texto-oscuro); text-align: left; }
-  .faq-question .icon { font-size: 1.5rem; color: var(--rosa-principal); transition: transform 0.3s ease; }
-  .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .faq-item.active .faq-answer { max-height: 500px; }
-  .faq-answer p { padding: 0 30px 25px; color: var(--texto-light); line-height: 1.8; margin: 0; }
-  @media (max-width: 1024px) { .caracteristicas-layout { grid-template-columns: 1fr; gap: 50px; } .caracteristicas-left { text-align: center; } .galeria-grid { grid-template-columns: repeat(2, 1fr); } .incluye-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 768px) { .header-stats { grid-template-columns: repeat(2, 1fr); } .caracteristicas-right { grid-template-columns: 1fr; } .galeria-grid { grid-template-columns: 1fr; } .incluye-grid { grid-template-columns: 1fr; } .cta-final h2 { font-size: 1.8rem; } .faq-question { padding: 20px; font-size: 0.95rem; } }
-</style>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => { button.addEventListener('click', () => { button.parentElement?.classList.toggle('active'); }); });
-</script>

@@ -1,1209 +1,154 @@
 ---
-// Cero Estres - Por que Mededul Subpage
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
-  { name: 'Por que Elegirnos', url: '/porque-mededul' },
+  { name: 'Por que Mededul', url: '/porque-mededul' },
   { name: 'Cero Estres', url: '/porque-mededul/cero-estres' }
 ];
 
-const stats = [
-  { number: '100%', label: 'Puntual' },
-  { number: '500+', label: 'Eventos' },
-  { number: '24/7', label: 'Soporte' },
-  { number: '0', label: 'Preocupaciones' }
-];
-
-const caracteristicas = [
-  { number: 1, title: 'Puntualidad Garantizada', description: 'Llegamos 1-2 horas antes para que todo este listo a tiempo.' },
-  { number: 2, title: 'Comunicacion Constante', description: 'Te mantenemos informado en cada paso del proceso.' },
-  { number: 3, title: 'Equipo Profesional', description: 'Personal capacitado que resuelve cualquier situacion.' },
-  { number: 4, title: 'Plan de Contingencia', description: 'Siempre tenemos un plan B para cualquier imprevisto.' }
-];
-
-const incluye = [
-  { number: '01', title: 'Coordinacion Total', description: 'Nos encargamos de toda la logistica para que tu solo te preocupes de disfrutar.' },
-  { number: '02', title: 'Llegada Anticipada', description: 'Llegamos 1-2 horas antes del evento para montar todo perfectamente.' },
-  { number: '03', title: 'Operador Dedicado', description: 'Personal profesional que atiende la mesa durante todo el evento.' },
-  { number: '04', title: 'Comunicacion Directa', description: 'Linea directa de WhatsApp para resolver cualquier duda al instante.' },
-  { number: '05', title: 'Desmontaje Completo', description: 'Al finalizar, recogemos todo. Tu no mueves un solo dedo.' },
-  { number: '06', title: 'Garantia de Satisfaccion', description: 'Si algo no sale perfecto, lo solucionamos en el momento.' }
-];
-
-const proceso = [
-  { number: 1, title: 'Contactanos', description: 'Escribenos por WhatsApp, respondemos en minutos.' },
-  { number: 2, title: 'Coordinamos', description: 'Definimos fecha, hora y lugar. Nosotros nos encargamos.' },
-  { number: 3, title: 'Montamos', description: 'Llegamos antes, instalamos todo perfectamente.' },
-  { number: 4, title: 'Disfrutas', description: 'Tu unica tarea es disfrutar con tus invitados.' }
-];
-
 const faqs = [
+  { question: 'Que significa cero estres en la practica?', answer: 'Significa delegar planeacion, montaje, operacion y cierre a un equipo profesional con control total del servicio.' },
+  { question: 'Como garantizan puntualidad?', answer: 'Trabajamos con cronograma operativo y ventana de montaje anticipada para minimizar riesgos logísticos.' },
+  { question: 'Debo supervisar durante el evento?', answer: 'No. Nuestro equipo ejecuta en sitio y te mantiene informado sin que debas intervenir en la operacion.' },
+  { question: 'Que pasa si surge un imprevisto?', answer: 'Contamos con protocolos de respuesta y ajustes en sitio para mantener continuidad de servicio.' },
+  { question: 'Incluye desmontaje?', answer: 'Si. El cierre operativo y desmontaje forman parte de la propuesta integral.' },
+  { question: 'Aplica para eventos corporativos y sociales?', answer: 'Si. Adaptamos el modelo operativo al tipo de evento y dinamica de invitados.' }
+];
+
+const packages = [
   {
-    question: '¿Que significa cero estres en el servicio?',
-    answer: 'Significa que tu unica preocupacion es disfrutar tu evento. Nosotros nos encargamos de absolutamente todo: planeacion, coordinacion, montaje, atencion durante el evento y desmontaje. Desde el primer contacto hasta que recogemos el ultimo recipiente, tu no tienes que preocuparte por nada.'
+    name: 'Esencial',
+    icon: '🛠️',
+    price: '$5,000',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Control operativo base',
+    features: ['Planeacion operativa inicial', 'Montaje profesional', 'Operacion en sitio', 'Seguimiento de servicio', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar cero estres (Esencial)'
   },
   {
-    question: '¿Que pasa si hay algun imprevisto el dia del evento?',
-    answer: 'Siempre tenemos un plan de contingencia. Nuestro equipo esta capacitado para resolver cualquier situacion en el momento. Ademas, contamos con inventario de respaldo por si algun elemento se dana o falta. Tu tranquilidad es nuestra prioridad.'
+    name: 'Premium',
+    icon: '⭐',
+    price: '$8,700',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Coordinacion operativa integral', 'Diseno y montaje personalizado', 'Operacion extendida en sitio', 'Comunicacion directa de seguimiento', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar cero estres (Premium)'
   },
   {
-    question: '¿Como garantizan la puntualidad?',
-    answer: 'Planificamos cada evento con margenes de tiempo amplios. Llegamos 1-2 horas antes de la hora acordada para montar todo con calma. Monitoreamos el trafico y tenemos rutas alternativas. En mas de 500 eventos, jamas hemos llegado tarde.'
-  },
-  {
-    question: '¿Puedo comunicarme con ustedes durante el evento?',
-    answer: 'Absolutamente. Tienes acceso directo a nuestro WhatsApp 24/7. Ademas, el operador que atiende tu mesa tiene comunicacion directa con nuestro equipo de coordinacion para resolver cualquier necesidad al instante.'
-  },
-  {
-    question: '¿Que pasa al finalizar el evento?',
-    answer: 'Nuestro equipo se encarga del desmontaje completo. Recogemos todos los recipientes, decoracion, mesas y cualquier elemento que hayamos proporcionado. Dejamos el espacio exactamente como lo encontramos. Tu no tienes que hacer nada.'
-  },
-  {
-    question: '¿Necesito estar supervisando la mesa durante el evento?',
-    answer: 'Para nada. Nuestro operador profesional se encarga de todo: mantener la mesa impecable, rellenar dulces, atender a tus invitados y cuidar cada detalle. Tu puedes disfrutar de tu evento con total tranquilidad.'
+    name: 'Luxury',
+    icon: '💎',
+    price: '$13,800',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia integral sin fricciones',
+    features: ['Direccion operativa completa', 'Produccion premium de alto volumen', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Cierre operativo profesional'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar cero estres (Luxury)'
   }
 ];
 
-const galeriaImages = [
-  { src: '/img/home/hero-mesas-dulces-profesionales.avif', alt: 'Servicio puntual mesas de dulces' },
-  { src: '/img/home/hero-mesas-dulces-profesionales.avif', alt: 'Montaje profesional sin estres' },
-  { src: '/img/home/hero-mesas-dulces-profesionales.avif', alt: 'Operador profesional eventos' },
-  { src: '/img/home/hero-mesas-dulces-profesionales.avif', alt: 'Coordinacion perfecta eventos' },
-  { src: '/img/home/hero-mesas-dulces-profesionales.avif', alt: 'Servicio integral mesas dulces' }
+const whyStats = [
+  { number: '500+', label: 'Eventos' },
+  { number: '100%', label: 'Puntualidad' },
+  { number: '0', label: 'Improvisacion' },
+  { number: '24h', label: 'Respuesta Comercial' }
 ];
 
-const eventos = [
-  {
-    title: 'Mesa de Dulces para Bodas',
-    description: 'Montajes elegantes y romanticos que complementan tu gran dia. Disenos sofisticados con la paleta de colores de tu boda.',
-    image: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
-    badge: 'Mas Solicitado',
-    badgeColor: 'linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%)',
-    badgeTextColor: '#1a1a1a',
-    features: ['Coordinacion con wedding planner', 'Puntualidad garantizada', 'Cero preocupaciones'],
-    link: '/candy-bar-eventos/mesa-dulces-boda',
-    linkText: 'Mesa para Bodas'
-  },
-  {
-    title: 'Mesa de Dulces para XV Anos',
-    description: 'Mesas espectaculares con la tematica y colores de la quinceañera. Hacemos realidad el sueno de tu princesa.',
-    image: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
-    badge: 'Espectacular',
-    badgeColor: 'linear-gradient(135deg, #7A2BC2 0%, #D1007A 100%)',
-    badgeTextColor: '#fff',
-    features: ['Servicio integral', 'Comunicacion constante', 'Montaje impecable'],
-    link: '/candy-bar-eventos/mesa-dulces-xv-anos',
-    linkText: 'Mesa para XV Anos'
-  },
-  {
-    title: 'Mesa de Dulces Baby Shower',
-    description: 'Disenos delicados en tonos pastel para dar la bienvenida al bebe. Creamos ambientes tiernos y memorables.',
-    image: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif',
-    badge: 'Delicado',
-    badgeColor: 'linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%)',
-    badgeTextColor: '#1a1a1a',
-    features: ['Atencion al detalle', 'Operador dedicado', 'Desmontaje incluido'],
-    link: '/candy-bar-eventos/mesa-dulces-baby-shower',
-    linkText: 'Mesa Baby Shower'
-  },
-  {
-    title: 'Mesa de Dulces Cumpleanos',
-    description: 'Fiestas infantiles y celebraciones de adultos con tematicas 100% personalizadas. Cada edad merece algo especial.',
-    image: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
-    badge: 'Divertido',
-    badgeColor: 'linear-gradient(135deg, #D1007A 0%, #FFE66D 100%)',
-    badgeTextColor: '#1a1a1a',
-    features: ['Servicio sin complicaciones', 'Equipo profesional', 'Tranquilidad total'],
-    link: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
-    linkText: 'Mesa Cumpleanos'
-  }
+const whyFeatures = [
+  { num: 1, title: 'Planeacion Sin Fricciones', desc: 'Definimos ruta operativa para anticipar riesgos y evitar contratiempos.', img: '/img/porque-elegirnos/cero-estres-eventos.avif' },
+  { num: 2, title: 'Montaje Puntual', desc: 'Implementacion anticipada para llegar al evento con todo listo.', img: '/img/home/servicio-profesional-mesas-dulces.avif' },
+  { num: 3, title: 'Operacion Controlada', desc: 'Supervision en sitio para mantener presentacion y continuidad del servicio.', img: '/img/galeria/candy-bar-profesional-eventos.avif' },
+  { num: 4, title: 'Cierre Ordenado', desc: 'Desmontaje y cierre operativo sin carga para el cliente.', img: '/img/galeria/mesa-dulces-eventos-especiales.avif' }
 ];
+
+const processSteps = [
+  { num: 1, title: 'Brief del Evento', desc: 'Recibimos contexto, objetivo y requerimientos operativos.' },
+  { num: 2, title: 'Plan de Ejecucion', desc: 'Estructuramos cronograma, recursos y responsables del servicio.' },
+  { num: 3, title: 'Montaje y Operacion', desc: 'Implementamos en sitio con monitoreo de continuidad y calidad.' },
+  { num: 4, title: 'Cierre Profesional', desc: 'Realizamos desmontaje y entrega final sin fricciones.' }
+];
+
+const eventCards = [
+  { title: 'Servicio Completo', excerpt: 'Centralizamos operacion para simplificar tu evento.', img: '/img/porque-elegirnos/servicio-completo-mesas.avif', href: '/porque-mededul/servicio-completo', cta: 'Ver Servicio Completo' },
+  { title: 'Calidad Premium', excerpt: 'Curaduria profesional para elevar experiencia e imagen.', img: '/img/porque-elegirnos/calidad-premium-dulces.avif', href: '/porque-mededul/calidad-premium', cta: 'Ver Calidad Premium' },
+  { title: 'Diseno Personalizado', excerpt: 'Direccion visual para montajes unicos y coherentes.', img: '/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif', href: '/porque-mededul/diseno-personalizado', cta: 'Ver Diseno Personalizado' },
+  { title: 'Mesa de Dulces Corporativos', excerpt: 'Aplicamos control operativo en eventos empresariales exigentes.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' }
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Servicio Cero Estres para Mesas de Dulces en CDMX',
+  description: 'Servicio profesional de mesas de dulces en Ciudad de Mexico con enfoque cero estres: planeacion, montaje y operacion integral.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+};
 ---
 
 <BaseLayout
-  title="Mesas de Dulces Sin Estres CDMX | Servicio Profesional Garantizado"
-  description="Renta de mesas de dulces en CDMX sin estres. Candy bar con servicio profesional y puntualidad garantizada. Disfruta tu evento."
-  canonical="https://mesas-de-dulces.com/porque-mededul/cero-estres"
-  ogImage="/img/home/hero-mesas-dulces-profesionales.avif"
-  includeServiceSchema={true}
+  title="Servicio Cero Estres para Mesas de Dulces en CDMX | Mededul"
+  description="Mesas de dulces en CDMX con servicio cero estres: planeacion, montaje, operacion y cierre profesional para eventos sin fricciones."
+  canonical="/porque-mededul/cero-estres"
+  ogImage="/img/porque-elegirnos/cero-estres-eventos.avif"
+  includeCategoryStyles={true}
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    })} />
-  </Fragment>
+  <JsonLd type="Service" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="<span>Cero Estres</span> Tu Unica Tarea es Disfrutar"
-    description="Olvida las preocupaciones y <strong>disfruta tu evento al maximo</strong>. Nuestro equipo profesional se encarga de absolutamente todo: planeacion, montaje, atencion y desmontaje."
-    subtitle="Con mas de 500 eventos realizados y 100% de puntualidad, tu tranquilidad esta garantizada."
+    title="Servicio Cero Estres para Eventos en CDMX"
+    highlight="Cero Estres"
+    subtitle="Operacion profesional para que disfrutes tu evento sin carga ni preocupaciones"
+    secondaryContent={`<p><strong>Estres</strong> operativo en un evento suele venir de decisiones fragmentadas, proveedores desalineados y falta de control en sitio. En Mededul resolvemos ese riesgo con una metodologia integral que unifica planeacion, montaje y ejecucion profesional.</p><p><strong>Servicio</strong> cero estres significa previsibilidad real: tiempos claros, comunicacion efectiva y respuesta operativa ante cualquier ajuste del evento. Asi proteges tu experiencia como anfitrion y aseguras un resultado consistente para tus invitados.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Organiza Tu Evento con"
+    ctaTitleHighlight="Cero Estres"
+    ctaText="Comparte tu fecha, sede y objetivos para recibir una propuesta operativa clara y profesional."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el nivel de acompanamiento operativo segun complejidad y aforo." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro modelo" titleHighlight="Cero Estres" descriptions={['Integramos operacion, seguimiento y cierre para reducir friccion en cada etapa.', 'Garantizamos continuidad de servicio con enfoque profesional y controlado.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu evento con control total y sin improvisaciones." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Estas capacidades complementan una ejecucion estable y de alta calidad." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Disfruta Tu Evento con una Operacion" titleHighlight="Sin Fricciones" text="Te ayudamos a implementar una mesa de dulces con control profesional y acompanamiento de principio a fin." buttonText="Cotizar Servicio Cero Estres" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Tranquilidad Garantizada</span>
-          <h2>¿Por que elegir <span>Cero Estres</span>?</h2>
-          <p class="header-description">Con mas de <strong>500 eventos</strong> realizados sin ningun contratiempo, hemos perfeccionado cada detalle del proceso. Tu tranquilidad es nuestra obsesion.</p>
-          <p class="header-description">Nuestro equipo de <strong>profesionales capacitados</strong> resuelve cualquier situacion antes de que te enteres.</p>
-          <div class="header-stats">
-            {stats.map(stat => (
-              <div class="stat-item">
-                <span class="stat-number">{stat.number}</span>
-                <span class="stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div class="caracteristicas-right">
-          {caracteristicas.map(item => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <span class="card-number">{item.number}</span>
-                <img
-                  src={getCdnUrl('/img/home/hero-mesas-dulces-profesionales.avif')}
-                  alt={item.title}
-                  width="528"
-                  height="634"
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-content">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Galeria Section -->
-  <section class="galeria-section" id="galeria">
-    <div class="container">
-      <div class="section-header">
-        <h2>Nuestro Servicio <span class="titulo-decorativo">Cero Estres</span> en Accion</h2>
-        <p class="subtitulo">Eventos donde los anfitriones solo disfrutaron</p>
-      </div>
-
-      <div class="galeria-bento">
-        {galeriaImages.map(img => (
-          <div class="galeria-item">
-            <img
-              src={getCdnUrl(img.src)}
-              alt={img.alt}
-              width="528"
-              height="634"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Servicio Integral</span>
-        <h2>¿Que incluye nuestro servicio <span>Cero Estres</span>?</h2>
-        <p>Todo lo que necesitas para disfrutar sin preocupaciones</p>
-      </div>
-
-      <div class="incluye-grid">
-        {incluye.map(item => (
-          <div class="incluye-card">
-            <span class="card-number">{item.number}</span>
-            <h4>{item.title}</h4>
-            <p>{item.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Eventos Section -->
-  <section class="eventos-premium">
-    <div class="container">
-      <div class="eventos-header">
-        <span class="badge">Sin Complicaciones</span>
-        <h2>Tu Mesa de Dulces para <span>Cualquier Evento</span></h2>
-        <p>Manejamos todo tipo de eventos con la misma dedicacion y profesionalismo. Tu solo disfrutas.</p>
-      </div>
-      <div class="eventos-grid">
-        {eventos.map(evento => (
-          <div class="evento-card">
-            <div class="evento-image">
-              <img
-                src={getCdnUrl(evento.image)}
-                alt={evento.title}
-                width="560"
-                height="686"
-                loading="lazy"
-              />
-              <div class="evento-badge" style={`background: ${evento.badgeColor}; color: ${evento.badgeTextColor};`}>
-                {evento.badge}
-              </div>
-            </div>
-            <div class="evento-content">
-              <h3>{evento.title}</h3>
-              <p>{evento.description}</p>
-              <ul class="evento-features">
-                {evento.features.map(feature => (
-                  <li>
-                    <svg width="14" height="14" fill="#D1007A" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a href={evento.link} class="evento-btn">
-                {evento.linkText}
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Proceso <span class="titulo-decorativo">Sin Complicaciones</span></h2>
-        <p class="subtitulo">Asi de facil es trabajar con nosotros</p>
-      </div>
-
-      <div class="proceso-timeline">
-        {proceso.map(step => (
-          <div class="proceso-step">
-            <div class="number">{step.number}</div>
-            <h4>{step.title}</h4>
-            <p>{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Resolvemos tus dudas sobre nuestro servicio cero estres</p>
-      </div>
-
-      <div class="faq-container">
-        {faqs.map((faq) => (
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>{faq.question}</span>
-              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div class="faq-answer">
-              <p>{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="cta-final">
-    <div class="container">
-      <h2>¿Listo para disfrutar sin preocupaciones?</h2>
-      <p>Cotiza tu mesa de dulces con servicio cero estres</p>
-      <a href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces con servicio cero estres" class="btn-white" target="_blank" rel="noopener">
-        Cotizar por WhatsApp
-      </a>
+      <SectionHeader title="Preguntas Frecuentes sobre Servicio Cero Estres" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a entender como operamos para eliminar fricciones en tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-cero-estres" />
     </div>
   </section>
 </BaseLayout>
-
-<style>
-
-  /* Caracteristicas Section */
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .caracteristicas-left {
-    padding-right: 20px;
-  }
-
-  .header-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .caracteristicas-left h2 span {
-    color: #D1007A;
-  }
-
-  .header-description {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-description:last-of-type {
-    margin-bottom: 30px;
-  }
-
-  .header-description strong {
-    color: #D1007A;
-  }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #D1007A;
-    line-height: 1.2;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .caracteristica-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .caracteristica-card:hover .card-image img {
-    transform: scale(1.05);
-  }
-
-  .caracteristica-card .card-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: #D1007A;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.95rem;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content {
-    padding: 18px;
-    text-align: center;
-  }
-
-  .caracteristica-card h3 {
-    font-size: 0.95rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-weight: 700;
-  }
-
-  .caracteristica-card p {
-    font-size: 0.85rem;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Galeria Section */
-  .galeria-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .galeria-section::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(233, 30, 140, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .section-header h2 {
-    font-size: 2.2rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .titulo-decorativo {
-    color: #D1007A;
-  }
-
-  .subtitulo {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .galeria-bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 220px);
-    gap: 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .galeria-item {
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  }
-
-  .galeria-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .galeria-item:hover img {
-    transform: scale(1.05);
-  }
-
-  .galeria-item:nth-child(1) {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .galeria-item:nth-child(4) {
-    grid-column: span 2;
-  }
-
-  /* Incluye Section */
-  .incluye-section {
-    padding: 100px 0;
-    background: #fff;
-    position: relative;
-  }
-
-  .incluye-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-  }
-
-  .incluye-header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .incluye-header h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-  }
-
-  .incluye-header h2 span {
-    color: #D1007A;
-  }
-
-  .incluye-header p {
-    font-size: 1.1rem;
-    color: #666;
-  }
-
-  .incluye-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .incluye-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 20px;
-    padding: 35px 30px;
-    position: relative;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .incluye-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.12);
-  }
-
-  .incluye-card .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .incluye-card h4 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-
-  .incluye-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Eventos Section */
-  .eventos-premium {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .eventos-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .eventos-header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 24px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .eventos-header h2 {
-    font-size: 2.2rem;
-    color: #1a1a1a;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-
-  .eventos-header h2 span {
-    color: #D1007A;
-  }
-
-  .eventos-header p {
-    font-size: 1.1rem;
-    color: #666;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  .eventos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-  }
-
-  .evento-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    border: 1px solid rgba(233, 30, 140, 0.08);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .evento-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 50px rgba(233, 30, 140, 0.15);
-  }
-
-  .evento-image {
-    height: 180px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .evento-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .evento-card:hover .evento-image img {
-    transform: scale(1.05);
-  }
-
-  .evento-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .evento-content {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  .evento-content h3 {
-    font-size: 1.15rem;
-    color: #1a1a1a;
-    margin: 0 0 10px 0;
-    font-weight: 700;
-  }
-
-  .evento-content > p {
-    font-size: 0.88rem;
-    color: #555;
-    margin: 0 0 14px 0;
-    line-height: 1.6;
-  }
-
-  .evento-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 16px 0;
-    flex-grow: 1;
-  }
-
-  .evento-features li {
-    font-size: 0.8rem;
-    color: #666;
-    padding: 4px 0;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .evento-btn {
-    display: block;
-    text-align: center;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
-  }
-
-  .evento-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
-  }
-
-  .evento-btn svg {
-    vertical-align: middle;
-    margin-left: 5px;
-  }
-
-  /* Proceso Section */
-  .proceso-section {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 50px;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: #eee;
-  }
-
-  .proceso-step {
-    text-align: center;
-    position: relative;
-    flex: 1;
-  }
-
-  .proceso-step .number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-  }
-
-  .proceso-step h4 {
-    font-size: 1rem;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-  }
-
-  .proceso-step p {
-    font-size: 0.85rem;
-    color: #666;
-    max-width: 180px;
-    margin: 0 auto;
-  }
-
-  /* FAQ Section */
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
-    background: #fff;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-  }
-
-  .faq-question {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 25px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    transition: color 0.3s ease;
-  }
-
-  .faq-question:hover {
-    color: #D1007A;
-  }
-
-  .faq-question span {
-    flex: 1;
-    padding-right: 15px;
-  }
-
-  .faq-icon {
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    color: #D1007A;
-  }
-
-  .faq-item.active .faq-icon {
-    transform: rotate(180deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-  }
-
-  .faq-answer p {
-    padding: 0 25px 20px;
-    margin: 0;
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.7;
-  }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-
-  .cta-final p {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-white {
-    background: #fff;
-    color: #D1007A;
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .caracteristicas-layout {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-
-    .caracteristicas-left {
-      padding-right: 0;
-      text-align: center;
-    }
-
-    .caracteristicas-left h2 {
-      font-size: 2rem;
-    }
-
-    .galeria-bento {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 180px);
-    }
-
-    .galeria-item:nth-child(1) {
-      grid-column: span 2;
-    }
-
-    .galeria-item:nth-child(4) {
-      grid-column: span 1;
-    }
-
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .proceso-timeline {
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .proceso-timeline::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-
-    .caracteristicas-left h2 {
-      font-size: 1.7rem;
-    }
-
-    .header-stats {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      padding: 20px 15px;
-    }
-
-    .stat-number {
-      font-size: 1.5rem;
-    }
-
-    .galeria-bento {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, 150px);
-      gap: 10px;
-    }
-
-    .galeria-item:nth-child(1) {
-      grid-column: span 2;
-    }
-
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .incluye-header h2 {
-      font-size: 1.8rem;
-    }
-
-    .cta-final h2 {
-      font-size: 1.8rem;
-    }
-
-    .eventos-header h2 {
-      font-size: 1.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proceso-timeline {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .proceso-step {
-      flex: none;
-      width: 100%;
-      min-width: unset;
-      text-align: center;
-    }
-
-    .proceso-step .number {
-      width: 50px;
-      height: 50px;
-      font-size: 1.1rem;
-      margin: 0 auto 10px;
-    }
-
-    .proceso-step h4 {
-      font-size: 0.95rem;
-    }
-
-    .proceso-step p {
-      font-size: 0.85rem;
-    }
-
-    .incluye-grid {
-      grid-template-columns: 1fr;
-      gap: 15px;
-    }
-
-    .caracteristicas-right {
-      grid-template-columns: 1fr;
-    }
-
-    .caracteristica-card,
-    .incluye-card {
-      transform: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .caracteristica-card:hover,
-    .incluye-card:hover {
-      transform: none;
-    }
-  }
-
-  @media (max-width: 380px) {
-    .proceso-timeline {
-      grid-template-columns: 1fr;
-    }
-
-    .proceso-step .number {
-      width: 45px;
-      height: 45px;
-      font-size: 1rem;
-    }
-
-    .caracteristicas-left h2 {
-      font-size: 1.4rem;
-    }
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    .caracteristica-card,
-    .incluye-card,
-    .evento-card {
-      transform: none;
-    }
-
-    .caracteristica-card:hover,
-    .incluye-card:hover,
-    .evento-card:hover {
-      transform: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .caracteristica-card .card-image img,
-    .evento-image img {
-      transform: none;
-    }
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-
-      question?.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-
-        // Close all other items
-        faqItems.forEach(otherItem => {
-          otherItem.classList.remove('active');
-          otherItem.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
-        });
-
-        // Toggle current item
-        if (!isActive) {
-          item.classList.add('active');
-          question.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  });
-</script>

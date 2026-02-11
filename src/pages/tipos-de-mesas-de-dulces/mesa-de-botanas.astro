@@ -1,41 +1,103 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ServiceSubpage from '@/components/landing/ServiceSubpage.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
   { name: 'Mesa de Botanas', url: '/tipos-de-mesas-de-dulces/mesa-de-botanas' }
 ];
 
-const highlights = [
-  { title: 'Botanas para convivir', description: 'Formato social ideal para reuniones familiares, fiestas y celebraciones casuales.' },
-  { title: 'Opciones variadas', description: 'Selecciones saladas y antojitos que se adaptan al perfil del evento.' },
-  { title: 'Presentacion atractiva', description: 'Montaje visual limpio para que la mesa luzca tan bien como sabe.' },
-  { title: 'Servicio integral', description: 'Planeamos, montamos y retiramos para que tu solo te enfoques en disfrutar.' }
-];
-
-const includes = [
-  'Variedad de botanas saladas y antojitos',
-  'Montaje de mesa con elementos decorativos',
-  'Utensilios y contenedores para servicio',
-  'Planeacion por cantidad de invitados',
-  'Montaje y desmontaje en sitio',
-  'Asesoria para combinar con barra o candy bar'
-];
-
 const faqs = [
-  { question: 'Que tipo de botanas incluyen?', answer: 'Configuramos la propuesta con base en tu evento: clasicas, mexicanas, mixtas y opciones especiales.' },
-  { question: 'Sirve para eventos infantiles y adultos?', answer: 'Si, personalizamos el contenido segun edad, horario y tipo de celebracion.' },
-  { question: 'Pueden montar en exteriores?', answer: 'Si, podemos trabajar en jardines y terrazas cuidando la logistica del montaje.' },
-  { question: 'Tambien manejan formato empresarial?', answer: 'Si, ajustamos estilo y contenido para convivencias y eventos de oficina.' }
+  { question: 'Que incluye una mesa de botanas?', answer: 'Incluye variedad de botanas saladas, montaje profesional, contenedores de servicio, presentacion visual y desmontaje.' },
+  { question: 'Es apta para eventos familiares y corporativos?', answer: 'Si. Ajustamos estilo y contenido para celebraciones familiares, sociales y empresariales.' },
+  { question: 'Se puede personalizar el surtido?', answer: 'Si. Configuramos opciones segun edad de invitados, horario del evento y preferencias de consumo.' },
+  { question: 'Pueden montar en exteriores?', answer: 'Si. Operamos en jardines, terrazas y venues abiertos con planeacion de montaje adecuada.' },
+  { question: 'Se puede combinar con candy bar?', answer: 'Si. Es una combinacion recomendada para balancear experiencia salada y dulce.' },
+  { question: 'Incluye montaje y desmontaje?', answer: 'Si. El servicio es integral con ejecucion profesional de inicio a fin.' }
+];
+
+const packages = [
+  {
+    name: 'Esencial',
+    icon: '🥨',
+    price: '$3,800',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para reuniones pequenas',
+    features: ['Surtido base de botanas', 'Montaje profesional', 'Presentacion funcional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Botanas - Paquete Esencial'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$6,500',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Variedad ampliada de botanas', 'Diseno personalizado', 'Composicion de servicio eficiente', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Botanas - Paquete Premium'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$10,200',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Operacion de alto volumen',
+    features: ['Surtido premium de botanas', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor capacidad de reposicion'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Botanas - Paquete Luxury'
+  }
+];
+
+const whyStats = [
+  { number: '25+', label: 'Opciones Saladas' },
+  { number: '100%', label: 'Formato Flexible' },
+  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Convivencia Social', desc: 'Formato ideal para eventos donde la interaccion es prioridad.', img: '/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif' },
+  { num: 2, title: 'Surtido Personalizable', desc: 'Ajustamos botanas segun perfil de invitados y momento del evento.', img: '/img/tipos-de-mesas/botanas/botanas-saladas-eventos.avif' },
+  { num: 3, title: 'Presentacion Limpia', desc: 'Montaje visual ordenado para mejorar experiencia de servicio.', img: '/img/tipos-de-mesas/botanas/mesa-botanas-fiestas-cdmx.avif' },
+  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion y ejecucion para mantener continuidad y calidad.', img: '/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance.' },
+  { num: 2, title: 'Disenamos', desc: 'Configuramos mezcla de botanas y estilo de montaje.' },
+  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica y tiempos de ejecucion en sitio.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa de botanas profesionalmente.' }
+];
+
+const eventCards = [
+  { title: 'Botanas para Cumpleanos', excerpt: 'Formato social para celebraciones familiares y reuniones de amigos.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
+  { title: 'Botanas para Corporativos', excerpt: 'Solucion practica para eventos de oficina y convivencia empresarial.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
+  { title: 'Botanas para Bautizo', excerpt: 'Complemento salado para eventos familiares con servicio ordenado.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
+  { title: 'Botanas para Graduacion', excerpt: 'Propuesta funcional para eventos de aforo medio y alto.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones' }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Mesa de Botanas para Eventos en CDMX',
-  description: 'Servicio de mesa de botanas saladas para fiestas y reuniones en Ciudad de Mexico.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul' },
+  description: 'Servicio de mesa de botanas saladas para eventos sociales y corporativos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
@@ -48,32 +110,45 @@ const faqSchema = {
 
 <BaseLayout
   title="Mesa de Botanas para Eventos en CDMX | Mededul"
-  description="Renta de mesa de botanas saladas para fiestas, reuniones y eventos empresariales en CDMX."
+  description="Renta de mesa de botanas saladas en CDMX con montaje profesional para eventos familiares, sociales y corporativos."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-botanas"
   ogImage="/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
-  <ServiceSubpage
-    breadcrumbItems={breadcrumbItems}
-    heading="Mesa de"
-    headingHighlight="Botanas"
-    intro={[
-      'Nuestra mesa de botanas agrega sabor y dinamismo a cualquier celebracion con opciones saladas muy bien presentadas.',
-      'Es una excelente alternativa para reuniones donde quieres algo practico, rendidor y con gran impacto visual.'
-    ]}
-    heroImage="/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif"
-    heroAlt="Mesa de botanas saladas para eventos"
-    badgeValue="Saladas"
-    badgeLabel="Top"
-    sectionTitle="Botanas que mejoran la experiencia"
-    sectionSubtitle="Formato flexible para eventos sociales, familiares y empresariales"
-    highlights={highlights}
-    includes={includes}
-    faqs={faqs}
-    ctaTitle="Cotiza tu mesa de botanas"
-    ctaText="Te ayudamos a definir la mejor propuesta para tu evento y numero de asistentes."
-    whatsappMessage="Hola! Quiero cotizar una Mesa de Botanas para mi evento"
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa de Botanas para Eventos en CDMX"
+    highlight="Mesa de Botanas"
+    subtitle="Propuesta salada flexible para convivencias familiares, sociales y empresariales"
+    secondaryContent={`<p><strong>Botanas</strong> bien seleccionadas generan una experiencia social dinamica y funcional en eventos donde la convivencia es clave. En Mededul estructuramos mesas de botanas con enfoque en flujo, presentacion y practicidad para maximizar satisfaccion de invitados.</p><p><strong>Saladas</strong> y personalizadas, nuestras propuestas se adaptan al perfil real del evento, al horario y al tipo de asistentes. Ejecutamos montaje y operacion con estandar profesional para resultados consistentes en CDMX.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Mesa de Botanas"
+    ctaTitleHighlight="Botanas"
+    ctaText="Comparte aforo y tipo de evento para recomendarte una configuracion eficiente y personalizada."
+    ctaButtonText="Solicitar Asesoria"
   />
+
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de botanas al aforo, dinamica y nivel de servicio que necesitas." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Botanas" descriptions={['Mesa de botanas diseniada para eventos que requieren servicio agil y alta convivencia.', 'Integramos variedad, presentacion y operacion para mantener calidad durante todo el evento.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu mesa de botanas sin errores." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Mesa de Botanas para" titleHighlight="Cada Tipo de Evento" subtitle="Configuramos surtido y presentacion segun el contexto especifico de cada celebracion." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Activa Tu Evento con una Propuesta" titleHighlight="Salada" text="Te ayudamos a montar una mesa de botanas funcional, atractiva y alineada al perfil de tus invitados." buttonText="Cotizar Mesa de Botanas" />
+
+  <section class="section-faq section-padding" id="faq">
+    <div class="container">
+      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Botanas" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir una configuracion de botanas mas efectiva para tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-botanas" />
+    </div>
+  </section>
 </BaseLayout>

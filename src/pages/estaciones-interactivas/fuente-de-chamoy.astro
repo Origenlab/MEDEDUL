@@ -1,9 +1,15 @@
 ---
-// Fuente de Chamoy Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
@@ -11,1085 +17,138 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
+  { question: 'Que tipo de chamoy usan?', answer: 'Utilizamos chamoy de calidad en perfiles de intensidad ajustables segun el tipo de evento.' },
+  { question: 'Que incluye la estacion?', answer: 'Incluye fuente, insumos principales, acompanamientos seleccionados, montaje profesional y operacion en sitio.' },
+  { question: 'Se puede ajustar nivel de picante?', answer: 'Si, configuramos intensidad y combinacion de toppings segun el perfil de asistentes.' },
+  { question: 'Es apta para fiestas tematicas mexicanas?', answer: 'Si. Es una de las estaciones mas efectivas para eventos con identidad mexicana y alto nivel de interaccion.' },
+  { question: 'Se puede combinar con otras estaciones?', answer: 'Si, se integra muy bien con candy wall, fuente de chocolate y mesas de frutas.' },
+  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con ejecucion profesional de inicio a fin.' }
+];
+
+const packages = [
   {
-    question: "Que tipo de chamoy usan en la fuente?",
-    answer: "Utilizamos chamoy artesanal mexicano de receta tradicional. Ofrecemos diferentes niveles de picante: suave, medio y picoso. El chamoy tiene la consistencia perfecta para fluir en cascada y adherirse a las frutas y dulces."
+    name: 'Esencial',
+    icon: '🌶️',
+    price: '$4,600',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para una estacion principal',
+    features: ['Fuente de chamoy profesional', 'Acompanamientos base incluidos', 'Montaje profesional', 'Operacion en sitio', 'Desmontaje al finalizar'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Esencial'
   },
   {
-    question: "Que acompanantes incluye la fuente de chamoy?",
-    answer: "Incluimos frutas frescas mexicanas: mango, jicama, pepino, sandia, pina y manzana verde. Tambien gomitas, tamarindos, paletas de tamarindo, dulces enchilados y chile Tajin para espolvorear."
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,900',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: ['Mayor volumen de insumos', 'Personalizacion de intensidad y toppings', 'Diseno de presentacion personalizado', 'Montaje y operacion extendida', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Premium'
   },
   {
-    question: "La fuente de chamoy incluye operador?",
-    answer: "Si, todos nuestros paquetes incluyen un operador profesional que se encarga de mantener la fuente funcionando, rellenar el chamoy y acompanantes, asistir a los invitados y mantener la estacion impecable."
-  },
-  {
-    question: "Cuanto tiempo funciona la fuente de chamoy?",
-    answer: "El servicio estandar es de 3 horas de funcionamiento continuo. Podemos extender el tiempo segun tus necesidades. El chamoy se mantiene en perfectas condiciones durante todo el servicio."
-  },
-  {
-    question: "Puedo ajustar el nivel de picante del chamoy?",
-    answer: "Absolutamente. Ofrecemos tres niveles de picante: suave (ideal para ninos), medio (balance perfecto) y picoso (para los valientes). Tu eliges el nivel que prefieras para tu evento."
-  },
-  {
-    question: "Es ideal para fiestas mexicanas?",
-    answer: "La fuente de chamoy es perfecta para fiestas mexicanas, eventos patrios, kermesses, fiestas de independencia y cualquier celebracion con tematica mexicana. Tambien funciona excelente en cumpleanos y XV anos."
+    name: 'Luxury',
+    icon: '💎',
+    price: '$11,900',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia de alto impacto',
+    features: ['Configuracion para eventos grandes', 'Operacion en sitio extendida', 'Direccion estetica completa', 'Insumos premium ampliados', 'Acompanamiento operativo integral', 'Mayor capacidad de servicio'],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Luxury'
   }
+];
+
+const whyStats = [
+  { number: '100%', label: 'Experiencia Interactiva' },
+  { number: '3+', label: 'Niveles de Intensidad' },
+  { number: '500+', label: 'Eventos Atendidos' },
+  { number: '24h', label: 'Respuesta Comercial' }
+];
+
+const whyFeatures = [
+  { num: 1, title: 'Identidad Mexicana', desc: 'Estacion con personalidad ideal para celebraciones de alto dinamismo.', img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif' },
+  { num: 2, title: 'Personalizacion de Sabor', desc: 'Ajustamos intensidad y combinaciones segun el perfil del evento.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif' },
+  { num: 3, title: 'Operacion Continua', desc: 'Control profesional de flujo para mantener servicio estable.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif' },
+  { num: 4, title: 'Montaje Premium', desc: 'Presentacion funcional y visualmente atractiva para invitados.', img: '/img/estaciones-interactivas/fuente-chamoy/alquiler-fuente-chamoy-mexico.avif' }
+];
+
+const processSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance.' },
+  { num: 2, title: 'Disenamos', desc: 'Definimos configuracion de insumos, intensidad y presentacion.' },
+  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica, montaje y operacion en sitio.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la fuente de chamoy profesionalmente.' }
+];
+
+const eventCards = [
+  { title: 'Chamoy para XV Anos', excerpt: 'Estacion de alto impacto para eventos sociales con perfil juvenil.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
+  { title: 'Chamoy para Cumpleanos', excerpt: 'Experiencia interactiva para celebraciones familiares con alta participacion.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
+  { title: 'Chamoy para Corporativos', excerpt: 'Propuesta diferencial para activaciones y eventos de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
+  { title: 'Chamoy para Fiestas Tematicas', excerpt: 'Formato ideal para eventos con narrativa mexicana.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-fiestas-cdmx.avif', href: '/estaciones-interactivas', cta: 'Ver Estaciones' }
 ];
 
 const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Fuente de Chamoy para Fiestas",
-  "description": "Servicio de renta de fuente de chamoy para fiestas mexicanas en CDMX. Incluye chamoy artesanal, frutas frescas, gomitas, dulces enchilados, operador durante el evento y montaje profesional.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Mededul",
-    "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
-    "telephone": "+525525226442",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ciudad de Mexico",
-      "addressCountry": "MX"
-    }
-  },
-  "areaServed": {
-    "@type": "City",
-    "name": "Ciudad de Mexico"
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Paquetes Fuente de Chamoy",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Fuente Chamoy Basica",
-          "description": "Para 30-50 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Fuente Chamoy Premium",
-          "description": "Para 50-100 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Fuente Chamoy Deluxe",
-          "description": "Para 100-200 invitados"
-        }
-      }
-    ]
-  }
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Fuente de Chamoy para Eventos en CDMX',
+  description: 'Servicio de fuente de chamoy para eventos sociales y corporativos en Ciudad de Mexico.',
+  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
 };
 
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
 };
-
-const otrasEstaciones = [
-  {
-    title: 'Fuente de Chocolate',
-    slug: 'fuente-de-chocolate',
-    image: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
-    alt: 'Renta de Fuente de Chocolate para Eventos en CDMX',
-    badge: 'Clasico Favorito',
-    badgeColor: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)',
-    description: 'La experiencia clasica que nunca falla. Cascada de chocolate belga premium con frutas frescas y malvaviscos que hipnotiza a tus invitados.',
-    features: ['Chocolate belga premium', '3 horas de servicio', 'Operador incluido']
-  },
-  {
-    title: 'Pared de Dulces',
-    slug: 'pared-de-dulces',
-    image: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif',
-    alt: 'Renta de Pared de Dulces Candy Wall para Fiestas CDMX',
-    badge: 'Mas Popular',
-    badgeColor: 'linear-gradient(135deg, #7A2BC2 0%, #8E44AD 100%)',
-    description: 'La tendencia que arrasa en bodas, XV anos y eventos corporativos. Nuestra Candy Wall es una instalacion espectacular donde tus invitados eligen sus dulces favoritos.',
-    features: ['+20 variedades de dulces', 'Personalizable a tu tematica', 'Experiencia interactiva unica']
-  },
-  {
-    title: 'Stand para Pastel',
-    slug: 'stand-para-pastel',
-    image: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif',
-    alt: 'Renta de Stand para Pastel con Arco de Globos CDMX',
-    badge: 'Fotos Increibles',
-    badgeColor: 'linear-gradient(135deg, #D1007A 0%, #A0005F 100%)',
-    description: 'El momento del pastel merece un escenario espectacular. Nuestro stand decorativo con arco de globos organicos crea el backdrop perfecto para la foto del pastel.',
-    features: ['Arco de globos organico incluido', 'Colores personalizables', 'Montaje y desmontaje incluido']
-  }
-];
 ---
 
 <BaseLayout
-  title="Fuente de Chamoy para Fiestas CDMX | Renta Estacion Chamoy | Mededul"
-  description="Fuente de chamoy para fiestas en CDMX. Chamoy artesanal con frutas y dulces enchilados. Sabor mexicano. Cotiza gratis."
-  canonical="https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy"
-  ogImage={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
+  title="Fuente de Chamoy para Eventos en CDMX | Mededul"
+  description="Renta de fuente de chamoy en CDMX con montaje profesional, operacion en sitio y experiencia interactiva para eventos."
+  canonical="/estaciones-interactivas/fuente-de-chamoy"
+  ogImage="/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif"
+  includeCategoryStyles={true}
 >
+  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
-
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Fuente de <span>Chamoy</span> para Fiestas"
-    description="Dale a tu evento el autentico <strong>sabor mexicano</strong> con nuestra fuente de chamoy artesanal. Una experiencia picosita y deliciosa que tus invitados no olvidaran."
-    subtitle="El chamoy fluye en cascada mientras tus invitados sumergen frutas frescas, gomitas enchiladas y dulces tradicionales mexicanos. Perfecto para XV anos, fiestas tematicas y celebraciones patrias."
+    title="Fuente de Chamoy para Eventos en CDMX"
+    highlight="Fuente de Chamoy"
+    subtitle="Experiencia interactiva con identidad mexicana para elevar participacion en tu evento"
+    secondaryContent={`<p><strong>Chamoy</strong> en formato de fuente aporta dinamica social y una experiencia de sabor distinta para invitados que buscan opciones memorables. En Mededul operamos esta estacion con criterios profesionales para mantener flujo y presentacion constantes.</p><p><strong>Mexicana</strong> y personalizable, la fuente de chamoy se adapta al perfil de cada celebracion para maximizar participacion y valor percibido. Ejecutamos montaje y operacion integral en CDMX con estandar premium.</p>`}
+    showCTA={true}
+    ctaHref="/contacto"
+    ctaBadge="Asesoria Especializada"
+    ctaTitle="Define Tu Estacion Mexicana"
+    ctaTitleHighlight="Mexicana"
+    ctaText="Comparte tipo de evento e invitados para definir la mejor configuracion de fuente de chamoy."
+    ctaButtonText="Solicitar Asesoria"
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
+  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de fuente de chamoy a tu aforo y nivel de servicio." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+
+  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Fuente de Chamoy" descriptions={['Fuente de chamoy operada con enfoque profesional para garantizar continuidad de servicio.', 'Integramos personalizacion, montaje y ejecucion para una experiencia interactiva de alto impacto.']} stats={whyStats} features={whyFeatures} />
+
+  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu fuente de chamoy sin fricciones." steps={processSteps} />
+
+  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Fuente de Chamoy para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion de sabor y servicio segun la naturaleza de cada celebracion." events={eventCards} />
+
+  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Diferencial" text="Te ayudamos a implementar una fuente de chamoy que combine identidad, participacion y operacion profesional." buttonText="Cotizar Fuente de Chamoy" />
+
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Sabor Mexicano</span>
-          <h2>Por que elegir nuestra <span>Fuente de Chamoy</span>?</h2>
-          <p class="header-description">Somos expertos en crear experiencias con <strong>sabor mexicano autentico</strong>. Nuestro chamoy artesanal es preparado con recetas tradicionales que deleitan a todos los paladares.</p>
-          <p class="header-description">Ofrecemos <strong>diferentes niveles de picante</strong> para que todos tus invitados disfruten, desde los mas pequenos hasta los mas valientes.</p>
-          <div class="header-stats">
-            <div class="stat-item">
-              <span class="stat-number">300+</span>
-              <span class="stat-label">Eventos</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Artesanal</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">3</span>
-              <span class="stat-label">Niveles Picante</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">3 hrs</span>
-              <span class="stat-label">Servicio</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="caracteristicas-right">
-          <div class="caracteristica-card">
-            <div class="card-image">
-              <span class="card-number">1</span>
-              <img
-                decoding="async"
-                src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
-                alt="Chamoy artesanal premium"
-                loading="lazy"
-                width="400"
-                height="200"
-              />
-            </div>
-            <div class="card-content">
-              <h3>Chamoy Artesanal</h3>
-              <p>Receta tradicional mexicana con el balance perfecto de sabores.</p>
-            </div>
-          </div>
-
-          <div class="caracteristica-card">
-            <div class="card-image">
-              <span class="card-number">2</span>
-              <img
-                decoding="async"
-                src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif')}
-                alt="Frutas frescas mexicanas"
-                loading="lazy"
-                width="400"
-                height="200"
-              />
-            </div>
-            <div class="card-content">
-              <h3>Frutas Mexicanas</h3>
-              <p>Mango, jicama, pepino, sandia y mas frutas frescas.</p>
-            </div>
-          </div>
-
-          <div class="caracteristica-card">
-            <div class="card-image">
-              <span class="card-number">3</span>
-              <img
-                decoding="async"
-                src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif')}
-                alt="Dulces enchilados"
-                loading="lazy"
-                width="400"
-                height="200"
-              />
-            </div>
-            <div class="card-content">
-              <h3>Dulces Enchilados</h3>
-              <p>Gomitas, tamarindos, paletas y dulces tradicionales.</p>
-            </div>
-          </div>
-
-          <div class="caracteristica-card">
-            <div class="card-image">
-              <span class="card-number">4</span>
-              <img
-                decoding="async"
-                src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
-                alt="Operador incluido"
-                loading="lazy"
-                width="400"
-                height="200"
-              />
-            </div>
-            <div class="card-content">
-              <h3>Operador Incluido</h3>
-              <p>Personal profesional que atiende la fuente durante todo el evento.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SectionHeader title="Preguntas Frecuentes sobre Fuente de Chamoy" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu evento.</p>`} />
+      <FAQ items={faqs} id="faq-fuente-chamoy" />
     </div>
   </section>
-
-  <!-- Galeria Section -->
-  <section class="galeria-section" id="galeria">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Nuestra <span class="titulo-decorativo">Fuente de Chamoy</span> en Accion</h2>
-        <p class="subtitulo">El sabor mexicano que conquista todos los paladares</p>
-      </div>
-
-      <div class="galeria-bento">
-        <div class="galeria-item">
-          <img
-            decoding="async"
-            src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
-            alt="Renta de fuente de chamoy en CDMX"
-            loading="lazy"
-            width="800"
-            height="400"
-          />
-        </div>
-        <div class="galeria-item">
-          <img
-            decoding="async"
-            src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif')}
-            alt="Fuente de chamoy para fiestas"
-            loading="lazy"
-            width="400"
-            height="300"
-          />
-        </div>
-        <div class="galeria-item">
-          <img
-            decoding="async"
-            src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif')}
-            alt="Fuente de chamoy para eventos mexicanos"
-            loading="lazy"
-            width="400"
-            height="300"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Que Incluye Section -->
-  <section class="incluye-section">
-    <div class="container">
-      <div class="incluye-header">
-        <span class="badge">Todo Incluido</span>
-        <h2>Que incluye nuestra <span>Fuente de Chamoy</span>?</h2>
-        <p>El sabor mexicano completo para tu evento</p>
-      </div>
-
-      <div class="incluye-grid">
-        <div class="incluye-card">
-          <span class="card-number">01</span>
-          <h4>Fuente Profesional</h4>
-          <p>Equipo especializado con sistema de temperatura que mantiene el chamoy en consistencia perfecta durante todo el evento.</p>
-        </div>
-
-        <div class="incluye-card">
-          <span class="card-number">02</span>
-          <h4>Chamoy Artesanal</h4>
-          <p>Chamoy mexicano autentico en el nivel de picante que prefieras: suave, medio o picoso. Preparado con receta tradicional.</p>
-        </div>
-
-        <div class="incluye-card">
-          <span class="card-number">03</span>
-          <h4>Frutas Frescas Mexicanas</h4>
-          <p>Mango, jicama, pepino, sandia, pina y manzana verde. Todas cortadas y presentadas en brochetas listas para sumergir.</p>
-        </div>
-
-        <div class="incluye-card">
-          <span class="card-number">04</span>
-          <h4>Dulces Enchilados</h4>
-          <p>Gomitas enchiladas, tamarindos, paletas de tamarindo, dulces de chile y chile Tajin para espolvorear.</p>
-        </div>
-
-        <div class="incluye-card">
-          <span class="card-number">05</span>
-          <h4>Operador Profesional</h4>
-          <p>Personal capacitado que atiende la fuente, rellena acompanantes, asiste a invitados y mantiene todo impecable durante las 3 horas de servicio.</p>
-        </div>
-
-        <div class="incluye-card">
-          <span class="card-number">06</span>
-          <h4>Montaje y Decoracion</h4>
-          <p>Mesa con mantel, base decorativa para la fuente, elementos mexicanos decorativos, platos, servilletas y toda la presentacion.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Como <span class="titulo-decorativo">Funciona</span>?</h2>
-        <p class="subtitulo">4 simples pasos para disfrutar tu fuente de chamoy</p>
-      </div>
-
-      <div class="proceso-timeline">
-        <div class="proceso-step">
-          <div class="number">1</div>
-          <h4>Contactanos</h4>
-          <p>Escribenos por WhatsApp con la fecha, lugar y numero de invitados.</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">2</div>
-          <h4>Personalizamos</h4>
-          <p>Elegimos juntos el nivel de picante y acompanantes que prefieras.</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">3</div>
-          <h4>Montamos</h4>
-          <p>Llegamos 1 hora antes para instalar todo y tener la fuente lista.</p>
-        </div>
-        <div class="proceso-step">
-          <div class="number">4</div>
-          <h4>Disfrutas</h4>
-          <p>Tu y tus invitados disfrutan 3 horas de chamoy ilimitado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="faq-section section-padding" id="preguntas-frecuentes">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Preguntas <span class="titulo-decorativo">Frecuentes</span></h2>
-        <p class="subtitulo">Todo lo que necesitas saber sobre nuestra fuente de chamoy</p>
-      </div>
-
-      <div class="faq-container">
-        {faqs.map((faq, index) => (
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false" aria-controls={`faq-answer-${index}`}>
-              <span>{faq.question}</span>
-              <span class="icon">+</span>
-            </button>
-            <div class="faq-answer" id={`faq-answer-${index}`}>
-              <p>{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Otras Estaciones Section -->
-  <section class="otras-estaciones section-padding">
-    <div class="container">
-      <div class="section-header-center">
-        <span class="badge">Complementa Tu Evento</span>
-        <h2>Otras <span class="titulo-decorativo">Estaciones Interactivas</span></h2>
-        <p class="subtitulo">Crea una experiencia completa para tus invitados combinando varias estaciones</p>
-      </div>
-
-      <div class="otras-grid">
-        {otrasEstaciones.map(estacion => (
-          <div class="otra-card">
-            <div class="otra-image">
-              <img
-                decoding="async"
-                src={getCdnUrl(estacion.image)}
-                alt={estacion.alt}
-                loading="lazy"
-                width="400"
-                height="250"
-              />
-              <div class="otra-badge" style={`background: ${estacion.badgeColor}`}>{estacion.badge}</div>
-            </div>
-            <div class="otra-content">
-              <h3>{estacion.title}</h3>
-              <p>{estacion.description}</p>
-              <ul>
-                {estacion.features.map(feature => (
-                  <li>
-                    <svg width="16" height="16" fill="#D1007A" viewBox="0 0 20 20">
-                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a href={`/estaciones-interactivas/${estacion.slug}`} class="btn btn-primary">
-                {estacion.title}
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div class="otras-cta">
-        <p>Quieres combinar varias estaciones? <strong>Pregunta por nuestros paquetes especiales</strong></p>
-        <a href="/estaciones-interactivas" class="btn btn-primary-large">Ver Todas las Estaciones Disponibles</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="cta-final">
-    <div class="container">
-      <h2>Listo para una experiencia con sabor mexicano?</h2>
-      <p>Cotiza tu fuente de chamoy sin compromiso. Te respondemos en menos de 2 horas.</p>
-      <a href="https://wa.me/525525226442?text=Hola! Me interesa cotizar una Fuente de Chamoy para mi evento" class="btn-white" target="_blank" rel="noopener">
-        Cotizar por WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="contacto-section section-padding" id="contacto">
-    <div class="container">
-      <div class="contacto-grid">
-        <div class="contacto-info">
-          <h2>Cotiza tu Fuente de Chamoy</h2>
-          <p class="contacto-intro">Estamos listos para darle a tu evento el autentico sabor mexicano. Contactanos y recibe una cotizacion personalizada sin compromiso.</p>
-
-          <div class="info-items-grid">
-            <div class="info-item info-sucursal">
-              <h3>Sucursal Condesa</h3>
-              <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtemoc, 06170 CDMX</p>
-              <a href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z" target="_blank" rel="noopener" class="maps-link">Ver Condesa en Google Maps</a>
-            </div>
-
-            <div class="info-item info-sucursal">
-              <h3>Sucursal Anzures</h3>
-              <p>Av. Ejercito Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-              <a href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z" target="_blank" rel="noopener" class="maps-link">Ver Anzures en Google Maps</a>
-            </div>
-
-            <div class="info-item info-contacto">
-              <h3>WhatsApp</h3>
-              <p><a href="tel:+525525226442">55 2522 6442</a></p>
-            </div>
-
-            <div class="info-item info-contacto">
-              <h3>Email</h3>
-              <p><a href="mailto:info@mesas-de-dulces.com">info@mesas-de-dulces.com</a></p>
-            </div>
-
-            <div class="info-item info-horario">
-              <h3>Horario de Atencion</h3>
-              <p>Lun - Vie: 9:00 AM - 7:00 PM<br />Sabados: 10:00 AM - 3:00 PM</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="contacto-form-wrapper">
-          <h3>Reserva tu Fuente de Chamoy</h3>
-          <p>Completa el formulario y te contactaremos por WhatsApp</p>
-
-          <form id="reserva-form" class="contacto-form">
-            <div class="form-group">
-              <label for="nombre">Nombre completo *</label>
-              <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" />
-            </div>
-
-            <div class="form-group">
-              <label for="telefono">Telefono / WhatsApp *</label>
-              <input type="tel" id="telefono" name="telefono" required placeholder="55 1234 5678" />
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="nivel-picante">Nivel de picante *</label>
-                <select id="nivel-picante" name="nivel-picante" required>
-                  <option value="">Selecciona...</option>
-                  <option value="Suave">Suave (ideal para ninos)</option>
-                  <option value="Medio">Medio (balance perfecto)</option>
-                  <option value="Picoso">Picoso (para valientes)</option>
-                  <option value="Por definir">Por definir</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="fecha">Fecha del evento *</label>
-                <input type="date" id="fecha" name="fecha" required />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="invitados">Numero de invitados aproximado</label>
-              <input type="number" id="invitados" name="invitados" placeholder="100" />
-            </div>
-
-            <div class="form-group">
-              <label for="mensaje">Cuentanos sobre tu evento</label>
-              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Tipo de evento, ubicacion, horario, tematica mexicana..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">Enviar por WhatsApp</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script slot="scripts" is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
-      // FAQ Accordion
-      document.querySelectorAll('.faq-question').forEach(button => {
-        button.addEventListener('click', function() {
-          const faqItem = this.parentElement;
-          const isActive = faqItem.classList.contains('active');
-
-          document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-            item.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
-          });
-
-          if (!isActive) {
-            faqItem.classList.add('active');
-            this.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
-
-      // Form to WhatsApp
-      document.getElementById('reserva-form')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const getValue = (id) => {
-          const el = document.getElementById(id);
-          return el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement
-            ? el.value
-            : '';
-        };
-
-        const nombre = getValue('nombre');
-        const telefono = getValue('telefono');
-        const nivelPicante = getValue('nivel-picante');
-        const fecha = getValue('fecha');
-        const invitados = getValue('invitados');
-        const mensaje = getValue('mensaje');
-
-        let whatsappMsg = `Hola! Me interesa cotizar una Fuente de Chamoy para mi evento.%0A%0A`;
-        whatsappMsg += `*Nombre:* ${nombre}%0A`;
-        whatsappMsg += `*Telefono:* ${telefono}%0A`;
-        whatsappMsg += `*Nivel de Picante:* ${nivelPicante}%0A`;
-        whatsappMsg += `*Fecha:* ${fecha}%0A`;
-        if (invitados) whatsappMsg += `*Invitados:* ${invitados}%0A`;
-        if (mensaje) whatsappMsg += `%0A*Detalles:* ${mensaje}`;
-
-        window.open(`https://wa.me/525525226442?text=${whatsappMsg}`, '_blank');
-      });
-    });
-  </script>
 </BaseLayout>
-
-<style>
-  /* Header spacer */
-
-  /* Caracteristicas Section */
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .caracteristicas-left { padding-right: 20px; }
-
-  .header-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: 2.4rem;
-    color: #1a1a1a;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .caracteristicas-left h2 span { color: #D1007A; }
-
-  .header-description {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-description:last-of-type { margin-bottom: 30px; }
-  .header-description strong { color: #D1007A; }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-  }
-
-  .stat-item { text-align: center; }
-  .stat-number { display: block; font-size: 1.8rem; font-weight: 800; color: #D1007A; line-height: 1.2; }
-  .stat-label { font-size: 0.7rem; color: #666; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-  }
-
-  .caracteristica-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img { width: 100%; height: 100%; object-fit: cover; }
-
-  .caracteristica-card .card-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: #D1007A;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.95rem;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content { padding: 18px; text-align: center; }
-  .caracteristica-card h3 { font-size: 0.95rem; color: #1a1a1a; margin-bottom: 8px; font-weight: 700; }
-  .caracteristica-card p { font-size: 0.85rem; color: #666; line-height: 1.6; margin: 0; }
-
-  /* Section Headers */
-  .section-header-center { text-align: center; margin-bottom: 50px; }
-  .section-header-center h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 10px; }
-  .titulo-decorativo { color: #D1007A; }
-  .subtitulo { font-size: 1.1rem; color: #666; }
-
-  .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  /* Galeria Section */
-  .galeria-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fef5f8 50%, #fff9fb 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .galeria-bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 280px;
-    gap: 20px;
-  }
-
-  .galeria-item {
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  }
-
-  .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
-
-  /* Incluye Section */
-  .incluye-section { padding: 100px 0; background: #fff; }
-
-  .incluye-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-  .incluye-header h2 { font-size: 2.4rem; color: #1a1a1a; margin-bottom: 15px; }
-  .incluye-header h2 span { color: #D1007A; }
-  .incluye-header > p { font-size: 1.1rem; color: #666; }
-
-  .incluye-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-
-  .incluye-card {
-    background: #fff;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    border-radius: 20px;
-    padding: 35px 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-  }
-
-  .incluye-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.1);
-  }
-
-  .incluye-card .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .incluye-card h4 { font-size: 1.15rem; color: #1a1a1a; margin-bottom: 12px; font-weight: 700; }
-  .incluye-card > p { font-size: 0.95rem; color: #666; line-height: 1.7; margin: 0; }
-
-  /* Proceso Section */
-  .proceso-section { padding: 80px 0; background: linear-gradient(180deg, #fdf2f8 0%, #fff 100%); }
-
-  .proceso-timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin-top: 50px;
-  }
-
-  .proceso-timeline::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: #eee;
-  }
-
-  .proceso-step { text-align: center; position: relative; flex: 1; }
-
-  .proceso-step .number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-  }
-
-  .proceso-step h4 { font-size: 1rem; color: #1a1a1a; margin-bottom: 8px; }
-  .proceso-step > p { font-size: 0.85rem; color: #666; max-width: 180px; margin: 0 auto; }
-
-  /* FAQ Section */
-  .section-padding { padding: 80px 0; }
-  .faq-section { background: #fff; }
-  .faq-container { max-width: 800px; margin: 0 auto; }
-  .faq-item { border-bottom: 1px solid #eee; }
-
-  .faq-question {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    font-family: inherit;
-  }
-
-  .faq-question .icon { font-size: 1.5rem; color: #D1007A; transition: transform 0.3s ease; }
-  .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: all 0.3s ease; }
-  .faq-item.active .faq-answer { max-height: 300px; padding-bottom: 25px; }
-  .faq-answer p { color: #666; line-height: 1.8; }
-
-  /* Otras Estaciones Section */
-  .otras-estaciones { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
-  .otras-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 50px; }
-
-  .otra-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    border: 1px solid rgba(233, 30, 140, 0.08);
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-  }
-
-  .otra-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(233, 30, 140, 0.15); }
-  .otra-image { height: 200px; overflow: hidden; position: relative; }
-  .otra-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-  .otra-card:hover .otra-image img { transform: scale(1.05); }
-
-  .otra-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .otra-content { padding: 28px; display: flex; flex-direction: column; flex-grow: 1; }
-  .otra-content h3 { font-size: 1.3rem; color: #1a1a1a; margin: 0 0 12px 0; font-weight: 700; }
-  .otra-content > p { font-size: 0.95rem; color: #555; margin: 0 0 18px 0; line-height: 1.7; }
-  .otra-content ul { list-style: none; padding: 0; margin: 0 0 20px 0; flex-grow: 1; }
-  .otra-content li { font-size: 0.85rem; color: #666; padding: 6px 0; display: flex; align-items: center; gap: 8px; }
-
-  .otra-content .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 24px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-  }
-
-  .otras-cta { text-align: center; }
-  .otras-cta p { font-size: 1rem; color: #666; margin-bottom: 20px; }
-  .otras-cta strong { color: #D1007A; }
-
-  .btn-primary-large {
-    display: inline-block;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 16px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary-large:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(233, 30, 140, 0.4); }
-
-  /* CTA Final */
-  .cta-final {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    text-align: center;
-    color: #fff;
-  }
-
-  .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
-  .cta-final > .container > p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-  .btn-white {
-    background: #fff;
-    color: #D1007A;
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
-
-  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
-
-  /* Contact Section */
-  .contacto-section { background: #f8f9fa; }
-  .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-  .contacto-info h2 { font-size: 2rem; color: #1a1a1a; margin-bottom: 15px; }
-  .contacto-intro { font-size: 1.05rem; color: #666; line-height: 1.7; margin-bottom: 30px; }
-  .info-items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-  .info-item { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-  .info-item h4 { font-size: 1rem; color: #D1007A; margin-bottom: 8px; font-weight: 600; }
-  .info-item p { font-size: 0.9rem; color: #555; line-height: 1.6; margin: 0; }
-  .info-item a { color: #D1007A; text-decoration: none; }
-  .info-item a:hover { text-decoration: underline; }
-  .maps-link { display: inline-block; margin-top: 10px; font-size: 0.85rem; }
-  .info-item.info-horario { grid-column: span 2; text-align: center; }
-
-  .contacto-form-wrapper {
-    background: #fff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  }
-
-  .contacto-form-wrapper h3 { font-size: 1.5rem; color: #1a1a1a; margin-bottom: 8px; }
-  .contacto-form-wrapper > p { font-size: 0.95rem; color: #666; margin-bottom: 25px; }
-  .contacto-form .form-group { margin-bottom: 20px; }
-  .contacto-form label { display: block; font-size: 0.9rem; color: #444; margin-bottom: 8px; font-weight: 500; }
-
-  .contacto-form input,
-  .contacto-form select,
-  .contacto-form textarea {
-    width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    font-family: inherit;
-  }
-
-  .contacto-form input:focus,
-  .contacto-form select:focus,
-  .contacto-form textarea:focus {
-    outline: none;
-    border-color: #D1007A;
-    box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.1);
-  }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-  .btn-submit {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
-
-  .btn {
-    display: inline-block;
-    padding: 14px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
-  }
-
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4); }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .caracteristicas-layout { grid-template-columns: 1fr; gap: 50px; }
-    .caracteristicas-left { padding-right: 0; text-align: center; }
-    .galeria-bento { grid-template-columns: 1fr; grid-template-rows: auto; }
-    .galeria-item img { height: 250px; }
-    .incluye-grid { grid-template-columns: repeat(2, 1fr); }
-    .proceso-timeline { flex-direction: column; gap: 30px; }
-    .proceso-timeline::before { display: none; }
-    .otras-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto 50px; }
-    .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
-
-  @media (max-width: 768px) {
-    .caracteristicas-left h2 { font-size: 1.7rem; }
-    .header-stats { grid-template-columns: repeat(2, 1fr); }
-    .incluye-grid { grid-template-columns: 1fr; }
-    .info-items-grid { grid-template-columns: 1fr; }
-    .info-item.info-horario { grid-column: span 1; }
-    .form-row { grid-template-columns: 1fr; }
-    .contacto-form-wrapper { padding: 25px; }
-    .cta-final h2 { font-size: 1.8rem; }
-  }
-
-  @media (max-width: 480px) {
-    .proceso-timeline { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .proceso-step .number { width: 50px; height: 50px; font-size: 1.1rem; }
-    .caracteristicas-right { grid-template-columns: 1fr; }
-  }
-</style>
