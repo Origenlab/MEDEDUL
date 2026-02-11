@@ -18,28 +18,28 @@ const breadcrumbItems = [
 
 const faqs = [
   {
-    question: 'Que incluye una mesa de quesos y embutidos?',
-    answer: 'Incluye curaduria de quesos, embutidos y acompanamientos, presentacion gourmet, montaje profesional y desmontaje al finalizar.'
+    question: 'Que quesos incluye una tabla de quesos para fiestas?',
+    answer: 'Nuestra tabla incluye manchego espanol, brie frances, queso de cabra, chihuahua mexicano y monterrey. Seleccionamos variedades de alta calidad con diferentes texturas y sabores para sorprender a tus amigos y familiares.'
   },
   {
-    question: 'Sirve para eventos corporativos y bodas?',
-    answer: 'Si. Es una propuesta premium ideal para bodas, cocteles, networking y eventos empresariales.'
+    question: 'Que embutidos y carnes frias ofrecen?',
+    answer: 'Ofrecemos jamon serrano de Espana, chorizo de pamplona, salami italiano y carnes frias artesanales. Cada pieza es fresca y de alta calidad, ideal para acompanar con vino tinto o blanco.'
   },
   {
-    question: 'Pueden personalizar la seleccion?',
-    answer: 'Si. Definimos combinaciones segun presupuesto, perfil de invitados y estilo del evento.'
+    question: 'Incluyen acompanamientos como pan y frutas?',
+    answer: 'Si, nuestras tablas incluyen baguette artesanal, galletas, fresas frescas, higos, frutos secos y mermeladas de temporada. Creamos una botana completa y deliciosa para tu fiesta o reunion.'
   },
   {
-    question: 'Manejan formatos para eventos grandes?',
-    answer: 'Si. Tenemos configuraciones para aforos pequenos, medianos y grandes con operacion en sitio.'
+    question: 'Sirve para bodas y reuniones familiares?',
+    answer: 'Si, es la opcion perfecta para bodas elegantes, reuniones con amigos, fiestas familiares y celebraciones sociales. Facil de disfrutar mientras tus invitados descubren sabores ricos y variados.'
   },
   {
-    question: 'Se puede combinar con mesa de postres?',
-    answer: 'Si. Es una combinacion muy efectiva para balancear propuesta dulce y salada en el mismo evento.'
+    question: 'Ofrecen maridaje con vinos?',
+    answer: 'Si, recomendamos combinaciones de quesos con vino tinto para manchego y queso de cabra, y vino blanco para brie y quesos cremosos. Te asesoramos para crear la experiencia perfecta.'
   },
   {
-    question: 'Incluye montaje y desmontaje?',
-    answer: 'Si, el servicio es integral con estandar profesional de principio a fin.'
+    question: 'Como preparan y arman la tabla?',
+    answer: 'Preparamos cada ingrediente con atencion al detalle: cortamos quesos, disponemos carnes frias con color y textura, y armamos una presentacion elegante que impresiona. Todo listo para tu celebracion en CDMX.'
   }
 ];
 
@@ -50,36 +50,36 @@ const packages = [
     price: '$5,200',
     currency: 'MXN',
     guests: '30-50 personas',
-    tagline: 'Ideal para eventos intimos',
+    tagline: 'Ideal para fiestas y reuniones intimas',
     features: [
-      'Curaduria base de quesos y embutidos',
-      'Montaje profesional',
-      'Presentacion elegante',
-      'Mobiliario incluido',
+      'Tabla con manchego, brie y queso de cabra',
+      'Jamon serrano y salami incluidos',
+      'Pan baguette, galletas y frutos',
+      'Presentacion elegante con color',
       'Desmontaje al finalizar'
     ],
     popular: false,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Quesos y Embutidos - Paquete Esencial'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Tabla de Quesos - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Favorito',
     icon: '⭐',
     price: '$8,900',
     currency: 'MXN',
     guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
+    tagline: 'La opcion mas solicitada para fiestas',
     features: [
-      'Seleccion gourmet ampliada',
-      'Diseno de presentacion premium',
-      'Acompanamientos especializados',
-      'Montaje y coordinacion en sitio',
-      'Asesoria previa del evento',
+      'Tabla amplia con chihuahua y monterrey',
+      'Chorizo de pamplona y carnes frias',
+      'Fresas, higos y acompanamientos de temporada',
+      'Instalacion y coordinacion en sitio',
+      'Asesoria de maridaje con vinos',
       'Mejor equilibrio costo-beneficio'
     ],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Quesos y Embutidos - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Tabla de Quesos - Paquete Favorito'
   },
   {
     name: 'Luxury',
@@ -87,74 +87,100 @@ const packages = [
     price: '$13,900',
     currency: 'MXN',
     guests: '100+ personas',
-    tagline: 'Experiencia gourmet integral',
+    tagline: 'Experiencia completa para bodas y celebraciones',
     features: [
-      'Curaduria premium de alto volumen',
-      'Direccion estetica completa',
+      'Seleccion de alta calidad ampliada',
+      'Quesos de Espana y Francia',
+      'Jamon serrano y chorizo artesanal',
       'Operacion en sitio extendida',
-      'Configuracion para eventos grandes',
-      'Acompanamiento operativo integral',
-      'Mayor variedad y complejidad de sabores'
+      'Configuracion para grandes reuniones',
+      'Ingredientes frescos y de temporada'
     ],
     popular: false,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Quesos y Embutidos - Paquete Luxury'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Tabla de Quesos - Paquete Luxury'
   }
 ];
 
 const whyStats = [
-  { number: '20+', label: 'Referencias Gourmet' },
-  { number: '100%', label: 'Curaduria Profesional' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
+  { number: '20+', label: 'Variedades de Quesos' },
+  { number: '100%', label: 'Ingredientes Frescos' },
+  { number: '500+', label: 'Fiestas Realizadas' },
+  { number: '24h', label: 'Respuesta Rapida' }
 ];
 
 const whyFeatures = [
   {
     num: 1,
-    title: 'Curaduria de Producto',
-    desc: 'Seleccion tecnica de perfiles para equilibrar sabor, textura y experiencia.',
+    title: 'Quesos de Alta Calidad',
+    desc: 'Seleccionamos manchego, brie, cabra, chihuahua y monterrey con sabores ricos y texturas variadas para tu fiesta.',
     img: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif'
   },
   {
     num: 2,
-    title: 'Presentacion Gourmet',
-    desc: 'Montaje premium con composicion visual de alto impacto para eventos formales.',
+    title: 'Jamon Serrano y Carnes Frias',
+    desc: 'Incluimos jamon de Espana, chorizo de pamplona y salami italiano. Botana deliciosa que sorprende a amigos y familiares.',
     img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif'
   },
   {
     num: 3,
-    title: 'Combinaciones Funcionales',
-    desc: 'Alineamos surtido y volumen a la dinamica real del evento y sus invitados.',
+    title: 'Acompanamientos Frescos',
+    desc: 'Fresas, higos, baguette, galletas y frutos de temporada. Todo listo para acompanar con vino tinto o blanco.',
     img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif'
   },
   {
     num: 4,
-    title: 'Operacion Profesional',
-    desc: 'Planeacion, montaje y control de servicio para mantener calidad constante.',
+    title: 'Tablas que Impresionan',
+    desc: 'Armamos cada tabla con atencion al detalle, color y presentacion elegante para reuniones familiares y celebraciones.',
     img: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif'
   }
 ];
 
 const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede, aforo y tipo de evento.' },
-  { num: 2, title: 'Disenamos', desc: 'Curamos seleccion y estilo visual acorde al concepto.' },
-  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, logistica y tiempos de montaje.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa con estandar gourmet.' }
+  { num: 1, title: 'Contactanos', desc: 'Platicanos sobre tu fiesta, boda o reunion: fecha, lugar e invitados.' },
+  { num: 2, title: 'Disenamos', desc: 'Seleccionamos quesos, carnes frias y acompanamientos frescos para tu tabla.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, opciones de vino y detalles de preparacion.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Armamos tu tabla de quesos lista para compartir con amigos y familiares.' }
 ];
 
 const eventCards = [
-  { title: 'Quesos para Bodas', excerpt: 'Propuesta gourmet para recepciones nupciales de alto nivel.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Quesos para Corporativos', excerpt: 'Formato ideal para networking, lanzamientos y hospitalidad de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
-  { title: 'Quesos para Cocteles', excerpt: 'Montaje elegante para eventos sociales con dinamica premium.', img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif', href: '/servicios', cta: 'Ver Servicios' },
-  { title: 'Quesos para Graduacion', excerpt: 'Alternativa sofisticada para celebraciones academicas de alto aforo.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones' }
+  {
+    title: 'Tabla de Quesos para Bodas',
+    excerpt: 'Manchego, brie y jamon serrano para recepciones elegantes. Rico maridaje con vino tinto.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Popular',
+    cta: 'Ver Bodas'
+  },
+  {
+    title: 'Tabla para Reuniones Corporativas',
+    excerpt: 'Seleccion de alta calidad con chorizo, salami y quesos de Espana. Ideal para networking.',
+    img: '/img/eventos/corporativos/candy-bar-empresarial.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    badge: 'Corporativo',
+    cta: 'Ver Corporativos'
+  },
+  {
+    title: 'Tabla para Fiestas Familiares',
+    excerpt: 'Quesos mexicanos con chihuahua y monterrey. Botana facil de compartir con amigos.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif',
+    href: '/servicios',
+    cta: 'Ver Opciones'
+  },
+  {
+    title: 'Tabla para Celebraciones',
+    excerpt: 'Fresas, higos, baguette y carnes frias para reuniones especiales. Sorprende a tus invitados.',
+    img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Ideas'
+  }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Quesos y Embutidos en CDMX',
-  description: 'Servicio de mesa gourmet de quesos y embutidos para eventos en Ciudad de Mexico.',
+  name: 'Tabla de Quesos y Carnes Frias para Fiestas en CDMX',
+  description: 'Tablas de quesos con manchego, brie, jamon serrano y carnes frias para fiestas, bodas y reuniones familiares. Incluye vino, fresas, higos y baguette en Ciudad de Mexico.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
@@ -174,7 +200,7 @@ const serviceSchema = {
     offerCount: '3',
     offers: packages.map(pkg => ({
       '@type': 'Offer',
-      name: `Mesa de Quesos y Embutidos ${pkg.name}`,
+      name: `Tabla de Quesos ${pkg.name}`,
       price: pkg.price.replace(/[$,]/g, ''),
       priceCurrency: 'MXN',
       description: pkg.guests,
@@ -191,8 +217,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Quesos y Embutidos en CDMX | Mededul"
-  description="Renta de mesa gourmet de quesos y embutidos en CDMX con montaje profesional para bodas, corporativos y eventos premium."
+  title="Tabla de Quesos y Carnes Frias para Fiestas en CDMX | Mededul"
+  description="Tablas de quesos con manchego, brie, jamon serrano y carnes frias para fiestas y bodas. Incluye vino, fresas, higos y baguette. Reuniones familiares en CDMX."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
   ogImage="/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif"
   includeCategoryStyles={true}
@@ -204,32 +230,77 @@ const faqSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Quesos y Embutidos en CDMX"
-    highlight="Quesos y Embutidos"
-    subtitle="Curaduria gourmet, montaje premium y operacion profesional para eventos de alto nivel"
-    secondaryContent={`<p><strong>Quesos</strong> seleccionados con criterio tecnico elevan inmediatamente la percepcion de valor en bodas, cocteles y eventos corporativos. En Mededul estructuramos mesas gourmet que combinan sabor, presentacion y funcionalidad para una experiencia impecable.</p><p><strong>Embutidos</strong> y acompanamientos bien curados permiten una propuesta equilibrada que mejora convivencia, hospitalidad y recordacion del evento. Nuestro equipo integra diseno, montaje y ejecucion para resultados consistentes en CDMX.</p>`}
+    title="Tabla de Quesos y Carnes Frias para Fiestas en CDMX"
+    highlight="Tabla de Quesos"
+    subtitle="Manchego, brie, jamon serrano y acompanamientos deliciosos para bodas, reuniones y celebraciones"
+    secondaryContent={`<p><strong>Quesos de alta calidad</strong> como manchego espanol, brie frances, queso de cabra, chihuahua y monterrey mexicano transforman cualquier fiesta en una experiencia rica y memorable. En Mededul armamos tablas de quesos con ingredientes frescos que sorprenden a amigos y familiares en Ciudad de Mexico.</p><p><strong>Carnes frias</strong> como jamon serrano de Espana, chorizo de pamplona y salami italiano, acompanados de fresas, higos, baguette y galletas. Creamos la botana perfecta para acompanar con vino tinto o blanco en reuniones familiares, bodas y celebraciones sociales. Facil de disfrutar y descubrir nuevos sabores.</p>`}
     showCTA={true}
     ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa Gourmet"
-    ctaTitleHighlight="Gourmet"
-    ctaText="Comparte fecha, tipo de evento e invitados para recibir una propuesta profesional personalizada."
-    ctaButtonText="Solicitar Asesoria"
+    ctaBadge="Ideas y Cotizacion"
+    ctaTitle="Disena Tu Tabla de Quesos"
+    ctaTitleHighlight="Quesos"
+    ctaText="Comparte detalles de tu fiesta o reunion para recibir opciones de quesos, carnes frias y maridaje."
+    ctaButtonText="Solicitar Ideas"
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta gourmet al aforo y nivel de servicio que necesita tu evento." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <PricingPackages
+    id="paquetes"
+    badge="Paquetes para Fiestas"
+    title="Escoge la"
+    titleHighlight="Tabla Ideal"
+    subtitle="Ajustamos quesos, carnes frias y acompanamientos segun tu fiesta, boda o reunion familiar."
+    packages={packages}
+    note="<strong>Tienes una muestra especifica en mente?</strong> Creamos una tabla personalizada con los ingredientes que prefieras."
+  />
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Gourmet" descriptions={['Mesa gourmet diseniada para eventos que requieren alto nivel de presentacion y experiencia culinaria.', 'Integramos curaduria, montaje y operacion para sostener calidad durante todo el servicio.']} stats={whyStats} features={whyFeatures} />
+  <WhyChooseUs
+    id="ventajas"
+    badge="Ideas y Ventajas"
+    title="Por que elegir nuestra"
+    titleHighlight="Tabla de Quesos"
+    descriptions={[
+      'Tablas con manchego, brie, jamon serrano y carnes frias de alta calidad que sorprenden a amigos y familiares en fiestas y reuniones.',
+      'Combinamos quesos de Espana y Mexico, fresas, higos, baguette y galletas con opciones de vino tinto y blanco para una botana deliciosa.'
+    ]}
+    stats={whyStats}
+    features={whyFeatures}
+  />
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa gourmet sin improvisaciones." steps={processSteps} />
+  <ProcessSteps
+    id="proceso"
+    badge="Asi Funciona"
+    title="Como Armamos tu"
+    titleHighlight="Tabla de Quesos"
+    subtitle="Cuatro pasos para preparar la tabla perfecta de quesos y carnes frias para tu fiesta."
+    steps={processSteps}
+  />
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Mesa Gourmet para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion y volumen segun la dinamica especifica de cada celebracion." events={eventCards} />
+  <EventsGrid
+    id="ocasiones"
+    badge="Ideas para tu Fiesta"
+    title="Tabla de Quesos para"
+    titleHighlight="Cada Ocasion"
+    subtitle="Manchego, brie, jamon y acompanamientos adaptados para bodas, reuniones familiares y fiestas sociales."
+    events={eventCards}
+  />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Eleva Tu Evento con una Propuesta" titleHighlight="Premium" text="Te ayudamos a construir una mesa de quesos y embutidos que combine imagen, sabor y operacion profesional." buttonText="Cotizar Mesa Gourmet" />
+  <CTAServices
+    href="/contacto"
+    badge="Cotizacion sin Costo"
+    title="Sorprende a tus Amigos con una"
+    titleHighlight="Tabla Deliciosa"
+    text="Te ayudamos a armar una tabla de quesos con manchego, brie, jamon serrano, fresas y vino para tu fiesta, boda o reunion familiar."
+    buttonText="Cotizar Tabla de Quesos"
+  />
 
   <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Quesos y Embutidos" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la mejor configuracion gourmet para tu evento.</p>`} />
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Tablas de Quesos"
+        titleHighlight="Frecuentes"
+        subtitle="Ideas y respuestas para tu fiesta o reunion"
+        content={`<p>Resolvemos dudas sobre quesos, carnes frias, acompanamientos y maridaje con vino para tu celebracion.</p>`}
+      />
       <FAQ items={faqs} id="faq-quesos" />
     </div>
   </section>
