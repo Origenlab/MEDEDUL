@@ -3,7 +3,79 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import { getCdnUrl } from '@/lib/cdn';
+
+// Pasos del proceso
+const procesoSteps = [
+  { num: 1, title: 'Contactanos', desc: 'Escribenos por WhatsApp o llena el formulario con los detalles de tu evento.' },
+  { num: 2, title: 'Disenamos', desc: 'Creamos una propuesta a tu medida segun tu tematica, colores y presupuesto.' },
+  { num: 3, title: 'Confirmamos', desc: 'Apartas tu fecha con un anticipo y seleccionas los dulces de nuestro catalogo.' },
+  { num: 4, title: 'Disfrutas', desc: 'Llegamos, montamos todo y tu solo te dedicas a pasarla increible.' }
+];
+
+// Paquetes de Mesa de Dulces
+const paquetesMesaDulces = [
+  {
+    name: 'Esencial',
+    icon: '🍬',
+    price: '$4,500',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para eventos intimos',
+    features: [
+      '6-8 variedades de dulces premium',
+      'Montaje basico elegante',
+      'Manteleria y contenedores de cristal',
+      '3 horas de servicio',
+      'Montaje y desmontaje incluido'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Me interesa el paquete Esencial de Mesa de Dulces'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: [
+      '10-15 variedades de dulces premium',
+      'Diseno 100% personalizado',
+      'Backdrop decorativo incluido',
+      '5 horas de servicio',
+      'Dulces artesanales y chocolates finos',
+      'Coordinacion con tu venue'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Me interesa el paquete Premium de Mesa de Dulces'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,000',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia de alto nivel',
+    features: [
+      '20+ variedades de dulces exclusivos',
+      'Diseno exclusivo tematico',
+      'Fuente de chocolate incluida',
+      'Servicio completo todo el evento',
+      'Dulces premium importados',
+      'Operador dedicado',
+      'Foto profesional de tu mesa'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Paquete',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Me interesa el paquete Luxury de Mesa de Dulces'
+  }
+];
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -294,52 +366,34 @@ const estaciones = [
     secondaryContent={`<p><strong>Mesa de dulces</strong> personalizada con enfoque profesional te permite convertir tu celebracion en una experiencia visualmente potente y totalmente alineada a tu concepto. En Mededul definimos propuesta, surtido y composicion para que cada detalle sume valor real en ambientacion, servicio y presencia fotografica.</p><p><strong>Diseno</strong> estrategico de candy bar en CDMX integra seleccion premium, decoracion coherente y montaje impecable para asegurar resultados consistentes en cualquier tipo de evento. Nuestro proceso cuida tiempos, calidad y ejecucion para que tus invitados disfruten una experiencia memorable mientras tu mantienes control total del proyecto.</p>`}
   />
 
-  <!-- Caracteristicas Section -->
-  <section class="caracteristicas-section">
-    <div class="container">
-      <div class="caracteristicas-layout">
-        <div class="caracteristicas-left">
-          <span class="header-badge">Nuestras Ventajas</span>
-          <h2>Por que elegir nuestra <span>Mesa de Dulces en CDMX</span>?</h2>
-          <p class="header-description">Con mas de <strong>500 eventos exitosos</strong> en Ciudad de Mexico, nos hemos convertido en la opcion preferida para quienes buscan calidad, creatividad y un servicio de mesas de dulce impecable.</p>
-          <p class="header-description">Cada mesa que creamos es una obra de arte comestible, disenada especificamente para hacer de tu celebracion un momento unico e inolvidable.</p>
-          <div class="header-stats">
-            <div class="stat-item">
-              <span class="stat-number">500+</span>
-              <span class="stat-label">Eventos</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Personalizado</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">50+</span>
-              <span class="stat-label">Variedades</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">5 hrs</span>
-              <span class="stat-label">Respuesta</span>
-            </div>
-          </div>
-        </div>
+  <!-- Paquetes Section -->
+  <PricingPackages
+    id="paquetes"
+    badge="Paquetes Mesa de Dulces"
+    title="Elige el"
+    titleHighlight="Paquete Ideal para tu Evento"
+    subtitle="Opciones flexibles con todo incluido. Precios referenciales, cada cotizacion es personalizada segun tus necesidades."
+    packages={paquetesMesaDulces}
+    note="💡 <strong>Paquete a tu medida?</strong> Creamos propuestas personalizadas segun tu evento, tematica y presupuesto."
+  />
 
-        <div class="caracteristicas-right">
-          {caracteristicas.map(car => (
-            <div class="caracteristica-card">
-              <div class="card-image">
-                <span class="card-number">{car.num}</span>
-                <img src={getCdnUrl(car.img)} alt={car.title} loading="lazy" />
-              </div>
-              <div class="card-content">
-                <h3>{car.title}</h3>
-                <p>{car.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Caracteristicas Section -->
+  <WhyChooseUs
+    badge="Nuestras Ventajas"
+    title="Por que elegir nuestra"
+    titleHighlight="Mesa de Dulces en CDMX?"
+    descriptions={[
+      "Con mas de <strong>500 eventos exitosos</strong> en Ciudad de Mexico, nos hemos convertido en la opcion preferida para quienes buscan calidad, creatividad y un servicio de mesas de dulce impecable.",
+      "Cada mesa que creamos es una obra de arte comestible, disenada especificamente para hacer de tu celebracion un momento unico e inolvidable."
+    ]}
+    stats={[
+      { number: "500+", label: "Eventos" },
+      { number: "100%", label: "Personalizado" },
+      { number: "50+", label: "Variedades" },
+      { number: "5 hrs", label: "Respuesta" }
+    ]}
+    features={caracteristicas}
+  />
 
   <!-- Galeria Section -->
   <section class="galeria-section" id="galeria">
@@ -381,24 +435,12 @@ const estaciones = [
   </section>
 
   <!-- Proceso Section -->
-  <section class="proceso-section">
-    <div class="container">
-      <div class="section-header-center">
-        <h2>Como <span class="titulo-decorativo">Funciona</span>?</h2>
-        <p class="subtitulo">4 simples pasos para tu mesa de dulces perfecta</p>
-      </div>
-
-      <div class="proceso-timeline">
-        {procesoSteps.map(step => (
-          <div class="proceso-step">
-            <div class="number">{step.num}</div>
-            <h4>{step.title}</h4>
-            <p>{step.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSteps
+    title="Como"
+    titleHighlight="Funciona"
+    subtitle="4 simples pasos para tu mesa de dulces perfecta"
+    steps={procesoSteps}
+  />
 
   <!-- Eventos Section -->
   <section class="eventos-section">
@@ -615,137 +657,6 @@ const estaciones = [
 </BaseLayout>
 
 <style>
-  /* Caracteristicas Section */
-  .caracteristicas-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fff 0%, #fdf2f8 100%);
-  }
-
-  .caracteristicas-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .caracteristicas-left .header-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 {
-    font-size: 2.2rem;
-    color: var(--texto-oscuro);
-    line-height: 1.3;
-    margin-bottom: 20px;
-  }
-
-  .caracteristicas-left h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .caracteristicas-left .header-description {
-    font-size: 1.05rem;
-    color: var(--texto-light);
-    line-height: 1.8;
-    margin-bottom: 15px;
-  }
-
-  .header-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    background: #fff;
-    padding: 25px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
-    margin-top: 30px;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--rosa-principal);
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--texto-light);
-    text-transform: uppercase;
-  }
-
-  .caracteristicas-right {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .caracteristica-card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  }
-
-  .caracteristica-card .card-image {
-    position: relative;
-    height: 140px;
-    overflow: hidden;
-  }
-
-  .caracteristica-card .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .caracteristica-card .card-number {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 32px;
-    height: 32px;
-    background: var(--rosa-principal);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    z-index: 2;
-  }
-
-  .caracteristica-card .card-content {
-    padding: 18px;
-    text-align: center;
-  }
-
-  .caracteristica-card h3 {
-    font-size: 0.95rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 8px;
-  }
-
-  .caracteristica-card p {
-    font-size: 0.85rem;
-    color: var(--texto-light);
-    line-height: 1.6;
-    margin: 0;
-  }
-
   /* Galeria Section */
   .galeria-section {
     padding: 100px 0;
@@ -1136,51 +1047,6 @@ const estaciones = [
     margin: 0;
   }
 
-  /* Proceso Section */
-  .proceso-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
-  .proceso-timeline {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-top: 50px;
-  }
-
-  .proceso-step {
-    text-align: center;
-  }
-
-  .proceso-step .number {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 auto 20px;
-    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
-  }
-
-  .proceso-step h4 {
-    font-size: 1.1rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 10px;
-  }
-
-  .proceso-step p {
-    font-size: 0.9rem;
-    color: var(--texto-light);
-    line-height: 1.6;
-    margin: 0;
-  }
-
   /* Otras Estaciones Section */
   .otras-estaciones {
     padding: 100px 0;
@@ -1479,15 +1345,6 @@ const estaciones = [
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .caracteristicas-layout {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-
-    .caracteristicas-left {
-      text-align: center;
-    }
-
     .galeria-bento {
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: auto;
@@ -1511,10 +1368,6 @@ const estaciones = [
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .proceso-timeline {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .estaciones-grid {
       grid-template-columns: 1fr;
     }
@@ -1525,14 +1378,6 @@ const estaciones = [
   }
 
   @media (max-width: 768px) {
-    .header-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .caracteristicas-right {
-      grid-template-columns: 1fr;
-    }
-
     .incluye-grid {
       grid-template-columns: 1fr;
     }
@@ -1548,29 +1393,6 @@ const estaciones = [
     .faq-question {
       padding: 20px;
       font-size: 0.95rem;
-    }
-
-    .proceso-section {
-      padding: 60px 0;
-    }
-
-    .proceso-timeline {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .proceso-step .number {
-      width: 50px;
-      height: 50px;
-      font-size: 1.1rem;
-    }
-
-    .proceso-step h4 {
-      font-size: 0.9rem;
-    }
-
-    .proceso-step p {
-      font-size: 0.8rem;
     }
 
     .otras-estaciones {

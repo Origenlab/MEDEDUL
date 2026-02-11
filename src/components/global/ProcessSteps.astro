@@ -1,0 +1,255 @@
+---
+/**
+ * ProcessSteps Component - Seccion de Proceso/Pasos
+ * ==================================================
+ * Componente reutilizable para mostrar el proceso de trabajo
+ * en pasos numerados.
+ *
+ * Usage:
+ * <ProcessSteps
+ *   badge="Nuestro Proceso"
+ *   title="Como"
+ *   titleHighlight="Funciona"
+ *   subtitle="4 simples pasos para tu mesa perfecta"
+ *   steps={[
+ *     { num: 1, title: "Contactanos", desc: "Descripcion del paso..." },
+ *     { num: 2, title: "Disenamos", desc: "Descripcion del paso..." }
+ *   ]}
+ * />
+ */
+
+interface Step {
+  num: number;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  badge?: string;
+  title: string;
+  titleHighlight?: string;
+  subtitle?: string;
+  steps: Step[];
+  id?: string;
+}
+
+const {
+  badge,
+  title,
+  titleHighlight,
+  subtitle,
+  steps,
+  id
+} = Astro.props;
+
+// Procesar titulo con highlight
+const renderTitle = () => {
+  if (titleHighlight) {
+    return `${title} <span>${titleHighlight}</span>?`;
+  }
+  return title;
+};
+---
+
+<section class="process-section" id={id}>
+  <div class="container">
+    <!-- Header -->
+    <div class="process-header">
+      {badge && <span class="process-badge">{badge}</span>}
+      <h2 class="process-title" set:html={renderTitle()} />
+      {subtitle && <p class="process-subtitle">{subtitle}</p>}
+    </div>
+
+    <!-- Steps Timeline -->
+    <div class="process-timeline">
+      {steps.map((step, index) => (
+        <article class="process-step">
+          <div class="step-number">{step.num}</div>
+          {index < steps.length - 1 && <div class="step-connector"></div>}
+          <h4 class="step-title">{step.title}</h4>
+          <p class="step-desc">{step.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =====================================================
+     PROCESS STEPS COMPONENT
+     ===================================================== */
+
+  .process-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* Header */
+  .process-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 60px;
+  }
+
+  .process-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: rgba(209, 0, 122, 0.1);
+    border: 1px solid rgba(209, 0, 122, 0.2);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal, #D1007A);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .process-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+  }
+
+  .process-title :global(span) {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .process-subtitle {
+    font-size: 1.1rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Timeline Grid */
+  .process-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Step Card */
+  .process-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .step-number {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 25px rgba(209, 0, 122, 0.3);
+  }
+
+  /* Connector line between steps */
+  .step-connector {
+    position: absolute;
+    top: 35px;
+    left: calc(50% + 45px);
+    width: calc(100% - 90px);
+    height: 2px;
+    background: linear-gradient(90deg, var(--rosa-principal, #D1007A) 0%, rgba(209, 0, 122, 0.3) 100%);
+  }
+
+  .step-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 10px 0;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ========================
+     RESPONSIVE
+     ======================== */
+  @media (max-width: 1024px) {
+    .process-timeline {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 30px;
+    }
+
+    .step-connector {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .process-section {
+      padding: 70px 0;
+    }
+
+    .process-header {
+      margin-bottom: 50px;
+    }
+
+    .process-timeline {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 20px;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 1rem;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .process-section {
+      padding: 60px 0;
+    }
+
+    .process-timeline {
+      grid-template-columns: 1fr 1fr;
+      gap: 25px 15px;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+  }
+</style>

@@ -1,0 +1,325 @@
+---
+/**
+ * WhyChooseUs Component - Ventajas/Caracteristicas Section
+ * =========================================================
+ * Componente reutilizable para mostrar ventajas y caracteristicas
+ * con estadisticas y tarjetas con imagenes.
+ *
+ * Usage:
+ * <WhyChooseUs
+ *   badge="Nuestras Ventajas"
+ *   title="Por que elegir nuestra"
+ *   titleHighlight="Mesa de Dulces"
+ *   descriptions={["Parrafo 1", "Parrafo 2"]}
+ *   stats={[{ number: "500+", label: "Eventos" }]}
+ *   features={[{ num: 1, title: "Titulo", desc: "Descripcion", img: "/img/..." }]}
+ * />
+ */
+
+interface Stat {
+  number: string;
+  label: string;
+}
+
+interface Feature {
+  num: number;
+  title: string;
+  desc: string;
+  img: string;
+}
+
+interface Props {
+  badge?: string;
+  title: string;
+  titleHighlight?: string;
+  descriptions?: string[];
+  stats?: Stat[];
+  features: Feature[];
+  id?: string;
+}
+
+const {
+  badge = "Nuestras Ventajas",
+  title,
+  titleHighlight,
+  descriptions = [],
+  stats = [],
+  features,
+  id
+} = Astro.props;
+
+import { getCdnUrl } from '@/lib/cdn';
+
+// Procesar titulo con highlight
+const renderTitle = () => {
+  if (titleHighlight) {
+    return `${title} <span>${titleHighlight}</span>`;
+  }
+  return title;
+};
+---
+
+<section class="why-choose-section" id={id}>
+  <div class="container">
+    <div class="why-choose-layout">
+      <!-- Columna Izquierda: Info -->
+      <div class="why-choose-info">
+        <span class="why-choose-badge">{badge}</span>
+        <h2 class="why-choose-title" set:html={renderTitle()} />
+
+        {descriptions.map(desc => (
+          <p class="why-choose-desc" set:html={desc} />
+        ))}
+
+        {stats.length > 0 && (
+          <div class="why-choose-stats">
+            {stats.map(stat => (
+              <div class="stat-item">
+                <span class="stat-number">{stat.number}</span>
+                <span class="stat-label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Columna Derecha: Cards -->
+      <div class="why-choose-cards">
+        {features.map((feature) => (
+          <article class="feature-card">
+            <div class="feature-card__image">
+              <span class="feature-card__number">{feature.num}</span>
+              <img
+                src={getCdnUrl(feature.img)}
+                alt={feature.title}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="feature-card__content">
+              <h3 class="feature-card__title">{feature.title}</h3>
+              <p class="feature-card__desc">{feature.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =====================================================
+     WHY CHOOSE US COMPONENT - Premium Design
+     ===================================================== */
+
+  .why-choose-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #fdf8fa 100%);
+  }
+
+  .why-choose-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* ========================
+     INFO COLUMN (Left)
+     ======================== */
+  .why-choose-info {
+    /* Left column content */
+  }
+
+  .why-choose-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .why-choose-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.3;
+    margin: 0 0 20px 0;
+  }
+
+  .why-choose-title :global(span) {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .why-choose-desc {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.8;
+    margin: 0 0 15px 0;
+  }
+
+  .why-choose-desc :global(strong) {
+    color: var(--rosa-principal, #D1007A);
+    font-weight: 600;
+  }
+
+  /* Stats Grid */
+  .why-choose-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(233, 30, 140, 0.1);
+    margin-top: 30px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--texto-light, #666);
+    text-transform: uppercase;
+  }
+
+  /* ========================
+     CARDS COLUMN (Right)
+     ======================== */
+  .why-choose-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .feature-card__image {
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .feature-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-card__number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    background: var(--rosa-principal, #D1007A);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    z-index: 2;
+  }
+
+  .feature-card__content {
+    padding: 18px;
+    text-align: center;
+  }
+
+  .feature-card__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 8px 0;
+  }
+
+  .feature-card__desc {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ========================
+     RESPONSIVE
+     ======================== */
+  @media (max-width: 1024px) {
+    .why-choose-layout {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .why-choose-info {
+      text-align: center;
+    }
+
+    .why-choose-stats {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .why-choose-section {
+      padding: 70px 0;
+    }
+
+    .why-choose-title {
+      font-size: 1.6rem;
+    }
+
+    .why-choose-desc {
+      font-size: 0.95rem;
+    }
+
+    .why-choose-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+    }
+
+    .why-choose-cards {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .feature-card {
+      border-radius: 15px;
+    }
+
+    .feature-card__content {
+      padding: 16px;
+    }
+
+    .feature-card__title {
+      font-size: 0.9rem;
+    }
+
+    .feature-card__desc {
+      font-size: 0.8rem;
+    }
+  }
+
+</style>

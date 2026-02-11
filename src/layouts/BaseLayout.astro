@@ -6,10 +6,12 @@ import TopBar from '@/components/global/TopBar.astro';
 import Header from '@/components/global/Header.astro';
 import Footer from '@/components/global/Footer.astro';
 import WhatsAppButton from '@/components/global/WhatsAppButton.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
 import '@/styles/global.css';
 import '@/styles/layout.css';
 import blogStylesHref from '@/styles/blog.css?url';
 import articleStylesHref from '@/styles/article.css?url';
+import categoryStylesHref from '@/styles/category.css?url';
 
 interface Props {
   title: string;
@@ -27,6 +29,8 @@ interface Props {
   includeServiceSchema?: boolean;
   includeBlogStyles?: boolean;
   includeArticleStyles?: boolean;
+  includeCategoryStyles?: boolean;
+  showGlobalCta?: boolean;
 }
 
 const {
@@ -41,10 +45,47 @@ const {
   includeLocalBusinessSchema = false,
   includeServiceSchema = false,
   includeBlogStyles = false,
-  includeArticleStyles = false
+  includeArticleStyles = false,
+  includeCategoryStyles = false,
+  showGlobalCta = true
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+
+const getGlobalCta = () => {
+  if (currentPath.startsWith('/blog')) {
+    return {
+      href: '/contacto',
+      badge: 'Asesoria Profesional',
+      title: 'Convierte Esta Idea en Tu Evento',
+      titleHighlight: 'Evento',
+      text: 'Llevamos a produccion profesional las ideas de blog para tu celebracion en CDMX.',
+      buttonText: 'Ir a Contacto',
+    };
+  }
+
+  if (currentPath === '/contacto') {
+    return {
+      href: '/servicios',
+      badge: 'Servicios Mededul',
+      title: 'Conoce Todo lo que Podemos Montar',
+      titleHighlight: 'Montar',
+      text: 'Explora nuestras mesas y estaciones para definir la opcion ideal para tu evento.',
+      buttonText: 'Ver Servicios',
+    };
+  }
+
+  return {
+    href: '/contacto',
+    badge: 'Cotizacion Personalizada',
+    title: '¿Listo para Endulzar tu Evento?',
+    titleHighlight: 'Endulzar',
+    text: 'Comparte fecha, tipo de evento e invitados para recibir una propuesta clara y profesional.',
+    buttonText: 'Ir a Contacto',
+  };
+};
+
+const globalCta = getGlobalCta();
 ---
 
 <!doctype html>
@@ -88,6 +129,7 @@ const currentPath = Astro.url.pathname;
     />
     {includeBlogStyles && <link rel="stylesheet" href={blogStylesHref} />}
     {includeArticleStyles && <link rel="stylesheet" href={articleStylesHref} />}
+    {includeCategoryStyles && <link rel="stylesheet" href={categoryStylesHref} />}
 
     <!-- JSON-LD Schemas -->
     {includeOrganizationSchema && <JsonLd type="Organization" />}
@@ -104,6 +146,17 @@ const currentPath = Astro.url.pathname;
     <main>
       <slot />
     </main>
+
+    {showGlobalCta && (
+      <CTAServices
+        href={globalCta.href}
+        badge={globalCta.badge}
+        title={globalCta.title}
+        titleHighlight={globalCta.titleHighlight}
+        text={globalCta.text}
+        buttonText={globalCta.buttonText}
+      />
+    )}
 
     <Footer />
     <WhatsAppButton />
