@@ -7,8 +7,9 @@ import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
+import ArticleSidebar from '@/components/blog/ArticleSidebar.astro';
 import { categoryMeta } from '@/content/config';
-import { getCdnUrl } from '@/lib/cdn';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -17,6 +18,9 @@ interface Props {
 
 const { post } = Astro.props;
 const { title, description, category, heroImage, heroImageAlt, tags, faqs } = post.data;
+const articleHeroSrc = heroImage ? getCdnUrl(heroImage, { w: 960, q: 82 }) : '';
+const articleHeroSrcSet = heroImage ? getCdnSrcSet(heroImage, [640, 960, 1280, 1600], { q: 82 }) : '';
+const articleHeroSizes = '(max-width: 768px) 100vw, (max-width: 1400px) 70vw, 960px';
 
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const articleUrl = `${siteUrl}/blog/${post.slug}`;
@@ -27,64 +31,6 @@ const breadcrumbItems = [
   { name: categoryInfo?.name || category, url: `/blog/categoria/${category}` },
   { name: title, url: articleUrl }
 ];
-
-// Servicios principales para eventos
-const serviciosEventos = [
-  { name: 'Bodas', url: '/candy-bar-eventos/mesa-dulces-boda', color: '#D1007A' },
-  { name: 'XV Años', url: '/candy-bar-eventos/mesa-dulces-xv-anos', color: '#7A2BC2' },
-  { name: 'Baby Shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower', color: '#5A1AA3' },
-  { name: 'Cumpleaños', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', color: '#E67E22' },
-  { name: 'Bautizos', url: '/candy-bar-eventos/mesa-dulces-bautizo', color: '#1ABC9C' },
-  { name: 'Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos', color: '#34495E' }
-];
-
-// Estaciones interactivas
-const estaciones = [
-  { name: 'Fuente de Chocolate', url: '/estaciones-interactivas/fuente-de-chocolate', icon: '🍫' },
-  { name: 'Fuente de Chamoy', url: '/estaciones-interactivas/fuente-de-chamoy', icon: '🌶️' },
-  { name: 'Pared de Dulces', url: '/estaciones-interactivas/pared-de-dulces', icon: '🍬' }
-];
-
-// Categorías del blog
-const categoriasBlog = [
-  { name: 'Bodas', slug: 'bodas', color: '#D1007A' },
-  { name: 'XV Años', slug: 'xv-anos', color: '#7A2BC2' },
-  { name: 'Tendencias', slug: 'tendencias', color: '#5A1AA3' },
-  { name: 'Guías', slug: 'guias', color: '#27AE60' }
-];
-
-// Enlaces rápidos
-const enlacesRapidos = [
-  { name: 'Mesa de Dulces', url: '/tipos-de-mesas-de-dulces/mesa-de-dulces' },
-  { name: 'Galería', url: '/galeria' },
-  { name: 'Nosotros', url: '/nosotros' },
-  { name: 'Contacto', url: '/contacto' }
-];
-
-// Cards de servicios destacados
-const servicioCards = [
-  {
-    title: 'Mesa de Dulces para Bodas',
-    desc: 'Diseños elegantes para tu día especial',
-    img: '/img/eventos/bodas/candy-bar-boda-romantico.avif',
-    url: '/candy-bar-eventos/mesa-dulces-boda',
-    badge: 'Popular'
-  },
-  {
-    title: 'Mesa de Dulces XV Años',
-    desc: 'Celebra con estilo y dulzura',
-    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
-    url: '/candy-bar-eventos/mesa-dulces-xv-anos',
-    badge: 'Destacado'
-  },
-  {
-    title: 'Fuente de Chocolate',
-    desc: 'La experiencia más deliciosa',
-    img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
-    url: '/estaciones-interactivas/fuente-de-chocolate',
-    badge: 'Favorito'
-  }
-];
 ---
 
 <BaseLayout
@@ -92,7 +38,6 @@ const servicioCards = [
   description={description}
   ogType="article"
   article={{ category: categoryInfo?.name || category, tags }}
-  includeBlogStyles={true}
   includeArticleStyles={true}
 >
   <JsonLd
@@ -119,7 +64,17 @@ const servicioCards = [
         <article class="article-main">
           {heroImage && (
             <div class="article-featured-image">
-              <img src={getCdnUrl(heroImage)} alt={heroImageAlt || title} loading="eager" />
+              <img
+                src={articleHeroSrc}
+                srcset={articleHeroSrcSet}
+                sizes={articleHeroSizes}
+                alt={heroImageAlt || title}
+                width="960"
+                height="600"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
             </div>
           )}
 
@@ -139,136 +94,7 @@ const servicioCards = [
           )}
         </article>
 
-        <!-- SIDEBAR -->
-        <aside class="article-sidebar">
-          <div class="sidebar-inner">
-
-            <!-- WhatsApp CTA -->
-            <div class="sidebar-card sidebar-cta">
-              <div class="cta-header">
-                <span class="cta-badge">Cotiza Gratis</span>
-                <h4>¿Planeas tu Evento?</h4>
-                <p>Recibe una propuesta personalizada sin compromiso</p>
-              </div>
-              <a href="https://wa.me/525525226442?text=Hola%2C%20vi%20su%20blog%20y%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces" class="wa-button" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                Cotizar por WhatsApp
-              </a>
-              <div class="cta-contact">
-                <a href="tel:+525525226442" class="phone-link">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                  55 2522 6442
-                </a>
-              </div>
-            </div>
-
-            <!-- Cards de Servicios Destacados -->
-            <div class="sidebar-services-cards">
-              <h4 class="sidebar-section-title">Servicios Destacados</h4>
-              {servicioCards.map(card => (
-                <a href={card.url} class="service-card">
-                  <div class="service-card-image">
-                    <img src={getCdnUrl(card.img)} alt={card.title} loading="lazy" />
-                    <span class="service-card-badge">{card.badge}</span>
-                  </div>
-                  <div class="service-card-content">
-                    <h5>{card.title}</h5>
-                    <p>{card.desc}</p>
-                    <span class="service-card-link">
-                      Ver más
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <!-- Mesas para Eventos -->
-            <div class="sidebar-card">
-              <h4 class="sidebar-title">Mesas para Eventos</h4>
-              <div class="eventos-list">
-                {serviciosEventos.map(s => (
-                  <a href={s.url} class="evento-link" style={`--evento-color: ${s.color}`}>
-                    <span class="evento-dot"></span>
-                    <span class="evento-name">{s.name}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="evento-arrow"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <!-- Estaciones Interactivas -->
-            <div class="sidebar-card sidebar-estaciones">
-              <h4 class="sidebar-title">Estaciones Interactivas</h4>
-              <p class="sidebar-subtitle">Complementa tu evento</p>
-              <div class="estaciones-list">
-                {estaciones.map(e => (
-                  <a href={e.url} class="estacion-link">
-                    <span class="estacion-icon">{e.icon}</span>
-                    <span class="estacion-name">{e.name}</span>
-                  </a>
-                ))}
-              </div>
-              <a href="/estaciones-interactivas" class="ver-todas-link">Ver todas las estaciones</a>
-            </div>
-
-            <!-- Stats -->
-            <div class="sidebar-card sidebar-stats">
-              <div class="stats-row">
-                <div class="stat">
-                  <span class="stat-num">500+</span>
-                  <span class="stat-label">Eventos</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-num">7+</span>
-                  <span class="stat-label">Años</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-num">98%</span>
-                  <span class="stat-label">Satisfacción</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Categorías del Blog -->
-            <div class="sidebar-card">
-              <h4 class="sidebar-title">Categorías</h4>
-              <div class="categorias-list">
-                {categoriasBlog.map(cat => (
-                  <a href={`/blog/categoria/${cat.slug}`} class="categoria-link" style={`--cat-color: ${cat.color}`}>
-                    {cat.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <!-- Tags del Artículo -->
-            {tags && tags.length > 0 && (
-              <div class="sidebar-card">
-                <h4 class="sidebar-title">Etiquetas</h4>
-                <div class="tags-wrap">
-                  {tags.map(tag => (
-                    <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag-link">{tag}</a>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <!-- Enlaces Rápidos -->
-            <div class="sidebar-card sidebar-enlaces">
-              <h4 class="sidebar-title">Explora Más</h4>
-              <div class="enlaces-list">
-                {enlacesRapidos.map(link => (
-                  <a href={link.url} class="enlace-item">
-                    <span>{link.name}</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </aside>
+        <ArticleSidebar tags={tags} />
       </div>
     </div>
   </section>
@@ -424,423 +250,6 @@ const servicioCards = [
   }
 
   /* ========================================
-     SIDEBAR - Enhanced Design
-     ======================================== */
-  .article-sidebar {
-    position: relative;
-  }
-
-  .sidebar-inner {
-    position: sticky;
-    top: 140px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .sidebar-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #f0f0f0;
-  }
-
-  .sidebar-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 14px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f0f0f0;
-  }
-
-  .sidebar-subtitle {
-    font-size: 0.8rem;
-    color: #888;
-    margin: -8px 0 12px;
-  }
-
-  .sidebar-section-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 14px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #f0f0f0;
-  }
-
-  /* Service Cards */
-  .sidebar-services-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .service-card {
-    display: block;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #f0f0f0;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .service-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    border-color: #D1007A;
-  }
-
-  .service-card-image {
-    position: relative;
-    height: 120px;
-    overflow: hidden;
-  }
-
-  .service-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .service-card:hover .service-card-image img {
-    transform: scale(1.05);
-  }
-
-  .service-card-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: #fff;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .service-card-content {
-    padding: 14px 16px;
-  }
-
-  .service-card-content h5 {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 6px;
-    line-height: 1.3;
-  }
-
-  .service-card-content p {
-    font-size: 0.8rem;
-    color: #666;
-    margin: 0 0 10px;
-    line-height: 1.4;
-  }
-
-  .service-card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #D1007A;
-  }
-
-  .service-card:hover .service-card-link {
-    gap: 6px;
-  }
-
-  /* CTA Card */
-  .sidebar-cta {
-    background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%);
-    border: 1px solid rgba(37, 211, 102, 0.2);
-    text-align: center;
-  }
-
-  .cta-header {
-    margin-bottom: 16px;
-  }
-
-  .cta-badge {
-    display: inline-block;
-    background: #25D366;
-    color: #fff;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-  }
-
-  .sidebar-cta h4 {
-    font-size: 1.1rem;
-    color: #1a1a1a;
-    margin: 0 0 6px;
-    font-weight: 700;
-  }
-
-  .sidebar-cta p {
-    font-size: 0.85rem;
-    color: #666;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .wa-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 13px 16px;
-    background: #25D366;
-    color: #fff;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-    margin-bottom: 10px;
-  }
-
-  .cta-contact {
-    padding-top: 8px;
-  }
-
-  .phone-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: #555;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .phone-link svg {
-    color: #D1007A;
-  }
-
-  /* Eventos List */
-  .eventos-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .evento-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    background: #fafafa;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.2s ease;
-  }
-
-  .evento-link:hover {
-    background: #f0f0f0;
-  }
-
-  .evento-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--evento-color, #D1007A);
-    flex-shrink: 0;
-  }
-
-  .evento-name {
-    flex: 1;
-    font-size: 0.88rem;
-    color: #333;
-    font-weight: 500;
-  }
-
-  .evento-arrow {
-    color: #bbb;
-    flex-shrink: 0;
-  }
-
-  /* Estaciones */
-  .sidebar-estaciones {
-    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
-    border: 1px solid rgba(233, 30, 140, 0.1);
-  }
-
-  .estaciones-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-
-  .estacion-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: border-color 0.2s ease;
-  }
-
-  .estacion-link:hover {
-    border-color: #D1007A;
-  }
-
-  .estacion-icon {
-    font-size: 1.2rem;
-  }
-
-  .estacion-name {
-    font-size: 0.88rem;
-    color: #333;
-    font-weight: 500;
-  }
-
-  .ver-todas-link {
-    display: block;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #D1007A;
-    text-decoration: none;
-    font-weight: 600;
-    padding-top: 6px;
-  }
-
-  .ver-todas-link:hover {
-    text-decoration: underline;
-  }
-
-  /* Stats */
-  .sidebar-stats {
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    padding: 18px;
-  }
-
-  .stats-row {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .stat-num {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #fff;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.85);
-  }
-
-  /* Categorías */
-  .categorias-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .categoria-link {
-    display: inline-block;
-    padding: 7px 14px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-left: 3px solid var(--cat-color, #D1007A);
-    border-radius: 6px;
-    font-size: 0.82rem;
-    color: #444;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
-
-  .categoria-link:hover {
-    background: #fafafa;
-    border-color: var(--cat-color, #D1007A);
-  }
-
-  /* Tags */
-  .tags-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .tag-link {
-    padding: 5px 12px;
-    background: #f5f5f5;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    color: #666;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.2s ease;
-  }
-
-  .tag-link:hover {
-    background: #eee;
-    color: #333;
-  }
-
-  /* Enlaces Rápidos */
-  .sidebar-enlaces {
-    background: #fafafa;
-  }
-
-  .enlaces-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .enlace-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 12px;
-    background: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.88rem;
-    color: #444;
-    font-weight: 500;
-    border: 1px solid #eee;
-    transition: all 0.2s ease;
-  }
-
-  .enlace-item:hover {
-    border-color: #ddd;
-    color: #D1007A;
-  }
-
-  .enlace-item svg {
-    color: #ccc;
-  }
-
-  .enlace-item:hover svg {
-    color: #D1007A;
-  }
-
-  /* ========================================
      RESPONSIVE
      ======================================== */
   @media (max-width: 1200px) {
@@ -858,44 +267,6 @@ const servicioCards = [
     .article-layout {
       grid-template-columns: 1fr;
       gap: 50px;
-    }
-
-    .article-sidebar {
-      order: 2;
-    }
-
-    .sidebar-inner {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .sidebar-cta {
-      grid-column: span 2;
-    }
-
-    .sidebar-stats {
-      grid-column: span 2;
-    }
-
-    .sidebar-estaciones {
-      grid-column: span 2;
-    }
-
-    .sidebar-services-cards {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .sidebar-section-title {
-      grid-column: span 3;
-    }
-
-    .service-card-image {
-      height: 100px;
     }
   }
 
@@ -933,66 +304,6 @@ const servicioCards = [
       padding-top: 40px;
     }
 
-    .sidebar-inner {
-      grid-template-columns: 1fr;
-    }
-
-    .sidebar-cta,
-    .sidebar-stats,
-    .sidebar-estaciones {
-      grid-column: span 1;
-    }
-
-    .sidebar-services-cards {
-      grid-column: span 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .sidebar-section-title {
-      grid-column: span 1;
-    }
-
-    .service-card {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-    }
-
-    .service-card-image {
-      height: 100%;
-      min-height: 90px;
-    }
-
-    .service-card-content {
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .service-card-content h5 {
-      font-size: 0.88rem;
-    }
-
-    .service-card-content p {
-      font-size: 0.78rem;
-      margin-bottom: 6px;
-    }
-
-    .eventos-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .evento-link {
-      padding: 8px 10px;
-    }
-
-    .evento-name {
-      font-size: 0.82rem;
-    }
   }
 
   @media (max-width: 480px) {
@@ -1016,39 +327,6 @@ const servicioCards = [
     .article-faqs {
       margin-top: 40px;
       padding-top: 35px;
-    }
-
-    .sidebar-card {
-      padding: 18px;
-    }
-
-    .sidebar-title {
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-    }
-
-    .eventos-list {
-      grid-template-columns: 1fr;
-    }
-
-    .evento-link,
-    .estacion-link,
-    .enlace-item {
-      padding: 10px 12px;
-    }
-
-    .categorias-list {
-      gap: 6px;
-    }
-
-    .categoria-link {
-      padding: 6px 10px;
-      font-size: 0.78rem;
-    }
-
-    .wa-button {
-      padding: 12px 14px;
-      font-size: 0.88rem;
     }
 
   }

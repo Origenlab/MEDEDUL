@@ -3,7 +3,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Hero from '@/components/global/Hero.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
@@ -15,34 +15,41 @@ import ContactSection from '@/components/global/ContactSection.astro';
 const faqItems = [
   {
     question: "¿Con cuánta anticipación debo reservar mi mesa de dulces?",
-    answer: "Recomendamos reservar con al menos 2-3 semanas de anticipación para eventos regulares. Para temporadas altas (diciembre, mayo, noviembre) sugerimos 4-6 semanas. Esto nos permite diseñar tu mesa con calma y asegurar todos los productos especiales."
+    answer: "Recomendamos reservar con al menos 2-3 semanas de anticipación para eventos regulares como cumpleaños o baby showers. Para temporadas altas (diciembre, mayo, noviembre) y eventos grandes como bodas o XV años, sugerimos 4-6 semanas. Esto nos permite diseñar tu mesa con calma y asegurar todos los dulces y postres especiales."
   },
   {
-    question: "¿Qué incluye el servicio de mesa de dulces?",
-    answer: "Nuestro servicio incluye: diseño personalizado según tu temática, selección de dulces y productos, montaje profesional en tu evento, mobiliario y decoración de la mesa, supervisión durante el evento y desmontaje al finalizar. Tú solo disfrutas con tus invitados."
+    question: "¿Qué incluye el servicio de renta de mesa de dulces?",
+    answer: "Nuestro servicio profesional incluye: diseño personalizado según tu temática, selección de variedad de dulces premium, montaje elegante en tu evento, mobiliario y decoración de la mesa, supervisión durante la fiesta y desmontaje al finalizar. Ofrecemos opciones dulces y salados para satisfacer todos los gustos."
   },
   {
     question: "¿Pueden adaptar la mesa a mi tema o colores específicos?",
-    answer: "¡Absolutamente! Eso es lo que mejor hacemos. Ya sea Barbie, superhéroes, elegante en dorado, temática mexicana o cualquier idea que tengas, la hacemos realidad. Trabajamos contigo para que cada detalle refleje tu visión."
+    answer: "¡Absolutamente! Eso es lo que mejor hacemos. Ya sea Barbie, superhéroes, elegante en dorado, temática mexicana o cualquier idea que tengas, la hacemos realidad. Nuestro diseño moderno y creativo incluye decoración, cupcakes personalizados y pastel coordinado."
   },
   {
-    question: "¿Cuánto cuesta una mesa de dulces?",
-    answer: "El precio varía según el número de invitados, tipo de dulces seleccionados, complejidad del diseño y extras como estaciones interactivas. Manejamos paquetes desde $3,500 MXN para eventos pequeños. Contáctanos para una cotización personalizada sin compromiso."
+    question: "¿Cuánto cuesta una mesa de dulces en CDMX?",
+    answer: "El precio varía según el número de invitados, tipo de dulces seleccionados, complejidad del diseño y extras como fuente de chocolate o buffet de postres. Manejamos paquetes desde $3,500 MXN para fiestas infantiles pequeñas. Contáctanos para una cotización personalizada sin compromiso."
   },
   {
-    question: "¿Qué zonas cubren en CDMX?",
-    answer: "Cubrimos toda la Ciudad de México y área metropolitana (Naucalpan, Tlalnepantla, Huixquilucan, Coyoacán, Polanco, Santa Fe, Interlomas, etc.). Para ubicaciones fuera de CDMX, contáctanos para verificar disponibilidad y costos de traslado."
+    question: "¿Qué zonas cubren en Ciudad de México?",
+    answer: "Cubrimos toda la Ciudad de México y área metropolitana (Naucalpan, Tlalnepantla, Huixquilucan, Coyoacán, Polanco, Santa Fe, Interlomas). Atendemos eventos sociales y empresariales en cualquier venue de CDMX. Para ubicaciones fuera del área, contáctanos para verificar disponibilidad."
   },
   {
     question: "¿Ofrecen opciones para personas con restricciones alimenticias?",
-    answer: "¡Sí! Podemos incluir opciones sin azúcar, sin gluten, veganas o para cualquier restricción alimenticia. Solo cuéntanos las necesidades de tus invitados y las integramos al diseño de tu mesa sin problema."
+    answer: "¡Sí! Podemos incluir opciones sin azúcar, sin gluten, veganas o para cualquier restricción alimenticia. También ofrecemos variedad de sabores deliciosos en dulces tradicionales mexicanos. Solo cuéntanos las necesidades de tus invitados y las integramos al diseño de tu mesa."
   }
 ];
+
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+const getGalleryImage = (path: string) => ({
+  src: getCdnUrl(path, { w: 800, q: 80 }),
+  srcset: getCdnSrcSet(path, galleryWidths, { q: 80 })
+});
 ---
 
 <BaseLayout
   title="Mesas de Dulces CDMX | Renta de Candy Bar para Fiestas | Mededul"
-  description="Mesas de dulces en CDMX para bodas, XV años y fiestas. Candy bar personalizado, fuente de chocolate y postres. Cotiza gratis."
+  description="Renta de mesas de dulces en CDMX para bodas, XV años, baby shower y eventos corporativos. Candy bar personalizado con postres, decoración temática y montaje profesional. Cotiza gratis."
   includeOrganizationSchema={true}
   includeLocalBusinessSchema={true}
   includeServiceSchema={true}
@@ -75,7 +82,7 @@ const faqItems = [
     title="Mesas de Dulces para Fiestas en CDMX"
     highlight="Mesas de Dulces"
     subtitle="Candy Bar profesional para bodas, XV años, baby showers y eventos corporativos"
-    secondaryContent={`<p><strong>Mesas de dulces</strong> disenadas con enfoque estrategico te permiten transformar cualquier celebracion en una experiencia visual y sensorial de alto impacto. En Mededul desarrollamos propuestas personalizadas para CDMX que integran estilo, volumen de producto y armonia decorativa para que cada montaje comunique calidad desde el primer vistazo.</p><p><strong>Candy bar</strong> profesional con planeacion y montaje integral te ayuda a optimizar tiempo, controlar detalles y garantizar una ejecucion impecable durante todo el evento. Nuestro servicio combina seleccion premium, presentacion fotografiable y operacion puntual para que tus invitados vivan un momento memorable mientras tu disfrutas sin preocupaciones.</p>`}
+    secondaryContent={`<p><strong>Mesas de dulces</strong> disenadas con enfoque estrategico te permiten transformar cualquier celebracion en una experiencia visual y sensorial de alto impacto. En Mededul desarrollamos propuestas personalizadas para CDMX que integran estilo, variedad de dulces y armonia decorativa para que cada montaje comunique calidad desde el primer vistazo. Nuestro servicio incluye opciones dulces y salados para satisfacer todos los gustos.</p><p><strong>Candy bar</strong> profesional con planeacion y montaje integral te ayuda a optimizar tiempo, controlar detalles y garantizar una ejecucion impecable durante todo el evento. Ofrecemos dulces para eventos sociales y empresariales con seleccion premium, presentacion fotografiable y operacion puntual. Asi tus invitados disfrutan una variedad de sabores deliciosos mientras tu celebras sin preocupaciones.</p>`}
     showCTA={true}
     ctaHref="/servicios"
     ctaBadge="Servicios Profesionales"
@@ -92,7 +99,7 @@ const faqItems = [
         title="Tipos de Mesas de Dulces para Rentar"
         titleHighlight="Mesas de Dulces"
         subtitle="Variedad deliciosa para todos los gustos y ocasiones"
-        content={`<p>El secreto de una celebración inolvidable está en crear un punto de atracción que sorprenda a todos. Más allá del menú principal, la verdadera magia ocurre en ese rincón especial donde tus invitados pueden elegir entre una fresca <strong>mesa de frutas</strong> o una divertida <strong>mesa de donas y cupcakes</strong>.</p><p>Cada montaje tiene su propia personalidad y encanto. Desde la clásica <strong>mesa de dulces personalizados</strong> hasta la sofisticada <strong>tabla de quesos y embutidos</strong>, tenemos la opción perfecta para hacer de tu evento algo extraordinario.</p>`}
+        content={`<p>El secreto de una celebracion inolvidable esta en crear un punto de atraccion que sorprenda a todos. Mas alla del menu principal o el buffet, la verdadera magia ocurre en ese rincon especial donde tus invitados pueden elegir entre una fresca <strong>mesa de frutas</strong> o una divertida <strong>mesa de donas y cupcakes</strong>. Cada tipo de dulces aporta un encanto unico a tu fiesta.</p><p>Cada montaje tiene su propia personalidad con un estilo moderno y elegante. Desde la clasica <strong>mesa de dulces personalizados</strong> hasta la sofisticada <strong>tabla de quesos y embutidos</strong>, ofrecemos dulces y postres para todos los paladares. Nuestro servicio de mesas de dulces incluye la decoracion tematica que transforma tu evento en algo extraordinario.</p>`}
       />
 
       <div class="service-grid">
@@ -173,7 +180,7 @@ const faqItems = [
         title="Candy Bar para cada Tipo de Evento"
         titleHighlight="Tipo de Evento"
         subtitle="Cada evento es único, y tu mesa de dulces también debe serlo"
-        content={`<p>No estás planeando solo una fiesta, estás creando un recuerdo que durará para siempre. Una <strong>mesa de dulces temática</strong> es mucho más que postres: es el corazón de tu celebración, ese rincón mágico que refleja tu estilo.</p><p>Desde tiernas <strong>mesas para baby shower</strong> hasta elegantes <strong>candy bars para bodas</strong>, nos especializamos en crear el ambiente perfecto que dejará a todos tus invitados fascinados.</p>`}
+        content={`<p>No estas planeando solo una fiesta, estas creando un recuerdo que durara para siempre. Una <strong>mesa de dulces tematica</strong> es mucho mas que postres: es el corazon de tu celebracion, ese rincon magico que refleja tu estilo. Ya sea para fiestas infantiles, XV anos o eventos empresariales, cada dulce y mesa cuentan una historia.</p><p>Desde tiernas <strong>mesas para baby shower</strong> hasta elegantes <strong>candy bars para bodas</strong> y bautizos, nos especializamos en crear el ambiente perfecto. Nuestro servicio profesional cubre eventos sociales y empresariales en Ciudad de Mexico, con montaje y decoracion que dejara a todos tus invitados fascinados.</p>`}
       />
 
       <div class="service-grid">
@@ -262,7 +269,7 @@ const faqItems = [
         title="Estaciones Interactivas para Fiestas"
         titleHighlight="Interactivas"
         subtitle="Experiencias únicas que tus invitados recordarán por siempre"
-        content={`<p>Lleva tu evento al siguiente nivel con nuestras <strong>estaciones interactivas en CDMX</strong>. Imagina a tus invitados disfrutando de una cascada de <strong>chocolate belga derretido</strong> o saboreando frutas bañadas en <strong>chamoy artesanal</strong>.</p><p>Cada estación está diseñada para ser el centro de atención: desde nuestra espectacular <strong>pared de dulces candy wall</strong> hasta el elegante <strong>stand para pastel decorado</strong>.</p>`}
+        content={`<p>Lleva tu evento al siguiente nivel con nuestras <strong>estaciones interactivas en CDMX</strong>. Imagina a tus invitados disfrutando de una cascada de <strong>chocolate belga derretido</strong> o saboreando frutas banadas en <strong>chamoy artesanal</strong>. Cada estacion ofrece una variedad de sabores deliciosos que complementan tu mesa de dulces.</p><p>Cada estacion esta disenada para ser el centro de atencion y decorar tu fiesta de forma creativa: desde nuestra espectacular <strong>pared de dulces candy wall</strong> hasta el elegante <strong>stand para pastel decorado</strong>. Perfectas para personalizar cualquier celebracion con un toque moderno y unico.</p>`}
       />
 
       <div class="service-grid">
@@ -310,7 +317,7 @@ const faqItems = [
         title="Por qué Rentar tu Mesa de Dulces con Mededul"
         titleHighlight="Mededul"
         subtitle="No solo hacemos mesas de dulces, creamos experiencias memorables"
-        content={`<p>Con años de experiencia en el <strong>servicio de mesas de dulces en Ciudad de México</strong>, hemos perfeccionado cada detalle para ofrecerte un servicio impecable. Desde la selección de los mejores dulces hasta el montaje final.</p><p>Somos más que proveedores, somos cómplices de tus momentos más dulces. Nuestro equipo profesional garantiza <strong>puntualidad, calidad premium y atención personalizada</strong> en cada evento.</p>`}
+        content={`<p>Con anos de experiencia en el <strong>servicio de mesas de dulces en Ciudad de Mexico</strong>, hemos perfeccionado cada detalle para ofrecerte una renta de mesa impecable. Desde la seleccion de los mejores dulces para eventos hasta el montaje final con mobiliario elegante, cuidamos cada aspecto de tu celebracion.</p><p>Somos mas que proveedores, somos complices de tus momentos mas dulces. Nuestro equipo profesional garantiza <strong>puntualidad, calidad premium y atencion personalizada</strong> en cada evento. Ya sea para una fiesta intima o un gran evento empresarial, nuestro diseno y servicio superan expectativas.</p>`}
       />
 
       <div class="service-grid">
@@ -357,33 +364,33 @@ const faqItems = [
         title="Galería de Mesas de Dulces en CDMX"
         titleHighlight="Mesas de Dulces"
         subtitle="Un vistazo a nuestro trabajo y la magia que creamos en cada evento"
-        content={`<p>Cada imagen cuenta una historia de celebración y alegría. Aquí puedes ver ejemplos reales de nuestras <strong>mesas de dulces para bodas, XV años, bautizos y fiestas infantiles</strong>. Cada montaje es único.</p><p>Nos enorgullece mostrar el resultado de nuestra dedicación: colores vibrantes, dulces irresistibles y presentaciones que roban suspiros. <strong>Tu próximo evento podría estar aquí</strong>.</p>`}
+        content={`<p>Cada imagen cuenta una historia de celebracion y alegria. Aqui puedes ver ejemplos reales de nuestras <strong>mesas de dulces para bodas, XV anos, bautizos y fiestas infantiles</strong>. Cada montaje combina dulces y postres con una decoracion unica que refleja la tematica del evento.</p><p>Nos enorgullece mostrar el resultado de nuestra dedicacion: colores vibrantes, dulces y mesa en perfecta armonia, y presentaciones elegantes que roban suspiros. Desde cupcakes artesanales hasta pasteles decorados, <strong>tu proximo evento podria estar aqui</strong>.</p>`}
       />
 
       <div class="galeria-grid">
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif")} alt="Mesa de dulces elegante para bodas con cristalería y flores CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif")} sizes={gallerySizes} alt="Mesa de dulces elegante para bodas con cristalería y flores CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif")} alt="Candy bar para XV años rosa elegante con globos CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-quinceanera-rosa-elegante-globos.avif")} sizes={gallerySizes} alt="Candy bar para XV años rosa elegante con globos CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif")} alt="Mesa de dulces para baby shower rosa con macarons y fresas CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif")} sizes={gallerySizes} alt="Mesa de dulces para baby shower rosa con macarons y fresas CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif")} alt="Candy bar colorido para fiestas infantiles arcoíris CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif")} sizes={gallerySizes} alt="Candy bar colorido para fiestas infantiles arcoíris CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif")} alt="Mesa de dulces corporativa de lujo con chocolates premium CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif")} sizes={gallerySizes} alt="Mesa de dulces corporativa de lujo con chocolates premium CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif")} alt="Candy bar para bautizo y comunión celeste con palomas CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif")} sizes={gallerySizes} alt="Candy bar para bautizo y comunión celeste con palomas CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/candy-bar-boda-jardin-luces-elegante.avif")} alt="Mesa de dulces para boda en jardín con luces elegantes CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/candy-bar-boda-jardin-luces-elegante.avif")} sizes={gallerySizes} alt="Mesa de dulces para boda en jardín con luces elegantes CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
         <div class="galeria-item">
-          <img src={getCdnUrl("/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif")} alt="Mesa de dulces lujosa para XV años con cristalería rosa CDMX" loading="lazy" height="438" width="800" />
+          <img {...getGalleryImage("/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif")} sizes={gallerySizes} alt="Mesa de dulces lujosa para XV años con cristalería rosa CDMX" loading="lazy" decoding="async" fetchpriority="low" height="438" width="800" />
         </div>
       </div>
     </div>
@@ -406,7 +413,7 @@ const faqItems = [
         title="Reseñas de Clientes - Candy Bar CDMX"
         titleHighlight="Candy Bar CDMX"
         subtitle="Historias dulces de eventos inolvidables"
-        content={`<p>Nada nos hace más felices que ver la sonrisa de nuestros clientes. Cada <strong>mesa de dulces</strong> que creamos es una oportunidad para hacer realidad sus sueños y convertir sus celebraciones en momentos mágicos.</p><p>Estas son algunas de las experiencias que han compartido con nosotros. <strong>Tu historia podría ser la siguiente</strong>.</p>`}
+        content={`<p>Nada nos hace mas felices que ver la sonrisa de nuestros clientes. Cada <strong>mesa de dulces</strong> que creamos es una oportunidad para hacer realidad sus suenos y convertir sus celebraciones en momentos magicos. Nuestro servicio profesional de renta incluye montaje, decoracion y una variedad de dulces premium.</p><p>Desde bodas elegantes hasta fiestas infantiles con tematica creativa, estas son algunas de las experiencias que han compartido con nosotros. <strong>Tu historia podria ser la siguiente</strong>.</p>`}
       />
 
       <div class="review-grid">
@@ -484,7 +491,7 @@ const faqItems = [
         title="Preguntas Frecuentes sobre Mesas de Dulces"
         titleHighlight="Frecuentes"
         subtitle="Resolvemos todas tus dudas para que tu decisión sea más dulce"
-        content={`<p>Sabemos que planear un evento puede generar muchas preguntas. Por eso hemos recopilado las dudas más comunes sobre nuestro <strong>servicio de renta de mesas de dulces</strong> para ayudarte a tomar la mejor decisión.</p><p>Si no encuentras la respuesta que buscas, no dudes en contactarnos. Nuestro equipo está listo para asesorarte y crear junto a ti la <strong>mesa de dulces perfecta para tu celebración</strong>.</p>`}
+        content={`<p>Sabemos que planear un evento puede generar muchas preguntas. Por eso hemos recopilado las dudas mas comunes sobre nuestro <strong>servicio de renta de mesas de dulces</strong> para ayudarte a tomar la mejor decision. Cubrimos desde fiestas infantiles hasta eventos empresariales en CDMX.</p><p>Si no encuentras la respuesta que buscas, no dudes en contactarnos. Nuestro equipo profesional esta listo para asesorarte sobre tipo de dulces, diseno personalizado y decorar tu celebracion. Creamos la <strong>mesa de dulces perfecta</strong> con variedad de dulces deliciosos para cada ocasion.</p>`}
       />
 
       <FAQ items={faqItems} />

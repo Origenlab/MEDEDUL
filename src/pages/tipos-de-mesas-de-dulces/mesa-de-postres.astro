@@ -183,11 +183,31 @@ const serviceSchema = {
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
-    telephone: '+525525226442'
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127'
+    }
   },
   areaServed: {
     '@type': 'City',
     name: 'Ciudad de Mexico'
+  },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '4500',
+    highPrice: '12500',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Mesa de Postres ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
   }
 };
 

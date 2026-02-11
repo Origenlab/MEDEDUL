@@ -7,6 +7,14 @@ interface Props {
 }
 
 const { currentPath = '/' } = Astro.props;
+const logoPath = '/img/mededul.png';
+const logoSrc = getCdnUrl(logoPath, { w: 280, q: 80 });
+const logoSrcSet = [
+  `${getCdnUrl(logoPath, { w: 140, q: 80 })} 140w`,
+  `${getCdnUrl(logoPath, { w: 280, q: 80 })} 280w`,
+  `${getCdnUrl(logoPath, { w: 420, q: 80 })} 420w`,
+  `${getCdnUrl(logoPath, { w: 560, q: 80 })} 560w`
+].join(', ');
 
 // Navigation structure
 const menuItems = [
@@ -91,7 +99,9 @@ const isActive = (item: typeof menuItems[0]) => {
     <!-- Logo -->
     <a href="/" class="header__logo">
       <img
-        src={getCdnUrl('/img/mededul.png')}
+        src={logoSrc}
+        srcset={logoSrcSet}
+        sizes="280px"
         alt="Mededul - Mesas de Dulces CDMX"
         width="280"
         height="71"
@@ -235,7 +245,7 @@ const isActive = (item: typeof menuItems[0]) => {
   </div>
 </header>
 
-<script>
+<script is:inline>
   // Scroll effect
   const header = document.getElementById('header');
 

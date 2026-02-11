@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Optimizar crawl budget
+Disallow: /_astro/
+Disallow: /api/
+Disallow: /_image
+
+# Sitemap
 Sitemap: https://mesas-de-dulces.com/sitemap.xml

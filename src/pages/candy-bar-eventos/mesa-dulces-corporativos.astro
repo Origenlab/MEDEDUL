@@ -97,8 +97,33 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Candy Bar Corporativo en CDMX',
   description: 'Servicio de candy bar corporativo en Ciudad de Mexico para eventos empresariales, activaciones y reuniones ejecutivas.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5'
+    }
+  },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '5500',
+    highPrice: '15500',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Candy Bar Corporativo ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
+  }
 };
 
 const faqSchema = {

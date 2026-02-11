@@ -51,6 +51,7 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Pacifico&display=swap';
 
 const getGlobalCta = () => {
   if (currentPath.startsWith('/blog')) {
@@ -117,16 +118,24 @@ const globalCta = getGlobalCta();
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts: preload stylesheet to reduce text reflow -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=optional"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=optional"
-      rel="stylesheet"
-    />
+    <!-- Google Fonts: async stylesheet to reduce render blocking -->
+    <link rel="preload" as="style" href={googleFontsHref} />
+    <script is:inline define:vars={{ googleFontsHref }}>
+      (() => {
+        if (document.querySelector('link[data-google-fonts]')) return;
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = googleFontsHref;
+        link.setAttribute('data-google-fonts', 'true');
+        document.head.appendChild(link);
+      })();
+    </script>
+    <noscript>
+      <link
+        href={googleFontsHref}
+        rel="stylesheet"
+      />
+    </noscript>
     {includeBlogStyles && <link rel="stylesheet" href={blogStylesHref} />}
     {includeArticleStyles && <link rel="stylesheet" href={articleStylesHref} />}
     {includeCategoryStyles && <link rel="stylesheet" href={categoryStylesHref} />}

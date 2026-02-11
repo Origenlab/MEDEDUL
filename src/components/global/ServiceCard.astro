@@ -1,4 +1,6 @@
 ---
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
 /**
  * ServiceCard Component - Professional Service Cards
  * ===================================================
@@ -43,6 +45,14 @@ const {
   height = 686,
   variant = 'default'
 } = Astro.props;
+
+const isFeatured = variant === 'featured';
+const imageWidths = isFeatured ? [400, 560, 720, 960] : [240, 320, 400, 560, 640];
+const imageSizes = isFeatured
+  ? '(max-width: 1024px) 100vw, 50vw'
+  : '(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 307px';
+const imageSrc = getCdnUrl(image, { w: width });
+const imageSrcSet = getCdnSrcSet(image, imageWidths);
 ---
 
 <a href={href} class={`service-card ${variant === 'featured' ? 'service-card--featured' : ''}`}>
@@ -50,10 +60,14 @@ const {
 
   <div class="service-card__image-wrapper">
     <img
-      src={image}
+      src={imageSrc}
+      srcset={imageSrcSet}
+      sizes={imageSizes}
       alt={alt}
       class="service-card__image"
       loading="lazy"
+      decoding="async"
+      fetchpriority="low"
       width={width}
       height={height}
     />

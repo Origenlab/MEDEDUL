@@ -14,7 +14,7 @@ export default defineConfig({
     domains: ['e2pex68gctc.exactdn.com', 'mesas-de-dulces.com', 'www.mesas-de-dulces.com']
   },
   build: {
-    inlineStylesheets: 'auto'
+    inlineStylesheets: 'always'
   },
   vite: {
     build: {

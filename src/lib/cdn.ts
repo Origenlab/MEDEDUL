@@ -56,3 +56,20 @@ export function getCdnUrl(imagePath: string, params?: Record<string, string | nu
 
   return baseUrl;
 }
+
+/**
+ * Build a responsive srcset for CDN images.
+ * @param imagePath - Local image path or full URL
+ * @param widths - Width candidates in px
+ * @param params - Shared optimization params
+ * @returns srcset string for use in <img srcset="">
+ */
+export function getCdnSrcSet(
+  imagePath: string,
+  widths: number[],
+  params?: Record<string, string | number>
+): string {
+  return widths
+    .map((width) => `${getCdnUrl(imagePath, { ...params, w: width })} ${width}w`)
+    .join(', ');
+}

@@ -97,8 +97,33 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Mesa de Dulces para Bautizo en CDMX',
   description: 'Servicio de mesa de dulces para bautizo en Ciudad de Mexico con diseno elegante, montaje profesional y surtido premium.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5'
+    }
+  },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '4900',
+    highPrice: '12700',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Mesa de Dulces para Bautizo ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
+  }
 };
 
 const faqSchema = {

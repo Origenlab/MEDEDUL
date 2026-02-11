@@ -97,8 +97,33 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Servicio Completo de Mesas de Dulces en CDMX',
   description: 'Servicio completo de mesas de dulces en Ciudad de Mexico con planeacion, montaje, operacion y desmontaje profesional.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5'
+    }
+  },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '5200',
+    highPrice: '14500',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Servicio Completo ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
+  }
 };
 
 const faqSchema = {

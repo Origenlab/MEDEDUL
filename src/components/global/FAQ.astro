@@ -45,19 +45,19 @@ const { items, id = 'faq' } = Astro.props;
   ))}
 </div>
 
-<script>
+<script is:inline>
   // FAQ Accordion - Only one open at a time
   function initFAQ() {
     const faqItems = document.querySelectorAll('[data-faq-item]');
 
     faqItems.forEach(item => {
       item.addEventListener('toggle', (e) => {
-        const details = e.target as HTMLDetailsElement;
+        const details = e.target;
         if (details.open) {
           // Close other items
           faqItems.forEach(other => {
-            if (other !== item && (other as HTMLDetailsElement).open) {
-              (other as HTMLDetailsElement).open = false;
+            if (other !== item && other.open) {
+              other.open = false;
             }
           });
         }

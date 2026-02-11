@@ -1,8 +1,6 @@
 ---
-import { categoryMeta } from '@/content/config';
-import { getCdnUrl } from '@/lib/cdn';
-import { getBlogCardCta } from '@/lib/blogCardCta';
-import { Image } from 'astro:assets';
+import BlogPostCard from '@/components/blog/BlogPostCard.astro';
+import BlogSidebar from '@/components/blog/BlogSidebar.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -15,15 +13,6 @@ interface Props {
 
 const { posts, featuredPosts, categories, currentPage, totalPages } = Astro.props;
 
-const importantLinks = [
-  { label: 'Mesas de dulces para bodas', url: '/candy-bar-eventos/mesa-dulces-boda' },
-  { label: 'Dulces para XV anos', url: '/candy-bar-eventos/mesa-dulces-xv-anos' },
-  { label: 'Candy bar corporativo', url: '/candy-bar-eventos/mesa-dulces-corporativos' },
-  { label: 'Mesas para baby shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower' },
-  { label: 'Estaciones interactivas', url: '/estaciones-interactivas' },
-  { label: 'Tipos de mesas de dulces', url: '/tipos-de-mesas-de-dulces' }
-];
-
 const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
 ---
 
@@ -33,35 +22,9 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
       <div class="blog-main">
         {posts.length > 0 ? (
           <div class="posts-grid">
-            {posts.map((post, index) => {
-              const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
-              return (
-                <article class="post-card">
-                  <a href={`/blog/${post.slug}`}>
-                    <Image
-                      src={getCdnUrl(post.data.heroImage)}
-                      alt={post.data.heroImageAlt}
-                      width={400}
-                      height={250}
-                      format="webp"
-                      loading={index === 0 ? 'eager' : 'lazy'}
-                      fetchpriority={index === 0 ? 'high' : 'auto'}
-                      widths={[320, 400, 560, 720]}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
-                  </a>
-                  <div class="post-meta">
-                    <span class="category">
-                      <span class="category-icon">{meta?.icon}</span>
-                      {meta?.name || post.data.category}
-                    </span>
-                  </div>
-                  <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-                  <p>{post.data.description}</p>
-                  <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category, post.data.title)}</a>
-                </article>
-              );
-            })}
+            {posts.map((post, index) => (
+              <BlogPostCard post={post} index={index} />
+            ))}
           </div>
         ) : (
           <div class="no-articles">
@@ -80,53 +43,7 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
         )}
       </div>
 
-      <aside class="blog-sidebar">
-        <div class="sidebar-widget">
-          <h3>Contenido Relacionado</h3>
-          <ul class="sidebar-list">
-            {importantLinks.map(link => (
-              <li><a href={link.url}>{link.label}</a></li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="sidebar-widget">
-          <h3>Enlaces Importantes</h3>
-          <ul class="sidebar-list">
-            <li><a href="/servicios">Servicios</a></li>
-            <li><a href="/contacto">Cotizar evento</a></li>
-            <li><a href="/aviso-privacidad">Aviso de privacidad</a></li>
-            <li><a href="/terminos-condiciones">Terminos y condiciones</a></li>
-          </ul>
-        </div>
-
-        <div class="sidebar-widget">
-          <h3>Categorias</h3>
-          <ul class="sidebar-list">
-            {categories.map(category => {
-              const meta = categoryMeta[category as keyof typeof categoryMeta];
-              return (
-                <li>
-                  <a href={`/blog/categoria/${category}`}>
-                    {meta?.icon} {meta?.name || category}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div class="sidebar-widget">
-          <h3>Articulos Destacados</h3>
-          <ul class="sidebar-posts">
-            {featuredPosts.map(post => (
-              <li>
-                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
+      <BlogSidebar featuredPosts={featuredPosts} categories={categories} />
     </div>
   </div>
 </section>
@@ -153,157 +70,6 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 22px;
-  }
-
-  .post-card {
-    background: #ffffff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(116, 185, 255, 0.2);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  }
-
-  .post-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    border-color: rgba(116, 185, 255, 0.38);
-  }
-
-  .post-card > a:first-child {
-    display: block;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-  }
-
-  .post-card > a:first-child img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.35s ease;
-  }
-
-  .post-card:hover > a:first-child img {
-    transform: scale(1.04);
-  }
-
-  .post-meta {
-    padding: 16px 20px 0;
-  }
-
-  .post-card .category {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: linear-gradient(135deg, rgba(116, 185, 255, 0.18) 0%, rgba(85, 239, 196, 0.12) 100%);
-    color: #1d4f7a;
-    padding: 6px 12px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    border: 1px solid rgba(116, 185, 255, 0.25);
-  }
-
-  .post-card h3 {
-    font-size: 1.08rem;
-    font-weight: 700;
-    line-height: 1.4;
-    margin: 12px 0 10px;
-    padding: 0 20px;
-    color: var(--texto-oscuro);
-  }
-
-  .post-card h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .post-card h3 a:hover {
-    color: var(--rosa-principal);
-  }
-
-  .post-card > p {
-    font-size: 0.92rem;
-    color: var(--texto-light);
-    line-height: 1.65;
-    padding: 0 20px;
-    margin-bottom: 18px;
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .post-card .btn.btn-primary {
-    background: linear-gradient(135deg, #2f8fd8 0%, #4ecdc4 100%);
-    color: #fff;
-    padding: 12px 16px;
-    margin: 0 20px 20px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.82rem;
-    line-height: 1.25;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 44px;
-    box-shadow: 0 4px 15px rgba(47, 143, 216, 0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .post-card .btn.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(47, 143, 216, 0.4);
-  }
-
-  .blog-sidebar {
-    position: sticky;
-    top: 126px;
-    display: grid;
-    gap: 16px;
-  }
-
-  .sidebar-widget {
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid rgba(233, 30, 140, 0.1);
-    box-shadow: 0 3px 16px rgba(0,0,0,0.05);
-    padding: 18px;
-  }
-
-  .sidebar-widget h3 {
-    font-size: 1rem;
-    margin: 0 0 12px;
-    color: var(--texto-oscuro);
-  }
-
-  .sidebar-list,
-  .sidebar-posts {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 10px;
-  }
-
-  .sidebar-list a,
-  .sidebar-posts a {
-    color: var(--texto-light);
-    text-decoration: none;
-    font-size: 0.9rem;
-    line-height: 1.45;
-  }
-
-  .sidebar-list a:hover,
-  .sidebar-posts a:hover {
-    color: var(--rosa-principal);
   }
 
   .pagination {
@@ -352,19 +118,10 @@ const pageUrl = (page: number) => page <= 1 ? '/blog' : `/blog/pagina/${page}`;
     .blog-layout {
       grid-template-columns: 1fr;
     }
-
-    .blog-sidebar {
-      position: static;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 
   @media (max-width: 768px) {
     .posts-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .blog-sidebar {
       grid-template-columns: 1fr;
     }
   }

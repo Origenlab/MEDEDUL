@@ -10,7 +10,7 @@ import EventsGrid from '@/components/global/EventsGrid.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import FAQ from '@/components/global/FAQ.astro';
-import { getCdnUrl } from '@/lib/cdn';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 
 // Pasos del proceso
 const procesoSteps = [
@@ -88,44 +88,44 @@ const breadcrumbItems = [
 
 const faqs = [
   {
-    question: "Que incluye el servicio de mesas de dulce en CDMX?",
-    answer: "Nuestro servicio incluye: seleccion de dulces premium, diseno exclusivo segun tu tematica, mobiliario y decoracion, instalacion profesional antes del evento y desmontaje al finalizar. Todo adaptado a tus colores y estilo."
+    question: "Que incluye la decoracion de mesas de dulces en Mexico?",
+    answer: "Incluye seleccion de productos deliciosos, exhibidores de cristal y acrilico, soportes para cupcakes, bases de metal dorado, iluminacion LED opcional y etiquetas personalizadas. Todo adaptado a tu estilo vintage, moderno o tematico."
   },
   {
-    question: "Cuantos dulces incluye una mesa de dulces?",
-    answer: "La cantidad de dulces se calcula segun el numero de asistentes. Nuestro paquete basico incluye 15-20 variedades de dulces para 30-50 personas, el premium 25-30 variedades para 50-100 personas, y el deluxe 35+ variedades para eventos grandes."
+    question: "Cuantos dulces y postres incluye una mesa?",
+    answer: "La cantidad de productos se calcula segun tus invitados. El buffet basico incluye 15-20 variedades de caramelos y dulces para 30-50 personas; el paquete completo 25-30 variedades con cupcakes y postres para 50-100 asistentes."
   },
   {
-    question: "Puedo elegir los dulces que van en mi mesa?",
-    answer: "Absolutamente. Te enviamos un catalogo con todas las opciones disponibles y tu seleccionas tus favoritos. Tambien podemos incluir dulces especificos que nos solicites o adaptar la seleccion a restricciones alimenticias."
+    question: "Puedo elegir los dulces y la decoracion?",
+    answer: "Absolutamente. Te enviamos un catalogo con opciones de productos, exhibidores y estilos. Puedes inspirarte en Pinterest y nosotros lo hacemos realidad. Adaptamos la seleccion a tus gustos y restricciones alimenticias."
   },
   {
-    question: "Con cuanta anticipacion debo reservar mi mesa de dulces?",
-    answer: "Recomendamos reservar con 2-3 semanas de anticipacion para garantizar disponibilidad. En temporada alta (mayo, noviembre, diciembre) sugerimos 4-6 semanas. Para disenos especiales, entre mas tiempo mejor."
+    question: "Con cuanta anticipacion debo reservar para cumpleanos o bodas?",
+    answer: "Recomendamos reservar con 2-3 semanas de anticipacion. En temporada alta (Navidad, mayo, noviembre) sugerimos 4-6 semanas para eventos sociales grandes. Para disenos especiales con exhibidores unicos, entre mas tiempo mejor."
   },
   {
-    question: "Que pasa con los dulces que sobran?",
-    answer: "Los dulces que sobran son tuyos. Al finalizar el evento, empacamos todo lo restante en bolsas o cajas para que puedas llevartelos o repartirlos como recuerdo a tus asistentes."
+    question: "Que pasa con los dulces que sobran de mi fiesta?",
+    answer: "Los productos que sobren son tuyos. Al finalizar tu cumpleanos, boda o celebracion, empacamos todo en bolsas decorativas para que los regales como recuerdo a tus invitados."
   },
   {
-    question: "El servicio incluye la entrega e instalacion?",
-    answer: "Si, todos nuestros paquetes incluyen entrega, armado profesional y desmontaje. Llegamos 1-2 horas antes de tu evento para tener todo listo perfectamente. El costo de envio varia segun la ubicacion."
+    question: "El montaje incluye exhibidores y bases para cupcakes?",
+    answer: "Si, todos nuestros paquetes incluyen exhibidores de cristal, bases para cupcakes, soportes de acrilico y metal dorado. Llegamos 1-2 horas antes para crear la exhibicion perfecta con iluminacion LED si lo deseas."
   },
   {
-    question: "Cuanto cuesta una mesa de dulces en CDMX?",
-    answer: "El precio de una mesa de dulces en Ciudad de Mexico varia segun el numero de personas y el paquete elegido. Nuestros paquetes inician desde $3,500 MXN para eventos de 30-50 personas. Solicita una cotizacion gratuita para tu evento especifico."
+    question: "Cuanto cuesta una mesa de dulces para fiestas en CDMX?",
+    answer: "Los precios en Ciudad de Mexico varian segun invitados y decoracion elegida. Iniciamos desde $3,500 MXN para fiestas infantiles pequenas. Solicita cotizacion gratuita para tu cumpleanos, boda o evento social."
   },
   {
-    question: "Que zonas cubren en Ciudad de Mexico?",
-    answer: "Cubrimos toda Ciudad de Mexico y area metropolitana: Polanco, Condesa, Roma, Santa Fe, Coyoacan, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Interlomas y mas. Consulta disponibilidad para tu zona."
+    question: "Que zonas cubren en Mexico?",
+    answer: "Cubrimos toda Ciudad de Mexico y area metropolitana: Polanco, Condesa, Roma, Santa Fe, Coyoacan, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Interlomas. Atendemos eventos sociales y empresariales."
   },
   {
-    question: "El precio es por horas o por evento?",
-    answer: "Nuestro servicio de mesas de dulce se cotiza por evento, no por horas. Incluye instalacion, permanencia durante todo tu evento (hasta 6 horas estandar) y desmontaje. Para eventos mas largos, consulta nuestras opciones."
+    question: "Ofrecen mesa de postres ademas del candy bar?",
+    answer: "Si, ademas de mesas de dulces ofrecemos buffet de postres con cupcakes artesanales, mesa de quesos, mesa de frutas y estaciones interactivas. Ideal para eventos sociales que buscan variedad deliciosa."
   },
   {
-    question: "Ofrecen mesa de quesos y botanas ademas de dulces?",
-    answer: "Si, ademas de mesas de dulces ofrecemos mesa de quesos y embutidos, mesa de botanas, mesa de frutas y estaciones interactivas como fuente de chocolate. Puedes combinar varias opciones para tu evento."
+    question: "Tienen opciones para fiestas de Navidad y eventos empresariales?",
+    answer: "Si, disenamos mesas especiales para Navidad con decoracion tematica festiva, y para eventos sociales y empresariales con exhibicion elegante y productos de calidad que impresionan a cualquier invitado."
   }
 ];
 
@@ -143,41 +143,32 @@ const serviceSchema = {
       "@type": "PostalAddress",
       "addressLocality": "Ciudad de Mexico",
       "addressCountry": "MX"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127",
+      "bestRating": "5"
     }
   },
   "areaServed": {
     "@type": "City",
     "name": "Ciudad de Mexico"
   },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Paquetes de Mesa de Dulces",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mesa de Dulces Basica",
-          "description": "Para 30-50 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mesa de Dulces Premium",
-          "description": "Para 50-100 invitados"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mesa de Dulces Deluxe",
-          "description": "Para 100-200 invitados"
-        }
-      }
-    ]
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "4500",
+    "highPrice": "12000",
+    "priceCurrency": "MXN",
+    "offerCount": "3",
+    "offers": paquetesMesaDulces.map(pkg => ({
+      "@type": "Offer",
+      "name": `Mesa de Dulces ${pkg.name}`,
+      "price": pkg.price.replace(/[$,]/g, ''),
+      "priceCurrency": "MXN",
+      "description": pkg.guests,
+      "availability": "https://schema.org/InStock"
+    }))
   }
 };
 
@@ -206,37 +197,42 @@ const galeriaImages = [
 const caracteristicas = [
   {
     num: 1,
-    title: 'Diseno 100% Personalizado',
-    desc: 'Adaptamos colores, tematica y estilo a tu evento. Cada mesa es unica y refleja tu vision.',
+    title: 'Decoracion 100% Personalizada',
+    desc: 'Adaptamos colores, tematica y estilo a tu celebracion. Desde vintage hasta moderno, cada mesa es unica como en Pinterest.',
     img: '/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-tematica.avif'
   },
   {
     num: 2,
-    title: 'Dulces Premium',
-    desc: 'Seleccionamos solo dulces de la mas alta calidad, nacionales e importados para tu evento.',
+    title: 'Productos Deliciosos',
+    desc: 'Seleccionamos dulces y postres de alta calidad: caramelos, chocolates, cupcakes y variedades nacionales e importadas.',
     img: '/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-elegante.avif'
   },
   {
     num: 3,
-    title: 'Mobiliario Incluido',
-    desc: 'Mesas, manteles, contenedores, bases y toda la decoracion necesaria para lucir espectacular.',
+    title: 'Exhibidores Elegantes',
+    desc: 'Bases para cupcakes, soportes de acrilico y metal dorado, exhibidores de cristal con iluminacion LED opcional.',
     img: '/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-eventos.avif'
   },
   {
     num: 4,
     title: 'Montaje Profesional',
-    desc: 'Llegamos antes, montamos todo y desmontamos al final. Tu solo disfrutas de tu evento.',
+    desc: 'Llegamos antes, creamos la exhibicion perfecta y desmontamos al final. Tu solo disfrutas tu cumpleanos o fiesta.',
     img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif'
   }
 ];
 
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+const stationWidths = [240, 320, 400, 560, 720];
+const stationSizes = '(max-width: 1024px) 100vw, 420px';
+
 const incluye = [
-  { num: '01', title: 'Dulces Premium Seleccionados', desc: 'De 15 a 35+ variedades de dulces de alta calidad: chocolates finos, gomitas importadas, paletas artesanales, malvaviscos y especialidades mexicanas.' },
-  { num: '02', title: 'Decoracion Tematica', desc: 'Manteles de diseno, backdrop a tu medida, letras decorativas, globos, flores y todos los elementos que hagan match con tu evento.' },
-  { num: '03', title: 'Mobiliario Profesional', desc: 'Mesas elegantes, bases de diferentes alturas, contenedores de cristal y acrilico, bandejas decorativas y exhibidores premium.' },
-  { num: '04', title: 'Montaje y Desmontaje', desc: 'Nuestro equipo llega 1-2 horas antes para instalar todo perfectamente y recogemos al finalizar. Tu no mueves un dedo.' },
-  { num: '05', title: 'Empaque de Sobrantes', desc: 'Los dulces que sobren son tuyos. Los empacamos en bolsas o cajas decorativas para que los regales como recuerdo a tus asistentes.' },
-  { num: '06', title: 'Asesoria Personalizada', desc: 'Te guiamos en la seleccion de dulces, colores y estilos. Resolvemos todas tus dudas antes, durante y despues del evento.' }
+  { num: '01', title: 'Dulces y Postres Deliciosos', desc: 'De 15 a 35+ variedades de productos: chocolates finos, caramelos artesanales, gomitas importadas, paletas, malvaviscos y especialidades mexicanas. Variedad de sabores para todos los gustos.' },
+  { num: '02', title: 'Decoracion Tematica Completa', desc: 'Manteles de diseno, backdrop a tu medida, letras decorativas, globos, flores y etiquetas personalizadas. Estilos vintage, moderno o tematico que inspiran como en Pinterest.' },
+  { num: '03', title: 'Exhibidores y Mobiliario', desc: 'Mesas elegantes, exhibidores de cristal y acrilico, soportes para cupcakes, bases para cupcakes de metal dorado, bandejas decorativas e iluminacion LED opcional.' },
+  { num: '04', title: 'Montaje y Desmontaje', desc: 'Nuestro equipo llega 1-2 horas antes para crear la exhibicion perfecta. Recogemos al finalizar tu cumpleanos, boda o fiesta. Tu no mueves un dedo.' },
+  { num: '05', title: 'Empaque de Sobrantes', desc: 'Los dulces y mesa de postres que sobren son tuyos. Los empacamos en bolsas o cajas decorativas para que los regales como recuerdo a tus invitados.' },
+  { num: '06', title: 'Asesoria Personalizada', desc: 'Te guiamos en la seleccion de productos, colores y estilos. Ideal para eventos sociales, corporativos o fiestas de Navidad. Resolvemos todas tus dudas.' }
 ];
 
 const eventos = [
@@ -333,7 +329,7 @@ const estaciones = [
 
 <BaseLayout
   title="Mesa de Dulces Personalizada CDMX | Candy Bar Fiestas"
-  description="Renta de mesa de dulces y postres en Ciudad de Mexico. Servicio completo para bodas, XV anos y fiestas. Cotiza gratis tu candy bar."
+  description="Renta de mesa de dulces y postres en Ciudad de Mexico. Decoracion personalizada para bodas, XV anos, cumpleanos y eventos sociales. Exhibidores elegantes y montaje profesional. Cotiza gratis."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-dulces"
   ogImage="/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif"
   includeCategoryStyles={true}
@@ -346,8 +342,8 @@ const estaciones = [
   <Hero
     title="Mesa de Dulces Personalizada para Eventos en CDMX"
     highlight="Dulces"
-    description="Nuestra <strong>mesa de dulces y postres</strong> es el centro de atencion de cualquier celebracion en Ciudad de Mexico. Creamos montajes unicos con seleccion premium y presentacion impecable."
-    secondaryContent={`<p><strong>Mesa de dulces</strong> personalizada con enfoque profesional te permite convertir tu celebracion en una experiencia visualmente potente y totalmente alineada a tu concepto. En Mededul definimos propuesta, surtido y composicion para que cada detalle sume valor real en ambientacion, servicio y presencia fotografica.</p><p><strong>Diseno</strong> estrategico de candy bar en CDMX integra seleccion premium, decoracion coherente y montaje impecable para asegurar resultados consistentes en cualquier tipo de evento. Nuestro proceso cuida tiempos, calidad y ejecucion para que tus invitados disfruten una experiencia memorable mientras tu mantienes control total del proyecto.</p>`}
+    description="Nuestra <strong>mesa de dulces y postres</strong> es el centro de atencion de cualquier celebracion en Mexico. Creamos montajes unicos con productos deliciosos, exhibicion elegante y decoracion a tu medida."
+    secondaryContent={`<p><strong>Mesa de dulces</strong> personalizada con enfoque profesional te permite convertir tu celebracion en una experiencia visualmente potente, ideal para cumpleanos, bodas y eventos sociales. En Mededul definimos propuesta, surtido y composicion con exhibidores de cristal y acrilico, soportes para cupcakes y bases de metal dorado que realzan cada producto.</p><p><strong>Decoracion</strong> estrategica de candy bar en Ciudad de Mexico integra desde estilos vintage hasta disenos modernos con iluminacion LED y etiquetas personalizadas. Ya sea para Navidad, fiestas infantiles o buffet de postres, nuestro montaje incluye variedad de caramelos, chocolates y dulces que inspiran como en Pinterest. Creamos una exhibicion memorable para tus invitados.</p>`}
   />
 
   <!-- Paquetes Section -->
@@ -365,13 +361,13 @@ const estaciones = [
   <WhyChooseUs
     badge="Nuestras Ventajas"
     title="Por que elegir nuestra"
-    titleHighlight="Mesa de Dulces en CDMX?"
+    titleHighlight="Mesa de Dulces en Mexico?"
     descriptions={[
-      "Con mas de <strong>500 eventos exitosos</strong> en Ciudad de Mexico, nos hemos convertido en la opcion preferida para quienes buscan calidad, creatividad y un servicio de mesas de dulce impecable.",
-      "Cada mesa que creamos es una obra de arte comestible, disenada especificamente para hacer de tu celebracion un momento unico e inolvidable."
+      "Con mas de <strong>500 celebraciones exitosas</strong> en Ciudad de Mexico y area metropolitana, somos la opcion preferida para eventos sociales y empresariales que buscan calidad, creatividad y exhibicion impecable.",
+      "Cada mesa de postres que creamos es una obra de arte comestible con decoracion tematica, disenada para hacer de tu cumpleanos, boda o fiesta infantil un momento unico e inolvidable."
     ]}
     stats={[
-      { number: "500+", label: "Eventos" },
+      { number: "500+", label: "Celebraciones" },
       { number: "100%", label: "Personalizado" },
       { number: "50+", label: "Variedades" },
       { number: "5 hrs", label: "Respuesta" }
@@ -383,14 +379,24 @@ const estaciones = [
   <section class="galeria-section" id="galeria">
     <div class="container">
       <div class="section-header-center">
-        <h2>Nuestros <span class="titulo-decorativo">Trabajos</span></h2>
-        <p class="subtitulo">Cada mesa cuenta una historia unica de celebracion</p>
+        <h2>Exhibicion de <span class="titulo-decorativo">Mesas de Dulces en Mexico</span></h2>
+        <p class="subtitulo">Decoracion para bodas, cumpleanos, XV anos y eventos sociales en CDMX</p>
       </div>
 
       <div class="galeria-bento">
         {galeriaImages.map(img => (
           <div class="galeria-item">
-            <img src={getCdnUrl(img.src)} alt={img.alt} loading="lazy" />
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
           </div>
         ))}
       </div>
@@ -402,8 +408,8 @@ const estaciones = [
     <div class="container">
       <div class="incluye-header">
         <span class="badge">Todo Incluido</span>
-        <h2>Que incluye nuestra <span>Mesa de Dulces y Postres</span>?</h2>
-        <p>Nos encargamos de cada detalle para que tu solo disfrutes</p>
+        <h2>Que incluye nuestra <span>Mesa de Dulces para Fiestas</span>?</h2>
+        <p>Buffet completo con decoracion, exhibidores y productos deliciosos para tu celebracion</p>
       </div>
 
       <div class="incluye-grid">
@@ -430,8 +436,8 @@ const estaciones = [
   <EventsGrid
     badge="Versatilidad Total"
     title="Tu Mesa de Dulces para"
-    titleHighlight="Cualquier Evento"
-    subtitle="Disenamos mesas de dulces unicas que se adaptan perfectamente a cada tipo de celebracion. Cada evento es especial y merece una experiencia a la medida."
+    titleHighlight="Cualquier Ocasion"
+    subtitle="Disenamos mesas con decoracion unica que se adaptan a eventos sociales y empresariales. Desde cumpleanos infantiles hasta bodas elegantes, cada celebracion merece una exhibicion a la medida."
     events={eventos}
   />
 
@@ -451,7 +457,7 @@ const estaciones = [
       <SectionHeader
         title="Preguntas Frecuentes"
         titleHighlight="Frecuentes"
-        subtitle="Resolvemos tus dudas sobre nuestra mesa de dulces"
+        subtitle="Resolvemos tus dudas sobre decoracion, exhibidores y productos para tu mesa de dulces en Mexico"
       />
       <FAQ items={faqs} id="faq-mesa-dulces" />
     </div>
@@ -461,16 +467,26 @@ const estaciones = [
   <section class="otras-estaciones">
     <div class="container">
       <div class="estaciones-header">
-        <span class="badge">Complementa Tu Evento</span>
+        <span class="badge">Complementa Tu Celebracion</span>
         <h2>Agrega <span>Estaciones Interactivas</span></h2>
-        <p>Eleva la experiencia de tus asistentes con nuestras estaciones interactivas. Cada una ofrece una vivencia unica que hara tu evento inolvidable.</p>
+        <p>Eleva la experiencia de tus invitados con estaciones deliciosas que complementan tu mesa de dulces y postres. Ideales para cumpleanos, bodas y eventos sociales en Mexico.</p>
       </div>
 
       <div class="estaciones-grid">
         {estaciones.map(est => (
           <div class="estacion-card">
             <div class="estacion-image">
-              <img src={getCdnUrl(est.img)} alt={est.title} loading="lazy" />
+              <img
+                src={getCdnUrl(est.img, { w: 420, q: 80 })}
+                srcset={getCdnSrcSet(est.img, stationWidths, { q: 80 })}
+                sizes={stationSizes}
+                alt={est.title}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                width="640"
+                height="800"
+              />
               <span class="estacion-badge" style={`background: linear-gradient(135deg, ${est.badgeColor} 0%, ${est.badgeColor}cc 100%)`}>{est.badge}</span>
             </div>
             <div class="estacion-content">
@@ -498,7 +514,7 @@ const estaciones = [
       </div>
 
       <div class="estaciones-cta">
-        <p>Quieres combinar mesa de dulces + estaciones? <strong>Pregunta por nuestros paquetes especiales</strong></p>
+        <p>Quieres combinar mesa de dulces y postres con estaciones interactivas? <strong>Pregunta por nuestros paquetes especiales para eventos sociales</strong></p>
         <a href="/estaciones-interactivas" class="btn-estaciones">Ver Todas las Estaciones Disponibles</a>
       </div>
     </div>
@@ -509,8 +525,8 @@ const estaciones = [
     <div class="container">
       <div class="contacto-grid">
         <div class="contacto-info">
-          <h2>Cotiza tu Mesa de Dulces</h2>
-          <p class="contacto-intro">Estamos listos para crear la mesa perfecta para tu evento en Ciudad de Mexico. Contactanos y recibe una cotizacion a tu medida sin compromiso.</p>
+          <h2>Cotiza tu Mesa de Dulces en Mexico</h2>
+          <p class="contacto-intro">Estamos listos para crear la exhibicion perfecta para tu cumpleanos, boda o fiesta en Ciudad de Mexico. Incluye decoracion, exhibidores y productos deliciosos. Contactanos y recibe una cotizacion sin compromiso.</p>
 
           <div class="info-items-grid">
             <div class="info-item info-sucursal">

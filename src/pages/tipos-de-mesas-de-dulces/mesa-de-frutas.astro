@@ -18,28 +18,28 @@ const breadcrumbItems = [
 
 const faqs = [
   {
-    question: 'Que incluye una mesa de frutas para eventos?',
-    answer: 'Incluye seleccion de fruta fresca de temporada, montaje profesional, mobiliario de presentacion, curaduria visual y desmontaje al finalizar el evento.'
+    question: 'Que incluye una mesa de frutas para fiestas y celebraciones?',
+    answer: 'Incluye seleccion de fruta fresca como sandia, mango, kiwi, pina y naranja, arreglo decorativo en bandejas elegantes, centro de mesa con diseno atractivo, pinchos para servir y desmontaje al finalizar la fiesta.'
   },
   {
-    question: 'La fruta se prepara el mismo dia?',
-    answer: 'Si. Coordinamos preparacion y montaje para conservar frescura, color y textura durante el servicio en tu evento.'
+    question: 'La fruta se prepara el mismo dia del cumpleanos o fiesta?',
+    answer: 'Si. Coordinamos preparacion y montaje el mismo dia para conservar frescura, color y textura. Cada pieza de sandia, mango o kiwi llega en su punto optimo de consumo.'
   },
   {
-    question: 'Puedo combinar frutas con toppings o chamoy?',
-    answer: 'Si. Podemos agregar complementos como chamoy, chile, limon y otros toppings segun el perfil de tu evento y preferencias de invitados.'
+    question: 'Puedo combinar frutas con toppings o chamoy en mi fiesta?',
+    answer: 'Si. Podemos agregar complementos como chamoy, chile, limon y chocolate para crear combinaciones deliciosas. Es una idea muy popular en cumpleanos y fiestas infantiles.'
   },
   {
-    question: 'Para cuantas personas alcanza una mesa de frutas?',
-    answer: 'Definimos porciones y volumen en funcion del aforo. Contamos con paquetes referenciales para eventos pequenos, medianos y grandes.'
+    question: 'Para cuantas personas alcanza un buffet de frutas?',
+    answer: 'Definimos porciones y volumen segun tu celebracion. Contamos con paquetes desde fiestas intimas de 30 personas hasta buffets grandes de 100+ invitados.'
   },
   {
-    question: 'La mesa de frutas funciona para eventos corporativos?',
-    answer: 'Si, es una opcion muy efectiva para formatos corporativos, brunch, activaciones y eventos donde se busca una propuesta ligera y elegante.'
+    question: 'Sirve como centro de mesa decorativo?',
+    answer: 'Si, cada arreglo de frutas funciona como centro de mesa espectacular. Usamos bandejas multinivel, pinchos decorativos y disenos inspirados en Pinterest que elevan la decoracion de cualquier fiesta.'
   },
   {
-    question: 'Incluye montaje y desmontaje?',
-    answer: 'Si, el servicio es integral: montaje, operacion visual y desmontaje con estandar profesional.'
+    question: 'Que frutas incluyen en el arreglo?',
+    answer: 'Trabajamos con sandia, mango, kiwi, pina, naranja, fresas y uvas. Combinamos colores y texturas para crear una bandeja visualmente deliciosa que complementa la decoracion de tu cumpleanos o fiesta.'
   }
 ];
 
@@ -50,12 +50,12 @@ const packages = [
     price: '$4,200',
     currency: 'MXN',
     guests: '30-50 personas',
-    tagline: 'Opcion fresca para eventos intimos',
+    tagline: 'Ideal para fiestas intimas y cumpleanos',
     features: [
-      'Mesa de frutas con surtido base',
-      'Montaje profesional',
-      'Presentacion elegante',
-      'Mobiliario incluido',
+      'Bandeja de frutas con sandia, mango y kiwi',
+      'Arreglo decorativo con pinchos',
+      'Centro de mesa elegante',
+      'Diseno tipo Pinterest',
       'Desmontaje al finalizar'
     ],
     popular: false,
@@ -63,23 +63,23 @@ const packages = [
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Frutas - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Favorito',
     icon: '⭐',
     price: '$7,400',
     currency: 'MXN',
     guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
+    tagline: 'La opcion mas solicitada para fiestas',
     features: [
-      'Mayor variedad de fruta fresca',
-      'Diseno personalizado',
-      'Composicion premium de exhibicion',
+      'Buffet amplio con pina, naranja y fresas',
+      'Decoracion tematica personalizada',
+      'Bandejas multinivel de exhibicion',
       'Montaje y coordinacion en sitio',
-      'Asesoria previa del evento',
+      'Asesoria de diseno previa',
       'Mejor equilibrio costo-beneficio'
     ],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Frutas - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Frutas - Paquete Favorito'
   },
   {
     name: 'Luxury',
@@ -87,14 +87,14 @@ const packages = [
     price: '$11,900',
     currency: 'MXN',
     guests: '100+ personas',
-    tagline: 'Experiencia premium de alto volumen',
+    tagline: 'Experiencia completa para grandes fiestas',
     features: [
-      'Surtido premium ampliado',
-      'Direccion estetica completa',
-      'Operacion en sitio extendida',
-      'Configuracion para eventos grandes',
+      'Buffet de frutas tropicales completo',
+      'Direccion estetica y decoracion total',
+      'Arreglos multiples como centros de mesa',
+      'Configuracion para celebraciones grandes',
       'Acompanamiento operativo integral',
-      'Presentacion de alto impacto'
+      'Presentacion de alto impacto visual'
     ],
     popular: false,
     ctaText: 'Cotizar Paquete',
@@ -104,90 +104,110 @@ const packages = [
 
 const whyStats = [
   { number: '100%', label: 'Fruta Fresca' },
-  { number: '4h+', label: 'Servicio Estable' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
+  { number: '4h+', label: 'Frescura Garantizada' },
+  { number: '500+', label: 'Fiestas Realizadas' },
+  { number: '24h', label: 'Respuesta Rapida' }
 ];
 
 const whyFeatures = [
   {
     num: 1,
-    title: 'Seleccion de Temporada',
-    desc: 'Elegimos fruta por calidad y punto de consumo para asegurar sabor y frescura.',
+    title: 'Frutas de Temporada Deliciosas',
+    desc: 'Seleccionamos sandia, mango, kiwi, pina y naranja en su punto optimo para sabor y frescura en tu fiesta.',
     img: '/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif'
   },
   {
     num: 2,
-    title: 'Presentacion Premium',
-    desc: 'Diseno visual profesional para elevar percepcion y experiencia del invitado.',
+    title: 'Diseno Estilo Pinterest',
+    desc: 'Arreglos decorativos con bandejas multinivel y pinchos creativos que se convierten en centro de mesa espectacular.',
     img: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif'
   },
   {
     num: 3,
-    title: 'Alternativa Saludable',
-    desc: 'Formato ideal para balancear el servicio con una opcion ligera y atractiva.',
+    title: 'Alternativa Saludable y Deliciosa',
+    desc: 'Formato ideal para balancear tu buffet de cumpleanos o fiesta con una opcion fresca y visualmente atractiva.',
     img: '/img/tipos-de-mesas/frutas/servicio-mesa-frutas-profesional.avif'
   },
   {
     num: 4,
-    title: 'Operacion Ordenada',
-    desc: 'Montaje, flujo y reposicion planeados para mantener calidad durante el evento.',
+    title: 'Decoracion que Impresiona',
+    desc: 'Cada bandeja de frutas esta disenada para complementar la decoracion de tu celebracion con colores vibrantes.',
     img: '/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif'
   }
 ];
 
 const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Levantamos fecha, sede, tipo de evento y aforo esperado.' },
-  { num: 2, title: 'Disenamos', desc: 'Definimos surtido, volumen y estilo de la mesa de frutas.' },
-  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta y logistica para montaje sin fricciones.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la mesa con estandar profesional.' }
+  { num: 1, title: 'Contactanos', desc: 'Platícanos sobre tu fiesta, cumpleanos o celebracion: fecha, lugar e invitados.' },
+  { num: 2, title: 'Disenamos', desc: 'Creamos el arreglo ideal con sandia, mango, kiwi y frutas de tu preferencia.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, bandejas, decoracion y logistica de montaje.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos tu buffet de frutas listo para disfrutar en tu fiesta.' }
 ];
 
 const eventCards = [
   {
     title: 'Frutas para Bodas',
-    excerpt: 'Mesa de frutas elegante para recepciones nupciales con enfoque premium.',
+    excerpt: 'Arreglo de frutas elegante con sandia y mango para recepciones nupciales. Decoracion deliciosa.',
     img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
     href: '/candy-bar-eventos/mesa-dulces-boda',
     cta: 'Ver Bodas'
   },
   {
-    title: 'Frutas para Corporativos',
-    excerpt: 'Solucion saludable para eventos empresariales, conferencias y activaciones.',
+    title: 'Frutas para Cumpleanos',
+    excerpt: 'Bandeja de frutas colorida para fiestas de cumpleanos. Ideas creativas estilo Pinterest.',
     img: '/img/eventos/corporativos/candy-bar-empresarial.avif',
     href: '/candy-bar-eventos/mesa-dulces-corporativos',
-    badge: 'Corporativo',
-    cta: 'Ver Corporativos'
+    badge: 'Popular',
+    cta: 'Ver Ideas'
   },
   {
     title: 'Frutas para Baby Shower',
-    excerpt: 'Formato fresco y visual para celebraciones familiares con estilo.',
+    excerpt: 'Centro de mesa con kiwi, pina y fresas para celebraciones familiares con estilo.',
     img: '/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif',
     href: '/candy-bar-eventos/mesa-dulces-baby-shower',
     cta: 'Ver Baby Shower'
   },
   {
-    title: 'Frutas para Graduacion',
-    excerpt: 'Presentacion limpia y funcional para eventos de alta asistencia.',
+    title: 'Frutas para Fiestas',
+    excerpt: 'Buffet de frutas con naranja, mango y decoracion tematica para grandes celebraciones.',
     img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
     href: '/candy-bar-eventos/mesa-dulces-graduacion',
-    cta: 'Ver Graduaciones'
+    cta: 'Ver Fiestas'
   }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Frutas para Eventos en CDMX',
-  description: 'Servicio de mesa de frutas frescas para eventos sociales y corporativos en Ciudad de Mexico con montaje profesional.',
+  name: 'Arreglos de Frutas para Fiestas y Cumpleanos en CDMX',
+  description: 'Bandejas de frutas frescas con sandia, mango, kiwi y pina para fiestas, cumpleanos y celebraciones. Diseno decorativo estilo Pinterest en Ciudad de Mexico.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
-    telephone: '+525525226442'
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127'
+    }
   },
   areaServed: {
     '@type': 'City',
     name: 'Ciudad de Mexico'
+  },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '4200',
+    highPrice: '11900',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Arreglo de Frutas ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
   }
 };
 
@@ -206,8 +226,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Frutas para Eventos en CDMX | Mededul"
-  description="Renta de mesa de frutas en CDMX con diseno elegante, fruta fresca de temporada y montaje profesional para eventos sociales y corporativos."
+  title="Mesa de Frutas para Fiestas y Cumpleanos en CDMX | Mededul"
+  description="Arreglos de frutas con sandia, mango, kiwi y pina para fiestas y cumpleanos. Bandejas decorativas, pinchos creativos y diseno estilo Pinterest en CDMX."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-frutas"
   ogImage="/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif"
   includeCategoryStyles={true}
@@ -219,37 +239,37 @@ const faqSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Frutas para Eventos en CDMX"
+    title="Mesa de Frutas para Fiestas en CDMX"
     highlight="Mesa de Frutas"
-    subtitle="Frescura, presentacion premium y operacion profesional para celebraciones sociales y corporativas"
-    secondaryContent={`<p><strong>Frutas</strong> seleccionadas con criterio profesional aportan equilibrio al servicio, mejoran experiencia de invitados y elevan el valor percibido de cualquier evento. En Mededul diseniamos mesas de frutas que combinan frescura real con una presentacion visual de alto nivel.</p><p><strong>Saludable</strong> no significa simple: estructuramos cada mesa para que funcione en estetica, flujo y consumo segun el tipo de celebracion. Nuestro equipo integra curaduria de producto, montaje y ejecucion para resultados consistentes en CDMX.</p>`}
+    subtitle="Arreglos deliciosos con sandia, mango, kiwi y pina para cumpleanos, bodas y celebraciones"
+    secondaryContent={`<p><strong>Frutas frescas</strong> como sandia, mango, kiwi, pina y naranja transforman cualquier fiesta en una experiencia deliciosa. En Mededul creamos arreglos de frutas que funcionan como centro de mesa decorativo mientras ofrecen una opcion saludable para tus invitados.</p><p><strong>Diseno estilo Pinterest</strong> con bandejas multinivel, pinchos creativos y decoracion tematica. Cada buffet de frutas esta pensado para complementar la estetica de tu cumpleanos, boda o celebracion con colores vibrantes y presentacion impecable en CDMX.</p>`}
     showCTA={true}
     ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa de Frutas"
+    ctaBadge="Ideas y Cotizacion"
+    ctaTitle="Disena Tu Mesa de Frutas"
     ctaTitleHighlight="Frutas"
-    ctaText="Comparte tipo de evento e invitados para recibir una recomendacion profesional y cotizacion personalizada."
-    ctaButtonText="Solicitar Asesoria"
+    ctaText="Comparte detalles de tu fiesta o cumpleanos para recibir ideas de arreglos y cotizacion personalizada."
+    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
     id="paquetes"
-    badge="Paquetes Referenciales"
+    badge="Paquetes para Fiestas"
     title="Escoge el"
-    titleHighlight="Formato Correcto"
-    subtitle="Ajustamos la propuesta de mesa de frutas al aforo, tipo de evento y nivel de servicio que necesitas."
+    titleHighlight="Arreglo Ideal"
+    subtitle="Ajustamos bandejas, decoracion y diseno de tu mesa de frutas segun el tamano de tu fiesta o cumpleanos."
     packages={packages}
-    note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu evento."
+    note="<strong>Tienes ideas especificas?</strong> Creamos una propuesta personalizada con las frutas y decoracion que imaginas."
   />
 
   <WhyChooseUs
     id="ventajas"
-    badge="Ventajas Diferenciales"
+    badge="Ideas y Ventajas"
     title="Por que elegir nuestra"
     titleHighlight="Mesa de Frutas"
     descriptions={[
-      'Mesa de frutas pensada para ofrecer una alternativa fresca, funcional y visualmente atractiva en eventos exigentes.',
-      'Combinamos seleccion de producto, diseno de presentacion y operacion profesional para mantener calidad de principio a fin.'
+      'Arreglos de frutas con sandia, mango, kiwi y pina que funcionan como centro de mesa decorativo y delicioso para tu fiesta.',
+      'Combinamos diseno estilo Pinterest, bandejas elegantes y pinchos creativos para crear un buffet que impresiona en cualquier cumpleanos o celebracion.'
     ]}
     stats={whyStats}
     features={whyFeatures}
@@ -257,29 +277,29 @@ const faqSchema = {
 
   <ProcessSteps
     id="proceso"
-    badge="Nuestro Proceso"
-    title="Como"
-    titleHighlight="Trabajamos"
-    subtitle="Cuatro pasos claros para montar tu mesa de frutas con precision."
+    badge="Asi Funciona"
+    title="Como Creamos tu"
+    titleHighlight="Arreglo de Frutas"
+    subtitle="Cuatro pasos para disenar el buffet de frutas ideal para tu fiesta o cumpleanos."
     steps={processSteps}
   />
 
   <EventsGrid
     id="eventos"
-    badge="Aplicaciones Reales"
-    title="Mesa de Frutas para"
-    titleHighlight="Cada Tipo de Evento"
-    subtitle="Adaptamos configuracion, volumen y estilo segun la naturaleza de la celebracion."
+    badge="Ideas para tu Fiesta"
+    title="Arreglos de Frutas para"
+    titleHighlight="Cada Celebracion"
+    subtitle="Bandejas, pinchos y decoracion adaptados al estilo de tu cumpleanos, boda o fiesta."
     events={eventCards}
   />
 
   <CTAServices
     href="/contacto"
     badge="Cotizacion sin Costo"
-    title="Eleva tu Evento con una Opcion"
-    titleHighlight="Saludable"
-    text="Te ayudamos a construir una mesa de frutas que combine valor visual, frescura y experiencia de servicio."
-    buttonText="Cotizar Mesa de Frutas"
+    title="Haz tu Fiesta"
+    titleHighlight="Deliciosa y Saludable"
+    text="Te ayudamos a disenar un arreglo de frutas con sandia, mango, kiwi y decoracion estilo Pinterest para tu cumpleanos o celebracion."
+    buttonText="Cotizar Arreglo de Frutas"
   />
 
   <section class="section-faq section-padding" id="faq">
@@ -287,8 +307,8 @@ const faqSchema = {
       <SectionHeader
         title="Preguntas Frecuentes sobre Mesa de Frutas"
         titleHighlight="Frecuentes"
-        subtitle="Resolvemos las dudas clave antes de contratar"
-        content={`<p>Estas respuestas te ayudan a elegir la mejor configuracion para tu evento con mayor certeza.</p>`}
+        subtitle="Ideas y respuestas para tu fiesta o cumpleanos"
+        content={`<p>Resolvemos dudas sobre bandejas, arreglos, decoracion y diseno de tu buffet de frutas.</p>`}
       />
       <FAQ items={faqs} id="faq-frutas" />
     </div>

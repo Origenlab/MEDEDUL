@@ -1,0 +1,126 @@
+---
+import { categoryMeta } from '@/content/config';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  featuredPosts: CollectionEntry<'blog'>[];
+  categories: string[];
+}
+
+const { featuredPosts, categories } = Astro.props;
+
+const importantLinks = [
+  { label: 'Mesas de dulces para bodas', url: '/candy-bar-eventos/mesa-dulces-boda' },
+  { label: 'Dulces para XV anos', url: '/candy-bar-eventos/mesa-dulces-xv-anos' },
+  { label: 'Candy bar corporativo', url: '/candy-bar-eventos/mesa-dulces-corporativos' },
+  { label: 'Mesas para baby shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { label: 'Estaciones interactivas', url: '/estaciones-interactivas' },
+  { label: 'Tipos de mesas de dulces', url: '/tipos-de-mesas-de-dulces' }
+];
+---
+
+<aside class="blog-sidebar">
+  <div class="sidebar-widget">
+    <h3>Contenido Relacionado</h3>
+    <ul class="sidebar-list">
+      {importantLinks.map(link => (
+        <li><a href={link.url}>{link.label}</a></li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="sidebar-widget">
+    <h3>Enlaces Importantes</h3>
+    <ul class="sidebar-list">
+      <li><a href="/servicios">Servicios</a></li>
+      <li><a href="/contacto">Cotizar evento</a></li>
+      <li><a href="/aviso-privacidad">Aviso de privacidad</a></li>
+      <li><a href="/terminos-condiciones">Terminos y condiciones</a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-widget">
+    <h3>Categorias</h3>
+    <ul class="sidebar-list">
+      {categories.map(category => {
+        const meta = categoryMeta[category as keyof typeof categoryMeta];
+        return (
+          <li>
+            <a href={`/blog/categoria/${category}`}>
+              {meta?.icon} {meta?.name || category}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+
+  <div class="sidebar-widget">
+    <h3>Articulos Destacados</h3>
+    <ul class="sidebar-posts">
+      {featuredPosts.map(post => (
+        <li>
+          <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</aside>
+
+<style>
+  .blog-sidebar {
+    position: sticky;
+    top: 126px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .sidebar-widget {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    box-shadow: 0 3px 16px rgba(0,0,0,0.05);
+    padding: 18px;
+  }
+
+  .sidebar-widget h3 {
+    font-size: 1rem;
+    margin: 0 0 12px;
+    color: var(--texto-oscuro);
+  }
+
+  .sidebar-list,
+  .sidebar-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .sidebar-list a,
+  .sidebar-posts a {
+    color: var(--texto-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .sidebar-list a:hover,
+  .sidebar-posts a:hover {
+    color: var(--rosa-principal);
+  }
+
+  @media (max-width: 1024px) {
+    .blog-sidebar {
+      position: static;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

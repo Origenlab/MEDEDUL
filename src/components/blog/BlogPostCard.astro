@@ -1,0 +1,150 @@
+---
+import { categoryMeta } from '@/content/config';
+import { getCdnUrl } from '@/lib/cdn';
+import { getBlogCardCta } from '@/lib/blogCardCta';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  index?: number;
+}
+
+const { post, index = 0 } = Astro.props;
+const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
+---
+
+<article class="post-card">
+  <a href={`/blog/${post.slug}`}>
+    <Image
+      src={getCdnUrl(post.data.heroImage)}
+      alt={post.data.heroImageAlt}
+      width={400}
+      height={250}
+      format="webp"
+      loading={index === 0 ? 'eager' : 'lazy'}
+      fetchpriority={index === 0 ? 'high' : 'auto'}
+      widths={[320, 400, 560, 720]}
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    />
+  </a>
+  <div class="post-meta">
+    <span class="category">
+      <span class="category-icon">{meta?.icon}</span>
+      {meta?.name || post.data.category}
+    </span>
+  </div>
+  <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
+  <p>{post.data.description}</p>
+  <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category, post.data.title)}</a>
+</article>
+
+<style>
+  .post-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(116, 185, 255, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-color: rgba(116, 185, 255, 0.38);
+  }
+
+  .post-card > a:first-child {
+    display: block;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .post-card > a:first-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .post-card:hover > a:first-child img {
+    transform: scale(1.04);
+  }
+
+  .post-meta {
+    padding: 16px 20px 0;
+  }
+
+  .post-card .category {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, rgba(116, 185, 255, 0.18) 0%, rgba(85, 239, 196, 0.12) 100%);
+    color: #1d4f7a;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border: 1px solid rgba(116, 185, 255, 0.25);
+  }
+
+  .post-card h3 {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 12px 0 10px;
+    padding: 0 20px;
+    color: var(--texto-oscuro);
+  }
+
+  .post-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-card h3 a:hover {
+    color: var(--rosa-principal);
+  }
+
+  .post-card > p {
+    font-size: 0.92rem;
+    color: var(--texto-light);
+    line-height: 1.65;
+    padding: 0 20px;
+    margin-bottom: 18px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card .btn.btn-primary {
+    background: linear-gradient(135deg, #2f8fd8 0%, #4ecdc4 100%);
+    color: #fff;
+    padding: 12px 16px;
+    margin: 0 20px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 44px;
+    box-shadow: 0 4px 15px rgba(47, 143, 216, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .post-card .btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(47, 143, 216, 0.4);
+  }
+</style>

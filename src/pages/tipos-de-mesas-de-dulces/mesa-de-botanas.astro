@@ -97,8 +97,32 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Mesa de Botanas para Eventos en CDMX',
   description: 'Servicio de mesa de botanas saladas para eventos sociales y corporativos en Ciudad de Mexico.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127'
+    }
+  },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '3800',
+    highPrice: '10200',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Mesa de Botanas ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
+  }
 };
 
 const faqSchema = {

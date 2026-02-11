@@ -97,8 +97,33 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Servicio Cero Estres para Mesas de Dulces en CDMX',
   description: 'Servicio profesional de mesas de dulces en Ciudad de Mexico con enfoque cero estres: planeacion, montaje y operacion integral.',
-  provider: { '@type': 'LocalBusiness', name: 'Mededul', telephone: '+525525226442' },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' }
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Mededul',
+    telephone: '+525525226442',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5'
+    }
+  },
+  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '5000',
+    highPrice: '13800',
+    priceCurrency: 'MXN',
+    offerCount: '3',
+    offers: packages.map(pkg => ({
+      '@type': 'Offer',
+      name: `Cero Estres ${pkg.name}`,
+      price: pkg.price.replace(/[$,]/g, ''),
+      priceCurrency: 'MXN',
+      description: pkg.guests,
+      availability: 'https://schema.org/InStock'
+    }))
+  }
 };
 
 const faqSchema = {
