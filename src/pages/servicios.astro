@@ -1,68 +1,60 @@
 ---
-// Servicios Page
+// Servicios Page - Professional Design
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
   { name: 'Servicios', url: '/servicios' }
 ];
 
-const services = [
+// FAQ Data para servicios
+const faqItems = [
   {
-    title: 'Mesa de Dulces para Bodas',
-    description: 'Elegancia y sofisticación para el día más importante. Diseños personalizados que complementan tu temática.',
-    image: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif',
-    features: ['Diseño personalizado', 'Dulces premium', 'Montaje y desmontaje', 'Coordinación con venue'],
-    link: '/blog/categoria/bodas'
+    question: "¿Qué servicios de mesas de dulces ofrecen?",
+    answer: "Ofrecemos mesas de dulces personalizadas, mesas de postres gourmet, mesas de frutas, mesas de quesos y embutidos, mesas de snacks, y estaciones interactivas como fuentes de chocolate y chamoy. Todo incluye diseño, montaje profesional y servicio completo."
   },
   {
-    title: 'Mesa de Dulces para XV Años',
-    description: 'Celebra la transición a la juventud con una mesa de dulces digna de una princesa.',
-    image: '/img/galeria/candy-bar-tema-princesa-castillo-rosa.avif',
-    features: ['Temáticas creativas', 'Colores personalizados', 'Estaciones interactivas', 'Dulces para todas las edades'],
-    link: '/blog/categoria/xv-anos'
+    question: "¿Los precios de los paquetes son fijos?",
+    answer: "Los precios son referenciales y pueden variar según ubicación, temporada, cantidad de invitados y requerimientos específicos. Cada cotización es personalizada para garantizar que obtengas exactamente lo que necesitas."
   },
   {
-    title: 'Mesa de Dulces para Baby Shower',
-    description: 'Dulzura y ternura para dar la bienvenida al nuevo integrante de la familia.',
-    image: '/img/galeria/candy-bar-baby-shower-nina-cupcakes-galletas-rosa.avif',
-    features: ['Decoración tierna', 'Dulces temáticos', 'Recuerdos personalizados', 'Opciones para reveal'],
-    link: '/blog/categoria/baby-shower'
+    question: "¿Puedo combinar diferentes tipos de mesas?",
+    answer: "¡Por supuesto! Muchos clientes combinan una mesa de dulces con una fuente de chocolate o una mesa de frutas. Te ayudamos a crear la combinación perfecta según tu evento y presupuesto."
   },
   {
-    title: 'Mesa de Dulces Corporativos',
-    description: 'Impresiona a tus clientes y colaboradores con experiencias dulces profesionales.',
-    image: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif',
-    features: ['Branding personalizado', 'Logo en dulces', 'Facturación fiscal', 'Servicio express'],
-    link: '/blog/categoria/corporativos'
+    question: "¿Qué incluye el servicio de montaje?",
+    answer: "El servicio incluye: llegada anticipada al venue, instalación de mobiliario, decoración de la mesa según tu temática, colocación profesional de productos, supervisión durante el evento y desmontaje al finalizar."
   },
   {
-    title: 'Mesa de Dulces Infantiles',
-    description: 'Diversión y color para los más pequeños. Mesas seguras y llenas de magia.',
-    image: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif',
-    features: ['Dulces seguros por edad', 'Temas de personajes', 'Colores vibrantes', 'Opciones sin alérgenos'],
-    link: '/blog/categoria/fiestas-infantiles'
+    question: "¿Trabajan en cualquier tipo de venue?",
+    answer: "Sí, trabajamos en todo tipo de espacios: salones, jardines, casas particulares, hoteles, haciendas, terrazas y más. Nos adaptamos a las condiciones de cada espacio para crear la presentación perfecta."
   },
   {
-    title: 'Fuente de Chocolate',
-    description: 'El complemento perfecto para cualquier evento. Chocolate premium con frutas y más.',
-    image: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
-    features: ['Chocolate belga', 'Frutas frescas', 'Malvaviscos y más', 'Operador incluido'],
-    link: '/blog'
+    question: "¿Cuál es la forma de pago?",
+    answer: "Aceptamos transferencia bancaria, efectivo y pagos con tarjeta. Normalmente solicitamos un anticipo del 50% para apartar la fecha y el resto se liquida antes del evento."
   }
 ];
 
+// Paquetes
 const packages = [
   {
     name: 'Esencial',
-    price: 'Desde $4,500',
+    icon: '🍬',
+    priceAmount: '$4,500',
+    priceNote: 'MXN',
     guests: '30-50 personas',
+    description: 'Perfecto para eventos íntimos',
     features: [
       '6-8 variedades de dulces',
-      'Montaje básico',
+      'Montaje básico elegante',
       'Mantelería incluida',
       '2 horas de servicio',
       'Contenedores de cristal'
@@ -71,32 +63,62 @@ const packages = [
   },
   {
     name: 'Premium',
-    price: 'Desde $7,500',
+    icon: '⭐',
+    priceAmount: '$7,500',
+    priceNote: 'MXN',
     guests: '50-100 personas',
+    description: 'La opción más solicitada',
     features: [
       '10-12 variedades de dulces',
-      'Diseño personalizado',
-      'Backdrop decorativo',
+      'Diseño 100% personalizado',
+      'Backdrop decorativo incluido',
       '4 horas de servicio',
-      'Dulces artesanales',
+      'Dulces artesanales premium',
       'Coordinación con venue'
     ],
     popular: true
   },
   {
     name: 'Luxury',
-    price: 'Desde $12,000',
+    icon: '💎',
+    priceAmount: '$12,000',
+    priceNote: 'MXN',
     guests: '100+ personas',
+    description: 'Experiencia de alto nivel',
     features: [
       '15+ variedades de dulces',
-      'Diseño exclusivo',
-      'Estación interactiva',
-      'Servicio completo',
+      'Diseño exclusivo temático',
+      'Estación interactiva incluida',
+      'Servicio completo día del evento',
       'Dulces premium importados',
-      'Fotografía de la mesa',
+      'Fotografía profesional de la mesa',
       'Operador dedicado'
     ],
     popular: false
+  }
+];
+
+// Proceso de trabajo
+const processSteps = [
+  {
+    number: 1,
+    title: 'Consulta Inicial',
+    description: 'Cuéntanos sobre tu evento, fecha, número de invitados y visión. Es gratis y sin compromiso.'
+  },
+  {
+    number: 2,
+    title: 'Propuesta Personalizada',
+    description: 'Diseñamos una propuesta única con opciones de dulces, decoración y presupuesto detallado.'
+  },
+  {
+    number: 3,
+    title: 'Confirmación',
+    description: 'Aprobamos los detalles finales, firmamos contrato y agendamos tu evento con anticipo.'
+  },
+  {
+    number: 4,
+    title: 'Montaje y Evento',
+    description: 'Llegamos antes de tu evento, montamos la mesa perfecta y nos aseguramos de que todo sea mágico.'
   }
 ];
 ---
@@ -109,502 +131,1189 @@ const packages = [
 
   <Breadcrumbs items={breadcrumbItems} />
 
+  <!-- Hero Section -->
   <Hero
-    title="Nuestros Servicios"
-    subtitle="Mesas de dulces profesionales para todo tipo de eventos. Diseño, montaje y servicio de principio a fin."
+    id="servicios"
+    title="Servicios de Mesas de Dulces en CDMX"
+    highlight="Mesas de Dulces"
+    subtitle="Desde mesas de dulces hasta estaciones interactivas, creamos experiencias memorables para cada tipo de evento"
+    secondaryContent={`<p>Nuestros <strong>servicios de mesas de dulces</strong> están diseñados para transformar cualquier celebración en un momento inolvidable. Cada propuesta incluye diseño personalizado, montaje profesional y atención durante todo el evento para que tú solo disfrutes.</p><p>Ya sea que busques una elegante <strong>mesa para boda</strong>, una divertida <strong>mesa infantil</strong> o una sofisticada <strong>presentación corporativa</strong>, nuestro equipo de expertos crea la experiencia perfecta adaptada a tu visión, presupuesto y número de invitados.</p>`}
+    showCTA={true}
+    ctaHref="/#contacto"
+    ctaBadge="Cotización Gratuita"
+    ctaTitle="Solicita tu Cotización Personalizada"
+    ctaTitleHighlight="Personalizada"
+    ctaText="Cuéntanos sobre tu evento y recibe una propuesta a la medida sin compromiso. Respondemos en menos de 24 horas."
+    ctaButtonText="Cotizar Ahora"
   />
 
-  <!-- Services Grid -->
-  <section class="services-section">
-    <div class="container">
-      <div class="services-grid">
-        {services.map(service => (
-          <article class="service-card">
-            <div class="service-image">
-              <img
-                src={getCdnUrl(service.image)}
-                alt={service.title}
-                width="400"
-                height="300"
-                loading="lazy"
-              />
+  <!-- Paquetes Section - Premium Design -->
+  <section class="section-paquetes" id="paquetes">
+    <div class="paquetes-bg">
+      <div class="paquetes-glow paquetes-glow--1"></div>
+      <div class="paquetes-glow paquetes-glow--2"></div>
+    </div>
+
+    <div class="container paquetes-container">
+      <!-- Header centrado -->
+      <div class="paquetes-header">
+        <span class="paquetes-badge">Nuestros Paquetes</span>
+        <h2 class="paquetes-title">
+          Elige el <span>Paquete Perfecto</span> para tu Evento
+        </h2>
+        <p class="paquetes-subtitle">
+          Opciones flexibles diseñadas para todo tipo de celebraciones. Los precios son referenciales y cada cotización es personalizada.
+        </p>
+      </div>
+
+      <!-- Grid de paquetes -->
+      <div class="packages-grid">
+        {packages.map(pkg => (
+          <div class:list={['package-card', { 'package-card--popular': pkg.popular }]}>
+            {/* Badge popular */}
+            {pkg.popular && (
+              <div class="package-ribbon">
+                <span>Más Popular</span>
+              </div>
+            )}
+
+            {/* Header con icono y nombre */}
+            <div class="package-top">
+              <div class="package-icon-wrapper">
+                <span class="package-icon">{pkg.icon}</span>
+              </div>
+              <h3 class="package-name">{pkg.name}</h3>
+              <p class="package-tagline">{pkg.description}</p>
             </div>
-            <div class="service-content">
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <ul class="service-features">
-                {service.features.map(feature => (
-                  <li>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            {/* Pricing destacado */}
+            <div class="package-pricing">
+              <div class="package-price-wrapper">
+                <span class="package-price-label">Desde</span>
+                <span class="package-price-amount">{pkg.priceAmount}</span>
+                <span class="package-price-currency">{pkg.priceNote}</span>
+              </div>
+              <div class="package-guests">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>{pkg.guests}</span>
+              </div>
+            </div>
+
+            {/* Separador decorativo */}
+            <div class="package-separator">
+              <span class="package-separator-text">Incluye</span>
+            </div>
+
+            {/* Features */}
+            <ul class="package-features">
+              {pkg.features.map(feature => (
+                <li>
+                  <span class="feature-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                       <polyline points="20 6 9 17 4 12"/>
                     </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a href={service.link} class="service-link">Ver más</a>
-            </div>
-          </article>
+                  </span>
+                  <span class="feature-text">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <a href="/#contacto" class="package-cta">
+              <span>Solicitar Cotización</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
         ))}
+      </div>
+
+      <!-- Nota al pie -->
+      <p class="paquetes-note">
+        💡 <strong>¿No encuentras lo que buscas?</strong> Creamos paquetes personalizados según tus necesidades específicas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tipos de Mesas Section -->
+  <section class="section-servicios section-padding" id="tipos-mesas">
+    <div class="container">
+      <SectionHeader
+        title="Tipos de Mesas de Dulces que Ofrecemos"
+        titleHighlight="Mesas de Dulces"
+        subtitle="Variedad deliciosa para todos los gustos y ocasiones"
+        content={`<p>Cada tipo de mesa tiene su propia personalidad y encanto. Desde la clásica <strong>mesa de dulces personalizados</strong> hasta la sofisticada <strong>tabla de quesos y embutidos</strong>, encontrarás la opción perfecta para tu evento.</p><p>Todos nuestros servicios incluyen diseño personalizado, montaje profesional, mobiliario de calidad y desmontaje al finalizar tu celebración.</p>`}
+      />
+
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl("/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif")}
+          alt="Renta de mesas de dulces personalizadas en CDMX - Candy bar para fiestas"
+          title="Mesa de Dulces"
+          excerpt="Candy bar personalizado con dulces premium para bodas, XV años y fiestas infantiles. Diseño temático y montaje profesional incluido."
+          cta="Conocer opciones"
+          badge="Popular"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl("/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif")}
+          alt="Mesas de postres gourmet para bodas y XV años en Ciudad de México"
+          title="Mesa de Postres"
+          excerpt="Postres gourmet artesanales: macarons, cupcakes, tartaletas y más. Repostería fina para eventos de alto nivel."
+          cta="Explorar postres"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
+          image={getCdnUrl("/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif")}
+          alt="Mesas de frutas frescas para eventos y fiestas en CDMX"
+          title="Mesa de Frutas"
+          excerpt="Frutas frescas de temporada presentadas con arte. Opción saludable y elegante que complementa cualquier celebración."
+          cta="Ver presentaciones"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
+          image={getCdnUrl("/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif")}
+          alt="Mesa de quesos y embutidos gourmet para eventos CDMX"
+          title="Quesos y Embutidos"
+          excerpt="Tabla gourmet con quesos importados y embutidos premium. Ideal para cócteles, bodas y eventos corporativos."
+          cta="Ver selección"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-snacks"
+          image={getCdnUrl("/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif")}
+          alt="Barra de snacks para fiestas y eventos empresariales"
+          title="Mesa de Snacks"
+          excerpt="Barra de snacks variados para mantener a tus invitados felices. Perfecta para fiestas largas y eventos casuales."
+          cta="Ver opciones"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-botanas"
+          image={getCdnUrl("/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif")}
+          alt="Mesas de botanas saladas para fiestas CDMX"
+          title="Mesa de Botanas"
+          excerpt="Botanas saladas gourmet para equilibrar lo dulce. Frutos secos, chips artesanales y opciones premium."
+          cta="Descubrir más"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
+          image={getCdnUrl("/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif")}
+          alt="Mesa de dulces típicos mexicanos - Candy bar tradicional"
+          title="Dulces Tradicionales"
+          excerpt="Dulces mexicanos auténticos: mazapanes, obleas, cocadas y glorias. Nostalgia y sabor en cada bocado."
+          cta="Ver tradición"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
+          image={getCdnUrl("/img/tipos-de-mesas/donas-cupcakes/mesa-de-donas-cdm.avif")}
+          alt="Mesa de donas y cupcakes decorados para eventos CDMX"
+          title="Donas y Cupcakes"
+          excerpt="Donas gourmet y cupcakes decorados a mano. Tendencia actual en baby showers, cumpleaños y eventos modernos."
+          cta="Ver diseños"
+          badge="Tendencia"
+        />
       </div>
     </div>
   </section>
 
-  <!-- Packages Section -->
-  <section class="packages-section">
+  <!-- Estaciones Interactivas Section -->
+  <section class="section-estaciones section-padding" id="estaciones">
     <div class="container">
-      <span class="section-tag">Paquetes</span>
-      <h2>Elige tu Paquete Ideal</h2>
-      <p class="packages-intro">
-        Todos nuestros paquetes incluyen diseño personalizado, dulces de alta calidad
-        y servicio profesional. Los precios son referenciales y pueden variar según
-        ubicación y requerimientos específicos.
-      </p>
+      <SectionHeader
+        title="Estaciones Interactivas para Eventos"
+        titleHighlight="Interactivas"
+        subtitle="Experiencias únicas que tus invitados recordarán por siempre"
+        content={`<p>Lleva tu evento al siguiente nivel con nuestras <strong>estaciones interactivas</strong>. Imagina a tus invitados disfrutando de una cascada de chocolate belga o saboreando frutas bañadas en chamoy artesanal.</p><p>Cada estación está diseñada para ser el centro de atención y crear momentos memorables en tu celebración.</p>`}
+      />
 
-      <div class="packages-grid">
-        {packages.map(pkg => (
-          <div class={`package-card ${pkg.popular ? 'popular' : ''}`}>
-            {pkg.popular && <span class="popular-badge">Más Popular</span>}
-            <h3>{pkg.name}</h3>
-            <div class="package-price">{pkg.price}</div>
-            <div class="package-guests">{pkg.guests}</div>
-            <ul class="package-features">
-              {pkg.features.map(feature => (
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <a href="/contacto" class="package-cta">Cotizar</a>
+      <div class="service-grid service-grid--4">
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chocolate"
+          image={getCdnUrl("/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif")}
+          alt="Fuente de chocolate para fiestas y eventos en CDMX"
+          title="Fuente de Chocolate"
+          excerpt="Cascada de chocolate belga derretido con frutas, malvaviscos y churros. La experiencia favorita de todos."
+          cta="Ver fuente"
+          badge="Estrella"
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chamoy"
+          image={getCdnUrl("/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif")}
+          alt="Renta de fuente de chamoy para fiestas mexicanas"
+          title="Fuente de Chamoy"
+          excerpt="Sabor mexicano auténtico. Chamoy artesanal para bañar frutas, gomitas y snacks favoritos."
+          cta="Ver chamoy"
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/pared-de-dulces"
+          image={getCdnUrl("/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif")}
+          alt="Pared de dulces Candy Wall para eventos CDMX"
+          title="Pared de Dulces"
+          excerpt="Candy Wall espectacular como decoración y dispensador. El selfie spot perfecto para tu evento."
+          cta="Ver candy wall"
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/stand-para-pastel"
+          image={getCdnUrl("/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif")}
+          alt="Stand para pastel con decoración CDMX"
+          title="Stand para Pastel"
+          excerpt="Marco decorativo premium para exhibir tu pastel. Incluye decoración con globos, flores o luces."
+          cta="Ver stands"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Intermedio -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para mi evento"
+    badge="Cotización Express"
+    title="¿Tienes Prisa? Cotiza por WhatsApp"
+    titleHighlight="WhatsApp"
+    text="Recibe una cotización rápida enviando los detalles de tu evento por WhatsApp. Respondemos en minutos."
+    buttonText="Cotizar por WhatsApp"
+  />
+
+  <!-- Proceso Section -->
+  <section class="section-proceso section-padding" id="proceso">
+    <div class="container">
+      <div class="proceso-header">
+        <span class="proceso-badge">Nuestro Proceso</span>
+        <h2 class="proceso-title">
+          ¿Cómo <span>Trabajamos</span>?
+        </h2>
+        <p class="proceso-subtitle">
+          Contratar tu mesa de dulces con nosotros es fácil y sin estrés. Te guiamos en cada paso.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        {processSteps.map((step, index) => (
+          <div class="process-card">
+            {/* Connector line between cards */}
+            {index < processSteps.length - 1 && <div class="process-connector"></div>}
+
+            <div class="process-step-badge">Paso {step.number}</div>
+
+            <div class="process-content">
+              <h4 class="process-title">{step.title}</h4>
+              <p class="process-description">{step.description}</p>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Process Section -->
-  <section class="process-section">
+  <!-- Por qué Elegirnos Section -->
+  <section class="section-porque section-padding" id="porque">
     <div class="container">
-      <span class="section-tag">Proceso</span>
-      <h2>¿Cómo Trabajamos?</h2>
+      <SectionHeader
+        title="¿Por qué Elegir Mededul?"
+        titleHighlight="Mededul"
+        subtitle="Más que mesas de dulces, creamos experiencias memorables"
+        content={`<p>Con años de experiencia en el <strong>servicio de mesas de dulces en CDMX</strong>, hemos perfeccionado cada detalle para ofrecerte un servicio impecable. Nuestro equipo garantiza <strong>puntualidad, calidad premium y atención personalizada</strong>.</p>`}
+      />
 
-      <div class="process-grid">
-        <div class="process-step">
-          <div class="step-number">1</div>
-          <h4>Consulta Inicial</h4>
-          <p>Cuéntanos sobre tu evento, fecha, número de invitados y visión. Es gratis y sin compromiso.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">2</div>
-          <h4>Propuesta Personalizada</h4>
-          <p>Diseñamos una propuesta única con opciones de dulces, decoración y presupuesto detallado.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">3</div>
-          <h4>Confirmación</h4>
-          <p>Aprobamos los detalles finales, firmamos contrato y agendamos tu evento.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">4</div>
-          <h4>Montaje y Evento</h4>
-          <p>Llegamos antes de tu evento, montamos la mesa y nos aseguramos de que todo sea perfecto.</p>
-        </div>
+      <div class="service-grid service-grid--4">
+        <ServiceCard
+          href="/porque-mededul/diseno-personalizado"
+          image={getCdnUrl("/img/porque-elegirnos/diseno-personalizado-mesas-dulces.avif")}
+          alt="Diseño personalizado de mesas de dulces CDMX"
+          title="Diseño Personalizado"
+          excerpt="Cada mesa es única como tu evento. Diseñamos propuestas a la medida de tu temática, colores y estilo personal."
+          cta="Ver diseños"
+        />
+        <ServiceCard
+          href="/porque-mededul/calidad-premium"
+          image={getCdnUrl("/img/porque-elegirnos/calidad-premium-dulces.avif")}
+          alt="Dulces de calidad premium para mesas CDMX"
+          title="Calidad Premium"
+          excerpt="Solo trabajamos con proveedores selectos. Dulces artesanales, chocolates finos y postres profesionales."
+          cta="Ver calidad"
+        />
+        <ServiceCard
+          href="/porque-mededul/servicio-completo"
+          image={getCdnUrl("/img/porque-elegirnos/servicio-completo-mesas.avif")}
+          alt="Servicio completo de mesas de dulces CDMX"
+          title="Servicio Completo"
+          excerpt="Montaje, decoración, atención durante el evento y desmontaje. Tú solo disfrutas, nosotros hacemos todo."
+          cta="Ver servicio"
+        />
+        <ServiceCard
+          href="/porque-mededul/cero-estres"
+          image={getCdnUrl("/img/porque-elegirnos/cero-estres-eventos.avif")}
+          alt="Servicio profesional sin estrés CDMX"
+          title="Cero Estrés"
+          excerpt="Puntualidad garantizada y comunicación constante. Llegamos antes, montamos todo y desaparecemos los problemas."
+          cta="Conocer más"
+        />
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="services-cta">
+  <!-- FAQ Section -->
+  <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <h2>¿Listo para endulzar tu evento?</h2>
-      <p>Cotiza gratis y sin compromiso. Te respondemos en menos de 24 horas.</p>
-      <div class="cta-buttons">
-        <a href="/contacto" class="btn btn-primary">Cotizar Ahora</a>
-        <a href="https://wa.me/525525226442" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          </svg>
-          WhatsApp Directo
-        </a>
-      </div>
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Nuestros Servicios"
+        titleHighlight="Frecuentes"
+        subtitle="Resolvemos tus dudas sobre cómo trabajamos"
+        content={`<p>Sabemos que elegir el proveedor correcto para tu <strong>mesa de dulces</strong> es importante. Aquí respondemos las preguntas más comunes sobre nuestros servicios y procesos.</p>`}
+      />
+
+      <FAQ items={faqItems} id="faq-servicios" />
     </div>
   </section>
+
+  <!-- Contacto Section -->
+  <ContactSection />
+
 </BaseLayout>
 
 <style>
+  /* =====================================================
+     SERVICIOS PAGE - Professional Styles
+     ===================================================== */
 
-  .section-tag {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
-    color: var(--rosa-principal);
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-  }
-
-  .services-section {
-    padding: 80px 0;
-    background: var(--gris-claro);
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
-
-  .service-card {
-    background: #ffffff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-  }
-
-  .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(233, 30, 140, 0.15);
-  }
-
-  .service-image {
-    height: 200px;
-    overflow: hidden;
-  }
-
-  .service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .service-card:hover .service-image img {
-    transform: scale(1.1);
-  }
-
-  .service-content {
-    padding: 25px;
-  }
-
-  .service-content h3 {
-    font-size: 1.3rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 10px;
-  }
-
-  .service-content > p {
-    color: var(--texto-light);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .service-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-  }
-
-  .service-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--texto-light);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-  }
-
-  .service-features svg {
-    color: var(--rosa-principal);
-    flex-shrink: 0;
-  }
-
-  .service-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--rosa-principal);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .service-link:hover {
-    color: var(--rosa-hover);
-    transform: translateX(5px);
-  }
-
-  .packages-section {
-    padding: 80px 0;
-    background: #ffffff;
-    text-align: center;
-  }
-
-  .packages-section h2 {
-    font-size: 2.2rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 15px;
-  }
-
-  .packages-intro {
-    color: var(--texto-light);
-    max-width: 700px;
-    margin: 0 auto 50px;
-    line-height: 1.7;
-  }
-
-  .packages-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .package-card {
-    background: var(--gris-claro);
-    border-radius: 20px;
-    padding: 40px 30px;
+  .section-servicios,
+  .section-estaciones,
+  .section-paquetes,
+  .section-proceso,
+  .section-porque,
+  .section-faq {
     position: relative;
-    transition: all 0.3s ease;
   }
 
-  .package-card.popular {
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #a01365 100%);
-    color: #ffffff;
-    transform: scale(1.05);
+  .section-servicios {
+    background: var(--gris-claro, #f8f9fa);
+  }
+
+  .section-estaciones {
+    background: #ffffff;
+  }
+
+  .section-paquetes {
+    position: relative;
+    padding: 100px 0;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .paquetes-bg {
+    display: none;
+  }
+
+  .paquetes-glow {
+    display: none;
+  }
+
+  .paquetes-glow--1 {
+    display: none;
+  }
+
+  .paquetes-glow--2 {
+    display: none;
+  }
+
+  .paquetes-container {
+    position: relative;
     z-index: 1;
   }
 
-  .popular-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #FFD700;
-    color: #000;
-    padding: 6px 20px;
+  /* Header de Paquetes */
+  .paquetes-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .paquetes-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: rgba(209, 0, 122, 0.1);
+    border: 1px solid rgba(209, 0, 122, 0.2);
     border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .package-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-
-  .package-price {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 5px;
-  }
-
-  .package-guests {
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-bottom: 25px;
-  }
-
-  .package-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 30px 0;
-    text-align: left;
-  }
-
-  .package-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-  }
-
-  .package-features svg {
-    flex-shrink: 0;
-  }
-
-  .package-card:not(.popular) .package-features li {
-    color: var(--texto-light);
-  }
-
-  .package-card:not(.popular) .package-features svg {
-    color: var(--rosa-principal);
-  }
-
-  .package-cta {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    border-radius: 50px;
+    font-size: 0.85rem;
     font-weight: 600;
-    text-decoration: none;
+    color: #D1007A;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .paquetes-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+  }
+
+  .paquetes-title span {
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .paquetes-subtitle {
+    font-size: 1.1rem;
+    color: var(--gris-texto, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .paquetes-note {
     text-align: center;
-    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    color: var(--gris-texto, #666);
+    margin-top: 60px;
+    padding: 20px 30px;
+    background: var(--gris-claro, #f8f9fa);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .package-card:not(.popular) .package-cta {
-    background: var(--rosa-principal);
-    color: #ffffff;
+  .paquetes-note strong {
+    color: var(--texto-oscuro, #1a1a1a);
   }
 
-  .package-card.popular .package-cta {
+  .section-proceso {
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 50%, #fafafa 100%);
+  }
+
+  .section-porque {
     background: #ffffff;
-    color: var(--rosa-principal);
   }
 
-  .package-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  .section-faq {
+    background: var(--gris-claro, #f8f9fa);
   }
 
-  .process-section {
-    padding: 80px 0;
-    background: var(--gris-claro);
-    text-align: center;
-  }
-
-  .process-section h2 {
-    font-size: 2.2rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 50px;
-  }
-
-  .process-grid {
+  /* Service Grid */
+  .service-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    max-width: 1100px;
+    gap: 24px;
+  }
+
+  .service-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* =========================
+     PACKAGES SECTION - Premium Design
+     ========================= */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
     margin: 0 auto;
+    align-items: stretch;
   }
 
-  .process-step {
+  /* Base Card */
+  .package-card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 0;
+    position: relative;
+    border: 2px solid #f0f0f0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Popular Card - Rosa con gradiente */
+  .package-card--popular {
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    border: 3px solid #D1007A;
+    box-shadow:
+      0 0 0 4px rgba(209, 0, 122, 0.1),
+      0 20px 60px rgba(209, 0, 122, 0.25);
+    transform: scale(1.03);
+    z-index: 2;
+  }
+
+  /* Ribbon para Popular */
+  .package-ribbon {
+    position: absolute;
+    top: 24px;
+    right: -35px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+    padding: 8px 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+    z-index: 10;
+  }
+
+  /* Top section con icono */
+  .package-top {
+    padding: 40px 32px 28px;
     text-align: center;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    border-bottom: 1px solid #f0f0f0;
   }
 
-  .step-number {
-    width: 60px;
-    height: 60px;
-    background: var(--rosa-principal);
-    color: #ffffff;
+  .package-card--popular .package-top {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .package-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: #ffffff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.08),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.02);
+    border: 3px solid #f5f5f5;
+  }
+
+  .package-card--popular .package-icon-wrapper {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.2),
+      inset 0 -2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .package-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .package-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
     font-weight: 800;
-    margin: 0 auto 20px;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
   }
 
-  .process-step h4 {
-    font-size: 1.1rem;
-    color: var(--texto-oscuro);
-    margin-bottom: 10px;
-  }
-
-  .process-step p {
-    color: var(--texto-light);
-    line-height: 1.6;
-    font-size: 0.95rem;
-  }
-
-  .services-cta {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
-    text-align: center;
+  .package-card--popular .package-name {
     color: #ffffff;
   }
 
-  .services-cta h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
+  .package-tagline {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
   }
 
-  .services-cta p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin-bottom: 30px;
+  .package-card--popular .package-tagline {
+    color: rgba(255, 255, 255, 0.85);
   }
 
-  .cta-buttons {
+  /* Pricing Section */
+  .package-pricing {
+    padding: 28px 32px;
+    text-align: center;
+    background: #ffffff;
+  }
+
+  .package-card--popular .package-pricing {
+    background: transparent;
+  }
+
+  .package-price-wrapper {
     display: flex;
+    align-items: baseline;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
   }
 
-  .cta-buttons .btn {
-    padding: 16px 35px;
-    border-radius: 50px;
+  .package-price-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #999;
+  }
+
+  .package-card--popular .package-price-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .package-price-amount {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .package-card--popular .package-price-amount {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .package-price-currency {
+    font-size: 0.9rem;
     font-weight: 600;
-    text-decoration: none;
+    color: #999;
+  }
+
+  .package-card--popular .package-price-currency {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .package-guests {
     display: inline-flex;
     align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #f8f8f8;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+  }
+
+  .package-card--popular .package-guests {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  .package-guests svg {
+    color: #D1007A;
+  }
+
+  .package-card--popular .package-guests svg {
+    color: #ffffff;
+  }
+
+  /* Separator */
+  .package-separator {
+    position: relative;
+    padding: 0 32px;
+    margin: 0;
+  }
+
+  .package-separator::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    top: 50%;
+    height: 1px;
+    background: #eee;
+  }
+
+  .package-card--popular .package-separator::before {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .package-separator-text {
+    position: relative;
+    display: inline-block;
+    padding: 8px 16px;
+    background: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ccc;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .package-card--popular .package-separator-text {
+    background: #b5006c;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Features */
+  .package-features {
+    list-style: none;
+    padding: 24px 32px 28px;
+    margin: 0;
+    flex: 1;
+    background: #ffffff;
+  }
+
+  .package-card--popular .package-features {
+    background: transparent;
+    color: #ffffff;
+  }
+
+  .package-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .package-features li:last-child {
+    margin-bottom: 0;
+  }
+
+  .feature-check {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .package-card--popular .feature-check {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .feature-check svg {
+    color: #ffffff;
+  }
+
+  .feature-text {
+    color: #555;
+    padding-top: 2px;
+  }
+
+  .package-card--popular .feature-text {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* CTA Button */
+  .package-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary {
-    background: var(--rosa-principal);
+    margin: 0 24px 24px;
+    padding: 18px 28px;
+    border-radius: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #ffffff;
-    box-shadow: 0 4px 20px rgba(233, 30, 140, 0.4);
+    box-shadow: 0 6px 25px rgba(209, 0, 122, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .btn-primary:hover {
+  .package-card--popular .package-cta {
+    background: #ffffff;
+    color: #D1007A;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .package-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(233, 30, 140, 0.5);
+    box-shadow: 0 10px 35px rgba(209, 0, 122, 0.45);
   }
 
-  .btn-whatsapp {
-    background: #25D366;
+  .package-card--popular .package-cta:hover {
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  .package-cta svg {
+    flex-shrink: 0;
+  }
+
+  /* =========================
+     PROCESS SECTION - Premium Design
+     ========================= */
+
+  /* Header del proceso */
+  .proceso-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 70px;
+  }
+
+  .proceso-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: rgba(209, 0, 122, 0.1);
+    border: 1px solid rgba(209, 0, 122, 0.2);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #D1007A;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .proceso-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+  }
+
+  .proceso-title span {
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .proceso-subtitle {
+    font-size: 1.1rem;
+    color: var(--gris-texto, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Grid de pasos */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Card de cada paso */
+  .process-card {
+    text-align: center;
+    position: relative;
+    padding: 0;
+    background: #ffffff;
+    border: 2px solid #f0f0f0;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    overflow: visible;
+  }
+
+  /* Connector line between cards */
+  .process-connector {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: -24px;
+    width: 24px;
+    height: 3px;
+    background: linear-gradient(90deg, #D1007A 0%, #A0005F 100%);
+    z-index: 1;
+  }
+
+  @media (min-width: 1025px) {
+    .process-connector {
+      display: block;
+    }
+  }
+
+  /* Badge del paso */
+  .process-step-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(209, 0, 122, 0.35);
+    white-space: nowrap;
   }
 
-  .btn-whatsapp:hover {
-    background: #128C7E;
-    transform: translateY(-3px);
+  /* Contenido */
+  .process-content {
+    padding: 40px 28px 32px;
+  }
+
+  .process-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 12px 0;
+  }
+
+  .process-description {
+    font-size: 0.9rem;
+    color: var(--gris-texto, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* =========================
+     RESPONSIVE
+     ========================= */
+  @media (max-width: 1200px) {
+    .service-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .service-grid--4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 1024px) {
-    .services-grid {
+    .service-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
     .packages-grid {
       grid-template-columns: 1fr;
-      max-width: 400px;
+      max-width: 480px;
+      gap: 32px;
     }
 
-    .package-card.popular {
+    .package-card--popular {
       transform: none;
     }
 
     .process-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+    }
+
+    .proceso-header {
+      margin-bottom: 60px;
+    }
+
+    .process-content {
+      padding: 36px 24px 28px;
     }
   }
 
   @media (max-width: 768px) {
-
-    .services-grid {
+    .service-grid,
+    .service-grid--4 {
       grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .section-paquetes {
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+
+    .packages-grid {
+      max-width: 100%;
+    }
+
+    .package-top {
+      padding: 32px 24px 24px;
+    }
+
+    .package-icon-wrapper {
+      width: 70px;
+      height: 70px;
+    }
+
+    .package-icon {
+      font-size: 2rem;
+    }
+
+    .package-name {
+      font-size: 1.4rem;
+    }
+
+    .package-pricing {
+      padding: 24px;
+    }
+
+    .package-price-amount {
+      font-size: 2.4rem;
+    }
+
+    .package-features {
+      padding: 20px 24px 24px;
+    }
+
+    .package-cta {
+      margin: 0 20px 20px;
+      padding: 16px 24px;
     }
 
     .process-grid {
       grid-template-columns: 1fr;
+      gap: 32px;
     }
 
-    .cta-buttons {
-      flex-direction: column;
-      align-items: center;
+    .proceso-header {
+      margin-bottom: 50px;
+    }
+
+    .process-card {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .process-step-badge {
+      top: -12px;
+      padding: 6px 16px;
+      font-size: 0.7rem;
+    }
+
+    .process-content {
+      padding: 36px 24px 28px;
+    }
+
+    .process-title {
+      font-size: 1.1rem;
+    }
+
+    .process-description {
+      font-size: 0.88rem;
+    }
+
+    .package-ribbon {
+      top: 20px;
+      right: -38px;
+      font-size: 0.65rem;
+      padding: 6px 45px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .package-top {
+      padding: 28px 20px 20px;
+    }
+
+    .package-icon-wrapper {
+      width: 64px;
+      height: 64px;
+    }
+
+    .package-icon {
+      font-size: 1.8rem;
+    }
+
+    .package-name {
+      font-size: 1.3rem;
+    }
+
+    .package-tagline {
+      font-size: 0.85rem;
+    }
+
+    .package-pricing {
+      padding: 20px;
+    }
+
+    .package-price-amount {
+      font-size: 2.2rem;
+    }
+
+    .package-guests {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+    }
+
+    .package-separator {
+      padding: 0 20px;
+    }
+
+    .package-separator::before {
+      left: 20px;
+      right: 20px;
+    }
+
+    .package-features {
+      padding: 18px 20px 22px;
+    }
+
+    .package-features li {
+      gap: 12px;
+      font-size: 0.88rem;
+      margin-bottom: 14px;
+    }
+
+    .feature-check {
+      width: 22px;
+      height: 22px;
+    }
+
+    .feature-check svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .package-cta {
+      margin: 0 16px 16px;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      border-radius: 12px;
+    }
+
+    .proceso-header {
+      margin-bottom: 40px;
+    }
+
+    .proceso-badge {
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+    }
+
+    .proceso-subtitle {
+      font-size: 1rem;
+    }
+
+    .process-grid {
+      gap: 28px;
+    }
+
+    .process-card {
+      border-radius: 20px;
+    }
+
+    .process-step-badge {
+      padding: 5px 14px;
+      font-size: 0.65rem;
+    }
+
+    .process-content {
+      padding: 32px 20px 24px;
+    }
+
+    .process-title {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .process-description {
+      font-size: 0.85rem;
+      line-height: 1.6;
     }
   }
 </style>
