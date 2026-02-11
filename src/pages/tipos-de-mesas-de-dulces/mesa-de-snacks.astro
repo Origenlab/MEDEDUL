@@ -17,12 +17,30 @@ const breadcrumbItems = [
 ];
 
 const faqs = [
-  { question: 'Que incluye una mesa de snacks?', answer: 'Incluye seleccion de snacks salados, montaje profesional, contenedores de servicio, presentacion visual y desmontaje al finalizar.' },
-  { question: 'Funciona para eventos corporativos?', answer: 'Si. Es uno de los formatos mas funcionales para congresos, reuniones, activaciones y eventos empresariales.' },
-  { question: 'Pueden combinar snacks clasicos y premium?', answer: 'Si, configuramos la mezcla segun tipo de evento, presupuesto y perfil de invitados.' },
-  { question: 'Se puede integrar con mesa de dulces?', answer: 'Si, es una combinacion ideal para ofrecer variedad salada y dulce en un mismo montaje.' },
-  { question: 'Manejan formatos para eventos largos?', answer: 'Si. Ajustamos volumen y reposicion para eventos de varias horas con flujo continuo.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral y se ejecuta con estandar profesional.' }
+  {
+    question: 'Que incluye una barra de botanas para fiestas?',
+    answer: 'Incluye seleccion de botanas saladas, canapes, quesos, galletas y frutos secos. Armamos bandejas decorativas con diseno estilo Pinterest y desmontaje al finalizar tu fiesta o celebracion.'
+  },
+  {
+    question: 'Sirve para bodas y fiestas familiares?',
+    answer: 'Si, es ideal para bodas, cumpleanos, reuniones familiares y fiestas sociales. Combinamos botanas deliciosas con decoracion tematica para que tus invitados disfruten.'
+  },
+  {
+    question: 'Pueden combinar botanas clasicas con canapes y quesos?',
+    answer: 'Si, configuramos una mezcla de botanas, canapes gourmet y quesos segun tu fiesta. Creamos buffets variados para cumpleanos, bodas y celebraciones especiales.'
+  },
+  {
+    question: 'Se puede integrar con candy bar y mesa de dulces?',
+    answer: 'Si, es una combinacion deliciosa para ofrecer variedad salada y dulce en tu fiesta. Renta de barra de botanas junto con candy bar para bodas y cumpleanos.'
+  },
+  {
+    question: 'Ofrecen catering de botanas para fiestas largas?',
+    answer: 'Si, nuestro catering incluye reposicion continua de bandejas para fiestas de varias horas. Ideal para bodas, graduaciones y celebraciones con muchos invitados.'
+  },
+  {
+    question: 'Incluye instalacion y decoracion de la barra?',
+    answer: 'Si, instalamos tu barra de botanas con bandejas elegantes, decoracion tematica y todo listo para tu fiesta o cumpleanos en CDMX.'
+  }
 ];
 
 const packages = [
@@ -32,23 +50,36 @@ const packages = [
     price: '$3,900',
     currency: 'MXN',
     guests: '30-50 personas',
-    tagline: 'Ideal para eventos compactos',
-    features: ['Surtido base de snacks', 'Montaje profesional', 'Presentacion funcional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    tagline: 'Ideal para fiestas y cumpleanos',
+    features: [
+      'Barra de botanas con canapes y quesos',
+      'Bandejas decorativas elegantes',
+      'Presentacion estilo Pinterest',
+      'Mobiliario incluido',
+      'Desmontaje al finalizar'
+    ],
     popular: false,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Esencial'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Barra de Botanas - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Favorito',
     icon: '⭐',
     price: '$6,900',
     currency: 'MXN',
     guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Variedad ampliada de snacks', 'Diseno personalizado', 'Composicion de alto flujo', 'Montaje y coordinacion en sitio', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    tagline: 'La opcion mas solicitada para fiestas',
+    features: [
+      'Buffet amplio de botanas y canapes',
+      'Decoracion tematica personalizada',
+      'Variedad de quesos y galletas',
+      'Instalacion y coordinacion en sitio',
+      'Asesoria de diseno previa',
+      'Mejor equilibrio costo-beneficio'
+    ],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Barra de Botanas - Paquete Favorito'
   },
   {
     name: 'Luxury',
@@ -56,47 +87,99 @@ const packages = [
     price: '$10,900',
     currency: 'MXN',
     guests: '100+ personas',
-    tagline: 'Operacion de alto volumen',
-    features: ['Surtido premium ampliado', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Configuracion para eventos grandes', 'Acompanamiento operativo integral', 'Mayor capacidad de reposicion'],
+    tagline: 'Experiencia completa para bodas y celebraciones',
+    features: [
+      'Surtido delicioso de alto volumen',
+      'Direccion estetica y decoracion total',
+      'Catering con reposicion continua',
+      'Configuracion para grandes fiestas',
+      'Acompanamiento integral',
+      'Canapes y botanas selectas'
+    ],
     popular: false,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Snacks - Paquete Luxury'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Barra de Botanas - Paquete Luxury'
   }
 ];
 
 const whyStats = [
-  { number: '30+', label: 'Opciones de Snack' },
-  { number: '100%', label: 'Formato Funcional' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
+  { number: '30+', label: 'Variedades de Botanas' },
+  { number: '100%', label: 'Ingredientes Frescos' },
+  { number: '500+', label: 'Fiestas Realizadas' },
+  { number: '24h', label: 'Respuesta Rapida' }
 ];
 
 const whyFeatures = [
-  { num: 1, title: 'Alto Flujo de Servicio', desc: 'Disenada para eventos con movimiento continuo de invitados.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' },
-  { num: 2, title: 'Variedad Balanceada', desc: 'Combinamos opciones clasicas y premium segun objetivo del evento.', img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif' },
-  { num: 3, title: 'Montaje Funcional', desc: 'Estructura de servicio limpia, rapida y visualmente ordenada.', img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif' },
-  { num: 4, title: 'Operacion Profesional', desc: 'Planeacion y ejecucion para mantener continuidad de servicio.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' }
+  {
+    num: 1,
+    title: 'Botanas Deliciosas y Variadas',
+    desc: 'Combinamos canapes, quesos, galletas y frutos secos para crear una barra de botanas que sorprende en fiestas y cumpleanos.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif'
+  },
+  {
+    num: 2,
+    title: 'Diseno Estilo Pinterest',
+    desc: 'Decoracion con bandejas elegantes y presentacion visual que impresiona en bodas, baby showers y celebraciones.',
+    img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif'
+  },
+  {
+    num: 3,
+    title: 'Buffet para Cada Fiesta',
+    desc: 'Armamos buffets de botanas adaptados a cumpleanos, bodas, reuniones familiares y fiestas tematicas en CDMX.',
+    img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif'
+  },
+  {
+    num: 4,
+    title: 'Catering con Reposicion',
+    desc: 'Nuestro catering incluye bandejas frescas durante toda tu fiesta para que tus invitados disfruten sin parar.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif'
+  }
 ];
 
 const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance de servicio.' },
-  { num: 2, title: 'Disenamos', desc: 'Proponemos mezcla de snacks y configuracion de montaje.' },
-  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta y logistica de operacion en sitio.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la mesa con flujo continuo y ordenado.' }
+  { num: 1, title: 'Contactanos', desc: 'Platicanos sobre tu fiesta, boda o cumpleanos: fecha, lugar e invitados.' },
+  { num: 2, title: 'Disenamos', desc: 'Creamos tu barra de botanas con canapes, quesos y la decoracion que imaginas.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, bandejas y logistica de catering para tu fiesta.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos tu buffet de botanas listo para disfrutar en tu celebracion.' }
 ];
 
 const eventCards = [
-  { title: 'Snacks para Corporativos', excerpt: 'Formato funcional para eventos empresariales y de networking.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
-  { title: 'Snacks para Cumpleanos', excerpt: 'Mesa dinamica para celebraciones con invitados de todas las edades.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
-  { title: 'Snacks para XV Anos', excerpt: 'Complemento salado ideal para eventos de larga duracion.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Snacks para Graduacion', excerpt: 'Servicio practico para aforos medios y altos con montaje profesional.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones' }
+  {
+    title: 'Botanas para Bodas',
+    excerpt: 'Barra de canapes y quesos elegante para recepciones nupciales. Decoracion deliciosa estilo Pinterest.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Popular',
+    cta: 'Ver Bodas'
+  },
+  {
+    title: 'Botanas para Cumpleanos',
+    excerpt: 'Buffet de botanas colorido para fiestas de cumpleanos. Bandejas con variedad deliciosa.',
+    img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
+    href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
+    cta: 'Ver Cumpleanos'
+  },
+  {
+    title: 'Botanas para XV Anos',
+    excerpt: 'Barra de botanas tematica para quinceaneras. Complemento salado ideal para fiestas largas.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    cta: 'Ver XV Anos'
+  },
+  {
+    title: 'Botanas para Fiestas',
+    excerpt: 'Catering de botanas para graduaciones y reuniones familiares. Bandejas frescas y deliciosas.',
+    img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Fiestas'
+  }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Snacks para Eventos en CDMX',
-  description: 'Servicio de mesa de snacks para eventos sociales y corporativos en Ciudad de Mexico.',
+  name: 'Barra de Botanas para Fiestas y Bodas en CDMX',
+  description: 'Buffet de botanas con canapes, quesos y bandejas decorativas para fiestas, bodas, cumpleanos y celebraciones. Renta con catering y decoracion tematica en Ciudad de Mexico.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
@@ -116,7 +199,7 @@ const serviceSchema = {
     offerCount: '3',
     offers: packages.map(pkg => ({
       '@type': 'Offer',
-      name: `Mesa de Snacks ${pkg.name}`,
+      name: `Barra de Botanas ${pkg.name}`,
       price: pkg.price.replace(/[$,]/g, ''),
       priceCurrency: 'MXN',
       description: pkg.guests,
@@ -133,8 +216,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Snacks para Eventos en CDMX | Mededul"
-  description="Renta de mesa de snacks en CDMX con montaje profesional para eventos sociales y corporativos de alto flujo."
+  title="Barra de Botanas para Fiestas y Bodas en CDMX | Mededul"
+  description="Buffet de botanas con canapes, quesos y bandejas decorativas para fiestas, bodas y cumpleanos. Renta con catering y decoracion estilo Pinterest en CDMX."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-snacks"
   ogImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
   includeCategoryStyles={true}
@@ -146,33 +229,78 @@ const faqSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Snacks para Eventos en CDMX"
-    highlight="Mesa de Snacks"
-    subtitle="Servicio salado de alto flujo para celebraciones sociales y corporativas"
-    secondaryContent={`<p><strong>Snacks</strong> bien estructurados mantienen ritmo de consumo y mejoran experiencia de invitados en eventos largos o de alta movilidad. En Mededul disenamos mesas funcionales que combinan practicidad, imagen y operacion profesional.</p><p><strong>Salado</strong> estrategico dentro de tu montaje permite balancear menu y elevar satisfaccion general de asistentes. Adaptamos surtido, volumen y presentacion para que el servicio responda al tipo de evento en CDMX.</p>`}
+    title="Barra de Botanas para Fiestas en CDMX"
+    highlight="Barra de Botanas"
+    subtitle="Canapes, quesos y bandejas deliciosas para bodas, cumpleanos y celebraciones"
+    secondaryContent={`<p><strong>Botanas deliciosas</strong> como canapes, quesos, galletas y frutos secos transforman cualquier fiesta en una experiencia memorable. En Mededul armamos barras de botanas con bandejas elegantes y decoracion estilo Pinterest para bodas, cumpleanos, baby showers y reuniones familiares en Ciudad de Mexico.</p><p><strong>Buffet salado</strong> que complementa tu candy bar y mesa de dulces. Ofrecemos renta de barra con catering incluido para fiestas de varias horas. Combinamos variedad de quesos, canapes y botanas en presentaciones que impresionan a tus invitados en cualquier celebracion.</p>`}
     showCTA={true}
     ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa de Snacks"
-    ctaTitleHighlight="Snacks"
-    ctaText="Comparte aforo y tipo de evento para recomendarte una configuracion funcional y rentable."
-    ctaButtonText="Solicitar Asesoria"
+    ctaBadge="Ideas y Cotizacion"
+    ctaTitle="Disena Tu Barra de Botanas"
+    ctaTitleHighlight="Botanas"
+    ctaText="Comparte detalles de tu fiesta o boda para recibir ideas de decoracion y cotizacion personalizada."
+    ctaButtonText="Solicitar Ideas"
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de snacks al volumen de invitados y dinamica de tu evento." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <PricingPackages
+    id="paquetes"
+    badge="Paquetes para Fiestas"
+    title="Escoge el"
+    titleHighlight="Buffet Ideal"
+    subtitle="Ajustamos canapes, quesos y decoracion de tu barra de botanas segun tu fiesta, boda o cumpleanos."
+    packages={packages}
+    note="<strong>Tienes ideas de Pinterest?</strong> Creamos una propuesta tematica con las botanas y decoracion que imaginas."
+  />
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Snacks" descriptions={['Mesa de snacks disenada para operar con fluidez en eventos con alta movilidad de invitados.', 'Combinamos funcionalidad, presentacion y control operativo para sostener calidad de servicio.']} stats={whyStats} features={whyFeatures} />
+  <WhyChooseUs
+    id="ventajas"
+    badge="Ideas y Ventajas"
+    title="Por que elegir nuestra"
+    titleHighlight="Barra de Botanas"
+    descriptions={[
+      'Buffet de botanas con canapes, quesos y bandejas decorativas para fiestas, bodas y cumpleanos en Ciudad de Mexico.',
+      'Combinamos decoracion estilo Pinterest, catering con reposicion y variedad deliciosa para crear una experiencia que impresiona a tus invitados.'
+    ]}
+    stats={whyStats}
+    features={whyFeatures}
+  />
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu mesa de snacks sin fricciones." steps={processSteps} />
+  <ProcessSteps
+    id="proceso"
+    badge="Asi Funciona"
+    title="Como Armamos tu"
+    titleHighlight="Barra de Botanas"
+    subtitle="Cuatro pasos para disenar el buffet de botanas ideal para tu fiesta o boda."
+    steps={processSteps}
+  />
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Mesa de Snacks para" titleHighlight="Cada Tipo de Evento" subtitle="Configuramos surtido y operacion segun el formato especifico de cada celebracion." events={eventCards} />
+  <EventsGrid
+    id="ocasiones"
+    badge="Ideas para tu Fiesta"
+    title="Barra de Botanas para"
+    titleHighlight="Cada Celebracion"
+    subtitle="Canapes, quesos y decoracion adaptados al estilo de tu cumpleanos, boda o fiesta."
+    events={eventCards}
+  />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Activa Tu Evento con un Servicio" titleHighlight="Funcional" text="Te ayudamos a montar una mesa de snacks con flujo constante y gran experiencia para tus invitados." buttonText="Cotizar Mesa de Snacks" />
+  <CTAServices
+    href="/contacto"
+    badge="Cotizacion sin Costo"
+    title="Haz tu Fiesta"
+    titleHighlight="Deliciosa e Inolvidable"
+    text="Te ayudamos a disenar una barra de botanas con canapes, quesos y decoracion tematica para tu boda, cumpleanos o celebracion."
+    buttonText="Cotizar Barra de Botanas"
+  />
 
   <section class="section-faq section-padding" id="faq">
     <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Snacks" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir una configuracion de snacks mas eficiente para tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-snacks" />
+      <SectionHeader
+        title="Preguntas Frecuentes sobre Barra de Botanas"
+        titleHighlight="Frecuentes"
+        subtitle="Ideas y respuestas para tu fiesta o boda"
+        content={`<p>Resolvemos dudas sobre canapes, quesos, decoracion tematica y renta de buffet para tu celebracion en CDMX.</p>`}
+      />
+      <FAQ items={faqs} id="faq-botanas" />
     </div>
   </section>
 </BaseLayout>

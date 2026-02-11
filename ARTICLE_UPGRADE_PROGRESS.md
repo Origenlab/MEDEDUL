@@ -22,10 +22,20 @@ Objetivo: homologar todos los articulos de `src/content/blog/` al nuevo template
 - [x] src/content/blog/mesa-de-dulces-corporativo-catering-premium-para-eventos-emp-roma.mdx
 - [x] src/content/blog/mesa-de-dulces-corporativos-eleva-tus-eventos-empresari-condesa.mdx
 - [x] src/content/blog/mesa-de-dulces-corporativos-endulza-tus-eventos-empresariale-sant.mdx
+- [x] src/content/blog/mesa-de-dulces-corporativos-impresiona-en-eventos-empresaria-pola.mdx
+- [x] src/content/blog/mesa-de-dulces-cumpleanos-infantil-en-cdmx.mdx
+- [x] src/content/blog/mesa-de-dulces-infantil-guia-completa-para-fiestas-magi-polanco.mdx
+- [x] src/content/blog/mesa-de-dulces-infantil-un-sueno-hecho-realidad-interlomas.mdx
+- [x] src/content/blog/mesa-de-dulces-para-baby-shower-guia-completa.mdx
+- [x] src/content/blog/mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas.mdx
+- [x] src/content/blog/mesa-de-dulces-para-bodas-endulza-tu-dia-perfecto-cdmx.mdx
+- [x] src/content/blog/mesa-de-dulces-para-xv-anos-guia-completa-para-una-cele-pedregal.mdx
+- [x] src/content/blog/mesa-de-dulces-para-xv-anos-guia-completa.mdx
+- [x] src/content/blog/mesa-de-dulces-xv-anos-crea-una-celebracion-inolvidable-santa-fe.mdx
 
 ## Siguiente bloque (uno por uno)
-- [ ] src/content/blog/mesa-de-dulces-corporativos-impresiona-en-eventos-empresaria-pola.mdx
-- [ ] src/content/blog/mesa-de-dulces-cumpleanos-infantil-en-cdmx.mdx
-- [ ] src/content/blog/mesa-de-dulces-infantil-guia-completa-para-fiestas-magi-polanco.mdx
-- [ ] src/content/blog/mesa-de-dulces-infantil-un-sueno-hecho-realidad-interlomas.mdx
-- [ ] src/content/blog/mesa-de-dulces-para-baby-shower-guia-completa.mdx
+- [ ] src/content/blog/mesa-dulces-baby-shower-ideas-creativas.mdx
+- [ ] src/content/blog/mesa-dulces-bautizo-elegante-cdmx.mdx
+- [ ] src/content/blog/mesa-dulces-boda-cdmx-elegancia-y-estilo.mdx
+- [ ] src/content/blog/mesa-dulces-boda-intima-pequena.mdx
+- [ ] src/content/blog/mesa-dulces-boda-jardin-exterior.mdx
