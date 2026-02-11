@@ -18,28 +18,28 @@ const breadcrumbItems = [
 
 const faqs = [
   {
-    question: 'Que postres incluye una mesa de postres?',
-    answer: 'Incluimos una seleccion curada de postres gourmet como tartaletas, brownies, mini pasteles, cheesecakes, cupcakes y piezas de reposteria fina. Ajustamos surtido segun tipo de evento y perfil de invitados.'
+    question: 'Que postres incluye una barra de postres para fiestas?',
+    answer: 'Nuestra barra incluye tartas artesanales, brownies de chocolate, mini pasteles, cheesecakes, cupcakes decorados, macarrones franceses y petit fours. Elaboramos todo con ingredientes frescos y ajustamos el surtido segun tu fiesta o cumpleanos.'
   },
   {
-    question: 'Los postres son frescos o congelados?',
-    answer: 'Trabajamos con produccion fresca para eventos. Coordinamos tiempos de elaboracion y montaje para mantener textura, sabor y presentacion en condiciones optimas durante el servicio.'
+    question: 'Sirven postres para bodas y baby showers?',
+    answer: 'Si, creamos buffets de postres deliciosos para bodas, baby showers, XV anos y fiestas sociales. Cada dessert se elabora fresco y coordinamos la decoracion tematica con tu celebracion.'
   },
   {
-    question: 'Puedo personalizar sabores y estilo visual?',
-    answer: 'Si. Personalizamos sabores, presentacion y linea decorativa para alinear la mesa de postres con la identidad visual de tu celebracion.'
+    question: 'Puedo elegir sabores de chocolate y frutos?',
+    answer: 'Absolutamente. Ofrecemos tartas de chocolate belga, postres con frutos rojos, opciones mexicanas tradicionales y combinaciones modernas. Te enviamos catalogo con ideas tipo Pinterest para inspirarte.'
   },
   {
-    question: 'Para cuantas personas alcanza una mesa de postres?',
-    answer: 'Definimos porcionado y volumen segun numero de asistentes. Contamos con paquetes referenciales para eventos pequenos, medianos y grandes.'
+    question: 'Tienen opciones para Navidad y Halloween?',
+    answer: 'Si, armamos barras de postres tematicas para Navidad, Halloween y cualquier temporada. La decoracion incluye bases doradas, globos y elementos que transforman tu fiesta en algo memorable.'
   },
   {
-    question: 'Incluye montaje y desmontaje?',
-    answer: 'Si. El servicio contempla montaje profesional, coordinacion en sitio y desmontaje al cierre del evento.'
+    question: 'Ofrecen renta de carrito de postres?',
+    answer: 'Si, contamos con renta de carrito vintage y buffet movil para fiestas. Es ideal para cumpleanos, bodas y celebraciones donde quieres decorar mesa de forma creativa en Ciudad de Mexico.'
   },
   {
-    question: 'Atienden restricciones alimentarias?',
-    answer: 'Si, podemos integrar opciones especificas segun requerimiento previo. Recomendamos validar restricciones con anticipacion para planear surtido y etiquetado.'
+    question: 'Que diferencia hay entre mesa de postres y candy bar?',
+    answer: 'La mesa de postres se enfoca en reposteria fina (tartas, macarrones, petit fours), mientras el candy bar ofrece dulces y snacks. Podemos combinar ambos para crear una experiencia de dulces y postres completa.'
   }
 ];
 
@@ -50,12 +50,12 @@ const packages = [
     price: '$4,500',
     currency: 'MXN',
     guests: '30-50 personas',
-    tagline: 'Ideal para eventos intimos',
+    tagline: 'Ideal para fiestas y cumpleanos',
     features: [
-      'Mesa de postres con surtido base',
-      'Montaje profesional',
-      'Presentacion elegante',
-      'Mobiliario incluido',
+      'Barra de postres con tartas y brownies',
+      'Cupcakes y macarrones incluidos',
+      'Decoracion elegante con bases doradas',
+      'Mobiliario y carrito disponible',
       'Desmontaje al finalizar'
     ],
     popular: false,
@@ -63,23 +63,23 @@ const packages = [
     ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Esencial'
   },
   {
-    name: 'Premium',
+    name: 'Favorito',
     icon: '⭐',
     price: '$7,900',
     currency: 'MXN',
     guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
+    tagline: 'La opcion mas solicitada para fiestas',
     features: [
-      'Surtido gourmet ampliado',
-      'Diseno personalizado',
-      'Curaduria por tipo de evento',
-      'Montaje y coordinacion en sitio',
-      'Asesoria previa del evento',
+      'Buffet amplio con chocolate y frutos',
+      'Diseno tematico personalizado',
+      'Petit fours y postres mexicanos',
+      'Instalacion y coordinacion en sitio',
+      'Asesoria de decoracion previa',
       'Mejor equilibrio costo-beneficio'
     ],
     popular: true,
     ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Premium'
+    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Mesa de Postres - Paquete Favorito'
   },
   {
     name: 'Luxury',
@@ -87,14 +87,14 @@ const packages = [
     price: '$12,500',
     currency: 'MXN',
     guests: '100+ personas',
-    tagline: 'Experiencia integral premium',
+    tagline: 'Experiencia completa para bodas y XV anos',
     features: [
-      'Surtido premium de alto volumen',
-      'Direccion estetica completa',
-      'Curaduria de reposteria fina',
+      'Surtido delicioso de alto volumen',
+      'Direccion estetica y decoracion total',
+      'Reposteria fina con ingredientes selectos',
       'Operacion en sitio extendida',
-      'Configuracion para eventos grandes',
-      'Acompanamiento operativo integral'
+      'Configuracion para grandes celebraciones',
+      'Acompanamiento integral'
     ],
     popular: false,
     ctaText: 'Cotizar Paquete',
@@ -103,83 +103,84 @@ const packages = [
 ];
 
 const whyStats = [
-  { number: '25+', label: 'Variedades Gourmet' },
-  { number: '100%', label: 'Produccion Fresca' },
-  { number: '500+', label: 'Eventos Montados' },
-  { number: '24h', label: 'Respuesta Comercial' }
+  { number: '25+', label: 'Variedades Deliciosas' },
+  { number: '100%', label: 'Elaboracion Fresca' },
+  { number: '500+', label: 'Fiestas Realizadas' },
+  { number: '24h', label: 'Respuesta Rapida' }
 ];
 
 const whyFeatures = [
   {
     num: 1,
-    title: 'Reposteria Curada',
-    desc: 'Seleccion profesional de piezas para balancear sabor, textura y presentacion.',
+    title: 'Tartas y Chocolate Artesanal',
+    desc: 'Elaboramos tartas, brownies de chocolate y postres con ingredientes selectos para tu fiesta o cumpleanos.',
     img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif'
   },
   {
     num: 2,
-    title: 'Diseno de Exhibicion',
-    desc: 'Composicion visual elegante para maximizar impacto en fotos y experiencia.',
+    title: 'Diseno Estilo Pinterest',
+    desc: 'Decoracion moderna con bases doradas, globos y composicion visual que impresiona en fotos y redes sociales.',
     img: '/img/tipos-de-mesas/postres/mesa-postres-elegante-eventos.avif'
   },
   {
     num: 3,
-    title: 'Operacion Profesional',
-    desc: 'Montaje, orden y flujo de servicio para mantener calidad durante todo el evento.',
+    title: 'Buffet y Barra Tematica',
+    desc: 'Armamos buffets de postres para bodas, baby showers, Navidad y cualquier celebracion social en CDMX.',
     img: '/img/tipos-de-mesas/postres/postres-gourmet-fiestas.avif'
   },
   {
     num: 4,
-    title: 'Personalizacion Real',
-    desc: 'Alineamos paleta, estilo y surtido con el concepto especifico de tu celebracion.',
+    title: 'Macarrones y Petit Fours',
+    desc: 'Incluimos reposteria fina francesa y opciones mexicanas tradicionales para una experiencia deliciosa.',
     img: '/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif'
   }
 ];
 
 const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, tipo de evento e invitados para definir alcance.' },
-  { num: 2, title: 'Disenamos', desc: 'Proponemos surtido, estilo visual y configuracion segun objetivos.' },
-  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, agenda y detalles operativos de montaje.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Montamos y operamos la mesa de postres con estandar profesional.' }
+  { num: 1, title: 'Contactanos', desc: 'Platicanos sobre tu fiesta, boda o cumpleanos: fecha, lugar y asistentes.' },
+  { num: 2, title: 'Disenamos', desc: 'Creamos el buffet ideal con tartas, chocolate, macarrones y la decoracion que imaginas.' },
+  { num: 3, title: 'Confirmamos', desc: 'Cerramos propuesta, tematica y logistica para armar tu barra de postres.' },
+  { num: 4, title: 'Ejecutamos', desc: 'Instalamos tu mesa de postres lista para disfrutar en tu celebracion.' }
 ];
 
 const eventCards = [
   {
-    title: 'Mesa para Bodas',
-    excerpt: 'Postres elegantes para bodas con composicion visual premium y montaje impecable.',
+    title: 'Postres para Bodas',
+    excerpt: 'Buffet de postres elegante con tartas, macarrones y decoracion romantica. Dulces para bodas deliciosos.',
     img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
     href: '/candy-bar-eventos/mesa-dulces-boda',
     badge: 'Popular',
     cta: 'Ver Bodas'
   },
   {
-    title: 'Mesa para XV Anos',
-    excerpt: 'Propuesta gourmet personalizada para quinceaneras con alta recordacion visual.',
+    title: 'Postres para XV Anos',
+    excerpt: 'Barra de postres tematica para quinceaneras con chocolate, frutos y diseno moderno tipo Pinterest.',
     img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
     href: '/candy-bar-eventos/mesa-dulces-xv-anos',
     cta: 'Ver XV Anos'
   },
   {
-    title: 'Mesa para Graduacion',
-    excerpt: 'Formato de postres para eventos academicos con servicio ordenado y presentacion premium.',
+    title: 'Postres para Baby Shower',
+    excerpt: 'Mesa de postres deliciosa para baby shower con petit fours, cupcakes y decoracion tematica.',
     img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif',
-    href: '/candy-bar-eventos/mesa-dulces-graduacion',
-    cta: 'Ver Graduaciones'
+    href: '/candy-bar-eventos/mesa-dulces-baby-shower',
+    cta: 'Ver Baby Shower'
   },
   {
-    title: 'Mesa para Corporativos',
-    excerpt: 'Postres para eventos empresariales con enfoque en imagen profesional y hospitalidad.',
+    title: 'Postres para Cumpleanos',
+    excerpt: 'Barra de postres para fiestas de cumpleanos con snacks, chocolate y opciones mexicanas.',
     img: '/img/eventos/corporativos/candy-bar-empresarial.avif',
     href: '/candy-bar-eventos/mesa-dulces-corporativos',
-    cta: 'Ver Corporativos'
+    badge: 'Fiesta',
+    cta: 'Ver Cumpleanos'
   }
 ];
 
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Mesa de Postres para Eventos en CDMX',
-  description: 'Servicio de mesa de postres gourmet para eventos sociales y corporativos en CDMX con montaje profesional.',
+  name: 'Barra de Postres para Fiestas y Bodas en CDMX',
+  description: 'Buffet de postres deliciosos con tartas, chocolate, macarrones y petit fours para fiestas, bodas, cumpleanos y baby showers en Ciudad de Mexico.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
@@ -202,7 +203,7 @@ const serviceSchema = {
     offerCount: '3',
     offers: packages.map(pkg => ({
       '@type': 'Offer',
-      name: `Mesa de Postres ${pkg.name}`,
+      name: `Barra de Postres ${pkg.name}`,
       price: pkg.price.replace(/[$,]/g, ''),
       priceCurrency: 'MXN',
       description: pkg.guests,
@@ -226,8 +227,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Mesa de Postres para Eventos en CDMX | Mededul"
-  description="Renta de mesa de postres gourmet en CDMX con montaje profesional, diseno personalizado y surtido premium para eventos sociales y corporativos."
+  title="Mesa de Postres para Fiestas y Bodas en CDMX | Mededul"
+  description="Barra de postres deliciosos con tartas, chocolate y macarrones para fiestas, bodas, cumpleanos y baby showers. Renta con decoracion tematica en Ciudad de Mexico."
   canonical="/tipos-de-mesas-de-dulces/mesa-de-postres"
   ogImage="/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif"
   includeCategoryStyles={true}
@@ -239,37 +240,37 @@ const faqSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Postres Gourmet en CDMX"
-    highlight="Postres Gourmet"
-    subtitle="Surtido premium, diseno elegante y montaje profesional para eventos memorables"
-    secondaryContent={`<p><strong>Postres gourmet</strong> bien seleccionados elevan la experiencia del invitado y fortalecen la imagen global del evento desde la primera impresion. En Mededul disenamos mesas de postres con enfoque en sabor, presentacion y funcionalidad para lograr resultados consistentes.</p><p><strong>Reposteria</strong> personalizada por tipo de celebracion permite construir una propuesta visual coherente con tu concepto, aforo y presupuesto. Nuestro equipo integra curaduria, montaje y operacion para que tu evento en CDMX destaque por calidad y detalle.</p>`}
+    title="Barra de Postres para Fiestas en CDMX"
+    highlight="Barra de Postres"
+    subtitle="Tartas, chocolate, macarrones y petit fours deliciosos para bodas, cumpleanos y celebraciones"
+    secondaryContent={`<p><strong>Postres deliciosos</strong> como tartas artesanales, brownies de chocolate belga, macarrones franceses y petit fours transforman cualquier fiesta en una experiencia memorable. En Mededul elaboramos buffets de postres con ingredientes selectos y decoracion tematica para bodas, baby showers, XV anos y cumpleanos en Ciudad de Mexico.</p><p><strong>Diseno moderno</strong> estilo Pinterest con bases doradas, carrito vintage y decoracion que impresiona. Ya sea para Navidad, Halloween o fiestas sociales, armamos tu barra de postres con opciones mexicanas tradicionales y reposteria fina. Renta de mesa con snacks, frutos y dulces y postres que tus invitados recordaran.</p>`}
     showCTA={true}
     ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Disena Tu Mesa de Postres"
+    ctaBadge="Ideas y Cotizacion"
+    ctaTitle="Disena Tu Barra de Postres"
     ctaTitleHighlight="Postres"
-    ctaText="Comparte fecha, tipo de evento e invitados para recibir una propuesta profesional y personalizada."
-    ctaButtonText="Solicitar Asesoria"
+    ctaText="Comparte detalles de tu fiesta o boda para recibir ideas de decoracion y cotizacion personalizada."
+    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
     id="paquetes"
-    badge="Paquetes Referenciales"
+    badge="Paquetes para Fiestas"
     title="Escoge el"
-    titleHighlight="Formato Correcto"
-    subtitle="Ajustamos cada propuesta de mesa de postres al perfil de tu evento y nivel de personalizacion requerido."
+    titleHighlight="Buffet Ideal"
+    subtitle="Ajustamos tartas, chocolate y decoracion de tu barra de postres segun tu fiesta, boda o cumpleanos."
     packages={packages}
-    note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion."
+    note="<strong>Tienes ideas de Pinterest?</strong> Creamos una propuesta tematica con los postres y decoracion que imaginas."
   />
 
   <WhyChooseUs
     id="ventajas"
-    badge="Ventajas Diferenciales"
+    badge="Ideas y Ventajas"
     title="Por que elegir nuestra"
-    titleHighlight="Mesa de Postres"
+    titleHighlight="Barra de Postres"
     descriptions={[
-      'Mesa de postres diseniada con criterio comercial y estetico para eventos que exigen nivel premium en experiencia y presentacion.',
-      'Integramos curaduria de producto, montaje profesional y control operativo para asegurar consistencia durante todo el servicio.'
+      'Buffet de postres con tartas, chocolate, macarrones y petit fours elaborados con ingredientes frescos para fiestas, bodas y cumpleanos.',
+      'Combinamos decoracion moderna estilo Pinterest, bases doradas y carrito vintage para crear una experiencia deliciosa en Ciudad de Mexico.'
     ]}
     stats={whyStats}
     features={whyFeatures}
@@ -277,38 +278,38 @@ const faqSchema = {
 
   <ProcessSteps
     id="proceso"
-    badge="Nuestro Proceso"
-    title="Como"
-    titleHighlight="Trabajamos"
-    subtitle="Cuatro pasos claros para ejecutar tu mesa de postres sin fricciones."
+    badge="Asi Funciona"
+    title="Como Armamos tu"
+    titleHighlight="Barra de Postres"
+    subtitle="Cuatro pasos para disenar el buffet de postres ideal para tu fiesta o boda."
     steps={processSteps}
   />
 
   <EventsGrid
     id="eventos"
-    badge="Aplicaciones Reales"
-    title="Mesa de Postres para"
-    titleHighlight="Cada Tipo de Evento"
-    subtitle="Adaptamos surtido, estilo y operacion segun la naturaleza de cada celebracion."
+    badge="Ideas para tu Fiesta"
+    title="Barra de Postres para"
+    titleHighlight="Cada Celebracion"
+    subtitle="Tartas, chocolate y decoracion tematica para bodas, cumpleanos, baby showers y fiestas sociales."
     events={eventCards}
   />
 
   <CTAServices
     href="/contacto"
     badge="Cotizacion sin Costo"
-    title="Lleva Tu Evento a Nivel"
-    titleHighlight="Premium"
-    text="Te ayudamos a definir la combinacion de postres ideal para impresionar a tus invitados con una propuesta de alto nivel."
-    buttonText="Cotizar Mesa de Postres"
+    title="Haz tu Fiesta"
+    titleHighlight="Deliciosa e Inolvidable"
+    text="Te ayudamos a disenar una barra de postres con tartas, chocolate, macarrones y decoracion tematica para tu boda, cumpleanos o celebracion."
+    buttonText="Cotizar Barra de Postres"
   />
 
   <section class="section-faq section-padding" id="faq">
     <div class="container">
       <SectionHeader
-        title="Preguntas Frecuentes sobre Mesa de Postres"
+        title="Preguntas Frecuentes sobre Barra de Postres"
         titleHighlight="Frecuentes"
-        subtitle="Resolvemos las dudas clave antes de contratar"
-        content={`<p>Estas respuestas te permiten elegir con mayor certeza la mejor configuracion para tu evento.</p>`}
+        subtitle="Ideas y respuestas para tu fiesta o boda"
+        content={`<p>Resolvemos dudas sobre tartas, chocolate, decoracion tematica y renta de buffet para tu celebracion en CDMX.</p>`}
       />
       <FAQ items={faqs} id="faq-postres" />
     </div>
