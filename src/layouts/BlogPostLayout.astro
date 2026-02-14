@@ -10,7 +10,7 @@ import CTAServices from '@/components/global/CTAServices.astro';
 import ArticleSidebar from '@/components/blog/ArticleSidebar.astro';
 import { categoryMeta } from '@/content/config';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -21,6 +21,21 @@ const { title, description, category, heroImage, heroImageAlt, tags, faqs } = po
 const articleHeroSrc = heroImage ? getCdnUrl(heroImage, { w: 960, q: 82 }) : '';
 const articleHeroSrcSet = heroImage ? getCdnSrcSet(heroImage, [640, 960, 1280, 1600], { q: 82 }) : '';
 const articleHeroSizes = '(max-width: 768px) 100vw, (max-width: 1400px) 70vw, 960px';
+const MIN_TAG_POSTS = 3;
+
+const publishedPosts = await getCollection('blog', ({ data }) => !data.draft);
+const tagCounts = new Map<string, number>();
+
+publishedPosts.forEach((entry) => {
+  entry.data.tags?.forEach((tag) => {
+    const normalizedTag = tag.toLowerCase().replace(/\s+/g, '-');
+    tagCounts.set(normalizedTag, (tagCounts.get(normalizedTag) || 0) + 1);
+  });
+});
+
+const enabledTagSlugs = Array.from(tagCounts.entries())
+  .filter(([, count]) => count >= MIN_TAG_POSTS)
+  .map(([slug]) => slug);
 
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
 const articleUrl = `${siteUrl}/blog/${post.slug}`;
@@ -94,7 +109,7 @@ const breadcrumbItems = [
           )}
         </article>
 
-        <ArticleSidebar tags={tags} />
+        <ArticleSidebar tags={tags} enabledTagSlugs={enabledTagSlugs} />
       </div>
     </div>
   </section>

@@ -7,6 +7,7 @@ import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
+  const MIN_TAG_POSTS = 3;
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
   const tagMap = new Map<string, { originalTag: string; posts: typeof allPosts }>();
 
@@ -20,15 +21,17 @@ export async function getStaticPaths() {
     });
   });
 
-  return Array.from(tagMap.entries()).map(([tag, data]) => ({
-    params: { tag },
-    props: {
-      tagName: data.originalTag,
-      tagSlug: tag,
-      tagPosts: data.posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()),
-      allPosts
-    }
-  }));
+  return Array.from(tagMap.entries())
+    .filter(([, data]) => data.posts.length >= MIN_TAG_POSTS)
+    .map(([tag, data]) => ({
+      params: { tag },
+      props: {
+        tagName: data.originalTag,
+        tagSlug: tag,
+        tagPosts: data.posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()),
+        allPosts
+      }
+    }));
 }
 
 const { tagName, tagSlug, tagPosts, allPosts } = Astro.props;
