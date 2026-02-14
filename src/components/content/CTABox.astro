@@ -119,64 +119,36 @@ const isExternal = buttonUrl.startsWith('http') || buttonUrl.startsWith('https:/
     z-index: 1;
   }
 
-  /* Default variant */
-  .cta-default {
+  /* Default + WhatsApp variants (brand pink/purple palette) */
+  .cta-default,
+  .cta-whatsapp,
+  .cta-brand-whatsapp {
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+    color: #ffffff;
+    border: 1px solid rgba(233, 30, 140, 0.22);
+    box-shadow: 0 12px 30px rgba(122, 43, 194, 0.22);
+  }
+
+  .cta-default .cta-button,
+  .cta-whatsapp .cta-button,
+  .cta-brand-whatsapp .cta-button {
     background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
     color: #ffffff;
+    box-shadow: 0 8px 24px rgba(233, 30, 140, 0.35);
   }
 
-  .cta-default .cta-button {
-    background: #ffffff;
-    color: var(--rosa-principal, #D1007A);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  }
-
-  .cta-default .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  }
-
-  /* WhatsApp variant */
-  .cta-whatsapp {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    color: #ffffff;
-  }
-
-  .cta-whatsapp .cta-button {
-    background: #ffffff;
-    color: #128C7E;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  }
-
-  .cta-whatsapp .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Brand WhatsApp variant (pink + purple) */
-  .cta-brand-whatsapp {
-    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 14px 34px rgba(122, 43, 194, 0.28);
-  }
-
-  .cta-brand-whatsapp .cta-button {
-    background: #ffffff;
-    color: #8B1DA8;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-  }
-
+  .cta-default .cta-button:hover,
+  .cta-whatsapp .cta-button:hover,
   .cta-brand-whatsapp .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 12px 30px rgba(233, 30, 140, 0.42);
   }
 
   /* Subtle variant */
   .cta-subtle {
-    background: var(--gris-claro, #F8F9FA);
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.1) 0%, rgba(122, 43, 194, 0.1) 100%);
     color: var(--negro-suave, #2D3436);
-    border: 2px solid rgba(233, 30, 140, 0.15);
+    border: 2px solid rgba(160, 0, 95, 0.22);
   }
 
   .cta-subtle::before {

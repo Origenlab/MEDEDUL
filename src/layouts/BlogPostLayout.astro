@@ -6,7 +6,6 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import ArticleSidebar from '@/components/blog/ArticleSidebar.astro';
 import { categoryMeta } from '@/content/config';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
@@ -54,6 +53,7 @@ const breadcrumbItems = [
   ogType="article"
   article={{ category: categoryInfo?.name || category, tags }}
   includeArticleStyles={true}
+  showGlobalCta={true}
 >
   <JsonLd
     type="Article"
@@ -113,16 +113,6 @@ const breadcrumbItems = [
       </div>
     </div>
   </section>
-
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria Especializada"
-    title="Convierte Esta Informacion en una"
-    titleHighlight="Cotizacion"
-    text="Si este articulo se alinea a tu evento, te ayudamos a convertirlo en una propuesta real y personalizada."
-    buttonText="Solicitar Cotizacion"
-  />
-
 </BaseLayout>
 
 <style>
