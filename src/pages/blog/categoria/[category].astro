@@ -6,15 +6,16 @@ import Hero from '@/components/global/Hero.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
+import { sortBlogPosts } from '@/lib/blogSorting';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const allPosts = sortBlogPosts(await getCollection('blog', ({ data }) => !data.draft));
   const categories = [...new Set(allPosts.map(post => post.data.category))];
 
   return categories.map((category) => {
-    const categoryPosts = allPosts
-      .filter(post => post.data.category === category)
-      .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+    const categoryPosts = sortBlogPosts(
+      allPosts.filter(post => post.data.category === category)
+    );
 
     return {
       params: { category },
