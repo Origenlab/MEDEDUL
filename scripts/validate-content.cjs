@@ -4,6 +4,7 @@
  * 1) Absolute /img references point to existing files in /public.
  * 2) Internal href links point to existing static Astro routes.
  * 3) blog heroImage frontmatter points to existing file in /public.
+ * 4) Internal route literals (url:/href:) in components/layouts/pages point to valid routes.
  */
 const fs = require('fs');
 const path = require('path');
@@ -52,6 +53,23 @@ function toPosix(p) {
   return p.replace(/\\/g, '/');
 }
 
+function isKnownRoute(href, routes) {
+  const normalized = href.replace(/\/$/, '') || '/';
+  if (normalized === '/sitemap.xml') return true;
+  if (
+    normalized.startsWith('/img/') ||
+    normalized.startsWith('/assets/') ||
+    normalized.startsWith('/_astro/') ||
+    normalized.startsWith('/api/')
+  ) {
+    return true;
+  }
+
+  const publicFile = path.join(PUBLIC_DIR, normalized.slice(1));
+  if (fs.existsSync(publicFile)) return true;
+  return routes.has(normalized);
+}
+
 const errors = [];
 const routes = collectRoutes();
 const allScanFiles = walk(SRC_DIR, SCAN_EXTS).concat(walk(path.join(ROOT, 'scripts'), SCAN_EXTS));
@@ -76,12 +94,27 @@ for (const file of allScanFiles) {
   const hrefRegex = /href\s*=\s*(["'])(\/[^"'#?]*)[^"']*\1/g;
   let hrefMatch;
   while ((hrefMatch = hrefRegex.exec(content)) !== null) {
-    const href = hrefMatch[2].replace(/\/$/, '') || '/';
-    if (href.startsWith('/img/') || href.startsWith('/assets/') || href.startsWith('/_astro/')) continue;
-    const publicFile = path.join(PUBLIC_DIR, href.slice(1));
-    if (fs.existsSync(publicFile)) continue;
-    if (!routes.has(href)) {
+    const href = hrefMatch[2];
+    if (!isKnownRoute(href, routes)) {
       errors.push(`${relFile}: broken internal link ${href}`);
+    }
+  }
+
+  // Internal route literals in JS-like objects (common in Astro component constants)
+  const inspectRouteLiterals =
+    relFile.startsWith('src/components/') ||
+    relFile.startsWith('src/layouts/') ||
+    relFile.startsWith('src/pages/') ||
+    relFile.startsWith('src/lib/');
+
+  if (inspectRouteLiterals) {
+    const routeLiteralRegex = /\b(?:href|url)\s*:\s*(["'])(\/[^"'#?\s]*)\1/g;
+    let routeLiteralMatch;
+    while ((routeLiteralMatch = routeLiteralRegex.exec(content)) !== null) {
+      const routeLiteral = routeLiteralMatch[2];
+      if (!isKnownRoute(routeLiteral, routes)) {
+        errors.push(`${relFile}: broken route literal ${routeLiteral}`);
+      }
     }
   }
 }
