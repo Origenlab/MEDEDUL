@@ -330,9 +330,10 @@ const servicioCards = [
   }
 
   .sidebar-cta {
-    background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%);
-    border: 1px solid rgba(37, 211, 102, 0.2);
+    background: linear-gradient(135deg, #121027 0%, #26163a 55%, #3b174f 100%);
+    border: 1px solid rgba(209, 0, 122, 0.3);
     text-align: center;
+    box-shadow: 0 10px 24px rgba(122, 43, 194, 0.2);
   }
 
   .cta-header {
@@ -341,7 +342,7 @@ const servicioCards = [
 
   .cta-badge {
     display: inline-block;
-    background: #25D366;
+    background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);
     color: #fff;
     padding: 5px 12px;
     border-radius: 20px;
@@ -354,14 +355,14 @@ const servicioCards = [
 
   .sidebar-cta h4 {
     font-size: 1.1rem;
-    color: #1a1a1a;
+    color: #fff;
     margin: 0 0 6px;
     font-weight: 700;
   }
 
   .sidebar-cta p {
     font-size: 0.85rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.86);
     margin: 0;
     line-height: 1.5;
   }
@@ -373,13 +374,25 @@ const servicioCards = [
     gap: 8px;
     width: 100%;
     padding: 13px 16px;
-    background: #25D366;
+    background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);
     color: #fff;
     border-radius: 10px;
     font-weight: 600;
     font-size: 0.9rem;
-    text-decoration: none;
+    text-decoration: none !important;
     margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 22px rgba(209, 0, 122, 0.34);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .wa-button:visited {
+    color: #fff;
+  }
+
+  .wa-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(209, 0, 122, 0.4);
   }
 
   .cta-contact {
@@ -391,7 +404,7 @@ const servicioCards = [
     align-items: center;
     gap: 6px;
     font-size: 0.85rem;
-    color: #555;
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     font-weight: 500;
   }
@@ -532,7 +545,7 @@ const servicioCards = [
     padding: 7px 14px;
     background: #fff;
     border: 1px solid #eee;
-    border-left: 3px solid var(--cat-color, #D1007A);
+    border-color: var(--cat-color, #D1007A);
     border-radius: 6px;
     font-size: 0.82rem;
     color: #444;

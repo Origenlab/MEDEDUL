@@ -361,10 +361,10 @@
 
 .error-box {
     background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
-    border-left: 4px solid #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.3);
     padding: 30px;
     margin: 40px 0;
-    border-radius: 0 20px 20px 0;
+    border-radius: 20px;
 }
 
 .error-box h4 {
@@ -376,10 +376,10 @@
 
 .solution-box {
     background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%);
-    border-left: 4px solid #16a34a;
+    border: 1px solid rgba(22, 163, 74, 0.3);
     padding: 30px;
     margin: 20px 0 40px;
-    border-radius: 0 20px 20px 0;
+    border-radius: 20px;
 }
 
 .solution-box h4 {
@@ -419,17 +419,6 @@
     border: 1px solid rgba(233, 30, 140, 0.1);
     box-shadow: 0 5px 20px rgba(0,0,0,0.04);
     position: relative;
-}
-
-.toc::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--rosa-principal), var(--rosa-claro));
-    border-radius: 4px 0 0 4px;
 }
 
 .toc h4 {
@@ -530,7 +519,7 @@
     padding: 35px;
     background: linear-gradient(135deg, #fff5f8 0%, #ffffff 100%);
     border-radius: 20px;
-    border-left: 5px solid var(--rosa-principal);
+    border: 1px solid rgba(209, 0, 122, 0.2);
     box-shadow: 0 5px 25px rgba(233, 30, 140, 0.08);
     position: relative;
 }
@@ -597,7 +586,7 @@
     border-radius: 16px;
     padding: 28px 30px;
     margin: 35px 0;
-    border-left: 5px solid var(--rosa-principal);
+    border: 1px solid rgba(209, 0, 122, 0.25);
     position: relative;
     box-shadow: 0 5px 20px rgba(233, 30, 140, 0.08);
 }
@@ -646,7 +635,7 @@
 .highlight-box[class*="error"],
 .highlight-box h4:contains("Error") {
     background: linear-gradient(135deg, rgba(220, 38, 38, 0.06) 0%, rgba(239, 68, 68, 0.03) 100%);
-    border-left-color: #dc2626;
+    border-color: rgba(220, 38, 38, 0.35);
 }
 
 .highlight-box.error-highlight::before {
@@ -1467,20 +1456,21 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #25D366;
+    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
     color: #fff;
     padding: 14px 28px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.4);
+    border: 1px solid rgba(255,255,255,0.25);
 }
 
 .sidebar-cta-btn-wa:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.5);
 }
 
 .sidebar-cta-btn-wa svg {

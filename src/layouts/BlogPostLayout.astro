@@ -7,6 +7,7 @@ import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import ArticleSidebar from '@/components/blog/ArticleSidebar.astro';
+import ArticleCTA from '@/components/content/ArticleCTA.astro';
 import { categoryMeta } from '@/content/config';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -53,7 +54,7 @@ const breadcrumbItems = [
   ogType="article"
   article={{ category: categoryInfo?.name || category, tags }}
   includeArticleStyles={true}
-  showGlobalCta={true}
+  showGlobalCta={false}
 >
   <JsonLd
     type="Article"
@@ -107,6 +108,16 @@ const breadcrumbItems = [
               <FAQ items={faqs} id={`faq-${post.slug}`} />
             </section>
           )}
+
+          <section class="article-footer-cta" aria-label="Llamada a la accion del articulo">
+            <ArticleCTA
+              title="Asesoria especializada para tu evento en CDMX"
+              description="Convierte lo que viste en este articulo en una propuesta real con diseno, operacion y acompanamiento profesional de MEDEDUL."
+              buttonText="Solicitar cotizacion"
+              buttonUrl="https://wa.me/525525226442?text=Hola%2C%20quiero%20asesoria%20para%20mi%20evento%20en%20CDMX"
+              variant="brand-whatsapp"
+            />
+          </section>
         </article>
 
         <ArticleSidebar tags={tags} enabledTagSlugs={enabledTagSlugs} />
@@ -184,8 +195,8 @@ const breadcrumbItems = [
     margin: 50px 0 24px;
     padding: 20px 25px;
     background: linear-gradient(135deg, rgba(233, 30, 140, 0.08) 0%, rgba(233, 30, 140, 0.02) 100%);
-    border-left: 5px solid #D1007A;
-    border-radius: 0 12px 12px 0;
+    border: 1px solid rgba(209, 0, 122, 0.22);
+    border-radius: 12px;
   }
 
   .article-content :global(h2:first-child) {
@@ -203,14 +214,14 @@ const breadcrumbItems = [
   /* Problem h3 (contains ❌) */
   .article-content :global(h3:nth-of-type(odd)) {
     background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(231, 76, 60, 0.02) 100%);
-    border-left: 4px solid #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.25);
     color: #c0392b;
   }
 
   /* Solution h3 (contains ✅) */
   .article-content :global(h3:nth-of-type(even)) {
     background: linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(39, 174, 96, 0.02) 100%);
-    border-left: 4px solid #27ae60;
+    border: 1px solid rgba(39, 174, 96, 0.25);
     color: #1e8449;
   }
 
@@ -252,6 +263,10 @@ const breadcrumbItems = [
     margin-top: 60px;
     padding-top: 50px;
     border-top: 2px solid #f0f0f0;
+  }
+
+  .article-footer-cta {
+    margin-top: 26px;
   }
 
   /* ========================================
