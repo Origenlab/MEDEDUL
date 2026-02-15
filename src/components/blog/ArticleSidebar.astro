@@ -44,6 +44,32 @@ const enlacesRapidos = [
   { name: 'Contacto', url: '/contacto' }
 ];
 
+const sucursales = [
+  {
+    name: 'Anzures',
+    hours: '24 horas',
+    addressLine1: 'Av. Ejercito Nacional Mexicano 216',
+    addressLine2: 'Anzures, Miguel Hidalgo, 11590',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+Miguel+Hidalgo,+11590,+Ciudad+de+Mexico'
+  },
+  {
+    name: 'Condesa',
+    hours: 'Lun-Sab 10-19h',
+    addressLine1: 'Torre A, Av. Baja California 255',
+    addressLine2: 'Condesa, Cuauhtemoc, 06170',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Torre+A,+Av.+Baja+California+255,+Condesa,+Cuauhtemoc,+06170,+Ciudad+de+Mexico'
+  }
+];
+
+const zonasPremium = [
+  { name: 'Polanco', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
+  { name: 'Lomas de Chapultepec', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
+  { name: 'Bosques de las Lomas', serviceUrl: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { name: 'Santa Fe', serviceUrl: '/candy-bar-eventos/mesa-dulces-corporativos' },
+  { name: 'Pedregal', serviceUrl: '/candy-bar-eventos/mesa-dulces-xv-anos' },
+  { name: 'Interlomas', serviceUrl: '/tipos-de-mesas-de-dulces/mesa-de-postres' }
+];
+
 const servicioCards = [
   {
     title: 'Mesa de Dulces para Bodas',
@@ -117,6 +143,34 @@ const servicioCards = [
           </div>
         </a>
       ))}
+    </div>
+
+    <div class="sidebar-card sidebar-sucursales">
+      <h4 class="sidebar-title">Sucursales en CDMX</h4>
+      <div class="sucursales-list">
+        {sucursales.map((sucursal) => (
+          <article class="sucursal-item">
+            <h5>{sucursal.name}</h5>
+            <p class="sucursal-hours">{sucursal.hours}</p>
+            <p class="sucursal-address">{sucursal.addressLine1}</p>
+            <p class="sucursal-address">{sucursal.addressLine2}</p>
+            <a href="tel:+525525226442" class="sucursal-phone">55 2522 6442</a>
+            <a href={sucursal.mapsUrl} class="sucursal-map" target="_blank" rel="noopener noreferrer">Ver en Maps</a>
+          </article>
+        ))}
+      </div>
+      <a href="/contacto" class="sucursales-link">Solicitar asesoria por sucursal</a>
+    </div>
+
+    <div class="sidebar-card sidebar-zonas">
+      <h4 class="sidebar-title">Zonas de alto nivel</h4>
+      <p class="sidebar-subtitle">Cobertura activa en zonas premium de CDMX</p>
+      <div class="zonas-list">
+        {zonasPremium.map((zona) => (
+          <a href={zona.serviceUrl} class="zona-link">{zona.name}</a>
+        ))}
+      </div>
+      <a href="/servicios" class="ver-todas-link">Ver servicios relacionados</a>
     </div>
 
     <div class="sidebar-card">
@@ -327,6 +381,108 @@ const servicioCards = [
 
   .service-card:hover .service-card-link {
     gap: 6px;
+  }
+
+  .sidebar-sucursales {
+    background: linear-gradient(135deg, #fdf8ff 0%, #ffffff 100%);
+    border-color: rgba(122, 43, 194, 0.2);
+  }
+
+  .sucursales-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sucursal-item {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(122, 43, 194, 0.15);
+    background: #fff;
+  }
+
+  .sucursal-item h5 {
+    margin: 0 0 4px;
+    color: #1a1a1a;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .sucursal-hours {
+    margin: 0 0 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #7a2bc2;
+  }
+
+  .sucursal-address {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #4d4d4d;
+  }
+
+  .sucursal-phone,
+  .sucursal-map {
+    display: inline-block;
+    margin-top: 8px;
+    margin-right: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #d1007a;
+  }
+
+  .sucursal-map {
+    color: #7a2bc2;
+  }
+
+  .sucursal-phone:hover,
+  .sucursal-map:hover {
+    text-decoration: underline;
+  }
+
+  .sucursales-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #d1007a;
+    text-decoration: none;
+  }
+
+  .sucursales-link:hover {
+    text-decoration: underline;
+  }
+
+  .sidebar-zonas {
+    background: linear-gradient(135deg, #fff7fb 0%, #ffffff 100%);
+    border-color: rgba(209, 0, 122, 0.18);
+  }
+
+  .zonas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .zona-link {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #5e2a8f;
+    background: rgba(122, 43, 194, 0.08);
+    border: 1px solid rgba(122, 43, 194, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .zona-link:hover {
+    color: #d1007a;
+    border-color: rgba(209, 0, 122, 0.35);
+    background: rgba(209, 0, 122, 0.08);
   }
 
   .sidebar-cta {
