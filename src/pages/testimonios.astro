@@ -1,0 +1,668 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+
+const breadcrumbItems = [
+  { name: 'Testimonios', url: '/testimonios' }
+];
+
+// Testimonios por categoria
+const testimoniosBodas = [
+  {
+    name: 'Ana y Carlos',
+    initials: 'AC',
+    review: 'Nuestra mesa de dulces fue el centro de atencion de toda la boda. Los invitados no dejaban de tomarle fotos. El equipo de Mededul fue super profesional y el montaje quedo exactamente como lo soñamos.',
+    event: 'Boda en Hacienda',
+    rating: 5
+  },
+  {
+    name: 'Fernanda Martinez',
+    initials: 'FM',
+    review: 'Desde el primer contacto sentimos mucha confianza. Nos guiaron en todo el proceso y el resultado supero nuestras expectativas. La combinacion de dulces y la decoracion fue perfecta para nuestro tema romantico.',
+    event: 'Boda Civil',
+    rating: 5
+  },
+  {
+    name: 'Roberto y Lucia',
+    initials: 'RL',
+    review: 'Contratamos el paquete Luxury y valio cada peso. La fuente de chocolate fue un exito total y los dulces premium hicieron la diferencia. Muy recomendados para bodas grandes.',
+    event: 'Boda 200 invitados',
+    rating: 5
+  }
+];
+
+const testimoniosXVAnos = [
+  {
+    name: 'Patricia Gonzalez',
+    initials: 'PG',
+    review: 'La mesa de dulces para los XV de mi hija quedo espectacular. El color rosa con dorado que elegimos se veia de revista. Mi hija estaba feliz y sus amigas encantadas.',
+    event: 'XV Anos Tematica Princesa',
+    rating: 5
+  },
+  {
+    name: 'Maria Elena Sanchez',
+    initials: 'MS',
+    review: 'Muy puntuales y organizados. Llegaron antes, montaron todo rapidisimo y el resultado fue increible. Los macarons y cupcakes personalizados fueron el toque especial.',
+    event: 'XV Anos en Salon',
+    rating: 5
+  },
+  {
+    name: 'Isabel Rodriguez',
+    initials: 'IR',
+    review: 'Buscaba algo diferente para los XV de mi hija y la pared de dulces fue perfecta. Todos los invitados la amaron y las fotos quedaron increibles.',
+    event: 'XV Anos Moderno',
+    rating: 5
+  }
+];
+
+const testimoniosBabyShower = [
+  {
+    name: 'Laura Perez',
+    initials: 'LP',
+    review: 'Mi baby shower quedo hermoso. La mesa de dulces en tonos azul pastel fue exactamente lo que queria. Todo fresco, delicioso y con un montaje muy tierno.',
+    event: 'Baby Shower Nino',
+    rating: 5
+  },
+  {
+    name: 'Daniela Torres',
+    initials: 'DT',
+    review: 'Contrate mesa de dulces y fuente de chamoy para el baby shower de mi hermana. Los invitados quedaron encantados con la variedad. El servicio fue excelente.',
+    event: 'Baby Shower Mixto',
+    rating: 5
+  },
+  {
+    name: 'Alejandra Mendez',
+    initials: 'AM',
+    review: 'El tema de ositos que elegi quedo precioso. Los dulces personalizados con el nombre del bebe fueron un detalle hermoso que todos apreciaron.',
+    event: 'Baby Shower Nina',
+    rating: 5
+  }
+];
+
+const testimoniosCorporativos = [
+  {
+    name: 'Grupo Empresarial MX',
+    initials: 'GE',
+    review: 'Contratamos para nuestro evento de fin de ano corporativo. La presentacion fue impecable y profesional. Nuestros colaboradores quedaron muy contentos.',
+    event: 'Evento Corporativo',
+    rating: 5
+  },
+  {
+    name: 'Marketing Solutions SA',
+    initials: 'MS',
+    review: 'Para el lanzamiento de producto necesitabamos algo que impresionara. La mesa con branding personalizado fue un exito. Facturaron sin problema.',
+    event: 'Lanzamiento de Producto',
+    rating: 5
+  },
+  {
+    name: 'Tech Company CDMX',
+    initials: 'TC',
+    review: 'Hemos contratado varias veces para eventos internos. Siempre cumplen con calidad y puntualidad. Es nuestro proveedor de confianza para mesas de dulces.',
+    event: 'Eventos Recurrentes',
+    rating: 5
+  }
+];
+
+const testimoniosCumpleanos = [
+  {
+    name: 'Monica Garcia',
+    initials: 'MG',
+    review: 'El cumpleanos de mi hijo con tema de dinosaurios fue increible. Los dulces verdes y los cupcakes con figuritas fueron un exito. Los ninos estaban felices.',
+    event: 'Cumpleanos Infantil',
+    rating: 5
+  },
+  {
+    name: 'Ricardo Flores',
+    initials: 'RF',
+    review: 'Para los 50 de mi mama queria algo elegante. La mesa de dulces tradicionales mexicanos fue perfecta. Calidad, sabor y presentacion impecables.',
+    event: 'Cumpleanos Adulto',
+    rating: 5
+  },
+  {
+    name: 'Veronica Luna',
+    initials: 'VL',
+    review: 'Mis gemelas cumplieron 7 y querian tema de unicornio. La mesa quedo magica, con arcoiris de dulces y todo personalizado. Fue su mejor fiesta.',
+    event: 'Cumpleanos Tematico',
+    rating: 5
+  }
+];
+
+const testimoniosBautizos = [
+  {
+    name: 'Familia Martinez',
+    initials: 'FM',
+    review: 'El bautizo de nuestra bebe quedo hermoso. La mesa en tonos blancos con angeles fue muy significativa. Gracias por hacer de este dia algo especial.',
+    event: 'Bautizo Nina',
+    rating: 5
+  },
+  {
+    name: 'Carmen y Jose',
+    initials: 'CJ',
+    review: 'Muy profesionales desde la cotizacion hasta el evento. La mesa quedo preciosa y los dulces deliciosos. Nuestros invitados quedaron encantados.',
+    event: 'Bautizo y Primera Comunion',
+    rating: 5
+  }
+];
+
+// Estadisticas
+const estadisticas = [
+  { numero: '500+', label: 'Eventos Realizados' },
+  { numero: '4.9', label: 'Calificacion Promedio' },
+  { numero: '98%', label: 'Clientes Satisfechos' },
+  { numero: '150+', label: 'Resenas Verificadas' }
+];
+
+const testimoniosSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces CDMX",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "150",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    ...testimoniosBodas,
+    ...testimoniosXVAnos,
+    ...testimoniosCorporativos
+  ].slice(0, 5).map(t => ({
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": t.rating.toString(),
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": t.name
+    },
+    "reviewBody": t.review
+  }))
+};
+---
+
+<BaseLayout
+  title="Testimonios de Clientes | Mesas de Dulces CDMX - Mededul"
+  description="Lee testimonios reales de clientes satisfechos con nuestras mesas de dulces en CDMX. Mas de 500 eventos exitosos en bodas, XV anos, baby shower y corporativos."
+  canonical="/testimonios"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(testimoniosSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Testimonios de Nuestros Clientes"
+    highlight="Testimonios"
+    subtitle="Experiencias reales de eventos memorables en CDMX"
+    secondaryContent={`<p>Conoce lo que dicen nuestros <strong>clientes satisfechos</strong> sobre sus experiencias con Mededul. Cada testimonio representa un evento exitoso: bodas, XV anos, baby showers, bautizos, cumpleanos y eventos corporativos.</p><p>Con mas de <strong>500 eventos realizados</strong> y una calificacion promedio de <strong>4.9 estrellas</strong>, nos enorgullece la confianza que depositan en nosotros.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Estadisticas -->
+  <section class="estadisticas-section">
+    <div class="container">
+      <div class="estadisticas-grid">
+        {estadisticas.map(stat => (
+          <div class="estadistica-item">
+            <span class="estadistica-numero">{stat.numero}</span>
+            <span class="estadistica-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Bodas -->
+  <section class="testimonios-seccion" id="bodas">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de"
+        titleHighlight="Bodas"
+        subtitle="Parejas que confiaron en nosotros para su dia especial"
+      />
+      <div class="testimonios-grid">
+        {testimoniosBodas.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios XV Anos -->
+  <section class="testimonios-seccion testimonios-seccion--alt" id="xv-anos">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de"
+        titleHighlight="XV Anos"
+        subtitle="Quinceaneras que celebraron con estilo"
+      />
+      <div class="testimonios-grid">
+        {testimoniosXVAnos.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Baby Shower -->
+  <section class="testimonios-seccion" id="baby-shower">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de"
+        titleHighlight="Baby Shower"
+        subtitle="Familias que celebraron la llegada de su bebe"
+      />
+      <div class="testimonios-grid">
+        {testimoniosBabyShower.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Corporativos -->
+  <section class="testimonios-seccion testimonios-seccion--alt" id="corporativos">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios"
+        titleHighlight="Corporativos"
+        subtitle="Empresas que confiaron en nuestro servicio profesional"
+      />
+      <div class="testimonios-grid">
+        {testimoniosCorporativos.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Cumpleanos -->
+  <section class="testimonios-seccion" id="cumpleanos">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de"
+        titleHighlight="Cumpleanos"
+        subtitle="Celebraciones infantiles y de adultos"
+      />
+      <div class="testimonios-grid">
+        {testimoniosCumpleanos.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios Bautizos -->
+  <section class="testimonios-seccion testimonios-seccion--alt" id="bautizos">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de"
+        titleHighlight="Bautizos y Comuniones"
+        subtitle="Celebraciones religiosas con significado especial"
+      />
+      <div class="testimonios-grid testimonios-grid--dos">
+        {testimoniosBautizos.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Resumen de Valoraciones -->
+  <section class="valoraciones-section">
+    <div class="container">
+      <div class="valoraciones-content">
+        <div class="valoraciones-header">
+          <span class="valoraciones-badge">Resumen de Valoraciones</span>
+          <h2>4.9 <span>de 5 estrellas</span></h2>
+          <div class="valoraciones-estrellas">
+            {[1,2,3,4,5].map(() => (
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            ))}
+          </div>
+          <p>Basado en 150+ resenas verificadas</p>
+        </div>
+
+        <div class="valoraciones-barras">
+          <div class="barra-item">
+            <span class="barra-label">5 estrellas</span>
+            <div class="barra-contenedor">
+              <div class="barra-progreso" style="width: 92%"></div>
+            </div>
+            <span class="barra-porcentaje">92%</span>
+          </div>
+          <div class="barra-item">
+            <span class="barra-label">4 estrellas</span>
+            <div class="barra-contenedor">
+              <div class="barra-progreso" style="width: 6%"></div>
+            </div>
+            <span class="barra-porcentaje">6%</span>
+          </div>
+          <div class="barra-item">
+            <span class="barra-label">3 estrellas</span>
+            <div class="barra-contenedor">
+              <div class="barra-progreso" style="width: 2%"></div>
+            </div>
+            <span class="barra-porcentaje">2%</span>
+          </div>
+          <div class="barra-item">
+            <span class="barra-label">2 estrellas</span>
+            <div class="barra-contenedor">
+              <div class="barra-progreso" style="width: 0%"></div>
+            </div>
+            <span class="barra-porcentaje">0%</span>
+          </div>
+          <div class="barra-item">
+            <span class="barra-label">1 estrella</span>
+            <div class="barra-contenedor">
+              <div class="barra-progreso" style="width: 0%"></div>
+            </div>
+            <span class="barra-porcentaje">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Vi%20sus%20testimonios%20y%20me%20gustaria%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Se Parte de Nuestra Historia"
+    title="Crea tu Propio"
+    titleHighlight="Evento Memorable"
+    text="Unete a los mas de 500 clientes satisfechos. Cotiza sin compromiso y hagamos de tu evento algo especial."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Estadisticas */
+  .estadisticas-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .estadisticas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .estadistica-item {
+    text-align: center;
+    color: #fff;
+  }
+
+  .estadistica-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .estadistica-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  /* Secciones de Testimonios */
+  .testimonios-seccion {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .testimonios-seccion--alt {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .testimonios-grid--dos {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Valoraciones */
+  .valoraciones-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .valoraciones-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .valoraciones-header {
+    text-align: center;
+  }
+
+  .valoraciones-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(209, 0, 122, 0.1);
+    border: 1px solid rgba(209, 0, 122, 0.2);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .valoraciones-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--texto-oscuro);
+    margin: 0 0 16px;
+    line-height: 1;
+  }
+
+  .valoraciones-header h2 span {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--texto-light);
+  }
+
+  .valoraciones-estrellas {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .valoraciones-header p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .valoraciones-barras {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .barra-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 50px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .barra-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+  }
+
+  .barra-contenedor {
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .barra-progreso {
+    height: 100%;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 6px;
+  }
+
+  .barra-porcentaje {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-align: right;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .estadisticas-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .valoraciones-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .estadisticas-section {
+      padding: 40px 0;
+    }
+
+    .estadisticas-grid {
+      gap: 20px;
+    }
+
+    .estadistica-numero {
+      font-size: 2.2rem;
+    }
+
+    .estadistica-label {
+      font-size: 0.8rem;
+    }
+
+    .testimonios-seccion {
+      padding: 50px 0;
+    }
+
+    .testimonios-grid,
+    .testimonios-grid--dos {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .valoraciones-header h2 {
+      font-size: 3rem;
+    }
+
+    .valoraciones-estrellas svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .estadisticas-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .estadistica-numero {
+      font-size: 1.8rem;
+    }
+
+    .valoraciones-header h2 {
+      font-size: 2.5rem;
+    }
+
+    .barra-item {
+      grid-template-columns: 70px 1fr 40px;
+      gap: 8px;
+    }
+
+    .barra-label {
+      font-size: 0.75rem;
+    }
+
+    .barra-porcentaje {
+      font-size: 0.75rem;
+    }
+  }
+</style>

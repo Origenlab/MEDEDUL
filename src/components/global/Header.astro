@@ -82,8 +82,11 @@ const menuItems = [
     ]
   },
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Blog', href: '/blog', startsWith: true },
-  { label: 'Contacto', href: '/contacto' }
+  { label: 'Galeria', href: '/galeria' },
+  { label: 'Precios', href: '/precios' },
+  { label: 'Testimonios', href: '/testimonios' },
+  { label: 'Zonas CDMX', href: '/zonas-cdmx', startsWith: true },
+  { label: 'Blog', href: '/blog', startsWith: true }
 ];
 
 // Check if link is active
@@ -170,8 +173,8 @@ const isActive = (item: typeof menuItems[0]) => {
         </svg>
         <span>55 2522 6442</span>
       </a>
-      <a href="/contacto" class="header__cta">
-        Cotiza Gratis
+      <a href="/cotizar" class="header__cta">
+        Cotizar
       </a>
     </div>
 
@@ -237,8 +240,8 @@ const isActive = (item: typeof menuItems[0]) => {
           </svg>
           55 2522 6442
         </a>
-        <a href="/contacto" class="mobile-menu__cta">
-          Cotiza Gratis
+        <a href="/cotizar" class="mobile-menu__cta">
+          Cotizar
         </a>
       </div>
     </div>

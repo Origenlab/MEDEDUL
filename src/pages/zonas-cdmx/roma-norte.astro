@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Roma Norte', url: '/zonas-cdmx/roma-norte' }
+];
+
+const venuesRoma = [
+  'Parque Rio de Janeiro',
+  'Casa Lamm',
+  'Casonas de la Roma',
+  'Galeria OMR',
+  'Terraza Roma',
+  'Restaurantes con jardin',
+  'Azoteas privadas',
+  'Estudios creativos'
+];
+
+const paquetesRoma = [
+  {
+    name: 'Roma Artistica',
+    icon: '🎨',
+    price: '$5,800',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Estilo creativo y unico',
+    features: [
+      '8-10 variedades artesanales',
+      'Estetica artistica personalizada',
+      'Montaje en espacios creativos',
+      '4 horas de servicio',
+      'Traslado Roma incluido',
+      'Adaptacion a espacios vintage'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Artistica',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20artistica%20en%20Roma%20Norte'
+  },
+  {
+    name: 'Roma Premium',
+    icon: '✨',
+    price: '$8,800',
+    currency: 'MXN',
+    guests: '70-120 personas',
+    tagline: 'Elegancia con personalidad',
+    features: [
+      '12-15 variedades premium',
+      'Diseno personalizado completo',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop tematico',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Roma%20Norte'
+  },
+  {
+    name: 'Roma Signature',
+    icon: '🖼️',
+    price: '$13,000',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Para eventos en casonas historicas',
+    features: [
+      '18+ variedades exclusivas',
+      'Direccion de arte completa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Integracion floral',
+      'Mesa de quesos artesanales',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Signature',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Signature%20para%20Roma%20Norte'
+  }
+];
+
+const caracteristicasRoma = [
+  {
+    num: 1,
+    title: 'Ambiente Artistico',
+    desc: 'La Roma Norte es el epicentro cultural de CDMX. Nuestros disenos se integran con la estetica artistica de la zona.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 2,
+    title: 'Casonas y Galerias',
+    desc: 'Experiencia en espacios unicos: casonas porfirianas, galerias de arte y estudios creativos.',
+    img: '/img/galeria/mesa-dulces-tea-party-vintage-encaje-perlas.avif'
+  },
+  {
+    num: 3,
+    title: 'Cercania Total',
+    desc: 'A minutos de nuestra sucursal Condesa. Llegamos rapido y conocemos perfectamente la zona.',
+    img: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos con Caracter',
+    desc: 'Bodas alternativas, lanzamientos creativos, eventos con personalidad. Lo entendemos perfectamente.',
+    img: '/img/galeria/candy-bar-bride-to-be-rosa-negro-champagne.avif'
+  }
+];
+
+const testimoniosRoma = [
+  {
+    name: 'Mariana y Diego',
+    initials: 'MD',
+    review: 'Nuestra boda en una casona de la Roma fue perfecta. La mesa de dulces estilo vintage quedo increible con el espacio.',
+    event: 'Boda Casona Roma Norte',
+    rating: 5
+  },
+  {
+    name: 'Galeria Arte MX',
+    initials: 'GA',
+    review: 'Para la inauguracion de nuestra exposicion necesitabamos algo artistico. Mededul lo logro perfectamente.',
+    event: 'Inauguracion Galeria Roma',
+    rating: 5
+  },
+  {
+    name: 'Carolina Mendez',
+    initials: 'CM',
+    review: 'El baby shower en el jardin de un restaurante de la Roma quedo hermoso. La mesa bohemia fue el centro de atencion.',
+    event: 'Baby Shower Roma Norte',
+    rating: 5
+  }
+];
+
+const faqsRoma = [
+  {
+    question: 'Cubren toda la zona de la Roma?',
+    answer: 'Si, cubrimos Roma Norte, Roma Sur y colonias aledanas. Estamos a minutos desde nuestra sucursal Condesa.'
+  },
+  {
+    question: 'Pueden montar en casonas antiguas?',
+    answer: 'Si, tenemos amplia experiencia en casonas porfirianas y espacios historicos de la Roma. Sabemos adaptarnos a sus caracteristicas.'
+  },
+  {
+    question: 'Que estilos manejan para eventos en la Roma?',
+    answer: 'Ofrecemos estilos vintage, artistico, bohemio, industrial y contemporaneo. Nos adaptamos a la estetica de cada espacio.'
+  },
+  {
+    question: 'Trabajan con galerias de arte?',
+    answer: 'Si, hemos realizado eventos en galerias y espacios culturales de la Roma. Entendemos la sensibilidad artistica requerida.'
+  },
+  {
+    question: 'Pueden hacer montajes en azoteas?',
+    answer: 'Si, tenemos experiencia en azoteas y rooftops de la Roma. Consideramos las condiciones del espacio para proteger los dulces.'
+  }
+];
+
+const romaSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Roma Norte",
+  "description": "Servicio de mesas de dulces para eventos en Roma Norte, CDMX. Bodas en casonas, eventos artisticos, celebraciones con estilo.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Roma Norte, Cuauhtemoc, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$5,800 - $13,000 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Roma Norte CDMX | Eventos Artisticos"
+  description="Servicio de mesas de dulces en Roma Norte, CDMX. Bodas en casonas, eventos en galerias, celebraciones con personalidad. Cotiza gratis."
+  canonical="/zonas-cdmx/roma-norte"
+  ogImage="/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(romaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Roma Norte, CDMX"
+    highlight="Roma Norte"
+    subtitle="El corazon artistico de la ciudad"
+    secondaryContent={`<p>La <strong>Roma Norte</strong> es sinonimo de cultura, arte y espacios con caracter. Casonas porfirianas, galerias de arte, jardines secretos y una vibra unica. Nuestras <strong>mesas de dulces en Roma Norte</strong> capturan esa esencia artistica.</p><p>Conocemos la zona perfectamente y sabemos como adaptar nuestros montajes a los espacios tan especiales que ofrece esta colonia.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Casonas, galerias y espacios unicos de la Roma</p>
+        <div class="venues-grid">
+          {venuesRoma.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-roma"
+    badge="Paquetes Roma Norte"
+    title="Servicios con"
+    titleHighlight="Personalidad"
+    subtitle="Paquetes disenados para el estilo artistico de la Roma"
+    packages={paquetesRoma}
+    note="🎨 <strong>Cerca de ti:</strong> Estamos a minutos de la Roma desde nuestra sucursal Condesa."
+  />
+
+  <WhyChooseUs
+    id="ventajas-roma"
+    badge="Servicio en Roma Norte"
+    title="Entendemos el Estilo de"
+    titleHighlight="La Roma"
+    descriptions={[
+      'La Roma Norte tiene una personalidad unica: artistica, bohemia, con historia. Nuestros disenos respetan y realzan esa identidad.',
+      'Experiencia en casonas, galerias, estudios y espacios que requieren sensibilidad estetica especial.'
+    ]}
+    stats={[
+      { number: '35+', label: 'Eventos en la Roma' },
+      { number: '5 min', label: 'Desde Condesa' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: '100%', label: 'Adaptacion' }
+    ]}
+    features={caracteristicasRoma}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Roma Norte"
+        subtitle="Lo que dicen nuestros clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosRoma.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Roma Norte"
+        subtitle="Resolvemos tus dudas sobre eventos en la zona"
+      />
+      <FAQ items={faqsRoma} id="faq-roma" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Roma%20Norte%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Roma Norte"
+    title="Cotiza para tu Evento en"
+    titleHighlight="La Roma"
+    text="Indicanos tu espacio y fecha. Conocemos la zona y te hacemos propuesta personalizada."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

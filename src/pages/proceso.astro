@@ -1,0 +1,346 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+
+const breadcrumbItems = [
+  { name: 'Cómo Trabajamos', url: '/proceso' }
+];
+
+const pasos = [
+  {
+    num: 1,
+    title: 'Cotización Rápida',
+    desc: 'Envíanos por WhatsApp la fecha de tu evento, número de invitados y tipo de celebración. En menos de 2 horas recibes propuesta con opciones y precios.',
+    icon: '💬'
+  },
+  {
+    num: 2,
+    title: 'Diseño Personalizado',
+    desc: 'Definimos juntos el estilo: paleta de colores, temática, selección de dulces y decoración. Creamos un concepto único para tu evento.',
+    icon: '🎨'
+  },
+  {
+    num: 3,
+    title: 'Confirmación',
+    desc: 'Una vez aprobado el diseño, confirmas con 50% de anticipo. Apartamos tu fecha y comenzamos a preparar todo para el día de tu evento.',
+    icon: '✅'
+  },
+  {
+    num: 4,
+    title: 'Producción',
+    desc: 'Nuestro equipo prepara todos los elementos: dulces frescos, decoración personalizada y logística de montaje para tu venue específico.',
+    icon: '🏭'
+  },
+  {
+    num: 5,
+    title: 'Montaje',
+    desc: 'Llegamos 1-2 horas antes del evento. Montamos todo: mesa, dulces, decoración. Coordinamos con tu venue para integración perfecta.',
+    icon: '🛠️'
+  },
+  {
+    num: 6,
+    title: 'Servicio',
+    desc: 'Durante el evento, mantenemos la mesa impecable con reposición de dulces y orden. En paquetes premium, personal dedicado todo el evento.',
+    icon: '⭐'
+  },
+  {
+    num: 7,
+    title: 'Desmontaje',
+    desc: 'Al finalizar el evento, desmontamos y recogemos todo. Los dulces sobrantes son tuyos. El segundo 50% se paga al terminar.',
+    icon: '📦'
+  }
+];
+
+const garantias = [
+  {
+    num: 1,
+    title: 'Puntualidad Garantizada',
+    desc: 'Llegamos siempre con anticipación. Si llegamos tarde, descuento del 20%.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'
+  },
+  {
+    num: 2,
+    title: 'Calidad Premium',
+    desc: 'Solo dulces de primera calidad. Si algo no cumple tus expectativas, lo cambiamos.',
+    img: '/img/galeria/candy-bar-gourmet-elegante.avif'
+  },
+  {
+    num: 3,
+    title: 'Diseño Aprobado',
+    desc: 'No montamos nada sin tu aprobación previa del diseño y selección de dulces.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif'
+  },
+  {
+    num: 4,
+    title: 'Sin Sorpresas',
+    desc: 'El precio cotizado es el precio final. Cero costos ocultos o cargos adicionales.',
+    img: '/img/galeria/mesa-dulces-eventos-especiales.avif'
+  }
+];
+
+const faqsProceso = [
+  {
+    question: '¿Cuánto tiempo antes debo contactarlos?',
+    answer: 'Idealmente 4-8 semanas antes. Para fechas más cercanas, contáctanos y verificamos disponibilidad. Hemos atendido eventos con solo 1 semana de anticipación.'
+  },
+  {
+    question: '¿Qué pasa si necesito hacer cambios después de confirmar?',
+    answer: 'Puedes hacer ajustes al diseño hasta 1 semana antes del evento sin costo adicional. Cambios de fecha están sujetos a disponibilidad.'
+  },
+  {
+    question: '¿Necesito estar presente durante el montaje?',
+    answer: 'No es necesario, pero es bienvenido. Nos coordinamos con quien esté en el venue (wedding planner, encargado del salón, familiar).'
+  },
+  {
+    question: '¿Qué necesitan de mi parte?',
+    answer: 'Solo necesitamos: 1) Acceso al espacio con anticipación, 2) Indicaciones de dónde montar, 3) Contacto del día del evento. Nosotros llevamos todo lo demás.'
+  }
+];
+
+const procesoSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo contratar mesa de dulces con Mededul",
+  "description": "Proceso paso a paso para contratar servicio de mesa de dulces en CDMX",
+  "step": pasos.map((paso, i) => ({
+    "@type": "HowToStep",
+    "position": i + 1,
+    "name": paso.title,
+    "text": paso.desc
+  }))
+};
+---
+
+<BaseLayout
+  title="Cómo Trabajamos | Proceso de Mesa de Dulces | Mededul"
+  description="Conoce nuestro proceso de trabajo: cotización rápida en 2 horas, diseño personalizado, montaje profesional y servicio completo. 7 pasos para tu evento perfecto en CDMX."
+  canonical="/proceso"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(procesoSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Cómo Trabajamos"
+    highlight="Trabajamos"
+    subtitle="7 pasos para crear la mesa de dulces perfecta para tu evento"
+    secondaryContent={`<p><strong>Transparencia total</strong> desde el primer contacto. Sin sorpresas, sin costos ocultos, sin complicaciones. Te explicamos exactamente cómo funciona nuestro proceso para que sepas qué esperar en cada etapa.</p><p>Con <strong>500+ eventos exitosos</strong>, hemos perfeccionado cada paso: cotización en 2 horas, diseño aprobado por ti, montaje puntual y servicio impecable. Tú disfrutas, nosotros nos encargamos del resto.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Timeline de Pasos -->
+  <section class="timeline-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Tu Evento en"
+        titleHighlight="7 Pasos"
+        subtitle="Proceso claro y sin complicaciones"
+      />
+
+      <div class="timeline">
+        {pasos.map((paso, i) => (
+          <div class={`timeline-item ${i % 2 === 0 ? 'left' : 'right'}`}>
+            <div class="timeline-content">
+              <span class="step-icon">{paso.icon}</span>
+              <span class="step-num">0{paso.num}</span>
+              <h3>{paso.title}</h3>
+              <p>{paso.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Garantías -->
+  <WhyChooseUs
+    id="garantias"
+    badge="Nuestras Garantías"
+    title="Compromisos que Cumplimos en"
+    titleHighlight="Cada Evento"
+    descriptions={[
+      'No solo prometemos, garantizamos. Cada compromiso está respaldado por nuestra reputación de 500+ eventos exitosos.',
+      'Puntualidad, calidad y transparencia no son opcionales, son la base de nuestro servicio.'
+    ]}
+    stats={[
+      { number: '500+', label: 'Eventos' },
+      { number: '2hrs', label: 'Respuesta' },
+      { number: '100%', label: 'Puntualidad' },
+      { number: '5.0', label: 'Calificación' }
+    ]}
+    features={garantias}
+  />
+
+  <!-- FAQ del Proceso -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre el"
+        titleHighlight="Proceso"
+        subtitle="Dudas comunes resueltas"
+      />
+      <FAQ items={faqsProceso} id="faq-proceso" />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Quiero%20iniciar%20el%20proceso%20de%20cotizacion%20para%20mi%20evento"
+    badge="¿Listo para empezar?"
+    title="Inicia el Proceso"
+    titleHighlight="Ahora"
+    text="Envíanos fecha, invitados y tipo de evento. En menos de 2 horas tienes tu cotización personalizada."
+    buttonText="Comenzar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Timeline Section */
+  .timeline-section {
+    background: #fff;
+  }
+
+  .timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+  }
+
+  .timeline-item.left {
+    left: 0;
+    text-align: right;
+  }
+
+  .timeline-item.right {
+    left: 50%;
+    text-align: left;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    width: 20px;
+    height: 20px;
+    background: var(--rosa-principal);
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.2);
+  }
+
+  .timeline-item.left::before {
+    right: -10px;
+  }
+
+  .timeline-item.right::before {
+    left: -10px;
+  }
+
+  .timeline-content {
+    background: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(233, 30, 140, 0.08);
+  }
+
+  .step-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .step-num {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    background: rgba(209, 0, 122, 0.1);
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+  }
+
+  .timeline-content h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--texto-oscuro);
+  }
+
+  .timeline-content p {
+    margin: 0;
+    color: var(--texto-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .timeline::before {
+      left: 20px;
+    }
+
+    .timeline-item {
+      width: 100%;
+      padding-left: 60px;
+      padding-right: 20px;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+      left: 0;
+      text-align: left;
+    }
+
+    .timeline-item::before {
+      left: 10px !important;
+      right: auto !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .timeline-content {
+      padding: 20px;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.1rem;
+    }
+
+    .step-icon {
+      font-size: 1.5rem;
+    }
+  }
+</style>

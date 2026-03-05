@@ -1,0 +1,381 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Anzures', url: '/zonas-cdmx/anzures' }
+];
+
+const venuesAnzures = [
+  'Hotel Camino Real',
+  'Hotel Hyatt Regency',
+  'Corporativos Polanco',
+  'Salones de eventos',
+  'Restaurantes ejecutivos',
+  'Terrazas privadas',
+  'Espacios empresariales',
+  'Casas residenciales'
+];
+
+const paquetesAnzures = [
+  {
+    name: 'Anzures Ejecutivo',
+    icon: '💼',
+    price: '$6,200',
+    currency: 'MXN',
+    guests: '50-80 personas',
+    tagline: 'Para eventos corporativos',
+    features: [
+      '10+ variedades selectas',
+      'Presentacion ejecutiva',
+      'Montaje profesional',
+      '4 horas de servicio',
+      'Sin costo de traslado',
+      'Facturacion incluida'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Ejecutivo',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20ejecutiva%20en%20Anzures'
+  },
+  {
+    name: 'Anzures Premium',
+    icon: '⭐',
+    price: '$9,000',
+    currency: 'MXN',
+    guests: '80-130 personas',
+    tagline: 'Nuestra sucursal esta aqui',
+    features: [
+      '14-16 variedades premium',
+      'Diseno personalizado completo',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion total',
+      'Backdrop profesional',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Anzures'
+  },
+  {
+    name: 'Anzures Elite',
+    icon: '💎',
+    price: '$14,000',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Maxima calidad garantizada',
+    features: [
+      '20+ variedades exclusivas',
+      'Direccion creativa completa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Mesa de quesos premium',
+      'Integracion floral',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Elite',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Elite%20para%20Anzures'
+  }
+];
+
+const caracteristicasAnzures = [
+  {
+    num: 1,
+    title: 'Nuestra Sucursal Principal',
+    desc: 'Estamos en Av. Ejercito Nacional 216, Anzures. Es nuestra base de operaciones, conocemos cada rincon de la zona.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'
+  },
+  {
+    num: 2,
+    title: 'Respuesta Inmediata',
+    desc: 'Al estar en la zona, podemos atender emergencias, hacer visitas previas y coordinar sin problema.',
+    img: '/img/galeria/mesa-dulces-evento-corporativo-elegante-oscuro.avif'
+  },
+  {
+    num: 3,
+    title: 'Conocemos los Hoteles',
+    desc: 'Camino Real, Hyatt, Marriott. Hemos trabajado en los principales hoteles de la zona.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos Corporativos',
+    desc: 'Muchas empresas estan en Anzures. Entendemos las necesidades de eventos de negocios.',
+    img: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif'
+  }
+];
+
+const testimoniosAnzures = [
+  {
+    name: 'Empresa Financiera MX',
+    initials: 'EF',
+    review: 'Excelente servicio para nuestro evento de fin de ano en Anzures. Profesionales y puntuales. La facturacion fue inmediata.',
+    event: 'Evento Corporativo Anzures',
+    rating: 5
+  },
+  {
+    name: 'Monica y Fernando',
+    initials: 'MF',
+    review: 'Nuestra boda en el Camino Real fue perfecta. La mesa de dulces quedo espectacular y el servicio impecable.',
+    event: 'Boda Hotel Camino Real',
+    rating: 5
+  },
+  {
+    name: 'Consultora Internacional',
+    initials: 'CI',
+    review: 'Para el lanzamiento de producto en nuestras oficinas de Anzures necesitabamos algo impactante. Lo lograron.',
+    event: 'Lanzamiento Corporativo',
+    rating: 5
+  }
+];
+
+const faqsAnzures = [
+  {
+    question: 'Tienen sucursal en Anzures?',
+    answer: 'Si, nuestra sucursal principal esta en Av. Ejercito Nacional Mexicano 216, Anzures. Estamos disponibles para visitas previa cita.'
+  },
+  {
+    question: 'Hay costo de traslado?',
+    answer: 'No, al tener nuestra base en Anzures, no hay costo de traslado para eventos en la zona y colonias cercanas.'
+  },
+  {
+    question: 'Emiten factura?',
+    answer: 'Si, emitimos CFDI de forma inmediata. Somos opcion ideal para empresas que requieren comprobantes fiscales.'
+  },
+  {
+    question: 'Trabajan con hoteles de la zona?',
+    answer: 'Si, tenemos experiencia en Camino Real, Hyatt Regency, Marriott y otros hoteles de Polanco-Anzures.'
+  },
+  {
+    question: 'Pueden hacer eventos de ultimo momento?',
+    answer: 'Al estar en la zona, podemos atender eventos con poco tiempo de anticipacion, sujeto a disponibilidad.'
+  }
+];
+
+const anzuresSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Anzures",
+  "description": "Servicio de mesas de dulces en Anzures, CDMX. Sucursal principal en la zona. Eventos corporativos y sociales.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Anzures, Miguel Hidalgo, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$6,200 - $14,000 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+    "addressLocality": "Anzures, Miguel Hidalgo",
+    "postalCode": "11590",
+    "addressCountry": "MX"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Anzures CDMX | Sucursal Principal"
+  description="Servicio de mesas de dulces en Anzures, CDMX. Sucursal en Av. Ejercito Nacional 216. Eventos corporativos y sociales. Cotiza gratis."
+  canonical="/zonas-cdmx/anzures"
+  ogImage="/img/galeria/candy-bar-empresarial-moderno-minimalista.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(anzuresSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Anzures, CDMX"
+    highlight="Anzures"
+    subtitle="Nuestra sucursal principal esta aqui"
+    secondaryContent={`<p><strong>Anzures</strong> es nuestra casa. Nuestra sucursal principal esta en <strong>Av. Ejercito Nacional 216</strong>, en el corazon de la colonia. Esto significa respuesta inmediata, sin costos de traslado y conocimiento total de la zona.</p><p>Atendemos eventos corporativos en hoteles y oficinas, asi como bodas y celebraciones en los mejores espacios de Anzures y Polanco.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Hoteles, corporativos y espacios de Anzures</p>
+        <div class="venues-grid">
+          {venuesAnzures.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-anzures"
+    badge="Paquetes Anzures"
+    title="Servicios desde Nuestra"
+    titleHighlight="Sucursal Principal"
+    subtitle="Atencion directa, sin intermediarios, sin costos de traslado"
+    packages={paquetesAnzures}
+    note="📍 <strong>Sucursal Anzures:</strong> Av. Ejercito Nacional 216. Visitanos previa cita."
+  />
+
+  <WhyChooseUs
+    id="ventajas-anzures"
+    badge="Servicio en Anzures"
+    title="Somos Locales en"
+    titleHighlight="Anzures"
+    descriptions={[
+      'Nuestra sucursal principal esta aqui. Esto significa que conocemos cada hotel, cada corporativo y cada espacio de eventos de la zona.',
+      'Sin costos de traslado, respuesta inmediata y la posibilidad de visitarnos personalmente para conocer nuestro trabajo.'
+    ]}
+    stats={[
+      { number: '60+', label: 'Eventos en Anzures' },
+      { number: '$0', label: 'Costo traslado' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'Sucursal', label: 'Principal' }
+    ]}
+    features={caracteristicasAnzures}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Anzures"
+        subtitle="Lo que dicen empresas y clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosAnzures.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Anzures"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsAnzures} id="faq-anzures" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Anzures%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Anzures"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Anzures"
+    text="Somos tus vecinos. Indicanos tu evento y fecha, te visitamos sin costo para hacer propuesta."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

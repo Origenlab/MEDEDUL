@@ -1,0 +1,406 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Polanco', url: '/zonas-cdmx/polanco' }
+];
+
+// Venues populares en Polanco
+const venuesPolanco = [
+  'Hotel Presidente InterContinental',
+  'Hotel W Mexico City',
+  'Hotel Hyatt Regency',
+  'Casa Lamm',
+  'Hacienda de los Morales',
+  'Club de Industriales',
+  'Jardin de las Lomas',
+  'Restaurante Pujol'
+];
+
+// Paquetes especiales para Polanco
+const paquetesPolanco = [
+  {
+    name: 'Polanco Elegante',
+    icon: '💎',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '60-100 personas',
+    tagline: 'Perfecto para venues de Polanco',
+    features: [
+      '12+ variedades de dulces premium',
+      'Diseno sofisticado personalizado',
+      'Coordinacion con venue incluida',
+      '5 horas de servicio',
+      'Traslado a Polanco incluido',
+      'Montaje con tiempo adicional'
+    ],
+    popular: false,
+    ctaText: 'Cotizar para Polanco',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20para%20mi%20evento%20en%20Polanco'
+  },
+  {
+    name: 'Polanco Premium',
+    icon: '👑',
+    price: '$12,500',
+    currency: 'MXN',
+    guests: '100-180 personas',
+    tagline: 'El favorito de bodas en Polanco',
+    features: [
+      '18+ variedades de dulces exclusivos',
+      'Direccion creativa completa',
+      'Fuente de chocolate incluida',
+      'Servicio todo el evento',
+      'Dulces importados premium',
+      'Operador dedicado',
+      'Coordinacion con wedding planner'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20mi%20evento%20en%20Polanco'
+  },
+  {
+    name: 'Polanco Luxury',
+    icon: '✨',
+    price: '$18,000',
+    currency: 'MXN',
+    guests: '180+ personas',
+    tagline: 'Experiencia exclusiva de alto nivel',
+    features: [
+      '25+ variedades exclusivas',
+      'Diseno de autor personalizado',
+      'Multiples estaciones interactivas',
+      'Personal completo de servicio',
+      'Backdrop floral de lujo',
+      'Mesa de quesos premium',
+      'Fotografia profesional',
+      'Concierge de servicio'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20para%20mi%20evento%20en%20Polanco'
+  }
+];
+
+// Caracteristicas de servicio en Polanco
+const caracteristicasPolanco = [
+  {
+    num: 1,
+    title: 'Conocemos los Venues',
+    desc: 'Hemos trabajado en los principales hoteles y salones de Polanco. Conocemos sus reglamentos, tiempos de montaje y coordinadores.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Estetica Premium',
+    desc: 'Nuestros diseños estan a la altura de los eventos de Polanco: sofisticados, elegantes y con atencion al detalle.',
+    img: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif'
+  },
+  {
+    num: 3,
+    title: 'Traslado Incluido',
+    desc: 'El traslado desde nuestras sucursales a cualquier ubicacion en Polanco esta incluido en todos nuestros paquetes.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Tiempo Flexible',
+    desc: 'Llegamos con anticipacion extra para montajes complejos. Nos adaptamos a los horarios de acceso de cada venue.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  }
+];
+
+// Testimonios de Polanco
+const testimoniosPolanco = [
+  {
+    name: 'Mariana y Eduardo',
+    initials: 'ME',
+    review: 'Nuestra boda en el Hotel W fue espectacular gracias a la mesa de dulces de Mededul. Se coordinaron perfectamente con el venue y el resultado fue impresionante.',
+    event: 'Boda en Hotel W Polanco',
+    rating: 5
+  },
+  {
+    name: 'Patricia Olvera',
+    initials: 'PO',
+    review: 'Los XV de mi hija en Hacienda de los Morales quedaron perfectos. La mesa combinaba con toda la decoracion y los invitados quedaron encantados.',
+    event: 'XV Anos Hacienda de los Morales',
+    rating: 5
+  },
+  {
+    name: 'Grupo Financiero MX',
+    initials: 'GF',
+    review: 'Para nuestro evento corporativo en el Club de Industriales necesitabamos algo elegante y profesional. Mededul cumplio con creces.',
+    event: 'Evento Corporativo Club de Industriales',
+    rating: 5
+  }
+];
+
+// FAQs especificas de Polanco
+const faqsPolanco = [
+  {
+    question: 'Tienen experiencia en venues de Polanco?',
+    answer: 'Si, hemos trabajado en los principales hoteles y salones de Polanco: InterContinental, W Mexico City, Hyatt, Casa Lamm, Hacienda de los Morales, entre otros. Conocemos sus reglamentos y coordinadores.'
+  },
+  {
+    question: 'El traslado a Polanco tiene costo adicional?',
+    answer: 'No, el traslado a Polanco esta incluido en todos nuestros paquetes. Nuestras sucursales en Anzures y Condesa estan muy cerca de la zona.'
+  },
+  {
+    question: 'Pueden coordinarse con mi wedding planner?',
+    answer: 'Por supuesto. Trabajamos frecuentemente con wedding planners de la zona y nos integramos perfectamente a su plan de trabajo y tiempos.'
+  },
+  {
+    question: 'Que horarios de montaje manejan para hoteles?',
+    answer: 'Nos adaptamos a los horarios de acceso de cada hotel. Generalmente llegamos 2-3 horas antes del evento para montajes premium en Polanco.'
+  },
+  {
+    question: 'Ofrecen paquetes especiales para bodas en Polanco?',
+    answer: 'Si, tenemos paquetes disenados especificamente para eventos de alto nivel en Polanco, con mas variedades, mejor presentacion y servicio extendido.'
+  }
+];
+
+const polancoSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Polanco",
+  "description": "Servicio de mesas de dulces premium para eventos en Polanco, CDMX. Bodas, XV anos y eventos corporativos en los mejores venues de la zona.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Polanco, Miguel Hidalgo, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$8,500 - $18,000 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ciudad de Mexico",
+    "addressRegion": "CDMX",
+    "addressCountry": "MX"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "47",
+    "bestRating": "5"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Polanco CDMX | Servicio Premium"
+  description="Servicio de mesas de dulces premium en Polanco, CDMX. Experiencia en Hotel W, InterContinental, Hacienda de los Morales. Bodas, XV anos y corporativos."
+  canonical="/zonas-cdmx/polanco"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(polancoSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Polanco, CDMX"
+    highlight="Polanco"
+    subtitle="Servicio premium para la zona mas exclusiva de Ciudad de Mexico"
+    secondaryContent={`<p><strong>Polanco</strong> es sinonimo de elegancia y exclusividad. Por eso nuestras <strong>mesas de dulces en Polanco</strong> estan disenadas para estar a la altura de los mejores venues de la zona: Hotel W, InterContinental, Hacienda de los Morales, Casa Lamm y mas.</p><p>Conocemos los <strong>reglamentos de montaje</strong>, los tiempos de acceso y los coordinadores de los principales salones. Esto significa <strong>cero estres</strong> para ti y un montaje impecable para tus invitados.</p>`}
+  />
+
+  <!-- Venues en Polanco -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues donde hemos <span>trabajado</span></h2>
+        <p>Experiencia comprobada en los mejores espacios de Polanco</p>
+        <div class="venues-grid">
+          {venuesPolanco.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paquetes Polanco -->
+  <PricingPackages
+    id="paquetes-polanco"
+    badge="Paquetes para Polanco"
+    title="Servicios"
+    titleHighlight="Especiales"
+    subtitle="Paquetes disenados para eventos de alto nivel en la zona de Polanco"
+    packages={paquetesPolanco}
+    note="💡 <strong>Todos los paquetes incluyen:</strong> Traslado a Polanco, coordinacion con venue y tiempo de montaje extra para hoteles."
+  />
+
+  <!-- Por que elegirnos en Polanco -->
+  <WhyChooseUs
+    id="ventajas-polanco"
+    badge="Servicio en Polanco"
+    title="Por que somos la mejor opcion en"
+    titleHighlight="Polanco"
+    descriptions={[
+      'Mas de 47 eventos exitosos en la zona de Polanco. Conocemos los venues, sus reglamentos y la estetica que exigen los eventos de esta zona.',
+      'Nuestras sucursales en Anzures y Condesa nos permiten llegar a Polanco en minutos, garantizando puntualidad y tiempo de reaccion.'
+    ]}
+    stats={[
+      { number: '47+', label: 'Eventos en Polanco' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: '15 min', label: 'Desde sucursal' },
+      { number: '100%', label: 'Traslado incluido' }
+    ]}
+    features={caracteristicasPolanco}
+  />
+
+  <!-- Testimonios de Polanco -->
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Polanco"
+        subtitle="Lo que dicen nuestros clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosPolanco.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Polanco -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Polanco"
+        subtitle="Resolvemos tus dudas especificas sobre eventos en esta zona"
+      />
+      <FAQ items={faqsPolanco} id="faq-polanco" />
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Polanco%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Polanco"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Polanco"
+    text="Indicanos tu venue y fecha. Te enviamos una propuesta personalizada con todo incluido."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Venues Section */
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .venue-item svg {
+    fill: #FFB800;
+  }
+
+  /* Testimonios */
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* FAQ */
+  .faq-section {
+    background: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

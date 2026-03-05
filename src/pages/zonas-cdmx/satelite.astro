@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Satelite', url: '/zonas-cdmx/satelite' }
+];
+
+const venuesSatelite = [
+  'Torres de Satelite',
+  'Plaza Satelite',
+  'Mundo E',
+  'Salones de fiestas',
+  'Jardines de eventos',
+  'Clubes deportivos',
+  'Casas con jardin',
+  'Restaurantes con salon'
+];
+
+const paquetesSatelite = [
+  {
+    name: 'Satelite Familiar',
+    icon: '🏠',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Para celebraciones en familia',
+    features: [
+      '8-10 variedades selectas',
+      'Diseno clasico elegante',
+      'Montaje profesional',
+      '4 horas de servicio',
+      'Traslado a Satelite',
+      'Montaje y desmontaje'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Familiar',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20familiar%20en%20Satelite'
+  },
+  {
+    name: 'Satelite Premium',
+    icon: '⭐',
+    price: '$8,800',
+    currency: 'MXN',
+    guests: '70-120 personas',
+    tagline: 'El mas solicitado',
+    features: [
+      '12-15 variedades premium',
+      'Diseno personalizado',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop decorativo',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Satelite'
+  },
+  {
+    name: 'Satelite Completo',
+    icon: '🎊',
+    price: '$12,500',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Eventos grandes con estilo',
+    features: [
+      '18+ variedades exclusivas',
+      'Direccion de arte',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Mesa de quesos',
+      'Integracion decorativa',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Completo',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Completo%20para%20Satelite'
+  }
+];
+
+const caracteristicasSatelite = [
+  {
+    num: 1,
+    title: 'Tradicion Familiar',
+    desc: 'Satelite es zona de familias con tradicion. Entendemos los XV anos, bodas y bautizos que se celebran aqui.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif'
+  },
+  {
+    num: 2,
+    title: 'Jardines Amplios',
+    desc: 'Muchas casas tienen jardines perfectos para eventos. Sabemos aprovechar esos espacios.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 3,
+    title: 'Salones Reconocidos',
+    desc: 'Conocemos los principales salones de eventos de Satelite y trabajamos frecuentemente en ellos.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'
+  },
+  {
+    num: 4,
+    title: 'Cobertura Zona Norte',
+    desc: 'Cubrimos Satelite, Echegaray, Las Americas, Florida y toda la zona norte.',
+    img: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif'
+  }
+];
+
+const testimoniosSatelite = [
+  {
+    name: 'Familia Lopez',
+    initials: 'FL',
+    review: 'Los XV anos de mi hija en un salon de Satelite quedaron increibles. La mesa de dulces fue lo que mas les gusto a los invitados.',
+    event: 'XV Anos Salon Satelite',
+    rating: 5
+  },
+  {
+    name: 'Alejandra y Luis',
+    initials: 'AL',
+    review: 'Nuestra boda en el jardin de la casa de mis papas en Satelite fue perfecta. Mededul hizo un trabajo espectacular.',
+    event: 'Boda Jardin Satelite',
+    rating: 5
+  },
+  {
+    name: 'Familia Ramirez',
+    initials: 'FR',
+    review: 'El bautizo de nuestro bebe en Mundo E quedo hermoso. La mesa de dulces en tonos blancos y celestes fue preciosa.',
+    event: 'Bautizo Mundo E',
+    rating: 5
+  }
+];
+
+const faqsSatelite = [
+  {
+    question: 'Llegan hasta Satelite?',
+    answer: 'Si, cubrimos toda la zona de Ciudad Satelite, Echegaray, Las Americas, Florida, Lomas Verdes y areas circundantes.'
+  },
+  {
+    question: 'El traslado tiene costo adicional?',
+    answer: 'El traslado a Satelite esta incluido en nuestros paquetes. No hay sorpresas ni costos ocultos.'
+  },
+  {
+    question: 'Trabajan en salones de la zona?',
+    answer: 'Si, conocemos los principales salones de Satelite: Mundo E, salones en Torres, y muchos mas.'
+  },
+  {
+    question: 'Pueden hacer eventos en jardines?',
+    answer: 'Si, nos especializamos en eventos al aire libre. Creamos montajes espectaculares para jardines de cualquier tamano.'
+  },
+  {
+    question: 'Que tipo de eventos son mas comunes?',
+    answer: 'En Satelite atendemos muchos XV anos, bodas, bautizos, primeras comuniones y cumpleanos familiares.'
+  }
+];
+
+const sateliteSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Satelite",
+  "description": "Servicio de mesas de dulces para eventos familiares en Ciudad Satelite. XV anos, bodas, bautizos. Traslado incluido.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Ciudad Satelite, Naucalpan, Estado de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$5,500 - $12,500 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Satelite | Eventos Familiares"
+  description="Servicio de mesas de dulces en Ciudad Satelite. XV anos, bodas, bautizos, cumpleanos. Traslado incluido. Cotiza gratis."
+  canonical="/zonas-cdmx/satelite"
+  ogImage="/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(sateliteSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Ciudad Satelite"
+    highlight="Satelite"
+    subtitle="La zona familiar del norte de la ciudad"
+    secondaryContent={`<p><strong>Ciudad Satelite</strong> es una de las zonas residenciales mas importantes del norte. Familias con tradicion, jardines amplios, salones de eventos y una cultura de celebraciones que nos encanta atender.</p><p>Nuestras <strong>mesas de dulces en Satelite</strong> llegan con todo incluido: traslado, montaje, servicio y desmontaje. Sin complicaciones para ti.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Salones, jardines y espacios de Satelite</p>
+        <div class="venues-grid">
+          {venuesSatelite.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-satelite"
+    badge="Paquetes Satelite"
+    title="Servicios para"
+    titleHighlight="Familias"
+    subtitle="Paquetes disenados para celebraciones familiares"
+    packages={paquetesSatelite}
+    note="🚗 <strong>Traslado incluido:</strong> Llegamos a Satelite sin costo adicional."
+  />
+
+  <WhyChooseUs
+    id="ventajas-satelite"
+    badge="Servicio en Satelite"
+    title="Expertos en la"
+    titleHighlight="Zona Norte"
+    descriptions={[
+      'Conocemos Satelite y la zona norte. Salones, jardines y los espacios favoritos para eventos familiares.',
+      'XV anos, bodas, bautizos, comuniones. Las celebraciones tradicionales son nuestra especialidad.'
+    ]}
+    stats={[
+      { number: '55+', label: 'Eventos en Satelite' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'Incluido', label: 'Traslado' },
+      { number: '100%', label: 'Puntualidad' }
+    ]}
+    features={caracteristicasSatelite}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Satelite"
+        subtitle="Lo que dicen las familias de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosSatelite.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Satelite"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsSatelite} id="faq-satelite" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Satelite%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Satelite"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Satelite"
+    text="Indicanos tu salon o espacio, fecha y numero de invitados. Te enviamos cotizacion completa."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

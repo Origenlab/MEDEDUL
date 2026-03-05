@@ -1,0 +1,640 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+
+const breadcrumbItems = [
+  { name: 'Precios', url: '/precios' }
+];
+
+// Paquetes de Mesa de Dulces
+const paquetesMesaDulces = [
+  {
+    name: 'Esencial',
+    icon: '🍬',
+    price: '$4,500',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Ideal para eventos intimos',
+    features: [
+      '6-8 variedades de dulces premium',
+      'Montaje basico elegante',
+      'Manteleria y contenedores de cristal',
+      '3 horas de servicio',
+      'Montaje y desmontaje incluido'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Esencial%20de%20Mesa%20de%20Dulces'
+  },
+  {
+    name: 'Premium',
+    icon: '⭐',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'La opcion mas solicitada',
+    features: [
+      '10-15 variedades de dulces premium',
+      'Diseno 100% personalizado',
+      'Backdrop decorativo incluido',
+      '5 horas de servicio',
+      'Dulces artesanales y chocolates finos',
+      'Coordinacion con tu venue'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20de%20Mesa%20de%20Dulces'
+  },
+  {
+    name: 'Luxury',
+    icon: '💎',
+    price: '$12,000',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Experiencia de alto nivel',
+    features: [
+      '20+ variedades de dulces exclusivos',
+      'Diseno exclusivo tematico',
+      'Fuente de chocolate incluida',
+      'Servicio completo todo el evento',
+      'Dulces premium importados',
+      'Operador dedicado',
+      'Foto profesional de tu mesa'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20de%20Mesa%20de%20Dulces'
+  }
+];
+
+// Estaciones Interactivas
+const estacionesPrecios = [
+  {
+    name: 'Fuente Chocolate',
+    icon: '🍫',
+    price: '$3,500',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'Chocolate belga premium',
+    features: [
+      'Chocolate belga de alta calidad',
+      'Frutas frescas variadas',
+      'Malvaviscos y churros',
+      'Operador durante 4 horas',
+      'Montaje y desmontaje'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Fuente',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20la%20Fuente%20de%20Chocolate'
+  },
+  {
+    name: 'Pared de Dulces',
+    icon: '🍭',
+    price: '$4,800',
+    currency: 'MXN',
+    guests: '80-150 personas',
+    tagline: 'Tendencia en eventos',
+    features: [
+      '+20 variedades de dulces',
+      'Estructura personalizada',
+      'Adaptable a tu paleta de colores',
+      'Experiencia interactiva',
+      'Servicio 5 horas'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Pared',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20la%20Pared%20de%20Dulces'
+  },
+  {
+    name: 'Fuente Chamoy',
+    icon: '🌶️',
+    price: '$3,200',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'Sabor mexicano autentico',
+    features: [
+      'Chamoy artesanal premium',
+      'Frutas y gomitas variadas',
+      'Operador profesional',
+      '4 horas de servicio',
+      'Montaje tematico'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Chamoy',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20la%20Fuente%20de%20Chamoy'
+  }
+];
+
+// Paquetes por Evento
+const paquetesEventos = [
+  {
+    name: 'Bodas',
+    icon: '💍',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '80-150 personas',
+    tagline: 'Tu dia especial perfecto',
+    features: [
+      'Diseno romantico personalizado',
+      '15+ variedades premium',
+      'Coordinacion con wedding planner',
+      'Backdrop o arco floral',
+      '6 horas de servicio',
+      'Estacion de cafe/champagne opcional'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Boda',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20Mesa%20de%20Dulces%20para%20Boda'
+  },
+  {
+    name: 'XV Anos',
+    icon: '👑',
+    price: '$6,900',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'Celebra como princesa',
+    features: [
+      'Tematica a eleccion',
+      '12+ variedades de dulces',
+      'Backdrop personalizado',
+      'Coordinacion con venue',
+      '5 horas de servicio',
+      'Cupcakes con numero 15'
+    ],
+    popular: true,
+    ctaText: 'Cotizar XV Anos',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20Mesa%20de%20Dulces%20para%20XV%20Anos'
+  },
+  {
+    name: 'Corporativo',
+    icon: '🏢',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'Imagen empresarial premium',
+    features: [
+      'Branding corporativo integrado',
+      '10+ variedades selectas',
+      'Montaje ejecutivo elegante',
+      'Coordinacion con eventos',
+      '4 horas de servicio',
+      'Facturacion disponible'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Corporativo',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20Mesa%20de%20Dulces%20Corporativa'
+  }
+];
+
+// FAQs de Precios
+const faqsPrecios = [
+  {
+    question: 'Los precios mostrados son finales?',
+    answer: 'Los precios son referenciales y pueden variar segun personalizacion, ubicacion del evento, duracion del servicio y requerimientos especificos. Cada cotizacion es personalizada para ajustarse a tu evento.'
+  },
+  {
+    question: 'Que formas de pago aceptan?',
+    answer: 'Aceptamos transferencia bancaria, deposito en efectivo, pago con tarjeta y PayPal. Para reservar tu fecha se requiere un anticipo del 50%, el resto se liquida antes del evento.'
+  },
+  {
+    question: 'Incluyen traslado a cualquier zona de CDMX?',
+    answer: 'Si, cubrimos toda CDMX y area metropolitana. Para zonas como Polanco, Condesa, Roma, Santa Fe, Del Valle el traslado esta incluido. Zonas foraneas pueden tener costo adicional.'
+  },
+  {
+    question: 'Puedo combinar paquetes o agregar extras?',
+    answer: 'Si, puedes combinar mesa de dulces con estaciones interactivas y obtener descuento. Tambien ofrecemos extras como: reposicion ilimitada, extension de horario, dulces especiales y mesa de quesos.'
+  },
+  {
+    question: 'Con cuanta anticipacion debo reservar?',
+    answer: 'Recomendamos reservar con 2-4 semanas de anticipacion. En temporada alta (mayo, noviembre, diciembre) sugerimos 6-8 semanas para asegurar disponibilidad.'
+  },
+  {
+    question: 'Que pasa si cancelo mi evento?',
+    answer: 'Hasta 15 dias antes del evento puedes reprogramar sin costo. El anticipo es reembolsable hasta 30 dias antes. Menos de 15 dias, el anticipo se aplica a reprogramacion.'
+  },
+  {
+    question: 'Emiten factura fiscal?',
+    answer: 'Si, emitimos factura CFDI para personas fisicas y morales. Solo informanos al momento de confirmar tu reservacion para incluirla en tu cotizacion.'
+  },
+  {
+    question: 'Hay descuentos para eventos grandes?',
+    answer: 'Si, ofrecemos descuentos progresivos para eventos de +150 personas, paquetes combinados y clientes recurrentes. Pregunta por nuestras promociones vigentes.'
+  }
+];
+
+const preciosSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Servicios de Mesas de Dulces - Mededul",
+  "description": "Paquetes de mesas de dulces, estaciones interactivas y candy bar para eventos en CDMX. Precios desde $3,200 MXN.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Mededul"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "3200",
+    "highPrice": "12000",
+    "priceCurrency": "MXN",
+    "offerCount": "9",
+    "availability": "https://schema.org/InStock"
+  },
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Mededul",
+    "telephone": "+525525226442",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ciudad de Mexico",
+      "addressCountry": "MX"
+    }
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqsPrecios.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Precios de Mesas de Dulces CDMX | Paquetes y Cotizaciones"
+  description="Conoce los precios de mesas de dulces en CDMX. Paquetes desde $3,200 MXN para bodas, XV anos, baby shower y eventos corporativos. Cotiza gratis."
+  canonical="/precios"
+  ogImage="/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(preciosSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Precios y Paquetes de Mesas de Dulces"
+    highlight="Precios"
+    subtitle="Opciones transparentes para cada tipo de evento y presupuesto"
+    secondaryContent={`<p>Conoce nuestros <strong>precios de mesas de dulces</strong> para eventos en CDMX. Ofrecemos paquetes flexibles que se adaptan a bodas, XV anos, baby shower, bautizos, cumpleanos y eventos corporativos.</p><p>Todos los precios son <strong>referenciales</strong> y cada cotizacion se personaliza segun tus necesidades especificas. Incluimos montaje, desmontaje y servicio profesional.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Resumen Rapido de Precios -->
+  <section class="precios-resumen">
+    <div class="container">
+      <div class="resumen-grid">
+        <div class="resumen-item">
+          <span class="resumen-desde">Desde</span>
+          <span class="resumen-precio">$3,200</span>
+          <span class="resumen-concepto">Estaciones Interactivas</span>
+        </div>
+        <div class="resumen-item">
+          <span class="resumen-desde">Desde</span>
+          <span class="resumen-precio">$4,500</span>
+          <span class="resumen-concepto">Mesa de Dulces</span>
+        </div>
+        <div class="resumen-item resumen-item--destacado">
+          <span class="resumen-desde">Desde</span>
+          <span class="resumen-precio">$6,900</span>
+          <span class="resumen-concepto">Paquete para Eventos</span>
+        </div>
+        <div class="resumen-item">
+          <span class="resumen-desde">Incluye</span>
+          <span class="resumen-precio">100%</span>
+          <span class="resumen-concepto">Montaje y Servicio</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paquetes Mesa de Dulces -->
+  <PricingPackages
+    id="mesas-dulces"
+    badge="Mesa de Dulces"
+    title="Paquetes de"
+    titleHighlight="Mesa de Dulces"
+    subtitle="Nuestra oferta base con todo incluido para cualquier celebracion"
+    packages={paquetesMesaDulces}
+    note="💡 <strong>Personalizacion total:</strong> Adaptamos colores, tematica y surtido a tu evento. El precio final depende de tus requerimientos especificos."
+  />
+
+  <!-- Estaciones Interactivas -->
+  <PricingPackages
+    id="estaciones"
+    badge="Estaciones Interactivas"
+    title="Precios de"
+    titleHighlight="Estaciones"
+    subtitle="Complementa tu mesa de dulces con experiencias memorables"
+    packages={estacionesPrecios}
+    note="🎁 <strong>Combo especial:</strong> Contrata mesa de dulces + estacion y obtén 10% de descuento en la estacion."
+  />
+
+  <!-- Paquetes por Evento -->
+  <PricingPackages
+    id="eventos"
+    badge="Por Tipo de Evento"
+    title="Paquetes para"
+    titleHighlight="Eventos Especiales"
+    subtitle="Soluciones especializadas segun el tipo de celebracion"
+    packages={paquetesEventos}
+    note="✨ <strong>Servicios adicionales:</strong> Mesa de quesos (+$2,800), Mesa de frutas (+$2,500), Extension de horario (+$800/hora)."
+  />
+
+  <!-- Comparativa Rapida -->
+  <section class="comparativa-section">
+    <div class="container">
+      <SectionHeader
+        title="Que Incluye Cada"
+        titleHighlight="Nivel de Servicio"
+        subtitle="Compara rapidamente para elegir la mejor opcion"
+      />
+
+      <div class="comparativa-tabla">
+        <div class="comparativa-header">
+          <div class="comparativa-cell comparativa-cell--label">Caracteristica</div>
+          <div class="comparativa-cell">Esencial</div>
+          <div class="comparativa-cell comparativa-cell--destacado">Premium</div>
+          <div class="comparativa-cell">Luxury</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Variedades de dulces</div>
+          <div class="comparativa-cell">6-8</div>
+          <div class="comparativa-cell comparativa-cell--destacado">10-15</div>
+          <div class="comparativa-cell">20+</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Horas de servicio</div>
+          <div class="comparativa-cell">3</div>
+          <div class="comparativa-cell comparativa-cell--destacado">5</div>
+          <div class="comparativa-cell">Todo el evento</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Diseno personalizado</div>
+          <div class="comparativa-cell">Basico</div>
+          <div class="comparativa-cell comparativa-cell--destacado">100%</div>
+          <div class="comparativa-cell">Exclusivo</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Backdrop decorativo</div>
+          <div class="comparativa-cell">-</div>
+          <div class="comparativa-cell comparativa-cell--destacado">✓</div>
+          <div class="comparativa-cell">✓</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Fuente de chocolate</div>
+          <div class="comparativa-cell">-</div>
+          <div class="comparativa-cell comparativa-cell--destacado">-</div>
+          <div class="comparativa-cell">✓</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Operador dedicado</div>
+          <div class="comparativa-cell">-</div>
+          <div class="comparativa-cell comparativa-cell--destacado">-</div>
+          <div class="comparativa-cell">✓</div>
+        </div>
+        <div class="comparativa-row">
+          <div class="comparativa-cell comparativa-cell--label">Foto profesional</div>
+          <div class="comparativa-cell">-</div>
+          <div class="comparativa-cell comparativa-cell--destacado">-</div>
+          <div class="comparativa-cell">✓</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Precios y Pagos"
+        subtitle="Resolvemos tus dudas mas comunes sobre costos y contratacion"
+      />
+      <FAQ items={faqsPrecios} id="faq-precios" />
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Vi%20sus%20precios%20y%20me%20gustaria%20una%20cotizacion%20personalizada"
+    badge="Cotizacion Personalizada"
+    title="Recibe tu Cotizacion"
+    titleHighlight="Sin Compromiso"
+    text="Envianos los detalles de tu evento y te respondemos en menos de 24 horas con una propuesta a tu medida."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Resumen de Precios */
+  .precios-resumen {
+    padding: 60px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .resumen-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    border: 2px solid #f0f0f0;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .resumen-item--destacado {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-color: transparent;
+    box-shadow: 0 12px 40px rgba(209, 0, 122, 0.25);
+  }
+
+  .resumen-desde {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .resumen-item--destacado .resumen-desde {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .resumen-precio {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--rosa-principal);
+    line-height: 1;
+  }
+
+  .resumen-item--destacado .resumen-precio {
+    color: #fff;
+  }
+
+  .resumen-concepto {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .resumen-item--destacado .resumen-concepto {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Comparativa */
+  .comparativa-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .comparativa-tabla {
+    max-width: 900px;
+    margin: 50px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+  }
+
+  .comparativa-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .comparativa-header .comparativa-cell {
+    padding: 20px 16px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .comparativa-header .comparativa-cell--label {
+    text-align: left;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .comparativa-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .comparativa-row:last-child {
+    border-bottom: none;
+  }
+
+  .comparativa-row:nth-child(even) {
+    background: #fafafa;
+  }
+
+  .comparativa-cell {
+    padding: 16px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comparativa-cell--label {
+    justify-content: flex-start;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    background: rgba(0,0,0,0.02);
+  }
+
+  .comparativa-cell--destacado {
+    background: rgba(209, 0, 122, 0.05) !important;
+    color: var(--rosa-principal);
+    font-weight: 600;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .resumen-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .comparativa-tabla {
+      overflow-x: auto;
+    }
+
+    .comparativa-header,
+    .comparativa-row {
+      min-width: 600px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .precios-resumen {
+      padding: 40px 0;
+    }
+
+    .resumen-grid {
+      gap: 16px;
+    }
+
+    .resumen-item {
+      padding: 24px 16px;
+    }
+
+    .resumen-precio {
+      font-size: 1.8rem;
+    }
+
+    .comparativa-section {
+      padding: 60px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .resumen-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resumen-item {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .resumen-item--destacado {
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    .resumen-precio {
+      font-size: 1.6rem;
+    }
+  }
+</style>

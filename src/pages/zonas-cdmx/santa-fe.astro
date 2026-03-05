@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Santa Fe', url: '/zonas-cdmx/santa-fe' }
+];
+
+const venuesSantaFe = [
+  'Centro Comercial Santa Fe',
+  'Hotel JW Marriott Santa Fe',
+  'Hotel Westin Santa Fe',
+  'Corporativo Arcos Bosques',
+  'Torre Mayor Events',
+  'Club de Golf Santa Fe',
+  'Parque La Mexicana',
+  'Centro Lilas'
+];
+
+const paquetesSantaFe = [
+  {
+    name: 'Santa Fe Business',
+    icon: '🏢',
+    price: '$6,500',
+    currency: 'MXN',
+    guests: '50-80 personas',
+    tagline: 'Ideal para eventos corporativos',
+    features: [
+      '10+ variedades selectas',
+      'Branding corporativo disponible',
+      'Montaje ejecutivo',
+      '4 horas de servicio',
+      'Traslado a Santa Fe incluido',
+      'Facturacion inmediata'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Business',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20corporativa%20en%20Santa%20Fe'
+  },
+  {
+    name: 'Santa Fe Premium',
+    icon: '⭐',
+    price: '$10,500',
+    currency: 'MXN',
+    guests: '80-150 personas',
+    tagline: 'El mas solicitado en la zona',
+    features: [
+      '15+ variedades premium',
+      'Diseno personalizado completo',
+      'Estacion interactiva incluida',
+      '6 horas de servicio',
+      'Coordinacion con venue',
+      'Operador dedicado',
+      'Reposicion garantizada'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Santa%20Fe'
+  },
+  {
+    name: 'Santa Fe Elite',
+    icon: '💎',
+    price: '$15,000',
+    currency: 'MXN',
+    guests: '150+ personas',
+    tagline: 'Experiencia corporativa de lujo',
+    features: [
+      '20+ variedades exclusivas',
+      'Direccion creativa premium',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Mesa de quesos y vinos',
+      'Personal completo',
+      'Fotografia incluida'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Elite',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Elite%20para%20Santa%20Fe'
+  }
+];
+
+const caracteristicasSantaFe = [
+  {
+    num: 1,
+    title: 'Enfoque Corporativo',
+    desc: 'Entendemos las necesidades de eventos empresariales: puntualidad, profesionalismo y presentacion impecable.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'
+  },
+  {
+    num: 2,
+    title: 'Facturacion Rapida',
+    desc: 'Emitimos CFDI de forma inmediata para empresas. Proceso simple y eficiente.',
+    img: '/img/galeria/mesa-dulces-evento-corporativo-elegante-oscuro.avif'
+  },
+  {
+    num: 3,
+    title: 'Acceso Controlado',
+    desc: 'Conocemos los protocolos de acceso de corporativos y hoteles en Santa Fe.',
+    img: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Branding Integrado',
+    desc: 'Incorporamos la identidad de tu empresa de forma elegante y profesional.',
+    img: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif'
+  }
+];
+
+const testimoniosSantaFe = [
+  {
+    name: 'Recursos Humanos Corp',
+    initials: 'RH',
+    review: 'Excelente servicio para nuestro evento de fin de ano en Santa Fe. La mesa fue el hit de la noche. Muy profesionales.',
+    event: 'Evento Corporativo JW Marriott',
+    rating: 5
+  },
+  {
+    name: 'Laura y Miguel',
+    initials: 'LM',
+    review: 'Nuestra boda en el Club de Golf Santa Fe quedo espectacular. Mededul se coordino perfecto con todos los proveedores.',
+    event: 'Boda Club de Golf Santa Fe',
+    rating: 5
+  },
+  {
+    name: 'Tech Startup MX',
+    initials: 'TS',
+    review: 'Para el lanzamiento de producto en nuestro corporativo de Arcos necesitabamos algo impactante. Cumplieron al 100%.',
+    event: 'Lanzamiento Arcos Bosques',
+    rating: 5
+  }
+];
+
+const faqsSantaFe = [
+  {
+    question: 'Cubren toda la zona de Santa Fe?',
+    answer: 'Si, cubrimos desde Centro Santa Fe hasta Arcos Bosques, incluyendo corporativos, hoteles, clubes y residenciales de la zona.'
+  },
+  {
+    question: 'El traslado a Santa Fe tiene costo adicional?',
+    answer: 'No, el traslado esta incluido en todos nuestros paquetes para Santa Fe. Consideramos tiempo de trafico en horas pico.'
+  },
+  {
+    question: 'Emiten factura para empresas?',
+    answer: 'Si, emitimos CFDI de forma inmediata. Solo necesitamos tus datos fiscales al momento de la cotizacion.'
+  },
+  {
+    question: 'Pueden integrar branding de mi empresa?',
+    answer: 'Si, podemos incorporar logos, colores corporativos y mensajes en la mesa de dulces de forma elegante y profesional.'
+  },
+  {
+    question: 'Como manejan el acceso a corporativos?',
+    answer: 'Coordinamos previamente con seguridad del edificio, tramitamos accesos y llegamos con tiempo suficiente para el montaje.'
+  }
+];
+
+const santaFeSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Santa Fe",
+  "description": "Servicio de mesas de dulces para eventos corporativos y sociales en Santa Fe, CDMX. Experiencia en JW Marriott, Westin, Arcos Bosques.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Santa Fe, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$6,500 - $15,000 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Santa Fe CDMX | Eventos Corporativos"
+  description="Servicio de mesas de dulces para eventos corporativos en Santa Fe, CDMX. JW Marriott, Westin, Arcos Bosques. Facturacion y branding incluido."
+  canonical="/zonas-cdmx/santa-fe"
+  ogImage="/img/galeria/candy-bar-empresarial-moderno-minimalista.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(santaFeSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Santa Fe, CDMX"
+    highlight="Santa Fe"
+    subtitle="Servicio especializado para el centro corporativo de la ciudad"
+    secondaryContent={`<p><strong>Santa Fe</strong> es el corazon empresarial de Ciudad de Mexico. Nuestras <strong>mesas de dulces en Santa Fe</strong> estan disenadas para cumplir con los estandares de eventos corporativos: puntualidad, profesionalismo y presentacion ejecutiva.</p><p>Ya sea un lanzamiento de producto, evento de fin de ano, celebracion empresarial o boda en los hoteles de la zona, tenemos la experiencia y el servicio que necesitas.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues donde hemos <span>trabajado</span></h2>
+        <p>Experiencia en los principales espacios de Santa Fe</p>
+        <div class="venues-grid">
+          {venuesSantaFe.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-santafe"
+    badge="Paquetes Santa Fe"
+    title="Servicios"
+    titleHighlight="Corporativos"
+    subtitle="Paquetes disenados para eventos empresariales y sociales en Santa Fe"
+    packages={paquetesSantaFe}
+    note="📋 <strong>Facturacion disponible:</strong> Emitimos CFDI inmediato para personas morales y fisicas."
+  />
+
+  <WhyChooseUs
+    id="ventajas-santafe"
+    badge="Servicio en Santa Fe"
+    title="Especialistas en Eventos"
+    titleHighlight="Corporativos"
+    descriptions={[
+      'Santa Fe demanda un nivel de servicio diferente. Entendemos las dinamicas de eventos empresariales y nos adaptamos a ellas.',
+      'Facturacion rapida, coordinacion con proveedores corporativos y presentacion ejecutiva son parte de nuestro ADN.'
+    ]}
+    stats={[
+      { number: '35+', label: 'Eventos corporativos' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'CFDI', label: 'Facturacion' },
+      { number: '100%', label: 'Puntualidad' }
+    ]}
+    features={caracteristicasSantaFe}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Santa Fe"
+        subtitle="Lo que dicen empresas y clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosSantaFe.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Santa Fe"
+        subtitle="Resolvemos tus dudas sobre eventos corporativos"
+      />
+      <FAQ items={faqsSantaFe} id="faq-santafe" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20corporativo%20en%20Santa%20Fe%20y%20necesito%20cotizar"
+    badge="Evento en Santa Fe"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Santa Fe"
+    text="Indicanos tu venue, fecha y tipo de evento. Te enviamos cotizacion con facturacion incluida."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

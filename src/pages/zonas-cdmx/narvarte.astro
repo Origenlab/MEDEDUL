@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Narvarte', url: '/zonas-cdmx/narvarte' }
+];
+
+const venuesNarvarte = [
+  'Parque de los Periodistas',
+  'Salones de fiestas',
+  'Jardines privados',
+  'Restaurantes con terraza',
+  'Casas con jardin',
+  'Centros de eventos',
+  'Azoteas privadas',
+  'Espacios compartidos'
+];
+
+const paquetesNarvarte = [
+  {
+    name: 'Narvarte Esencial',
+    icon: '🎈',
+    price: '$4,800',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para reuniones intimas',
+    features: [
+      '8-10 variedades selectas',
+      'Diseno elegante basico',
+      'Montaje en espacios pequenos',
+      '4 horas de servicio',
+      'Traslado Narvarte incluido',
+      'Adaptacion a presupuesto'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20esencial%20en%20Narvarte'
+  },
+  {
+    name: 'Narvarte Premium',
+    icon: '⭐',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '60-100 personas',
+    tagline: 'El mas solicitado',
+    features: [
+      '12-15 variedades premium',
+      'Diseno personalizado',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop decorativo',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Narvarte'
+  },
+  {
+    name: 'Narvarte Completo',
+    icon: '🎉',
+    price: '$10,500',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Todo incluido',
+    features: [
+      '16+ variedades exclusivas',
+      'Direccion creativa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Integracion decorativa',
+      'Mesa de quesos',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Completo',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Completo%20para%20Narvarte'
+  }
+];
+
+const caracteristicasNarvarte = [
+  {
+    num: 1,
+    title: 'Precios Accesibles',
+    desc: 'Entendemos que el presupuesto importa. Ofrecemos opciones que se adaptan sin sacrificar calidad.',
+    img: '/img/galeria/mesa-dulces-cumpleanos-infantil-arcoiris.avif'
+  },
+  {
+    num: 2,
+    title: 'Espacios Variados',
+    desc: 'Salones, jardines, azoteas. Sabemos adaptarnos a los diferentes espacios que ofrece Narvarte.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 3,
+    title: 'Ubicacion Central',
+    desc: 'Narvarte esta en el corazon de la ciudad. Llegamos facilmente y sin complicaciones.',
+    img: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos de Todo Tipo',
+    desc: 'Desde cumpleanos infantiles hasta XV anos y bodas. Atendemos todas las celebraciones.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif'
+  }
+];
+
+const testimoniosNarvarte = [
+  {
+    name: 'Maria Elena',
+    initials: 'ME',
+    review: 'El cumpleanos de mi hijo en el jardin de la casa quedo increible. La mesa de dulces fue el hit de la fiesta.',
+    event: 'Cumpleanos Infantil Narvarte',
+    rating: 5
+  },
+  {
+    name: 'Familia Perez',
+    initials: 'FP',
+    review: 'Los XV anos de mi hija en un salon de Narvarte quedaron preciosos. La mesa de dulces supero nuestras expectativas.',
+    event: 'XV Anos Salon Narvarte',
+    rating: 5
+  },
+  {
+    name: 'Andrea y Carlos',
+    initials: 'AC',
+    review: 'Nuestra boda civil en la azotea de nuestra casa en Narvarte quedo perfecta. La mesa fue el complemento ideal.',
+    event: 'Boda Civil Narvarte',
+    rating: 5
+  }
+];
+
+const faqsNarvarte = [
+  {
+    question: 'Cubren toda la zona de Narvarte?',
+    answer: 'Si, cubrimos Narvarte Poniente, Narvarte Oriente, Vertiz Narvarte, Portales y colonias aledanas.'
+  },
+  {
+    question: 'Tienen opciones economicas?',
+    answer: 'Si, nuestro paquete Esencial esta disenado para ofrecer calidad a un precio accesible. Tambien podemos personalizar segun tu presupuesto.'
+  },
+  {
+    question: 'Pueden montar en espacios pequenos?',
+    answer: 'Si, tenemos experiencia en departamentos, patios y espacios reducidos. Creamos montajes de impacto adaptados al espacio disponible.'
+  },
+  {
+    question: 'Ofrecen paquetes para cumpleanos infantiles?',
+    answer: 'Si, tenemos opciones especiales para fiestas infantiles con disenos tematicos, personajes y dulces apropiados para ninos.'
+  },
+  {
+    question: 'Como funciona el pago?',
+    answer: 'Solicitamos 50% de anticipo para apartar fecha y el resto el dia del evento. Aceptamos transferencia, deposito y efectivo.'
+  }
+];
+
+const narvarteSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Narvarte",
+  "description": "Servicio de mesas de dulces para eventos en Narvarte, CDMX. XV anos, cumpleanos, bodas. Precios accesibles.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Narvarte, Benito Juarez, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$4,800 - $10,500 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Narvarte CDMX | Precios Accesibles"
+  description="Servicio de mesas de dulces en Narvarte, CDMX. XV anos, cumpleanos, bodas. Paquetes desde $4,800. Cotiza gratis."
+  canonical="/zonas-cdmx/narvarte"
+  ogImage="/img/galeria/mesa-dulces-cumpleanos-infantil-arcoiris.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(narvarteSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Narvarte, CDMX"
+    highlight="Narvarte"
+    subtitle="Calidad premium a precios accesibles"
+    secondaryContent={`<p><strong>Narvarte</strong> es una colonia tradicional en el corazon de la ciudad. Familias, celebraciones y espacios variados para todo tipo de eventos.</p><p>Nuestras <strong>mesas de dulces en Narvarte</strong> ofrecen la mejor relacion calidad-precio. Opciones accesibles sin sacrificar la presentacion premium que nos caracteriza.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Salones, jardines y espacios de Narvarte</p>
+        <div class="venues-grid">
+          {venuesNarvarte.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-narvarte"
+    badge="Paquetes Narvarte"
+    title="Opciones"
+    titleHighlight="Accesibles"
+    subtitle="Calidad premium adaptada a tu presupuesto"
+    packages={paquetesNarvarte}
+    note="💰 <strong>Presupuesto flexible:</strong> Podemos adaptar opciones segun tus necesidades."
+  />
+
+  <WhyChooseUs
+    id="ventajas-narvarte"
+    badge="Servicio en Narvarte"
+    title="La Mejor Relacion"
+    titleHighlight="Calidad-Precio"
+    descriptions={[
+      'Entendemos que el presupuesto importa. Ofrecemos opciones accesibles manteniendo la calidad premium de presentacion.',
+      'Desde cumpleanos infantiles hasta XV anos y bodas. Tenemos opciones para todas las celebraciones y todos los presupuestos.'
+    ]}
+    stats={[
+      { number: '45+', label: 'Eventos en Narvarte' },
+      { number: '$4,800', label: 'Desde' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: '100%', label: 'Satisfaccion' }
+    ]}
+    features={caracteristicasNarvarte}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Narvarte"
+        subtitle="Lo que dicen las familias de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosNarvarte.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Narvarte"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsNarvarte} id="faq-narvarte" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Narvarte%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Narvarte"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Narvarte"
+    text="Indicanos tu tipo de evento, fecha y presupuesto aproximado. Te ofrecemos la mejor opcion."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

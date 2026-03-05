@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Coyoacan', url: '/zonas-cdmx/coyoacan' }
+];
+
+const venuesCoyoacan = [
+  'Centro Historico Coyoacan',
+  'Jardin Centenario',
+  'Haciendas coloniales',
+  'Museo Frida Kahlo zona',
+  'Jardines de Pedregal',
+  'Restaurantes con jardin',
+  'Casonas de epoca',
+  'Foros culturales'
+];
+
+const paquetesCoyoacan = [
+  {
+    name: 'Coyoacan Colonial',
+    icon: '🏛️',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Estilo tradicional mexicano',
+    features: [
+      '8-10 variedades artesanales',
+      'Estetica mexicana contemporanea',
+      'Montaje en jardines coloniales',
+      '4 horas de servicio',
+      'Traslado Coyoacan incluido',
+      'Dulces tradicionales disponibles'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Colonial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20estilo%20colonial%20en%20Coyoacan'
+  },
+  {
+    name: 'Coyoacan Premium',
+    icon: '🌺',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '70-120 personas',
+    tagline: 'El mas solicitado en la zona',
+    features: [
+      '12-15 variedades premium',
+      'Diseno personalizado',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop tematico',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Coyoacan'
+  },
+  {
+    name: 'Coyoacan Hacienda',
+    icon: '🎭',
+    price: '$13,500',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Para eventos en haciendas',
+    features: [
+      '18+ variedades exclusivas',
+      'Direccion de arte mexicana',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Integracion floral',
+      'Mesa de dulces tradicionales',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Hacienda',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Hacienda%20para%20Coyoacan'
+  }
+];
+
+const caracteristicasCoyoacan = [
+  {
+    num: 1,
+    title: 'Esencia Mexicana',
+    desc: 'Coyoacan es el alma de Mexico. Nuestros disenos pueden incorporar elementos mexicanos con elegancia.',
+    img: '/img/galeria/mesa-dulces-tradicional-mexicana-colores.avif'
+  },
+  {
+    num: 2,
+    title: 'Espacios Coloniales',
+    desc: 'Haciendas, casonas y jardines con historia. Sabemos integrar nuestras mesas con estos espacios unicos.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 3,
+    title: 'Tradicion y Modernidad',
+    desc: 'Combinamos lo mejor de ambos mundos: dulces tradicionales mexicanos con presentacion contemporanea.',
+    img: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos con Historia',
+    desc: 'Bodas en haciendas, bautizos en jardines coloniales, celebraciones con raices. Entendemos la importancia.',
+    img: '/img/galeria/mesa-dulces-bautizo-angeles-blanco-celeste.avif'
+  }
+];
+
+const testimoniosCoyoacan = [
+  {
+    name: 'Ana y Roberto',
+    initials: 'AR',
+    review: 'Nuestra boda en una hacienda de Coyoacan fue magica. La mesa de dulces con toque mexicano quedo espectacular.',
+    event: 'Boda Hacienda Coyoacan',
+    rating: 5
+  },
+  {
+    name: 'Familia Martinez',
+    initials: 'FM',
+    review: 'El bautizo de nuestra hija en un jardin colonial quedo hermoso. La mesa de dulces tradicionales fue el exito.',
+    event: 'Bautizo Jardin Coyoacan',
+    rating: 5
+  },
+  {
+    name: 'Lucia Fernandez',
+    initials: 'LF',
+    review: 'Mi cumpleanos en el centro de Coyoacan con la mesa de Mededul fue inolvidable. Estilo boho perfecto.',
+    event: 'Cumpleanos Centro Coyoacan',
+    rating: 5
+  }
+];
+
+const faqsCoyoacan = [
+  {
+    question: 'Cubren todo Coyoacan?',
+    answer: 'Si, cubrimos Centro Historico, Pedregal, Villa Coyoacan, Del Carmen, Santa Catarina y colonias aledanas.'
+  },
+  {
+    question: 'Ofrecen mesas con dulces mexicanos?',
+    answer: 'Si, podemos incluir dulces tradicionales mexicanos: alegrías, cocadas, mazapanes, jamoncillos, tamarindos y mas.'
+  },
+  {
+    question: 'Trabajan en haciendas y fincas?',
+    answer: 'Si, tenemos experiencia en haciendas, fincas y espacios coloniales de Coyoacan. Conocemos sus caracteristicas.'
+  },
+  {
+    question: 'Pueden hacer montajes tematicos mexicanos?',
+    answer: 'Si, ofrecemos disenos con estetica mexicana contemporanea: colores vibrantes, textiles, elementos florales tradicionales.'
+  },
+  {
+    question: 'Como es el acceso al centro historico?',
+    answer: 'Conocemos la zona perfectamente. Coordinamos horarios de acceso y contamos con permisos necesarios.'
+  }
+];
+
+const coyoacanSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Coyoacan",
+  "description": "Servicio de mesas de dulces para eventos en Coyoacan, CDMX. Bodas en haciendas, eventos con esencia mexicana.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Coyoacan, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$5,500 - $13,500 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Coyoacan CDMX | Eventos con Esencia Mexicana"
+  description="Servicio de mesas de dulces en Coyoacan, CDMX. Bodas en haciendas, eventos coloniales, celebraciones con toque mexicano. Cotiza gratis."
+  canonical="/zonas-cdmx/coyoacan"
+  ogImage="/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(coyoacanSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Coyoacan, CDMX"
+    highlight="Coyoacan"
+    subtitle="El corazon historico de la ciudad"
+    secondaryContent={`<p><strong>Coyoacan</strong> es el alma de Mexico: calles empedradas, haciendas coloniales, jardines con historia y una energia unica. Nuestras <strong>mesas de dulces en Coyoacan</strong> capturan esa esencia mexicana con elegancia.</p><p>Desde bodas en haciendas hasta bautizos en jardines coloniales, sabemos crear montajes que se integran perfectamente con los espacios magicos de esta zona.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Haciendas, jardines y espacios coloniales de Coyoacan</p>
+        <div class="venues-grid">
+          {venuesCoyoacan.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-coyoacan"
+    badge="Paquetes Coyoacan"
+    title="Servicios con"
+    titleHighlight="Esencia Mexicana"
+    subtitle="Paquetes que honran la tradicion con estilo contemporaneo"
+    packages={paquetesCoyoacan}
+    note="🌺 <strong>Dulces mexicanos:</strong> Podemos incluir dulces tradicionales en tu mesa."
+  />
+
+  <WhyChooseUs
+    id="ventajas-coyoacan"
+    badge="Servicio en Coyoacan"
+    title="Expertos en Espacios"
+    titleHighlight="Historicos"
+    descriptions={[
+      'Coyoacan tiene espacios unicos: haciendas, casonas coloniales, jardines con siglos de historia. Sabemos trabajar en ellos.',
+      'Ofrecemos la opcion de integrar dulces mexicanos tradicionales con nuestra presentacion premium y contemporanea.'
+    ]}
+    stats={[
+      { number: '40+', label: 'Eventos en Coyoacan' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: '100%', label: 'Satisfaccion' },
+      { number: '8+', label: 'Anos experiencia' }
+    ]}
+    features={caracteristicasCoyoacan}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Coyoacan"
+        subtitle="Lo que dicen nuestros clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosCoyoacan.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Coyoacan"
+        subtitle="Resolvemos tus dudas sobre eventos en la zona"
+      />
+      <FAQ items={faqsCoyoacan} id="faq-coyoacan" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Coyoacan%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Coyoacan"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Coyoacan"
+    text="Indicanos tu espacio y tipo de evento. Creamos propuestas que honran la tradicion con estilo."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,305 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+
+const breadcrumbItems = [
+  { name: 'Preguntas Frecuentes', url: '/faq' }
+];
+
+const faqsGenerales = [
+  {
+    question: '¿Qué incluye el servicio de mesa de dulces?',
+    answer: 'Incluye diseño personalizado, selección de dulces premium, montaje completo, servicio durante el evento (reposición), desmontaje y coordinación con tu venue. Todo listo para que solo disfrutes.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Recomendamos reservar con 4-8 semanas de anticipación para asegurar disponibilidad y tiempo de personalización. Para fechas cercanas, contáctanos para verificar disponibilidad.'
+  },
+  {
+    question: '¿Cubren toda la CDMX y área metropolitana?',
+    answer: 'Sí, cubrimos toda la Ciudad de México y área metropolitana. Tenemos sucursales en Anzures y Condesa para respuesta rápida. El traslado está incluido en todos los paquetes.'
+  },
+  {
+    question: '¿Cuál es el costo promedio de una mesa de dulces?',
+    answer: 'Nuestros paquetes van desde $4,500 MXN para eventos de 50 personas hasta $15,000+ para eventos premium de 200+ personas. El precio depende del número de invitados, tipo de dulces y nivel de personalización.'
+  },
+  {
+    question: '¿Cómo funciona el proceso de cotización?',
+    answer: 'Envíanos por WhatsApp: fecha, número de invitados y tipo de evento. En menos de 2 horas recibes propuesta detallada con opciones y precios. Sin compromiso.'
+  }
+];
+
+const faqsPago = [
+  {
+    question: '¿Cómo funciona el pago?',
+    answer: '50% de anticipo para apartar tu fecha y confirmar el servicio. El 50% restante se paga el día del evento, antes del montaje. Simple y sin complicaciones.'
+  },
+  {
+    question: '¿Qué métodos de pago aceptan?',
+    answer: 'Aceptamos transferencia bancaria, depósito en efectivo, y pago en efectivo. Para empresas, también aceptamos pago contra factura con crédito previa aprobación.'
+  },
+  {
+    question: '¿Emiten factura?',
+    answer: 'Sí, emitimos CFDI (factura electrónica) para personas físicas y morales. Solo necesitamos tus datos fiscales al momento de la cotización.'
+  },
+  {
+    question: '¿Hay penalización por cancelación?',
+    answer: 'Si cancelas con más de 15 días de anticipación, devolvemos el 50% del anticipo. Cancelaciones con menos tiempo no tienen reembolso, pero puedes cambiar la fecha según disponibilidad.'
+  }
+];
+
+const faqsServicio = [
+  {
+    question: '¿Puedo elegir los dulces que quiero?',
+    answer: 'Sí, trabajamos contigo para crear la selección perfecta. Podemos incluir tus dulces favoritos, considerar alergias y restricciones, y adaptar el surtido a tu temática.'
+  },
+  {
+    question: '¿Qué pasa si sobran dulces?',
+    answer: 'Los dulces que sobran son tuyos. Puedes repartirlos entre los invitados, llevártelos o dejarlos como recuerdo del evento.'
+  },
+  {
+    question: '¿Incluyen la mesa y decoración?',
+    answer: 'Sí, proporcionamos todo: mesa, mantelería, bases, risers, decoración y todo lo necesario para el montaje. Tú solo nos indicas el espacio.'
+  },
+  {
+    question: '¿Cuánto tiempo tardan en montar?',
+    answer: 'El montaje toma entre 1-2 horas dependiendo de la complejidad. Llegamos con anticipación para tener todo listo antes de que lleguen tus invitados.'
+  },
+  {
+    question: '¿Se quedan durante el evento?',
+    answer: 'En paquetes Premium y superiores, incluimos personal para reposición y mantenimiento de la mesa durante el evento. En paquetes básicos es opcional.'
+  }
+];
+
+const faqsPersonalizacion = [
+  {
+    question: '¿Pueden adaptar la mesa a mi temática?',
+    answer: 'Absolutamente. Diseñamos la mesa según tu paleta de colores, temática del evento y estilo personal. Desde bodas elegantes hasta fiestas infantiles temáticas.'
+  },
+  {
+    question: '¿Hacen mesas para eventos corporativos con branding?',
+    answer: 'Sí, podemos integrar tu logo, colores corporativos y mensajes de marca de forma elegante. Ideal para lanzamientos, eventos de fin de año y activaciones.'
+  },
+  {
+    question: '¿Ofrecen opciones para personas con alergias?',
+    answer: 'Sí, podemos adaptar el menú para evitar alérgenos específicos. Indícanos las restricciones al cotizar y seleccionamos opciones seguras.'
+  },
+  {
+    question: '¿Tienen opciones de dulces mexicanos?',
+    answer: 'Sí, ofrecemos mesas con dulces tradicionales mexicanos: alegrías, cocadas, mazapanes, jamoncillos, tamarindos, obleas y más. Perfectas para eventos con esencia mexicana.'
+  }
+];
+
+const faqsLogistica = [
+  {
+    question: '¿Necesito proporcionar algo?',
+    answer: 'Solo necesitamos acceso al espacio con 1-2 horas de anticipación y una mesa de soporte si no está incluida en tu venue. Nosotros llevamos todo lo demás.'
+  },
+  {
+    question: '¿Trabajan en cualquier tipo de venue?',
+    answer: 'Sí, nos adaptamos a cualquier espacio: salones, jardines, hoteles, restaurantes, casas particulares, azoteas, haciendas. Coordinamos con el venue para logística.'
+  },
+  {
+    question: '¿Qué pasa si llueve y el evento es al aire libre?',
+    answer: 'Nos adaptamos. Si tienes carpa o plan B, movemos la mesa. Si no, podemos cubrir parcialmente con materiales de protección que traemos por precaución.'
+  },
+  {
+    question: '¿Atienden eventos en días festivos?',
+    answer: 'Sí, atendemos eventos cualquier día del año, incluyendo festivos y fines de semana. Estos son nuestros días más solicitados, así que reserva con anticipación.'
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    ...faqsGenerales,
+    ...faqsPago,
+    ...faqsServicio,
+    ...faqsPersonalizacion,
+    ...faqsLogistica
+  ].map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const categorias = [
+  { id: 'generales', label: 'Generales' },
+  { id: 'pago', label: 'Pago' },
+  { id: 'servicio', label: 'Servicio' },
+  { id: 'personalizacion', label: 'Personalización' },
+  { id: 'logistica', label: 'Logística' }
+];
+---
+
+<BaseLayout
+  title="Preguntas Frecuentes | Mesa de Dulces CDMX | Mededul"
+  description="Resolvemos todas tus dudas sobre mesas de dulces: precios, proceso, pagos, personalización, logística. Todo lo que necesitas saber antes de contratar."
+  canonical="/faq"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Preguntas Frecuentes"
+    highlight="Frecuentes"
+    subtitle="Todo lo que necesitas saber sobre nuestro servicio de mesas de dulces"
+    secondaryContent={`<p>Hemos recopilado las <strong>22 preguntas más comunes</strong> sobre nuestro servicio: precios, proceso de contratación, pagos, personalización y logística.</p><p>Si no encuentras tu respuesta aquí, escríbenos por WhatsApp y te respondemos en menos de 2 horas.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Navegación rápida -->
+  <section class="faq-nav">
+    <div class="container">
+      <div class="nav-pills">
+        {categorias.map((cat, i) => (
+          <a href={`#${cat.id}`} class={`pill ${i === 0 ? 'active' : ''}`}>{cat.label}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Generales -->
+  <section id="generales" class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas"
+        titleHighlight="Generales"
+        subtitle="Lo básico que necesitas saber"
+      />
+      <FAQ items={faqsGenerales} id="faq-generales" />
+    </div>
+  </section>
+
+  <!-- FAQs Pago -->
+  <section id="pago" class="faq-section alt">
+    <div class="container">
+      <SectionHeader
+        title="Pago y"
+        titleHighlight="Facturación"
+        subtitle="Cómo funciona el proceso de pago"
+      />
+      <FAQ items={faqsPago} id="faq-pago" />
+    </div>
+  </section>
+
+  <!-- FAQs Servicio -->
+  <section id="servicio" class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Sobre el"
+        titleHighlight="Servicio"
+        subtitle="Qué incluye y cómo funciona"
+      />
+      <FAQ items={faqsServicio} id="faq-servicio" />
+    </div>
+  </section>
+
+  <!-- FAQs Personalización -->
+  <section id="personalizacion" class="faq-section alt">
+    <div class="container">
+      <SectionHeader
+        title="Personalización y"
+        titleHighlight="Opciones"
+        subtitle="Cómo adaptamos la mesa a tu evento"
+      />
+      <FAQ items={faqsPersonalizacion} id="faq-personalizacion" />
+    </div>
+  </section>
+
+  <!-- FAQs Logística -->
+  <section id="logistica" class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Logística y"
+        titleHighlight="Montaje"
+        subtitle="Cómo coordinamos el día del evento"
+      />
+      <FAQ items={faqsLogistica} id="faq-logistica" />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20una%20pregunta%20sobre%20el%20servicio%20de%20mesas%20de%20dulces"
+    badge="¿Más dudas?"
+    title="¿No encontraste tu"
+    titleHighlight="respuesta"
+    text="Escríbenos por WhatsApp y te respondemos en menos de 2 horas. Sin compromiso."
+    buttonText="Preguntar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .faq-nav {
+    padding: 24px 0;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+  }
+
+  .nav-pills {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    padding: 10px 20px;
+    background: #f5f5f5;
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--texto-oscuro);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .pill:hover,
+  .pill.active {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .faq-section.alt {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 768px) {
+    .faq-nav {
+      top: 60px;
+    }
+
+    .nav-pills {
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+    }
+
+    .faq-section {
+      padding: 60px 0;
+    }
+  }
+</style>

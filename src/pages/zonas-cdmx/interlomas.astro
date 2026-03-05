@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Interlomas', url: '/zonas-cdmx/interlomas' }
+];
+
+const venuesInterlomas = [
+  'Centro Comercial Interlomas',
+  'Hacienda de las Palmas',
+  'Club de Golf La Herradura',
+  'Salones de eventos Interlomas',
+  'Residenciales privados',
+  'Terrazas panoramicas',
+  'Jardines de casas',
+  'Country clubs'
+];
+
+const paquetesInterlomas = [
+  {
+    name: 'Interlomas Clasico',
+    icon: '🏔️',
+    price: '$6,800',
+    currency: 'MXN',
+    guests: '50-80 personas',
+    tagline: 'Elegancia en zona residencial',
+    features: [
+      '10-12 variedades selectas',
+      'Diseno clasico elegante',
+      'Montaje profesional',
+      '4 horas de servicio',
+      'Traslado a Interlomas',
+      'Coordinacion con seguridad'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Clasico',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20clasica%20en%20Interlomas'
+  },
+  {
+    name: 'Interlomas Premium',
+    icon: '⭐',
+    price: '$10,500',
+    currency: 'MXN',
+    guests: '80-150 personas',
+    tagline: 'El mas solicitado',
+    features: [
+      '15-18 variedades premium',
+      'Diseno personalizado completo',
+      'Estacion interactiva',
+      '6 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop profesional',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Interlomas'
+  },
+  {
+    name: 'Interlomas Luxury',
+    icon: '💎',
+    price: '$16,000',
+    currency: 'MXN',
+    guests: '150+ personas',
+    tagline: 'Experiencia de lujo total',
+    features: [
+      '22+ variedades exclusivas',
+      'Direccion de arte completa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Mesa de quesos y vinos',
+      'Integracion floral premium',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20para%20Interlomas'
+  }
+];
+
+const caracteristicasInterlomas = [
+  {
+    num: 1,
+    title: 'Zona Residencial Premium',
+    desc: 'Interlomas es una de las zonas mas exclusivas. Nuestros servicios estan a la altura de sus estandares.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'
+  },
+  {
+    num: 2,
+    title: 'Casas con Jardin',
+    desc: 'Muchas residencias tienen jardines amplios. Creamos montajes espectaculares para eventos en casa.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 3,
+    title: 'Acceso Coordinado',
+    desc: 'Conocemos los protocolos de acceso a fraccionamientos privados. Coordinamos con seguridad sin problemas.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos de Alto Nivel',
+    desc: 'XV anos, bodas, cumpleanos elegantes. Entendemos las expectativas de eventos en esta zona.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif'
+  }
+];
+
+const testimoniosInterlomas = [
+  {
+    name: 'Familia Hernandez',
+    initials: 'FH',
+    review: 'Los XV anos de mi hija en nuestra casa de Interlomas quedaron espectaculares. La mesa de dulces fue el centro de atencion.',
+    event: 'XV Anos Residencia Interlomas',
+    rating: 5
+  },
+  {
+    name: 'Elena y Patricio',
+    initials: 'EP',
+    review: 'Nuestra boda en la Hacienda de las Palmas fue perfecta. Mededul se coordino increible con todos los proveedores.',
+    event: 'Boda Hacienda Interlomas',
+    rating: 5
+  },
+  {
+    name: 'Club Social Interlomas',
+    initials: 'CS',
+    review: 'Para el evento de gala del club contratamos a Mededul. Profesionalismo total y una presentacion impresionante.',
+    event: 'Gala Country Club',
+    rating: 5
+  }
+];
+
+const faqsInterlomas = [
+  {
+    question: 'Llegan hasta Interlomas?',
+    answer: 'Si, cubrimos toda la zona de Interlomas, Huixquilucan, La Herradura, Bosque Real y zonas residenciales aledanas.'
+  },
+  {
+    question: 'Hay costo adicional por traslado?',
+    answer: 'El traslado a Interlomas esta incluido en todos nuestros paquetes. No hay costos ocultos.'
+  },
+  {
+    question: 'Como manejan el acceso a fraccionamientos?',
+    answer: 'Coordinamos previamente con seguridad del fraccionamiento, tramitamos accesos y llegamos con tiempo para el montaje.'
+  },
+  {
+    question: 'Trabajan en salones de eventos de la zona?',
+    answer: 'Si, hemos trabajado en Hacienda de las Palmas, clubes de golf y principales salones de Interlomas.'
+  },
+  {
+    question: 'Pueden hacer eventos en jardines grandes?',
+    answer: 'Si, nos especializamos en eventos al aire libre. Para jardines grandes podemos incluir multiples estaciones.'
+  }
+];
+
+const interlomasSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Interlomas",
+  "description": "Servicio de mesas de dulces para eventos exclusivos en Interlomas, Huixquilucan. XV anos, bodas, celebraciones de lujo.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Interlomas, Huixquilucan, Estado de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$6,800 - $16,000 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Interlomas | Eventos Exclusivos"
+  description="Servicio de mesas de dulces para eventos exclusivos en Interlomas. XV anos, bodas, celebraciones de lujo. Traslado incluido. Cotiza gratis."
+  canonical="/zonas-cdmx/interlomas"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(interlomasSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Interlomas"
+    highlight="Interlomas"
+    subtitle="Servicios premium para la zona mas exclusiva"
+    secondaryContent={`<p><strong>Interlomas</strong> es sinonimo de exclusividad. Residencias espectaculares, jardines amplios, country clubs y un nivel de eventos que demanda lo mejor.</p><p>Nuestras <strong>mesas de dulces en Interlomas</strong> estan disenadas para superar esas expectativas. Calidad premium, presentacion impecable y servicio a la altura de la zona.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Residencias, clubes y salones de Interlomas</p>
+        <div class="venues-grid">
+          {venuesInterlomas.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-interlomas"
+    badge="Paquetes Interlomas"
+    title="Servicios"
+    titleHighlight="Exclusivos"
+    subtitle="Paquetes disenados para eventos de alto nivel"
+    packages={paquetesInterlomas}
+    note="🚗 <strong>Traslado incluido:</strong> Sin costo adicional a toda la zona de Interlomas."
+  />
+
+  <WhyChooseUs
+    id="ventajas-interlomas"
+    badge="Servicio en Interlomas"
+    title="A la Altura de"
+    titleHighlight="Interlomas"
+    descriptions={[
+      'Entendemos las expectativas de eventos en zonas residenciales premium. Presentacion impecable, servicio profesional y calidad superior.',
+      'Experiencia en residencias privadas, country clubs y los mejores salones de la zona. Coordinamos accesos y logistica sin contratiempos.'
+    ]}
+    stats={[
+      { number: '30+', label: 'Eventos en Interlomas' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'Premium', label: 'Servicio' },
+      { number: '100%', label: 'Puntualidad' }
+    ]}
+    features={caracteristicasInterlomas}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Interlomas"
+        subtitle="Lo que dicen nuestros clientes de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosInterlomas.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Interlomas"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsInterlomas} id="faq-interlomas" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Interlomas%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Interlomas"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Interlomas"
+    text="Indicanos tu espacio, fecha y tipo de evento. Creamos propuestas a la altura de tus expectativas."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

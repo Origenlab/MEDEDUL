@@ -1,0 +1,381 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Condesa', url: '/zonas-cdmx/condesa' }
+];
+
+const venuesCondesa = [
+  'Parque Mexico',
+  'Parque Espana',
+  'Casa de la Condesa',
+  'Salon Condesa DF',
+  'Jardin Botanico',
+  'Terrazas privadas',
+  'Casonas historicas',
+  'Restaurantes con terraza'
+];
+
+const paquetesCondesa = [
+  {
+    name: 'Condesa Bohemia',
+    icon: '🌿',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Estilo relajado y con caracter',
+    features: [
+      '8-10 variedades artesanales',
+      'Estetica boho-chic',
+      'Montaje en terrazas o jardines',
+      '4 horas de servicio',
+      'Traslado Condesa incluido',
+      'Adaptacion a espacios pequenos'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Bohemia',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20estilo%20bohemio%20en%20Condesa'
+  },
+  {
+    name: 'Condesa Premium',
+    icon: '✨',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '70-120 personas',
+    tagline: 'Elegancia con personalidad',
+    features: [
+      '12-15 variedades premium',
+      'Diseno personalizado',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop decorativo',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Condesa'
+  },
+  {
+    name: 'Condesa Signature',
+    icon: '💐',
+    price: '$12,500',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Para eventos en casonas y jardines',
+    features: [
+      '18+ variedades exclusivas',
+      'Direccion de arte completa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Integracion floral',
+      'Mesa de quesos artesanales',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Signature',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Signature%20para%20Condesa'
+  }
+];
+
+const caracteristicasCondesa = [
+  {
+    num: 1,
+    title: 'Estamos en la Zona',
+    desc: 'Nuestra sucursal Condesa esta en Av. Baja California. Conocemos la zona como nadie y llegamos en minutos.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 2,
+    title: 'Espacios Unicos',
+    desc: 'Terrazas, jardines, casonas art deco. Sabemos adaptar nuestros montajes a la personalidad de cada espacio.',
+    img: '/img/galeria/mesa-dulces-tea-party-vintage-encaje-perlas.avif'
+  },
+  {
+    num: 3,
+    title: 'Estetica con Caracter',
+    desc: 'La Condesa tiene un estilo propio. Nuestros disenos respetan y realzan esa personalidad bohemia y elegante.',
+    img: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos Intimos',
+    desc: 'Muchos eventos en Condesa son intimos y especiales. Nos adaptamos a espacios reducidos con gran impacto visual.',
+    img: '/img/galeria/candy-bar-bride-to-be-rosa-negro-champagne.avif'
+  }
+];
+
+const testimoniosCondesa = [
+  {
+    name: 'Sofia y Andres',
+    initials: 'SA',
+    review: 'Nuestra boda en una terraza de la Condesa fue perfecta. La mesa de dulces con estilo botanico fue exactamente lo que soñamos.',
+    event: 'Boda Terraza Condesa',
+    rating: 5
+  },
+  {
+    name: 'Valentina Garcia',
+    initials: 'VG',
+    review: 'El baby shower en el Parque Mexico con la mesa de Mededul fue increible. El estilo boho quedo precioso.',
+    event: 'Baby Shower Parque Mexico',
+    rating: 5
+  },
+  {
+    name: 'Agencia Creativa DF',
+    initials: 'AC',
+    review: 'Para el evento de lanzamiento de nuestra agencia en Condesa necesitabamos algo con personalidad. Lo lograron perfecto.',
+    event: 'Evento Corporativo Condesa',
+    rating: 5
+  }
+];
+
+const faqsCondesa = [
+  {
+    question: 'Tienen sucursal en la Condesa?',
+    answer: 'Si, nuestra sucursal Condesa esta en Torre A, Av. Baja California 255. Estamos en el corazon de la zona y llegamos a cualquier punto en minutos.'
+  },
+  {
+    question: 'Pueden montar en terrazas y jardines?',
+    answer: 'Si, tenemos amplia experiencia en terrazas, jardines y espacios al aire libre de la Condesa. Nos adaptamos a las condiciones de cada espacio.'
+  },
+  {
+    question: 'Que estilo de diseno manejan para Condesa?',
+    answer: 'Ofrecemos estilos que van desde boho-chic hasta vintage y moderno. Nos adaptamos a la estetica de la zona y la personalidad de cada cliente.'
+  },
+  {
+    question: 'Pueden trabajar en espacios pequenos?',
+    answer: 'Si, muchos eventos en Condesa son intimos. Sabemos crear montajes de alto impacto visual incluso en espacios reducidos.'
+  },
+  {
+    question: 'Hacen eventos en restaurantes de la zona?',
+    answer: 'Si, hemos trabajado con varios restaurantes con terraza en la Condesa. Coordinamos directamente con el establecimiento.'
+  }
+];
+
+const condesaSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Condesa",
+  "description": "Servicio de mesas de dulces para eventos en Condesa, CDMX. Bodas en terrazas, baby showers en jardines, eventos intimos con estilo.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Condesa, Cuauhtemoc, Ciudad de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$5,500 - $12,500 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Torre A, Av. Baja California 255",
+    "addressLocality": "Condesa, Cuauhtemoc",
+    "postalCode": "06170",
+    "addressCountry": "MX"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Condesa CDMX | Eventos con Estilo"
+  description="Servicio de mesas de dulces en Condesa, CDMX. Bodas en terrazas, baby showers, eventos boho-chic. Sucursal en la zona. Cotiza gratis."
+  canonical="/zonas-cdmx/condesa"
+  ogImage="/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(condesaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Condesa, CDMX"
+    highlight="Condesa"
+    subtitle="Servicio local para la zona mas bohemia de la ciudad"
+    secondaryContent={`<p>La <strong>Condesa</strong> tiene un encanto unico: arquitectura art deco, parques hermosos, terrazas con vegetacion y un ambiente cosmopolita. Nuestras <strong>mesas de dulces en Condesa</strong> capturan esa esencia con disenos que tienen personalidad y estilo.</p><p>Nuestra <strong>sucursal esta en la zona</strong>, en Av. Baja California 255. Esto significa respuesta rapida, conocimiento local y la certeza de que llegamos a tu evento sin contratiempos.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Terrazas, jardines y espacios unicos de la Condesa</p>
+        <div class="venues-grid">
+          {venuesCondesa.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-condesa"
+    badge="Paquetes Condesa"
+    title="Servicios con"
+    titleHighlight="Personalidad"
+    subtitle="Paquetes disenados para el estilo unico de la Condesa"
+    packages={paquetesCondesa}
+    note="🌿 <strong>Sucursal en la zona:</strong> Estamos en Av. Baja California 255, Condesa. Llegamos a tu evento en minutos."
+  />
+
+  <WhyChooseUs
+    id="ventajas-condesa"
+    badge="Servicio en Condesa"
+    title="Somos Locales en"
+    titleHighlight="La Condesa"
+    descriptions={[
+      'Nuestra sucursal esta en el corazon de la Condesa. Conocemos los espacios, las terrazas favoritas y la estetica que buscan los eventos de la zona.',
+      'Ya sea una boda intima en una azotea, un baby shower en un jardin o un evento corporativo con estilo, entendemos la vibra de la Condesa.'
+    ]}
+    stats={[
+      { number: '40+', label: 'Eventos en Condesa' },
+      { number: '5 min', label: 'A cualquier punto' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'Sucursal', label: 'En la zona' }
+    ]}
+    features={caracteristicasCondesa}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Condesa"
+        subtitle="Lo que dicen nuestros vecinos de la zona"
+      />
+      <div class="testimonios-grid">
+        {testimoniosCondesa.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Condesa"
+        subtitle="Resolvemos tus dudas sobre eventos en la zona"
+      />
+      <FAQ items={faqsCondesa} id="faq-condesa" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20la%20Condesa%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Condesa"
+    title="Cotiza para tu Evento en"
+    titleHighlight="La Condesa"
+    text="Somos tus vecinos. Indicanos tu espacio y fecha, te visitamos sin costo para hacer propuesta."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

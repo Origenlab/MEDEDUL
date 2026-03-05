@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' },
+  { name: 'Tlalnepantla', url: '/zonas-cdmx/tlalnepantla' }
+];
+
+const venuesTlalnepantla = [
+  'Plaza Tlalne',
+  'Mundo E Tlalnepantla',
+  'Salones de eventos',
+  'Jardines para fiestas',
+  'Centros de convenciones',
+  'Restaurantes con salon',
+  'Casas con jardin',
+  'Espacios industriales'
+];
+
+const paquetesTlalnepantla = [
+  {
+    name: 'Tlalnepantla Basico',
+    icon: '🎈',
+    price: '$4,800',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Opcion accesible',
+    features: [
+      '8-10 variedades selectas',
+      'Diseno clasico',
+      'Montaje profesional',
+      '4 horas de servicio',
+      'Traslado incluido',
+      'Montaje y desmontaje'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Basico',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20basica%20en%20Tlalnepantla'
+  },
+  {
+    name: 'Tlalnepantla Premium',
+    icon: '⭐',
+    price: '$7,800',
+    currency: 'MXN',
+    guests: '60-100 personas',
+    tagline: 'El mas solicitado',
+    features: [
+      '12-14 variedades premium',
+      'Diseno personalizado',
+      'Estacion interactiva',
+      '5 horas de servicio',
+      'Coordinacion con venue',
+      'Backdrop decorativo',
+      'Servicio completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20Tlalnepantla'
+  },
+  {
+    name: 'Tlalnepantla Completo',
+    icon: '🎉',
+    price: '$11,000',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Todo incluido',
+    features: [
+      '16+ variedades exclusivas',
+      'Direccion creativa',
+      'Multiples estaciones',
+      'Servicio todo el evento',
+      'Mesa de quesos',
+      'Integracion decorativa',
+      'Personal dedicado'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Completo',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20Completo%20para%20Tlalnepantla'
+  }
+];
+
+const caracteristicasTlalnepantla = [
+  {
+    num: 1,
+    title: 'Precios Competitivos',
+    desc: 'Ofrecemos paquetes accesibles con la misma calidad premium. La mejor relacion calidad-precio.',
+    img: '/img/galeria/mesa-dulces-cumpleanos-infantil-arcoiris.avif'
+  },
+  {
+    num: 2,
+    title: 'Cobertura Completa',
+    desc: 'Llegamos a toda Tlalnepantla: Centro, San Andres Atenco, Tequexquinahuac, Industrial Vallejo y mas.',
+    img: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif'
+  },
+  {
+    num: 3,
+    title: 'Eventos Familiares',
+    desc: 'XV anos, bodas, bautizos, cumpleanos. Las celebraciones familiares son nuestra especialidad.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif'
+  },
+  {
+    num: 4,
+    title: 'Eventos Empresariales',
+    desc: 'Zona industrial importante. Atendemos eventos corporativos con facturacion incluida.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'
+  }
+];
+
+const testimoniosTlalnepantla = [
+  {
+    name: 'Familia Morales',
+    initials: 'FM',
+    review: 'Los XV anos de mi hija en un salon de Tlalnepantla quedaron hermosos. La mesa de dulces supero nuestras expectativas.',
+    event: 'XV Anos Salon Tlalnepantla',
+    rating: 5
+  },
+  {
+    name: 'Empresa Automotriz',
+    initials: 'EA',
+    review: 'Para el evento de fin de ano en nuestra planta contratamos a Mededul. Excelente servicio y facturacion inmediata.',
+    event: 'Evento Corporativo Industrial',
+    rating: 5
+  },
+  {
+    name: 'Sandra y Roberto',
+    initials: 'SR',
+    review: 'Nuestra boda en un jardin de Tlalnepantla fue perfecta. La mesa de dulces fue lo que mas elogiaron los invitados.',
+    event: 'Boda Jardin Tlalnepantla',
+    rating: 5
+  }
+];
+
+const faqsTlalnepantla = [
+  {
+    question: 'Llegan hasta Tlalnepantla?',
+    answer: 'Si, cubrimos todo Tlalnepantla de Baz: Centro, Industrial Vallejo, San Andres Atenco, Tequexquinahuac y colonias aledanas.'
+  },
+  {
+    question: 'El traslado tiene costo?',
+    answer: 'El traslado a Tlalnepantla esta incluido en todos nuestros paquetes. Sin costos adicionales.'
+  },
+  {
+    question: 'Tienen precios accesibles?',
+    answer: 'Si, nuestros paquetes para Tlalnepantla comienzan desde $4,800. Ofrecemos opciones para diferentes presupuestos.'
+  },
+  {
+    question: 'Hacen eventos corporativos?',
+    answer: 'Si, la zona industrial de Tlalnepantla tiene muchas empresas. Atendemos eventos corporativos con facturacion incluida.'
+  },
+  {
+    question: 'Trabajan fines de semana?',
+    answer: 'Si, la mayoria de nuestros eventos son sabados y domingos. Tenemos disponibilidad en todos los horarios.'
+  }
+];
+
+const tlalnepantlaSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Tlalnepantla",
+  "description": "Servicio de mesas de dulces en Tlalnepantla. XV anos, bodas, eventos corporativos. Precios accesibles.",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Tlalnepantla de Baz, Estado de Mexico"
+  },
+  "telephone": "+525525226442",
+  "priceRange": "$4,800 - $11,000 MXN"
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Tlalnepantla | Precios Accesibles"
+  description="Servicio de mesas de dulces en Tlalnepantla. XV anos, bodas, eventos corporativos. Paquetes desde $4,800. Cotiza gratis."
+  canonical="/zonas-cdmx/tlalnepantla"
+  ogImage="/img/galeria/mesa-dulces-xv-anos-rosa-plateado-cristales.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(tlalnepantlaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Tlalnepantla"
+    highlight="Tlalnepantla"
+    subtitle="Calidad premium a precios accesibles"
+    secondaryContent={`<p><strong>Tlalnepantla</strong> es uno de los municipios mas importantes del area metropolitana. Familias, empresas y una gran tradicion de celebraciones.</p><p>Nuestras <strong>mesas de dulces en Tlalnepantla</strong> ofrecen la misma calidad premium que en toda la ciudad, con precios competitivos y traslado incluido.</p>`}
+  />
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Espacios donde hemos <span>creado magia</span></h2>
+        <p>Salones, jardines y espacios de Tlalnepantla</p>
+        <div class="venues-grid">
+          {venuesTlalnepantla.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-tlalnepantla"
+    badge="Paquetes Tlalnepantla"
+    title="Opciones"
+    titleHighlight="Accesibles"
+    subtitle="Calidad premium adaptada a tu presupuesto"
+    packages={paquetesTlalnepantla}
+    note="💰 <strong>Desde $4,800:</strong> Paquetes accesibles con calidad garantizada."
+  />
+
+  <WhyChooseUs
+    id="ventajas-tlalnepantla"
+    badge="Servicio en Tlalnepantla"
+    title="La Mejor Opcion en"
+    titleHighlight="Tlalnepantla"
+    descriptions={[
+      'Llevamos nuestra calidad premium a Tlalnepantla con precios competitivos. Sin sacrificar presentacion ni servicio.',
+      'Atendemos tanto eventos familiares como corporativos. Facturacion inmediata para empresas de la zona industrial.'
+    ]}
+    stats={[
+      { number: '40+', label: 'Eventos' },
+      { number: '$4,800', label: 'Desde' },
+      { number: '5.0', label: 'Calificacion' },
+      { number: 'Incluido', label: 'Traslado' }
+    ]}
+    features={caracteristicasTlalnepantla}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Tlalnepantla"
+        subtitle="Lo que dicen nuestros clientes"
+      />
+      <div class="testimonios-grid">
+        {testimoniosTlalnepantla.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre Servicio en"
+        titleHighlight="Tlalnepantla"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsTlalnepantla} id="faq-tlalnepantla" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Tlalnepantla%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
+    badge="Evento en Tlalnepantla"
+    title="Cotiza para tu Evento en"
+    titleHighlight="Tlalnepantla"
+    text="Indicanos tu tipo de evento, fecha y presupuesto aproximado. Te ofrecemos la mejor opcion."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .faq-section {
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

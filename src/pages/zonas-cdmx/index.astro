@@ -1,0 +1,578 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Zonas CDMX', url: '/zonas-cdmx' }
+];
+
+// Zonas organizadas por alcaldia
+const zonasPremium = [
+  {
+    nombre: 'Polanco',
+    alcaldia: 'Miguel Hidalgo',
+    descripcion: 'Zona residencial de alto nivel con los mejores venues para bodas y eventos exclusivos.',
+    imagen: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif',
+    href: '/zonas-cdmx/polanco',
+    destacada: true
+  },
+  {
+    nombre: 'Santa Fe',
+    alcaldia: 'Cuajimalpa / Alvaro Obregon',
+    descripcion: 'Centro corporativo con salones de eventos y hoteles de lujo ideales para eventos empresariales.',
+    imagen: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif',
+    href: '/zonas-cdmx/santa-fe',
+    destacada: true
+  },
+  {
+    nombre: 'Condesa',
+    alcaldia: 'Cuauhtemoc',
+    descripcion: 'Zona bohemia con jardines, terrazas y espacios unicos para eventos con personalidad.',
+    imagen: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif',
+    href: '/zonas-cdmx/condesa',
+    destacada: true
+  }
+];
+
+const zonasPopulares = [
+  {
+    nombre: 'Roma Norte',
+    alcaldia: 'Cuauhtemoc',
+    descripcion: 'Arquitectura porfiriana y espacios con caracter para eventos creativos y modernos.',
+    imagen: '/img/galeria/candy-bar-boda-contemporanea-geometrico.avif',
+    href: '/zonas-cdmx/roma-norte'
+  },
+  {
+    nombre: 'Del Valle',
+    alcaldia: 'Benito Juarez',
+    descripcion: 'Zona residencial familiar con salones accesibles para todo tipo de celebraciones.',
+    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    href: '/zonas-cdmx/del-valle'
+  },
+  {
+    nombre: 'Coyoacan',
+    alcaldia: 'Coyoacan',
+    descripcion: 'Ambiente colonial y jardines historicos perfectos para eventos con encanto tradicional.',
+    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    href: '/zonas-cdmx/coyoacan'
+  },
+  {
+    nombre: 'Narvarte',
+    alcaldia: 'Benito Juarez',
+    descripcion: 'Zona accesible con buena conectividad para eventos familiares y reuniones.',
+    imagen: '/img/galeria/mesa-dulces-cumpleanos-safari-animales.avif',
+    href: '/zonas-cdmx/narvarte'
+  },
+  {
+    nombre: 'Anzures',
+    alcaldia: 'Miguel Hidalgo',
+    descripcion: 'Ubicacion de nuestra sucursal principal. Zona residencial con facil acceso.',
+    imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    href: '/zonas-cdmx/anzures'
+  }
+];
+
+const zonasMetropolitanas = [
+  {
+    nombre: 'Interlomas',
+    alcaldia: 'Huixquilucan',
+    descripcion: 'Desarrollo residencial premium con clubes y salones de eventos exclusivos.',
+    imagen: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif',
+    href: '/zonas-cdmx/interlomas'
+  },
+  {
+    nombre: 'Satelite',
+    alcaldia: 'Naucalpan',
+    descripcion: 'Zona residencial con amplia oferta de venues para bodas y XV anos.',
+    imagen: '/img/galeria/candy-bar-xv-anos-rosa-blanco-elegante.avif',
+    href: '/zonas-cdmx/satelite'
+  },
+  {
+    nombre: 'Tlalnepantla',
+    alcaldia: 'Tlalnepantla',
+    descripcion: 'Area industrial y residencial con opciones accesibles para eventos.',
+    imagen: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif',
+    href: '/zonas-cdmx/tlalnepantla'
+  }
+];
+
+const zonasSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces CDMX",
+  "description": "Servicio de mesas de dulces en todas las zonas de Ciudad de Mexico y area metropolitana",
+  "areaServed": [
+    ...zonasPremium.map(z => ({ "@type": "Place", "name": z.nombre + ", " + z.alcaldia })),
+    ...zonasPopulares.map(z => ({ "@type": "Place", "name": z.nombre + ", " + z.alcaldia })),
+    ...zonasMetropolitanas.map(z => ({ "@type": "Place", "name": z.nombre + ", " + z.alcaldia }))
+  ],
+  "telephone": "+525525226442",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ciudad de Mexico",
+    "addressCountry": "MX"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en CDMX por Zona | Servicio Local"
+  description="Servicio de mesas de dulces en todas las zonas de CDMX: Polanco, Santa Fe, Condesa, Roma, Del Valle, Coyoacan y area metropolitana. Cobertura completa."
+  canonical="/zonas-cdmx"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(zonasSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en CDMX por Zona"
+    highlight="CDMX"
+    subtitle="Cobertura completa en Ciudad de Mexico y area metropolitana"
+    secondaryContent={`<p>Ofrecemos servicio de <strong>mesas de dulces en todas las zonas de CDMX</strong>. Desde Polanco hasta Coyoacan, desde Santa Fe hasta Interlomas, llegamos a tu evento con la misma calidad y profesionalismo.</p><p>Cada zona tiene sus venues favoritos y nosotros conocemos los mejores. Selecciona tu zona para ver informacion especifica sobre <strong>tiempos de llegada, venues recomendados y testimonios locales</strong>.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Zonas Premium -->
+  <section class="zonas-section">
+    <div class="container">
+      <SectionHeader
+        title="Zonas"
+        titleHighlight="Premium"
+        subtitle="Las zonas mas exclusivas de CDMX con los mejores venues"
+      />
+      <div class="zonas-grid zonas-grid--premium">
+        {zonasPremium.map(zona => (
+          <a href={zona.href} class="zona-card zona-card--premium">
+            <div class="zona-imagen">
+              <img
+                src={getCdnUrl(zona.imagen, { w: 600, q: 80 })}
+                alt={`Mesa de dulces en ${zona.nombre}`}
+                loading="lazy"
+                width="600"
+                height="400"
+              />
+              {zona.destacada && <span class="zona-badge">Destacada</span>}
+            </div>
+            <div class="zona-contenido">
+              <h3>{zona.nombre}</h3>
+              <span class="zona-alcaldia">{zona.alcaldia}</span>
+              <p>{zona.descripcion}</p>
+              <span class="zona-cta">
+                Ver zona
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Zonas Populares -->
+  <section class="zonas-section zonas-section--alt">
+    <div class="container">
+      <SectionHeader
+        title="Zonas"
+        titleHighlight="Populares"
+        subtitle="Las zonas con mayor demanda de nuestros servicios"
+      />
+      <div class="zonas-grid">
+        {zonasPopulares.map(zona => (
+          <a href={zona.href} class="zona-card">
+            <div class="zona-imagen">
+              <img
+                src={getCdnUrl(zona.imagen, { w: 400, q: 80 })}
+                alt={`Mesa de dulces en ${zona.nombre}`}
+                loading="lazy"
+                width="400"
+                height="267"
+              />
+            </div>
+            <div class="zona-contenido">
+              <h3>{zona.nombre}</h3>
+              <span class="zona-alcaldia">{zona.alcaldia}</span>
+              <p>{zona.descripcion}</p>
+              <span class="zona-cta">
+                Ver zona
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Zonas Metropolitanas -->
+  <section class="zonas-section">
+    <div class="container">
+      <SectionHeader
+        title="Area"
+        titleHighlight="Metropolitana"
+        subtitle="Tambien cubrimos las zonas mas importantes del Estado de Mexico"
+      />
+      <div class="zonas-grid">
+        {zonasMetropolitanas.map(zona => (
+          <a href={zona.href} class="zona-card">
+            <div class="zona-imagen">
+              <img
+                src={getCdnUrl(zona.imagen, { w: 400, q: 80 })}
+                alt={`Mesa de dulces en ${zona.nombre}`}
+                loading="lazy"
+                width="400"
+                height="267"
+              />
+            </div>
+            <div class="zona-contenido">
+              <h3>{zona.nombre}</h3>
+              <span class="zona-alcaldia">{zona.alcaldia}</span>
+              <p>{zona.descripcion}</p>
+              <span class="zona-cta">
+                Ver zona
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Info de Cobertura -->
+  <section class="cobertura-section">
+    <div class="container">
+      <div class="cobertura-content">
+        <div class="cobertura-texto">
+          <h2>Cobertura <span>Completa</span> en CDMX</h2>
+          <p>Cubrimos <strong>todas las alcaldias de Ciudad de Mexico</strong> y las principales zonas del area metropolitana. El traslado esta incluido en nuestros paquetes para la mayoria de las zonas.</p>
+          <ul class="cobertura-lista">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Traslado incluido en zonas centrales
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Llegamos 1-2 horas antes del evento
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Coordinacion con venues y salones
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Cotizacion especial para zonas foraneas
+            </li>
+          </ul>
+        </div>
+        <div class="cobertura-sucursales">
+          <h3>Nuestras Sucursales</h3>
+          <div class="sucursal-card">
+            <span class="sucursal-badge">Anzures</span>
+            <p>Av. Ejercito Nacional Mexicano 216<br/>Miguel Hidalgo, 11590</p>
+          </div>
+          <div class="sucursal-card">
+            <span class="sucursal-badge">Condesa</span>
+            <p>Torre A, Av. Baja California 255<br/>Cuauhtemoc, 06170</p>
+          </div>
+          <a href="tel:+525525226442" class="sucursal-telefono">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            55 2522 6442
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20para%20mi%20zona"
+    badge="Servicio en Tu Zona"
+    title="Cotiza para"
+    titleHighlight="Tu Ubicacion"
+    text="Indicanos la zona de tu evento y te enviamos una cotizacion personalizada con tiempos y disponibilidad."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Zonas Section */
+  .zonas-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .zonas-section--alt {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  .zonas-grid--premium {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Zona Card */
+  .zona-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zona-card--premium {
+    border: 2px solid rgba(209, 0, 122, 0.15);
+  }
+
+  .zona-imagen {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .zona-card--premium .zona-imagen {
+    height: 220px;
+  }
+
+  .zona-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .zona-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .zona-contenido {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .zona-contenido h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 6px;
+  }
+
+  .zona-alcaldia {
+    font-size: 0.85rem;
+    color: var(--rosa-principal);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .zona-contenido p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0 0 16px;
+    flex: 1;
+  }
+
+  .zona-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    margin-top: auto;
+  }
+
+  /* Cobertura Section */
+  .cobertura-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cobertura-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .cobertura-texto h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 20px;
+  }
+
+  .cobertura-texto h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .cobertura-texto > p {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0 0 28px;
+  }
+
+  .cobertura-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cobertura-lista li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+  }
+
+  .cobertura-sucursales {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+  }
+
+  .cobertura-sucursales h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 24px;
+    text-align: center;
+  }
+
+  .sucursal-card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .sucursal-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .sucursal-card p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .sucursal-telefono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .zonas-grid,
+    .zonas-grid--premium {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cobertura-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .zonas-section {
+      padding: 50px 0;
+    }
+
+    .zonas-grid,
+    .zonas-grid--premium {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .zona-imagen,
+    .zona-card--premium .zona-imagen {
+      height: 160px;
+    }
+
+    .zona-contenido {
+      padding: 20px;
+    }
+
+    .cobertura-texto h2 {
+      font-size: 1.6rem;
+    }
+
+    .cobertura-sucursales {
+      padding: 24px;
+    }
+  }
+</style>

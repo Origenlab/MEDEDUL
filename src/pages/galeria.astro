@@ -1,0 +1,558 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Galeria', url: '/galeria' }
+];
+
+// Categorias de galeria
+const categorias = [
+  { id: 'bodas', nombre: 'Bodas', icono: '💍' },
+  { id: 'xv-anos', nombre: 'XV Anos', icono: '👑' },
+  { id: 'baby-shower', nombre: 'Baby Shower', icono: '👶' },
+  { id: 'bautizos', nombre: 'Bautizos', icono: '🕊️' },
+  { id: 'cumpleanos', nombre: 'Cumpleanos', icono: '🎂' },
+  { id: 'corporativos', nombre: 'Corporativos', icono: '🏢' }
+];
+
+// Imagenes organizadas por categoria
+const imagenesBodas = [
+  { src: '/img/galeria/mesa-dulces-boda-blanco-perlas-rosas.avif', alt: 'Mesa de dulces boda elegante blanco con perlas y rosas' },
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces boda dorado con velas y trufas' },
+  { src: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif', alt: 'Mesa de dulces boda jardin romantica con rosas y luces' },
+  { src: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif', alt: 'Mesa de dulces boda moderna minimalista en blanco' },
+  { src: '/img/galeria/mesa-dulces-boda-terraza-elegante-dorado.avif', alt: 'Mesa de dulces boda terraza elegante en dorado' },
+  { src: '/img/galeria/mesa-dulces-boda-hacienda-mexicana-rustico.avif', alt: 'Mesa de dulces boda hacienda mexicana estilo rustico' },
+  { src: '/img/galeria/candy-bar-boda-exterior-elegante-flores-rosas.avif', alt: 'Candy bar boda exterior con flores y rosas' },
+  { src: '/img/galeria/candy-bar-boda-contemporanea-geometrico.avif', alt: 'Candy bar boda contemporanea estilo geometrico' },
+  { src: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', alt: 'Candy bar bodas plata elegante con cupcakes plateados' },
+  { src: '/img/galeria/mesa-postres-boda-romantica-rosas.avif', alt: 'Mesa de postres boda romantica con rosas' },
+  { src: '/img/galeria/candy-bar-boda-patio-mexicano-luces.avif', alt: 'Candy bar boda patio mexicano con luces' },
+  { src: '/img/galeria/mesa-dulces-boda-patio-interior-elegante.avif', alt: 'Mesa de dulces boda patio interior elegante' }
+];
+
+const imagenesXVAnos = [
+  { src: '/img/galeria/candy-bar-xv-anos-rosa-blanco-elegante.avif', alt: 'Candy bar XV anos rosa y blanco elegante' },
+  { src: '/img/galeria/candy-bar-xv-anos-azul-celeste-mariposas.avif', alt: 'Candy bar XV anos azul celeste con mariposas' },
+  { src: '/img/galeria/candy-bar-quinceanera-violeta-macarons.avif', alt: 'Candy bar quinceanera violeta con macarons' },
+  { src: '/img/galeria/candy-bar-quinceanos-moderno-rosa-plateado.avif', alt: 'Candy bar quinceanos moderno rosa y plateado' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif', alt: 'Mesa de dulces XV anos morado y lila elegante' }
+];
+
+const imagenesBabyShower = [
+  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar baby shower rosa pastel con flores' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', alt: 'Mesa de dulces baby shower nina rosa con cupcakes' },
+  { src: '/img/galeria/candy-bar-baby-shower-nina-cupcakes-galletas-rosa.avif', alt: 'Candy bar baby shower nina con cupcakes y galletas rosa' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-neutro-beige.avif', alt: 'Mesa de dulces baby shower neutro beige' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-nina-tierno-rosa.avif', alt: 'Mesa de dulces baby shower nina tierno rosa' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-nino-globos-estrellas.avif', alt: 'Mesa de dulces baby shower nino con globos y estrellas' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-nino-ositos-azul.avif', alt: 'Mesa de dulces baby shower nino ositos azul' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-celeste-nubes-globos.avif', alt: 'Mesa de dulces baby shower celeste con nubes y globos' },
+  { src: '/img/galeria/candy-bar-baby-shower-azul-macarons-ositos.avif', alt: 'Candy bar baby shower azul con macarons y ositos' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-botanico-verde-natural.avif', alt: 'Mesa de dulces baby shower botanico verde natural' },
+  { src: '/img/galeria/candy-bar-baby-shower-eucalipto-macarons-verde.avif', alt: 'Candy bar baby shower eucalipto con macarons verdes' },
+  { src: '/img/galeria/candy-bar-gender-reveal-nino-nina-macarons.avif', alt: 'Candy bar gender reveal nino o nina con macarons' },
+  { src: '/img/galeria/mesa-dulces-revelacion-genero-rosa-azul-elegante.avif', alt: 'Mesa de dulces revelacion de genero rosa y azul elegante' }
+];
+
+const imagenesBautizos = [
+  { src: '/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif', alt: 'Candy bar bautizo y comunion celeste con palomas' },
+  { src: '/img/galeria/candy-bar-bautizo-nino-celeste-cupcakes-galletas.avif', alt: 'Candy bar bautizo nino celeste con cupcakes y galletas' },
+  { src: '/img/galeria/mesa-dulces-bautizo-blanco-angeles-pastel.avif', alt: 'Mesa de dulces bautizo blanco con angeles en pastel' },
+  { src: '/img/galeria/mesa-dulces-bautizo-elegante-blanco-angeles-flores.avif', alt: 'Mesa de dulces bautizo elegante blanco con angeles y flores' },
+  { src: '/img/galeria/mesa-dulces-bautizo-nino-azul-angeles-cruces.avif', alt: 'Mesa de dulces bautizo nino azul con angeles y cruces' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-azul-marino-dorado-caliz.avif', alt: 'Mesa de dulces primera comunion azul marino y dorado con caliz' }
+];
+
+const imagenesCumpleanos = [
+  { src: '/img/galeria/candy-bar-unicornio-arcoiris-magico.avif', alt: 'Candy bar unicornio arcoiris magico' },
+  { src: '/img/galeria/mesa-dulces-unicornio-brillante-arcoiris.avif', alt: 'Mesa de dulces unicornio brillante con arcoiris' },
+  { src: '/img/galeria/mesa-dulces-fiesta-unicornio-rosa-pastel.avif', alt: 'Mesa de dulces fiesta unicornio rosa pastel' },
+  { src: '/img/galeria/candy-bar-dinosaurios-cumpleanos-nino.avif', alt: 'Candy bar dinosaurios cumpleanos nino' },
+  { src: '/img/galeria/candy-bar-cumple-dinosaurios-jurasico.avif', alt: 'Candy bar cumpleanos dinosaurios jurasico' },
+  { src: '/img/galeria/mesa-dulces-fiesta-dinosaurios-verde.avif', alt: 'Mesa de dulces fiesta dinosaurios verde' },
+  { src: '/img/galeria/candy-bar-safari-selva-verde-animales.avif', alt: 'Candy bar safari selva verde con animales' },
+  { src: '/img/galeria/mesa-dulces-cumpleanos-safari-animales.avif', alt: 'Mesa de dulces cumpleanos safari con animales' },
+  { src: '/img/galeria/candy-bar-mickey-clasico-cumpleanos.avif', alt: 'Candy bar Mickey clasico cumpleanos' },
+  { src: '/img/galeria/candy-bar-minnie-rosa-negro-orejas.avif', alt: 'Candy bar Minnie rosa y negro con orejas' },
+  { src: '/img/galeria/mesa-dulces-minnie-mouse-rosa-lunares.avif', alt: 'Mesa de dulces Minnie Mouse rosa con lunares' },
+  { src: '/img/galeria/candy-bar-princesa-elegante-cupcakes-coronas.avif', alt: 'Candy bar princesa elegante con cupcakes y coronas' },
+  { src: '/img/galeria/mesa-dulces-fiesta-princesas-rosa-coronas.avif', alt: 'Mesa de dulces fiesta princesas rosa con coronas' },
+  { src: '/img/galeria/mesa-dulces-princesas-rosa-castillo-coronas.avif', alt: 'Mesa de dulces princesas rosa con castillo y coronas' },
+  { src: '/img/galeria/mesa-dulces-fiesta-frozen-elsa-anna.avif', alt: 'Mesa de dulces fiesta Frozen Elsa y Anna' },
+  { src: '/img/galeria/candy-bar-superheroes-cumpleanos-nino.avif', alt: 'Candy bar superheroes cumpleanos nino' },
+  { src: '/img/galeria/mesa-dulces-paw-patrol-colorido-nino.avif', alt: 'Mesa de dulces Paw Patrol colorido para nino' },
+  { src: '/img/galeria/candy-bar-deportes-futbol-trofeos-verde.avif', alt: 'Candy bar deportes futbol con trofeos verde' },
+  { src: '/img/galeria/mesa-dulces-futbol-verde-cumpleanos-nino.avif', alt: 'Mesa de dulces futbol verde cumpleanos nino' },
+  { src: '/img/galeria/mesa-dulces-futbol-cumpleanos-nino-verde.avif', alt: 'Mesa de dulces futbol cumpleanos nino verde' },
+  { src: '/img/galeria/mesa-dulces-fiesta-circo-rojo-blanco.avif', alt: 'Mesa de dulces fiesta circo rojo y blanco' },
+  { src: '/img/galeria/mesa-dulces-fiesta-tropical-pinas-hibiscus.avif', alt: 'Mesa de dulces fiesta tropical con pinas e hibiscus' },
+  { src: '/img/galeria/candy-bar-tema-tropical-hawaiano-colorido.avif', alt: 'Candy bar tema tropical hawaiano colorido' },
+  { src: '/img/galeria/mesa-dulces-fiesta-granja-animales-campo.avif', alt: 'Mesa de dulces fiesta granja con animales de campo' },
+  { src: '/img/galeria/mesa-dulces-fiesta-neon-fluorescente.avif', alt: 'Mesa de dulces fiesta neon fluorescente' }
+];
+
+const imagenesCorporativos = [
+  { src: '/img/galeria/mesa-dulces-evento-corporativo-elegante-oscuro.avif', alt: 'Mesa de dulces evento corporativo elegante oscuro' },
+  { src: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista' },
+  { src: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif', alt: 'Candy bar graduacion con birrete elegante' },
+  { src: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif', alt: 'Mesa de dulces graduacion negro y dorado' },
+  { src: '/img/galeria/mesa-dulces-ano-nuevo-negro-dorado-glam.avif', alt: 'Mesa de dulces ano nuevo negro y dorado glam' }
+];
+
+const imagenesEspeciales = [
+  { src: '/img/galeria/candy-bar-dia-muertos-pan-muerto-cempasuchil.avif', alt: 'Candy bar Dia de Muertos con pan de muerto y cempasuchil' },
+  { src: '/img/galeria/mesa-dulces-halloween-naranja-negro.avif', alt: 'Mesa de dulces Halloween naranja y negro' },
+  { src: '/img/galeria/candy-bar-pascua-huevos-colores-primavera.avif', alt: 'Candy bar Pascua con huevos de colores primavera' },
+  { src: '/img/galeria/mesa-dulces-despedida-soltera-bubbly-bar-rosa.avif', alt: 'Mesa de dulces despedida de soltera bubbly bar rosa' },
+  { src: '/img/galeria/candy-bar-bride-to-be-rosa-negro-champagne.avif', alt: 'Candy bar bride to be rosa y negro con champagne' },
+  { src: '/img/galeria/mesa-dulces-despedida-soltera-bride-pink-glam.avif', alt: 'Mesa de dulces despedida de soltera bride pink glam' },
+  { src: '/img/galeria/mesa-dulces-tea-party-vintage-encaje-perlas.avif', alt: 'Mesa de dulces tea party vintage con encaje y perlas' },
+  { src: '/img/galeria/mesa-dulces-bodas-oro-50-aniversario-elegante.avif', alt: 'Mesa de dulces bodas de oro 50 aniversario elegante' },
+  { src: '/img/galeria/mesa-postres-mexicanos-conchas-empanadas-rustico.avif', alt: 'Mesa de postres mexicanos con conchas y empanadas rustico' },
+  { src: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif', alt: 'Mesa de dulces mexicanos tradicionales en exterior' }
+];
+
+const galleryWidths = [320, 480, 640, 800];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw';
+
+const galeriaSchema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Galeria de Mesas de Dulces - Mededul",
+  "description": "Galeria de fotos de mesas de dulces, candy bar y postres para bodas, XV anos, baby shower, bautizos y eventos corporativos en CDMX",
+  "url": "https://www.mesas-de-dulces.com/galeria",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Mededul",
+    "telephone": "+525525226442",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ciudad de Mexico",
+      "addressCountry": "MX"
+    }
+  }
+};
+---
+
+<BaseLayout
+  title="Galeria de Mesas de Dulces CDMX | Fotos de Eventos Reales"
+  description="Galeria de fotos de mesas de dulces para bodas, XV anos, baby shower, bautizos y eventos corporativos en CDMX. Inspira tu evento con nuestros trabajos reales."
+  canonical="/galeria"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(galeriaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Galeria de Mesas de Dulces y Candy Bar"
+    highlight="Galeria"
+    subtitle="Inspira tu evento con nuestros trabajos reales en Ciudad de Mexico"
+    secondaryContent={`<p>Explora nuestra <strong>galeria de mesas de dulces</strong> con mas de 500 eventos realizados en CDMX. Cada imagen representa un proyecto real: bodas elegantes, XV anos espectaculares, baby showers tiernos, bautizos significativos y eventos corporativos profesionales.</p><p>Nuestro equipo diseña cada montaje con <strong>atencion al detalle</strong> y <strong>estetica personalizada</strong> segun tu vision. Encuentra inspiracion y contactanos para crear tu mesa perfecta.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Filtros de Categoria -->
+  <section class="galeria-filtros">
+    <div class="container">
+      <div class="filtros-wrapper">
+        <button class="filtro-btn active" data-filter="todos">Todos</button>
+        {categorias.map(cat => (
+          <button class="filtro-btn" data-filter={cat.id}>
+            <span class="filtro-icono">{cat.icono}</span>
+            {cat.nombre}
+          </button>
+        ))}
+        <button class="filtro-btn" data-filter="especiales">
+          <span class="filtro-icono">✨</span>
+          Especiales
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Bodas -->
+  <section class="galeria-seccion" id="bodas" data-category="bodas">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de Dulces para"
+        titleHighlight="Bodas"
+        subtitle="Montajes romanticos y elegantes para el dia mas especial"
+      />
+      <div class="galeria-grid">
+        {imagenesBodas.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: XV Anos -->
+  <section class="galeria-seccion" id="xv-anos" data-category="xv-anos">
+    <div class="container">
+      <SectionHeader
+        title="Candy Bar para"
+        titleHighlight="XV Anos"
+        subtitle="Disenos espectaculares dignos de una quinceanera"
+      />
+      <div class="galeria-grid">
+        {imagenesXVAnos.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Baby Shower -->
+  <section class="galeria-seccion" id="baby-shower" data-category="baby-shower">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de Dulces"
+        titleHighlight="Baby Shower"
+        subtitle="Montajes tiernos para dar la bienvenida al bebe"
+      />
+      <div class="galeria-grid">
+        {imagenesBabyShower.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Bautizos -->
+  <section class="galeria-seccion" id="bautizos" data-category="bautizos">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de Dulces para"
+        titleHighlight="Bautizos y Comuniones"
+        subtitle="Celebraciones religiosas con montajes significativos"
+      />
+      <div class="galeria-grid">
+        {imagenesBautizos.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Cumpleanos -->
+  <section class="galeria-seccion" id="cumpleanos" data-category="cumpleanos">
+    <div class="container">
+      <SectionHeader
+        title="Candy Bar para"
+        titleHighlight="Cumpleanos"
+        subtitle="Tematicas infantiles y celebraciones para todas las edades"
+      />
+      <div class="galeria-grid galeria-grid-large">
+        {imagenesCumpleanos.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Corporativos -->
+  <section class="galeria-seccion" id="corporativos" data-category="corporativos">
+    <div class="container">
+      <SectionHeader
+        title="Mesas para Eventos"
+        titleHighlight="Corporativos"
+        subtitle="Presentacion profesional para empresas y graduaciones"
+      />
+      <div class="galeria-grid">
+        {imagenesCorporativos.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria: Especiales -->
+  <section class="galeria-seccion" id="especiales" data-category="especiales">
+    <div class="container">
+      <SectionHeader
+        title="Eventos"
+        titleHighlight="Especiales"
+        subtitle="Tematicas unicas para ocasiones memorables"
+      />
+      <div class="galeria-grid">
+        {imagenesEspeciales.map(img => (
+          <div class="galeria-item">
+            <img
+              src={getCdnUrl(img.src, { w: 640, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width="640"
+              height="480"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola! Vi su galeria y me gustaria cotizar una mesa de dulces"
+    badge="Te Inspiraste?"
+    title="Crea tu Mesa de Dulces"
+    titleHighlight="Perfecta"
+    text="Cotiza sin compromiso y hagamos realidad el montaje que imaginaste para tu evento."
+    buttonText="Cotizar por WhatsApp"
+  />
+</BaseLayout>
+
+<style>
+  /* Filtros */
+  .galeria-filtros {
+    padding: 40px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.1);
+  }
+
+  .filtros-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .filtro-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 2px solid rgba(233, 30, 140, 0.2);
+    background: #fff;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    cursor: pointer;
+  }
+
+  .filtro-btn:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .filtro-btn.active {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .filtro-icono {
+    font-size: 1rem;
+  }
+
+  /* Secciones de Galeria */
+  .galeria-seccion {
+    padding: 80px 0;
+  }
+
+  .galeria-seccion:nth-child(odd) {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .galeria-seccion:nth-child(even) {
+    background: #fff;
+  }
+
+  .galeria-seccion.hidden {
+    display: none;
+  }
+
+  /* Grid de Galeria */
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .galeria-grid-large {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .galeria-item {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    aspect-ratio: 4/3;
+  }
+
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .galeria-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .galeria-grid-large {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .galeria-filtros {
+      position: relative;
+    }
+
+    .galeria-grid,
+    .galeria-grid-large {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .filtros-wrapper {
+      gap: 8px;
+    }
+
+    .filtro-btn {
+      padding: 8px 14px;
+      font-size: 0.8rem;
+    }
+
+    .galeria-seccion {
+      padding: 50px 0;
+    }
+
+    .galeria-grid,
+    .galeria-grid-large {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filtro-btn {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+    }
+
+    .filtro-icono {
+      display: none;
+    }
+
+    .galeria-grid,
+    .galeria-grid-large {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+</style>
+
+<script>
+  // Filtrado de categorias
+  const filterBtns = document.querySelectorAll('.filtro-btn');
+  const sections = document.querySelectorAll('.galeria-seccion');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      // Actualizar botones activos
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Mostrar/ocultar secciones
+      if (filter === 'todos') {
+        sections.forEach(s => s.classList.remove('hidden'));
+      } else {
+        sections.forEach(s => {
+          if (s.getAttribute('data-category') === filter) {
+            s.classList.remove('hidden');
+          } else {
+            s.classList.add('hidden');
+          }
+        });
+      }
+    });
+  });
+</script>
