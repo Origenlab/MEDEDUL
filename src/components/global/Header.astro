@@ -16,7 +16,7 @@ const logoSrcSet = [
   `${getCdnUrl(logoPath, { w: 560, q: 80 })} 560w`
 ].join(', ');
 
-// Navigation structure
+// Navigation structure - Simplified menu
 const menuItems = [
   { label: 'Inicio', href: '/', exact: true },
   {
@@ -82,10 +82,6 @@ const menuItems = [
     ]
   },
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Galeria', href: '/galeria' },
-  { label: 'Precios', href: '/precios' },
-  { label: 'Testimonios', href: '/testimonios' },
-  { label: 'Zonas CDMX', href: '/zonas-cdmx', startsWith: true },
   { label: 'Blog', href: '/blog', startsWith: true }
 ];
 
