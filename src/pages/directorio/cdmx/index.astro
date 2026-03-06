@@ -1,0 +1,289 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'CDMX', url: '/directorio/cdmx' }
+];
+
+const alcaldias = [
+  { nombre: 'Alvaro Obregon', slug: 'alvaro-obregon', proveedores: 12 },
+  { nombre: 'Azcapotzalco', slug: 'azcapotzalco', proveedores: 8 },
+  { nombre: 'Benito Juarez', slug: 'benito-juarez', proveedores: 18 },
+  { nombre: 'Coyoacan', slug: 'coyoacan', proveedores: 22 },
+  { nombre: 'Cuajimalpa', slug: 'cuajimalpa', proveedores: 6 },
+  { nombre: 'Cuauhtemoc', slug: 'cuauhtemoc', proveedores: 35 },
+  { nombre: 'Gustavo A. Madero', slug: 'gustavo-a-madero', proveedores: 14 },
+  { nombre: 'Iztacalco', slug: 'iztacalco', proveedores: 7 },
+  { nombre: 'Iztapalapa', slug: 'iztapalapa', proveedores: 16 },
+  { nombre: 'Magdalena Contreras', slug: 'magdalena-contreras', proveedores: 4 },
+  { nombre: 'Miguel Hidalgo', slug: 'miguel-hidalgo', proveedores: 25 },
+  { nombre: 'Milpa Alta', slug: 'milpa-alta', proveedores: 3 },
+  { nombre: 'Tlahuac', slug: 'tlahuac', proveedores: 5 },
+  { nombre: 'Tlalpan', slug: 'tlalpan', proveedores: 11 },
+  { nombre: 'Venustiano Carranza', slug: 'venustiano-carranza', proveedores: 9 },
+  { nombre: 'Xochimilco', slug: 'xochimilco', proveedores: 13 }
+];
+
+const zonasPopulares = [
+  { nombre: 'Centro Historico', alcaldia: 'Cuauhtemoc', proveedores: 28, slug: 'centro-historico' },
+  { nombre: 'Polanco', alcaldia: 'Miguel Hidalgo', proveedores: 15, slug: 'polanco' },
+  { nombre: 'Roma Norte', alcaldia: 'Cuauhtemoc', proveedores: 18, slug: 'roma-norte' },
+  { nombre: 'Condesa', alcaldia: 'Cuauhtemoc', proveedores: 12, slug: 'condesa' },
+  { nombre: 'Coyoacan Centro', alcaldia: 'Coyoacan', proveedores: 14, slug: 'coyoacan-centro' },
+  { nombre: 'Del Valle', alcaldia: 'Benito Juarez', proveedores: 11, slug: 'del-valle' },
+  { nombre: 'Santa Fe', alcaldia: 'Cuajimalpa', proveedores: 8, slug: 'santa-fe' },
+  { nombre: 'Narvarte', alcaldia: 'Benito Juarez', proveedores: 7, slug: 'narvarte' }
+];
+
+const totalProveedores = alcaldias.reduce((acc, a) => acc + a.proveedores, 0);
+---
+
+<BaseLayout
+  title="Directorio de Dulces en CDMX | Proveedores por Alcaldia"
+  description="Encuentra proveedores de dulces para fiestas en todas las alcaldias de Ciudad de Mexico. ${totalProveedores}+ negocios verificados."
+  canonical="/directorio/cdmx"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Proveedores de Dulces en CDMX"
+    highlight="CDMX"
+    subtitle="Directorio por alcaldia y zona"
+    secondaryContent={`<p>Encuentra proveedores de dulces para fiestas en <strong>las 16 alcaldias de Ciudad de Mexico</strong>. Dulcerias, chocolaterias, confiterias y tiendas especializadas cerca de ti.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> en toda la CDMX.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Zonas Populares -->
+  <section class="zonas-populares">
+    <div class="container">
+      <SectionHeader
+        title="Zonas"
+        titleHighlight="Populares"
+        subtitle="Las zonas con mas proveedores de dulces"
+      />
+      <div class="zonas-grid">
+        {zonasPopulares.map(zona => (
+          <a href={`/directorio/cdmx/${zona.slug}`} class="zona-card">
+            <div class="zona-info">
+              <h3>{zona.nombre}</h3>
+              <span class="zona-alcaldia">{zona.alcaldia}</span>
+            </div>
+            <span class="zona-cantidad">{zona.proveedores}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Todas las Alcaldias -->
+  <section class="alcaldias-section">
+    <div class="container">
+      <SectionHeader
+        title="Todas las"
+        titleHighlight="Alcaldias"
+        subtitle="Explora proveedores en toda la Ciudad de Mexico"
+      />
+      <div class="alcaldias-grid">
+        {alcaldias.map(alcaldia => (
+          <a href={`/directorio/cdmx/${alcaldia.slug}`} class="alcaldia-card">
+            <span class="alcaldia-nombre">{alcaldia.nombre}</span>
+            <span class="alcaldia-count">{alcaldia.proveedores} proveedores</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-numero">{totalProveedores}+</span>
+          <span class="stat-label">Proveedores en CDMX</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">16</span>
+          <span class="stat-label">Alcaldias cubiertas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">6</span>
+          <span class="stat-label">Categorias</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">100%</span>
+          <span class="stat-label">Verificados</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20CDMX"
+    badge="CDMX"
+    title="¿Necesitas Ayuda para Encontrar"
+    titleHighlight="Proveedor"
+    text="Te ayudamos a encontrar el proveedor perfecto en tu zona de CDMX."
+    buttonText="Pedir Recomendacion"
+  />
+</BaseLayout>
+
+<style>
+  .zonas-populares {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+  }
+
+  .zona-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .zona-card:hover {
+    border-color: var(--rosa-principal);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.1);
+  }
+
+  .zona-info h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .zona-alcaldia {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+  }
+
+  .zona-cantidad {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+  }
+
+  .alcaldias-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .alcaldias-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 50px;
+  }
+
+  .alcaldia-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    background: #fafafa;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .alcaldia-card:hover {
+    background: rgba(209, 0, 122, 0.08);
+  }
+
+  .alcaldia-nombre {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .alcaldia-count {
+    font-size: 0.85rem;
+    color: var(--rosa-principal);
+  }
+
+  .stats-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    color: #fff;
+  }
+
+  .stat-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 1024px) {
+    .zonas-grid,
+    .alcaldias-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .zonas-populares,
+    .alcaldias-section {
+      padding: 50px 0;
+    }
+
+    .zonas-grid,
+    .alcaldias-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stat-numero {
+      font-size: 2rem;
+    }
+  }
+</style>

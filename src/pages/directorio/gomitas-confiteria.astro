@@ -1,0 +1,224 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Gomitas y Confiteria', url: '/directorio/gomitas-confiteria' }
+];
+
+const proveedores = [
+  {
+    nombre: 'Dulces Don Pepe',
+    descripcion: 'La mayor variedad de gomitas en CDMX. Nacionales, importadas, enchiladas y sin azucar.',
+    ubicacion: 'Coyoacan, CDMX',
+    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    rating: 4.8,
+    resenas: 189,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Gomitas importadas', 'Dulces enchilados', 'Sin azucar']
+  },
+  {
+    nombre: 'Candy World MX',
+    descripcion: 'Importadores de gomitas de todo el mundo. Marcas europeas, americanas y asiaticas.',
+    ubicacion: 'Polanco, CDMX',
+    imagen: '/img/galeria/candy-bar-infantil-colorido.avif',
+    rating: 4.7,
+    resenas: 134,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Haribo', 'Trolli', 'Gomitas japonesas']
+  },
+  {
+    nombre: 'La Dulceria Enchilada',
+    descripcion: 'Especialistas en dulces enchilados y chamoy. Gomitas, frutas y preparados picosos.',
+    ubicacion: 'Centro Historico, CDMX',
+    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    rating: 4.9,
+    resenas: 201,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Chamoy artesanal', 'Gomitas enchiladas', 'Skwinkles']
+  },
+  {
+    nombre: 'Confiteria Express',
+    descripcion: 'Mayoreo de confiteria para eventos. Gomitas, malvaviscos, paletas y dulces variados.',
+    ubicacion: 'Ecatepec, Edomex',
+    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    rating: 4.5,
+    resenas: 67,
+    verificado: true,
+    destacado: false,
+    especialidades: ['Mayoreo', 'Malvaviscos', 'Paletas']
+  },
+  {
+    nombre: 'Sweet Corner',
+    descripcion: 'Gomitas gourmet y confiteria premium. Opciones organicas y sin colorantes artificiales.',
+    ubicacion: 'Santa Fe, CDMX',
+    imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
+    rating: 4.6,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    especialidades: ['Gomitas organicas', 'Sin colorantes', 'Veganas']
+  }
+];
+
+const faqsCategoria = [
+  {
+    question: '¿Tienen gomitas sin azucar para diabeticos?',
+    answer: 'Si, varios proveedores manejan lineas sin azucar y aptas para diabeticos. Pregunta especificamente por estas opciones al contactarlos.'
+  },
+  {
+    question: '¿Donde consigo gomitas importadas de Japon o Corea?',
+    answer: 'Candy World MX y otras tiendas especializadas manejan gomitas asiaticas. Tambien puedes encontrarlas en tiendas de productos asiaticos.'
+  },
+  {
+    question: '¿Hacen paquetes de gomitas para mesas de dulces?',
+    answer: 'Si, la mayoria ofrece paquetes armados por cantidad de invitados. Incluyen variedad de gomitas y confiteria para eventos.'
+  }
+];
+---
+
+<BaseLayout
+  title="Gomitas y Confiteria | Directorio CDMX y Edomex"
+  description="Proveedores de gomitas importadas, dulces enchilados y confiteria variada en CDMX. Haribo, Trolli, gomitas japonesas y mas."
+  canonical="/directorio/gomitas-confiteria"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Gomitas y Confiteria"
+    highlight="Gomitas"
+    subtitle="Importadas, enchiladas, organicas y de todo tipo"
+    secondaryContent={`<p>Los mejores proveedores de <strong>gomitas y confiteria</strong> en CDMX y Estado de Mexico. Desde marcas importadas hasta dulces enchilados artesanales.</p><p><strong>${proveedores.length} proveedores verificados</strong> con la mejor variedad.</p>`}
+    showCTA={false}
+  />
+
+  <section class="filtros-section">
+    <div class="container">
+      <div class="filtros-wrapper">
+        <span class="resultados-count">{proveedores.length} proveedores encontrados</span>
+        <div class="filtros-opciones">
+          <select class="filtro-select"><option value="">Todas las zonas</option><option value="cdmx">CDMX</option><option value="edomex">Estado de Mexico</option></select>
+          <select class="filtro-select"><option value="">Ordenar por</option><option value="rating">Mejor calificados</option><option value="resenas">Mas resenas</option></select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proveedores-section">
+    <div class="container">
+      <div class="proveedores-lista">
+        {proveedores.map(prov => (
+          <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
+            <div class="proveedor-imagen">
+              <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="300" />
+              {prov.destacado && <span class="badge-destacado">Destacado</span>}
+            </div>
+            <div class="proveedor-contenido">
+              <div class="proveedor-header">
+                <div>
+                  <h2>{prov.nombre}</h2>
+                  <div class="proveedor-ubicacion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {prov.ubicacion}
+                  </div>
+                </div>
+                {prov.verificado && <span class="badge-verificado"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verificado</span>}
+              </div>
+              <p class="proveedor-descripcion">{prov.descripcion}</p>
+              <div class="proveedor-especialidades">{prov.especialidades.map(esp => <span class="especialidad-tag">{esp}</span>)}</div>
+              <div class="proveedor-footer">
+                <div class="proveedor-rating">
+                  <div class="rating-stars">{[1,2,3,4,5].map(star => <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>
+                  <span class="rating-numero">{prov.rating}</span>
+                  <span class="rating-resenas">({prov.resenas} resenas)</span>
+                </div>
+                <div class="proveedor-acciones">
+                  <a href="#" class="btn-perfil">Ver perfil</a>
+                  <a href="#" class="btn-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Contactar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="otras-categorias">
+    <div class="container">
+      <SectionHeader title="Explora Otras" titleHighlight="Categorias" subtitle="Mas opciones para tu evento" />
+      <div class="categorias-grid">
+        <a href="/directorio/dulces-tradicionales" class="cat-link"><span class="cat-icon">🍬</span><span>Dulces Tradicionales</span></a>
+        <a href="/directorio/chocolates-trufas" class="cat-link"><span class="cat-icon">🍫</span><span>Chocolates y Trufas</span></a>
+        <a href="/directorio/galletas-cupcakes" class="cat-link"><span class="cat-icon">🧁</span><span>Galletas y Cupcakes</span></a>
+        <a href="/directorio/paletas-piruletas" class="cat-link"><span class="cat-icon">🍡</span><span>Paletas y Piruletas</span></a>
+        <a href="/directorio/dulces-importados" class="cat-link"><span class="cat-icon">🌍</span><span>Dulces Importados</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader title="Preguntas sobre" titleHighlight="Gomitas" subtitle="Informacion util" />
+      <FAQ items={faqsCategoria} id="faq-gomitas" />
+    </div>
+  </section>
+
+  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20gomitas%20y%20confiteria" badge="Gomitas y Confiteria" title="¿Buscas Gomitas para tu" titleHighlight="Evento" text="Te ayudamos a encontrar el proveedor perfecto." buttonText="Pedir Recomendacion" />
+</BaseLayout>
+
+<style>
+  .filtros-section { padding: 24px 0; background: #fff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 70px; z-index: 50; }
+  .filtros-wrapper { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .resultados-count { font-weight: 600; color: var(--texto-oscuro); }
+  .filtros-opciones { display: flex; gap: 12px; }
+  .filtro-select { padding: 10px 20px; border: 2px solid #f0f0f0; border-radius: 10px; font-size: 0.9rem; background: #fff; cursor: pointer; }
+  .proveedores-section { padding: 50px 0 80px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .proveedores-lista { display: flex; flex-direction: column; gap: 24px; }
+  .proveedor-item { display: grid; grid-template-columns: 320px 1fr; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+  .proveedor-item--destacado { border: 2px solid rgba(255, 184, 0, 0.4); box-shadow: 0 8px 30px rgba(255, 184, 0, 0.15); }
+  .proveedor-imagen { position: relative; height: 100%; min-height: 240px; }
+  .proveedor-imagen img { width: 100%; height: 100%; object-fit: cover; }
+  .badge-destacado { position: absolute; top: 16px; left: 16px; background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+  .proveedor-contenido { padding: 28px; display: flex; flex-direction: column; }
+  .proveedor-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+  .proveedor-header h2 { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--texto-oscuro); margin: 0 0 8px; }
+  .proveedor-ubicacion { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--texto-light); }
+  .proveedor-ubicacion svg { width: 16px; height: 16px; }
+  .badge-verificado { display: inline-flex; align-items: center; gap: 6px; background: rgba(37, 211, 102, 0.1); color: #128C7E; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+  .badge-verificado svg { width: 18px; height: 18px; }
+  .proveedor-descripcion { font-size: 0.95rem; color: var(--texto-light); line-height: 1.6; margin: 0 0 16px; }
+  .proveedor-especialidades { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .especialidad-tag { background: rgba(209, 0, 122, 0.08); color: var(--rosa-principal); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+  .proveedor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 20px; border-top: 1px solid #f5f5f5; }
+  .proveedor-rating { display: flex; align-items: center; gap: 8px; }
+  .rating-stars { display: flex; gap: 2px; }
+  .rating-stars svg { width: 18px; height: 18px; }
+  .rating-numero { font-weight: 700; color: var(--texto-oscuro); }
+  .rating-resenas { font-size: 0.85rem; color: var(--texto-light); }
+  .proveedor-acciones { display: flex; gap: 12px; }
+  .btn-perfil { padding: 10px 24px; border: 2px solid #f0f0f0; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: var(--texto-oscuro); text-decoration: none; }
+  .btn-perfil:hover { border-color: var(--rosa-principal); color: var(--rosa-principal); }
+  .btn-whatsapp { display: flex; align-items: center; gap: 8px; padding: 10px 24px; background: #25D366; border-radius: 10px; color: #fff; font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+  .btn-whatsapp svg { width: 20px; height: 20px; }
+  .btn-whatsapp:hover { background: #128C7E; }
+  .otras-categorias { padding: 80px 0; background: #fff; }
+  .categorias-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+  .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
+  .cat-link:hover { border-color: var(--rosa-principal); }
+  .cat-icon { font-size: 1.3rem; }
+  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; } }
+  @media (max-width: 768px) { .filtros-section { top: 60px; } .proveedor-header, .proveedor-footer { flex-direction: column; gap: 16px; } .proveedor-acciones { width: 100%; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
+</style>

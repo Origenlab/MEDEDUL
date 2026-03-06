@@ -1,0 +1,419 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Todos los Proveedores', url: '/directorio/todos' }
+];
+
+// Todos los proveedores (combinados de todas las categorias)
+const proveedores = [
+  // Dulces Tradicionales
+  { nombre: 'La Casa del Mazapan', categoria: 'Dulces Tradicionales', ubicacion: 'Centro Historico, CDMX', imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif', rating: 4.9, resenas: 156, verificado: true, destacado: true },
+  { nombre: 'Dulceria Don Pancho', categoria: 'Dulces Tradicionales', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.8, resenas: 98, verificado: true, destacado: false },
+  { nombre: 'Alegrias de Oaxaca', categoria: 'Dulces Tradicionales', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', rating: 4.7, resenas: 67, verificado: true, destacado: false },
+  { nombre: 'Cocadas La Abuela', categoria: 'Dulces Tradicionales', ubicacion: 'Del Valle, CDMX', imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', rating: 4.9, resenas: 112, verificado: true, destacado: true },
+  // Chocolates
+  { nombre: 'Chocolateria Gourmet MX', categoria: 'Chocolates y Trufas', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.9, resenas: 203, verificado: true, destacado: true },
+  { nombre: 'Cacao Sagrado', categoria: 'Chocolates y Trufas', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', rating: 4.8, resenas: 87, verificado: true, destacado: true },
+  { nombre: 'Belgian Touch', categoria: 'Chocolates y Trufas', ubicacion: 'Santa Fe, CDMX', imagen: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif', rating: 4.9, resenas: 156, verificado: true, destacado: true },
+  // Gomitas
+  { nombre: 'Dulces Don Pepe', categoria: 'Gomitas y Confiteria', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-infantil-colorido.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true },
+  { nombre: 'Candy World MX', categoria: 'Gomitas y Confiteria', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.7, resenas: 134, verificado: true, destacado: true },
+  { nombre: 'La Dulceria Enchilada', categoria: 'Gomitas y Confiteria', ubicacion: 'Centro Historico, CDMX', imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif', rating: 4.9, resenas: 201, verificado: true, destacado: true },
+  // Galletas y Cupcakes
+  { nombre: 'Sweet Factory', categoria: 'Galletas y Cupcakes', ubicacion: 'Satelite, Naucalpan', imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', rating: 4.9, resenas: 234, verificado: true, destacado: true },
+  { nombre: 'Cookie Monster MX', categoria: 'Galletas y Cupcakes', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true },
+  { nombre: 'Galletas con Amor', categoria: 'Galletas y Cupcakes', ubicacion: 'Del Valle, CDMX', imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', rating: 4.9, resenas: 98, verificado: true, destacado: true },
+  // Paletas
+  { nombre: 'Paletas Artesanales Luna', categoria: 'Paletas y Piruletas', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.9, resenas: 145, verificado: true, destacado: true },
+  { nombre: 'Cake Pops Studio', categoria: 'Paletas y Piruletas', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.8, resenas: 98, verificado: true, destacado: true },
+  // Importados
+  { nombre: 'American Candy Store', categoria: 'Dulces Importados', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.9, resenas: 267, verificado: true, destacado: true },
+  { nombre: 'Tokyo Sweets MX', categoria: 'Dulces Importados', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true }
+];
+
+const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gomitas y Confiteria', 'Galletas y Cupcakes', 'Paletas y Piruletas', 'Dulces Importados'];
+---
+
+<BaseLayout
+  title="Todos los Proveedores de Dulces | Directorio CDMX y Edomex"
+  description="Listado completo de proveedores de dulces para fiestas en CDMX y Estado de Mexico. ${proveedores.length}+ negocios verificados."
+  canonical="/directorio/todos"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Todos los Proveedores"
+    highlight="Proveedores"
+    subtitle="Directorio completo de dulces para fiestas"
+    secondaryContent={`<p>Explora nuestro directorio completo de <strong>proveedores de dulces</strong> en CDMX y Estado de Mexico. Todos verificados y listos para tu evento.</p><p><strong>${proveedores.length}+ negocios</strong> en todas las categorias.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Filtros -->
+  <section class="filtros-section">
+    <div class="container">
+      <div class="filtros-wrapper">
+        <div class="filtros-categorias">
+          {categorias.map((cat, i) => (
+            <button class={`filtro-btn ${i === 0 ? 'active' : ''}`} data-categoria={cat}>{cat}</button>
+          ))}
+        </div>
+        <div class="filtros-secundarios">
+          <select class="filtro-select">
+            <option value="">Todas las zonas</option>
+            <option value="cdmx">CDMX</option>
+            <option value="edomex">Estado de Mexico</option>
+          </select>
+          <select class="filtro-select">
+            <option value="rating">Mejor calificados</option>
+            <option value="resenas">Mas resenas</option>
+            <option value="nombre">Nombre A-Z</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lista de Proveedores -->
+  <section class="proveedores-section">
+    <div class="container">
+      <div class="proveedores-header">
+        <span class="resultados-count">{proveedores.length} proveedores encontrados</span>
+      </div>
+
+      <div class="proveedores-grid">
+        {proveedores.map(prov => (
+          <div class="proveedor-card" data-categoria={prov.categoria}>
+            <div class="proveedor-imagen">
+              <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="250" />
+              {prov.destacado && <span class="badge-destacado">Destacado</span>}
+              {prov.verificado && (
+                <span class="badge-verificado">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </span>
+              )}
+            </div>
+            <div class="proveedor-contenido">
+              <span class="proveedor-categoria">{prov.categoria}</span>
+              <h3>{prov.nombre}</h3>
+              <div class="proveedor-ubicacion">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                {prov.ubicacion}
+              </div>
+              <div class="proveedor-rating">
+                <div class="rating-stars">
+                  {[1,2,3,4,5].map(star => (
+                    <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                </div>
+                <span class="rating-numero">{prov.rating}</span>
+                <span class="rating-resenas">({prov.resenas})</span>
+              </div>
+              <div class="proveedor-acciones">
+                <a href="#" class="btn-perfil">Ver perfil</a>
+                <a href="#" class="btn-whatsapp">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20un%20proveedor%20de%20dulces"
+    badge="Ayuda Personalizada"
+    title="¿No encuentras lo que"
+    titleHighlight="buscas"
+    text="Te ayudamos a encontrar el proveedor perfecto para tu evento."
+    buttonText="Pedir Recomendacion"
+  />
+</BaseLayout>
+
+<style>
+  .filtros-section {
+    padding: 24px 0;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 70px;
+    z-index: 50;
+  }
+
+  .filtros-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .filtros-categorias {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .filtro-btn {
+    padding: 10px 20px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .filtro-btn:hover,
+  .filtro-btn.active {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .filtros-secundarios {
+    display: flex;
+    gap: 12px;
+  }
+
+  .filtro-select {
+    padding: 10px 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    background: #fff;
+  }
+
+  .proveedores-section {
+    padding: 50px 0 80px;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .proveedores-header {
+    margin-bottom: 30px;
+  }
+
+  .resultados-count {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .proveedor-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s;
+  }
+
+  .proveedor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  }
+
+  .proveedor-imagen {
+    position: relative;
+    height: 180px;
+  }
+
+  .proveedor-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .badge-destacado {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .badge-verificado {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .badge-verificado svg {
+    width: 18px;
+    height: 18px;
+    color: #25D366;
+  }
+
+  .proveedor-contenido {
+    padding: 20px;
+  }
+
+  .proveedor-categoria {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .proveedor-contenido h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 6px 0 8px;
+  }
+
+  .proveedor-ubicacion {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--texto-light);
+    margin-bottom: 12px;
+  }
+
+  .proveedor-ubicacion svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .proveedor-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .rating-stars svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .rating-numero {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--texto-oscuro);
+  }
+
+  .rating-resenas {
+    font-size: 0.75rem;
+    color: var(--texto-light);
+  }
+
+  .proveedor-acciones {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-perfil {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-perfil:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #25D366;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-whatsapp svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #128C7E;
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filtros-categorias {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 10px;
+    }
+
+    .filtro-btn {
+      flex-shrink: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .filtros-section {
+      top: 60px;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filtros-secundarios {
+      flex-direction: column;
+    }
+
+    .filtro-select {
+      width: 100%;
+    }
+  }
+</style>

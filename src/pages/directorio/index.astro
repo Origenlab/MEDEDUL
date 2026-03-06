@@ -1,0 +1,1166 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Directorio de Dulces', url: '/directorio' }
+];
+
+// Categorias de proveedores
+const categorias = [
+  {
+    nombre: 'Dulces Tradicionales',
+    icono: '🍬',
+    descripcion: 'Alegrías, cocadas, mazapanes, tamarindos y dulces típicos mexicanos',
+    cantidad: 24,
+    href: '/directorio/dulces-tradicionales'
+  },
+  {
+    nombre: 'Chocolates y Trufas',
+    icono: '🍫',
+    descripcion: 'Chocolaterías artesanales, trufas gourmet y bombones finos',
+    cantidad: 18,
+    href: '/directorio/chocolates-trufas'
+  },
+  {
+    nombre: 'Gomitas y Confitería',
+    icono: '🍭',
+    descripcion: 'Gomitas importadas, dulces enchilados y confitería variada',
+    cantidad: 31,
+    href: '/directorio/gomitas-confiteria'
+  },
+  {
+    nombre: 'Galletas y Cupcakes',
+    icono: '🧁',
+    descripcion: 'Galletas decoradas, cupcakes personalizados y repostería creativa',
+    cantidad: 22,
+    href: '/directorio/galletas-cupcakes'
+  },
+  {
+    nombre: 'Paletas y Piruletas',
+    icono: '🍡',
+    descripcion: 'Paletas artesanales, cake pops y piruletas personalizadas',
+    cantidad: 15,
+    href: '/directorio/paletas-piruletas'
+  },
+  {
+    nombre: 'Dulces Importados',
+    icono: '🌍',
+    descripcion: 'Dulces americanos, japoneses, coreanos y de todo el mundo',
+    cantidad: 12,
+    href: '/directorio/dulces-importados'
+  }
+];
+
+// Proveedores destacados (ejemplos placeholder)
+const proveedoresDestacados = [
+  {
+    nombre: 'La Casa del Mazapan',
+    categoria: 'Dulces Tradicionales',
+    ubicacion: 'Centro Historico, CDMX',
+    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    rating: 4.9,
+    resenas: 156,
+    verificado: true,
+    destacado: true
+  },
+  {
+    nombre: 'Chocolateria Gourmet MX',
+    categoria: 'Chocolates y Trufas',
+    ubicacion: 'Polanco, CDMX',
+    imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
+    rating: 4.8,
+    resenas: 203,
+    verificado: true,
+    destacado: true
+  },
+  {
+    nombre: 'Dulces Don Pepe',
+    categoria: 'Gomitas y Confiteria',
+    ubicacion: 'Coyoacan, CDMX',
+    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    rating: 4.7,
+    resenas: 89,
+    verificado: true,
+    destacado: false
+  },
+  {
+    nombre: 'Sweet Factory Edomex',
+    categoria: 'Galletas y Cupcakes',
+    ubicacion: 'Satelite, Naucalpan',
+    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    rating: 4.9,
+    resenas: 134,
+    verificado: true,
+    destacado: false
+  }
+];
+
+// Zonas CDMX
+const zonasCDMX = [
+  { nombre: 'Centro Historico', cantidad: 28 },
+  { nombre: 'Polanco', cantidad: 15 },
+  { nombre: 'Coyoacan', cantidad: 22 },
+  { nombre: 'Roma Norte', cantidad: 18 },
+  { nombre: 'Condesa', cantidad: 12 },
+  { nombre: 'Del Valle', cantidad: 14 },
+  { nombre: 'Santa Fe', cantidad: 8 },
+  { nombre: 'Xochimilco', cantidad: 19 }
+];
+
+// Zonas Estado de Mexico
+const zonasEdomex = [
+  { nombre: 'Naucalpan', cantidad: 21 },
+  { nombre: 'Tlalnepantla', cantidad: 18 },
+  { nombre: 'Ecatepec', cantidad: 25 },
+  { nombre: 'Nezahualcoyotl', cantidad: 16 },
+  { nombre: 'Toluca', cantidad: 32 },
+  { nombre: 'Metepec', cantidad: 14 },
+  { nombre: 'Texcoco', cantidad: 11 },
+  { nombre: 'Atizapan', cantidad: 9 }
+];
+
+// FAQs del directorio
+const faqsDirectorio = [
+  {
+    question: '¿Como puedo registrar mi negocio en el directorio?',
+    answer: 'Puedes registrar tu negocio de forma gratuita enviando tu informacion por WhatsApp o llenando el formulario de registro. Verificamos cada negocio para garantizar la calidad del directorio.'
+  },
+  {
+    question: '¿El directorio es gratuito?',
+    answer: 'Si, el registro basico es completamente gratuito. Ofrecemos opciones premium para negocios que deseen mayor visibilidad, como listados destacados y posicionamiento preferente.'
+  },
+  {
+    question: '¿Como verifican los negocios listados?',
+    answer: 'Verificamos cada negocio mediante contacto directo, revision de redes sociales y, cuando es posible, visitas presenciales. Los negocios verificados muestran una insignia especial.'
+  },
+  {
+    question: '¿Puedo contactar directamente a los proveedores?',
+    answer: 'Si, cada listado incluye informacion de contacto directo: telefono, WhatsApp, redes sociales y ubicacion. Puedes contactarlos sin intermediarios.'
+  },
+  {
+    question: '¿Que zonas cubre el directorio?',
+    answer: 'Actualmente cubrimos toda la Ciudad de Mexico (16 alcaldias) y los principales municipios del Estado de Mexico. Estamos en constante expansion.'
+  }
+];
+
+// Schema para SEO
+const directorioSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Directorio de Proveedores de Dulces para Fiestas - CDMX y Edomex",
+  "description": "Directorio completo de tiendas y proveedores de dulces para fiestas en Ciudad de Mexico y Estado de Mexico",
+  "numberOfItems": 150,
+  "itemListElement": categorias.map((cat, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": cat.nombre,
+    "description": cat.descripcion
+  }))
+};
+---
+
+<BaseLayout
+  title="Directorio de Dulces para Fiestas | CDMX y Estado de Mexico"
+  description="Encuentra los mejores proveedores de dulces para fiestas en CDMX y Estado de Mexico. Dulces tradicionales, chocolates, gomitas, galletas y mas. Directorio verificado con 150+ negocios."
+  canonical="/directorio"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(directorioSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Directorio de Dulces para Fiestas"
+    highlight="Dulces para Fiestas"
+    subtitle="CDMX y Estado de Mexico"
+    secondaryContent={`<p>El directorio mas completo de <strong>proveedores de dulces para fiestas</strong> en la zona metropolitana. Encuentra dulcerias, chocolaterias, confiterias y tiendas especializadas verificadas.</p><p><strong>150+ negocios</strong> en Ciudad de Mexico y Estado de Mexico. Todos verificados, con resenas reales y contacto directo.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Buscador y Stats -->
+  <section class="buscador-section">
+    <div class="container">
+      <div class="buscador-wrapper">
+        <div class="buscador-box">
+          <div class="buscador-input-group">
+            <svg class="buscador-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input type="text" placeholder="Buscar dulcerias, chocolaterias, gomitas..." class="buscador-input" />
+          </div>
+          <select class="buscador-select">
+            <option value="">Todas las zonas</option>
+            <optgroup label="CDMX">
+              {zonasCDMX.map(z => <option value={z.nombre}>{z.nombre}</option>)}
+            </optgroup>
+            <optgroup label="Estado de Mexico">
+              {zonasEdomex.map(z => <option value={z.nombre}>{z.nombre}</option>)}
+            </optgroup>
+          </select>
+          <button class="buscador-btn">Buscar</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-numero">150+</span>
+            <span class="stat-label">Negocios</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-numero">6</span>
+            <span class="stat-label">Categorias</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-numero">24</span>
+            <span class="stat-label">Zonas</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-numero">100%</span>
+            <span class="stat-label">Verificados</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categorias -->
+  <section class="categorias-section">
+    <div class="container">
+      <SectionHeader
+        title="Explora por"
+        titleHighlight="Categoria"
+        subtitle="Encuentra exactamente lo que necesitas para tu evento"
+      />
+
+      <div class="categorias-grid">
+        {categorias.map(cat => (
+          <a href={cat.href} class="categoria-card">
+            <span class="categoria-icono">{cat.icono}</span>
+            <div class="categoria-info">
+              <h3>{cat.nombre}</h3>
+              <p>{cat.descripcion}</p>
+              <span class="categoria-cantidad">{cat.cantidad} negocios</span>
+            </div>
+            <svg class="categoria-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Proveedores Destacados -->
+  <section class="destacados-section">
+    <div class="container">
+      <SectionHeader
+        title="Proveedores"
+        titleHighlight="Destacados"
+        subtitle="Los negocios mejor calificados por la comunidad"
+      />
+
+      <div class="proveedores-grid">
+        {proveedoresDestacados.map(prov => (
+          <div class="proveedor-card">
+            <div class="proveedor-imagen">
+              <img
+                src={getCdnUrl(prov.imagen, { w: 400, q: 80 })}
+                alt={prov.nombre}
+                loading="lazy"
+                width="400"
+                height="250"
+              />
+              {prov.destacado && <span class="proveedor-badge">Destacado</span>}
+              {prov.verificado && (
+                <span class="proveedor-verificado" title="Negocio verificado">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </span>
+              )}
+            </div>
+            <div class="proveedor-contenido">
+              <span class="proveedor-categoria">{prov.categoria}</span>
+              <h3>{prov.nombre}</h3>
+              <div class="proveedor-ubicacion">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                {prov.ubicacion}
+              </div>
+              <div class="proveedor-rating">
+                <div class="rating-stars">
+                  {[1,2,3,4,5].map(star => (
+                    <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}>
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+                <span class="rating-numero">{prov.rating}</span>
+                <span class="rating-resenas">({prov.resenas} resenas)</span>
+              </div>
+              <div class="proveedor-acciones">
+                <a href="#" class="btn-ver-perfil">Ver perfil</a>
+                <a href="#" class="btn-contactar">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ver-todos-wrapper">
+        <a href="/directorio/todos" class="btn-ver-todos">
+          Ver todos los proveedores
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zonas -->
+  <section class="zonas-section">
+    <div class="container">
+      <div class="zonas-grid-wrapper">
+        <!-- CDMX -->
+        <div class="zona-bloque">
+          <div class="zona-header">
+            <div class="zona-icono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <h2>Ciudad de Mexico</h2>
+              <p>16 alcaldias cubiertas</p>
+            </div>
+          </div>
+          <div class="zona-lista">
+            {zonasCDMX.map(z => (
+              <a href={`/directorio/cdmx/${z.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="zona-item">
+                <span class="zona-nombre">{z.nombre}</span>
+                <span class="zona-cantidad">{z.cantidad}</span>
+              </a>
+            ))}
+          </div>
+          <a href="/directorio/cdmx" class="zona-ver-todas">Ver todas las zonas CDMX</a>
+        </div>
+
+        <!-- Estado de Mexico -->
+        <div class="zona-bloque">
+          <div class="zona-header">
+            <div class="zona-icono zona-icono--edomex">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <h2>Estado de Mexico</h2>
+              <p>Principales municipios</p>
+            </div>
+          </div>
+          <div class="zona-lista">
+            {zonasEdomex.map(z => (
+              <a href={`/directorio/edomex/${z.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="zona-item">
+                <span class="zona-nombre">{z.nombre}</span>
+                <span class="zona-cantidad">{z.cantidad}</span>
+              </a>
+            ))}
+          </div>
+          <a href="/directorio/edomex" class="zona-ver-todas">Ver todas las zonas Edomex</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registra tu negocio -->
+  <section class="registro-section">
+    <div class="container">
+      <div class="registro-content">
+        <div class="registro-texto">
+          <span class="registro-badge">Para Negocios</span>
+          <h2>Registra tu Negocio <span>Gratis</span></h2>
+          <p>Llega a miles de personas buscando dulces para sus fiestas y eventos. El registro basico es completamente gratuito.</p>
+
+          <ul class="registro-beneficios">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Perfil de negocio completo con fotos
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Contacto directo con clientes potenciales
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Insignia de negocio verificado
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Sistema de resenas y calificaciones
+            </li>
+          </ul>
+
+          <a href="https://wa.me/525525226442?text=Hola!%20Quiero%20registrar%20mi%20negocio%20en%20el%20directorio%20de%20dulces" class="btn-registrar">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            </svg>
+            Registrar mi Negocio
+          </a>
+        </div>
+
+        <div class="registro-imagen">
+          <img
+            src={getCdnUrl('/img/galeria/candy-bar-gourmet-elegante.avif', { w: 600, q: 80 })}
+            alt="Registra tu negocio de dulces en el directorio"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre el"
+        titleHighlight="Directorio"
+        subtitle="Todo lo que necesitas saber"
+      />
+      <FAQ items={faqsDirectorio} id="faq-directorio" />
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20un%20proveedor%20de%20dulces"
+    badge="Ayuda Personalizada"
+    title="¿No encuentras lo que"
+    titleHighlight="buscas"
+    text="Contactanos y te ayudamos a encontrar el proveedor perfecto para tu evento. Conocemos a todos los negocios del directorio."
+    buttonText="Pedir Recomendacion"
+  />
+</BaseLayout>
+
+<style>
+  /* Buscador Section */
+  .buscador-section {
+    padding: 0;
+    margin-top: -40px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .buscador-wrapper {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    padding: 32px;
+  }
+
+  .buscador-box {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .buscador-input-group {
+    flex: 1;
+    position: relative;
+  }
+
+  .buscador-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    color: #999;
+  }
+
+  .buscador-input {
+    width: 100%;
+    padding: 18px 20px 18px 56px;
+    border: 2px solid #f0f0f0;
+    border-radius: 14px;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+
+  .buscador-input:focus {
+    outline: none;
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.1);
+  }
+
+  .buscador-select {
+    padding: 18px 24px;
+    border: 2px solid #f0f0f0;
+    border-radius: 14px;
+    font-size: 1rem;
+    background: #fff;
+    min-width: 200px;
+    cursor: pointer;
+  }
+
+  .buscador-select:focus {
+    outline: none;
+    border-color: var(--rosa-principal);
+  }
+
+  .buscador-btn {
+    padding: 18px 40px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .buscador-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+  }
+
+  /* Categorias Section */
+  .categorias-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+  }
+
+  .categoria-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .categoria-card:hover {
+    border-color: var(--rosa-principal);
+    box-shadow: 0 10px 40px rgba(209, 0, 122, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .categoria-icono {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .categoria-info {
+    flex: 1;
+  }
+
+  .categoria-info h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 6px;
+  }
+
+  .categoria-info p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0 0 8px;
+    line-height: 1.5;
+  }
+
+  .categoria-cantidad {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+  }
+
+  .categoria-arrow {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+  }
+
+  /* Destacados Section */
+  .destacados-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .proveedor-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+  }
+
+  .proveedor-imagen {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .proveedor-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .proveedor-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .proveedor-verificado {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .proveedor-verificado svg {
+    width: 20px;
+    height: 20px;
+    color: #25D366;
+  }
+
+  .proveedor-contenido {
+    padding: 20px;
+  }
+
+  .proveedor-categoria {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .proveedor-contenido h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 6px 0 10px;
+  }
+
+  .proveedor-ubicacion {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    margin-bottom: 12px;
+  }
+
+  .proveedor-ubicacion svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .proveedor-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .rating-stars svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .rating-numero {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    font-size: 0.9rem;
+  }
+
+  .rating-resenas {
+    font-size: 0.8rem;
+    color: var(--texto-light);
+  }
+
+  .proveedor-acciones {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-ver-perfil {
+    flex: 1;
+    padding: 10px 16px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ver-perfil:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .btn-contactar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #25D366;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-contactar svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn-contactar:hover {
+    background: #128C7E;
+  }
+
+  .ver-todos-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-ver-todos {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ver-todos svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-ver-todos:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Zonas Section */
+  .zonas-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .zonas-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .zona-bloque {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  .zona-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f5f5f5;
+  }
+
+  .zona-icono {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zona-icono--edomex {
+    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  }
+
+  .zona-icono svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+
+  .zona-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0;
+  }
+
+  .zona-header p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .zona-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .zona-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #fafafa;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .zona-item:hover {
+    background: rgba(209, 0, 122, 0.08);
+  }
+
+  .zona-nombre {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+  }
+
+  .zona-cantidad {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    background: rgba(209, 0, 122, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .zona-ver-todas {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 14px;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+
+  .zona-ver-todas:hover {
+    background: rgba(209, 0, 122, 0.08);
+  }
+
+  /* Registro Section */
+  .registro-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    color: #fff;
+  }
+
+  .registro-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .registro-badge {
+    display: inline-block;
+    background: rgba(209, 0, 122, 0.2);
+    color: var(--rosa-principal);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .registro-texto h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 20px;
+    line-height: 1.2;
+  }
+
+  .registro-texto h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .registro-texto > p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin: 0 0 28px;
+  }
+
+  .registro-beneficios {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .registro-beneficios li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .registro-beneficios svg {
+    width: 22px;
+    height: 22px;
+    color: #25D366;
+    flex-shrink: 0;
+  }
+
+  .btn-registrar {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-registrar svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .btn-registrar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(209, 0, 122, 0.4);
+  }
+
+  .registro-imagen {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .registro-imagen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .zonas-grid-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .registro-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .registro-imagen {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .buscador-box {
+      flex-direction: column;
+    }
+
+    .buscador-select {
+      width: 100%;
+    }
+
+    .buscador-btn {
+      width: 100%;
+    }
+
+    .stats-row {
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .categorias-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .buscador-section {
+      margin-top: -20px;
+    }
+
+    .buscador-wrapper {
+      padding: 24px;
+      border-radius: 20px;
+    }
+
+    .stat-numero {
+      font-size: 1.5rem;
+    }
+
+    .categorias-section,
+    .destacados-section,
+    .zonas-section,
+    .registro-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .zona-lista {
+      grid-template-columns: 1fr;
+    }
+
+    .zona-bloque {
+      padding: 24px;
+    }
+
+    .registro-texto h2 {
+      font-size: 1.7rem;
+    }
+  }
+</style>
