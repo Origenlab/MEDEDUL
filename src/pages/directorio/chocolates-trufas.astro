@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
@@ -14,89 +15,105 @@ const breadcrumbItems = [
 
 const proveedores = [
   {
-    nombre: 'Chocolateria Gourmet MX',
-    descripcion: 'Chocolates belgas artesanales, trufas gourmet y bombones personalizados para eventos premium.',
-    ubicacion: 'Polanco, CDMX',
+    nombre: 'Dulcería El Secreto',
+    slug: 'dulceria-el-secreto',
+    descripcion: 'Dulcería ubicada en la exclusiva zona de San Ángel Inn. Especializada en dulces selectos, chocolates finos y productos gourmet para eventos de alto nivel.',
+    ubicacion: 'San Ángel Inn, Álvaro Obregón',
+    telefono: '55 5550 3622',
     imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
-    rating: 4.9,
-    resenas: 203,
-    verificado: true,
-    destacado: true,
-    especialidades: ['Trufas belgas', 'Bombones', 'Chocolate personalizado']
-  },
-  {
-    nombre: 'Cacao Sagrado',
-    descripcion: 'Chocolate oaxaqueno de origen, tabletas artesanales y bebidas de cacao ceremonial.',
-    ubicacion: 'Roma Norte, CDMX',
-    imagen: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif',
-    rating: 4.8,
+    rating: 4.4,
     resenas: 87,
     verificado: true,
     destacado: true,
-    especialidades: ['Chocolate oaxaqueno', 'Tabletas', 'Cacao ceremonial']
+    especialidades: ['Zona premium', 'Chocolates finos', 'Productos gourmet']
   },
   {
-    nombre: 'Trufas & Dreams',
-    descripcion: 'Especialistas en trufas de autor con sabores innovadores: mezcal, tamarindo, lavanda.',
-    ubicacion: 'Condesa, CDMX',
-    imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
-    rating: 4.7,
-    resenas: 65,
-    verificado: true,
-    destacado: false,
-    especialidades: ['Trufas de autor', 'Sabores mexicanos', 'Cajas regalo']
-  },
-  {
-    nombre: 'Chocolates Artesanales Luna',
-    descripcion: 'Bombones rellenos artesanales con ingredientes naturales. Sin conservadores.',
-    ubicacion: 'Satelite, Naucalpan',
-    imagen: '/img/galeria/candy-bar-boda-contemporanea-geometrico.avif',
-    rating: 4.6,
-    resenas: 42,
-    verificado: true,
-    destacado: false,
-    especialidades: ['Bombones rellenos', 'Sin conservadores', 'Ingredientes naturales']
-  },
-  {
-    nombre: 'Belgian Touch',
-    descripcion: 'Importadores de chocolate belga premium. Pralines, ganaches y figuras de chocolate.',
-    ubicacion: 'Santa Fe, CDMX',
+    nombre: 'Dulcería Mixcoac',
+    slug: 'dulceria-mixcoac',
+    descripcion: 'Dulcería tradicional en Mixcoac con sección de chocolates y confitería fina. Más de 1,100 reseñas respaldan su calidad y variedad.',
+    ubicacion: 'Mixcoac, Benito Juárez',
+    telefono: '55 1518 0985',
     imagen: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif',
-    rating: 4.9,
-    resenas: 156,
+    rating: 4.3,
+    resenas: 1135,
     verificado: true,
     destacado: true,
-    especialidades: ['Chocolate belga', 'Pralines', 'Figuras personalizadas']
+    especialidades: ['Chocolates variados', 'Confitería fina', 'Bombones']
+  },
+  {
+    nombre: 'Dulcería El Gordo',
+    slug: 'dulceria-el-gordo',
+    descripcion: 'En el Mercado de Dulces La Merced. Gran variedad de chocolates a precios de mayoreo, ideal para compras en cantidad.',
+    ubicacion: 'Mercado de Dulces La Merced',
+    telefono: '55 5522 8007',
+    imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    rating: 4.3,
+    resenas: 429,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Mayoreo', 'Chocolates variados', 'Mercado La Merced']
+  },
+  {
+    nombre: 'Dulcería Melissa',
+    slug: 'dulceria-melissa',
+    descripcion: 'Dulcería con excelente rating (4.5) que incluye sección de chocolates y bombones para eventos especiales.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 7675 9070',
+    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    rating: 4.5,
+    resenas: 637,
+    verificado: true,
+    destacado: false,
+    especialidades: ['Chocolates', 'Bombones', 'Atención personalizada']
   }
 ];
 
 const faqsCategoria = [
   {
+    question: '¿Dónde comprar chocolates finos para eventos en CDMX?',
+    answer: 'Dulcería El Secreto en San Ángel Inn es la mejor opción para chocolates premium y productos gourmet. Para mayoreo, el Mercado de La Merced (Dulcería El Gordo) ofrece variedad a buenos precios.'
+  },
+  {
     question: '¿Los chocolates se derriten en eventos al aire libre?',
-    answer: 'Depende de la temperatura. Para eventos al aire libre en clima calido, recomendamos trufas con cobertura mas resistente o mantener la mesa en zona sombreada.'
+    answer: 'Depende de la temperatura. Para eventos al aire libre en clima cálido, recomendamos mantener la mesa en zona sombreada o elegir chocolates con cobertura más resistente.'
   },
   {
     question: '¿Hacen chocolates personalizados con logo?',
-    answer: 'Si, varios proveedores ofrecen chocolates con logo grabado o impreso. Ideal para eventos corporativos y recuerdos de boda.'
+    answer: 'Algunas dulcerías pueden conseguir chocolates con logo para eventos corporativos. Contacta directamente a Dulcería El Secreto para opciones gourmet personalizadas.'
   },
   {
-    question: '¿Cual es el tiempo de anticipacion para pedidos?',
-    answer: 'Para pedidos personalizados recomendamos 2-3 semanas de anticipacion. Pedidos estandar pueden estar listos en 3-5 dias.'
+    question: '¿Cuál es el tiempo de anticipación para pedidos de chocolates?',
+    answer: 'Para pedidos estándar, 3-5 días son suficientes. Para pedidos personalizados o grandes cantidades, recomendamos 2-3 semanas de anticipación.'
   }
 ];
 
 const categoriaSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Proveedores de Chocolates y Trufas - CDMX y Edomex",
-  "description": "Chocolaterias artesanales, trufas gourmet y bombones finos en Ciudad de Mexico",
-  "numberOfItems": proveedores.length
+  "name": "Proveedores de Chocolates y Trufas en CDMX",
+  "description": "Dulcerías con chocolates finos, trufas y bombones en Ciudad de México",
+  "numberOfItems": proveedores.length,
+  "itemListElement": proveedores.map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "LocalBusiness",
+      "name": p.nombre,
+      "description": p.descripcion,
+      "telephone": `+52${p.telefono.replace(/\s/g, '')}`,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": p.rating,
+        "reviewCount": p.resenas
+      }
+    }
+  }))
 };
 ---
 
 <BaseLayout
-  title="Chocolates y Trufas Artesanales | Directorio CDMX y Edomex"
-  description="Encuentra chocolaterias artesanales, trufas gourmet y bombones finos en CDMX y Estado de Mexico. Chocolate belga, oaxaqueno y de autor."
+  title="Chocolates y Trufas | Directorio CDMX 2025"
+  description={`${proveedores.length} dulcerías con chocolates finos, trufas y bombones en CDMX. Desde productos gourmet hasta mayoreo.`}
   canonical="/directorio/chocolates-trufas"
   ogImage="/img/galeria/candy-bar-gourmet-elegante.avif"
   includeCategoryStyles={true}
@@ -106,10 +123,10 @@ const categoriaSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Chocolates y Trufas Artesanales"
+    title="Chocolates y Trufas"
     highlight="Chocolates"
-    subtitle="Chocolaterias gourmet, trufas de autor y bombones finos"
-    secondaryContent={`<p>Los mejores proveedores de <strong>chocolates artesanales</strong> en CDMX y Estado de Mexico. Desde chocolate belga premium hasta cacao oaxaqueno de origen.</p><p><strong>${proveedores.length} chocolaterias verificadas</strong> para tu evento especial.</p>`}
+    subtitle="Chocolates finos, trufas y bombones"
+    secondaryContent={`<p>Los mejores proveedores de <strong>chocolates y trufas</strong> en CDMX. Desde opciones gourmet en zonas premium hasta mayoreo en La Merced.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
     showCTA={false}
   />
 
@@ -120,77 +137,79 @@ const categoriaSchema = {
         <div class="filtros-opciones">
           <select class="filtro-select">
             <option value="">Todas las zonas</option>
-            <option value="cdmx">CDMX</option>
-            <option value="edomex">Estado de Mexico</option>
+            <option value="premium">Zonas Premium</option>
+            <option value="mayoreo">Mayoreo</option>
           </select>
           <select class="filtro-select">
             <option value="">Ordenar por</option>
             <option value="rating">Mejor calificados</option>
-            <option value="resenas">Mas resenas</option>
+            <option value="resenas">Más reseñas</option>
           </select>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="proveedores-section">
+  <div class="directorio-layout">
     <div class="container">
-      <div class="proveedores-lista">
-        {proveedores.map(prov => (
-          <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
-            <div class="proveedor-imagen">
-              <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="300" />
-              {prov.destacado && <span class="badge-destacado">Destacado</span>}
-            </div>
-            <div class="proveedor-contenido">
-              <div class="proveedor-header">
-                <div>
-                  <h2>{prov.nombre}</h2>
-                  <div class="proveedor-ubicacion">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    {prov.ubicacion}
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-lista">
+            {proveedores.map(prov => (
+              <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
+                <div class="proveedor-imagen">
+                  <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="300" />
+                  {prov.destacado && <span class="badge-destacado">Destacado</span>}
+                </div>
+                <div class="proveedor-contenido">
+                  <div class="proveedor-header">
+                    <div>
+                      <h2>{prov.nombre}</h2>
+                      <div class="proveedor-ubicacion">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {prov.ubicacion}
+                      </div>
+                    </div>
+                    {prov.verificado && (
+                      <span class="badge-verificado">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Verificado
+                      </span>
+                    )}
+                  </div>
+                  <p class="proveedor-descripcion">{prov.descripcion}</p>
+                  <div class="proveedor-especialidades">{prov.especialidades.map(esp => <span class="especialidad-tag">{esp}</span>)}</div>
+                  <div class="proveedor-footer">
+                    <div class="proveedor-rating">
+                      <div class="rating-stars">{[1,2,3,4,5].map(star => <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>
+                      <span class="rating-numero">{prov.rating}</span>
+                      <span class="rating-resenas">({prov.resenas.toLocaleString()} reseñas)</span>
+                    </div>
+                    <div class="proveedor-acciones">
+                      <a href={`/directorio/${prov.slug}`} class="btn-perfil">Ver perfil</a>
+                      <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}`} class="btn-whatsapp" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        Contactar
+                      </a>
+                    </div>
                   </div>
                 </div>
-                {prov.verificado && (
-                  <span class="badge-verificado">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Verificado
-                  </span>
-                )}
               </div>
-              <p class="proveedor-descripcion">{prov.descripcion}</p>
-              <div class="proveedor-especialidades">
-                {prov.especialidades.map(esp => <span class="especialidad-tag">{esp}</span>)}
-              </div>
-              <div class="proveedor-footer">
-                <div class="proveedor-rating">
-                  <div class="rating-stars">
-                    {[1,2,3,4,5].map(star => <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
-                  </div>
-                  <span class="rating-numero">{prov.rating}</span>
-                  <span class="rating-resenas">({prov.resenas} resenas)</span>
-                </div>
-                <div class="proveedor-acciones">
-                  <a href="#" class="btn-perfil">Ver perfil</a>
-                  <a href="#" class="btn-whatsapp">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                    Contactar
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </main>
+
+        <DirectorioSidebar currentSlug="chocolates-trufas" showCategorias={true} />
       </div>
     </div>
-  </section>
+  </div>
 
   <section class="otras-categorias">
     <div class="container">
-      <SectionHeader title="Explora Otras" titleHighlight="Categorias" subtitle="Mas opciones para tu evento" />
+      <SectionHeader title="Explora Otras" titleHighlight="Categorías" subtitle="Más opciones para tu evento" />
       <div class="categorias-grid">
         <a href="/directorio/dulces-tradicionales" class="cat-link"><span class="cat-icon">🍬</span><span>Dulces Tradicionales</span></a>
-        <a href="/directorio/gomitas-confiteria" class="cat-link"><span class="cat-icon">🍭</span><span>Gomitas y Confiteria</span></a>
+        <a href="/directorio/gomitas-confiteria" class="cat-link"><span class="cat-icon">🍭</span><span>Gomitas y Confitería</span></a>
         <a href="/directorio/galletas-cupcakes" class="cat-link"><span class="cat-icon">🧁</span><span>Galletas y Cupcakes</span></a>
         <a href="/directorio/paletas-piruletas" class="cat-link"><span class="cat-icon">🍡</span><span>Paletas y Piruletas</span></a>
         <a href="/directorio/dulces-importados" class="cat-link"><span class="cat-icon">🌍</span><span>Dulces Importados</span></a>
@@ -200,7 +219,7 @@ const categoriaSchema = {
 
   <section class="faq-section section-padding">
     <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Chocolates" subtitle="Informacion util para tu evento" />
+      <SectionHeader title="Preguntas sobre" titleHighlight="Chocolates" subtitle="Información útil para tu evento" />
       <FAQ items={faqsCategoria} id="faq-chocolates" />
     </div>
   </section>
@@ -210,8 +229,8 @@ const categoriaSchema = {
     badge="Chocolates Gourmet"
     title="¿Necesitas Chocolates para tu"
     titleHighlight="Evento"
-    text="Te ayudamos a encontrar la chocolateria perfecta para tu celebracion."
-    buttonText="Pedir Recomendacion"
+    text="Te ayudamos a encontrar la dulcería perfecta para tu celebración."
+    buttonText="Pedir Recomendación"
   />
 </BaseLayout>
 
@@ -222,7 +241,10 @@ const categoriaSchema = {
   .filtros-opciones { display: flex; gap: 12px; }
   .filtro-select { padding: 10px 20px; border: 2px solid #f0f0f0; border-radius: 10px; font-size: 0.9rem; background: #fff; cursor: pointer; }
   .filtro-select:focus { outline: none; border-color: var(--rosa-principal); }
-  .proveedores-section { padding: 50px 0 80px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+
+  .directorio-layout { padding: 50px 0 80px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .directorio-grid { display: grid; grid-template-columns: 1fr 340px; gap: 40px; }
+
   .proveedores-lista { display: flex; flex-direction: column; gap: 24px; }
   .proveedor-item { display: grid; grid-template-columns: 320px 1fr; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
   .proveedor-item--destacado { border: 2px solid rgba(255, 184, 0, 0.4); box-shadow: 0 8px 30px rgba(255, 184, 0, 0.15); }
@@ -251,12 +273,15 @@ const categoriaSchema = {
   .btn-whatsapp { display: flex; align-items: center; gap: 8px; padding: 10px 24px; background: #25D366; border-radius: 10px; color: #fff; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.3s; }
   .btn-whatsapp svg { width: 20px; height: 20px; }
   .btn-whatsapp:hover { background: #128C7E; }
+
   .otras-categorias { padding: 80px 0; background: #fff; }
   .categorias-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; transition: all 0.3s; }
   .cat-link:hover { border-color: var(--rosa-principal); background: rgba(209, 0, 122, 0.05); }
   .cat-icon { font-size: 1.3rem; }
   .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+
+  @media (max-width: 1200px) { .directorio-grid { grid-template-columns: 1fr; } }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; align-items: stretch; } .filtros-opciones { flex-wrap: wrap; } .filtro-select { flex: 1; min-width: 140px; } }
   @media (max-width: 768px) { .filtros-section { top: 60px; } .proveedor-header { flex-direction: column; } .proveedor-footer { flex-direction: column; gap: 16px; align-items: stretch; } .proveedor-acciones { justify-content: stretch; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
 </style>

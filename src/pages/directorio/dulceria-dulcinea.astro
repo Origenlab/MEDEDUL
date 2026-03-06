@@ -1,0 +1,9 @@
+---
+import DulceriaLayout from '@/components/directorio/DulceriaLayout.astro';
+import { getDulceriaPorSlug } from '@/data/dulcerias';
+
+const dulceria = getDulceriaPorSlug('dulceria-dulcinea');
+if (!dulceria) return Astro.redirect('/directorio');
+---
+
+<DulceriaLayout dulceria={dulceria} />

@@ -1,0 +1,1235 @@
+---
+/**
+ * DulceriaLayout - Componente profesional reutilizable para páginas de dulcerías
+ * Genera una página completa a partir de los datos de una dulcería
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import DirectorioSidebar from './DirectorioSidebar.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import { getCdnUrl } from '@/lib/cdn';
+import type { Dulceria } from '@/data/dulcerias';
+import { getDulceriasRelacionadas, alcaldiasInfo } from '@/data/dulcerias';
+
+interface Props {
+  dulceria: Dulceria;
+}
+
+const { dulceria } = Astro.props;
+
+// Obtener dulcerías relacionadas
+const dulceriasRelacionadas = getDulceriasRelacionadas(dulceria.slug, 4);
+
+// Información de la alcaldía
+const infoAlcaldia = alcaldiasInfo[dulceria.alcaldiaSlug] || {
+  nombre: dulceria.alcaldia,
+  descripcion: `Encuentra las mejores dulcerías en ${dulceria.alcaldia}.`,
+  caracteristicas: ['Dulces variados', 'Buenos precios'],
+  zonaComercial: dulceria.colonia
+};
+
+// Breadcrumbs
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: dulceria.alcaldia, url: `/directorio/cdmx/${dulceria.alcaldiaSlug}` },
+  { name: dulceria.nombre, url: `/directorio/${dulceria.slug}` }
+];
+
+// Generar FAQs dinámicas basadas en los datos de la dulcería
+const faqsDulceria = [
+  {
+    question: `¿Dónde se encuentra ${dulceria.nombre}?`,
+    answer: `${dulceria.nombre} está ubicada en ${dulceria.direccion}, ${dulceria.colonia}, alcaldía ${dulceria.alcaldia}, CDMX. ${dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} ${dulceria.transporte.referencias?.[0] ? dulceria.transporte.referencias[0] + '.' : ''}`
+  },
+  {
+    question: `¿Cuál es el horario de ${dulceria.nombre}?`,
+    answer: `El horario de atención es: Lunes a Viernes de ${dulceria.horario.lunes}, Sábados de ${dulceria.horario.sabado}, y Domingos de ${dulceria.horario.domingo}. Te recomendamos llamar antes si planeas una visita especial.`
+  },
+  {
+    question: `¿Qué productos venden en ${dulceria.nombre}?`,
+    answer: `En ${dulceria.nombre} encontrarás: ${dulceria.productos.slice(0, 5).join(', ')}. ${dulceria.especialidades.length > 0 ? `Se especializan en: ${dulceria.especialidades.slice(0, 3).join(', ')}.` : ''}`
+  },
+  {
+    question: `¿Cómo llegar a ${dulceria.nombre} en transporte público?`,
+    answer: dulceria.transporte.metro && dulceria.transporte.metro.length > 0
+      ? `La opción más conveniente es el Metro ${dulceria.transporte.metro[0].estacion} (Línea ${dulceria.transporte.metro[0].linea}), a ${dulceria.transporte.metro[0].distancia}. ${dulceria.transporte.metrobus && dulceria.transporte.metrobus.length > 0 ? `También puedes usar Metrobús ${dulceria.transporte.metrobus[0].estacion}.` : ''}`
+      : `Para llegar te recomendamos: ${dulceria.transporte.referencias?.join('. ') || 'Consultar ubicación en Google Maps.'}`
+  },
+  {
+    question: `¿${dulceria.nombre} vende al mayoreo?`,
+    answer: dulceria.tipo === 'Dulcería Mayoreo'
+      ? `Sí, ${dulceria.nombre} ofrece precios especiales de mayoreo. Contacta directamente al ${dulceria.telefono} para conocer cantidades mínimas y precios por volumen.`
+      : `${dulceria.nombre} maneja principalmente venta al menudeo, aunque para pedidos grandes te recomendamos contactarlos directamente al ${dulceria.telefono !== 'Sin teléfono registrado' ? dulceria.telefono : 'número disponible en Google Maps'}.`
+  }
+];
+
+// Schema para SEO
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": dulceria.nombre,
+  "description": dulceria.descripcionCorta,
+  "image": `https://mesas-de-dulces.com${dulceria.imagen}`,
+  "@id": `https://mesas-de-dulces.com/directorio/${dulceria.slug}`,
+  "url": `https://mesas-de-dulces.com/directorio/${dulceria.slug}`,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": dulceria.direccion,
+    "addressLocality": dulceria.alcaldia,
+    "addressRegion": "CDMX",
+    "postalCode": dulceria.cp,
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": dulceria.coordenadas.lat,
+    "longitude": dulceria.coordenadas.lng
+  },
+  "telephone": dulceria.telefono !== 'Sin teléfono registrado' ? `+52${dulceria.telefono.replace(/\s/g, '')}` : undefined,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": dulceria.rating,
+    "reviewCount": dulceria.resenas,
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "priceRange": dulceria.tipo === 'Tienda de Golosinas Premium' ? "$$" : "$",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": dulceria.horario.lunes.split(' - ')[0],
+      "closes": dulceria.horario.lunes.split(' - ')[1]
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": dulceria.horario.sabado.split(' - ')[0],
+      "closes": dulceria.horario.sabado.split(' - ')[1]
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": dulceria.horario.domingo.split(' - ')[0],
+      "closes": dulceria.horario.domingo.split(' - ')[1]
+    }
+  ],
+  "sameAs": [dulceria.mapsUrl]
+};
+
+// Meta descripción optimizada para SEO
+const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.colonia}, ${dulceria.alcaldia}. ${dulceria.rating}/5 (${dulceria.resenas.toLocaleString()} reseñas). ${dulceria.especialidades.slice(0,2).join(', ')}. Tel: ${dulceria.telefono}`;
+
+// Determinar si tiene teléfono válido
+const tieneTelefono = dulceria.telefono !== 'Sin teléfono registrado';
+const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : '';
+---
+
+<BaseLayout
+  title={`${dulceria.nombre} | ${dulceria.tipo} en ${dulceria.colonia}, ${dulceria.alcaldia}`}
+  description={metaDescription}
+  canonical={`/directorio/${dulceria.slug}`}
+  ogImage={dulceria.imagen}
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusinessSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero del Negocio -->
+  <section class="negocio-hero">
+    <div class="container">
+      <div class="negocio-hero-content">
+        <div class="negocio-hero-info">
+          <div class="hero-badges">
+            {dulceria.verificado && (
+              <span class="verificado-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Verificado en Google
+              </span>
+            )}
+            {dulceria.destacado && (
+              <span class="destacado-badge">Destacado</span>
+            )}
+          </div>
+
+          <h1>{dulceria.nombre}</h1>
+          <p class="negocio-tipo">{dulceria.tipo} <span class="tipo-separador">|</span> {dulceria.colonia}, {dulceria.alcaldia}</p>
+
+          <div class="negocio-rating">
+            <div class="rating-stars">
+              {[1,2,3,4,5].map(star => (
+                <svg viewBox="0 0 24 24" fill={star <= Math.floor(dulceria.rating) ? "#FFB800" : (star <= dulceria.rating + 0.5 ? "#FFD966" : "#E0E0E0")}>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <span class="rating-numero">{dulceria.rating}</span>
+            <span class="rating-resenas">({dulceria.resenas.toLocaleString()} reseñas en Google)</span>
+          </div>
+
+          <div class="negocio-ubicacion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <div>
+              <p class="direccion">{dulceria.direccion}</p>
+              <p class="zona">{dulceria.colonia}, {dulceria.alcaldia}, CDMX {dulceria.cp}</p>
+            </div>
+          </div>
+
+          {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 && (
+            <div class="transporte-rapido">
+              <span class="transporte-icon metro">M</span>
+              <span>Metro {dulceria.transporte.metro[0].estacion} (L{dulceria.transporte.metro[0].linea}) - {dulceria.transporte.metro[0].distancia}</span>
+            </div>
+          )}
+
+          <div class="negocio-acciones">
+            {tieneTelefono && (
+              <a href={`tel:+52${telefonoLimpio}`} class="btn-principal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                Llamar: {dulceria.telefono}
+              </a>
+            )}
+            {tieneTelefono && (
+              <a href={`https://wa.me/52${telefonoLimpio}?text=Hola!%20Vi%20${encodeURIComponent(dulceria.nombre)}%20en%20el%20directorio%20de%20Mededul%20y%20me%20gustaría%20información`} class="btn-whatsapp" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                </svg>
+                WhatsApp
+              </a>
+            )}
+            <a href={dulceria.mapsUrl} class="btn-mapa" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="negocio-hero-imagen">
+          <img
+            src={getCdnUrl(dulceria.imagen, { w: 600, q: 85 })}
+            alt={`${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.colonia}`}
+            width="600"
+            height="400"
+            loading="eager"
+          />
+          <div class="imagen-overlay">
+            <span class="overlay-tipo">{dulceria.tipo}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content with Sidebar -->
+  <div class="negocio-layout">
+    <div class="container">
+      <div class="negocio-grid">
+        <!-- Main Content -->
+        <main class="negocio-main">
+          <!-- Descripción Principal -->
+          <section class="negocio-seccion descripcion-principal">
+            <h2>Sobre {dulceria.nombre}</h2>
+            <div class="descripcion-contenido">
+              <p class="descripcion-intro">{dulceria.descripcionCorta}</p>
+              <p class="descripcion-texto">
+                Ubicada en <strong>{dulceria.colonia}</strong>, alcaldía <strong>{dulceria.alcaldia}</strong>, esta dulcería
+                {dulceria.tipo === 'Dulcería Mayoreo' ? ' ofrece precios de mayoreo competitivos para comerciantes y organizadores de eventos.' : ''}
+                {dulceria.tipo === 'Tienda de Golosinas' ? ' cuenta con una amplia variedad de dulces y golosinas para todo tipo de ocasiones.' : ''}
+                {dulceria.tipo === 'Tienda de Golosinas Premium' ? ' se especializa en productos selectos y de alta calidad para clientes exigentes.' : ''}
+                {dulceria.tipo === 'Dulcería Tradicional' ? ' mantiene viva la tradición de los dulces mexicanos auténticos.' : ''}
+                Con <strong>{dulceria.resenas.toLocaleString()} reseñas</strong> y una calificación de <strong>{dulceria.rating} estrellas</strong>,
+                es una opción confiable para quienes buscan calidad y variedad.
+              </p>
+              {infoAlcaldia && (
+                <p class="descripcion-zona">
+                  <strong>{dulceria.alcaldia}</strong> {infoAlcaldia.descripcion} {infoAlcaldia.caracteristicas.length > 0 ? `Características de la zona: ${infoAlcaldia.caracteristicas.join(', ')}.` : ''}
+                </p>
+              )}
+            </div>
+          </section>
+
+          <!-- Beneficios Cards -->
+          <section class="negocio-seccion beneficios-section">
+            <h2>Por qué elegir {dulceria.nombre}</h2>
+            <div class="beneficios-grid">
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <h3>{dulceria.rating} Estrellas</h3>
+                <p>Con <strong>{dulceria.resenas.toLocaleString()} reseñas reales</strong> en Google, los clientes confían en esta dulcería.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <h3>Ubicación {infoAlcaldia.zonaComercial}</h3>
+                <p>En <strong>{dulceria.colonia}</strong>, {dulceria.alcaldia}. Zona comercial establecida con fácil acceso.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </div>
+                <h3>Negocio Verificado</h3>
+                <p>Datos <strong>verificados en Google Maps</strong>. Información real y actualizada para tu tranquilidad.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <h3>Horario Accesible</h3>
+                <p>Abierto <strong>L-V: {dulceria.horario.lunes}</strong>. Domingos hasta las {dulceria.horario.domingo.split(' - ')[1]}.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Productos Destacados -->
+          <section class="negocio-seccion productos-section">
+            <h2>Productos que Encontrarás</h2>
+            <div class="productos-lista">
+              {dulceria.productos.map((producto, index) => (
+                <div class="producto-categoria">
+                  <span class="producto-tag">{producto}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Especialidades -->
+          <section class="negocio-seccion">
+            <h2>Especialidades</h2>
+            <div class="especialidades-grid">
+              {dulceria.especialidades.map(esp => (
+                <div class="especialidad-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <span>{esp}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Servicios -->
+          {dulceria.servicios.length > 0 && (
+            <section class="negocio-seccion">
+              <h2>Servicios</h2>
+              <div class="servicios-grid">
+                {dulceria.servicios.map(serv => (
+                  <div class="servicio-card">
+                    <h3>{serv.nombre}</h3>
+                    <p>{serv.descripcion}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Cómo Llegar -->
+          <section class="negocio-seccion transporte-section">
+            <h2>Cómo Llegar</h2>
+            <div class="transporte-grid">
+              {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 && (
+                <div class="transporte-card metro-card">
+                  <div class="transporte-header">
+                    <span class="transporte-icon metro">M</span>
+                    <h3>Metro</h3>
+                  </div>
+                  <ul class="transporte-lista">
+                    {dulceria.transporte.metro.map(m => (
+                      <li>
+                        <strong>Estación {m.estacion}</strong> (Línea {m.linea})
+                        <span class="transporte-distancia">{m.distancia}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {dulceria.transporte.metrobus && dulceria.transporte.metrobus.length > 0 && (
+                <div class="transporte-card metrobus-card">
+                  <div class="transporte-header">
+                    <span class="transporte-icon metrobus">MB</span>
+                    <h3>Metrobús</h3>
+                  </div>
+                  <ul class="transporte-lista">
+                    {dulceria.transporte.metrobus.map(mb => (
+                      <li>
+                        <strong>Estación {mb.estacion}</strong> (Línea {mb.linea})
+                        <span class="transporte-distancia">{mb.distancia}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {dulceria.transporte.referencias && dulceria.transporte.referencias.length > 0 && (
+                <div class="transporte-card referencias-card">
+                  <div class="transporte-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="12" y1="16" x2="12" y2="12"/>
+                      <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <h3>Referencias</h3>
+                  </div>
+                  <ul class="transporte-lista referencias-lista">
+                    {dulceria.transporte.referencias.map(ref => (
+                      <li>{ref}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <!-- Horario -->
+          <section class="negocio-seccion">
+            <h2>Horario de Atención</h2>
+            <div class="horario-tabla">
+              {Object.entries(dulceria.horario).map(([dia, hora]) => (
+                <div class="horario-fila">
+                  <span class="horario-dia">{dia.charAt(0).toUpperCase() + dia.slice(1)}</span>
+                  <span class="horario-hora">{hora}</span>
+                </div>
+              ))}
+            </div>
+            <p class="horario-nota">* Horarios aproximados. Te recomendamos llamar antes de visitar.</p>
+          </section>
+
+          <!-- Ubicación Detallada -->
+          <section class="negocio-seccion">
+            <h2>Ubicación</h2>
+            <div class="ubicacion-detalle">
+              <div class="ubicacion-info">
+                <p><strong>Dirección:</strong> {dulceria.direccion}</p>
+                <p><strong>Colonia:</strong> {dulceria.colonia}</p>
+                <p><strong>Alcaldía:</strong> {dulceria.alcaldia}</p>
+                <p><strong>Ciudad:</strong> Ciudad de México</p>
+                <p><strong>CP:</strong> {dulceria.cp}</p>
+                {dulceria.referencia && <p><strong>Referencia:</strong> {dulceria.referencia}</p>}
+              </div>
+              <a href={dulceria.mapsUrl} class="btn-mapa-grande" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Abrir en Google Maps
+              </a>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section class="negocio-seccion">
+            <SectionHeader
+              title="Preguntas sobre"
+              titleHighlight={dulceria.nombre}
+            />
+            <FAQ items={faqsDulceria} id="faq-dulceria" />
+          </section>
+        </main>
+
+        <!-- Sidebar -->
+        <DirectorioSidebar currentSlug={dulceria.slug} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Otras Dulcerías Relacionadas -->
+  {dulceriasRelacionadas.length > 0 && (
+    <section class="otras-dulcerias section-padding">
+      <div class="container">
+        <SectionHeader
+          title="Otras Dulcerías en"
+          titleHighlight={dulceria.alcaldia}
+          subtitle="Explora más opciones de dulcerías verificadas en la zona"
+        />
+        <div class="service-grid">
+          {dulceriasRelacionadas.map(d => (
+            <ServiceCard
+              href={`/directorio/${d.slug}`}
+              image={d.imagen}
+              alt={`${d.nombre} - ${d.tipo} en ${d.colonia}`}
+              title={d.nombre}
+              excerpt={`${d.rating} estrellas (${d.resenas.toLocaleString()} reseñas). ${d.descripcionCorta.slice(0, 80)}...`}
+              cta="Ver Dulcería"
+            />
+          ))}
+        </div>
+        <div class="ver-todas-wrapper">
+          <a href="/directorio/todos" class="btn-ver-todas">
+            Ver todas las dulcerías
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Final -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20dulces%20para%20mi%20evento"
+    badge="Mesa de Dulces"
+    title="¿Necesitas una Mesa de Dulces"
+    titleHighlight="Profesional"
+    text="En Mededul diseñamos mesas de dulces personalizadas para bodas, XV años, baby showers y todo tipo de eventos. Déjanos hacer tu fiesta inolvidable."
+    buttonText="Cotizar Mesa de Dulces"
+  />
+</BaseLayout>
+
+<style>
+  /* Hero del Negocio */
+  .negocio-hero {
+    padding: 60px 0 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .negocio-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 500px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .verificado-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 211, 102, 0.1);
+    color: #128C7E;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .verificado-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .destacado-badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .negocio-hero-info h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  .negocio-tipo {
+    font-size: 1.1rem;
+    color: var(--rosa-principal);
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+
+  .tipo-separador {
+    color: #ddd;
+    margin: 0 8px;
+  }
+
+  .negocio-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .rating-stars svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .rating-numero {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+  }
+
+  .rating-resenas {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+  }
+
+  .negocio-ubicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .negocio-ubicacion svg {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .negocio-ubicacion .direccion {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .negocio-ubicacion .zona {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .transporte-rapido {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f8f8;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--texto-oscuro);
+    margin-bottom: 24px;
+  }
+
+  .transporte-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .transporte-icon.metro {
+    background: #FE6B00;
+  }
+
+  .transporte-icon.metrobus {
+    background: #C41E3A;
+  }
+
+  .negocio-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn-principal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-principal svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-whatsapp svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+  }
+
+  .btn-mapa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    color: var(--texto-oscuro);
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa svg {
+    width: 22px;
+    height: 22px;
+    color: var(--rosa-principal);
+  }
+
+  .btn-mapa:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .negocio-hero-imagen {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .negocio-hero-imagen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .imagen-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+
+  .overlay-tipo {
+    display: inline-block;
+    background: rgba(255,255,255,0.95);
+    color: var(--rosa-principal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* Layout */
+  .negocio-layout {
+    padding: 30px 0 60px;
+    background: #fff;
+  }
+
+  .negocio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .negocio-main {
+    min-width: 0;
+    padding: 0 !important;
+    margin: 0;
+  }
+
+  /* Secciones */
+  .negocio-seccion {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .negocio-seccion:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .negocio-seccion h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 24px;
+  }
+
+  /* Descripción */
+  .descripcion-principal {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+  }
+
+  .descripcion-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .descripcion-intro {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-texto {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-zona {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 12px;
+    border-left: 4px solid var(--rosa-principal);
+  }
+
+  .descripcion-intro strong,
+  .descripcion-texto strong,
+  .descripcion-zona strong {
+    color: var(--rosa-principal);
+  }
+
+  /* Beneficios Grid */
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .beneficio-card {
+    padding: 28px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .beneficio-icono {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .beneficio-icono svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+
+  .beneficio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .beneficio-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .beneficio-card p strong {
+    color: var(--texto-oscuro);
+  }
+
+  /* Productos */
+  .productos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .producto-categoria {
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 50px;
+    border: 2px solid #f0f0f0;
+    transition: all 0.3s;
+  }
+
+  .producto-categoria:hover {
+    border-color: var(--rosa-principal);
+    background: rgba(209, 0, 122, 0.05);
+  }
+
+  .producto-tag {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+  }
+
+  /* Especialidades */
+  .especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .especialidad-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border-radius: 12px;
+  }
+
+  .especialidad-item svg {
+    width: 22px;
+    height: 22px;
+    color: #25D366;
+    flex-shrink: 0;
+  }
+
+  .especialidad-item span {
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+    font-weight: 500;
+  }
+
+  /* Servicios */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .servicio-card {
+    padding: 24px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+  }
+
+  .servicio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+  }
+
+  .servicio-card p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Transporte */
+  .transporte-section h2 {
+    margin-bottom: 20px;
+  }
+
+  .transporte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .transporte-card {
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #f0f0f0;
+  }
+
+  .transporte-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .transporte-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0;
+  }
+
+  .transporte-header svg {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+  }
+
+  .transporte-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .transporte-lista li {
+    font-size: 0.9rem;
+    color: var(--texto-oscuro);
+    line-height: 1.5;
+  }
+
+  .transporte-distancia {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--texto-light);
+    margin-top: 2px;
+  }
+
+  .referencias-lista li {
+    padding-left: 20px;
+    position: relative;
+    color: var(--texto-light);
+  }
+
+  .referencias-lista li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--rosa-principal);
+  }
+
+  /* Horario */
+  .horario-tabla {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+
+  .horario-fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .horario-fila:last-child {
+    border-bottom: none;
+  }
+
+  .horario-fila:nth-child(odd) {
+    background: #fafafa;
+  }
+
+  .horario-dia {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .horario-hora {
+    color: var(--rosa-principal);
+    font-weight: 500;
+  }
+
+  .horario-nota {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    font-style: italic;
+    margin-top: 16px;
+  }
+
+  /* Ubicación */
+  .ubicacion-detalle {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .ubicacion-info p {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+  }
+
+  .ubicacion-info strong {
+    color: var(--texto-oscuro);
+  }
+
+  .btn-mapa-grande {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa-grande svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-mapa-grande:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Otras Dulcerías */
+  .otras-dulcerias {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .ver-todas-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-ver-todas {
+    display: inline-flex;
+    padding: 14px 32px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ver-todas:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .negocio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .negocio-hero-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .negocio-hero-imagen {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .negocio-hero {
+      padding: 40px 0;
+    }
+
+    .negocio-hero-info h1 {
+      font-size: 1.8rem;
+    }
+
+    .negocio-acciones {
+      flex-direction: column;
+    }
+
+    .btn-principal,
+    .btn-whatsapp,
+    .btn-mapa {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .beneficios-grid,
+    .especialidades-grid,
+    .servicios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .negocio-layout {
+      padding: 40px 0;
+    }
+
+    .transporte-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

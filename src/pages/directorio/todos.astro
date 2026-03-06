@@ -2,62 +2,69 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import { todasLasDulcerias, getEstadisticasDirectorio } from '@/data/dulcerias';
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
   { name: 'Todos los Proveedores', url: '/directorio/todos' }
 ];
 
-// Todos los proveedores (combinados de todas las categorias)
-const proveedores = [
-  // Dulces Tradicionales
-  { nombre: 'La Casa del Mazapan', categoria: 'Dulces Tradicionales', ubicacion: 'Centro Historico, CDMX', imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif', rating: 4.9, resenas: 156, verificado: true, destacado: true },
-  { nombre: 'Dulceria Don Pancho', categoria: 'Dulces Tradicionales', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.8, resenas: 98, verificado: true, destacado: false },
-  { nombre: 'Alegrias de Oaxaca', categoria: 'Dulces Tradicionales', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', rating: 4.7, resenas: 67, verificado: true, destacado: false },
-  { nombre: 'Cocadas La Abuela', categoria: 'Dulces Tradicionales', ubicacion: 'Del Valle, CDMX', imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', rating: 4.9, resenas: 112, verificado: true, destacado: true },
-  // Chocolates
-  { nombre: 'Chocolateria Gourmet MX', categoria: 'Chocolates y Trufas', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.9, resenas: 203, verificado: true, destacado: true },
-  { nombre: 'Cacao Sagrado', categoria: 'Chocolates y Trufas', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', rating: 4.8, resenas: 87, verificado: true, destacado: true },
-  { nombre: 'Belgian Touch', categoria: 'Chocolates y Trufas', ubicacion: 'Santa Fe, CDMX', imagen: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif', rating: 4.9, resenas: 156, verificado: true, destacado: true },
-  // Gomitas
-  { nombre: 'Dulces Don Pepe', categoria: 'Gomitas y Confiteria', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-infantil-colorido.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true },
-  { nombre: 'Candy World MX', categoria: 'Gomitas y Confiteria', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.7, resenas: 134, verificado: true, destacado: true },
-  { nombre: 'La Dulceria Enchilada', categoria: 'Gomitas y Confiteria', ubicacion: 'Centro Historico, CDMX', imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif', rating: 4.9, resenas: 201, verificado: true, destacado: true },
-  // Galletas y Cupcakes
-  { nombre: 'Sweet Factory', categoria: 'Galletas y Cupcakes', ubicacion: 'Satelite, Naucalpan', imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', rating: 4.9, resenas: 234, verificado: true, destacado: true },
-  { nombre: 'Cookie Monster MX', categoria: 'Galletas y Cupcakes', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true },
-  { nombre: 'Galletas con Amor', categoria: 'Galletas y Cupcakes', ubicacion: 'Del Valle, CDMX', imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', rating: 4.9, resenas: 98, verificado: true, destacado: true },
-  // Paletas
-  { nombre: 'Paletas Artesanales Luna', categoria: 'Paletas y Piruletas', ubicacion: 'Coyoacan, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.9, resenas: 145, verificado: true, destacado: true },
-  { nombre: 'Cake Pops Studio', categoria: 'Paletas y Piruletas', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.8, resenas: 98, verificado: true, destacado: true },
-  // Importados
-  { nombre: 'American Candy Store', categoria: 'Dulces Importados', ubicacion: 'Polanco, CDMX', imagen: '/img/galeria/candy-bar-gourmet-elegante.avif', rating: 4.9, resenas: 267, verificado: true, destacado: true },
-  { nombre: 'Tokyo Sweets MX', categoria: 'Dulces Importados', ubicacion: 'Roma Norte, CDMX', imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', rating: 4.8, resenas: 189, verificado: true, destacado: true }
-];
+// Ordenar por reseñas (más populares primero)
+const proveedores = [...todasLasDulcerias].sort((a, b) => b.resenas - a.resenas);
+const stats = getEstadisticasDirectorio();
 
-const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gomitas y Confiteria', 'Galletas y Cupcakes', 'Paletas y Piruletas', 'Dulces Importados'];
+// Categorías únicas
+const categorias = ['Todos', ...new Set(proveedores.map(p => p.tipo))];
+
+// Alcaldías únicas
+const alcaldias = [...new Set(proveedores.map(p => p.alcaldia))].sort();
+
+const listSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Directorio Completo de Dulcerías en CDMX",
+  "description": `Listado completo de ${stats.total} dulcerías verificadas en Ciudad de México`,
+  "numberOfItems": stats.total,
+  "itemListElement": proveedores.slice(0, 20).map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "LocalBusiness",
+      "name": p.nombre,
+      "address": `${p.direccion}, ${p.colonia}, ${p.alcaldia}`,
+      "telephone": p.telefono !== 'Sin teléfono registrado' ? `+52${p.telefono.replace(/\s/g, '')}` : undefined,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": p.rating,
+        "reviewCount": p.resenas
+      }
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Todos los Proveedores de Dulces | Directorio CDMX y Edomex"
-  description="Listado completo de proveedores de dulces para fiestas en CDMX y Estado de Mexico. ${proveedores.length}+ negocios verificados."
+  title={`${stats.total} Dulcerías en CDMX | Directorio Completo Verificado 2025`}
+  description={`Directorio completo de ${stats.total} dulcerías verificadas en ${stats.alcaldias} alcaldías de Ciudad de México. +${stats.totalResenas.toLocaleString()} reseñas reales. Encuentra la dulcería perfecta para tu evento.`}
   canonical="/directorio/todos"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(listSchema)} slot="head" />
+
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Todos los Proveedores"
-    highlight="Proveedores"
-    subtitle="Directorio completo de dulces para fiestas"
-    secondaryContent={`<p>Explora nuestro directorio completo de <strong>proveedores de dulces</strong> en CDMX y Estado de Mexico. Todos verificados y listos para tu evento.</p><p><strong>${proveedores.length}+ negocios</strong> en todas las categorias.</p>`}
+    title="Todas las Dulcerías"
+    highlight="Dulcerías"
+    subtitle="Directorio completo de proveedores verificados"
+    secondaryContent={`<p>Explora nuestro directorio completo de <strong>dulcerías en CDMX</strong>. Todas verificadas con información real de Google Maps.</p><p><strong>${stats.total} dulcerías</strong> en ${stats.alcaldias} alcaldías con +${stats.totalResenas.toLocaleString()} reseñas de clientes reales.</p>`}
     showCTA={false}
   />
 
-  <!-- Filtros -->
   <section class="filtros-section">
     <div class="container">
       <div class="filtros-wrapper">
@@ -67,14 +74,15 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
           ))}
         </div>
         <div class="filtros-secundarios">
-          <select class="filtro-select">
-            <option value="">Todas las zonas</option>
-            <option value="cdmx">CDMX</option>
-            <option value="edomex">Estado de Mexico</option>
+          <select class="filtro-select" id="filtro-zona">
+            <option value="">Todas las alcaldías</option>
+            {alcaldias.map(alc => (
+              <option value={alc.toLowerCase().replace(/\s/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}>{alc}</option>
+            ))}
           </select>
-          <select class="filtro-select">
+          <select class="filtro-select" id="filtro-orden">
+            <option value="resenas">Más reseñas</option>
             <option value="rating">Mejor calificados</option>
-            <option value="resenas">Mas resenas</option>
             <option value="nombre">Nombre A-Z</option>
           </select>
         </div>
@@ -82,61 +90,74 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
     </div>
   </section>
 
-  <!-- Lista de Proveedores -->
-  <section class="proveedores-section">
+  <div class="directorio-layout">
     <div class="container">
-      <div class="proveedores-header">
-        <span class="resultados-count">{proveedores.length} proveedores encontrados</span>
-      </div>
-
-      <div class="proveedores-grid">
-        {proveedores.map(prov => (
-          <div class="proveedor-card" data-categoria={prov.categoria}>
-            <div class="proveedor-imagen">
-              <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="250" />
-              {prov.destacado && <span class="badge-destacado">Destacado</span>}
-              {prov.verificado && (
-                <span class="badge-verificado">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </span>
-              )}
-            </div>
-            <div class="proveedor-contenido">
-              <span class="proveedor-categoria">{prov.categoria}</span>
-              <h3>{prov.nombre}</h3>
-              <div class="proveedor-ubicacion">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                {prov.ubicacion}
-              </div>
-              <div class="proveedor-rating">
-                <div class="rating-stars">
-                  {[1,2,3,4,5].map(star => (
-                    <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  ))}
-                </div>
-                <span class="rating-numero">{prov.rating}</span>
-                <span class="rating-resenas">({prov.resenas})</span>
-              </div>
-              <div class="proveedor-acciones">
-                <a href="#" class="btn-perfil">Ver perfil</a>
-                <a href="#" class="btn-whatsapp">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                </a>
-              </div>
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-header">
+            <span class="resultados-count">{stats.total} dulcerías encontradas</span>
+            <div class="stats-mini">
+              <span><strong>{stats.verificadas}</strong> verificadas</span>
+              <span><strong>{stats.destacadas}</strong> destacadas</span>
+              <span><strong>+{stats.totalResenas.toLocaleString()}</strong> reseñas</span>
             </div>
           </div>
-        ))}
+
+          <div class="proveedores-grid">
+            {proveedores.map(prov => (
+              <a href={`/directorio/${prov.slug}`} class="proveedor-card" data-categoria={prov.tipo} data-alcaldia={prov.alcaldiaSlug}>
+                <div class="proveedor-imagen">
+                  <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={`${prov.nombre} - ${prov.tipo} en ${prov.colonia}`} loading="lazy" width="400" height="250" />
+                  {prov.destacado && <span class="badge-destacado">Destacado</span>}
+                  {prov.verificado && (
+                    <span class="badge-verificado">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </span>
+                  )}
+                </div>
+                <div class="proveedor-contenido">
+                  <span class="proveedor-categoria">{prov.tipo}</span>
+                  <h3>{prov.nombre}</h3>
+                  <div class="proveedor-ubicacion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {prov.colonia}, {prov.alcaldia}
+                  </div>
+                  <div class="proveedor-rating">
+                    <div class="rating-stars">
+                      {[1,2,3,4,5].map(star => (
+                        <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      ))}
+                    </div>
+                    <span class="rating-numero">{prov.rating}</span>
+                    <span class="rating-resenas">({prov.resenas.toLocaleString()})</span>
+                  </div>
+                  <p class="proveedor-descripcion">{prov.descripcionCorta.slice(0, 80)}...</p>
+                  <div class="proveedor-acciones">
+                    <span class="btn-perfil">Ver detalles</span>
+                    {prov.telefono !== 'Sin teléfono registrado' && (
+                      <span class="btn-telefono">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </main>
+
+        <DirectorioSidebar currentSlug="todos" />
       </div>
     </div>
-  </section>
+  </div>
 
   <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20un%20proveedor%20de%20dulces"
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20una%20dulcería"
     badge="Ayuda Personalizada"
     title="¿No encuentras lo que"
     titleHighlight="buscas"
-    text="Te ayudamos a encontrar el proveedor perfecto para tu evento."
-    buttonText="Pedir Recomendacion"
+    text="Te ayudamos a encontrar la dulcería perfecta para tu evento. Conocemos todas las dulcerías del directorio."
+    buttonText="Pedir Recomendación"
   />
 </BaseLayout>
 
@@ -193,23 +214,46 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
     background: #fff;
   }
 
-  .proveedores-section {
+  .directorio-layout {
     padding: 50px 0 80px;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
+  .directorio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+  }
+
   .proveedores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .resultados-count {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.1rem;
     color: var(--texto-oscuro);
+  }
+
+  .stats-mini {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: var(--texto-light);
+  }
+
+  .stats-mini strong {
+    color: var(--rosa-principal);
   }
 
   .proveedores-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
@@ -220,6 +264,8 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     border: 1px solid #f0f0f0;
     transition: all 0.3s;
+    text-decoration: none;
+    display: block;
   }
 
   .proveedor-card:hover {
@@ -302,13 +348,14 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
   .proveedor-ubicacion svg {
     width: 14px;
     height: 14px;
+    flex-shrink: 0;
   }
 
   .proveedor-rating {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .rating-stars {
@@ -332,6 +379,13 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
     color: var(--texto-light);
   }
 
+  .proveedor-descripcion {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+
   .proveedor-acciones {
     display: flex;
     gap: 10px;
@@ -346,38 +400,36 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--texto-oscuro);
-    text-decoration: none;
     transition: all 0.3s;
   }
 
-  .btn-perfil:hover {
+  .proveedor-card:hover .btn-perfil {
     border-color: var(--rosa-principal);
     color: var(--rosa-principal);
   }
 
-  .btn-whatsapp {
+  .btn-telefono {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: #25D366;
+    background: var(--rosa-principal);
     border-radius: 10px;
     color: #fff;
-    text-decoration: none;
     transition: all 0.3s;
   }
 
-  .btn-whatsapp svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .btn-whatsapp:hover {
-    background: #128C7E;
+  .btn-telefono svg {
+    width: 20px;
+    height: 20px;
   }
 
   @media (max-width: 1200px) {
+    .directorio-grid {
+      grid-template-columns: 1fr;
+    }
+
     .proveedores-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -414,6 +466,11 @@ const categorias = ['Todos', 'Dulces Tradicionales', 'Chocolates y Trufas', 'Gom
 
     .filtro-select {
       width: 100%;
+    }
+
+    .proveedores-header {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>

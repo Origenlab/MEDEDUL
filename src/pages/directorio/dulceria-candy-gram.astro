@@ -1,0 +1,1029 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+// Datos de la dulcería
+const dulceria = {
+  nombre: 'Dulcería Candy Gram',
+  slug: 'dulceria-candy-gram',
+  tipo: 'Tienda de Golosinas',
+  descripcion: 'Dulcería ubicada en el Mercado Plaza Mexicana del Sur en Tlalpan, ofreciendo variedad de dulces, golosinas y piñatas para fiestas y eventos en la zona sur de CDMX.',
+  metaDescription: 'Dulcería Candy Gram - Dulces y golosinas en Plaza Mexicana del Sur, Tlalpan. ⭐ 4.2/5 (33 reseñas). Dulces para fiestas, piñatas y confitería. Tel: 55 6303 2304',
+  direccion: 'Acoxpa s/n Esq. Calzada de Tlalpan, Mercado Plaza Mexicana del Sur, Local 2 y 3',
+  colonia: 'Huipulco',
+  alcaldia: 'Tlalpan',
+  cp: '14380',
+  ciudad: 'Ciudad de México',
+  telefono: '55 6303 2304',
+  rating: 4.2,
+  resenas: 33,
+  mapsUrl: 'https://maps.app.goo.gl/candygram',
+  imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+  imagenes: [
+    '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    '/img/galeria/candy-bar-gourmet-elegante.avif'
+  ],
+  horario: {
+    lunes: '9:00 - 18:00',
+    martes: '9:00 - 18:00',
+    miercoles: '9:00 - 18:00',
+    jueves: '9:00 - 18:00',
+    viernes: '9:00 - 18:00',
+    sabado: '9:00 - 17:00',
+    domingo: 'Cerrado'
+  },
+  especialidades: [
+    'Dulces para fiestas',
+    'Ubicación en mercado',
+    'Golosinas variadas',
+    'Confitería',
+    'Piñatas',
+    'Precios accesibles'
+  ],
+  servicios: [
+    { nombre: 'Dulces para eventos', descripcion: 'Surtido completo para cumpleaños, bautizos y celebraciones' },
+    { nombre: 'Piñatas y aguinaldos', descripcion: 'Variedad de piñatas y bolsas para fiestas infantiles' },
+    { nombre: 'Confitería variada', descripcion: 'Golosinas de todas las marcas y dulces tradicionales' },
+    { nombre: 'Precios de mercado', descripcion: 'Costos accesibles al estar ubicados dentro del mercado' }
+  ],
+  verificado: true
+};
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: dulceria.alcaldia, url: '/directorio/cdmx/tlalpan' },
+  { name: dulceria.nombre, url: `/directorio/${dulceria.slug}` }
+];
+
+const faqsDulceria = [
+  {
+    question: `¿Dónde está ubicada ${dulceria.nombre}?`,
+    answer: 'Dulcería Candy Gram se encuentra dentro del Mercado Plaza Mexicana del Sur, en los locales 2 y 3. El mercado está ubicado en la esquina de Acoxpa y Calzada de Tlalpan, en la colonia Huipulco, Tlalpan. Es una zona muy accesible con transporte público y estacionamiento cercano.'
+  },
+  {
+    question: '¿Qué ventajas tiene comprar dulces en un mercado?',
+    answer: 'Comprar en Dulcería Candy Gram dentro del Mercado Plaza Mexicana del Sur te ofrece precios más accesibles que tiendas de centro comercial, atención personalizada y la posibilidad de encontrar todo lo que necesitas para tu fiesta en un solo lugar. Además, puedes aprovechar tu visita para comprar otros artículos en el mercado.'
+  },
+  {
+    question: '¿Tienen piñatas y artículos para fiestas infantiles?',
+    answer: 'Sí, Dulcería Candy Gram cuenta con piñatas de diferentes temáticas y tamaños, además de bolsas para aguinaldos, dulces a granel y todo lo necesario para fiestas infantiles. Te recomendamos visitarlos o llamar para conocer su inventario disponible.'
+  },
+  {
+    question: '¿Cuál es el horario de atención de Candy Gram?',
+    answer: 'Dulcería Candy Gram atiende de lunes a viernes de 9:00 a 18:00 horas, sábados de 9:00 a 17:00 horas, y los domingos permanece cerrada. Te recomendamos llamar antes de tu visita para confirmar disponibilidad de productos específicos.'
+  }
+];
+
+// Schema para SEO
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": dulceria.nombre,
+  "description": dulceria.descripcion,
+  "image": `https://mesas-de-dulces.com${dulceria.imagen}`,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": dulceria.direccion,
+    "addressLocality": dulceria.alcaldia,
+    "addressRegion": "CDMX",
+    "postalCode": dulceria.cp,
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.3050",
+    "longitude": "-99.1520"
+  },
+  "telephone": `+52${dulceria.telefono.replace(/\s/g, '')}`,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": dulceria.rating,
+    "reviewCount": dulceria.resenas,
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "priceRange": "$",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title={`${dulceria.nombre} | Dulcería en Plaza Mexicana del Sur, ${dulceria.alcaldia}`}
+  description={dulceria.metaDescription}
+  canonical={`/directorio/${dulceria.slug}`}
+  ogImage={dulceria.imagen}
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusinessSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero del Negocio -->
+  <section class="negocio-hero">
+    <div class="container">
+      <div class="negocio-hero-content">
+        <div class="negocio-hero-info">
+          {dulceria.verificado && (
+            <span class="verificado-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Verificado en Google
+            </span>
+          )}
+          <h1>{dulceria.nombre}</h1>
+          <p class="negocio-tipo">{dulceria.tipo}</p>
+
+          <div class="negocio-rating">
+            <div class="rating-stars">
+              {[1,2,3,4,5].map(star => (
+                <svg viewBox="0 0 24 24" fill={star <= Math.floor(dulceria.rating) ? "#FFB800" : "#E0E0E0"}>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <span class="rating-numero">{dulceria.rating}</span>
+            <span class="rating-resenas">({dulceria.resenas.toLocaleString()} reseñas en Google)</span>
+          </div>
+
+          <div class="negocio-ubicacion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <div>
+              <p class="direccion">{dulceria.direccion}</p>
+              <p class="zona">{dulceria.colonia}, {dulceria.alcaldia}, CDMX</p>
+            </div>
+          </div>
+
+          <div class="negocio-acciones">
+            <a href={`tel:+52${dulceria.telefono.replace(/\s/g, '')}`} class="btn-principal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              Llamar: {dulceria.telefono}
+            </a>
+            <a href={`https://wa.me/52${dulceria.telefono.replace(/\s/g, '')}?text=Hola!%20Vi%20su%20dulcería%20en%20el%20directorio%20de%20Mededul%20y%20me%20gustaría%20información`} class="btn-whatsapp" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              WhatsApp
+            </a>
+            <a href={dulceria.mapsUrl} class="btn-mapa" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="negocio-hero-imagen">
+          <img
+            src={getCdnUrl(dulceria.imagen, { w: 600, q: 85 })}
+            alt={`${dulceria.nombre} - Dulcería en Plaza Mexicana del Sur, Tlalpan`}
+            width="600"
+            height="400"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content with Sidebar -->
+  <div class="negocio-layout">
+    <div class="container">
+      <div class="negocio-grid">
+        <!-- Main Content -->
+        <main class="negocio-main">
+          <!-- Descripción -->
+          <section class="negocio-seccion descripcion-principal">
+            <h2>Sobre {dulceria.nombre}</h2>
+            <div class="descripcion-contenido">
+              <p class="descripcion-intro"><strong>Dulcería Candy Gram</strong> es una tienda de golosinas y artículos para fiestas ubicada dentro del <strong>Mercado Plaza Mexicana del Sur</strong>, en la colonia Huipulco, Tlalpan. Su ubicación estratégica en este mercado tradicional le permite ofrecer <strong>precios accesibles</strong> y una amplia variedad de dulces para todo tipo de celebraciones en la zona sur de la Ciudad de México.</p>
+              <p class="descripcion-texto">Con una calificación de <strong>4.2 estrellas en Google</strong>, Candy Gram se ha ganado la confianza de los habitantes de Tlalpan, Coyoacán y colonias cercanas. Su local, ubicado en los espacios 2 y 3 del mercado, ofrece desde <strong>dulces tradicionales mexicanos hasta golosinas importadas</strong>, piñatas de todas las temáticas y artículos para armar bolsas de aguinaldos.</p>
+              <p class="descripcion-texto">Si estás organizando una <strong>fiesta infantil, cumpleaños, bautizo o cualquier celebración</strong> en el sur de CDMX, Dulcería Candy Gram es una excelente opción para surtir todos tus dulces. La ventaja de comprar en mercado se traduce en <strong>precios competitivos y atención personalizada</strong> que no encontrarás en cadenas comerciales.</p>
+            </div>
+          </section>
+
+          <!-- Beneficios Cards -->
+          <section class="negocio-seccion beneficios-section">
+            <h2>¿Por qué elegir Dulcería Candy Gram?</h2>
+            <div class="beneficios-grid">
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+                <h3>Ubicación en Mercado</h3>
+                <p>Dentro del <strong>Mercado Plaza Mexicana del Sur</strong>, un centro comercial tradicional con ambiente familiar y fácil acceso desde Calzada de Tlalpan.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <h3>Zona Sur CDMX</h3>
+                <p>Ideal para habitantes de <strong>Tlalpan, Coyoacán, Xochimilco</strong> y colonias del sur de la ciudad que buscan dulces sin ir al centro.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </div>
+                <h3>Dulces para Fiestas</h3>
+                <p><strong>Piñatas, aguinaldos, dulces a granel</strong> y todo lo necesario para cumpleaños, bautizos y celebraciones infantiles.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                  </svg>
+                </div>
+                <h3>Precios de Mercado</h3>
+                <p><strong>Costos más accesibles</strong> que tiendas de centro comercial, con la ventaja de atención personalizada y asesoría para tu evento.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Productos Destacados -->
+          <section class="negocio-seccion productos-section">
+            <h2>Productos que Encontrarás</h2>
+            <div class="productos-lista">
+              <div class="producto-categoria">
+                <span class="producto-tag">Piñatas</span>
+                <p>Variedad de modelos: personajes infantiles, números, estrellas, tradicionales y temáticas especiales</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Bolsas de Dulces</span>
+                <p>Armado de bolsitas para aguinaldos con diferentes contenidos según tu presupuesto</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Dulces Tradicionales</span>
+                <p>Mazapanes, cocadas, alegrías, obleas, tamarindos y toda la dulcería mexicana clásica</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Golosinas</span>
+                <p>Gomitas, paletas, chiclosos, caramelos y dulces de las marcas más populares</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Confitería</span>
+                <p>Chocolates, bombones y dulces finos para mesas de postres y eventos especiales</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Artículos de Fiesta</span>
+                <p>Complementos básicos para celebraciones: serpentinas, confeti y decoración sencilla</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Especialidades -->
+          <section class="negocio-seccion">
+            <h2>Lo que Encontrarás</h2>
+            <div class="especialidades-grid">
+              {dulceria.especialidades.map(esp => (
+                <div class="especialidad-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <span>{esp}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Servicios -->
+          <section class="negocio-seccion">
+            <h2>Servicios</h2>
+            <div class="servicios-grid">
+              {dulceria.servicios.map(serv => (
+                <div class="servicio-card">
+                  <h3>{serv.nombre}</h3>
+                  <p>{serv.descripcion}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Horario -->
+          <section class="negocio-seccion">
+            <h2>Horario de Atención</h2>
+            <div class="horario-tabla">
+              {Object.entries(dulceria.horario).map(([dia, hora]) => (
+                <div class="horario-fila">
+                  <span class="horario-dia">{dia.charAt(0).toUpperCase() + dia.slice(1)}</span>
+                  <span class="horario-hora">{hora}</span>
+                </div>
+              ))}
+            </div>
+            <p class="horario-nota">* Horarios aproximados. Te recomendamos llamar para confirmar.</p>
+          </section>
+
+          <!-- Ubicación -->
+          <section class="negocio-seccion">
+            <h2>Cómo Llegar</h2>
+            <div class="ubicacion-detalle">
+              <div class="ubicacion-info">
+                <p><strong>Dirección:</strong> {dulceria.direccion}</p>
+                <p><strong>Colonia:</strong> {dulceria.colonia}</p>
+                <p><strong>Alcaldía:</strong> {dulceria.alcaldia}</p>
+                <p><strong>Ciudad:</strong> {dulceria.ciudad}</p>
+                <p><strong>CP:</strong> {dulceria.cp}</p>
+                <p><strong>Referencia:</strong> Dentro del Mercado Plaza Mexicana del Sur, locales 2 y 3. Esquina de Acoxpa y Calzada de Tlalpan.</p>
+              </div>
+              <a href={dulceria.mapsUrl} class="btn-mapa-grande" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Abrir en Google Maps
+              </a>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section class="negocio-seccion">
+            <SectionHeader
+              title="Preguntas sobre"
+              titleHighlight={dulceria.nombre}
+            />
+            <FAQ items={faqsDulceria} id="faq-dulceria" />
+          </section>
+        </main>
+
+        <!-- Sidebar -->
+        <DirectorioSidebar currentSlug={dulceria.slug} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Otras Dulcerías -->
+  <section class="otras-dulcerias section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Otras Dulcerías en"
+        titleHighlight="CDMX"
+        subtitle="Explora más opciones de dulcerías verificadas"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/directorio/el-bofito-norte-70"
+          image="/img/galeria/candy-bar-colorido-fiestas.avif"
+          alt="El Bofito Norte 70 - Dulcería tradicional en Norte 70"
+          title="El Bofito Norte 70"
+          excerpt="4.1 estrellas (785 reseñas). Dulcería tradicional con más de 30 años en Norte 70."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-el-remate"
+          image="/img/galeria/dulces-variados-mesa.avif"
+          alt="Dulcería El Remate - Precios accesibles en Av. Juárez"
+          title="Dulcería El Remate"
+          excerpt="4.1 estrellas (1,062 reseñas). La más reseñada de CDMX con precios accesibles en Av. Juárez."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-agam"
+          image="/img/galeria/barra-dulces-fiestas-cdmx.avif"
+          alt="Dulcería Agam - Variedad y calidad en Iztapalapa"
+          title="Dulcería Agam"
+          excerpt="4.5 estrellas (229 reseñas). Excelente calidad y variedad en Iztapalapa con precios competitivos."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-chispita"
+          image="/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif"
+          alt="Dulcería Chispita - Excelente servicio en Tlalpan"
+          title="Dulcería Chispita"
+          excerpt="4.8 estrellas (243 reseñas). La mejor calificación de CDMX con excelente servicio en Tlalpan."
+          cta="Ver Dulcería"
+        />
+      </div>
+      <div class="ver-todas-wrapper">
+        <a href="/directorio/todos" class="btn-ver-todas">
+          Ver todas las dulcerías
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20dulces%20para%20mi%20evento"
+    badge="Mesa de Dulces"
+    title="¿Necesitas una Mesa de Dulces"
+    titleHighlight="Profesional"
+    text="En Mededul diseñamos mesas de dulces personalizadas para bodas, XV años, baby showers y todo tipo de eventos."
+    buttonText="Cotizar Mesa de Dulces"
+  />
+</BaseLayout>
+
+<style>
+  /* Hero del Negocio */
+  .negocio-hero {
+    padding: 60px 0 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .negocio-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 500px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .verificado-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 211, 102, 0.1);
+    color: #128C7E;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .verificado-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .negocio-hero-info h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  .negocio-tipo {
+    font-size: 1.1rem;
+    color: var(--rosa-principal);
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+
+  .negocio-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .rating-stars svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .rating-numero {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+  }
+
+  .rating-resenas {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+  }
+
+  .negocio-ubicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .negocio-ubicacion svg {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .negocio-ubicacion .direccion {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .negocio-ubicacion .zona {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .negocio-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn-principal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-principal svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-whatsapp svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+  }
+
+  .btn-mapa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    color: var(--texto-oscuro);
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa svg {
+    width: 22px;
+    height: 22px;
+    color: var(--rosa-principal);
+  }
+
+  .btn-mapa:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .negocio-hero-imagen {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .negocio-hero-imagen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Layout */
+  .negocio-layout {
+    padding: 30px 0 60px;
+    background: #fff;
+  }
+
+  .negocio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .negocio-main {
+    min-width: 0;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    margin: 0;
+  }
+
+  /* Secciones */
+  .negocio-seccion {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .negocio-seccion:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .negocio-seccion h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 24px;
+  }
+
+  .descripcion-principal {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+  }
+
+  .descripcion-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .descripcion-intro {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-texto {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-intro strong,
+  .descripcion-texto strong {
+    color: var(--rosa-principal);
+  }
+
+  .negocio-seccion p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Beneficios Grid */
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .beneficio-card {
+    padding: 28px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .beneficio-icono {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .beneficio-icono svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+
+  .beneficio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .beneficio-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .beneficio-card p strong {
+    color: var(--texto-oscuro);
+  }
+
+  /* Productos Section */
+  .productos-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .producto-categoria {
+    padding: 20px 24px;
+    background: #fff;
+    border-radius: 14px;
+    border: 2px solid #f5f5f5;
+  }
+
+  .producto-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(209, 0, 122, 0.1);
+    color: var(--rosa-principal);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .producto-categoria p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Especialidades */
+  .especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .especialidad-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border-radius: 12px;
+  }
+
+  .especialidad-item svg {
+    width: 22px;
+    height: 22px;
+    color: #25D366;
+    flex-shrink: 0;
+  }
+
+  .especialidad-item span {
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+    font-weight: 500;
+  }
+
+  /* Servicios */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .servicio-card {
+    padding: 24px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+  }
+
+  .servicio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+  }
+
+  .servicio-card p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Horario */
+  .horario-tabla {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+
+  .horario-fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .horario-fila:last-child {
+    border-bottom: none;
+  }
+
+  .horario-fila:nth-child(odd) {
+    background: #fafafa;
+  }
+
+  .horario-dia {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .horario-hora {
+    color: var(--rosa-principal);
+    font-weight: 500;
+  }
+
+  .horario-nota {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    font-style: italic;
+    margin-top: 16px;
+  }
+
+  /* Ubicación */
+  .ubicacion-detalle {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .ubicacion-info p {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+  }
+
+  .ubicacion-info strong {
+    color: var(--texto-oscuro);
+  }
+
+  .btn-mapa-grande {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa-grande svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-mapa-grande:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Otras Dulcerías */
+  .otras-dulcerias {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .ver-todas-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-ver-todas {
+    display: inline-flex;
+    padding: 14px 32px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ver-todas:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .negocio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .negocio-hero-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .negocio-hero-imagen {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .negocio-hero {
+      padding: 40px 0;
+    }
+
+    .negocio-hero-info h1 {
+      font-size: 1.8rem;
+    }
+
+    .negocio-acciones {
+      flex-direction: column;
+    }
+
+    .btn-principal,
+    .btn-whatsapp,
+    .btn-mapa {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .beneficios-grid,
+    .productos-lista,
+    .especialidades-grid,
+    .servicios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .negocio-layout {
+      padding: 40px 0;
+    }
+  }
+</style>

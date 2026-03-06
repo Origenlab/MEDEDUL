@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
@@ -12,96 +13,111 @@ const breadcrumbItems = [
   { name: 'Dulces Tradicionales', url: '/directorio/dulces-tradicionales' }
 ];
 
-// Proveedores de esta categoria
 const proveedores = [
   {
-    nombre: 'La Casa del Mazapan',
-    descripcion: 'Especialistas en mazapanes artesanales de San Luis Potosi. Mas de 20 variedades de sabores.',
-    ubicacion: 'Centro Historico, CDMX',
-    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
-    rating: 4.9,
-    resenas: 156,
+    nombre: 'El Bofito Norte 70',
+    slug: 'el-bofito-norte-70',
+    descripcion: 'Una de las dulcerías más grandes y reconocidas en la zona de Bondojito. Amplio surtido de dulces mexicanos tradicionales y precios de mayoreo.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 5551 7733',
+    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    rating: 4.3,
+    resenas: 2947,
     verificado: true,
     destacado: true,
-    especialidades: ['Mazapanes', 'Jamoncillos', 'Cocadas']
+    especialidades: ['Dulces a granel', 'Mayoreo', 'Dulces mexicanos']
   },
   {
-    nombre: 'Dulceria Don Pancho',
-    descripcion: 'Tradicional dulceria familiar con mas de 40 anos de experiencia en dulces tipicos mexicanos.',
-    ubicacion: 'Coyoacan, CDMX',
-    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
-    rating: 4.8,
-    resenas: 98,
+    nombre: 'Dulcería El Remate',
+    slug: 'dulceria-el-remate',
+    descripcion: 'Dulcería de mayoreo con más de 2,400 reseñas. Especializada en surtido amplio de dulces tradicionales mexicanos y artículos para fiestas.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 5551 6249',
+    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    rating: 4.4,
+    resenas: 2410,
     verificado: true,
-    destacado: false,
-    especialidades: ['Alfeñiques', 'Tamarindos', 'Obleas']
+    destacado: true,
+    especialidades: ['Mayoreo', 'Dulces tradicionales', 'Artículos para fiestas']
   },
   {
-    nombre: 'Alegrias de Oaxaca',
-    descripcion: 'Importamos directamente de Oaxaca las mejores alegrias, nicuatole y dulces regionales.',
-    ubicacion: 'Roma Norte, CDMX',
+    nombre: 'Dulcería El Gordo',
+    slug: 'dulceria-el-gordo',
+    descripcion: 'Ubicada en el corazón del Mercado de Dulces La Merced, el centro histórico de distribución de dulces de la CDMX. Variedad de dulces mexicanos.',
+    ubicacion: 'Mercado de Dulces La Merced',
+    telefono: '55 5522 8007',
     imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
-    rating: 4.7,
-    resenas: 67,
+    rating: 4.3,
+    resenas: 429,
     verificado: true,
-    destacado: false,
-    especialidades: ['Alegrias', 'Nicuatole', 'Ate']
+    destacado: true,
+    especialidades: ['Mercado La Merced', 'Dulces mexicanos', 'Mayoreo']
   },
   {
-    nombre: 'El Paraiso del Tamarindo',
-    descripcion: 'Todo tipo de dulces de tamarindo: pulpas, paletas, rollos y preparaciones enchiladas.',
-    ubicacion: 'Tlalnepantla, Edomex',
+    nombre: 'Dulcería Guachitos',
+    slug: 'dulceria-guachitos',
+    descripcion: 'Dulcería popular en Iztapalapa con más de 600 reseñas. Amplio surtido de dulces tradicionales, botanas y artículos para piñatas.',
+    ubicacion: 'La Esperanza, Iztapalapa',
+    telefono: '55 5607 5406',
+    imagen: '/img/galeria/candy-bar-infantil-colorido.avif',
+    rating: 4.3,
+    resenas: 628,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Dulces variados', 'Piñatas', 'Botanas']
+  },
+  {
+    nombre: 'Dulcería Mixcoac',
+    slug: 'dulceria-mixcoac',
+    descripcion: 'Dulcería tradicional en la zona de Mixcoac. Más de 1,100 reseñas la respaldan como una opción confiable para dulces mexicanos y artículos para fiestas.',
+    ubicacion: 'Mixcoac, Benito Juárez',
+    telefono: '55 1518 0985',
+    imagen: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif',
+    rating: 4.3,
+    resenas: 1135,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Dulces mexicanos', 'Artículos para fiestas', 'Confitería']
+  },
+  {
+    nombre: 'Dulcería La 27',
+    slug: 'dulceria-la-27',
+    descripcion: 'Excelente opción en la zona de La Merced con rating de 4.6. Variedad de dulces tradicionales y precios accesibles.',
+    ubicacion: 'La Merced, Venustiano Carranza',
+    telefono: '55 5762 0736',
     imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
     rating: 4.6,
-    resenas: 45,
+    resenas: 111,
     verificado: true,
     destacado: false,
-    especialidades: ['Pulparindo', 'Tamarindo enchilado', 'Paletas']
-  },
-  {
-    nombre: 'Cocadas La Abuela',
-    descripcion: 'Cocadas artesanales hechas con coco fresco rallado. Receta familiar de tres generaciones.',
-    ubicacion: 'Del Valle, CDMX',
-    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
-    rating: 4.9,
-    resenas: 112,
-    verificado: true,
-    destacado: true,
-    especialidades: ['Cocadas', 'Besitos de coco', 'Cochinitos']
-  },
-  {
-    nombre: 'Dulces Tipicos Michoacan',
-    descripcion: 'Ates de Morelia, chongos zamoranos y conservas de frutas tradicionales.',
-    ubicacion: 'Naucalpan, Edomex',
-    imagen: '/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif',
-    rating: 4.5,
-    resenas: 38,
-    verificado: true,
-    destacado: false,
-    especialidades: ['Ates', 'Chongos zamoranos', 'Cajetas']
+    especialidades: ['Dulces tradicionales', 'Precios accesibles', 'Zona La Merced']
   }
 ];
 
 const faqsCategoria = [
   {
-    question: '¿Los dulces tradicionales son mas baratos para eventos?',
-    answer: 'Generalmente si. Los dulces tradicionales mexicanos suelen ser mas economicos que los importados, y ademas tienen gran aceptacion en todo tipo de eventos.'
+    question: '¿Los dulces tradicionales son más económicos para eventos?',
+    answer: 'Generalmente sí. Los dulces tradicionales mexicanos suelen ser más económicos que los importados, especialmente cuando compras en dulcerías de mayoreo como El Bofito o El Remate.'
   },
   {
-    question: '¿Puedo hacer pedidos mayoreo para mi evento?',
-    answer: 'Si, la mayoria de proveedores ofrecen precios especiales para pedidos de mayoreo. Contacta directamente para cotizaciones de mas de 5kg.'
+    question: '¿Dónde puedo conseguir dulces tradicionales a mayoreo en CDMX?',
+    answer: 'Las mejores zonas para comprar dulces a mayoreo son: El Mercado de Dulces La Merced (Dulcería El Gordo, La 27) y la zona de Bondojito en Gustavo A. Madero (El Bofito, El Remate).'
   },
   {
-    question: '¿Los dulces son frescos o empaquetados?',
-    answer: 'Depende del proveedor. Muchos ofrecen dulces artesanales frescos hechos al momento, mientras otros manejan empaquetados de alta calidad.'
+    question: '¿Qué dulces tradicionales son los más populares para fiestas?',
+    answer: 'Los más solicitados son: mazapanes, cocadas, tamarindos, paletas de dulce, chicles, gomitas enchiladas y dulces de leche como glorias y jamoncillos.'
+  },
+  {
+    question: '¿Puedo hacer pedidos grandes para mi evento?',
+    answer: 'Sí, la mayoría de estas dulcerías ofrecen precios especiales para pedidos de mayoreo. Te recomendamos contactarlas directamente para cotizaciones de cantidades grandes.'
   }
 ];
 
 const categoriaSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Proveedores de Dulces Tradicionales Mexicanos - CDMX y Edomex",
-  "description": "Directorio de tiendas de dulces tradicionales mexicanos: mazapanes, alegrias, cocadas, tamarindos",
+  "name": "Proveedores de Dulces Tradicionales Mexicanos en CDMX",
+  "description": "Directorio de tiendas de dulces tradicionales mexicanos verificadas en Ciudad de México",
   "numberOfItems": proveedores.length,
   "itemListElement": proveedores.map((p, i) => ({
     "@type": "ListItem",
@@ -109,15 +125,21 @@ const categoriaSchema = {
     "item": {
       "@type": "LocalBusiness",
       "name": p.nombre,
-      "description": p.descripcion
+      "description": p.descripcion,
+      "telephone": `+52${p.telefono.replace(/\s/g, '')}`,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": p.rating,
+        "reviewCount": p.resenas
+      }
     }
   }))
 };
 ---
 
 <BaseLayout
-  title="Dulces Tradicionales Mexicanos | Directorio CDMX y Edomex"
-  description="Encuentra proveedores de dulces tradicionales mexicanos: mazapanes, alegrias, cocadas, tamarindos, ates y mas. Directorio verificado en CDMX y Estado de Mexico."
+  title="Dulces Tradicionales Mexicanos | Directorio CDMX 2025"
+  description={`Encuentra ${proveedores.length} proveedores de dulces tradicionales mexicanos en CDMX. Mazapanes, cocadas, tamarindos y más. Precios de mayoreo.`}
   canonical="/directorio/dulces-tradicionales"
   ogImage="/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif"
   includeCategoryStyles={true}
@@ -129,118 +151,122 @@ const categoriaSchema = {
   <Hero
     title="Dulces Tradicionales Mexicanos"
     highlight="Tradicionales"
-    subtitle="Mazapanes, alegrias, cocadas, tamarindos y mas"
-    secondaryContent={`<p>Descubre los mejores proveedores de <strong>dulces tradicionales mexicanos</strong> en CDMX y Estado de Mexico. Perfectos para mesas de dulces con esencia mexicana, fiestas patrias y eventos con identidad.</p><p><strong>${proveedores.length} proveedores verificados</strong> con dulces artesanales de la mejor calidad.</p>`}
+    subtitle="Mazapanes, cocadas, tamarindos y más"
+    secondaryContent={`<p>Descubre las mejores dulcerías de <strong>dulces tradicionales mexicanos</strong> en CDMX. Perfectos para mesas de dulces con esencia mexicana, fiestas patrias y eventos temáticos.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
     showCTA={false}
   />
 
-  <!-- Filtros -->
   <section class="filtros-section">
     <div class="container">
       <div class="filtros-wrapper">
         <div class="filtros-info">
-          <span class="resultados-count">${proveedores.length} proveedores encontrados</span>
+          <span class="resultados-count">{proveedores.length} proveedores encontrados</span>
         </div>
         <div class="filtros-opciones">
           <select class="filtro-select">
             <option value="">Todas las zonas</option>
-            <option value="cdmx">CDMX</option>
-            <option value="edomex">Estado de Mexico</option>
+            <option value="gam">Gustavo A. Madero</option>
+            <option value="merced">La Merced</option>
+            <option value="iztapalapa">Iztapalapa</option>
+            <option value="benito-juarez">Benito Juárez</option>
           </select>
           <select class="filtro-select">
             <option value="">Ordenar por</option>
             <option value="rating">Mejor calificados</option>
-            <option value="resenas">Mas resenas</option>
-            <option value="nombre">Nombre A-Z</option>
+            <option value="resenas">Más reseñas</option>
           </select>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lista de Proveedores -->
-  <section class="proveedores-section">
+  <div class="directorio-layout">
     <div class="container">
-      <div class="proveedores-lista">
-        {proveedores.map(prov => (
-          <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
-            <div class="proveedor-imagen">
-              <img
-                src={getCdnUrl(prov.imagen, { w: 400, q: 80 })}
-                alt={prov.nombre}
-                loading="lazy"
-                width="400"
-                height="300"
-              />
-              {prov.destacado && <span class="badge-destacado">Destacado</span>}
-            </div>
-            <div class="proveedor-contenido">
-              <div class="proveedor-header">
-                <div>
-                  <h2>{prov.nombre}</h2>
-                  <div class="proveedor-ubicacion">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    {prov.ubicacion}
-                  </div>
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-lista">
+            {proveedores.map(prov => (
+              <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
+                <div class="proveedor-imagen">
+                  <img
+                    src={getCdnUrl(prov.imagen, { w: 400, q: 80 })}
+                    alt={prov.nombre}
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                  />
+                  {prov.destacado && <span class="badge-destacado">Destacado</span>}
                 </div>
-                {prov.verificado && (
-                  <span class="badge-verificado" title="Negocio verificado">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Verificado
-                  </span>
-                )}
-              </div>
+                <div class="proveedor-contenido">
+                  <div class="proveedor-header">
+                    <div>
+                      <h2>{prov.nombre}</h2>
+                      <div class="proveedor-ubicacion">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {prov.ubicacion}
+                      </div>
+                    </div>
+                    {prov.verificado && (
+                      <span class="badge-verificado" title="Negocio verificado">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Verificado
+                      </span>
+                    )}
+                  </div>
 
-              <p class="proveedor-descripcion">{prov.descripcion}</p>
+                  <p class="proveedor-descripcion">{prov.descripcion}</p>
 
-              <div class="proveedor-especialidades">
-                {prov.especialidades.map(esp => (
-                  <span class="especialidad-tag">{esp}</span>
-                ))}
-              </div>
-
-              <div class="proveedor-footer">
-                <div class="proveedor-rating">
-                  <div class="rating-stars">
-                    {[1,2,3,4,5].map(star => (
-                      <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}>
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                      </svg>
+                  <div class="proveedor-especialidades">
+                    {prov.especialidades.map(esp => (
+                      <span class="especialidad-tag">{esp}</span>
                     ))}
                   </div>
-                  <span class="rating-numero">{prov.rating}</span>
-                  <span class="rating-resenas">({prov.resenas} resenas)</span>
-                </div>
 
-                <div class="proveedor-acciones">
-                  <a href="#" class="btn-perfil">Ver perfil</a>
-                  <a href="#" class="btn-whatsapp">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                    </svg>
-                    Contactar
-                  </a>
+                  <div class="proveedor-footer">
+                    <div class="proveedor-rating">
+                      <div class="rating-stars">
+                        {[1,2,3,4,5].map(star => (
+                          <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}>
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                        ))}
+                      </div>
+                      <span class="rating-numero">{prov.rating}</span>
+                      <span class="rating-resenas">({prov.resenas.toLocaleString()} reseñas)</span>
+                    </div>
+
+                    <div class="proveedor-acciones">
+                      <a href={`/directorio/${prov.slug}`} class="btn-perfil">Ver perfil</a>
+                      <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}`} class="btn-whatsapp" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                        </svg>
+                        Contactar
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </main>
+
+        <DirectorioSidebar currentSlug="dulces-tradicionales" showCategorias={true} />
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Otras Categorias -->
   <section class="otras-categorias">
     <div class="container">
       <SectionHeader
         title="Explora Otras"
-        titleHighlight="Categorias"
-        subtitle="Mas opciones para tu evento"
+        titleHighlight="Categorías"
+        subtitle="Más opciones para tu evento"
       />
       <div class="categorias-grid">
         <a href="/directorio/chocolates-trufas" class="cat-link">
@@ -249,7 +275,7 @@ const categoriaSchema = {
         </a>
         <a href="/directorio/gomitas-confiteria" class="cat-link">
           <span class="cat-icon">🍭</span>
-          <span>Gomitas y Confiteria</span>
+          <span>Gomitas y Confitería</span>
         </a>
         <a href="/directorio/galletas-cupcakes" class="cat-link">
           <span class="cat-icon">🧁</span>
@@ -267,13 +293,12 @@ const categoriaSchema = {
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="faq-section section-padding">
     <div class="container">
       <SectionHeader
         title="Preguntas sobre"
         titleHighlight="Dulces Tradicionales"
-        subtitle="Informacion util para tu evento"
+        subtitle="Información útil para tu evento"
       />
       <FAQ items={faqsCategoria} id="faq-tradicionales" />
     </div>
@@ -285,12 +310,11 @@ const categoriaSchema = {
     title="¿Necesitas Ayuda para"
     titleHighlight="Encontrar Proveedor"
     text="Te ayudamos a encontrar el proveedor perfecto de dulces tradicionales para tu evento."
-    buttonText="Pedir Recomendacion"
+    buttonText="Pedir Recomendación"
   />
 </BaseLayout>
 
 <style>
-  /* Filtros */
   .filtros-section {
     padding: 24px 0;
     background: #fff;
@@ -331,10 +355,15 @@ const categoriaSchema = {
     border-color: var(--rosa-principal);
   }
 
-  /* Proveedores Lista */
-  .proveedores-section {
+  .directorio-layout {
     padding: 50px 0 80px;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .directorio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
   }
 
   .proveedores-lista {
@@ -537,7 +566,6 @@ const categoriaSchema = {
     background: #128C7E;
   }
 
-  /* Otras Categorias */
   .otras-categorias {
     padding: 80px 0;
     background: #fff;
@@ -574,12 +602,16 @@ const categoriaSchema = {
     font-size: 1.3rem;
   }
 
-  /* FAQ */
   .faq-section {
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
-  /* Responsive */
+  @media (max-width: 1200px) {
+    .directorio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 900px) {
     .proveedor-item {
       grid-template-columns: 1fr;

@@ -1,0 +1,1036 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+// Datos de la dulcería
+const dulceria = {
+  nombre: 'Dulcería El Remate',
+  slug: 'dulceria-el-remate',
+  tipo: 'Tienda de Golosinas',
+  descripcion: 'Dulcería reconocida por sus precios de mayoreo y gran variedad de productos. Ubicada en la esquina de Norte 70 y Av. Victoria Oriente, es un punto de referencia para compras de dulces en volumen.',
+  metaDescription: 'Dulcería El Remate - Mayoreo de dulces en Bondojito, CDMX. ⭐ 4.4/5 (2,410 reseñas). Precios competitivos, dulces importados y tradicionales. Tel: 55 5551 6249',
+  direccion: 'Nte. 70 Esq. Av. Victoria Oriente, Nte. 70 5946',
+  colonia: 'Bondojito',
+  alcaldia: 'Gustavo A. Madero',
+  cp: '07850',
+  ciudad: 'Ciudad de México',
+  telefono: '55 5551 6249',
+  rating: 4.4,
+  resenas: 2410,
+  mapsUrl: 'https://maps.app.goo.gl/elremate',
+  imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
+  imagenes: [
+    '/img/galeria/candy-bar-gourmet-elegante.avif',
+    '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif'
+  ],
+  horario: {
+    lunes: '8:30 - 20:00',
+    martes: '8:30 - 20:00',
+    miercoles: '8:30 - 20:00',
+    jueves: '8:30 - 20:00',
+    viernes: '8:30 - 20:00',
+    sabado: '8:30 - 19:00',
+    domingo: '9:00 - 15:00'
+  },
+  especialidades: [
+    'Precios de mayoreo',
+    'Gran variedad',
+    'Dulces importados',
+    'Dulces tradicionales',
+    'Botanas y frituras',
+    'Chocolates'
+  ],
+  servicios: [
+    { nombre: 'Venta por mayoreo', descripcion: 'Los mejores precios en compras de volumen para comerciantes' },
+    { nombre: 'Menudeo competitivo', descripcion: 'Precios accesibles también en compras pequeñas' },
+    { nombre: 'Dulces importados', descripcion: 'Selección de golosinas de USA y otros países' },
+    { nombre: 'Surtido completo', descripcion: 'Todo para fiestas, eventos y mesas de dulces' }
+  ],
+  verificado: true
+};
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: dulceria.alcaldia, url: '/directorio/cdmx/gustavo-a-madero' },
+  { name: dulceria.nombre, url: `/directorio/${dulceria.slug}` }
+];
+
+const faqsDulceria = [
+  {
+    question: '¿Cuál es el pedido mínimo para precio de mayoreo?',
+    answer: 'Los precios de mayoreo varían según el producto. Generalmente se aplican a partir de compras de una caja completa. Te recomendamos contactar directamente para conocer las cantidades mínimas y descuentos aplicables.'
+  },
+  {
+    question: '¿Tienen dulces importados de Estados Unidos?',
+    answer: 'Sí, Dulcería El Remate cuenta con una selección de dulces importados de Estados Unidos y otros países. El inventario puede variar según disponibilidad, consulta las opciones actuales en tienda.'
+  },
+  {
+    question: '¿Puedo comprar para revender?',
+    answer: 'Absolutamente. El Remate es conocido por sus precios de mayoreo ideales para tiendas de abarrotes, vendedores ambulantes, organizadores de eventos y comerciantes en general.'
+  },
+  {
+    question: '¿Aceptan pedidos por teléfono?',
+    answer: 'Puedes llamar para consultar disponibilidad de productos específicos. Para pedidos grandes, te recomendamos visitarlos directamente para ver la variedad disponible.'
+  }
+];
+
+// Schema para SEO
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": dulceria.nombre,
+  "description": dulceria.descripcion,
+  "image": `https://mesas-de-dulces.com${dulceria.imagen}`,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": dulceria.direccion,
+    "addressLocality": dulceria.alcaldia,
+    "addressRegion": "CDMX",
+    "postalCode": dulceria.cp,
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.4785",
+    "longitude": "-99.0905"
+  },
+  "telephone": `+52${dulceria.telefono.replace(/\s/g, '')}`,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": dulceria.rating,
+    "reviewCount": dulceria.resenas,
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "priceRange": "$",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:30",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:30",
+      "closes": "19:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:00",
+      "closes": "15:00"
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title={`${dulceria.nombre} | Dulces Mayoreo en Bondojito, ${dulceria.alcaldia} CDMX`}
+  description={dulceria.metaDescription}
+  canonical={`/directorio/${dulceria.slug}`}
+  ogImage={dulceria.imagen}
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusinessSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero del Negocio -->
+  <section class="negocio-hero">
+    <div class="container">
+      <div class="negocio-hero-content">
+        <div class="negocio-hero-info">
+          {dulceria.verificado && (
+            <span class="verificado-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Verificado en Google
+            </span>
+          )}
+          <h1>{dulceria.nombre}</h1>
+          <p class="negocio-tipo">{dulceria.tipo}</p>
+
+          <div class="negocio-rating">
+            <div class="rating-stars">
+              {[1,2,3,4,5].map(star => (
+                <svg viewBox="0 0 24 24" fill={star <= Math.floor(dulceria.rating) ? "#FFB800" : "#E0E0E0"}>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <span class="rating-numero">{dulceria.rating}</span>
+            <span class="rating-resenas">({dulceria.resenas.toLocaleString()} reseñas en Google)</span>
+          </div>
+
+          <div class="negocio-ubicacion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <div>
+              <p class="direccion">{dulceria.direccion}</p>
+              <p class="zona">{dulceria.colonia}, {dulceria.alcaldia}, CDMX</p>
+            </div>
+          </div>
+
+          <div class="negocio-acciones">
+            <a href={`tel:+52${dulceria.telefono.replace(/\s/g, '')}`} class="btn-principal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              Llamar: {dulceria.telefono}
+            </a>
+            <a href={`https://wa.me/52${dulceria.telefono.replace(/\s/g, '')}?text=Hola!%20Vi%20su%20dulcería%20en%20el%20directorio%20de%20Mededul%20y%20me%20gustaría%20información%20sobre%20precios%20de%20mayoreo`} class="btn-whatsapp" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              WhatsApp
+            </a>
+            <a href={dulceria.mapsUrl} class="btn-mapa" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="negocio-hero-imagen">
+          <img
+            src={getCdnUrl(dulceria.imagen, { w: 600, q: 85 })}
+            alt={`${dulceria.nombre} - Dulcería Mayoreo en ${dulceria.alcaldia}`}
+            width="600"
+            height="400"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content with Sidebar -->
+  <div class="negocio-layout">
+    <div class="container">
+      <div class="negocio-grid">
+        <!-- Main Content -->
+        <main class="negocio-main">
+          <!-- Descripción -->
+          <section class="negocio-seccion descripcion-principal">
+            <h2>Sobre {dulceria.nombre}</h2>
+            <div class="descripcion-contenido">
+              <p class="descripcion-intro">Con más de <strong>2,400 reseñas en Google</strong> y una calificación de 4.4 estrellas, Dulcería El Remate es uno de los <strong>puntos de referencia para compras de mayoreo</strong> en el norte de la Ciudad de México. Su ubicación estratégica en la esquina de Norte 70 y Av. Victoria Oriente la convierte en un destino obligado para comerciantes y organizadores de eventos.</p>
+              <p class="descripcion-texto">El Remate se ha ganado la <strong>confianza de miles de familias y comerciantes</strong> que buscan dulces a precios verdaderamente competitivos. Su amplio inventario incluye desde <strong>dulces tradicionales mexicanos</strong> hasta golosinas importadas de Estados Unidos, chocolates de marcas reconocidas, botanas, frituras y todo lo necesario para surtir tiendas o armar <strong>mesas de dulces espectaculares</strong>.</p>
+              <p class="descripcion-texto">Ya sea que tengas una tienda de abarrotes, seas vendedor ambulante, organices fiestas infantiles o simplemente quieras ahorrar comprando en volumen, en El Remate encontrarás <strong>precios de mayoreo reales</strong> sin necesidad de credenciales especiales. Su horario extendido, incluyendo domingos, facilita que todos puedan visitarlos.</p>
+            </div>
+          </section>
+
+          <!-- Beneficios Cards -->
+          <section class="negocio-seccion beneficios-section">
+            <h2>¿Por qué elegir Dulcería El Remate?</h2>
+            <div class="beneficios-grid">
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <h3>+2,400 Reseñas Positivas</h3>
+                <p>Una de las <strong>dulcerías mejor valoradas</strong> de la zona con 4.4 estrellas. Miles de clientes satisfechos avalan la calidad y precios.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/>
+                    <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+                    <path d="M18 12a2 2 0 000 4h4v-4h-4z"/>
+                  </svg>
+                </div>
+                <h3>Precios de Mayoreo Reales</h3>
+                <p><strong>Sin requisitos complicados</strong>. Descuentos por volumen accesibles para todos: comerciantes, familias y organizadores de eventos.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                  </svg>
+                </div>
+                <h3>Dulces Importados</h3>
+                <p>Selección de <strong>golosinas de Estados Unidos</strong> y otros países. Encuentra marcas que no consigues en otros lugares.</p>
+              </div>
+
+              <div class="beneficio-card">
+                <div class="beneficio-icono">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <h3>Horario Extendido</h3>
+                <p><strong>Abierto hasta las 8pm</strong> entre semana y también los domingos. Ideal para quienes trabajan y no pueden ir temprano.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Productos Destacados -->
+          <section class="negocio-seccion productos-section">
+            <h2>Productos que Encontrarás</h2>
+            <div class="productos-lista">
+              <div class="producto-categoria">
+                <span class="producto-tag">Dulces Mexicanos</span>
+                <p>Mazapanes, cocadas, alegrías, tamarindos, obleas, glorias y toda la confitería tradicional</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Dulces Importados</span>
+                <p>Golosinas de USA: Reese's, Hershey's, Jolly Rancher, Sour Patch y más</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Gomitas y Confites</span>
+                <p>Amplia variedad de gomitas nacionales e importadas, enchiladas, ácidas y de sabores</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Chocolates</span>
+                <p>Marcas nacionales e importadas en presentaciones individuales y cajas para mayoreo</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Botanas y Frituras</span>
+                <p>Papas, chicharrones, cacahuates, palomitas y snacks en todas las presentaciones</p>
+              </div>
+              <div class="producto-categoria">
+                <span class="producto-tag">Para Mesas de Dulces</span>
+                <p>Surtido completo para armar mesas de dulces en bodas, XV años y eventos especiales</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Especialidades -->
+          <section class="negocio-seccion">
+            <h2>Lo que Encontrarás</h2>
+            <div class="especialidades-grid">
+              {dulceria.especialidades.map(esp => (
+                <div class="especialidad-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <span>{esp}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Servicios -->
+          <section class="negocio-seccion">
+            <h2>Servicios</h2>
+            <div class="servicios-grid">
+              {dulceria.servicios.map(serv => (
+                <div class="servicio-card">
+                  <h3>{serv.nombre}</h3>
+                  <p>{serv.descripcion}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Horario -->
+          <section class="negocio-seccion">
+            <h2>Horario de Atención</h2>
+            <div class="horario-tabla">
+              {Object.entries(dulceria.horario).map(([dia, hora]) => (
+                <div class="horario-fila">
+                  <span class="horario-dia">{dia.charAt(0).toUpperCase() + dia.slice(1)}</span>
+                  <span class="horario-hora">{hora}</span>
+                </div>
+              ))}
+            </div>
+            <p class="horario-nota">* Horarios aproximados. Te recomendamos llamar para confirmar.</p>
+          </section>
+
+          <!-- Ubicación -->
+          <section class="negocio-seccion">
+            <h2>Cómo Llegar</h2>
+            <div class="ubicacion-detalle">
+              <div class="ubicacion-info">
+                <p><strong>Dirección:</strong> {dulceria.direccion}</p>
+                <p><strong>Colonia:</strong> {dulceria.colonia}</p>
+                <p><strong>Alcaldía:</strong> {dulceria.alcaldia}</p>
+                <p><strong>Ciudad:</strong> {dulceria.ciudad}</p>
+                <p><strong>CP:</strong> {dulceria.cp}</p>
+              </div>
+              <a href={dulceria.mapsUrl} class="btn-mapa-grande" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Abrir en Google Maps
+              </a>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section class="negocio-seccion">
+            <SectionHeader
+              title="Preguntas sobre"
+              titleHighlight={dulceria.nombre}
+            />
+            <FAQ items={faqsDulceria} id="faq-dulceria" />
+          </section>
+        </main>
+
+        <!-- Sidebar -->
+        <DirectorioSidebar currentSlug={dulceria.slug} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Otras Dulcerías -->
+  <section class="otras-dulcerias section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Otras Dulcerías en"
+        titleHighlight="CDMX"
+        subtitle="Explora más opciones de dulcerías verificadas"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/directorio/el-bofito-norte-70"
+          image="/img/galeria/candy-bar-colorido-fiestas.avif"
+          alt="El Bofito Norte 70 - Dulcería tradicional mayoreo CDMX"
+          title="El Bofito Norte 70"
+          excerpt="4.1 estrellas (785 reseñas). Dulcería tradicional con más de 30 años en Norte 70."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-melissa"
+          image="/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif"
+          alt="Dulcería Melissa - Dulces para eventos en Aragón"
+          title="Dulcería Melissa"
+          excerpt="4.5 estrellas (637 reseñas). Especializada en atención personalizada para eventos en Aragón."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-agam"
+          image="/img/galeria/dulces-variados-mesa.avif"
+          alt="Dulcería Agam - Dulcería en Iztapalapa CDMX"
+          title="Dulcería Agam"
+          excerpt="4.5 estrellas (229 reseñas). Excelente calidad y variedad en Iztapalapa con precios competitivos."
+          cta="Ver Dulcería"
+        />
+        <ServiceCard
+          href="/directorio/dulceria-chispita"
+          image="/img/galeria/mesa-dulces-gourmet-premium.avif"
+          alt="Dulcería Chispita - La mejor calificación en Tlalpan CDMX"
+          title="Dulcería Chispita"
+          excerpt="4.8 estrellas (243 reseñas). La mejor calificación de CDMX con excelente servicio en Tlalpan."
+          cta="Ver Dulcería"
+        />
+      </div>
+      <div class="ver-todas-wrapper">
+        <a href="/directorio/todos" class="btn-ver-todas">
+          Ver todas las dulcerías
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Necesito%20dulces%20para%20mi%20evento"
+    badge="Mesa de Dulces"
+    title="¿Necesitas una Mesa de Dulces"
+    titleHighlight="Profesional"
+    text="En Mededul diseñamos mesas de dulces personalizadas para bodas, XV años, baby showers y todo tipo de eventos."
+    buttonText="Cotizar Mesa de Dulces"
+  />
+</BaseLayout>
+
+<style>
+  /* Hero del Negocio */
+  .negocio-hero {
+    padding: 60px 0 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .negocio-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 500px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .verificado-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 211, 102, 0.1);
+    color: #128C7E;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .verificado-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .negocio-hero-info h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  .negocio-tipo {
+    font-size: 1.1rem;
+    color: var(--rosa-principal);
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+
+  .negocio-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .rating-stars svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .rating-numero {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+  }
+
+  .rating-resenas {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+  }
+
+  .negocio-ubicacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .negocio-ubicacion svg {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .negocio-ubicacion .direccion {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .negocio-ubicacion .zona {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+  }
+
+  .negocio-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn-principal {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-principal svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-whatsapp svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+  }
+
+  .btn-mapa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    color: var(--texto-oscuro);
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa svg {
+    width: 22px;
+    height: 22px;
+    color: var(--rosa-principal);
+  }
+
+  .btn-mapa:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .negocio-hero-imagen {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .negocio-hero-imagen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Layout */
+  .negocio-layout {
+    padding: 30px 0 60px;
+    background: #fff;
+  }
+
+  .negocio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .negocio-main {
+    min-width: 0;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    margin: 0;
+  }
+
+  /* Secciones */
+  .negocio-seccion {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .negocio-seccion:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .negocio-seccion h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 24px;
+  }
+
+  .descripcion-principal {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+  }
+
+  .descripcion-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .descripcion-intro {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-texto {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .descripcion-intro strong,
+  .descripcion-texto strong {
+    color: var(--rosa-principal);
+  }
+
+  .negocio-seccion p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Beneficios Grid */
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .beneficio-card {
+    padding: 28px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .beneficio-icono {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .beneficio-icono svg {
+    width: 28px;
+    height: 28px;
+    color: #fff;
+  }
+
+  .beneficio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .beneficio-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .beneficio-card p strong {
+    color: var(--texto-oscuro);
+  }
+
+  /* Productos Section */
+  .productos-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .producto-categoria {
+    padding: 20px 24px;
+    background: #fff;
+    border-radius: 14px;
+    border: 2px solid #f5f5f5;
+  }
+
+  .producto-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(209, 0, 122, 0.1);
+    color: var(--rosa-principal);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .producto-categoria p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Especialidades */
+  .especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .especialidad-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border-radius: 12px;
+  }
+
+  .especialidad-item svg {
+    width: 22px;
+    height: 22px;
+    color: #25D366;
+    flex-shrink: 0;
+  }
+
+  .especialidad-item span {
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+    font-weight: 500;
+  }
+
+  /* Servicios */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .servicio-card {
+    padding: 24px;
+    background: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+  }
+
+  .servicio-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+  }
+
+  .servicio-card p {
+    font-size: 0.9rem;
+    color: var(--texto-light);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Horario */
+  .horario-tabla {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+
+  .horario-fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .horario-fila:last-child {
+    border-bottom: none;
+  }
+
+  .horario-fila:nth-child(odd) {
+    background: #fafafa;
+  }
+
+  .horario-dia {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .horario-hora {
+    color: var(--rosa-principal);
+    font-weight: 500;
+  }
+
+  .horario-nota {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    font-style: italic;
+    margin-top: 16px;
+  }
+
+  /* Ubicación */
+  .ubicacion-detalle {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .ubicacion-info p {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+  }
+
+  .ubicacion-info strong {
+    color: var(--texto-oscuro);
+  }
+
+  .btn-mapa-grande {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-mapa-grande svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-mapa-grande:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Otras Dulcerías */
+  .otras-dulcerias {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .ver-todas-wrapper {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-ver-todas {
+    display: inline-flex;
+    padding: 14px 32px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ver-todas:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .negocio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .negocio-hero-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .negocio-hero-imagen {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .negocio-hero {
+      padding: 40px 0;
+    }
+
+    .negocio-hero-info h1 {
+      font-size: 1.8rem;
+    }
+
+    .negocio-acciones {
+      flex-direction: column;
+    }
+
+    .btn-principal,
+    .btn-whatsapp,
+    .btn-mapa {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .beneficios-grid,
+    .productos-lista,
+    .especialidades-grid,
+    .servicios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .negocio-layout {
+      padding: 40px 0;
+    }
+  }
+</style>

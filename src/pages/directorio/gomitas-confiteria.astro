@@ -3,103 +3,156 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
-  { name: 'Gomitas y Confiteria', url: '/directorio/gomitas-confiteria' }
+  { name: 'Gomitas y Confitería', url: '/directorio/gomitas-confiteria' }
 ];
 
 const proveedores = [
   {
-    nombre: 'Dulces Don Pepe',
-    descripcion: 'La mayor variedad de gomitas en CDMX. Nacionales, importadas, enchiladas y sin azucar.',
-    ubicacion: 'Coyoacan, CDMX',
+    nombre: 'El Bofito Norte 70',
+    slug: 'el-bofito-norte-70',
+    descripcion: 'Una de las dulcerías más grandes de CDMX con enorme variedad de gomitas nacionales e importadas. Precios de mayoreo ideales para eventos grandes.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 5551 7733',
     imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
-    rating: 4.8,
-    resenas: 189,
+    rating: 4.3,
+    resenas: 2947,
     verificado: true,
     destacado: true,
-    especialidades: ['Gomitas importadas', 'Dulces enchilados', 'Sin azucar']
+    especialidades: ['Gomitas a granel', 'Mayoreo', 'Variedad importada']
   },
   {
-    nombre: 'Candy World MX',
-    descripcion: 'Importadores de gomitas de todo el mundo. Marcas europeas, americanas y asiaticas.',
-    ubicacion: 'Polanco, CDMX',
-    imagen: '/img/galeria/candy-bar-infantil-colorido.avif',
-    rating: 4.7,
-    resenas: 134,
-    verificado: true,
-    destacado: true,
-    especialidades: ['Haribo', 'Trolli', 'Gomitas japonesas']
-  },
-  {
-    nombre: 'La Dulceria Enchilada',
-    descripcion: 'Especialistas en dulces enchilados y chamoy. Gomitas, frutas y preparados picosos.',
-    ubicacion: 'Centro Historico, CDMX',
-    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
-    rating: 4.9,
-    resenas: 201,
-    verificado: true,
-    destacado: true,
-    especialidades: ['Chamoy artesanal', 'Gomitas enchiladas', 'Skwinkles']
-  },
-  {
-    nombre: 'Confiteria Express',
-    descripcion: 'Mayoreo de confiteria para eventos. Gomitas, malvaviscos, paletas y dulces variados.',
-    ubicacion: 'Ecatepec, Edomex',
+    nombre: 'Dulcería Melissa',
+    slug: 'dulceria-melissa',
+    descripcion: 'Dulcería con excelente calificación (4.5) y amplio surtido de gomitas, confitería y dulces para fiestas infantiles.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 7675 9070',
     imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
     rating: 4.5,
-    resenas: 67,
+    resenas: 637,
     verificado: true,
-    destacado: false,
-    especialidades: ['Mayoreo', 'Malvaviscos', 'Paletas']
+    destacado: true,
+    especialidades: ['Gomitas variadas', 'Fiestas infantiles', 'Confitería']
   },
   {
-    nombre: 'Sweet Corner',
-    descripcion: 'Gomitas gourmet y confiteria premium. Opciones organicas y sin colorantes artificiales.',
-    ubicacion: 'Santa Fe, CDMX',
-    imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
-    rating: 4.6,
-    resenas: 45,
+    nombre: 'Dulcería Guachitos',
+    slug: 'dulceria-guachitos',
+    descripcion: 'Popular dulcería en Iztapalapa con surtido de gomitas enchiladas, confitería y todo para armar piñatas coloridas.',
+    ubicacion: 'La Esperanza, Iztapalapa',
+    telefono: '55 5607 5406',
+    imagen: '/img/galeria/candy-bar-infantil-colorido.avif',
+    rating: 4.3,
+    resenas: 628,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Gomitas enchiladas', 'Piñatas', 'Dulces infantiles']
+  },
+  {
+    nombre: 'Dulcería El Remate',
+    slug: 'dulceria-el-remate',
+    descripcion: 'Dulcería de mayoreo con más de 2,400 reseñas. Gran surtido de gomitas, malvaviscos y confitería para eventos.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 5551 6249',
+    imagen: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    rating: 4.4,
+    resenas: 2410,
+    verificado: true,
+    destacado: true,
+    especialidades: ['Mayoreo', 'Malvaviscos', 'Confitería variada']
+  },
+  {
+    nombre: 'Dulcería Chispita',
+    slug: 'dulceria-chispita',
+    descripcion: 'Dulcería céntrica en Azcapotzalco con variedad de gomitas, botanas y artículos para fiestas a precios accesibles.',
+    ubicacion: 'Centro de Azcapotzalco',
+    telefono: '55 6788 0847',
+    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    rating: 4.1,
+    resenas: 123,
     verificado: true,
     destacado: false,
-    especialidades: ['Gomitas organicas', 'Sin colorantes', 'Veganas']
+    especialidades: ['Gomitas variadas', 'Botanas', 'Artículos para fiestas']
+  },
+  {
+    nombre: 'Dulcería Agam',
+    slug: 'dulceria-agam',
+    descripcion: 'Pequeña dulcería con la mejor calificación de la zona (4.6). Atención personalizada y buen surtido de gomitas y confitería.',
+    ubicacion: 'Bondojito, Gustavo A. Madero',
+    telefono: '55 7155 0262',
+    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    rating: 4.6,
+    resenas: 36,
+    verificado: true,
+    destacado: false,
+    especialidades: ['Mejor calificación zona', 'Atención personalizada', 'Confitería']
   }
 ];
 
 const faqsCategoria = [
   {
-    question: '¿Tienen gomitas sin azucar para diabeticos?',
-    answer: 'Si, varios proveedores manejan lineas sin azucar y aptas para diabeticos. Pregunta especificamente por estas opciones al contactarlos.'
+    question: '¿Dónde comprar gomitas a mayoreo en CDMX?',
+    answer: 'Las mejores opciones para comprar gomitas a mayoreo son El Bofito Norte 70 y Dulcería El Remate en la zona de Bondojito (Gustavo A. Madero). Ambas tienen miles de reseñas y precios competitivos.'
   },
   {
-    question: '¿Donde consigo gomitas importadas de Japon o Corea?',
-    answer: 'Candy World MX y otras tiendas especializadas manejan gomitas asiaticas. Tambien puedes encontrarlas en tiendas de productos asiaticos.'
+    question: '¿Tienen gomitas enchiladas y con chamoy?',
+    answer: 'Sí, todas las dulcerías del directorio manejan gomitas enchiladas y con chamoy. Dulcería Guachitos en Iztapalapa es especialmente conocida por sus gomitas picosas.'
   },
   {
-    question: '¿Hacen paquetes de gomitas para mesas de dulces?',
-    answer: 'Si, la mayoria ofrece paquetes armados por cantidad de invitados. Incluyen variedad de gomitas y confiteria para eventos.'
+    question: '¿Puedo armar paquetes de gomitas para mesas de dulces?',
+    answer: 'Sí, la mayoría de las dulcerías ofrecen asesoría para armar paquetes por cantidad de invitados. Contacta directamente para cotizaciones personalizadas.'
+  },
+  {
+    question: '¿Cuál dulcería tiene la mejor calificación para gomitas?',
+    answer: 'Dulcería Agam tiene la mejor calificación (4.6) de la zona, seguida de Dulcería Melissa (4.5). Ambas ofrecen excelente variedad de gomitas y atención personalizada.'
   }
 ];
+
+const categoriaSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Proveedores de Gomitas y Confitería en CDMX",
+  "description": "Directorio de dulcerías con gomitas, malvaviscos y confitería variada en Ciudad de México",
+  "numberOfItems": proveedores.length,
+  "itemListElement": proveedores.map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "LocalBusiness",
+      "name": p.nombre,
+      "description": p.descripcion,
+      "telephone": `+52${p.telefono.replace(/\s/g, '')}`,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": p.rating,
+        "reviewCount": p.resenas
+      }
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Gomitas y Confiteria | Directorio CDMX y Edomex"
-  description="Proveedores de gomitas importadas, dulces enchilados y confiteria variada en CDMX. Haribo, Trolli, gomitas japonesas y mas."
+  title="Gomitas y Confitería | Directorio CDMX 2025"
+  description={`${proveedores.length} dulcerías con gomitas, malvaviscos y confitería en CDMX. Mayoreo y menudeo. Gomitas enchiladas, importadas y más.`}
   canonical="/directorio/gomitas-confiteria"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(categoriaSchema)} slot="head" />
+
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Gomitas y Confiteria"
+    title="Gomitas y Confitería"
     highlight="Gomitas"
-    subtitle="Importadas, enchiladas, organicas y de todo tipo"
-    secondaryContent={`<p>Los mejores proveedores de <strong>gomitas y confiteria</strong> en CDMX y Estado de Mexico. Desde marcas importadas hasta dulces enchilados artesanales.</p><p><strong>${proveedores.length} proveedores verificados</strong> con la mejor variedad.</p>`}
+    subtitle="Importadas, enchiladas y de todo tipo"
+    secondaryContent={`<p>Los mejores proveedores de <strong>gomitas y confitería</strong> en CDMX. Desde marcas importadas hasta dulces enchilados artesanales.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
     showCTA={false}
   />
 
@@ -108,56 +161,71 @@ const faqsCategoria = [
       <div class="filtros-wrapper">
         <span class="resultados-count">{proveedores.length} proveedores encontrados</span>
         <div class="filtros-opciones">
-          <select class="filtro-select"><option value="">Todas las zonas</option><option value="cdmx">CDMX</option><option value="edomex">Estado de Mexico</option></select>
-          <select class="filtro-select"><option value="">Ordenar por</option><option value="rating">Mejor calificados</option><option value="resenas">Mas resenas</option></select>
+          <select class="filtro-select">
+            <option value="">Todas las alcaldías</option>
+            <option value="gam">Gustavo A. Madero</option>
+            <option value="iztapalapa">Iztapalapa</option>
+            <option value="azcapotzalco">Azcapotzalco</option>
+          </select>
+          <select class="filtro-select">
+            <option value="">Ordenar por</option>
+            <option value="rating">Mejor calificados</option>
+            <option value="resenas">Más reseñas</option>
+          </select>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="proveedores-section">
+  <div class="directorio-layout">
     <div class="container">
-      <div class="proveedores-lista">
-        {proveedores.map(prov => (
-          <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
-            <div class="proveedor-imagen">
-              <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="300" />
-              {prov.destacado && <span class="badge-destacado">Destacado</span>}
-            </div>
-            <div class="proveedor-contenido">
-              <div class="proveedor-header">
-                <div>
-                  <h2>{prov.nombre}</h2>
-                  <div class="proveedor-ubicacion">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    {prov.ubicacion}
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-lista">
+            {proveedores.map(prov => (
+              <div class={`proveedor-item ${prov.destacado ? 'proveedor-item--destacado' : ''}`}>
+                <div class="proveedor-imagen">
+                  <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={prov.nombre} loading="lazy" width="400" height="300" />
+                  {prov.destacado && <span class="badge-destacado">Destacado</span>}
+                </div>
+                <div class="proveedor-contenido">
+                  <div class="proveedor-header">
+                    <div>
+                      <h2>{prov.nombre}</h2>
+                      <div class="proveedor-ubicacion">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {prov.ubicacion}
+                      </div>
+                    </div>
+                    {prov.verificado && <span class="badge-verificado"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verificado</span>}
+                  </div>
+                  <p class="proveedor-descripcion">{prov.descripcion}</p>
+                  <div class="proveedor-especialidades">{prov.especialidades.map(esp => <span class="especialidad-tag">{esp}</span>)}</div>
+                  <div class="proveedor-footer">
+                    <div class="proveedor-rating">
+                      <div class="rating-stars">{[1,2,3,4,5].map(star => <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>
+                      <span class="rating-numero">{prov.rating}</span>
+                      <span class="rating-resenas">({prov.resenas.toLocaleString()} reseñas)</span>
+                    </div>
+                    <div class="proveedor-acciones">
+                      <a href={`/directorio/${prov.slug}`} class="btn-perfil">Ver perfil</a>
+                      <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}`} class="btn-whatsapp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Contactar</a>
+                    </div>
                   </div>
                 </div>
-                {prov.verificado && <span class="badge-verificado"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verificado</span>}
               </div>
-              <p class="proveedor-descripcion">{prov.descripcion}</p>
-              <div class="proveedor-especialidades">{prov.especialidades.map(esp => <span class="especialidad-tag">{esp}</span>)}</div>
-              <div class="proveedor-footer">
-                <div class="proveedor-rating">
-                  <div class="rating-stars">{[1,2,3,4,5].map(star => <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>
-                  <span class="rating-numero">{prov.rating}</span>
-                  <span class="rating-resenas">({prov.resenas} resenas)</span>
-                </div>
-                <div class="proveedor-acciones">
-                  <a href="#" class="btn-perfil">Ver perfil</a>
-                  <a href="#" class="btn-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Contactar</a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </main>
+
+        <DirectorioSidebar currentSlug="gomitas-confiteria" showCategorias={true} />
       </div>
     </div>
-  </section>
+  </div>
 
   <section class="otras-categorias">
     <div class="container">
-      <SectionHeader title="Explora Otras" titleHighlight="Categorias" subtitle="Mas opciones para tu evento" />
+      <SectionHeader title="Explora Otras" titleHighlight="Categorías" subtitle="Más opciones para tu evento" />
       <div class="categorias-grid">
         <a href="/directorio/dulces-tradicionales" class="cat-link"><span class="cat-icon">🍬</span><span>Dulces Tradicionales</span></a>
         <a href="/directorio/chocolates-trufas" class="cat-link"><span class="cat-icon">🍫</span><span>Chocolates y Trufas</span></a>
@@ -170,12 +238,12 @@ const faqsCategoria = [
 
   <section class="faq-section section-padding">
     <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Gomitas" subtitle="Informacion util" />
+      <SectionHeader title="Preguntas sobre" titleHighlight="Gomitas" subtitle="Información útil" />
       <FAQ items={faqsCategoria} id="faq-gomitas" />
     </div>
   </section>
 
-  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20gomitas%20y%20confiteria" badge="Gomitas y Confiteria" title="¿Buscas Gomitas para tu" titleHighlight="Evento" text="Te ayudamos a encontrar el proveedor perfecto." buttonText="Pedir Recomendacion" />
+  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20gomitas%20y%20confitería" badge="Gomitas y Confitería" title="¿Buscas Gomitas para tu" titleHighlight="Evento" text="Te ayudamos a encontrar el proveedor perfecto." buttonText="Pedir Recomendación" />
 </BaseLayout>
 
 <style>
@@ -184,7 +252,10 @@ const faqsCategoria = [
   .resultados-count { font-weight: 600; color: var(--texto-oscuro); }
   .filtros-opciones { display: flex; gap: 12px; }
   .filtro-select { padding: 10px 20px; border: 2px solid #f0f0f0; border-radius: 10px; font-size: 0.9rem; background: #fff; cursor: pointer; }
-  .proveedores-section { padding: 50px 0 80px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+
+  .directorio-layout { padding: 50px 0 80px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .directorio-grid { display: grid; grid-template-columns: 1fr 340px; gap: 40px; }
+
   .proveedores-lista { display: flex; flex-direction: column; gap: 24px; }
   .proveedor-item { display: grid; grid-template-columns: 320px 1fr; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
   .proveedor-item--destacado { border: 2px solid rgba(255, 184, 0, 0.4); box-shadow: 0 8px 30px rgba(255, 184, 0, 0.15); }
@@ -213,12 +284,15 @@ const faqsCategoria = [
   .btn-whatsapp { display: flex; align-items: center; gap: 8px; padding: 10px 24px; background: #25D366; border-radius: 10px; color: #fff; font-size: 0.9rem; font-weight: 600; text-decoration: none; }
   .btn-whatsapp svg { width: 20px; height: 20px; }
   .btn-whatsapp:hover { background: #128C7E; }
+
   .otras-categorias { padding: 80px 0; background: #fff; }
   .categorias-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
   .cat-link:hover { border-color: var(--rosa-principal); }
   .cat-icon { font-size: 1.3rem; }
   .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+
+  @media (max-width: 1200px) { .directorio-grid { grid-template-columns: 1fr; } }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; } }
   @media (max-width: 768px) { .filtros-section { top: 60px; } .proveedor-header, .proveedor-footer { flex-direction: column; gap: 16px; } .proveedor-acciones { width: 100%; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
 </style>
