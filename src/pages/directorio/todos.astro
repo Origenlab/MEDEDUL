@@ -3,8 +3,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
-import { getCdnUrl } from '@/lib/cdn';
 import { todasLasDulcerias, getEstadisticasDirectorio } from '@/data/dulcerias';
 
 const breadcrumbItems = [
@@ -47,7 +47,7 @@ const listSchema = {
 ---
 
 <BaseLayout
-  title={`${stats.total} Dulcerías en CDMX | Directorio Completo Verificado 2025`}
+  title={`${stats.total} Dulcerías en CDMX | Directorio Completo Verificado 2026`}
   description={`Directorio completo de ${stats.total} dulcerías verificadas en ${stats.alcaldias} alcaldías de Ciudad de México. +${stats.totalResenas.toLocaleString()} reseñas reales. Encuentra la dulcería perfecta para tu evento.`}
   canonical="/directorio/todos"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
@@ -77,7 +77,7 @@ const listSchema = {
           <select class="filtro-select" id="filtro-zona">
             <option value="">Todas las alcaldías</option>
             {alcaldias.map(alc => (
-              <option value={alc.toLowerCase().replace(/\s/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}>{alc}</option>
+              <option value={alc.toLowerCase().replace(/\./g, '').replace(/\s/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}>{alc}</option>
             ))}
           </select>
           <select class="filtro-select" id="filtro-orden">
@@ -105,43 +105,9 @@ const listSchema = {
 
           <div class="proveedores-grid">
             {proveedores.map(prov => (
-              <a href={`/directorio/${prov.slug}`} class="proveedor-card" data-categoria={prov.tipo} data-alcaldia={prov.alcaldiaSlug}>
-                <div class="proveedor-imagen">
-                  <img src={getCdnUrl(prov.imagen, { w: 400, q: 80 })} alt={`${prov.nombre} - ${prov.tipo} en ${prov.colonia}`} loading="lazy" width="400" height="250" />
-                  {prov.destacado && <span class="badge-destacado">Destacado</span>}
-                  {prov.verificado && (
-                    <span class="badge-verificado">
-                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </span>
-                  )}
-                </div>
-                <div class="proveedor-contenido">
-                  <span class="proveedor-categoria">{prov.tipo}</span>
-                  <h3>{prov.nombre}</h3>
-                  <div class="proveedor-ubicacion">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    {prov.colonia}, {prov.alcaldia}
-                  </div>
-                  <div class="proveedor-rating">
-                    <div class="rating-stars">
-                      {[1,2,3,4,5].map(star => (
-                        <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                      ))}
-                    </div>
-                    <span class="rating-numero">{prov.rating}</span>
-                    <span class="rating-resenas">({prov.resenas.toLocaleString()})</span>
-                  </div>
-                  <p class="proveedor-descripcion">{prov.descripcionCorta.slice(0, 80)}...</p>
-                  <div class="proveedor-acciones">
-                    <span class="btn-perfil">Ver detalles</span>
-                    {prov.telefono !== 'Sin teléfono registrado' && (
-                      <span class="btn-telefono">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </a>
+              <div data-categoria={prov.tipo} data-alcaldia={prov.alcaldiaSlug}>
+                <DulceriaCard dulceria={prov} />
+              </div>
             ))}
           </div>
         </main>
@@ -253,176 +219,8 @@ const listSchema = {
 
   .proveedores-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-  }
-
-  .proveedor-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    border: 1px solid #f0f0f0;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: block;
-  }
-
-  .proveedor-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-  }
-
-  .proveedor-imagen {
-    position: relative;
-    height: 180px;
-  }
-
-  .proveedor-imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .badge-destacado {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
-    color: #fff;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-  }
-
-  .badge-verificado {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #fff;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-
-  .badge-verificado svg {
-    width: 18px;
-    height: 18px;
-    color: #25D366;
-  }
-
-  .proveedor-contenido {
-    padding: 20px;
-  }
-
-  .proveedor-categoria {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--rosa-principal);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .proveedor-contenido h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 6px 0 8px;
-  }
-
-  .proveedor-ubicacion {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8rem;
-    color: var(--texto-light);
-    margin-bottom: 12px;
-  }
-
-  .proveedor-ubicacion svg {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-  }
-
-  .proveedor-rating {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 12px;
-  }
-
-  .rating-stars {
-    display: flex;
-    gap: 1px;
-  }
-
-  .rating-stars svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .rating-numero {
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--texto-oscuro);
-  }
-
-  .rating-resenas {
-    font-size: 0.75rem;
-    color: var(--texto-light);
-  }
-
-  .proveedor-descripcion {
-    font-size: 0.85rem;
-    color: var(--texto-light);
-    line-height: 1.5;
-    margin: 0 0 16px;
-  }
-
-  .proveedor-acciones {
-    display: flex;
-    gap: 10px;
-  }
-
-  .btn-perfil {
-    flex: 1;
-    padding: 10px;
-    border: 2px solid #f0f0f0;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--texto-oscuro);
-    transition: all 0.3s;
-  }
-
-  .proveedor-card:hover .btn-perfil {
-    border-color: var(--rosa-principal);
-    color: var(--rosa-principal);
-  }
-
-  .btn-telefono {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: var(--rosa-principal);
-    border-radius: 10px;
-    color: #fff;
-    transition: all 0.3s;
-  }
-
-  .btn-telefono svg {
-    width: 20px;
-    height: 20px;
   }
 
   @media (max-width: 1200px) {
@@ -435,7 +233,7 @@ const listSchema = {
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     .proveedores-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -449,15 +247,9 @@ const listSchema = {
     .filtro-btn {
       flex-shrink: 0;
     }
-  }
 
-  @media (max-width: 600px) {
     .filtros-section {
       top: 60px;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: 1fr;
     }
 
     .filtros-secundarios {
@@ -471,6 +263,12 @@ const listSchema = {
     .proveedores-header {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

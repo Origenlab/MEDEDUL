@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import { todasLasDulcerias } from '@/data/dulcerias';
+
+const dulcerias = todasLasDulcerias.filter(d =>
+  d.tipo === 'Dulcería Tradicional' ||
+  d.especialidades.some(e => e.toLowerCase().includes('tradicional'))
+).sort((a, b) => b.resenas - a.resenas);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Dulces Tradicionales', url: '/directorio/categorias/dulces-tradicionales' }
+];
+
+const faqs = [
+  {
+    question: '¿Qué son los dulces tradicionales mexicanos?',
+    answer: 'Los dulces tradicionales mexicanos incluyen alegrías, cocadas, mazapanes, tamarindos, palanquetas, borrachitos, obleas y más. Son dulces artesanales con recetas que pasan de generación en generación.'
+  },
+  {
+    question: '¿Dónde comprar dulces tradicionales al mayoreo en CDMX?',
+    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen dulces tradicionales. Las mejores opciones al mayoreo están en La Merced y el corredor de Norte 70 en Gustavo A. Madero.`
+  },
+  {
+    question: '¿Los dulces tradicionales sirven para mesas de dulces?',
+    answer: 'Sí, son perfectos para mesas de dulces temáticas mexicanas. Alegrías, cocadas y mazapanes son opciones muy populares para fiestas patrias, bodas mexicanas y eventos con temática tradicional.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Dulces Tradicionales Mexicanos | ${dulcerias.length} Tiendas en CDMX`}
+  description={`Encuentra las mejores dulcerías de dulces tradicionales mexicanos en CDMX. ${dulcerias.length} tiendas verificadas. Alegrías, cocadas, mazapanes y más.`}
+  canonical="/directorio/categorias/dulces-tradicionales"
+  ogImage="/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Dulces Tradicionales"
+    highlight="Tradicionales"
+    subtitle="Dulcerías con productos mexicanos artesanales"
+    secondaryContent={`<p>Encuentra <strong>dulces tradicionales mexicanos</strong>: alegrías, cocadas, mazapanes, tamarindos y más.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en Ciudad de México.</p>`}
+    showCTA={false}
+  />
+
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title="Dulcerías de"
+        titleHighlight="Dulces Tradicionales"
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
+      />
+      <div class="proveedores-grid">
+        {dulcerias.map(prov => (
+          <DulceriaCard dulceria={prov} />
+        ))}
+      </div>
+      <div class="ver-directorio">
+        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Dulces Tradicionales"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqs} id="faq-tradicionales" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20dulces%20tradicionales%20mexicanos"
+    badge="Dulces Tradicionales"
+    title="¿Necesitas Dulces Tradicionales para tu"
+    titleHighlight="Evento"
+    text="Te ayudamos a encontrar el proveedor perfecto de dulces tradicionales mexicanos."
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-listado,
+    .faq-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -3075,6 +3075,35 @@ export function getDulceriasRelacionadas(slug: string, limite: number = 4): Dulc
   return mismaAlcaldia.slice(0, limite);
 }
 
+// Obtener alcaldías que tienen dulcerías (para navegación dinámica)
+export function getAlcaldiasConDulcerias(): { slug: string; nombre: string; cantidad: number }[] {
+  const conteo: Record<string, number> = {};
+  todasLasDulcerias.forEach(d => {
+    conteo[d.alcaldiaSlug] = (conteo[d.alcaldiaSlug] || 0) + 1;
+  });
+
+  return Object.entries(alcaldiasInfo)
+    .filter(([slug]) => conteo[slug] && conteo[slug] > 0)
+    .map(([slug, info]) => ({
+      slug,
+      nombre: info.nombre,
+      cantidad: conteo[slug]
+    }))
+    .sort((a, b) => b.cantidad - a.cantidad);
+}
+
+// Obtener categorías con conteo real
+export function getCategoriasConConteo(): { tipo: string; cantidad: number }[] {
+  const conteo: Record<string, number> = {};
+  todasLasDulcerias.forEach(d => {
+    conteo[d.tipo] = (conteo[d.tipo] || 0) + 1;
+  });
+
+  return Object.entries(conteo)
+    .map(([tipo, cantidad]) => ({ tipo, cantidad }))
+    .sort((a, b) => b.cantidad - a.cantidad);
+}
+
 // Estadísticas del directorio
 export function getEstadisticasDirectorio() {
   const porAlcaldia: Record<string, number> = {};

@@ -7,7 +7,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import DirectorioSidebar from './DirectorioSidebar.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import ServiceCard from '@/components/global/ServiceCard.astro';
+import DulceriaCard from './DulceriaCard.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
@@ -472,16 +472,9 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
           titleHighlight={dulceria.alcaldia}
           subtitle="Explora más opciones de dulcerías verificadas en la zona"
         />
-        <div class="service-grid">
+        <div class="relacionadas-grid">
           {dulceriasRelacionadas.map(d => (
-            <ServiceCard
-              href={`/directorio/${d.slug}`}
-              image={d.imagen}
-              alt={`${d.nombre} - ${d.tipo} en ${d.colonia}`}
-              title={d.nombre}
-              excerpt={`${d.rating} estrellas (${d.resenas.toLocaleString()} reseñas). ${d.descripcionCorta.slice(0, 80)}...`}
-              cta="Ver Dulcería"
-            />
+            <DulceriaCard dulceria={d} />
           ))}
         </div>
         <div class="ver-todas-wrapper">
@@ -1158,6 +1151,12 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
+  .relacionadas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
   .ver-todas-wrapper {
     text-align: center;
     margin-top: 40px;
@@ -1184,6 +1183,10 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
   @media (max-width: 1200px) {
     .negocio-grid {
       grid-template-columns: 1fr;
+    }
+
+    .relacionadas-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -1220,7 +1223,8 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
 
     .beneficios-grid,
     .especialidades-grid,
-    .servicios-grid {
+    .servicios-grid,
+    .relacionadas-grid {
       grid-template-columns: 1fr;
     }
 

@@ -1,0 +1,424 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import { getDulceriasPorAlcaldia, alcaldiasInfo, getAlcaldiasConDulcerias } from '@/data/dulcerias';
+
+export function getStaticPaths() {
+  const alcaldias = Object.keys(alcaldiasInfo);
+  return alcaldias.map(slug => ({
+    params: { alcaldia: slug },
+    props: { alcaldiaSlug: slug }
+  }));
+}
+
+const { alcaldiaSlug } = Astro.props;
+const info = alcaldiasInfo[alcaldiaSlug];
+const dulcerias = getDulceriasPorAlcaldia(alcaldiaSlug);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'CDMX', url: '/directorio/cdmx' },
+  { name: info.nombre, url: `/directorio/cdmx/${alcaldiaSlug}` }
+];
+
+const faqsAlcaldia = [
+  {
+    question: `¿Cuántas dulcerías hay en ${info.nombre}?`,
+    answer: `Actualmente tenemos ${dulcerias.length} dulcerías verificadas en ${info.nombre}. ${info.descripcion}`
+  },
+  {
+    question: `¿Cuál es la zona comercial principal de ${info.nombre}?`,
+    answer: `La zona comercial principal es ${info.zonaComercial}. ${info.caracteristicas.join('. ')}.`
+  },
+  {
+    question: `¿Las dulcerías en ${info.nombre} venden al mayoreo?`,
+    answer: `Sí, varias dulcerías en ${info.nombre} ofrecen precios de mayoreo. Te recomendamos contactar directamente a cada negocio para conocer precios y mínimos de compra.`
+  },
+  {
+    question: `¿Cómo llegar a las dulcerías de ${info.nombre} en transporte público?`,
+    answer: `La zona de ${info.zonaComercial} es accesible por transporte público. Consulta la ficha de cada dulcería para ver las estaciones de Metro y Metrobús más cercanas.`
+  }
+];
+
+const totalResenas = dulcerias.reduce((sum, d) => sum + d.resenas, 0);
+const promedioRating = dulcerias.length > 0
+  ? (dulcerias.reduce((sum, d) => sum + d.rating, 0) / dulcerias.length).toFixed(1)
+  : '0';
+
+// Alcaldías cercanas para internal linking
+const todasAlcaldias = getAlcaldiasConDulcerias();
+const alcaldiasCercanas = todasAlcaldias.filter(a => a.slug !== alcaldiaSlug).slice(0, 6);
+
+// Schema LocalBusiness + AggregateRating
+const alcaldiaSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Dulcerías en ${info.nombre}, CDMX`,
+  "description": `Directorio de ${dulcerias.length} dulcerías verificadas en ${info.nombre}, Ciudad de México.`,
+  "numberOfItems": dulcerias.length,
+  "itemListElement": dulcerias.slice(0, 20).map((d, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "LocalBusiness",
+      "name": d.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": d.direccion,
+        "addressLocality": d.alcaldia,
+        "addressRegion": "CDMX",
+        "addressCountry": "MX",
+        "postalCode": d.cp
+      },
+      ...(d.telefono !== 'Sin teléfono registrado' ? { "telephone": `+52${d.telefono.replace(/\s/g, '')}` } : {}),
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": d.rating,
+        "reviewCount": d.resenas
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": d.coordenadas.lat,
+        "longitude": d.coordenadas.lng
+      }
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={`Dulcerías en ${info.nombre} | Directorio Verificado CDMX 2026`}
+  description={`Encuentra las mejores dulcerías en ${info.nombre}, CDMX. ${dulcerias.length} proveedores verificados en ${info.zonaComercial}. Mayoreo, menudeo y precios competitivos.`}
+  canonical={`/directorio/cdmx/${alcaldiaSlug}`}
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(alcaldiaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title={`Dulcerías en ${info.nombre}`}
+    highlight={info.nombre}
+    subtitle={info.descripcion}
+    secondaryContent={`<p>Encuentra proveedores de dulces verificados en <strong>${info.zonaComercial}</strong>. ${info.caracteristicas.join(', ')}.</p><p><strong>${dulcerias.length} proveedores verificados</strong> en esta alcaldía.</p>`}
+    showCTA={false}
+  />
+
+  <!-- Stats de la Alcaldía -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-numero">{dulcerias.length}</span>
+          <span class="stat-label">Dulcerías verificadas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{promedioRating}</span>
+          <span class="stat-label">Rating promedio</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{totalResenas.toLocaleString()}</span>
+          <span class="stat-label">Reseñas en Google</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">100%</span>
+          <span class="stat-label">Verificados</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características de la zona -->
+  <section class="zona-info">
+    <div class="container">
+      <SectionHeader
+        title="Zona Comercial"
+        titleHighlight={info.zonaComercial}
+        subtitle={`Lo que hace especial a ${info.nombre} para comprar dulces`}
+      />
+      <div class="caracteristicas-grid">
+        {info.caracteristicas.map((carac) => (
+          <div class="caracteristica-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>{carac}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Listado de Dulcerías con Sidebar -->
+  <section class="dulcerias-listado">
+    <div class="container">
+      <SectionHeader
+        title="Dulcerías en"
+        titleHighlight={info.nombre}
+        subtitle={`${dulcerias.length} proveedores verificados en Google Maps`}
+      />
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-grid">
+            {dulcerias.map((prov) => (
+              <DulceriaCard dulceria={prov} />
+            ))}
+          </div>
+        </main>
+        <DirectorioSidebar />
+      </div>
+    </div>
+  </section>
+
+  <!-- Alcaldías Cercanas -->
+  {alcaldiasCercanas.length > 0 && (
+    <section class="alcaldias-cercanas">
+      <div class="container">
+        <SectionHeader
+          title="Explora otras"
+          titleHighlight="Alcaldías"
+          subtitle="Más dulcerías verificadas en CDMX"
+        />
+        <div class="alcaldias-grid">
+          {alcaldiasCercanas.map(a => (
+            <a href={`/directorio/cdmx/${a.slug}`} class="alcaldia-link">
+              <span class="alcaldia-nombre">{a.nombre}</span>
+              <span class="alcaldia-count">{a.cantidad} dulcerías</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight={`dulcerías en ${info.nombre}`}
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqsAlcaldia} id={`faq-${alcaldiaSlug}`} />
+    </div>
+  </section>
+
+  <CTAServices
+    href={`https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20${encodeURIComponent(info.nombre)}`}
+    badge={info.nombre}
+    title="¿Necesitas Ayuda para Encontrar"
+    titleHighlight="Proveedor"
+    text={`Te ayudamos a encontrar el proveedor perfecto en ${info.nombre}.`}
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .stats-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    color: #fff;
+  }
+
+  .stat-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .zona-info {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .caracteristicas-grid {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .caracteristica-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  .caracteristica-card svg {
+    width: 24px;
+    height: 24px;
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+  }
+
+  .caracteristica-card span {
+    font-weight: 500;
+    color: var(--texto-oscuro);
+  }
+
+  .dulcerias-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .directorio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+    margin-top: 40px;
+  }
+
+  .directorio-main {
+    min-width: 0;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .alcaldias-cercanas {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .alcaldias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .alcaldia-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .alcaldia-link:hover {
+    border-color: var(--rosa-principal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(209, 0, 122, 0.1);
+  }
+
+  .alcaldia-nombre {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+  }
+
+  .alcaldia-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    background: rgba(209, 0, 122, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .directorio-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-section {
+      padding: 40px 0;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .stat-numero {
+      font-size: 2rem;
+    }
+
+    .zona-info,
+    .dulcerias-listado,
+    .faq-section,
+    .alcaldias-cercanas {
+      padding: 50px 0;
+    }
+
+    .caracteristicas-grid {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .alcaldias-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .alcaldias-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

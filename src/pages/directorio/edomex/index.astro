@@ -2,299 +2,205 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
+import { getEstadisticasDirectorio } from '@/data/dulcerias';
+
+const stats = getEstadisticasDirectorio();
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
-  { name: 'Estado de Mexico', url: '/directorio/edomex' }
+  { name: 'Estado de México', url: '/directorio/edomex' }
 ];
 
-const municipios = [
-  { nombre: 'Naucalpan', slug: 'naucalpan', proveedores: 21, zona: 'Zona Metropolitana' },
-  { nombre: 'Tlalnepantla', slug: 'tlalnepantla', proveedores: 18, zona: 'Zona Metropolitana' },
-  { nombre: 'Ecatepec', slug: 'ecatepec', proveedores: 25, zona: 'Zona Metropolitana' },
-  { nombre: 'Nezahualcoyotl', slug: 'nezahualcoyotl', proveedores: 16, zona: 'Zona Metropolitana' },
-  { nombre: 'Toluca', slug: 'toluca', proveedores: 32, zona: 'Valle de Toluca' },
-  { nombre: 'Metepec', slug: 'metepec', proveedores: 14, zona: 'Valle de Toluca' },
-  { nombre: 'Texcoco', slug: 'texcoco', proveedores: 11, zona: 'Zona Oriente' },
-  { nombre: 'Atizapan', slug: 'atizapan', proveedores: 9, zona: 'Zona Metropolitana' },
-  { nombre: 'Cuautitlan Izcalli', slug: 'cuautitlan-izcalli', proveedores: 12, zona: 'Zona Metropolitana' },
-  { nombre: 'Huixquilucan', slug: 'huixquilucan', proveedores: 8, zona: 'Zona Metropolitana' },
-  { nombre: 'Coacalco', slug: 'coacalco', proveedores: 7, zona: 'Zona Metropolitana' },
-  { nombre: 'Tultitlan', slug: 'tultitlan', proveedores: 6, zona: 'Zona Metropolitana' }
+const municipiosPlaneados = [
+  'Naucalpan', 'Tlalnepantla', 'Ecatepec', 'Nezahualcóyotl',
+  'Toluca', 'Metepec', 'Texcoco', 'Atizapán',
+  'Cuautitlán Izcalli', 'Huixquilucan', 'Coacalco', 'Tultitlán'
 ];
-
-const zonasDestacadas = [
-  { nombre: 'Satelite', municipio: 'Naucalpan', proveedores: 15, slug: 'satelite' },
-  { nombre: 'Interlomas', municipio: 'Huixquilucan', proveedores: 8, slug: 'interlomas' },
-  { nombre: 'Centro Toluca', municipio: 'Toluca', proveedores: 18, slug: 'centro-toluca' },
-  { nombre: 'Metepec Centro', municipio: 'Metepec', proveedores: 10, slug: 'metepec-centro' }
-];
-
-const totalProveedores = municipios.reduce((acc, m) => acc + m.proveedores, 0);
 ---
 
 <BaseLayout
-  title="Directorio de Dulces en Estado de Mexico | Proveedores por Municipio"
-  description="Encuentra proveedores de dulces para fiestas en Estado de Mexico. Naucalpan, Toluca, Ecatepec, Metepec y mas. ${totalProveedores}+ negocios."
+  title="Dulcerías en Estado de México | Próximamente"
+  description="Próximamente: directorio de dulcerías verificadas en Estado de México. Mientras tanto, explora nuestro directorio de CDMX con más de 120 dulcerías."
   canonical="/directorio/edomex"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
+  noindex={true}
 >
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Proveedores de Dulces en Estado de Mexico"
-    highlight="Estado de Mexico"
-    subtitle="Directorio por municipio y zona"
-    secondaryContent={`<p>Encuentra proveedores de dulces para fiestas en <strong>los principales municipios del Estado de Mexico</strong>. Zona metropolitana, Valle de Toluca y mas.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> en todo el Edomex.</p>`}
+    title="Estado de México"
+    highlight="Próximamente"
+    subtitle="Estamos verificando proveedores en el Edomex"
+    secondaryContent={`<p>Estamos verificando cada dulcería en Estado de México para ofrecerte <strong>información 100% real y confiable</strong>.</p><p>Mientras tanto, explora nuestro <strong>directorio de CDMX con ${stats.total} dulcerías verificadas</strong>.</p>`}
     showCTA={false}
   />
 
-  <!-- Zonas Destacadas -->
-  <section class="zonas-destacadas">
+  <section class="proximamente-section">
     <div class="container">
-      <SectionHeader
-        title="Zonas"
-        titleHighlight="Destacadas"
-        subtitle="Las zonas con mayor concentracion de proveedores"
-      />
-      <div class="zonas-grid">
-        {zonasDestacadas.map(zona => (
-          <a href={`/directorio/edomex/${zona.slug}`} class="zona-card">
-            <div class="zona-info">
-              <h3>{zona.nombre}</h3>
-              <span class="zona-municipio">{zona.municipio}</span>
-            </div>
-            <span class="zona-cantidad">{zona.proveedores}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+      <div class="proximamente-content">
+        <div class="proximamente-card">
+          <div class="proximamente-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h2>Verificando Información</h2>
+          <p>Estamos visitando y verificando cada dulcería en los principales municipios del Estado de México. Solo publicamos datos confirmados en Google Maps.</p>
 
-  <!-- Municipios -->
-  <section class="municipios-section">
-    <div class="container">
-      <SectionHeader
-        title="Todos los"
-        titleHighlight="Municipios"
-        subtitle="Explora proveedores en todo el Estado de Mexico"
-      />
-      <div class="municipios-grid">
-        {municipios.map(mun => (
-          <a href={`/directorio/edomex/${mun.slug}`} class="municipio-card">
-            <div class="municipio-info">
-              <span class="municipio-nombre">{mun.nombre}</span>
-              <span class="municipio-zona">{mun.zona}</span>
+          <div class="municipios-planeados">
+            <h3>Municipios en proceso de verificación:</h3>
+            <div class="municipios-grid">
+              {municipiosPlaneados.map(m => (
+                <span class="municipio-tag">{m}</span>
+              ))}
             </div>
-            <span class="municipio-count">{mun.proveedores}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+          </div>
 
-  <!-- Stats -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-numero">{totalProveedores}+</span>
-          <span class="stat-label">Proveedores en Edomex</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-numero">12</span>
-          <span class="stat-label">Municipios cubiertos</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-numero">6</span>
-          <span class="stat-label">Categorias</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-numero">100%</span>
-          <span class="stat-label">Verificados</span>
+          <div class="proximamente-cta">
+            <a href="/directorio/todos" class="btn-directorio-cdmx">
+              Ver Directorio CDMX ({stats.total} dulcerías)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20Estado%20de%20Mexico"
-    badge="Estado de Mexico"
-    title="¿Necesitas Ayuda para Encontrar"
-    titleHighlight="Proveedor"
-    text="Te ayudamos a encontrar el proveedor perfecto en tu zona del Edomex."
-    buttonText="Pedir Recomendacion"
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20Estado%20de%20México"
+    badge="Edomex"
+    title="¿Conoces una dulcería en"
+    titleHighlight="Estado de México"
+    text="Si conoces una dulcería que debemos incluir, contáctanos. Tu recomendación nos ayuda a crecer."
+    buttonText="Recomendar Dulcería"
   />
 </BaseLayout>
 
 <style>
-  .zonas-destacadas {
+  .proximamente-section {
     padding: 80px 0;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
-  .zonas-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 50px;
+  .proximamente-content {
+    max-width: 700px;
+    margin: 0 auto;
   }
 
-  .zona-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px;
+  .proximamente-card {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
     border: 1px solid #f0f0f0;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .zona-card:hover {
-    border-color: #6366F1;
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
-  }
-
-  .zona-info h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 0 0 4px;
-  }
-
-  .zona-municipio {
-    font-size: 0.85rem;
-    color: var(--texto-light);
-  }
-
-  .zona-cantidad {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #6366F1;
-  }
-
-  .municipios-section {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .municipios-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 50px;
-  }
-
-  .municipio-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 24px;
-    background: #fafafa;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .municipio-card:hover {
-    background: rgba(99, 102, 241, 0.08);
-  }
-
-  .municipio-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .municipio-nombre {
-    font-weight: 600;
-    color: var(--texto-oscuro);
-    margin-bottom: 4px;
-  }
-
-  .municipio-zona {
-    font-size: 0.8rem;
-    color: var(--texto-light);
-  }
-
-  .municipio-count {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #6366F1;
-  }
-
-  .stats-section {
-    padding: 60px 0;
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-  }
-
-  .stat-card {
     text-align: center;
+  }
+
+  .proximamente-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+  }
+
+  .proximamente-icon svg {
+    width: 40px;
+    height: 40px;
     color: #fff;
   }
 
-  .stat-numero {
-    display: block;
+  .proximamente-card h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    line-height: 1;
-    margin-bottom: 8px;
+    color: var(--texto-oscuro);
+    margin: 0 0 16px;
   }
 
-  .stat-label {
-    font-size: 0.95rem;
-    opacity: 0.85;
+  .proximamente-card > p {
+    font-size: 1.05rem;
+    color: var(--texto-light);
+    line-height: 1.7;
+    margin: 0 0 32px;
   }
 
-  @media (max-width: 1024px) {
-    .zonas-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .municipios-planeados {
+    text-align: left;
+    margin-bottom: 32px;
+  }
 
-    .municipios-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .municipios-planeados h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin: 0 0 16px;
+  }
 
-    .stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-    }
+  .municipios-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .municipio-tag {
+    background: rgba(99, 102, 241, 0.08);
+    color: #6366F1;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .proximamente-cta {
+    margin-top: 8px;
+  }
+
+  .btn-directorio-cdmx {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio-cdmx svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-directorio-cdmx:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
   }
 
   @media (max-width: 768px) {
-    .zonas-destacadas,
-    .municipios-section {
+    .proximamente-section {
       padding: 50px 0;
     }
 
-    .zonas-grid,
-    .municipios-grid {
-      grid-template-columns: 1fr;
+    .proximamente-card {
+      padding: 32px 24px;
     }
 
-    .stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .stat-numero {
-      font-size: 2rem;
+    .proximamente-card h2 {
+      font-size: 1.4rem;
     }
   }
 </style>

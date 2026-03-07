@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import { todasLasDulcerias } from '@/data/dulcerias';
+
+const dulcerias = todasLasDulcerias.filter(d =>
+  d.especialidades.some(e => e.toLowerCase().includes('importado')) ||
+  d.productos.some(p => p.toLowerCase().includes('importado'))
+).sort((a, b) => b.resenas - a.resenas);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Dulces Importados', url: '/directorio/categorias/dulces-importados' }
+];
+
+const faqs = [
+  {
+    question: '¿Dónde comprar dulces importados en CDMX?',
+    answer: `Tenemos ${dulcerias.length} dulcerías con dulces importados verificadas en CDMX. Encontrarás dulces americanos, japoneses, coreanos y europeos.`
+  },
+  {
+    question: '¿Qué marcas de dulces importados encuentro?',
+    answer: 'Encontrarás marcas como Haribo, Trolli, Hi-Chew, Pocky, Kit Kat japonés, Reese\'s, Sour Patch, Swedish Fish y muchas marcas más de USA, Japón, Corea y Europa.'
+  },
+  {
+    question: '¿Los dulces importados son más caros?',
+    answer: 'Los dulces importados suelen tener un precio mayor que los nacionales, pero comprando al mayoreo puedes obtener mejores precios. Las tiendas en La Merced y Norte 70 tienen opciones competitivas.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Dulces Importados | ${dulcerias.length} Tiendas en CDMX`}
+  description={`Encuentra tiendas de dulces importados en CDMX. ${dulcerias.length} dulcerías verificadas con dulces americanos, japoneses, coreanos y europeos.`}
+  canonical="/directorio/categorias/dulces-importados"
+  ogImage="/img/galeria/candy-bar-profesional-eventos.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Dulces Importados"
+    highlight="Importados"
+    subtitle="Dulces de todo el mundo en CDMX"
+    secondaryContent={`<p>Encuentra <strong>dulces americanos, japoneses, coreanos y de todo el mundo</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con productos importados.</p>`}
+    showCTA={false}
+  />
+
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title="Tiendas de"
+        titleHighlight="Dulces Importados"
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
+      />
+      <div class="proveedores-grid">
+        {dulcerias.map(prov => (
+          <DulceriaCard dulceria={prov} />
+        ))}
+      </div>
+      <div class="ver-directorio">
+        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Dulces Importados"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqs} id="faq-importados" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20dulces%20importados%20para%20mi%20evento"
+    badge="Importados"
+    title="¿Necesitas Dulces Importados para tu"
+    titleHighlight="Evento"
+    text="Te ayudamos a encontrar el proveedor perfecto de dulces importados."
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-listado,
+    .faq-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import { todasLasDulcerias } from '@/data/dulcerias';
+
+const dulcerias = todasLasDulcerias.filter(d =>
+  d.productos.some(p => p.toLowerCase().includes('chocolate')) ||
+  d.especialidades.some(e => e.toLowerCase().includes('chocolate'))
+).sort((a, b) => b.resenas - a.resenas);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Chocolates y Trufas', url: '/directorio/categorias/chocolates-trufas' }
+];
+
+const faqs = [
+  {
+    question: '¿Dónde comprar chocolates al mayoreo en CDMX?',
+    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen chocolates y trufas. Las mejores opciones al mayoreo están en La Merced y tiendas especializadas en distintas alcaldías.`
+  },
+  {
+    question: '¿Qué tipos de chocolates encuentro en estas tiendas?',
+    answer: 'Encontrarás chocolates nacionales e importados, trufas artesanales, bombones finos, chocolate belga, chocolate para fuentes, barras premium y más.'
+  },
+  {
+    question: '¿Los chocolates sirven para mesas de dulces?',
+    answer: 'Sí, los chocolates son imprescindibles en cualquier mesa de dulces. Trufas, bombones y barras de chocolate son de los productos más solicitados para eventos.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Chocolates y Trufas | ${dulcerias.length} Tiendas en CDMX`}
+  description={`Encuentra las mejores tiendas de chocolates y trufas en CDMX. ${dulcerias.length} dulcerías verificadas con chocolates artesanales, importados y gourmet.`}
+  canonical="/directorio/categorias/chocolates-trufas"
+  ogImage="/img/galeria/dulces-gourmet-chocolate-belga-lujo.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Chocolates y Trufas"
+    highlight="Chocolates"
+    subtitle="Tiendas con los mejores chocolates en CDMX"
+    secondaryContent={`<p>Encuentra <strong>chocolates artesanales, trufas gourmet y bombones finos</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con la mejor selección.</p>`}
+    showCTA={false}
+  />
+
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title="Tiendas de"
+        titleHighlight="Chocolates y Trufas"
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
+      />
+      <div class="proveedores-grid">
+        {dulcerias.map(prov => (
+          <DulceriaCard dulceria={prov} />
+        ))}
+      </div>
+      <div class="ver-directorio">
+        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Chocolates y Trufas"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqs} id="faq-chocolates" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20chocolates%20y%20trufas%20para%20mi%20evento"
+    badge="Chocolates"
+    title="¿Necesitas Chocolates para tu"
+    titleHighlight="Evento"
+    text="Te ayudamos a encontrar el proveedor perfecto de chocolates y trufas."
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-listado,
+    .faq-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

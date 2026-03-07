@@ -1,0 +1,158 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import { todasLasDulcerias } from '@/data/dulcerias';
+
+const dulcerias = todasLasDulcerias.filter(d =>
+  d.productos.some(p => p.toLowerCase().includes('paleta')) ||
+  d.especialidades.some(e => e.toLowerCase().includes('paleta'))
+).sort((a, b) => b.resenas - a.resenas);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Paletas y Piruletas', url: '/directorio/categorias/paletas-piruletas' }
+];
+
+const faqs = [
+  {
+    question: '¿Dónde comprar paletas al mayoreo en CDMX?',
+    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen paletas y piruletas. Las mejores opciones al mayoreo están en La Merced y tiendas especializadas en toda la CDMX.`
+  },
+  {
+    question: '¿Qué tipos de paletas encuentro?',
+    answer: 'Encontrarás paletas de caramelo, paletas enchiladas, paletas de chocolate, piruletas artesanales, cake pops, paletas de goma y muchas variedades más.'
+  },
+  {
+    question: '¿Las paletas son buena opción para mesas de dulces?',
+    answer: 'Sí, las paletas y piruletas son excelentes para mesas de dulces. Se pueden personalizar con colores temáticos y son muy vistosas como decoración comestible.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Paletas y Piruletas | ${dulcerias.length} Tiendas en CDMX`}
+  description={`Encuentra las mejores tiendas de paletas y piruletas en CDMX. ${dulcerias.length} dulcerías verificadas con paletas artesanales, cake pops y más.`}
+  canonical="/directorio/categorias/paletas-piruletas"
+  ogImage="/img/galeria/candy-bar-infantil-colorido.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Paletas y Piruletas"
+    highlight="Paletas"
+    subtitle="Las mejores tiendas de paletas en CDMX"
+    secondaryContent={`<p>Encuentra <strong>paletas artesanales, cake pops y piruletas personalizadas</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con opciones para todo evento.</p>`}
+    showCTA={false}
+  />
+
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title="Tiendas de"
+        titleHighlight="Paletas y Piruletas"
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
+      />
+      <div class="proveedores-grid">
+        {dulcerias.map(prov => (
+          <DulceriaCard dulceria={prov} />
+        ))}
+      </div>
+      <div class="ver-directorio">
+        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Paletas y Piruletas"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqs} id="faq-paletas" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20paletas%20y%20piruletas%20para%20mi%20evento"
+    badge="Paletas"
+    title="¿Necesitas Paletas para tu"
+    titleHighlight="Evento"
+    text="Te ayudamos a encontrar el proveedor perfecto de paletas y piruletas."
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-listado,
+    .faq-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

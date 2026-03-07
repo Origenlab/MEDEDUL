@@ -5,7 +5,9 @@ import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { getCdnUrl } from '@/lib/cdn';
 import {
   todasLasDulcerias,
@@ -28,43 +30,43 @@ const categorias = [
     nombre: 'Dulces Tradicionales',
     icono: '🍬',
     descripcion: 'Alegrías, cocadas, mazapanes, tamarindos y dulces típicos mexicanos',
-    cantidad: todasLasDulcerias.filter(d => d.tipo === 'Dulcería Tradicional' || d.especialidades.some(e => e.toLowerCase().includes('tradicional'))).length || 15,
-    href: '/directorio/dulces-tradicionales'
+    cantidad: todasLasDulcerias.filter(d => d.tipo === 'Dulcería Tradicional' || d.especialidades.some(e => e.toLowerCase().includes('tradicional'))).length,
+    href: '/directorio/categorias/dulces-tradicionales'
   },
   {
     nombre: 'Chocolates y Trufas',
     icono: '🍫',
     descripcion: 'Chocolaterías artesanales, trufas gourmet y bombones finos',
-    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('chocolate'))).length || 12,
-    href: '/directorio/chocolates-trufas'
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('chocolate'))).length,
+    href: '/directorio/categorias/chocolates-trufas'
   },
   {
     nombre: 'Gomitas y Confitería',
     icono: '🍭',
     descripcion: 'Gomitas importadas, dulces enchilados y confitería variada',
-    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('gomita'))).length || 18,
-    href: '/directorio/gomitas-confiteria'
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('gomita'))).length,
+    href: '/directorio/categorias/gomitas-confiteria'
   },
   {
     nombre: 'Mayoreo La Merced',
     icono: '📦',
     descripcion: 'Dulcerías de mayoreo en el legendario Mercado de La Merced',
     cantidad: todasLasDulcerias.filter(d => d.tipo === 'Dulcería Mayoreo').length,
-    href: '/directorio/mayoreo-merced'
+    href: '/directorio/todos'
   },
   {
     nombre: 'Paletas y Piruletas',
     icono: '🍡',
     descripcion: 'Paletas artesanales, cake pops y piruletas personalizadas',
-    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('paleta'))).length || 8,
-    href: '/directorio/paletas-piruletas'
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('paleta'))).length,
+    href: '/directorio/categorias/paletas-piruletas'
   },
   {
     nombre: 'Dulces Importados',
     icono: '🌍',
     descripcion: 'Dulces americanos, japoneses, coreanos y de todo el mundo',
-    cantidad: todasLasDulcerias.filter(d => d.especialidades.some(e => e.toLowerCase().includes('importado'))).length || 6,
-    href: '/directorio/dulces-importados'
+    cantidad: todasLasDulcerias.filter(d => d.especialidades.some(e => e.toLowerCase().includes('importado'))).length,
+    href: '/directorio/categorias/dulces-importados'
   }
 ];
 
@@ -73,6 +75,7 @@ const zonasCDMX = Object.entries(stats.porAlcaldia).map(([nombre, cantidad]) => 
   nombre,
   cantidad,
   slug: nombre.toLowerCase()
+    .replace(/\./g, '')
     .replace(/\s+/g, '-')
     .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')
 })).sort((a, b) => b.cantidad - a.cantidad);
@@ -143,7 +146,7 @@ const directorioSchema = {
 ---
 
 <BaseLayout
-  title={`${stats.total} Dulcerías en CDMX | Directorio Verificado 2025`}
+  title={`${stats.total} Dulcerías en CDMX | Directorio Verificado 2026`}
   description={`Encuentra las mejores dulcerías en CDMX. ${stats.total} tiendas verificadas con +${stats.totalResenas.toLocaleString()} reseñas reales en ${stats.alcaldias} alcaldías. La Merced, Norte 70, Mixcoac y más.`}
   canonical="/directorio"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
@@ -156,7 +159,7 @@ const directorioSchema = {
   <Hero
     title="Dulcerías en CDMX"
     highlight="Dulcerías"
-    subtitle="Directorio Verificado 2025"
+    subtitle="Directorio Verificado 2026"
     secondaryContent={`<p>Encuentra las <strong>mejores dulcerías y tiendas de golosinas</strong> en Ciudad de México. Todos los negocios están verificados con reseñas reales en Google.</p><p><strong>${stats.total} dulcerías verificadas</strong> en ${stats.alcaldias} alcaldías con +${stats.totalResenas.toLocaleString()} reseñas de clientes.</p>`}
     showCTA={false}
   />
@@ -207,6 +210,28 @@ const directorioSchema = {
     </div>
   </section>
 
+  <!-- Trust Signals -->
+  <WhyChooseUs
+    badge="Directorio Verificado"
+    title="¿Por qué confiar en nuestro"
+    titleHighlight="Directorio"
+    descriptions={[
+      `Cada negocio en nuestro directorio ha sido verificado manualmente en Google Maps. Solo incluimos dulcerías con ficha activa, reseñas reales y datos confirmados.`
+    ]}
+    stats={[
+      { number: String(stats.total), label: 'Dulcerías Verificadas' },
+      { number: String(stats.alcaldias), label: 'Alcaldías Cubiertas' },
+      { number: `${Math.round(stats.totalResenas / 1000)}k+`, label: 'Reseñas Totales' },
+      { number: '100%', label: 'Verificadas en Google' }
+    ]}
+    features={[
+      { num: 1, title: 'Verificados en Google', desc: 'Cada dulcería tiene ficha activa en Google Maps con reseñas reales de clientes.', img: '/img/galeria/candy-bar-profesional-eventos.avif' },
+      { num: 2, title: 'Precios de Mayoreo', desc: 'Muchos proveedores ofrecen precios de mayoreo sin mínimos de compra.', img: '/img/galeria/dulces-variados-mesa.avif' },
+      { num: 3, title: 'Todas las Alcaldías', desc: `Cobertura en ${stats.alcaldias} alcaldías de CDMX para que encuentres cerca de ti.`, img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif' },
+      { num: 4, title: 'Actualizado 2026', desc: 'Información actualizada con horarios, teléfonos y direcciones confirmadas.', img: '/img/galeria/candy-bar-gourmet-elegante.avif' }
+    ]}
+  />
+
   <!-- Main Content with Sidebar -->
   <div class="directorio-layout">
     <div class="container">
@@ -221,82 +246,9 @@ const directorioSchema = {
               subtitle="Las tiendas mejor calificadas por la comunidad"
             />
 
-            <div class="proveedores-lista">
+            <div class="proveedores-grid-destacados">
               {proveedoresDestacados.map(prov => (
-                <article class="proveedor-card-horizontal">
-                  <div class="proveedor-imagen">
-                    <img
-                      src={getCdnUrl(prov.imagen, { w: 400, q: 80 })}
-                      alt={`${prov.nombre} - ${prov.tipo} en ${prov.colonia}`}
-                      loading="lazy"
-                      width="400"
-                      height="280"
-                    />
-                    {prov.destacado && <span class="proveedor-badge">Destacado</span>}
-                    {prov.verificado && (
-                      <span class="proveedor-verificado" title="Negocio verificado en Google">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-                  <div class="proveedor-contenido">
-                    <div class="proveedor-header">
-                      <div>
-                        <span class="proveedor-categoria">{prov.tipo}</span>
-                        <h3><a href={`/directorio/${prov.slug}`}>{prov.nombre}</a></h3>
-                      </div>
-                      <div class="proveedor-rating">
-                        <div class="rating-stars">
-                          {[1,2,3,4,5].map(star => (
-                            <svg viewBox="0 0 24 24" fill={star <= Math.floor(prov.rating) ? "#FFB800" : "#E0E0E0"}>
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                          ))}
-                        </div>
-                        <span class="rating-numero">{prov.rating}</span>
-                        <span class="rating-resenas">({prov.resenas.toLocaleString()} reseñas)</span>
-                      </div>
-                    </div>
-
-                    <div class="proveedor-ubicacion">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                      </svg>
-                      <span>{prov.direccion}, <strong>{prov.colonia}, {prov.alcaldia}</strong></span>
-                    </div>
-
-                    {prov.especialidades && (
-                      <div class="proveedor-especialidades">
-                        {prov.especialidades.slice(0, 3).map(esp => (
-                          <span class="especialidad-tag">{esp}</span>
-                        ))}
-                      </div>
-                    )}
-
-                    <div class="proveedor-acciones">
-                      <a href={`/directorio/${prov.slug}`} class="btn-ver-perfil">Ver Perfil Completo</a>
-                      {prov.telefono !== 'Sin teléfono registrado' && (
-                        <>
-                          <a href={`tel:+52${prov.telefono.replace(/\s/g, '')}`} class="btn-llamar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                            </svg>
-                            {prov.telefono}
-                          </a>
-                          <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}?text=Hola!%20Vi%20su%20dulcería%20en%20el%20directorio%20de%20Mededul`} class="btn-whatsapp" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                            </svg>
-                            WhatsApp
-                          </a>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </article>
+                <DulceriaCard dulceria={prov} />
               ))}
             </div>
 
@@ -615,249 +567,11 @@ const directorioSchema = {
     margin-bottom: 60px;
   }
 
-  .proveedores-lista {
-    display: flex;
-    flex-direction: column;
+  .proveedores-grid-destacados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin-top: 40px;
-  }
-
-  .proveedor-card-horizontal {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 1px solid #f0f0f0;
-    transition: all 0.3s;
-  }
-
-  .proveedor-card-horizontal:hover {
-    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-    transform: translateY(-4px);
-  }
-
-  .proveedor-imagen {
-    position: relative;
-    height: 100%;
-    min-height: 280px;
-    overflow: hidden;
-  }
-
-  .proveedor-imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .proveedor-badge {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
-    color: #fff;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .proveedor-verificado {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: #fff;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-
-  .proveedor-verificado svg {
-    width: 24px;
-    height: 24px;
-    color: #25D366;
-  }
-
-  .proveedor-contenido {
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .proveedor-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 16px;
-  }
-
-  .proveedor-categoria {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--rosa-principal);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .proveedor-contenido h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 6px 0 0;
-  }
-
-  .proveedor-contenido h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .proveedor-contenido h3 a:hover {
-    color: var(--rosa-principal);
-  }
-
-  .proveedor-rating {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .rating-stars {
-    display: flex;
-    gap: 2px;
-  }
-
-  .rating-stars svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .rating-numero {
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    font-size: 0.95rem;
-  }
-
-  .rating-resenas {
-    font-size: 0.85rem;
-    color: var(--texto-light);
-  }
-
-  .proveedor-ubicacion {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--texto-light);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-
-  .proveedor-ubicacion svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .proveedor-ubicacion strong {
-    color: var(--texto-oscuro);
-  }
-
-  .proveedor-especialidades {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .especialidad-tag {
-    background: rgba(209, 0, 122, 0.08);
-    color: var(--rosa-principal);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-
-  .proveedor-acciones {
-    display: flex;
-    gap: 12px;
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid #f5f5f5;
-    flex-wrap: wrap;
-  }
-
-  .btn-ver-perfil {
-    padding: 12px 24px;
-    border: 2px solid #f0f0f0;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--texto-oscuro);
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-ver-perfil:hover {
-    border-color: var(--rosa-principal);
-    color: var(--rosa-principal);
-  }
-
-  .btn-llamar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    background: #f8f8f8;
-    border-radius: 12px;
-    color: var(--texto-oscuro);
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-llamar svg {
-    width: 18px;
-    height: 18px;
-    color: var(--rosa-principal);
-  }
-
-  .btn-llamar:hover {
-    background: rgba(209, 0, 122, 0.08);
-    color: var(--rosa-principal);
-  }
-
-  .btn-whatsapp {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    background: #25D366;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-whatsapp svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .btn-whatsapp:hover {
-    background: #128C7E;
-    transform: translateY(-2px);
   }
 
   .ver-todos-wrapper {
@@ -1210,10 +924,6 @@ const directorioSchema = {
     .directorio-grid {
       grid-template-columns: 1fr;
     }
-
-    .proveedor-card-horizontal {
-      grid-template-columns: 280px 1fr;
-    }
   }
 
   @media (max-width: 1024px) {
@@ -1246,15 +956,6 @@ const directorioSchema = {
       flex-wrap: wrap;
     }
 
-    .proveedor-card-horizontal {
-      grid-template-columns: 1fr;
-    }
-
-    .proveedor-imagen {
-      height: 220px;
-      min-height: auto;
-    }
-
     .categorias-grid {
       grid-template-columns: 1fr;
     }
@@ -1282,21 +983,8 @@ const directorioSchema = {
       font-size: 1.5rem;
     }
 
-    .proveedor-header {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .proveedor-acciones {
-      flex-wrap: wrap;
-    }
-
-    .btn-ver-perfil,
-    .btn-llamar,
-    .btn-whatsapp {
-      flex: 1 1 auto;
-      justify-content: center;
-      text-align: center;
+    .proveedores-grid-destacados {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .zona-lista {
@@ -1313,14 +1001,8 @@ const directorioSchema = {
   }
 
   @media (max-width: 480px) {
-    .proveedor-acciones {
-      flex-direction: column;
-    }
-
-    .btn-ver-perfil,
-    .btn-llamar,
-    .btn-whatsapp {
-      width: 100%;
+    .proveedores-grid-destacados {
+      grid-template-columns: 1fr;
     }
   }
 </style>

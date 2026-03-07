@@ -1,0 +1,161 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import { todasLasDulcerias } from '@/data/dulcerias';
+
+const dulcerias = todasLasDulcerias.filter(d =>
+  d.productos.some(p => {
+    const lower = p.toLowerCase();
+    return lower.includes('galleta') || lower.includes('cupcake') || lower.includes('postre');
+  }) ||
+  d.tipo === 'Tienda de Golosinas Premium'
+).sort((a, b) => b.resenas - a.resenas);
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Galletas y Cupcakes', url: '/directorio/categorias/galletas-cupcakes' }
+];
+
+const faqs = [
+  {
+    question: '¿Dónde comprar galletas decoradas en CDMX?',
+    answer: `Tenemos ${dulcerias.length} tiendas que ofrecen galletas, cupcakes y productos premium. Muchas ofrecen opciones personalizadas para eventos.`
+  },
+  {
+    question: '¿Qué tipos de galletas y cupcakes encuentro?',
+    answer: 'Encontrarás galletas decoradas, cupcakes artesanales, galletas de mantequilla, brownies, cake pops, macarons y productos de repostería fina.'
+  },
+  {
+    question: '¿Puedo pedir galletas personalizadas para mi evento?',
+    answer: 'Sí, muchas tiendas premium ofrecen galletas decoradas y cupcakes personalizados con la temática de tu evento. Contacta directamente a cada tienda para conocer opciones.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Galletas y Cupcakes | ${dulcerias.length} Tiendas en CDMX`}
+  description={`Encuentra tiendas de galletas decoradas y cupcakes en CDMX. ${dulcerias.length} tiendas verificadas con repostería artesanal y productos premium.`}
+  canonical="/directorio/categorias/galletas-cupcakes"
+  ogImage="/img/galeria/candy-bar-gourmet-elegante.avif"
+  includeCategoryStyles={true}
+>
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Galletas y Cupcakes"
+    highlight="Galletas"
+    subtitle="Repostería artesanal y productos premium"
+    secondaryContent={`<p>Encuentra <strong>galletas decoradas, cupcakes artesanales y repostería fina</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con productos premium.</p>`}
+    showCTA={false}
+  />
+
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title="Tiendas de"
+        titleHighlight="Galletas y Cupcakes"
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
+      />
+      <div class="proveedores-grid">
+        {dulcerias.map(prov => (
+          <DulceriaCard dulceria={prov} />
+        ))}
+      </div>
+      <div class="ver-directorio">
+        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Galletas y Cupcakes"
+        subtitle="Resolvemos tus dudas"
+      />
+      <FAQ items={faqs} id="faq-galletas" />
+    </div>
+  </section>
+
+  <CTAServices
+    href="https://wa.me/525525226442?text=Hola!%20Busco%20galletas%20y%20cupcakes%20para%20mi%20evento"
+    badge="Repostería"
+    title="¿Necesitas Galletas para tu"
+    titleHighlight="Evento"
+    text="Te ayudamos a encontrar el proveedor perfecto de galletas y cupcakes."
+    buttonText="Pedir Recomendación"
+  />
+</BaseLayout>
+
+<style>
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  @media (max-width: 1200px) {
+    .proveedores-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-listado,
+    .faq-section {
+      padding: 50px 0;
+    }
+
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
