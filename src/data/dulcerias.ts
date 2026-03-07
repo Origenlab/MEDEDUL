@@ -166,6 +166,18 @@ export const alcaldiasInfo: Record<string, {
     descripcion: 'Alcaldía al suroeste con comercios de barrio tradicionales.',
     caracteristicas: ['Comercio local', 'Ambiente de pueblo', 'Atención personalizada'],
     zonaComercial: 'San Jerónimo / La Cruz'
+  },
+  'milpa-alta': {
+    nombre: 'Milpa Alta',
+    descripcion: 'La alcaldía más rural de CDMX, conocida por sus tradiciones y productos artesanales.',
+    caracteristicas: ['Dulces artesanales', 'Tradición mexicana', 'Precios de productor'],
+    zonaComercial: 'Villa Milpa Alta'
+  },
+  'cuajimalpa': {
+    nombre: 'Cuajimalpa de Morelos',
+    descripcion: 'Alcaldía al poniente con zonas comerciales modernas como Santa Fe.',
+    caracteristicas: ['Zona comercial Santa Fe', 'Productos variados', 'Acceso fácil'],
+    zonaComercial: 'Centro de Cuajimalpa / Santa Fe'
   }
 };
 
@@ -1845,6 +1857,1178 @@ export const dulceriasNuevas: Dulceria[] = [
     },
     imagen: getImagenPorIndice(7),
     imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  // ========== MILPA ALTA (3) ==========
+  {
+    nombre: 'Dulcería Chikis',
+    slug: 'dulceria-chikis',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Niños Héroes s/n',
+    colonia: 'San Agustín Ohtenco',
+    alcaldia: 'Milpa Alta',
+    alcaldiaSlug: 'milpa-alta',
+    cp: '12900',
+    coordenadas: { lat: 19.1923, lng: -99.0234 },
+    telefono: '55 8758 9710',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Chikis+Milpa+Alta',
+    rating: 4.3,
+    resenas: 42,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en San Agustín Ohtenco, Milpa Alta.',
+    especialidades: ['Dulces tradicionales', 'Golosinas', 'Piñatas'],
+    productos: ['Dulces mexicanos', 'Gomitas', 'Chocolates', 'Paletas'],
+    servicios: [
+      { nombre: 'Atención personalizada', descripcion: 'Servicio cercano al cliente' },
+      { nombre: 'Surtido para fiestas', descripcion: 'Todo para tu evento' }
+    ],
+    transporte: {
+      referencias: ['Calle Niños Héroes', 'San Agustín Ohtenco']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  {
+    nombre: 'Dulcería Edith',
+    slug: 'dulceria-edith',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Calle Guanajuato Ote. 48',
+    colonia: 'Villa Milpa Alta',
+    alcaldia: 'Milpa Alta',
+    alcaldiaSlug: 'milpa-alta',
+    cp: '12000',
+    coordenadas: { lat: 19.1926, lng: -99.0231 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Edith+Milpa+Alta',
+    rating: 4.2,
+    resenas: 28,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local en el centro de Villa Milpa Alta.',
+    especialidades: ['Dulces variados', 'Confitería', 'Productos locales'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces tradicionales', 'Chicles'],
+    servicios: [
+      { nombre: 'Comercio local', descripcion: 'Negocio de barrio confiable' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía para todos' }
+    ],
+    transporte: {
+      referencias: ['Calle Guanajuato Oriente', 'Centro de Villa Milpa Alta']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  {
+    nombre: 'Dulcería La Huasteca',
+    slug: 'dulceria-la-huasteca',
+    tipo: 'Dulcería Tradicional',
+    direccion: 'Av. Juárez 35',
+    colonia: 'San Salvador Cuauhtenco',
+    alcaldia: 'Milpa Alta',
+    alcaldiaSlug: 'milpa-alta',
+    cp: '12500',
+    coordenadas: { lat: 19.1567, lng: -99.0145 },
+    telefono: '729 748 0763',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+La+Huasteca+Milpa+Alta',
+    rating: 4.4,
+    resenas: 56,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con tradición huasteca en San Salvador Cuauhtenco.',
+    especialidades: ['Dulces regionales', 'Productos artesanales', 'Tradición mexicana'],
+    productos: ['Dulces huastecos', 'Palanquetas', 'Cocadas', 'Dulces de leche'],
+    servicios: [
+      { nombre: 'Productos artesanales', descripcion: 'Dulces con tradición regional' },
+      { nombre: 'Mayoreo disponible', descripcion: 'Precios especiales por volumen' }
+    ],
+    transporte: {
+      referencias: ['Avenida Juárez', 'San Salvador Cuauhtenco']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  // ========== CUAJIMALPA (3) ==========
+  {
+    nombre: 'La Dulce Pau',
+    slug: 'la-dulce-pau',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. Veracruz 17',
+    colonia: 'Centro',
+    alcaldia: 'Cuajimalpa de Morelos',
+    alcaldiaSlug: 'cuajimalpa',
+    cp: '05000',
+    coordenadas: { lat: 19.3589, lng: -99.2912 },
+    telefono: '55 2163 1299',
+    mapsUrl: 'https://maps.google.com/?q=La+Dulce+Pau+Cuajimalpa',
+    rating: 4.5,
+    resenas: 87,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con excelente surtido en el centro de Cuajimalpa.',
+    especialidades: ['Dulces importados', 'Golosinas premium', 'Piñatas'],
+    productos: ['Gomitas importadas', 'Chocolates finos', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Surtido premium', descripcion: 'Productos de alta calidad' },
+      { nombre: 'Asesoría para eventos', descripcion: 'Te ayudan a elegir' }
+    ],
+    transporte: {
+      referencias: ['Avenida Veracruz', 'Centro de Cuajimalpa']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    nombre: 'El Gran Surtido Cuajis',
+    slug: 'el-gran-surtido-cuajis',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'C. Ocampo 147',
+    colonia: 'Cuajimalpa',
+    alcaldia: 'Cuajimalpa de Morelos',
+    alcaldiaSlug: 'cuajimalpa',
+    cp: '05000',
+    coordenadas: { lat: 19.3592, lng: -99.2915 },
+    telefono: '55 9216 2384',
+    mapsUrl: 'https://maps.google.com/?q=El+Gran+Surtido+Cuajis+Cuajimalpa',
+    rating: 4.3,
+    resenas: 64,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Gran variedad de dulces al mayoreo y menudeo en Cuajimalpa.',
+    especialidades: ['Mayoreo y menudeo', 'Gran variedad', 'Precios competitivos'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería'],
+    servicios: [
+      { nombre: 'Precios de mayoreo', descripcion: 'Descuentos por volumen' },
+      { nombre: 'Amplio surtido', descripcion: 'Miles de productos disponibles' }
+    ],
+    transporte: {
+      referencias: ['Calle Ocampo', 'Zona centro Cuajimalpa']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    nombre: 'Dulcería Carmelita',
+    slug: 'dulceria-carmelita',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. Juárez',
+    colonia: 'Cuajimalpa de Morelos',
+    alcaldia: 'Cuajimalpa de Morelos',
+    alcaldiaSlug: 'cuajimalpa',
+    cp: '05000',
+    coordenadas: { lat: 19.3587, lng: -99.2910 },
+    telefono: '55 2163 3833',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Carmelita+Cuajimalpa',
+    rating: 4.2,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional sobre Avenida Juárez en Cuajimalpa.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Atención familiar'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio familiar', descripcion: 'Tradición de servicio' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      referencias: ['Avenida Juárez', 'Cuajimalpa de Morelos']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  // ========== TLÁHUAC (1) ==========
+  {
+    nombre: 'Dulcería y Materias Primas Unicornio',
+    slug: 'dulceria-unicornio',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Av. Tláhuac 30',
+    colonia: 'Ojo de Agua',
+    alcaldia: 'Tláhuac',
+    alcaldiaSlug: 'tlahuac',
+    cp: '13500',
+    coordenadas: { lat: 19.2745, lng: -99.0456 },
+    telefono: '55 5841 2133',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Unicornio+Tlahuac',
+    rating: 4.4,
+    resenas: 78,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería y materias primas para repostería en Tláhuac.',
+    especialidades: ['Materias primas', 'Repostería', 'Dulces al mayoreo'],
+    productos: ['Ingredientes para repostería', 'Dulces a granel', 'Chocolates', 'Decoraciones'],
+    servicios: [
+      { nombre: 'Materias primas', descripcion: 'Todo para repostería' },
+      { nombre: 'Mayoreo y menudeo', descripcion: 'Precios para todos' }
+    ],
+    transporte: {
+      referencias: ['Avenida Tláhuac', 'Colonia Ojo de Agua']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  // ========== IZTAPALAPA (5) ==========
+  {
+    nombre: 'La Dulce Vida',
+    slug: 'la-dulce-vida',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Ermita Iztapalapa 3365',
+    colonia: 'Citlalli',
+    alcaldia: 'Iztapalapa',
+    alcaldiaSlug: 'iztapalapa',
+    cp: '09660',
+    coordenadas: { lat: 19.3567, lng: -99.0678 },
+    telefono: '55 5427 8240',
+    mapsUrl: 'https://maps.google.com/?q=La+Dulce+Vida+Iztapalapa',
+    rating: 4.3,
+    resenas: 92,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con amplio surtido sobre Ermita Iztapalapa.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas', 'Chicles'],
+    servicios: [
+      { nombre: 'Amplio surtido', descripcion: 'Gran variedad de productos' },
+      { nombre: 'Ubicación accesible', descripcion: 'Sobre avenida principal' }
+    ],
+    transporte: {
+      referencias: ['Ermita Iztapalapa', 'Colonia Citlalli']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    nombre: 'Dulce Abeja',
+    slug: 'dulce-abeja',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Ermita Iztapalapa 3417',
+    colonia: 'Xalpa',
+    alcaldia: 'Iztapalapa',
+    alcaldiaSlug: 'iztapalapa',
+    cp: '09640',
+    coordenadas: { lat: 19.3571, lng: -99.0682 },
+    telefono: '55 6609 0985',
+    mapsUrl: 'https://maps.google.com/?q=Dulce+Abeja+Iztapalapa',
+    rating: 4.2,
+    resenas: 67,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería familiar en la colonia Xalpa, Iztapalapa.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Atención familiar', descripcion: 'Servicio personalizado' },
+      { nombre: 'Buenos precios', descripcion: 'Economía para tu bolsillo' }
+    ],
+    transporte: {
+      referencias: ['Ermita Iztapalapa', 'Colonia Xalpa']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  {
+    nombre: 'Dulcería Ivonne',
+    slug: 'dulceria-ivonne',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. del Rosal 160',
+    colonia: 'Iztapalapa',
+    alcaldia: 'Iztapalapa',
+    alcaldiaSlug: 'iztapalapa',
+    cp: '09000',
+    coordenadas: { lat: 19.3589, lng: -99.0712 },
+    telefono: '55 1642 1453',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Ivonne+Iztapalapa',
+    rating: 4.3,
+    resenas: 54,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con buen surtido en Avenida del Rosal.',
+    especialidades: ['Dulces para fiestas', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Chicles'],
+    servicios: [
+      { nombre: 'Surtido para eventos', descripcion: 'Todo para tu fiesta' },
+      { nombre: 'Atención personalizada', descripcion: 'Te ayudamos a elegir' }
+    ],
+    transporte: {
+      referencias: ['Avenida del Rosal', 'Iztapalapa']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  {
+    nombre: 'Dulcería Los Peques',
+    slug: 'dulceria-los-peques',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Francisco Quintanilla 4-2',
+    colonia: 'Las Peñas',
+    alcaldia: 'Iztapalapa',
+    alcaldiaSlug: 'iztapalapa',
+    cp: '09720',
+    coordenadas: { lat: 19.3534, lng: -99.0645 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Los+Peques+Iztapalapa',
+    rating: 4.1,
+    resenas: 38,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en Las Peñas, Iztapalapa.',
+    especialidades: ['Dulces para niños', 'Golosinas', 'Piñatas'],
+    productos: ['Dulces infantiles', 'Gomitas', 'Paletas', 'Chicles'],
+    servicios: [
+      { nombre: 'Especialidad infantil', descripcion: 'Dulces para los pequeños' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía familiar' }
+    ],
+    transporte: {
+      referencias: ['Francisco Quintanilla', 'Colonia Las Peñas']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  {
+    nombre: 'Dulcería Los Reyes',
+    slug: 'dulceria-los-reyes-iztapalapa',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Manuel Cañas',
+    colonia: 'Lomas de Santa Cruz',
+    alcaldia: 'Iztapalapa',
+    alcaldiaSlug: 'iztapalapa',
+    cp: '09700',
+    coordenadas: { lat: 19.3501, lng: -99.0623 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Los+Reyes+Iztapalapa',
+    rating: 4.0,
+    resenas: 29,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local en Lomas de Santa Cruz.',
+    especialidades: ['Dulces variados', 'Confitería', 'Productos locales'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio de barrio', descripcion: 'Atención cercana' },
+      { nombre: 'Precios económicos', descripcion: 'Accesible para todos' }
+    ],
+    transporte: {
+      referencias: ['Calle Manuel Cañas', 'Lomas de Santa Cruz']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  // ========== CUAUHTÉMOC (8) ==========
+  {
+    nombre: 'Dulces y Chocolates La Giralda',
+    slug: 'dulces-y-chocolates-la-giralda',
+    tipo: 'Tienda de Golosinas Premium',
+    direccion: 'Chimalpopoca 77',
+    colonia: 'Obrera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06800',
+    coordenadas: { lat: 19.4234, lng: -99.1345 },
+    telefono: '55 5578 3875',
+    mapsUrl: 'https://maps.google.com/?q=Dulces+y+Chocolates+La+Giralda+Cuauhtemoc',
+    rating: 4.5,
+    resenas: 156,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Especialistas en chocolates y dulces finos en la Obrera.',
+    especialidades: ['Chocolates finos', 'Dulces gourmet', 'Confitería premium'],
+    productos: ['Chocolates belgas', 'Trufas', 'Dulces importados', 'Confitería'],
+    servicios: [
+      { nombre: 'Chocolates premium', descripcion: 'Productos de alta calidad' },
+      { nombre: 'Regalos especiales', descripcion: 'Presentaciones elegantes' }
+    ],
+    transporte: {
+      metro: [{ linea: '2', estacion: 'Chabacano', distancia: '8 min caminando' }],
+      referencias: ['Calle Chimalpopoca', 'Colonia Obrera']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  {
+    nombre: 'Dulcería Luz',
+    slug: 'dulceria-luz',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Simón Bolívar 377',
+    colonia: 'Obrera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06800',
+    coordenadas: { lat: 19.4228, lng: -99.1349 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Luz+Obrera+Cuauhtemoc',
+    rating: 4.2,
+    resenas: 67,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en la colonia Obrera.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Tradición de barrio', descripcion: 'Negocio establecido' },
+      { nombre: 'Surtido completo', descripcion: 'Variedad de productos' }
+    ],
+    transporte: {
+      metro: [{ linea: '2', estacion: 'Chabacano', distancia: '10 min caminando' }],
+      referencias: ['Simón Bolívar', 'Colonia Obrera']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  {
+    nombre: 'La Gota de Oro',
+    slug: 'la-gota-de-oro',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Simón Bolívar 341',
+    colonia: 'Obrera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06800',
+    coordenadas: { lat: 19.4231, lng: -99.1347 },
+    telefono: '55 2683 3744',
+    mapsUrl: 'https://maps.google.com/?q=La+Gota+de+Oro+Obrera+Cuauhtemoc',
+    rating: 4.3,
+    resenas: 89,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con tradición en la colonia Obrera.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Variedad de productos', descripcion: 'Amplio surtido' },
+      { nombre: 'Buenos precios', descripcion: 'Economía garantizada' }
+    ],
+    transporte: {
+      metro: [{ linea: '2', estacion: 'Chabacano', distancia: '10 min caminando' }],
+      referencias: ['Simón Bolívar', 'Colonia Obrera']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    nombre: 'Dulcería Mary',
+    slug: 'dulceria-mary',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Dr. Jiménez 164-Local C',
+    colonia: 'Doctores',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06720',
+    coordenadas: { lat: 19.4189, lng: -99.1423 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Mary+Doctores+Cuauhtemoc',
+    rating: 4.1,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería familiar en la colonia Doctores.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Chicles'],
+    servicios: [
+      { nombre: 'Negocio familiar', descripcion: 'Atención personalizada' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía local' }
+    ],
+    transporte: {
+      metro: [{ linea: '3', estacion: 'Centro Médico', distancia: '5 min caminando' }],
+      referencias: ['Calle Dr. Jiménez', 'Colonia Doctores']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    nombre: 'Dulcería Diana',
+    slug: 'dulceria-diana',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Santa María La Ribera 10',
+    colonia: 'Santa María la Ribera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06400',
+    coordenadas: { lat: 19.4512, lng: -99.1567 },
+    telefono: '55 8205 3592',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Diana+Santa+Maria+la+Ribera',
+    rating: 4.3,
+    resenas: 78,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en Santa María la Ribera.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Tradición de barrio', descripcion: 'Negocio establecido' },
+      { nombre: 'Surtido para fiestas', descripcion: 'Todo para tu evento' }
+    ],
+    transporte: {
+      metro: [{ linea: 'B', estacion: 'San Cosme', distancia: '8 min caminando' }],
+      referencias: ['Santa María la Ribera', 'Cerca del Kiosco Morisco']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  {
+    nombre: 'María José Dulcería',
+    slug: 'maria-jose-dulceria',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Mercado La Dalia',
+    colonia: 'Santa María la Ribera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06400',
+    coordenadas: { lat: 19.4518, lng: -99.1572 },
+    telefono: '55 4133 8825',
+    mapsUrl: 'https://maps.google.com/?q=Maria+Jose+Dulceria+Mercado+La+Dalia',
+    rating: 4.4,
+    resenas: 95,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.mercado,
+    descripcionCorta: 'Dulcería dentro del Mercado La Dalia con amplio surtido.',
+    especialidades: ['Dulces a granel', 'Precios de mercado', 'Variedad'],
+    productos: ['Dulces mexicanos', 'Gomitas', 'Chocolates', 'Confitería'],
+    servicios: [
+      { nombre: 'Precios de mercado', descripcion: 'Los mejores precios' },
+      { nombre: 'Variedad amplia', descripcion: 'Todo en un solo lugar' }
+    ],
+    transporte: {
+      metro: [{ linea: 'B', estacion: 'San Cosme', distancia: '10 min caminando' }],
+      referencias: ['Mercado La Dalia', 'Santa María la Ribera']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  {
+    nombre: 'Dulcería La Dalia',
+    slug: 'dulceria-la-dalia',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'C. del Fresno 215',
+    colonia: 'Santa María la Ribera',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06400',
+    coordenadas: { lat: 19.4521, lng: -99.1575 },
+    telefono: '55 5547 1596',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+La+Dalia+Santa+Maria+la+Ribera',
+    rating: 4.2,
+    resenas: 63,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en la calle del Fresno.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio local', descripcion: 'Tradición de barrio' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      metro: [{ linea: 'B', estacion: 'San Cosme', distancia: '12 min caminando' }],
+      referencias: ['Calle del Fresno', 'Santa María la Ribera']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    nombre: 'Dulcería Don Toño',
+    slug: 'dulceria-don-tono',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Rep. de Uruguay 177-Local B',
+    colonia: 'Centro Histórico',
+    alcaldia: 'Cuauhtémoc',
+    alcaldiaSlug: 'cuauhtemoc',
+    cp: '06000',
+    coordenadas: { lat: 19.4312, lng: -99.1289 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Don+Tono+Centro+Historico+CDMX',
+    rating: 4.3,
+    resenas: 112,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con tradición en el Centro Histórico de CDMX.',
+    especialidades: ['Mayoreo y menudeo', 'Dulces tradicionales', 'Variedad'],
+    productos: ['Dulces mexicanos', 'Gomitas', 'Chocolates', 'Confitería'],
+    servicios: [
+      { nombre: 'Ubicación céntrica', descripcion: 'En el corazón de la ciudad' },
+      { nombre: 'Precios competitivos', descripcion: 'Mayoreo disponible' }
+    ],
+    transporte: {
+      metro: [{ linea: '1', estacion: 'Pino Suárez', distancia: '5 min caminando' }],
+      referencias: ['República de Uruguay', 'Centro Histórico']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  // ========== IZTACALCO (1) ==========
+  {
+    nombre: 'Dulcería Marte y Más',
+    slug: 'dulceria-marte-y-mas',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Playa Tabachines S/N',
+    colonia: 'Militar Marte',
+    alcaldia: 'Iztacalco',
+    alcaldiaSlug: 'iztacalco',
+    cp: '08830',
+    coordenadas: { lat: 19.3934, lng: -99.0823 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Marte+y+Mas+Iztacalco',
+    rating: 4.1,
+    resenas: 34,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local en la colonia Militar Marte.',
+    especialidades: ['Dulces variados', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio de barrio', descripcion: 'Atención cercana' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía local' }
+    ],
+    transporte: {
+      referencias: ['Playa Tabachines', 'Colonia Militar Marte']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  // ========== COYOACÁN (2) ==========
+  {
+    nombre: 'Granel Dulcerías Coyoacán',
+    slug: 'granel-dulcerias-coyoacan',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Av. Miguel Ángel de Quevedo 443-LS-002',
+    colonia: 'Coyoacán',
+    alcaldia: 'Coyoacán',
+    alcaldiaSlug: 'coyoacan',
+    cp: '04000',
+    coordenadas: { lat: 19.3456, lng: -99.1623 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Granel+Dulcerias+Coyoacan',
+    rating: 4.4,
+    resenas: 187,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería a granel sobre Miguel Ángel de Quevedo.',
+    especialidades: ['Dulces a granel', 'Mayoreo y menudeo', 'Gran variedad'],
+    productos: ['Gomitas importadas', 'Chocolates', 'Dulces mexicanos', 'Confitería'],
+    servicios: [
+      { nombre: 'Venta a granel', descripcion: 'Compra la cantidad que necesites' },
+      { nombre: 'Precios de mayoreo', descripcion: 'Descuentos por volumen' }
+    ],
+    transporte: {
+      metro: [{ linea: '3', estacion: 'M.A. de Quevedo', distancia: '3 min caminando' }],
+      referencias: ['Sobre Miguel Ángel de Quevedo', 'Cerca del Metro']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  {
+    nombre: 'Dulcería El Progreso',
+    slug: 'dulceria-el-progreso',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. Escuinapa 42 bis',
+    colonia: 'Pedregal de Santo Domingo',
+    alcaldia: 'Coyoacán',
+    alcaldiaSlug: 'coyoacan',
+    cp: '04369',
+    coordenadas: { lat: 19.3234, lng: -99.1512 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+El+Progreso+Coyoacan',
+    rating: 4.2,
+    resenas: 56,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en Pedregal de Santo Domingo.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio de barrio', descripcion: 'Tradición local' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      referencias: ['Avenida Escuinapa', 'Pedregal de Santo Domingo']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  // ========== GUSTAVO A. MADERO (5) ==========
+  {
+    nombre: 'Chilim Balam',
+    slug: 'chilim-balam',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Colector 13 280 Local L-132',
+    colonia: 'Parque Lindavista',
+    alcaldia: 'Gustavo A. Madero',
+    alcaldiaSlug: 'gustavo-a-madero',
+    cp: '07300',
+    coordenadas: { lat: 19.4923, lng: -99.1234 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Chilim+Balam+Parque+Lindavista',
+    rating: 4.3,
+    resenas: 89,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería moderna en Parque Lindavista.',
+    especialidades: ['Dulces importados', 'Golosinas', 'Confitería'],
+    productos: ['Gomitas importadas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Productos importados', descripcion: 'Variedad internacional' },
+      { nombre: 'Ubicación en plaza', descripcion: 'Fácil acceso' }
+    ],
+    transporte: {
+      metro: [{ linea: '6', estacion: 'Deportivo 18 de Marzo', distancia: '10 min caminando' }],
+      referencias: ['Parque Lindavista', 'Colector 13']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  {
+    nombre: 'Dulcería La Huerta',
+    slug: 'dulceria-la-huerta',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Atepoxco 98',
+    colonia: 'Tepeyac Insurgentes',
+    alcaldia: 'Gustavo A. Madero',
+    alcaldiaSlug: 'gustavo-a-madero',
+    cp: '07020',
+    coordenadas: { lat: 19.4867, lng: -99.1156 },
+    telefono: '55 8813 0007',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+La+Huerta+Tepeyac+Insurgentes',
+    rating: 4.4,
+    resenas: 76,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con buen surtido en Tepeyac Insurgentes.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Amplio surtido', descripcion: 'Variedad de productos' },
+      { nombre: 'Atención personalizada', descripcion: 'Te ayudan a elegir' }
+    ],
+    transporte: {
+      metro: [{ linea: '6', estacion: 'La Villa-Basílica', distancia: '8 min caminando' }],
+      referencias: ['Calle Atepoxco', 'Tepeyac Insurgentes']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  {
+    nombre: 'Dulcería México',
+    slug: 'dulceria-mexico-gam',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Av. Dolores Hidalgo esq.',
+    colonia: 'San Felipe de Jesús',
+    alcaldia: 'Gustavo A. Madero',
+    alcaldiaSlug: 'gustavo-a-madero',
+    cp: '07510',
+    coordenadas: { lat: 19.4812, lng: -99.0934 },
+    telefono: '55 5137 6945',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Mexico+San+Felipe+de+Jesus',
+    rating: 4.3,
+    resenas: 98,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de mayoreo en San Felipe de Jesús.',
+    especialidades: ['Mayoreo y menudeo', 'Dulces mexicanos', 'Variedad'],
+    productos: ['Dulces tradicionales', 'Gomitas', 'Chocolates', 'Confitería'],
+    servicios: [
+      { nombre: 'Precios de mayoreo', descripcion: 'Descuentos por volumen' },
+      { nombre: 'Gran variedad', descripcion: 'Amplio surtido' }
+    ],
+    transporte: {
+      referencias: ['Avenida Dolores Hidalgo', 'San Felipe de Jesús']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    nombre: 'Dulcería El Bombón',
+    slug: 'dulceria-el-bombon',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. Leon de los Aldama 3485-B',
+    colonia: 'San Felipe de Jesús',
+    alcaldia: 'Gustavo A. Madero',
+    alcaldiaSlug: 'gustavo-a-madero',
+    cp: '07510',
+    coordenadas: { lat: 19.4815, lng: -99.0937 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+El+Bombon+San+Felipe+de+Jesus',
+    rating: 4.1,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en San Felipe de Jesús.',
+    especialidades: ['Dulces variados', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio local', descripcion: 'Atención de barrio' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía familiar' }
+    ],
+    transporte: {
+      referencias: ['Avenida Leon de los Aldama', 'San Felipe de Jesús']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    nombre: 'Dulcería Val-Azu',
+    slug: 'dulceria-val-azu',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Tamazula 3',
+    colonia: 'San Felipe de Jesús',
+    alcaldia: 'Gustavo A. Madero',
+    alcaldiaSlug: 'gustavo-a-madero',
+    cp: '07510',
+    coordenadas: { lat: 19.4818, lng: -99.0940 },
+    telefono: '55 7838 2446',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Val-Azu+San+Felipe+de+Jesus',
+    rating: 4.2,
+    resenas: 52,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería familiar en San Felipe de Jesús.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio familiar', descripcion: 'Tradición de servicio' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      referencias: ['Calle Tamazula', 'San Felipe de Jesús']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  // ========== BENITO JUÁREZ (1) ==========
+  {
+    nombre: 'Dulcería Samy',
+    slug: 'dulceria-samy',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. Víctor Hugo 66-B',
+    colonia: 'Portales Norte',
+    alcaldia: 'Benito Juárez',
+    alcaldiaSlug: 'benito-juarez',
+    cp: '03300',
+    coordenadas: { lat: 19.3712, lng: -99.1534 },
+    telefono: '55 5243 0351',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Samy+Portales+Norte',
+    rating: 4.3,
+    resenas: 87,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con buen surtido en Portales Norte.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Amplio surtido', descripcion: 'Variedad de productos' },
+      { nombre: 'Atención personalizada', descripcion: 'Te ayudan a elegir' }
+    ],
+    transporte: {
+      metro: [{ linea: '2', estacion: 'Portales', distancia: '6 min caminando' }],
+      referencias: ['Avenida Víctor Hugo', 'Portales Norte']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  // ========== ÁLVARO OBREGÓN (2) ==========
+  {
+    nombre: 'Dulcería Josaret',
+    slug: 'dulceria-josaret',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Agustín Lara 143',
+    colonia: 'Olivar del Conde',
+    alcaldia: 'Álvaro Obregón',
+    alcaldiaSlug: 'alvaro-obregon',
+    cp: '01400',
+    coordenadas: { lat: 19.3678, lng: -99.2134 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Josaret+Olivar+del+Conde',
+    rating: 4.1,
+    resenas: 38,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en Olivar del Conde.',
+    especialidades: ['Dulces variados', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio local', descripcion: 'Atención de barrio' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía familiar' }
+    ],
+    transporte: {
+      referencias: ['Calle Agustín Lara', 'Olivar del Conde']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    nombre: 'Dulcería Álvaro Obregón',
+    slug: 'dulceria-alvaro-obregon',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Cucurpe 140',
+    colonia: 'Magdalena Mixihuca',
+    alcaldia: 'Venustiano Carranza',
+    alcaldiaSlug: 'venustiano-carranza',
+    cp: '15860',
+    coordenadas: { lat: 19.4123, lng: -99.0912 },
+    telefono: '55 4062 4328',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Alvaro+Obregon+Venustiano+Carranza',
+    rating: 4.2,
+    resenas: 67,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con tradición en Magdalena Mixihuca.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio establecido', descripcion: 'Años de tradición' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      metro: [{ linea: '9', estacion: 'Velódromo', distancia: '10 min caminando' }],
+      referencias: ['Calle Cucurpe', 'Magdalena Mixihuca']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  // ========== XOCHIMILCO (1) ==========
+  {
+    nombre: 'Dulcería Aguirre La Planta',
+    slug: 'dulceria-aguirre-la-planta',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Acalotenco 107-237',
+    colonia: 'Santa Cruz Acalpixca',
+    alcaldia: 'Xochimilco',
+    alcaldiaSlug: 'xochimilco',
+    cp: '16500',
+    coordenadas: { lat: 19.2678, lng: -99.0945 },
+    telefono: '55 7511 7247',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Aguirre+La+Planta+Xochimilco',
+    rating: 4.3,
+    resenas: 54,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería familiar en Santa Cruz Acalpixca.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Productos locales'],
+    productos: ['Dulces mexicanos', 'Gomitas', 'Chocolates', 'Paletas'],
+    servicios: [
+      { nombre: 'Tradición familiar', descripcion: 'Negocio establecido' },
+      { nombre: 'Productos locales', descripcion: 'Dulces de la zona' }
+    ],
+    transporte: {
+      referencias: ['Calle Acalotenco', 'Santa Cruz Acalpixca']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  // ========== LA MAGDALENA CONTRERAS (2) ==========
+  {
+    nombre: 'Dulcería Millan',
+    slug: 'dulceria-millan',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'F.C. de Cuernavaca 3',
+    colonia: 'Barrio San Francisco',
+    alcaldia: 'La Magdalena Contreras',
+    alcaldiaSlug: 'magdalena-contreras',
+    cp: '10500',
+    coordenadas: { lat: 19.3178, lng: -99.2234 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Millan+Magdalena+Contreras',
+    rating: 4.1,
+    resenas: 32,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en San Francisco.',
+    especialidades: ['Dulces variados', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio local', descripcion: 'Atención cercana' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía de barrio' }
+    ],
+    transporte: {
+      referencias: ['F.C. de Cuernavaca', 'Barrio San Francisco']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  {
+    nombre: 'Dulcería Arcoiris',
+    slug: 'dulceria-arcoiris',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Retama',
+    colonia: 'San Nicolás Totolapan',
+    alcaldia: 'La Magdalena Contreras',
+    alcaldiaSlug: 'magdalena-contreras',
+    cp: '10900',
+    coordenadas: { lat: 19.2934, lng: -99.2456 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+Arcoiris+San+Nicolas+Totolapan',
+    rating: 4.0,
+    resenas: 28,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local en San Nicolás Totolapan.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio de barrio', descripcion: 'Tradición local' },
+      { nombre: 'Surtido básico', descripcion: 'Lo esencial para fiestas' }
+    ],
+    transporte: {
+      referencias: ['Calle Retama', 'San Nicolás Totolapan']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  // ========== TLALPAN (1) ==========
+  {
+    nombre: 'Mega Dulce',
+    slug: 'mega-dulce-tlalpan',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Carr. Picacho-Ajusco',
+    colonia: 'Miguel Hidalgo 4ta Secc',
+    alcaldia: 'Tlalpan',
+    alcaldiaSlug: 'tlalpan',
+    cp: '14250',
+    coordenadas: { lat: 19.2567, lng: -99.1789 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Mega+Dulce+Picacho+Ajusco',
+    rating: 4.3,
+    resenas: 98,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de mayoreo sobre Picacho-Ajusco.',
+    especialidades: ['Mayoreo y menudeo', 'Gran variedad', 'Precios competitivos'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería'],
+    servicios: [
+      { nombre: 'Precios de mayoreo', descripcion: 'Descuentos por volumen' },
+      { nombre: 'Amplio surtido', descripcion: 'Miles de productos' }
+    ],
+    transporte: {
+      referencias: ['Carretera Picacho-Ajusco', 'Miguel Hidalgo 4ta Sección']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  // ========== VENUSTIANO CARRANZA (1) ==========
+  {
+    nombre: 'Dulcería La Perlita',
+    slug: 'dulceria-la-perlita',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'C. 27 152',
+    colonia: 'Ignacio Zaragoza',
+    alcaldia: 'Venustiano Carranza',
+    alcaldiaSlug: 'venustiano-carranza',
+    cp: '15000',
+    coordenadas: { lat: 19.4234, lng: -99.0823 },
+    telefono: 'Sin teléfono registrado',
+    mapsUrl: 'https://maps.google.com/?q=Dulceria+La+Perlita+Ignacio+Zaragoza',
+    rating: 4.1,
+    resenas: 42,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en Ignacio Zaragoza.',
+    especialidades: ['Dulces variados', 'Confitería', 'Piñatas'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces mexicanos', 'Paletas'],
+    servicios: [
+      { nombre: 'Negocio de barrio', descripcion: 'Tradición local' },
+      { nombre: 'Precios accesibles', descripcion: 'Economía para todos' }
+    ],
+    transporte: {
+      metro: [{ linea: '1', estacion: 'Gómez Farías', distancia: '12 min caminando' }],
+      referencias: ['Calle 27', 'Colonia Ignacio Zaragoza']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  // ========== AZCAPOTZALCO (1) ==========
+  {
+    nombre: 'Dulces y Botanas',
+    slug: 'dulces-y-botanas-azcapotzalco',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'C. 19 190',
+    colonia: 'Pro Hogar',
+    alcaldia: 'Azcapotzalco',
+    alcaldiaSlug: 'azcapotzalco',
+    cp: '02600',
+    coordenadas: { lat: 19.4823, lng: -99.1867 },
+    telefono: '55 1055 5215',
+    mapsUrl: 'https://maps.google.com/?q=Dulces+y+Botanas+Pro+Hogar+Azcapotzalco',
+    rating: 4.2,
+    resenas: 56,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería y botanas en Pro Hogar.',
+    especialidades: ['Dulces y botanas', 'Confitería', 'Golosinas'],
+    productos: ['Gomitas', 'Chocolates', 'Botanas', 'Frituras', 'Dulces'],
+    servicios: [
+      { nombre: 'Dulces y botanas', descripcion: 'Dos en uno' },
+      { nombre: 'Buenos precios', descripcion: 'Economía garantizada' }
+    ],
+    transporte: {
+      metro: [{ linea: '6', estacion: 'Ferrería', distancia: '8 min caminando' }],
+      referencias: ['Calle 19', 'Colonia Pro Hogar']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  // ========== MIGUEL HIDALGO (1) ==========
+  {
+    nombre: 'La Reyna de Tacuba',
+    slug: 'la-reyna-de-tacuba',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'C. Mar Negro 31',
+    colonia: 'Tacuba',
+    alcaldia: 'Miguel Hidalgo',
+    alcaldiaSlug: 'miguel-hidalgo',
+    cp: '11410',
+    coordenadas: { lat: 19.4567, lng: -99.1823 },
+    telefono: '55 2658 6474',
+    mapsUrl: 'https://maps.google.com/?q=La+Reyna+de+Tacuba+Miguel+Hidalgo',
+    rating: 4.4,
+    resenas: 87,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en el corazón de Tacuba.',
+    especialidades: ['Dulces tradicionales', 'Confitería', 'Piñatas'],
+    productos: ['Dulces mexicanos', 'Gomitas', 'Chocolates', 'Paletas'],
+    servicios: [
+      { nombre: 'Tradición de Tacuba', descripcion: 'Negocio histórico' },
+      { nombre: 'Surtido completo', descripcion: 'Todo para fiestas' }
+    ],
+    transporte: {
+      metro: [{ linea: '2 y 7', estacion: 'Tacuba', distancia: '5 min caminando' }],
+      referencias: ['Calle Mar Negro', 'Tacuba']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
   }
 ];
 

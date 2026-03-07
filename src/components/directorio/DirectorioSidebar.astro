@@ -3,6 +3,7 @@
  * DirectorioSidebar - Sidebar para páginas del directorio
  * Proporciona interlinking con servicios y secciones del sitio
  */
+import { getEstadisticasDirectorio, getDulceriasDestacadas } from '@/data/dulcerias';
 
 interface Props {
   currentSlug?: string;
@@ -10,6 +11,7 @@ interface Props {
   showEventos?: boolean;
   showZonas?: boolean;
   showCategorias?: boolean;
+  showDulceriasTop?: boolean;
 }
 
 const {
@@ -17,8 +19,13 @@ const {
   showServicios = true,
   showEventos = true,
   showZonas = true,
-  showCategorias = true
+  showCategorias = true,
+  showDulceriasTop = false
 } = Astro.props;
+
+// Obtener estadísticas reales
+const stats = getEstadisticasDirectorio();
+const dulceriasTop = getDulceriasDestacadas().slice(0, 5);
 
 const servicios = [
   { label: 'Mesa de Dulces', href: '/tipos-de-mesas-de-dulces/mesa-de-dulces', icon: '🍬' },
@@ -36,22 +43,39 @@ const eventos = [
   { label: 'Cumpleaños', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', icon: '🎂' }
 ];
 
+// Zonas con datos reales
 const zonas = [
-  { label: 'CDMX', href: '/directorio/cdmx', count: '16 alcaldías' },
-  { label: 'Estado de México', href: '/directorio/edomex', count: '12 municipios' }
+  { label: 'CDMX', href: '/directorio/todos', count: `${stats.alcaldias} alcaldías` },
+  { label: 'Estado de México', href: '/directorio/edomex', count: 'Próximamente' }
 ];
 
 const categorias = [
   { label: 'Dulces Tradicionales', href: '/directorio/dulces-tradicionales', icon: '🍬' },
   { label: 'Chocolates y Trufas', href: '/directorio/chocolates-trufas', icon: '🍫' },
   { label: 'Gomitas y Confitería', href: '/directorio/gomitas-confiteria', icon: '🍭' },
-  { label: 'Galletas y Cupcakes', href: '/directorio/galletas-cupcakes', icon: '🧁' },
+  { label: 'Mayoreo La Merced', href: '/directorio/mayoreo-merced', icon: '📦' },
   { label: 'Paletas y Piruletas', href: '/directorio/paletas-piruletas', icon: '🍡' },
   { label: 'Dulces Importados', href: '/directorio/dulces-importados', icon: '🌍' }
 ];
 ---
 
 <aside class="directorio-sidebar">
+  <!-- Stats del Directorio -->
+  <div class="sidebar-stats">
+    <div class="stat-row">
+      <span class="stat-num">{stats.total}</span>
+      <span class="stat-txt">Dulcerías</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">{stats.alcaldias}</span>
+      <span class="stat-txt">Alcaldías</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">{Math.round(stats.totalResenas / 1000)}k+</span>
+      <span class="stat-txt">Reseñas</span>
+    </div>
+  </div>
+
   <!-- CTA Principal -->
   <div class="sidebar-cta">
     <h3>¿Necesitas una Mesa de Dulces?</h3>
@@ -175,6 +199,34 @@ const categorias = [
     gap: 24px;
     position: sticky;
     top: 180px;
+  }
+
+  /* Stats del Directorio */
+  .sidebar-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border-radius: 16px;
+    border: 2px solid rgba(209, 0, 122, 0.1);
+  }
+
+  .stat-row {
+    text-align: center;
+  }
+
+  .stat-num {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    line-height: 1;
+  }
+
+  .stat-txt {
+    font-size: 0.75rem;
+    color: var(--texto-light);
   }
 
   /* CTA Principal */

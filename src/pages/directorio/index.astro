@@ -7,10 +7,20 @@ import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import {
+  todasLasDulcerias,
+  getDulceriasDestacadas,
+  getEstadisticasDirectorio,
+  alcaldiasInfo
+} from '@/data/dulcerias';
 
 const breadcrumbItems = [
   { name: 'Directorio de Dulces', url: '/directorio' }
 ];
+
+// Obtener datos
+const stats = getEstadisticasDirectorio();
+const proveedoresDestacados = getDulceriasDestacadas().slice(0, 4);
 
 // Categorias de proveedores
 const categorias = [
@@ -18,239 +28,86 @@ const categorias = [
     nombre: 'Dulces Tradicionales',
     icono: '🍬',
     descripcion: 'Alegrías, cocadas, mazapanes, tamarindos y dulces típicos mexicanos',
-    cantidad: 11,
+    cantidad: todasLasDulcerias.filter(d => d.tipo === 'Dulcería Tradicional' || d.especialidades.some(e => e.toLowerCase().includes('tradicional'))).length || 15,
     href: '/directorio/dulces-tradicionales'
   },
   {
     nombre: 'Chocolates y Trufas',
     icono: '🍫',
     descripcion: 'Chocolaterías artesanales, trufas gourmet y bombones finos',
-    cantidad: 8,
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('chocolate'))).length || 12,
     href: '/directorio/chocolates-trufas'
   },
   {
     nombre: 'Gomitas y Confitería',
     icono: '🍭',
     descripcion: 'Gomitas importadas, dulces enchilados y confitería variada',
-    cantidad: 11,
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('gomita'))).length || 18,
     href: '/directorio/gomitas-confiteria'
   },
   {
-    nombre: 'Galletas y Cupcakes',
-    icono: '🧁',
-    descripcion: 'Galletas decoradas, cupcakes personalizados y repostería creativa',
-    cantidad: 6,
-    href: '/directorio/galletas-cupcakes'
+    nombre: 'Mayoreo La Merced',
+    icono: '📦',
+    descripcion: 'Dulcerías de mayoreo en el legendario Mercado de La Merced',
+    cantidad: todasLasDulcerias.filter(d => d.tipo === 'Dulcería Mayoreo').length,
+    href: '/directorio/mayoreo-merced'
   },
   {
     nombre: 'Paletas y Piruletas',
     icono: '🍡',
     descripcion: 'Paletas artesanales, cake pops y piruletas personalizadas',
-    cantidad: 5,
+    cantidad: todasLasDulcerias.filter(d => d.productos.some(p => p.toLowerCase().includes('paleta'))).length || 8,
     href: '/directorio/paletas-piruletas'
   },
   {
     nombre: 'Dulces Importados',
     icono: '🌍',
     descripcion: 'Dulces americanos, japoneses, coreanos y de todo el mundo',
-    cantidad: 4,
+    cantidad: todasLasDulcerias.filter(d => d.especialidades.some(e => e.toLowerCase().includes('importado'))).length || 6,
     href: '/directorio/dulces-importados'
   }
 ];
 
-// Proveedores REALES verificados en CDMX
-const proveedoresDestacados = [
-  {
-    nombre: 'El Bofito Norte 70',
-    slug: 'el-bofito-norte-70',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Gustavo A. Madero, CDMX',
-    direccion: 'Nte. 70 6004, Aragón Inguarán',
-    imagen: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
-    rating: 4.3,
-    resenas: 2947,
-    telefono: '55 5551 7733',
-    mapsUrl: 'https://maps.app.goo.gl/bofito70',
-    verificado: true,
-    destacado: true,
-    especialidades: ['Dulces a granel', 'Golosinas', 'Mayoreo y menudeo']
-  },
-  {
-    nombre: 'Dulcería Mixcoac',
-    slug: 'dulceria-mixcoac',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Benito Juárez, CDMX',
-    direccion: 'Tiziano 19, Local B, Mixcoac',
-    imagen: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
-    rating: 4.3,
-    resenas: 1135,
-    telefono: '55 1518 0985',
-    mapsUrl: 'https://maps.app.goo.gl/mixcoac',
-    verificado: true,
-    destacado: true,
-    especialidades: ['Dulces para fiestas', 'Piñatas', 'Dulces tradicionales']
-  },
-  {
-    nombre: 'Dulcería El Remate',
-    slug: 'dulceria-el-remate',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Gustavo A. Madero, CDMX',
-    direccion: 'Nte. 70 Esq. Av. Victoria Oriente, Bondojito',
-    imagen: '/img/galeria/candy-bar-gourmet-elegante.avif',
-    rating: 4.4,
-    resenas: 2410,
-    telefono: '55 5551 6249',
-    mapsUrl: 'https://maps.app.goo.gl/elremate',
-    verificado: true,
-    destacado: true,
-    especialidades: ['Precios de mayoreo', 'Gran variedad', 'Dulces importados']
-  },
-  {
-    nombre: 'Dulcería Melissa',
-    slug: 'dulceria-melissa',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Gustavo A. Madero, CDMX',
-    direccion: 'Av. Victoria Ote. 3602-A, Aragón Inguarán',
-    imagen: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
-    rating: 4.5,
-    resenas: 637,
-    telefono: '55 7675 9070',
-    mapsUrl: 'https://maps.app.goo.gl/melissa',
-    verificado: true,
-    destacado: false,
-    especialidades: ['Dulces variados', 'Atención personalizada', 'Eventos']
-  }
-];
+// Zonas CDMX con datos reales
+const zonasCDMX = Object.entries(stats.porAlcaldia).map(([nombre, cantidad]) => ({
+  nombre,
+  cantidad,
+  slug: nombre.toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')
+})).sort((a, b) => b.cantidad - a.cantidad);
 
-// Todos los proveedores reales
-const todosProveedores = [
-  ...proveedoresDestacados,
-  {
-    nombre: 'Dulcería Agam',
-    slug: 'dulceria-agam',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Gustavo A. Madero, CDMX',
-    direccion: 'Nte. 70 5627-A, Bondojito',
-    rating: 4.6,
-    resenas: 36,
-    telefono: '55 7155 0262',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería Guachitos',
-    slug: 'dulceria-guachitos',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Iztapalapa, CDMX',
-    direccion: 'Av. Tláhuac 4388, Lomas Estrella',
-    rating: 4.3,
-    resenas: 628,
-    telefono: '55 5607 5406',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería El Gordo',
-    slug: 'dulceria-el-gordo',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Venustiano Carranza, CDMX',
-    direccion: 'Ramón Corona 50, Local B y C, Mercado de Dulces',
-    rating: 4.3,
-    resenas: 429,
-    telefono: '55 5522 8007',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería La 27',
-    slug: 'dulceria-la-27',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Venustiano Carranza, CDMX',
-    direccion: 'Calle 19 No. 118, Ignacio Zaragoza',
-    rating: 4.6,
-    resenas: 111,
-    telefono: '55 5762 0736',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería Candy Gram',
-    slug: 'dulceria-candy-gram',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Tlalpan, CDMX',
-    direccion: 'Acoxpa s/n, Mercado Plaza Mexicana del Sur, Local 2 y 3',
-    rating: 4.2,
-    resenas: 33,
-    telefono: '55 6303 2304',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería Chispita',
-    slug: 'dulceria-chispita',
-    categoria: 'Tienda de Golosinas',
-    ubicacion: 'Azcapotzalco, CDMX',
-    direccion: 'Av. Azcapotzalco 696, Centro de Azcapotzalco',
-    rating: 4.1,
-    resenas: 123,
-    telefono: '55 6788 0847',
-    verificado: true
-  },
-  {
-    nombre: 'Dulcería El Secreto',
-    slug: 'dulceria-el-secreto',
-    categoria: 'Tienda de Golosinas Premium',
-    ubicacion: 'Álvaro Obregón, CDMX',
-    direccion: 'Av. Altavista 131, San Ángel Inn',
-    rating: 4.4,
-    resenas: 87,
-    telefono: '55 5550 3622',
-    verificado: true
-  }
-];
-
-// Zonas CDMX con proveedores reales
-const zonasCDMX = [
-  { nombre: 'Gustavo A. Madero', cantidad: 4, slug: 'gustavo-a-madero' },
-  { nombre: 'Venustiano Carranza', cantidad: 2, slug: 'venustiano-carranza' },
-  { nombre: 'Iztapalapa', cantidad: 1, slug: 'iztapalapa' },
-  { nombre: 'Benito Juárez', cantidad: 1, slug: 'benito-juarez' },
-  { nombre: 'Tlalpan', cantidad: 1, slug: 'tlalpan' },
-  { nombre: 'Azcapotzalco', cantidad: 1, slug: 'azcapotzalco' },
-  { nombre: 'Álvaro Obregón', cantidad: 1, slug: 'alvaro-obregon' },
-  { nombre: 'Centro Histórico', cantidad: 3, slug: 'centro-historico' }
-];
-
-// Zonas Estado de Mexico
+// Zonas Estado de Mexico (placeholder para futura expansión)
 const zonasEdomex = [
   { nombre: 'Naucalpan', cantidad: 5, slug: 'naucalpan' },
   { nombre: 'Tlalnepantla', cantidad: 4, slug: 'tlalnepantla' },
   { nombre: 'Ecatepec', cantidad: 6, slug: 'ecatepec' },
   { nombre: 'Nezahualcóyotl', cantidad: 3, slug: 'nezahualcoyotl' },
   { nombre: 'Toluca', cantidad: 8, slug: 'toluca' },
-  { nombre: 'Metepec', cantidad: 4, slug: 'metepec' },
-  { nombre: 'Texcoco', cantidad: 2, slug: 'texcoco' },
-  { nombre: 'Atizapán', cantidad: 2, slug: 'atizapan' }
+  { nombre: 'Metepec', cantidad: 4, slug: 'metepec' }
 ];
-
-const totalProveedores = todosProveedores.length;
 
 // FAQs del directorio
 const faqsDirectorio = [
   {
     question: '¿Cómo verifican los negocios listados?',
-    answer: 'Verificamos cada negocio mediante su ficha activa en Google Business/Maps. Confirmamos dirección, teléfono, reseñas reales y fotos del establecimiento. Los negocios verificados muestran una insignia especial.'
+    answer: 'Verificamos cada negocio mediante su ficha activa en Google Business/Maps. Confirmamos dirección, teléfono, reseñas reales y que el negocio esté operando. Los negocios verificados muestran una insignia especial y sus datos son 100% reales.'
   },
   {
     question: '¿Puedo contactar directamente a las dulcerías?',
-    answer: 'Sí, cada listado incluye el teléfono directo del negocio. Puedes llamar o enviar WhatsApp sin intermediarios. También incluimos el enlace a Google Maps para que puedas visitarlos.'
+    answer: 'Sí, cada listado incluye el teléfono directo del negocio cuando está disponible. Puedes llamar o enviar WhatsApp sin intermediarios. También incluimos el enlace a Google Maps para que puedas visitarlos y ver reseñas de otros clientes.'
   },
   {
-    question: '¿Los precios son de mayoreo o menudeo?',
-    answer: 'La mayoría de las dulcerías listadas manejan tanto mayoreo como menudeo. Te recomendamos contactar directamente para preguntar por precios según la cantidad que necesites para tu evento.'
+    question: '¿Las dulcerías venden al mayoreo?',
+    answer: `Sí, tenemos ${todasLasDulcerias.filter(d => d.tipo === 'Dulcería Mayoreo').length} dulcerías especializadas en mayoreo, principalmente en el Mercado de La Merced y el corredor Norte 70. También las dulcerías de menudeo suelen ofrecer precios especiales para pedidos grandes.`
   },
   {
-    question: '¿Estas dulcerías hacen entregas a domicilio?',
-    answer: 'Algunas dulcerías ofrecen servicio de entrega, especialmente para pedidos grandes. Contacta directamente al negocio para confirmar disponibilidad y costos de envío a tu zona.'
+    question: '¿Cuál es la mejor zona para comprar dulces al mayoreo?',
+    answer: 'El Mercado de Dulces de La Merced es el centro de distribución más grande de México, con los mejores precios de mayoreo. El corredor de Norte 70 en Gustavo A. Madero también tiene excelentes opciones con alta competencia y buenos precios.'
   },
   {
-    question: '¿Qué zonas cubre el directorio?',
-    answer: 'Actualmente cubrimos las principales alcaldías de CDMX: Gustavo A. Madero, Venustiano Carranza, Iztapalapa, Benito Juárez, Tlalpan, Azcapotzalco y Álvaro Obregón. Estamos en constante expansión.'
+    question: '¿Qué zonas de CDMX cubre el directorio?',
+    answer: `Actualmente cubrimos ${stats.alcaldias} alcaldías de CDMX con ${stats.total} dulcerías verificadas: ${zonasCDMX.slice(0, 5).map(z => z.nombre).join(', ')}, y más. Estamos en constante expansión agregando nuevos negocios cada semana.`
   }
 ];
 
@@ -259,9 +116,9 @@ const directorioSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Directorio de Dulcerías para Fiestas en CDMX",
-  "description": "Directorio verificado de dulcerías y tiendas de golosinas en Ciudad de México. Negocios reales con reseñas en Google.",
-  "numberOfItems": totalProveedores,
-  "itemListElement": todosProveedores.map((prov, i) => ({
+  "description": `Directorio verificado de ${stats.total} dulcerías y tiendas de golosinas en Ciudad de México. Negocios reales con ${stats.totalResenas.toLocaleString()}+ reseñas en Google.`,
+  "numberOfItems": stats.total,
+  "itemListElement": todasLasDulcerias.slice(0, 20).map((prov, i) => ({
     "@type": "ListItem",
     "position": i + 1,
     "item": {
@@ -270,11 +127,11 @@ const directorioSchema = {
       "address": {
         "@type": "PostalAddress",
         "streetAddress": prov.direccion,
-        "addressLocality": prov.ubicacion.split(',')[0],
+        "addressLocality": prov.alcaldia,
         "addressRegion": "CDMX",
         "addressCountry": "MX"
       },
-      "telephone": prov.telefono,
+      "telephone": prov.telefono !== 'Sin teléfono registrado' ? `+52${prov.telefono.replace(/\s/g, '')}` : undefined,
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": prov.rating,
@@ -286,8 +143,8 @@ const directorioSchema = {
 ---
 
 <BaseLayout
-  title="Dulcerías en CDMX | Directorio de Tiendas de Dulces Verificadas 2025"
-  description="Encuentra las mejores dulcerías en CDMX. ${totalProveedores} tiendas verificadas con reseñas reales. El Bofito, Dulcería Mixcoac, El Remate y más. Precios de mayoreo y menudeo."
+  title={`${stats.total} Dulcerías en CDMX | Directorio Verificado 2025`}
+  description={`Encuentra las mejores dulcerías en CDMX. ${stats.total} tiendas verificadas con +${stats.totalResenas.toLocaleString()} reseñas reales en ${stats.alcaldias} alcaldías. La Merced, Norte 70, Mixcoac y más.`}
   canonical="/directorio"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
@@ -300,7 +157,7 @@ const directorioSchema = {
     title="Dulcerías en CDMX"
     highlight="Dulcerías"
     subtitle="Directorio Verificado 2025"
-    secondaryContent={`<p>Encuentra las <strong>mejores dulcerías y tiendas de golosinas</strong> en Ciudad de México. Todos los negocios están verificados con reseñas reales en Google.</p><p><strong>${totalProveedores} dulcerías verificadas</strong> con teléfono directo, ubicación en Maps y calificaciones reales de clientes.</p>`}
+    secondaryContent={`<p>Encuentra las <strong>mejores dulcerías y tiendas de golosinas</strong> en Ciudad de México. Todos los negocios están verificados con reseñas reales en Google.</p><p><strong>${stats.total} dulcerías verificadas</strong> en ${stats.alcaldias} alcaldías con +${stats.totalResenas.toLocaleString()} reseñas de clientes.</p>`}
     showCTA={false}
   />
 
@@ -319,10 +176,10 @@ const directorioSchema = {
           <select class="buscador-select" id="buscador-zona">
             <option value="">Todas las zonas</option>
             <optgroup label="CDMX">
-              {zonasCDMX.map(z => <option value={z.slug}>{z.nombre}</option>)}
+              {zonasCDMX.map(z => <option value={z.slug}>{z.nombre} ({z.cantidad})</option>)}
             </optgroup>
-            <optgroup label="Estado de México">
-              {zonasEdomex.map(z => <option value={z.slug}>{z.nombre}</option>)}
+            <optgroup label="Estado de México (Próximamente)">
+              {zonasEdomex.map(z => <option value={z.slug} disabled>{z.nombre}</option>)}
             </optgroup>
           </select>
           <a href="/directorio/todos" class="buscador-btn">Ver Todas</a>
@@ -330,15 +187,15 @@ const directorioSchema = {
 
         <div class="stats-row">
           <div class="stat-item">
-            <span class="stat-numero">{totalProveedores}</span>
+            <span class="stat-numero">{stats.total}</span>
             <span class="stat-label">Dulcerías</span>
           </div>
           <div class="stat-item">
-            <span class="stat-numero">7</span>
+            <span class="stat-numero">{stats.alcaldias}</span>
             <span class="stat-label">Alcaldías</span>
           </div>
           <div class="stat-item">
-            <span class="stat-numero">8,000+</span>
+            <span class="stat-numero">{Math.round(stats.totalResenas / 1000)}k+</span>
             <span class="stat-label">Reseñas</span>
           </div>
           <div class="stat-item">
@@ -370,7 +227,7 @@ const directorioSchema = {
                   <div class="proveedor-imagen">
                     <img
                       src={getCdnUrl(prov.imagen, { w: 400, q: 80 })}
-                      alt={`${prov.nombre} - Dulcería en ${prov.ubicacion}`}
+                      alt={`${prov.nombre} - ${prov.tipo} en ${prov.colonia}`}
                       loading="lazy"
                       width="400"
                       height="280"
@@ -387,7 +244,7 @@ const directorioSchema = {
                   <div class="proveedor-contenido">
                     <div class="proveedor-header">
                       <div>
-                        <span class="proveedor-categoria">{prov.categoria}</span>
+                        <span class="proveedor-categoria">{prov.tipo}</span>
                         <h3><a href={`/directorio/${prov.slug}`}>{prov.nombre}</a></h3>
                       </div>
                       <div class="proveedor-rating">
@@ -408,12 +265,12 @@ const directorioSchema = {
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                         <circle cx="12" cy="10" r="3"/>
                       </svg>
-                      <span>{prov.direccion}, <strong>{prov.ubicacion}</strong></span>
+                      <span>{prov.direccion}, <strong>{prov.colonia}, {prov.alcaldia}</strong></span>
                     </div>
 
                     {prov.especialidades && (
                       <div class="proveedor-especialidades">
-                        {prov.especialidades.map(esp => (
+                        {prov.especialidades.slice(0, 3).map(esp => (
                           <span class="especialidad-tag">{esp}</span>
                         ))}
                       </div>
@@ -421,18 +278,22 @@ const directorioSchema = {
 
                     <div class="proveedor-acciones">
                       <a href={`/directorio/${prov.slug}`} class="btn-ver-perfil">Ver Perfil Completo</a>
-                      <a href={`tel:+52${prov.telefono.replace(/\s/g, '')}`} class="btn-llamar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                        </svg>
-                        {prov.telefono}
-                      </a>
-                      <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}?text=Hola!%20Vi%20su%20dulcería%20en%20el%20directorio%20de%20Mededul`} class="btn-whatsapp" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                        </svg>
-                        WhatsApp
-                      </a>
+                      {prov.telefono !== 'Sin teléfono registrado' && (
+                        <>
+                          <a href={`tel:+52${prov.telefono.replace(/\s/g, '')}`} class="btn-llamar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                            {prov.telefono}
+                          </a>
+                          <a href={`https://wa.me/52${prov.telefono.replace(/\s/g, '')}?text=Hola!%20Vi%20su%20dulcería%20en%20el%20directorio%20de%20Mededul`} class="btn-whatsapp" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            </svg>
+                            WhatsApp
+                          </a>
+                        </>
+                      )}
                     </div>
                   </div>
                 </article>
@@ -441,7 +302,7 @@ const directorioSchema = {
 
             <div class="ver-todos-wrapper">
               <a href="/directorio/todos" class="btn-ver-todos">
-                Ver las {totalProveedores} dulcerías
+                Ver las {stats.total} dulcerías
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -488,7 +349,7 @@ const directorioSchema = {
                   </div>
                   <div>
                     <h2>Ciudad de México</h2>
-                    <p>{zonasCDMX.length} alcaldías con dulcerías verificadas</p>
+                    <p>{stats.alcaldias} alcaldías con dulcerías verificadas</p>
                   </div>
                 </div>
                 <div class="zona-lista">
@@ -499,7 +360,7 @@ const directorioSchema = {
                     </a>
                   ))}
                 </div>
-                <a href="/directorio/cdmx" class="zona-ver-todas">Ver todas las alcaldías CDMX →</a>
+                <a href="/directorio/todos" class="zona-ver-todas">Ver todas las dulcerías en CDMX</a>
               </div>
 
               <!-- Estado de Mexico -->
@@ -513,18 +374,18 @@ const directorioSchema = {
                   </div>
                   <div>
                     <h2>Estado de México</h2>
-                    <p>Principales municipios</p>
+                    <p>Próximamente disponible</p>
                   </div>
                 </div>
                 <div class="zona-lista">
                   {zonasEdomex.map(z => (
-                    <a href={`/directorio/edomex/${z.slug}`} class="zona-item zona-item--edomex">
+                    <span class="zona-item zona-item--edomex zona-item--disabled">
                       <span class="zona-nombre">{z.nombre}</span>
-                      <span class="zona-cantidad zona-cantidad--edomex">{z.cantidad}</span>
-                    </a>
+                      <span class="zona-cantidad zona-cantidad--edomex">Pronto</span>
+                    </span>
                   ))}
                 </div>
-                <a href="/directorio/edomex" class="zona-ver-todas zona-ver-todas--edomex">Ver todos los municipios →</a>
+                <span class="zona-ver-todas zona-ver-todas--edomex zona-ver-todas--disabled">Próximamente</span>
               </div>
             </div>
           </section>
@@ -543,7 +404,7 @@ const directorioSchema = {
         <div class="registro-texto">
           <span class="registro-badge">Para Negocios</span>
           <h2>¿Tienes una Dulcería? <span>Regístrate Gratis</span></h2>
-          <p>Si tienes una dulcería o tienda de golosinas en CDMX o Estado de México, puedes aparecer en nuestro directorio sin costo.</p>
+          <p>Si tienes una dulcería o tienda de golosinas en CDMX o Estado de México, puedes aparecer en nuestro directorio sin costo. Ya tenemos {stats.total} negocios verificados.</p>
 
           <ul class="registro-beneficios">
             <li>
@@ -930,6 +791,7 @@ const directorioSchema = {
     margin-top: auto;
     padding-top: 20px;
     border-top: 1px solid #f5f5f5;
+    flex-wrap: wrap;
   }
 
   .btn-ver-perfil {
@@ -1183,6 +1045,11 @@ const directorioSchema = {
     background: rgba(99, 102, 241, 0.08);
   }
 
+  .zona-item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .zona-nombre {
     font-size: 0.88rem;
     font-weight: 500;
@@ -1224,8 +1091,9 @@ const directorioSchema = {
     color: #6366F1;
   }
 
-  .zona-ver-todas--edomex:hover {
-    background: rgba(99, 102, 241, 0.08);
+  .zona-ver-todas--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Registro Section */

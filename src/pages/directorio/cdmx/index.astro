@@ -4,43 +4,50 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
+import { todasLasDulcerias, getDulceriasPorAlcaldia } from '@/data/dulcerias';
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
   { name: 'CDMX', url: '/directorio/cdmx' }
 ];
 
-const alcaldias = [
-  { nombre: 'Alvaro Obregon', slug: 'alvaro-obregon', proveedores: 12 },
-  { nombre: 'Azcapotzalco', slug: 'azcapotzalco', proveedores: 8 },
-  { nombre: 'Benito Juarez', slug: 'benito-juarez', proveedores: 18 },
-  { nombre: 'Coyoacan', slug: 'coyoacan', proveedores: 22 },
-  { nombre: 'Cuajimalpa', slug: 'cuajimalpa', proveedores: 6 },
-  { nombre: 'Cuauhtemoc', slug: 'cuauhtemoc', proveedores: 35 },
-  { nombre: 'Gustavo A. Madero', slug: 'gustavo-a-madero', proveedores: 14 },
-  { nombre: 'Iztacalco', slug: 'iztacalco', proveedores: 7 },
-  { nombre: 'Iztapalapa', slug: 'iztapalapa', proveedores: 16 },
-  { nombre: 'Magdalena Contreras', slug: 'magdalena-contreras', proveedores: 4 },
-  { nombre: 'Miguel Hidalgo', slug: 'miguel-hidalgo', proveedores: 25 },
-  { nombre: 'Milpa Alta', slug: 'milpa-alta', proveedores: 3 },
-  { nombre: 'Tlahuac', slug: 'tlahuac', proveedores: 5 },
-  { nombre: 'Tlalpan', slug: 'tlalpan', proveedores: 11 },
-  { nombre: 'Venustiano Carranza', slug: 'venustiano-carranza', proveedores: 9 },
-  { nombre: 'Xochimilco', slug: 'xochimilco', proveedores: 13 }
+// Calcular proveedores dinámicamente desde la base de datos
+const alcaldiasConfig = [
+  { nombre: 'Álvaro Obregón', slug: 'alvaro-obregon' },
+  { nombre: 'Azcapotzalco', slug: 'azcapotzalco' },
+  { nombre: 'Benito Juárez', slug: 'benito-juarez' },
+  { nombre: 'Coyoacán', slug: 'coyoacan' },
+  { nombre: 'Cuajimalpa', slug: 'cuajimalpa' },
+  { nombre: 'Cuauhtémoc', slug: 'cuauhtemoc' },
+  { nombre: 'Gustavo A. Madero', slug: 'gustavo-a-madero' },
+  { nombre: 'Iztacalco', slug: 'iztacalco' },
+  { nombre: 'Iztapalapa', slug: 'iztapalapa' },
+  { nombre: 'La Magdalena Contreras', slug: 'magdalena-contreras' },
+  { nombre: 'Miguel Hidalgo', slug: 'miguel-hidalgo' },
+  { nombre: 'Milpa Alta', slug: 'milpa-alta' },
+  { nombre: 'Tláhuac', slug: 'tlahuac' },
+  { nombre: 'Tlalpan', slug: 'tlalpan' },
+  { nombre: 'Venustiano Carranza', slug: 'venustiano-carranza' },
+  { nombre: 'Xochimilco', slug: 'xochimilco' }
 ];
+
+const alcaldias = alcaldiasConfig.map(a => ({
+  ...a,
+  proveedores: getDulceriasPorAlcaldia(a.slug).length
+})).sort((a, b) => b.proveedores - a.proveedores);
 
 const zonasPopulares = [
-  { nombre: 'Centro Historico', alcaldia: 'Cuauhtemoc', proveedores: 28, slug: 'centro-historico' },
+  { nombre: 'Centro Histórico', alcaldia: 'Cuauhtémoc', proveedores: 28, slug: 'centro-historico' },
   { nombre: 'Polanco', alcaldia: 'Miguel Hidalgo', proveedores: 15, slug: 'polanco' },
-  { nombre: 'Roma Norte', alcaldia: 'Cuauhtemoc', proveedores: 18, slug: 'roma-norte' },
-  { nombre: 'Condesa', alcaldia: 'Cuauhtemoc', proveedores: 12, slug: 'condesa' },
-  { nombre: 'Coyoacan Centro', alcaldia: 'Coyoacan', proveedores: 14, slug: 'coyoacan-centro' },
-  { nombre: 'Del Valle', alcaldia: 'Benito Juarez', proveedores: 11, slug: 'del-valle' },
+  { nombre: 'Roma Norte', alcaldia: 'Cuauhtémoc', proveedores: 18, slug: 'roma-norte' },
+  { nombre: 'Condesa', alcaldia: 'Cuauhtémoc', proveedores: 12, slug: 'condesa' },
+  { nombre: 'Coyoacán Centro', alcaldia: 'Coyoacán', proveedores: 14, slug: 'coyoacan-centro' },
+  { nombre: 'Del Valle', alcaldia: 'Benito Juárez', proveedores: 11, slug: 'del-valle' },
   { nombre: 'Santa Fe', alcaldia: 'Cuajimalpa', proveedores: 8, slug: 'santa-fe' },
-  { nombre: 'Narvarte', alcaldia: 'Benito Juarez', proveedores: 7, slug: 'narvarte' }
+  { nombre: 'Narvarte', alcaldia: 'Benito Juárez', proveedores: 7, slug: 'narvarte' }
 ];
 
-const totalProveedores = alcaldias.reduce((acc, a) => acc + a.proveedores, 0);
+const totalProveedores = todasLasDulcerias.length;
 ---
 
 <BaseLayout
