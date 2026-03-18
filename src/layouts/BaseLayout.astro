@@ -148,6 +148,19 @@ const globalCta = getGlobalCta();
     <!-- GA4: pendiente — agregar ID real cuando Frank configure Google Analytics -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
     <slot name="head" />
+  <!-- ExactDN CDN -->
+  <script is:inline>
+    (function(){
+      var cdn = "https://e2pex68gctc.exactdn.com";
+      if (window.location.hostname === "localhost") return;
+      document.addEventListener("DOMContentLoaded", function(){
+        var imgs = document.querySelectorAll("img[src^=\"/img/\"]");
+        for (var i = 0; i < imgs.length; i++) {
+          imgs[i].src = cdn + imgs[i].getAttribute("src");
+        }
+      });
+    })();
+  </script>
   </head>
   <body>
     <TopBar />
