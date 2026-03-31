@@ -22,8 +22,8 @@ const blogCollection = defineCollection({
       'tendencias',
       'estaciones' // For interactive stations articles
     ]),
-    heroImage: z.string(), // Path to image in public folder
-    heroImageAlt: z.string(),
+    heroImage: z.string().optional(), // Path to image in public folder
+    heroImageAlt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     location: z.string().optional(),
     readTime: z.string().optional(),
