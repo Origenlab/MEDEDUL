@@ -4,7 +4,6 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { todasLasDulcerias, getEstadisticasDirectorio } from '@/data/dulcerias';
 
 const breadcrumbItems = [
@@ -58,11 +57,10 @@ const listSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Todas las Dulcerías"
-    highlight="Dulcerías"
-    subtitle="Directorio completo de proveedores verificados"
-    secondaryContent={`<p>Explora nuestro directorio completo de <strong>dulcerías en CDMX</strong>. Todas verificadas con información real de Google Maps.</p><p><strong>${stats.total} dulcerías</strong> en ${stats.alcaldias} alcaldías con +${stats.totalResenas.toLocaleString()} reseñas de clientes reales.</p>`}
-    showCTA={false}
+    title="Todas las Dulcerias del Directorio"
+    highlight="Dulcerias"
+    subtitle={`${stats.total} proveedores verificados en ${stats.alcaldias} alcaldias con +${stats.totalResenas.toLocaleString()} resenas reales`}
+    secondaryContent={`<p><strong>Directorio completo de dulcerias en CDMX</strong> con datos validados de Google Maps para que compares opciones sin depender de listados genericos o publicidad pagada. Incluye ficha tecnica por negocio con telefono, horario, categoria de producto y resenas recientes para agilizar tu decision de compra o proveeduria para eventos.</p><p><strong>${stats.total} dulcerias verificadas</strong> en ${stats.alcaldias} alcaldias y zona metropolitana, ordenadas por categoria y ubicacion para que encuentres mayoreo, dulce tradicional, chocolates gourmet o dulces importados sin rodeos. Respaldamos cada registro con mas de ${stats.totalResenas.toLocaleString()} resenas reales de clientes locales.</p>`}
   />
 
   <section class="filtros-section">
@@ -117,14 +115,6 @@ const listSchema = {
     </div>
   </div>
 
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20una%20dulcería"
-    badge="Ayuda Personalizada"
-    title="¿No encuentras lo que"
-    titleHighlight="buscas"
-    text="Te ayudamos a encontrar la dulcería perfecta para tu evento. Conocemos todas las dulcerías del directorio."
-    buttonText="Pedir Recomendación"
-  />
 </BaseLayout>
 
 <style>

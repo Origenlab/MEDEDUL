@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Cómo Trabajamos', url: '/proceso' }
@@ -132,7 +131,6 @@ const procesoSchema = {
     highlight="Trabajamos"
     subtitle="7 pasos para crear la mesa de dulces perfecta para tu evento"
     secondaryContent={`<p><strong>Transparencia total</strong> desde el primer contacto. Sin sorpresas, sin costos ocultos, sin complicaciones. Te explicamos exactamente cómo funciona nuestro proceso para que sepas qué esperar en cada etapa.</p><p>Con <strong>500+ eventos exitosos</strong>, hemos perfeccionado cada paso: cotización en 2 horas, diseño aprobado por ti, montaje puntual y servicio impecable. Tú disfrutas, nosotros nos encargamos del resto.</p>`}
-    showCTA={false}
   />
 
   <!-- Timeline de Pasos -->
@@ -178,27 +176,7 @@ const procesoSchema = {
     features={garantias}
   />
 
-  <!-- FAQ del Proceso -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre el"
-        titleHighlight="Proceso"
-        subtitle="Dudas comunes resueltas"
-      />
-      <FAQ items={faqsProceso} id="faq-proceso" />
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Quiero%20iniciar%20el%20proceso%20de%20cotizacion%20para%20mi%20evento"
-    badge="¿Listo para empezar?"
-    title="Inicia el Proceso"
-    titleHighlight="Ahora"
-    text="Envíanos fecha, invitados y tipo de evento. En menos de 2 horas tienes tu cotización personalizada."
-    buttonText="Comenzar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsProceso} />
 </BaseLayout>
 
 <style>
@@ -302,9 +280,6 @@ const procesoSchema = {
   }
 
   /* FAQ Section */
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
 
   /* Responsive */
   @media (max-width: 900px) {

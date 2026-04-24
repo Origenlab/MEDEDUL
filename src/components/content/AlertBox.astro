@@ -40,17 +40,34 @@ const icon = icons[variant];
 <style>
   .alert-box {
     display: flex;
-    gap: 16px;
-    padding: 20px 24px;
-    border-radius: 12px;
-    margin: 24px 0;
+    gap: 18px;
+    padding: 22px 26px;
+    border-radius: 16px;
+    margin: 28px 0;
     border: 1px solid transparent;
+    border-left-width: 5px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .alert-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.09);
   }
 
   .alert-icon {
-    font-size: 1.5rem;
+    font-size: 1.85rem;
     flex-shrink: 0;
     line-height: 1;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
   .alert-content {
@@ -81,8 +98,9 @@ const icon = icons[variant];
 
   /* Variant: Info */
   .alert-info {
-    background: linear-gradient(135deg, rgba(116, 185, 255, 0.1) 0%, rgba(116, 185, 255, 0.05) 100%);
-    border-color: #7A2BC2;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e8fd 100%);
+    border-color: #74b9ff;
+    border-left-color: #0984e3;
   }
 
   .alert-info .alert-title {
@@ -91,32 +109,35 @@ const icon = icons[variant];
 
   /* Variant: Success */
   .alert-success {
-    background: linear-gradient(135deg, rgba(85, 239, 196, 0.1) 0%, rgba(85, 239, 196, 0.05) 100%);
-    border-color: #8E5AD3;
+    background: linear-gradient(135deg, #e8f8f0 0%, #d1f2e0 100%);
+    border-color: #55efc4;
+    border-left-color: #00b894;
   }
 
   .alert-success .alert-title {
-    color: #00b894;
+    color: #00875a;
   }
 
   /* Variant: Warning */
   .alert-warning {
-    background: linear-gradient(135deg, rgba(255, 230, 109, 0.15) 0%, rgba(255, 230, 109, 0.05) 100%);
-    border-color: #FFE66D;
+    background: linear-gradient(135deg, #fff8e1 0%, #ffeec1 100%);
+    border-color: #ffd43b;
+    border-left-color: #f39c12;
   }
 
   .alert-warning .alert-title {
-    color: #e17055;
+    color: #c47306;
   }
 
   /* Variant: Danger */
   .alert-danger {
-    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(255, 107, 157, 0.05) 100%);
-    border-color: #D1007A;
+    background: linear-gradient(135deg, #ffeef5 0%, #ffe0ec 100%);
+    border-color: #ff6b9d;
+    border-left-color: #d1007a;
   }
 
   .alert-danger .alert-title {
-    color: #d63031;
+    color: #c0226b;
   }
 
   @media (max-width: 480px) {

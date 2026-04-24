@@ -5,8 +5,7 @@ import Hero from '@/components/global/Hero.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
 
 const breadcrumbItems = [
@@ -263,25 +262,7 @@ const santaFeSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre Servicio en"
-        titleHighlight="Santa Fe"
-        subtitle="Resolvemos tus dudas sobre eventos corporativos"
-      />
-      <FAQ items={faqsSantaFe} id="faq-santafe" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20corporativo%20en%20Santa%20Fe%20y%20necesito%20cotizar"
-    badge="Evento en Santa Fe"
-    title="Cotiza para tu Evento en"
-    titleHighlight="Santa Fe"
-    text="Indicanos tu venue, fecha y tipo de evento. Te enviamos cotizacion con facturacion incluida."
-    buttonText="Cotizar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsSantaFe} />
 </BaseLayout>
 
 <style>
@@ -341,10 +322,6 @@ const santaFeSchema = {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 50px;
-  }
-
-  .faq-section {
-    background: #fff;
   }
 
   @media (max-width: 1024px) {

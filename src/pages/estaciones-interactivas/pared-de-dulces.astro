@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Pared de Dulces"
     subtitle="Estacion escenografica e interactiva para elevar impacto visual y experiencia de invitados"
     secondaryContent={`<p><strong>Candy wall</strong> bien disenada transforma el montaje en un punto visual protagonista que combina decoracion y servicio en una sola pieza. En Mededul estructuramos paredes de dulces funcionales para eventos con alto nivel de exigencia estetica.</p><p><strong>Pared</strong> interactiva con operacion profesional permite mejorar participacion, orden de servicio y recordacion del evento. Adaptamos configuracion y presentacion segun tipo de celebracion para resultados consistentes en CDMX.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Candy Wall Ideal"
-    ctaTitleHighlight="Ideal"
-    ctaText="Comparte tipo de evento e invitados para definir una pared de dulces alineada a tus objetivos."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de candy wall al aforo y nivel de personalizacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Pared de Dulces para" titleHighlight="Cada Tipo de Evento" subtitle="Configuramos estilo, capacidad y operacion segun el formato de cada celebracion." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Visual" text="Te ayudamos a implementar una candy wall que combine diseno, participacion y operacion profesional." buttonText="Cotizar Candy Wall" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Pared de Dulces" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal de candy wall para tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-pared-dulces" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

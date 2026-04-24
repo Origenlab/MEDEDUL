@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -86,11 +85,10 @@ const faqsCategoria = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Paletas y Piruletas Artesanales"
+    title="Paletas y Piruletas Artesanales en CDMX"
     highlight="Paletas"
-    subtitle="Cake pops, paletas de frutas y piruletas personalizadas"
-    secondaryContent={`<p>Los mejores proveedores de <strong>paletas y piruletas artesanales</strong> en CDMX. Desde cake pops gourmet hasta paletas de frutas naturales.</p><p><strong>${proveedores.length} proveedores verificados</strong>.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} proveedores verificados con cake pops gourmet, paletas de fruta natural, piruletas personalizadas y dulces temáticos`}
+    secondaryContent={`<p><strong>Paletas y piruletas artesanales</strong> son uno de los elementos mas fotografiables de cualquier mesa de dulces profesional, por su color, formato vertical y personalizacion tematica. En este directorio concentramos las mejores dulcerias y reposterias de CDMX que trabajan cake pops gourmet, paletas de caramelo macizo, piruletas con figuras y paletas de fruta natural para eventos premium.</p><p><strong>${proveedores.length} proveedores verificados</strong> con resenas reales de Google Maps te permiten comparar precios, diseños personalizados y tiempos de produccion para cumpleanos infantiles, XV anos, baby shower, bodas y activaciones corporativas. Cada ficha incluye ubicacion, telefono y especialidades para que coordines entrega y abasto sin retrasos.</p>`}
   />
 
   <section class="filtros-section">
@@ -154,14 +152,7 @@ const faqsCategoria = [
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Paletas" />
-      <FAQ items={faqsCategoria} id="faq-paletas" />
-    </div>
-  </section>
-
-  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20paletas%20y%20cake%20pops" badge="Paletas Artesanales" title="¿Buscas Paletas para tu" titleHighlight="Evento" text="Te conectamos con los mejores proveedores." buttonText="Pedir Recomendacion" />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -203,7 +194,6 @@ const faqsCategoria = [
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
   .cat-link:hover { border-color: var(--rosa-principal); }
   .cat-icon { font-size: 1.3rem; }
-  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } }
   @media (max-width: 768px) { .proveedor-header, .proveedor-footer { flex-direction: column; gap: 16px; } .proveedor-acciones { width: 100%; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
 </style>

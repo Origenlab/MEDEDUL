@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Precios', url: '/precios' }
@@ -287,7 +286,6 @@ const faqSchema = {
     highlight="Precios"
     subtitle="Opciones transparentes para cada tipo de evento y presupuesto"
     secondaryContent={`<p>Conoce nuestros <strong>precios de mesas de dulces</strong> para eventos en CDMX. Ofrecemos paquetes flexibles que se adaptan a bodas, XV anos, baby shower, bautizos, cumpleanos y eventos corporativos.</p><p>Todos los precios son <strong>referenciales</strong> y cada cotizacion se personaliza segun tus necesidades especificas. Incluimos montaje, desmontaje y servicio profesional.</p>`}
-    showCTA={false}
   />
 
   <!-- Resumen Rapido de Precios -->
@@ -413,27 +411,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Precios y Pagos"
-        subtitle="Resolvemos tus dudas mas comunes sobre costos y contratacion"
-      />
-      <FAQ items={faqsPrecios} id="faq-precios" />
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Vi%20sus%20precios%20y%20me%20gustaria%20una%20cotizacion%20personalizada"
-    badge="Cotizacion Personalizada"
-    title="Recibe tu Cotizacion"
-    titleHighlight="Sin Compromiso"
-    text="Envianos los detalles de tu evento y te respondemos en menos de 24 horas con una propuesta a tu medida."
-    buttonText="Cotizar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsPrecios} />
 </BaseLayout>
 
 <style>
@@ -574,9 +552,6 @@ const faqSchema = {
   }
 
   /* FAQ Section */
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
 
   /* Responsive */
   @media (max-width: 1024px) {

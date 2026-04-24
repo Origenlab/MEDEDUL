@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Fuente de Chocolate"
     subtitle="Experiencia interactiva premium para elevar participacion, recordacion y valor del evento"
     secondaryContent={`<p><strong>Chocolate</strong> en formato de fuente crea un punto de atraccion natural que incrementa participacion de invitados y mejora dinamica social del evento. En Mededul operamos esta estacion con criterios profesionales para mantener flujo y calidad constantes.</p><p><strong>Interactiva</strong> y visualmente potente, la fuente de chocolate aporta experiencia sensorial y valor fotografico en bodas, sociales y corporativos. Adaptamos configuracion, montaje y operacion para resultados consistentes en CDMX.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Estacion Interactiva"
-    ctaTitleHighlight="Interactiva"
-    ctaText="Comparte tipo de evento e invitados para recomendarte la configuracion ideal de fuente de chocolate."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de fuente de chocolate a tu aforo y nivel de servicio." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Fuente de Chocolate para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion e insumos segun la naturaleza de cada celebracion." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Memorable" text="Te ayudamos a implementar una fuente de chocolate que combine impacto visual, servicio y operacion profesional." buttonText="Cotizar Fuente de Chocolate" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Fuente de Chocolate" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir una configuracion adecuada para tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-fuente-chocolate" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

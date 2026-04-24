@@ -4,7 +4,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Aviso de Privacidad', url: '/aviso-privacidad' }
@@ -36,9 +35,10 @@ const breadcrumbItems = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Aviso de Privacidad"
-    subtitle="En Mededul nos comprometemos a proteger tu privacidad y tus datos personales. Este aviso de privacidad describe como recopilamos, usamos y protegemos tu informacion personal."
-    showCTA={false}
+    title="Aviso de Privacidad de Mededul"
+    highlight="Privacidad"
+    subtitle="Proteccion de datos personales de clientes y prospectos bajo criterios de seguridad, legalidad y transparencia total"
+    secondaryContent={`<p><strong>Privacidad de datos personales</strong> en Mededul se administra con criterios estrictos para proteger la informacion de clientes y prospectos durante todo el ciclo de relacion comercial. Este aviso detalla de forma clara como recabamos, utilizamos y resguardamos tus datos al momento de cotizar, reservar o contratar nuestros servicios de mesas de dulces.</p><p><strong>Derechos ARCO y mecanismos de contacto</strong> te permiten solicitar acceso, rectificacion, cancelacion u oposicion mediante procedimientos definidos y respuesta formal. Nuestra politica prioriza control del titular, trazabilidad operativa y pleno cumplimiento normativo en cada interaccion con nuestro equipo comercial y de eventos en CDMX.</p>`}
   />
 
   <section class="legal-content">
@@ -224,14 +224,6 @@ const breadcrumbItems = [
     </div>
   </section>
 
-  <CTAServices
-    href="/contacto"
-    badge="Soporte y Dudas"
-    title="Necesitas Aclarar un Tema de"
-    titleHighlight="Privacidad"
-    text="Si tienes dudas sobre el tratamiento de tus datos personales, nuestro equipo puede ayudarte de forma directa."
-    buttonText="Contactar Soporte"
-  />
 </BaseLayout>
 
 <style>

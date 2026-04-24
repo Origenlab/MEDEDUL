@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -243,13 +241,6 @@ const faqSchema = {
     highlight="Mesa de Frutas"
     subtitle="Arreglos deliciosos con sandia, mango, kiwi y pina para cumpleanos, bodas y celebraciones"
     secondaryContent={`<p><strong>Frutas frescas</strong> como sandia, mango, kiwi, pina y naranja transforman cualquier fiesta en una experiencia deliciosa. En Mededul creamos arreglos de frutas que funcionan como centro de mesa decorativo mientras ofrecen una opcion saludable para tus invitados.</p><p><strong>Diseno estilo Pinterest</strong> con bandejas multinivel, pinchos creativos y decoracion tematica. Cada buffet de frutas esta pensado para complementar la estetica de tu cumpleanos, boda o celebracion con colores vibrantes y presentacion impecable en CDMX.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Ideas y Cotizacion"
-    ctaTitle="Disena Tu Mesa de Frutas"
-    ctaTitleHighlight="Frutas"
-    ctaText="Comparte detalles de tu fiesta o cumpleanos para recibir ideas de arreglos y cotizacion personalizada."
-    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
@@ -293,24 +284,6 @@ const faqSchema = {
     events={eventCards}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Cotizacion sin Costo"
-    title="Haz tu Fiesta"
-    titleHighlight="Deliciosa y Saludable"
-    text="Te ayudamos a disenar un arreglo de frutas con sandia, mango, kiwi y decoracion estilo Pinterest para tu cumpleanos o celebracion."
-    buttonText="Cotizar Arreglo de Frutas"
-  />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Mesa de Frutas"
-        titleHighlight="Frecuentes"
-        subtitle="Ideas y respuestas para tu fiesta o cumpleanos"
-        content={`<p>Resolvemos dudas sobre bandejas, arreglos, decoracion y diseno de tu buffet de frutas.</p>`}
-      />
-      <FAQ items={faqs} id="faq-frutas" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

@@ -2,7 +2,6 @@
 // 404 Error Page
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/global/Hero.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { getCdnUrl } from '@/lib/cdn';
@@ -23,10 +22,10 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
   noindex={true}
 >
   <Hero
-    title="Página no encontrada"
-    subtitle="Error 404"
-    description="La página que buscas no existe o fue movida. Te ayudamos a volver a una ruta útil del sitio."
-    showCTA={false}
+    title="Pagina No Encontrada en Mededul"
+    highlight="No Encontrada"
+    subtitle="Error 404 · La direccion que intentaste abrir no existe o fue movida a una ruta nueva del sitio"
+    secondaryContent={`<p><strong>Navegacion alternativa</strong> te ayuda a recuperar rapidamente el contenido que buscabas sobre mesas de dulces, candy bar, estaciones interactivas y servicios para eventos en CDMX. Organizamos rutas principales para que no pierdas tiempo y puedas continuar con la informacion realmente relevante para tu celebracion.</p><p><strong>Soporte comercial directo</strong> disponible en caso de que necesites cotizar, validar disponibilidad o revisar una seccion especifica del sitio. Nuestro objetivo es que encuentres una solucion clara y avances sin friccion hacia la mejor propuesta para tu evento, sin reintentar busquedas ni perder el hilo de tu planeacion.</p>`}
   />
 
   <section class="error-section">
@@ -119,14 +118,6 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
     </div>
   </section>
 
-  <CTAServices
-    href="/servicios"
-    badge="Ruta Recomendada"
-    title="Continua Explorando Nuestros"
-    titleHighlight="Servicios"
-    text="Encuentra categorias, eventos y formatos para elegir la mejor opcion para tu celebracion."
-    buttonText="Ir a Servicios"
-  />
 </BaseLayout>
 
 <style>

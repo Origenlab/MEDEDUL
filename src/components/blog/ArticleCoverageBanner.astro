@@ -1,0 +1,231 @@
+---
+// Auto-inyectado en BlogPostLayout. Comunica cobertura CDMX + Toluca
+// en zonas premium sin repetir direccion en cada articulo.
+const plazas = [
+  {
+    ciudad: 'Ciudad de Mexico',
+    tag: 'CDMX',
+    zonas: [
+      'Polanco', 'Lomas de Chapultepec', 'Bosques de las Lomas',
+      'Interlomas', 'Santa Fe', 'Pedregal',
+      'Condesa', 'Roma', 'Coyoacan', 'Del Valle'
+    ]
+  },
+  {
+    ciudad: 'Valle de Toluca',
+    tag: 'Toluca',
+    zonas: [
+      'Metepec — Zona Esmeralda',
+      'Toluca Centro',
+      'San Carlos',
+      'Las Marinas',
+      'Calimaya',
+      'Lerma'
+    ]
+  }
+];
+---
+
+<aside class="coverage-banner" aria-label="Cobertura MEDEDUL en CDMX y Toluca">
+  <div class="coverage-head">
+    <span class="coverage-eyebrow">Cobertura activa</span>
+    <h3 class="coverage-title">MEDEDUL opera en CDMX y Toluca</h3>
+    <p class="coverage-sub">
+      Sucursales y logistica propia en las zonas de mayor nivel de ambas plazas.
+      El mismo estandar de montaje, curaduria y supervision en los dos valles.
+    </p>
+  </div>
+
+  <div class="coverage-grid">
+    {plazas.map((plaza) => (
+      <div class="coverage-card">
+        <div class="coverage-card-head">
+          <span class="coverage-dot" aria-hidden="true"></span>
+          <div>
+            <h4>{plaza.ciudad}</h4>
+            <span class="coverage-tag">{plaza.tag}</span>
+          </div>
+        </div>
+        <ul class="coverage-list">
+          {plaza.zonas.map((z) => <li>{z}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <div class="coverage-foot">
+    <a href="/contacto" class="coverage-link">Asesoria por zona</a>
+    <a
+      href="https://wa.me/525525226442?text=Hola%2C%20vi%20su%20cobertura%20en%20CDMX%20y%20Toluca%20y%20quiero%20cotizar"
+      class="coverage-link coverage-link-wa"
+      target="_blank"
+      rel="noopener"
+    >Cotizar por WhatsApp</a>
+  </div>
+</aside>
+
+<style>
+  .coverage-banner {
+    margin: 40px 0;
+    padding: 28px 30px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #faf6ff 0%, #fff 55%, #fff7fb 100%);
+    border: 1px solid rgba(122, 43, 194, 0.18);
+    box-shadow: 0 4px 20px rgba(122, 43, 194, 0.07);
+  }
+
+  .coverage-head {
+    margin-bottom: 22px;
+  }
+
+  .coverage-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #7a2bc2;
+    background: rgba(122, 43, 194, 0.1);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+
+  .coverage-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 6px;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+
+  .coverage-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .coverage-card {
+    padding: 18px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #eee;
+  }
+
+  .coverage-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .coverage-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);
+    box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.12);
+    flex-shrink: 0;
+  }
+
+  .coverage-card-head h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+
+  .coverage-tag {
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #7a2bc2;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .coverage-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .coverage-list li {
+    font-size: 0.82rem;
+    color: #444;
+    padding: 5px 10px;
+    background: rgba(122, 43, 194, 0.06);
+    border: 1px solid rgba(122, 43, 194, 0.14);
+    border-radius: 8px;
+    margin: 0;
+  }
+
+  .coverage-foot {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(122, 43, 194, 0.12);
+  }
+
+  .coverage-link {
+    display: inline-block;
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    color: #7a2bc2;
+    border: 1px solid rgba(122, 43, 194, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .coverage-link:hover {
+    background: rgba(122, 43, 194, 0.06);
+    border-color: #7a2bc2;
+  }
+
+  .coverage-link-wa {
+    background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.25);
+  }
+
+  .coverage-link-wa:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #b8006a 0%, #6923a8 100%);
+  }
+
+  @media (max-width: 640px) {
+    .coverage-banner {
+      padding: 22px 20px;
+    }
+
+    .coverage-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .coverage-title {
+      font-size: 1.1rem;
+    }
+  }
+</style>

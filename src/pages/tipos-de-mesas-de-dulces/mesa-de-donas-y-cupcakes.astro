@@ -7,9 +7,8 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -169,13 +168,6 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
     highlight="Donas y Cupcakes"
     subtitle="Decoracion tematica, variedad de sabores y presentacion destacada para celebraciones memorables"
     secondaryContent={`<p><strong>Donas</strong> y cupcakes bien presentados elevan el impacto visual de cualquier celebracion y mejoran la experiencia de invitados desde el primer vistazo. En Mededul estructuramos cada instalacion para combinar creatividad, variedad de sabores y funcionalidad operativa en Ciudad de Mexico.</p><p><strong>Cupcakes</strong> adaptados al tipo de ocasion permiten alinear detalle estetico con la identidad de tu fiesta de cumpleanos, boda o reunion. Nuestro equipo integra curaduria, preparacion y ejecucion profesional para resultados consistentes en CDMX.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Mesa con Decoracion Unica"
-    ctaTitleHighlight="Decoracion"
-    ctaText="Comparte tipo de ocasion e invitados para recibir una propuesta profesional de donas y cupcakes."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de donas y cupcakes al aforo y nivel de adaptacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta adaptada para tu celebracion." />
@@ -269,7 +261,6 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
 
   <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Donas y Cupcakes para" titleHighlight="Cada Tipo de Ocasion" subtitle="Adaptamos composicion y estilo segun el objetivo de cada celebracion." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Celebracion una Experiencia" titleHighlight="Memorable" text="Te ayudamos a construir una mesa de donas y cupcakes alineada al concepto de tu ocasion." buttonText="Cotizar Mesa de Donas" />
 
   <!-- Seccion: Servicio en CDMX -->
   <section class="servicio-cdmx-section">
@@ -283,12 +274,7 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
     </div>
   </section>
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Donas y Cupcakes" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te permiten definir la mejor configuracion para tu celebracion con mayor claridad.</p>`} />
-      <FAQ items={faqs} id="faq-donas-cupcakes" />
-    </div>
-  </section>
+    <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>

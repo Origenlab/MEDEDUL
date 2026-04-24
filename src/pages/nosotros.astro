@@ -6,9 +6,7 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Nosotros', url: '/nosotros' }
@@ -85,7 +83,6 @@ const faqs = [
     highlight="Nosotros"
     subtitle="Somos un equipo especializado en transformar eventos en experiencias memorables con diseno, calidad y operacion impecable"
     secondaryContent={`<p><strong>Mededul</strong> nace de una conviccion simple: un buen montaje no solo se ve bien, tambien resuelve experiencia, servicio y flujo durante un evento real. Por eso combinamos creatividad, metodologia y ejecucion para entregar resultados consistentes en cada proyecto.</p><p><strong>Equipo</strong> profesional, enfoque consultivo y conocimiento del mercado en CDMX nos permiten construir propuestas alineadas al objetivo de cada cliente. Acompanamos desde la cotizacion hasta el cierre para que todo suceda con control y calidad.</p>`}
-    showCTA={false}
   />
 
   <WhyChooseUs
@@ -119,23 +116,5 @@ const faqs = [
     events={eventCards}
   />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Mededul"
-        titleHighlight="Frecuentes"
-        subtitle="Respuestas clave sobre nuestra forma de trabajo"
-      />
-      <FAQ items={faqs} id="faq-nosotros" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria Sin Costo"
-    title="Hablemos de Tu"
-    titleHighlight="Evento"
-    text="Comparte tu objetivo y te ayudamos a construir una propuesta profesional a la medida."
-    buttonText="Solicitar Asesoria"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

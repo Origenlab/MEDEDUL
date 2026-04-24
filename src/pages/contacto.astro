@@ -3,10 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Contacto', url: '/contacto' }
@@ -55,29 +52,7 @@ const faqs = [
     highlight="Contacto"
     subtitle="Comparte los detalles de tu evento y recibe una propuesta profesional, clara y adaptada a tus objetivos"
     secondaryContent={`<p><strong>Contacto</strong> directo con nuestro equipo te permite avanzar mas rapido desde la idea inicial hasta una cotizacion accionable, sin suposiciones ni tiempos muertos. En Mededul analizamos tipo de evento, sede y aforo para recomendarte la configuracion correcta.</p><p><strong>Cotizacion</strong> profesional incluye alcance, nivel de servicio y propuesta de valor para que tomes decisiones con claridad y confianza. Nuestro enfoque combina asesoria comercial, diseno y operacion para ejecutar tu evento con estandar premium.</p>`}
-    showCTA={false}
   />
 
-  <ContactSection />
-
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes de Contacto"
-        titleHighlight="Frecuentes"
-        subtitle="Resolvemos dudas clave antes de tu cotizacion"
-        content={`<p>Estas respuestas te ayudan a preparar la informacion necesaria para recibir una propuesta precisa.</p><p>Si necesitas asesoria inmediata, tambien puedes escribirnos por WhatsApp.</p>`}
-      />
-      <FAQ items={faqs} id="faq-contacto" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="/servicios"
-    badge="Siguiente Paso"
-    title="Explora Nuestros"
-    titleHighlight="Servicios"
-    text="Revisa formatos, categorias y tipos de mesa para definir la mejor opcion antes de cerrar tu cotizacion."
-    buttonText="Ver Servicios"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

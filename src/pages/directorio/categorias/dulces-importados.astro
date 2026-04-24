@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -44,11 +43,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Dulces Importados"
+    title="Categoria Dulces Importados Premium"
     highlight="Importados"
-    subtitle="Dulces de todo el mundo en CDMX"
-    secondaryContent={`<p>Encuentra <strong>dulces americanos, japoneses, coreanos y de todo el mundo</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con productos importados.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con dulces americanos, japoneses, coreanos y europeos en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria dulces importados</strong> reune a las tiendas especializadas en producto americano, asiatico y europeo dentro de Ciudad de Mexico. Filtramos proveedores con catalogo estable de Hershey's, Reese's, Pocky, Hi-Chew, KitKat japones, Haribo aleman, Cadbury britanico y golosinas coreanas para que tu mesa de dulces tenga la variedad premium que los invitados reconocen y valoran como diferencial.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te ayudan a comparar precios, marcas y disponibilidad real antes de comprar cajas completas para eventos, candy bars tematicos, regalos corporativos o packs personalizados. Cada registro incluye ubicacion, horario y especialidad confirmada para que planifiques pedidos al mayoreo o por pieza sin depender de listados genericos sin verificacion operativa.</p>`}
   />
 
   <section class="categoria-listado">
@@ -69,25 +67,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Dulces Importados"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-importados" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20dulces%20importados%20para%20mi%20evento"
-    badge="Importados"
-    title="¿Necesitas Dulces Importados para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de dulces importados."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -126,11 +106,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

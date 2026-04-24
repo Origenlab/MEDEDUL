@@ -7,9 +7,8 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -233,13 +232,6 @@ const faqSchema = {
     highlight="Mesa de Botanas"
     subtitle="Quesos, cacahuates, palomitas y sabores deliciosos para cumpleanos, XV anos y celebraciones"
     secondaryContent={`<p><strong>Botanas deliciosas</strong> como quesos variados, cacahuates con chamoy, palomitas gourmet y bocadillos salados transforman cualquier fiesta en una experiencia memorable. En Mededul armamos mesas de botanas con bandejas elegantes y decoracion estilo Pinterest para fiestas familiares, cumpleanos, XV anos y reuniones en Ciudad de Mexico.</p><p><strong>Buffet salado</strong> que complementa tu candy bar y mesa de dulces. Ofrecemos variedad de sabores mexicanos, snacks tradicionales y opciones gourmet. Combinamos tipos de botanas en presentaciones atractivas que impresionan a tus invitados. Ideas de mesa perfectas para fiestas tematicas, cumpleanos infantiles y celebraciones especiales.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Ideas y Cotizacion"
-    ctaTitle="Disena Tu Mesa de Botanas"
-    ctaTitleHighlight="Botanas"
-    ctaText="Comparte detalles de tu fiesta o cumpleanos para recibir ideas de decoracion y cotizacion."
-    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
@@ -283,24 +275,6 @@ const faqSchema = {
     events={eventCards}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Cotizacion sin Costo"
-    title="Haz tu Fiesta"
-    titleHighlight="Deliciosa e Inolvidable"
-    text="Te ayudamos a disenar una mesa de botanas con quesos, cacahuates, palomitas y decoracion tematica para tu cumpleanos o celebracion."
-    buttonText="Cotizar Mesa de Botanas"
-  />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Mesa de Botanas"
-        titleHighlight="Frecuentes"
-        subtitle="Ideas y respuestas para tu fiesta o cumpleanos"
-        content={`<p>Resolvemos dudas sobre quesos, cacahuates, palomitas, decoracion tematica y buffet de botanas para tu celebracion en CDMX.</p>`}
-      />
-      <FAQ items={faqs} id="faq-botanas" />
-    </div>
-  </section>
+    <FAQContactModule faqItems={faqs} />
 </BaseLayout>

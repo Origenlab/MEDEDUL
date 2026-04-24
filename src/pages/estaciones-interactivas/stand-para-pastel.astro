@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Stand para Pastel"
     subtitle="Estacion escenografica para convertir el corte de pastel en un momento protagonista"
     secondaryContent={`<p><strong>Stand</strong> para pastel profesional transforma un momento tradicional en una escena memorable, coherente con el concepto visual de tu evento. En Mededul diseniamos cada montaje para elevar presencia, fotografia y narrativa del corte.</p><p><strong>Pastel</strong> presentado en una estructura bien ejecutada mejora el impacto estetico, ordena la experiencia de invitados y aporta valor percibido a toda la celebracion. Operamos con planeacion y montaje preciso para resultados premium.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu"
-    ctaTitleHighlight="Stand para Pastel"
-    ctaText="Comparte estilo, sede y formato para recibir una propuesta profesional y cotizacion clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el stand para pastel segun aforo, estilo y complejidad del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Estaciones Relacionadas" title="Complementa Tu Evento con" titleHighlight="Mas Experiencias" subtitle="Tambien implementamos otras estaciones interactivas y candy bar profesional." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz del Corte de Pastel un Momento" titleHighlight="Inolvidable" text="Te ayudamos a implementar un stand para pastel con diseno premium y montaje profesional." buttonText="Cotizar Stand para Pastel" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Stand para Pastel" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-stand-pastel" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

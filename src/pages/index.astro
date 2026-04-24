@@ -6,10 +6,17 @@ import Hero from '@/components/global/Hero.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+
+import {
+  subsDulces, subsFrutas, subsPostres, subsQuesos,
+  subsSnacks, subsBotanas, subsTradicionles, subsDonas,
+  subsCBTematicas, subsCBXV, subsCBBoda, subsCBCumple,
+  subsCBBautizo, subsCBComunion, subsCBCorporativo, subsCBBabyShower, subsCBGraduacion,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces, subsStandPastel,
+  subsDisenoPersonalizado, subsCalidadPremium, subsServicioCompleto, subsCeroEstres,
+} from '@/data/subsections';
 
 // FAQ Data
 const faqItems = [
@@ -83,13 +90,6 @@ const getGalleryImage = (path: string) => ({
     highlight="Inolvidable"
     subtitle="500+ eventos exitosos en CDMX · Respuesta en 2 horas · Montaje incluido"
     secondaryContent={`<p>En <strong>Mededul</strong> no solo montamos dulces, creamos el momento que todos tus invitados van a recordar. Ese rincon fotografiable que genera "wow", esa mesa que combina perfectamente con tu evento y esos dulces que desaparecen porque realmente saben increible.</p><p><strong>¿Por que elegirnos?</strong> Porque llevamos 8+ anos perfeccionando cada detalle: desde la seleccion de dulces premium hasta el montaje que llega puntual y se ve impecable. Tú disfrutas tu evento, nosotros nos encargamos del resto.</p>`}
-    showCTA={true}
-    ctaHref="/cotizar"
-    ctaBadge="Cotizacion Gratis"
-    ctaTitle="Cotiza en Menos de"
-    ctaTitleHighlight="2 Horas"
-    ctaText="Envianos fecha, invitados y tipo de evento. Recibe propuesta personalizada por WhatsApp sin compromiso."
-    ctaButtonText="Cotizar Ahora"
   />
 
   <!-- Tipos de Mesas Section -->
@@ -111,6 +111,7 @@ const getGalleryImage = (path: string) => ({
           excerpt="El clásico candy bar que nunca falla. Golosinas seleccionadas, presentación impecable y ese toque mágico que hace brillar cualquier fiesta."
           cta="Cotizar Candy Bar"
           badge="Popular"
+          subsections={subsDulces}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
@@ -119,6 +120,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesa de Frutas"
           excerpt="Frescura y color en cada bocado. Arreglos espectaculares con fruta de temporada que refrescan y deleitan a todos tus invitados."
           cta="Explorar Frutas Frescas"
+          subsections={subsFrutas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-postres"
@@ -127,6 +129,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesa de Postres"
           excerpt="Cuando los dulces no son suficientes, los postres elevan la experiencia. Macarons, éclairs, pays y creaciones de alta repostería."
           cta="Ver Postres Gourmet"
+          subsections={subsPostres}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
@@ -135,6 +138,7 @@ const getGalleryImage = (path: string) => ({
           title="Quesos y Embutidos"
           excerpt="Sofisticación europea en tu evento. Selección de quesos finos, jamones curados y acompañamientos que impresionan paladares exigentes."
           cta="Ver Tabla Gourmet"
+          subsections={subsQuesos}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-snacks"
@@ -143,6 +147,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesa de Snacks"
           excerpt="Para esas fiestas que duran hasta tarde. Variedad de snacks salados y dulces que mantienen el ánimo arriba toda la noche."
           cta="Armar Mi Barra"
+          subsections={subsSnacks}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-botanas"
@@ -151,6 +156,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesa de Botanas"
           excerpt="El contrapunto perfecto para lo dulce. Nueces garapiñadas, cacahuates japoneses y botanas gourmet que equilibran sabores."
           cta="Ver Botanas Premium"
+          subsections={subsBotanas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
@@ -159,6 +165,7 @@ const getGalleryImage = (path: string) => ({
           title="Dulces Tradicionales"
           excerpt="Un viaje a la infancia mexicana. Alegrías, pepitorias, jamoncillos y esos sabores que nos conectan con nuestras raíces."
           cta="Explorar Dulces Típicos"
+          subsections={subsTradicionles}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
@@ -168,6 +175,7 @@ const getGalleryImage = (path: string) => ({
           excerpt="La tendencia que conquista Instagram. Torres de donas glaseadas y cupcakes artísticos que son tan fotogénicos como deliciosos."
           cta="Ver Donas Decoradas"
           badge="Tendencia"
+          subsections={subsDonas}
         />
       </div>
     </div>
@@ -191,6 +199,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesas Temáticas"
           excerpt="¿Barbie, dinosaurios, unicornios? Tu imaginación es el límite. Recreamos cualquier tema con dulces y decoración a juego."
           cta="Explorar Temas Creativos"
+          subsections={subsCBTematicas}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-xv-anos"
@@ -200,6 +209,7 @@ const getGalleryImage = (path: string) => ({
           excerpt="La transición de niña a mujer merece una celebración épica. Mesas que combinan glamour juvenil con elegancia atemporal."
           cta="Ver Diseños Quinceañera"
           badge="Favorito"
+          subsections={subsCBXV}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-boda"
@@ -209,6 +219,7 @@ const getGalleryImage = (path: string) => ({
           excerpt="El día más importante merece el detalle más dulce. Creamos ese rincón romántico que tus invitados no olvidarán."
           cta="Ver Bodas Elegantes"
           badge="Premium"
+          subsections={subsCBBoda}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
@@ -217,6 +228,7 @@ const getGalleryImage = (path: string) => ({
           title="Cumpleaños Infantil"
           excerpt="Los ojos de los niños brillan con nuestra mesa. Personajes favoritos, colores explosivos y todos los dulces que sueñan."
           cta="Ver Fiestas Infantiles"
+          subsections={subsCBCumple}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-bautizo"
@@ -225,6 +237,7 @@ const getGalleryImage = (path: string) => ({
           title="Mesa para Bautizo"
           excerpt="Pureza y ternura en cada detalle. Diseños angelicales con paletas suaves que celebran la llegada a la fe."
           cta="Ver Mesas para Bautizo"
+          subsections={subsCBBautizo}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-primera-comunion"
@@ -233,6 +246,7 @@ const getGalleryImage = (path: string) => ({
           title="Primera Comunión"
           excerpt="Un sacramento especial con dulzura celestial. Mesas sobrias y elegantes que honran este momento espiritual."
           cta="Ver Primera Comunión"
+          subsections={subsCBComunion}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-corporativos"
@@ -241,6 +255,7 @@ const getGalleryImage = (path: string) => ({
           title="Eventos Corporativos"
           excerpt="Profesionalismo con un toque dulce. Elevamos tus eventos empresariales con presentaciones ejecutivas impecables."
           cta="Ver Eventos Empresariales"
+          subsections={subsCBCorporativo}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-baby-shower"
@@ -249,6 +264,7 @@ const getGalleryImage = (path: string) => ({
           title="Baby Shower"
           excerpt="La espera más dulce del mundo. Mesas adorables para niño, niña o la emoción de una revelación de género inolvidable."
           cta="Ver Mesas Baby Shower"
+          subsections={subsCBBabyShower}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-graduacion"
@@ -257,6 +273,7 @@ const getGalleryImage = (path: string) => ({
           title="Graduaciones"
           excerpt="Años de esfuerzo merecen una fiesta épica. Mesas con los colores de tu escuela y el orgullo del logro alcanzado."
           cta="Ver Mesas Graduación"
+          subsections={subsCBGraduacion}
         />
       </div>
     </div>
@@ -281,6 +298,7 @@ const getGalleryImage = (path: string) => ({
           excerpt="La estrella de cualquier fiesta. Chocolate belga cayendo en cascada mientras tus invitados bañan fresas y churros."
           cta="Rentar Fuente de Chocolate"
           badge="Estrella"
+          subsections={subsFuenteChocolate}
         />
         <ServiceCard
           href="/estaciones-interactivas/fuente-de-chamoy"
@@ -289,6 +307,7 @@ const getGalleryImage = (path: string) => ({
           title="Fuente de Chamoy"
           excerpt="El picosito que México ama. Chamoy casero fluyendo para los valientes que buscan ese toque agridulce irresistible."
           cta="Cotizar Fuente Chamoy"
+          subsections={subsFuenteChamoy}
         />
         <ServiceCard
           href="/estaciones-interactivas/pared-de-dulces"
@@ -297,6 +316,7 @@ const getGalleryImage = (path: string) => ({
           title="Pared de Dulces"
           excerpt="El muro más fotografiado de tu fiesta. Dispensadores llenos de golosinas que decoran y endulzan a la vez."
           cta="Ver Candy Wall"
+          subsections={subsParedDulces}
         />
         <ServiceCard
           href="/estaciones-interactivas/stand-para-pastel"
@@ -305,6 +325,7 @@ const getGalleryImage = (path: string) => ({
           title="Stand para Pastel"
           excerpt="Tu pastel merece su propio escenario. Marcos decorados con globos, luces o flores que lo hacen protagonista."
           cta="Ver Stands Decorados"
+          subsections={subsStandPastel}
         />
       </div>
     </div>
@@ -328,6 +349,7 @@ const getGalleryImage = (path: string) => ({
           title="Diseño Personalizado"
           excerpt="Nada de plantillas genéricas. Escuchamos tu visión, entendemos tu evento y creamos algo que nunca has visto antes."
           cta="Ver Propuestas de Diseño"
+          subsections={subsDisenoPersonalizado}
         />
         <ServiceCard
           href="/porque-mededul/calidad-premium"
@@ -336,6 +358,7 @@ const getGalleryImage = (path: string) => ({
           title="Calidad Premium"
           excerpt="Tus invitados notarán la diferencia. Seleccionamos cada dulce con el cuidado que tu celebración merece."
           cta="Conocer Nuestros Productos"
+          subsections={subsCalidadPremium}
         />
         <ServiceCard
           href="/porque-mededul/servicio-completo"
@@ -344,6 +367,7 @@ const getGalleryImage = (path: string) => ({
           title="Servicio Completo"
           excerpt="Llegamos, instalamos, supervisamos y recogemos. Tu único trabajo es recibir los cumplidos de tus invitados."
           cta="Ver Qué Incluye"
+          subsections={subsServicioCompleto}
         />
         <ServiceCard
           href="/porque-mededul/cero-estres"
@@ -352,6 +376,7 @@ const getGalleryImage = (path: string) => ({
           title="Cero Estrés"
           excerpt="Ya tienes suficiente de qué preocuparte. Nosotros llegamos temprano, resolvemos imprevistos y tú solo disfrutas."
           cta="Conocer Nuestro Proceso"
+          subsections={subsCeroEstres}
         />
       </div>
     </div>
@@ -396,15 +421,6 @@ const getGalleryImage = (path: string) => ({
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <CTAServices
-    href="/cotizar"
-    badge="500+ Eventos Exitosos"
-    title="¿Listo para Endulzar tu"
-    titleHighlight="Evento"
-    text="Envíanos fecha, número de invitados y tipo de evento. Recibe tu cotización personalizada en menos de 2 horas. Sin compromiso."
-    buttonText="Cotizar Ahora"
-  />
 
   <!-- Reseñas Section -->
   <section class="resenas-section section-padding" id="resenas">
@@ -418,38 +434,43 @@ const getGalleryImage = (path: string) => ({
 
       <div class="review-grid">
         <ReviewCard
-          name="Mesa Dulces Boda"
+          name="Palomita.mx"
+          link="https://palomita.mx"
           image="/img/personas/cliente-mesa-dulces-boda-cdmx.avif"
-          review="Mi boda fue PERFECTA gracias a Mededul. Los invitados no dejaban de tomar fotos de la mesa de dulces. Mi suegra dijo que fue lo mejor de la fiesta... y eso que ella organizó el banquete!"
-          event="Boda en Polanco"
+          review="Llevamos tiempo trabajando en eventos con nuestras máquinas de palomitas y siempre era difícil encontrar a alguien confiable para el resto de la experiencia. Con Mededul fue diferente: llegaron a tiempo, la mesa quedó preciosa y los invitados no paraban de comentarla. Buena gente, buen trabajo. Ya los hemos recomendado varias veces."
+          event="Equipo Palomita.mx — Máquinas de Palomitas para Eventos"
           rating={5}
         />
         <ReviewCard
-          name="Candy Bar Corporativo"
+          name="MesasPicnic.com"
+          link="https://mesaspicnic.com"
           image="/img/personas/cliente-candy-bar-corporativo-cdmx.avif"
-          review="Contraté para el evento de mi empresa pensando que sería 'solo dulces'. ERROR. Fue una EXPERIENCIA. Mis empleados siguen hablando de la fuente de chocolate 3 meses después."
-          event="Evento Corporativo CDMX"
+          review="Nosotros ponemos las mesas y el ambiente, pero siempre faltaba ese detalle extra que elevara el evento. Desde que empezamos a trabajar con Mededul eso cambió por completo. La mesa de dulces encaja perfecto con la estética picnic y los clientes quedan encantados. Es de esas colaboraciones que se dan solas."
+          event="Equipo MesasPicnic.com — Renta de Mesas Picnic para Eventos"
           rating={5}
         />
         <ReviewCard
-          name="Mesa Dulces XV Años"
+          name="Brincolins.com"
+          link="https://brincolins.com"
           image="/img/personas/cliente-mesa-dulces-xv-anos-cdmx.avif"
-          review="Los XV de mi hija fueron un sueño. Ella quería tema de mariposas y Mededul creó una mesa que parecía sacada de Pinterest. Lloré de la emoción (y del azúcar que comí)."
-          event="XV Años en Coyoacán"
+          review="Rentamos brincolines e inflables para fiestas infantiles y siempre buscamos proveedores que cuiden tanto los detalles como nosotros. Mededul los tiene bien puestos: puntual, profesional y la mesa quedó espectacular. Los niños entre el brincolín y los dulces no querían que el evento terminara. Seguimos recomendándolos."
+          event="Equipo Brincolins.com — Renta de Brincolines e Inflables para Fiestas"
           rating={5}
         />
         <ReviewCard
-          name="Baby Shower CDMX"
+          name="Inflapy.com"
+          link="https://inflapy.com"
           image="/img/personas/cliente-baby-shower-mesa-dulces-cdmx.avif"
-          review="Baby shower con tema de ositos. Mi bebé aún no nace y ya tiene más fotos con la mesa de dulces que yo en toda mi vida. 10/10 volvería a embarazarme solo por otra mesa así."
-          event="Baby Shower Polanco"
+          review="Hemos trabajado en muchos eventos y uno aprende rápido a distinguir a los proveedores que de verdad cumplen. Mededul cumple. Coordinamos juntos varias fiestas y cada vez que llegamos al montaje ya estaban ellos con todo en orden. Eso, en este negocio, vale mucho."
+          event="Equipo Inflapy.com — Renta de Inflables para Fiestas"
           rating={5}
         />
         <ReviewCard
-          name="Mesa Postres Evento"
+          name="Redeil.com"
+          link="https://redeil.com"
           image="/img/personas/cliente-mesa-postres-evento-cdmx.avif"
-          review="Sorprendí a mi esposa en nuestro aniversario. Cuando vio la mesa de postres se puso a llorar. Punto extra: los niños se entretuvieron tanto que tuvimos 2 horas de paz. INVALUABLE."
-          event="Aniversario Santa Fe"
+          review="Cuando recomiendas a alguien en este medio te juegas tu reputación. Por eso no recomendamos a cualquiera. Mededul nos ha dado razones para recomendarlos con confianza: trato profesional, presentación impecable y ningún dolor de cabeza. Exactamente lo que se necesita cuando el evento no puede fallar."
+          event="Equipo Redeil.com"
           rating={5}
         />
         <ReviewCard
@@ -484,21 +505,7 @@ const getGalleryImage = (path: string) => ({
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas"
-        titleHighlight="Frecuentes"
-        subtitle="Todo lo que necesitas saber antes de cotizar"
-        content={`<p>Las dudas mas comunes sobre nuestro servicio de mesas de dulces. Si no encuentras tu respuesta, <a href="/faq">consulta nuestra pagina completa de FAQ</a> o escribenos por WhatsApp.</p>`}
-      />
-
-      <FAQ items={faqItems} />
-    </div>
-  </section>
-
-  <!-- Contacto Section -->
-  <ContactSection />
+  <!-- FAQ + Contacto — módulo unificado 2 columnas -->
+  <FAQContactModule faqItems={faqItems} />
 
 </BaseLayout>

@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Fuente de Chamoy"
     subtitle="Experiencia interactiva con identidad mexicana para elevar participacion en tu evento"
     secondaryContent={`<p><strong>Chamoy</strong> en formato de fuente aporta dinamica social y una experiencia de sabor distinta para invitados que buscan opciones memorables. En Mededul operamos esta estacion con criterios profesionales para mantener flujo y presentacion constantes.</p><p><strong>Mexicana</strong> y personalizable, la fuente de chamoy se adapta al perfil de cada celebracion para maximizar participacion y valor percibido. Ejecutamos montaje y operacion integral en CDMX con estandar premium.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Estacion Mexicana"
-    ctaTitleHighlight="Mexicana"
-    ctaText="Comparte tipo de evento e invitados para definir la mejor configuracion de fuente de chamoy."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de fuente de chamoy a tu aforo y nivel de servicio." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Fuente de Chamoy para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion de sabor y servicio segun la naturaleza de cada celebracion." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Diferencial" text="Te ayudamos a implementar una fuente de chamoy que combine identidad, participacion y operacion profesional." buttonText="Cotizar Fuente de Chamoy" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Fuente de Chamoy" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-fuente-chamoy" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

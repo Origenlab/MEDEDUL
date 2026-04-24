@@ -1,0 +1,649 @@
+---
+/**
+ * FAQContactModule - Módulo unificado de 2 columnas
+ * ==================================================
+ * Columna izquierda: FAQ accordion + info de contacto rápida
+ * Columna derecha: Formulario de reserva WhatsApp
+ *
+ * Usage en index.astro:
+ * <FAQContactModule faqItems={faqItems} />
+ */
+
+import FAQ from '@/components/global/FAQ.astro';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqItems: FAQItem[];
+  phone?: string;
+  email?: string;
+  whatsappNumber?: string;
+}
+
+const {
+  faqItems,
+  phone = '55 2522 6442',
+  email = 'info@mesas-de-dulces.com',
+  whatsappNumber = '525525226442'
+} = Astro.props;
+---
+
+<section class="fqm-section" id="contacto">
+  <div class="fqm-container">
+
+    <!-- ===================== LEFT: FAQ ===================== -->
+    <div class="fqm-left">
+      <div class="fqm-left__header">
+        <span class="fqm-badge">Preguntas Frecuentes</span>
+        <h2 class="fqm-title">
+          Todo lo que necesitas saber<br/>
+          <span>antes de cotizar</span>
+        </h2>
+        <p class="fqm-subtitle">
+          Las dudas más comunes sobre nuestro servicio de mesas de dulces.
+          Si no encuentras tu respuesta,{' '}
+          <a href="/faq" class="fqm-faq-link">consulta nuestra página completa de FAQ</a>{' '}
+          o escríbenos por WhatsApp.
+        </p>
+      </div>
+
+      <div class="fqm-accordion-wrapper">
+        <FAQ items={faqItems} />
+      </div>
+
+      <!-- Quick contact strip -->
+      <div class="fqm-contact-strip">
+        <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener" class="fqm-strip-item fqm-strip-item--wa">
+          <span class="fqm-strip-icon fqm-strip-icon--wa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </span>
+          <div class="fqm-strip-content">
+            <span class="fqm-strip-label">WhatsApp directo</span>
+            <span class="fqm-strip-value">{phone}</span>
+          </div>
+        </a>
+
+        <a href={`mailto:${email}`} class="fqm-strip-item">
+          <span class="fqm-strip-icon fqm-strip-icon--email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+          </span>
+          <div class="fqm-strip-content">
+            <span class="fqm-strip-label">Email</span>
+            <span class="fqm-strip-value">{email}</span>
+          </div>
+        </a>
+
+        <div class="fqm-strip-item">
+          <span class="fqm-strip-icon fqm-strip-icon--clock">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </span>
+          <div class="fqm-strip-content">
+            <span class="fqm-strip-label">Horario de atención</span>
+            <span class="fqm-strip-value">Lun–Vie 9–19h &middot; Sáb 10–15h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== RIGHT: FORM ===================== -->
+    <div class="fqm-right">
+      <div class="fqm-form-card">
+        <div class="fqm-form-header">
+          <h3 class="fqm-form-title">Reserva tu Evento</h3>
+          <p class="fqm-form-subtitle">
+            Completa el formulario y te contactaremos por WhatsApp para darte una cotización personalizada
+          </p>
+        </div>
+
+        <form id="fqm-reserva-form" class="fqm-form">
+          <div class="fqm-form-group">
+            <label for="fqm-nombre">Nombre completo <span class="fqm-required">*</span></label>
+            <input
+              type="text"
+              id="fqm-nombre"
+              name="nombre"
+              required
+              placeholder="Tu nombre completo"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="fqm-form-row">
+            <div class="fqm-form-group">
+              <label for="fqm-telefono">WhatsApp <span class="fqm-required">*</span></label>
+              <div class="fqm-input-icon-wrap">
+                <span class="fqm-input-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" opacity="0.45">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                </span>
+                <input
+                  type="tel"
+                  id="fqm-telefono"
+                  name="telefono"
+                  required
+                  placeholder="55 1234 5678"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+
+            <div class="fqm-form-group">
+              <label for="fqm-email">Email</label>
+              <input
+                type="email"
+                id="fqm-email"
+                name="email"
+                placeholder="tu@email.com"
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <div class="fqm-form-row">
+            <div class="fqm-form-group">
+              <label for="fqm-tipo-evento">Tipo de evento <span class="fqm-required">*</span></label>
+              <select id="fqm-tipo-evento" name="tipo-evento" required>
+                <option value="">Selecciona tu evento...</option>
+                <option value="Boda">💒 Boda</option>
+                <option value="XV Anos">👑 XV Años</option>
+                <option value="Baby Shower">👶 Baby Shower</option>
+                <option value="Cumpleanos">🎂 Cumpleaños</option>
+                <option value="Bautizo">⛪ Bautizo</option>
+                <option value="Comunion">✝️ Primera Comunión</option>
+                <option value="Corporativo">🏢 Evento Corporativo</option>
+                <option value="Graduacion">🎓 Graduación</option>
+                <option value="Otro">✨ Otro</option>
+              </select>
+            </div>
+
+            <div class="fqm-form-group">
+              <label for="fqm-fecha">Fecha del evento <span class="fqm-required">*</span></label>
+              <input type="date" id="fqm-fecha" name="fecha" required />
+            </div>
+          </div>
+
+          <div class="fqm-form-group">
+            <label for="fqm-invitados">Número de invitados aproximado</label>
+            <input
+              type="number"
+              id="fqm-invitados"
+              name="invitados"
+              placeholder="Ej: 100 personas"
+              min="1"
+            />
+          </div>
+
+          <div class="fqm-form-group">
+            <label for="fqm-mensaje">Cuéntanos sobre tu evento</label>
+            <textarea
+              id="fqm-mensaje"
+              name="mensaje"
+              rows="3"
+              placeholder="Describe tu evento: temática, colores preferidos, servicios que te interesan, ubicación..."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="fqm-btn-wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Enviar por WhatsApp
+          </button>
+
+          <p class="fqm-disclaimer">
+            Al enviar este formulario serás redirigido a WhatsApp para completar tu solicitud
+          </p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline define:vars={{ whatsappNumber }}>
+  function initFQMForm() {
+    const form = document.getElementById('fqm-reserva-form');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const nombre = fd.get('nombre');
+      const telefono = fd.get('telefono');
+      const email = fd.get('email');
+      const tipoEvento = fd.get('tipo-evento');
+      const fecha = fd.get('fecha');
+      const invitados = fd.get('invitados');
+      const mensaje = fd.get('mensaje');
+
+      let msg = `¡Hola! Me gustaría cotizar una mesa de dulces.\n\n`;
+      msg += `*Nombre:* ${nombre}\n`;
+      msg += `*Teléfono:* ${telefono}\n`;
+      if (email) msg += `*Email:* ${email}\n`;
+      msg += `*Tipo de evento:* ${tipoEvento}\n`;
+      msg += `*Fecha:* ${fecha}\n`;
+      if (invitados) msg += `*Invitados:* ${invitados}\n`;
+      if (mensaje) msg += `\n*Detalles:* ${mensaje}`;
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
+
+  initFQMForm();
+  document.addEventListener('astro:after-swap', initFQMForm);
+</script>
+
+<style>
+  /* =======================================================
+     FAQContactModule — 2-column unified section
+     ======================================================= */
+
+  .fqm-section {
+    background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+    padding: 80px 0 100px;
+  }
+
+  .fqm-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* =========================
+     LEFT COLUMN
+     ========================= */
+  .fqm-left {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .fqm-left__header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fqm-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.1) 0%, rgba(160, 0, 95, 0.05) 100%);
+    color: var(--rosa-principal, #D1007A);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    width: fit-content;
+  }
+
+  .fqm-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1a1a2e;
+    margin: 0;
+  }
+
+  .fqm-title span {
+    font-family: 'Pacifico', cursive;
+    color: var(--rosa-principal, #D1007A);
+    font-weight: 400;
+  }
+
+  .fqm-subtitle {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .fqm-faq-link {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Override FAQ max-width in left column context */
+  .fqm-accordion-wrapper :global(.faq) {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* =========================
+     QUICK CONTACT STRIP
+     ========================= */
+  .fqm-contact-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .fqm-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .fqm-strip-item:hover {
+    border-color: rgba(209, 0, 122, 0.2);
+    box-shadow: 0 3px 12px rgba(209, 0, 122, 0.07);
+  }
+
+  .fqm-strip-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    color: #fff;
+  }
+
+  .fqm-strip-icon--wa {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  }
+
+  .fqm-strip-icon--email {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+  }
+
+  .fqm-strip-icon--clock {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: #fff;
+  }
+
+  .fqm-strip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .fqm-strip-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+  }
+
+  .fqm-strip-value {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #1a1a2e;
+  }
+
+  /* =========================
+     RIGHT COLUMN — FORM
+     ========================= */
+  .fqm-right {
+    position: sticky;
+    top: 24px;
+  }
+
+  .fqm-form-card {
+    background: #ffffff;
+    padding: 38px 36px;
+    border-radius: 24px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 10px 30px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .fqm-form-header {
+    margin-bottom: 26px;
+    text-align: center;
+  }
+
+  .fqm-form-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+  }
+
+  .fqm-form-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Form */
+  .fqm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .fqm-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .fqm-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .fqm-form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .fqm-required {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .fqm-form-group input,
+  .fqm-form-group select,
+  .fqm-form-group textarea {
+    padding: 13px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 0.93rem;
+    font-family: inherit;
+    color: #1a1a2e;
+    background: #fafafa;
+    transition: all 0.2s ease;
+  }
+
+  .fqm-form-group input:focus,
+  .fqm-form-group select:focus,
+  .fqm-form-group textarea:focus {
+    outline: none;
+    border-color: var(--rosa-principal, #D1007A);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.1);
+  }
+
+  .fqm-form-group input::placeholder,
+  .fqm-form-group textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .fqm-form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-color: #fafafa;
+    padding-right: 42px;
+  }
+
+  .fqm-form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  .fqm-input-icon-wrap {
+    position: relative;
+  }
+
+  .fqm-input-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+  }
+
+  .fqm-input-icon-wrap input {
+    padding-left: 40px;
+  }
+
+  /* WhatsApp Button */
+  .fqm-btn-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 28px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 4px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+  }
+
+  .fqm-btn-wa:hover {
+    box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .fqm-disclaimer {
+    font-size: 0.78rem;
+    color: #6b7280;
+    text-align: center;
+    margin: 6px 0 0 0;
+  }
+
+  /* =========================
+     RESPONSIVE — Tablet
+     ========================= */
+  @media (max-width: 1024px) {
+    .fqm-container {
+      gap: 40px;
+    }
+
+    .fqm-form-card {
+      padding: 30px 28px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .fqm-section {
+      padding: 60px 0 80px;
+    }
+
+    .fqm-container {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .fqm-right {
+      position: static;
+    }
+  }
+
+  /* =========================
+     RESPONSIVE — Mobile
+     ========================= */
+  @media (max-width: 768px) {
+    .fqm-section {
+      padding: 50px 0 70px;
+    }
+
+    .fqm-container {
+      padding: 0 20px;
+      gap: 40px;
+    }
+
+    .fqm-title {
+      font-size: 1.55rem;
+    }
+
+    .fqm-form-card {
+      padding: 26px 22px;
+      border-radius: 20px;
+    }
+
+    .fqm-form-row {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .fqm-section {
+      padding: 40px 0 60px;
+    }
+
+    .fqm-container {
+      padding: 0 16px;
+      gap: 36px;
+    }
+
+    .fqm-title {
+      font-size: 1.35rem;
+    }
+
+    .fqm-form-card {
+      padding: 22px 18px;
+      border-radius: 18px;
+    }
+
+    .fqm-form-group input,
+    .fqm-form-group select,
+    .fqm-form-group textarea {
+      padding: 11px 13px;
+      font-size: 0.9rem;
+    }
+
+    .fqm-btn-wa {
+      padding: 13px 22px;
+      font-size: 0.93rem;
+    }
+  }
+</style>

@@ -1,8 +1,6 @@
 ---
 import { categoryMeta } from '@/content/config';
-import { getCdnUrl } from '@/lib/cdn';
 import { getBlogCardCta } from '@/lib/blogCardCta';
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -16,16 +14,14 @@ const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
 
 <article class="post-card">
   <a href={`/blog/${post.slug}`}>
-    <Image
-      src={getCdnUrl(post.data.heroImage)}
+    <img
+      src={post.data.heroImage}
       alt={post.data.heroImageAlt}
-      width={400}
-      height={250}
-      format="webp"
+      width="400"
+      height="250"
       loading={index === 0 ? 'eager' : 'lazy'}
       fetchpriority={index === 0 ? 'high' : 'auto'}
-      widths={[320, 400, 560, 720]}
-      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+      decoding="async"
     />
   </a>
   <div class="post-meta">

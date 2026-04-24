@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Baby Shower"
     subtitle="Propuesta tematizada para celebrar la llegada de tu bebe con una experiencia visual y dulce impecable"
     secondaryContent={`<p><strong>Baby shower</strong> profesional requiere una mesa de dulces que combine ternura, orden visual y funcionalidad para que la celebracion fluya sin improvisaciones. En Mededul disparamos la experiencia del evento con una propuesta personalizada por estilo, paleta y aforo.</p><p><strong>Dulces</strong> seleccionados con criterio estetico y operativo elevan la percepcion de calidad, mejoran el recuerdo fotografico y generan una experiencia mas completa para tus invitadas. Ejecutamos montaje y servicio integral en CDMX para que disfrutes el evento con total tranquilidad.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu Baby Shower"
-    ctaTitleHighlight="Baby Shower"
-    ctaText="Comparte fecha, invitados y estilo para recibir una propuesta profesional y cotizacion clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta al tamano y estilo de tu baby shower." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para otras celebraciones." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Baby Shower un Evento" titleHighlight="Memorable" text="Te ayudamos a crear una mesa de dulces personalizada con diseno profesional y ejecucion impecable." buttonText="Cotizar Baby Shower" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Baby Shower" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir el formato ideal para tu celebracion.</p>`} />
-      <FAQ items={faqs} id="faq-baby-shower" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -44,11 +43,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Chocolates y Trufas"
+    title="Categoria Chocolates y Trufas Gourmet"
     highlight="Chocolates"
-    subtitle="Tiendas con los mejores chocolates en CDMX"
-    secondaryContent={`<p>Encuentra <strong>chocolates artesanales, trufas gourmet y bombones finos</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con la mejor selección.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con chocolate belga, trufas artesanales y bombones finos en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria chocolates y trufas</strong> concentra a los proveedores mas especializados de Ciudad de Mexico en chocolate artesanal, trufas rellenas, bombones gourmet y tabletas de cobertura premium. Filtramos solo tiendas con resenas reales de Google Maps para que encuentres producto fresco, presentacion profesional y atencion capaz de resolver pedidos personalizados para eventos o regalos corporativos.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar marcas, tipos de cacao, precios y ubicaciones antes de abastecer tu mesa de dulces, fuente de chocolate o empacar detalles personalizados. Cada registro incluye horario, telefono, especialidad y ficha tecnica para que decidas rapido y sin depender de listados genericos que no verifican la operacion real del negocio.</p>`}
   />
 
   <section class="categoria-listado">
@@ -69,25 +67,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Chocolates y Trufas"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-chocolates" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20chocolates%20y%20trufas%20para%20mi%20evento"
-    badge="Chocolates"
-    title="¿Necesitas Chocolates para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de chocolates y trufas."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -126,11 +106,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

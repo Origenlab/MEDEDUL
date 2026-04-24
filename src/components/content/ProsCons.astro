@@ -83,18 +83,27 @@ const {
 
   .pros-section,
   .cons-section {
-    padding: 24px;
-    border-radius: 16px;
+    padding: 26px;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease;
+  }
+
+  .pros-section:hover,
+  .cons-section:hover {
+    transform: translateY(-2px);
   }
 
   .pros-section {
-    background: linear-gradient(135deg, rgba(85, 239, 196, 0.1) 0%, rgba(85, 239, 196, 0.05) 100%);
-    border: 1px solid rgba(85, 239, 196, 0.3);
+    background: linear-gradient(135deg, #e8f8f0 0%, #d4f4e2 100%);
+    border: 1px solid rgba(0, 184, 148, 0.25);
+    border-top: 4px solid #00b894;
   }
 
   .cons-section {
-    background: linear-gradient(135deg, rgba(255, 140, 66, 0.08) 0%, rgba(255, 140, 66, 0.03) 100%);
-    border: 1px solid rgba(255, 140, 66, 0.25);
+    background: linear-gradient(135deg, #fff2eb 0%, #ffe5d4 100%);
+    border: 1px solid rgba(225, 112, 85, 0.25);
+    border-top: 4px solid #e17055;
   }
 
   .section-title {
@@ -154,13 +163,15 @@ const {
   }
 
   .pros-item .item-icon {
-    background: rgba(85, 239, 196, 0.3);
-    color: #00b894;
+    background: linear-gradient(135deg, #00b894 0%, #00875a 100%);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 184, 148, 0.4);
   }
 
   .cons-item .item-icon {
-    background: rgba(255, 140, 66, 0.25);
-    color: #e17055;
+    background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(214, 48, 49, 0.35);
   }
 
   .item-text {

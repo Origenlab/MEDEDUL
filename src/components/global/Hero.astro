@@ -3,13 +3,10 @@
  * Hero Component - Mededul Site Hero
  * ===================================
  * Unified hero component for all pages with scoped CSS.
- * Optionally includes a CTA section after the hero.
  *
  * Usage:
  * - Full hero (index): title, highlight, subtitle, secondaryContent
  * - Simple hero (subpages): title, subtitle
- * - With CTA: showCTA={true} + cta props
- *
  * Props:
  * @param {string} title - Main heading (required)
  * @param {string} subtitle - Secondary text below title
@@ -17,19 +14,9 @@
  * @param {string} secondaryContent - HTML content for second column
  * @param {string} highlight - Word in title to style with Pacifico font
  * @param {string} id - Section ID for anchor links
- *
- * CTA Props (optional):
- * @param {boolean} showCTA - Show CTA section after hero
- * @param {string} ctaHref - CTA button link
- * @param {string} ctaBadge - CTA badge text
- * @param {string} ctaTitle - CTA title
- * @param {string} ctaTitleHighlight - Word to highlight in CTA title
- * @param {string} ctaText - CTA description text
- * @param {string} ctaButtonText - CTA button text
- */
+ * */
 
-import CTAServices from './CTAServices.astro';
-import TrustBadge from './TrustBadge.astro';
+import QuickEventNav from './QuickEventNav.astro';
 
 interface Props {
   title: string;
@@ -38,14 +25,6 @@ interface Props {
   secondaryContent?: string;
   highlight?: string;
   id?: string;
-  // CTA props
-  showCTA?: boolean;
-  ctaHref?: string;
-  ctaBadge?: string;
-  ctaTitle?: string;
-  ctaTitleHighlight?: string;
-  ctaText?: string;
-  ctaButtonText?: string;
   // Backward-compatible props
   variant?: 'page' | 'service' | 'simple';
   image?: string;
@@ -67,14 +46,6 @@ const {
   secondaryContent,
   highlight,
   id,
-  // CTA props
-  showCTA = true,
-  ctaHref,
-  ctaBadge,
-  ctaTitle,
-  ctaTitleHighlight,
-  ctaText,
-  ctaButtonText
 } = Astro.props;
 
 const stripHtml = (value: string) => value.replace(/<[^>]*>/g, '').trim();
@@ -262,225 +233,6 @@ const buildSeoSecondaryContent = () => {
   return `<p>${cleanTitle} representa una oportunidad para elevar la calidad de tu evento con una ejecucion mas estrategica y orientada a resultados. En Mededul abordamos cada servicio con metodologia profesional para alinear diseno, operacion y experiencia de invitado en una sola propuesta coherente.</p><p>${cleanTitle} dentro de nuestra oferta se desarrolla con enfoque en valor real: mejor presentacion, mejor flujo operativo y mayor impacto visual durante toda la celebracion. Asi aseguramos una implementacion confiable que responde a objetivos concretos de cada cliente.</p>`;
 };
 
-const buildContextualCta = () => {
-  const path = Astro.url.pathname;
-  const ctaByPath: Record<string, {
-    href: string;
-    badge: string;
-    title: string;
-    titleHighlight: string;
-    text: string;
-    buttonText: string;
-  }> = {
-    '/': {
-      href: '/servicios',
-      badge: 'Servicios Profesionales',
-      title: 'Descubre Nuestra Variedad de Mesas',
-      titleHighlight: 'Variedad',
-      text: 'Desde elegantes mesas de postres hasta estaciones interactivas para fiestas. Encuentra el montaje ideal para tu celebracion en CDMX.',
-      buttonText: 'Ver Todos los Servicios',
-    },
-    '/servicios': {
-      href: '/contacto',
-      badge: 'Cotizacion Personalizada',
-      title: 'Solicita Tu Propuesta Profesional',
-      titleHighlight: 'Profesional',
-      text: 'Comparte los datos de tu evento y recibe una recomendacion precisa con opciones reales segun tipo de celebracion y presupuesto.',
-      buttonText: 'Ir a Contacto',
-    },
-    '/contacto': {
-      href: '/servicios',
-      badge: 'Respuesta Rapida',
-      title: 'Activa Tu Cotizacion Hoy',
-      titleHighlight: 'Cotizacion',
-      text: 'Nuestro equipo te responde con una propuesta clara para que avances con seguridad en la planeacion de tu evento.',
-      buttonText: 'Ver Servicios',
-    },
-    '/nosotros': {
-      href: '/servicios',
-      badge: 'Experiencia Comprobada',
-      title: 'Conoce Nuestros Servicios Premium',
-      titleHighlight: 'Premium',
-      text: 'Lleva esa experiencia a tu celebracion con una mesa de dulces disenada y ejecutada por especialistas.',
-      buttonText: 'Explorar Servicios',
-    },
-    '/blog': {
-      href: '/servicios',
-      badge: 'Del Blog al Evento',
-      title: 'Convierte Ideas en Resultados',
-      titleHighlight: 'Resultados',
-      text: 'Aplica lo que aprendiste y descubre el servicio ideal para tu evento con asesoria profesional en CDMX.',
-      buttonText: 'Ver Servicios',
-    },
-    '/aviso-privacidad': {
-      href: '/servicios',
-      badge: 'Atencion Directa',
-      title: 'Resuelve Tus Dudas con Nuestro Equipo',
-      titleHighlight: 'Dudas',
-      text: 'Si necesitas aclaraciones sobre tus datos o sobre el servicio, estamos disponibles para ayudarte.',
-      buttonText: 'Ver Servicios',
-    },
-    '/terminos-condiciones': {
-      href: '/servicios',
-      badge: 'Asesoria Comercial',
-      title: 'Contrata con Informacion Clara',
-      titleHighlight: 'Clara',
-      text: 'Te ayudamos a revisar alcances, tiempos y condiciones para que tomes una decision segura.',
-      buttonText: 'Ver Servicios',
-    },
-    '/404': {
-      href: '/servicios',
-      badge: 'Ruta Recomendada',
-      title: 'Encuentra el Servicio Correcto',
-      titleHighlight: 'Servicio',
-      text: 'Explora nuestras opciones de mesas de dulces y estaciones interactivas para tu proximo evento.',
-      buttonText: 'Ir a Servicios',
-    },
-  };
-
-  if (ctaByPath[path]) return ctaByPath[path];
-
-  if (path.startsWith('/candy-bar-eventos/')) {
-    return {
-      href: '/servicios',
-      badge: 'Candy Bar Personalizado',
-      title: 'Cotiza Tu Candy Bar Ideal',
-      titleHighlight: 'Ideal',
-      text: 'Recibe una propuesta a medida para tu tipo de evento, numero de invitados y estilo de celebracion.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  if (path === '/candy-bar-eventos' || path === '/candy-bar-eventos/') {
-    return {
-      href: '/candy-bar-eventos/mesa-dulces-boda',
-      badge: 'Eventos Especiales',
-      title: 'Elige Tu Tipo de Candy Bar',
-      titleHighlight: 'Candy Bar',
-      text: 'Selecciona la opcion ideal para boda, XV anos, baby shower, corporativo y mas.',
-      buttonText: 'Ver Opciones',
-    };
-  }
-
-  if (path.startsWith('/tipos-de-mesas-de-dulces/')) {
-    return {
-      href: '/servicios',
-      badge: 'Tipo de Mesa',
-      title: 'Reserva la Mesa Perfecta',
-      titleHighlight: 'Perfecta',
-      text: 'Te asesoramos para elegir el formato que mejor funciona para tu evento y tus invitados.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  if (path === '/tipos-de-mesas-de-dulces' || path === '/tipos-de-mesas-de-dulces/') {
-    return {
-      href: '/tipos-de-mesas-de-dulces/mesa-de-dulces',
-      badge: 'Variedad de Mesas',
-      title: 'Descubre Todos Los Formatos',
-      titleHighlight: 'Formatos',
-      text: 'Compara tipos de mesas y define la combinacion ideal para una celebracion memorable.',
-      buttonText: 'Ver Tipos de Mesa',
-    };
-  }
-
-  if (path.startsWith('/estaciones-interactivas/')) {
-    return {
-      href: '/servicios',
-      badge: 'Experiencia Interactiva',
-      title: 'Activa Tu Estacion Estrella',
-      titleHighlight: 'Estacion',
-      text: 'Cotiza fuente de chocolate, chamoy, candy wall o stand para pastel con montaje profesional.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  if (path === '/estaciones-interactivas' || path === '/estaciones-interactivas/') {
-    return {
-      href: '/estaciones-interactivas/fuente-de-chocolate',
-      badge: 'Experiencias Memorables',
-      title: 'Explora Nuestras Estaciones',
-      titleHighlight: 'Estaciones',
-      text: 'Elige la experiencia interactiva que mejor se adapte al estilo y dinamica de tu evento.',
-      buttonText: 'Ver Estaciones',
-    };
-  }
-
-  if (path.startsWith('/porque-mededul/')) {
-    return {
-      href: '/servicios',
-      badge: 'Ventaja Mededul',
-      title: 'Lleva Esta Ventaja a Tu Evento',
-      titleHighlight: 'Ventaja',
-      text: 'Solicita asesoria y descubre como aplicar este diferencial en tu mesa de dulces.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  if (path === '/porque-mededul' || path === '/porque-mededul/') {
-    return {
-      href: '/servicios',
-      badge: 'Por Que Elegirnos',
-      title: 'Conoce Nuestro Enfoque Profesional',
-      titleHighlight: 'Profesional',
-      text: 'Descubre como convertimos cada celebracion en una experiencia visual y operativa impecable.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  if (path.startsWith('/blog/categoria/')) {
-    return {
-      href: '/blog',
-      badge: 'Mas Contenido Relacionado',
-      title: 'Sigue Explorando Esta Categoria',
-      titleHighlight: 'Categoria',
-      text: 'Profundiza con mas articulos especializados y aplica mejores practicas a tu evento.',
-      buttonText: 'Ver Mas Articulos',
-    };
-  }
-
-  if (path.startsWith('/blog/tag/')) {
-    return {
-      href: '/blog',
-      badge: 'Tema Relacionado',
-      title: 'Descubre Mas Contenido Util',
-      titleHighlight: 'Contenido',
-      text: 'Encuentra mas publicaciones relacionadas para planear tu celebracion con mayor claridad.',
-      buttonText: 'Ir al Blog',
-    };
-  }
-
-  if (path.startsWith('/blog/pagina/')) {
-    return {
-      href: '/blog',
-      badge: 'Lectura Recomendada',
-      title: 'Explora Todo Nuestro Blog',
-      titleHighlight: 'Blog',
-      text: 'Accede a guias y estrategias para mejorar diseno, presupuesto y ejecucion de tu evento.',
-      buttonText: 'Ver Blog Completo',
-    };
-  }
-
-  if (path.startsWith('/blog/')) {
-    return {
-      href: '/servicios',
-      badge: 'Siguiente Paso',
-      title: 'Lleva Este Tema a Tu Evento',
-      titleHighlight: 'Evento',
-      text: 'Recibe una propuesta personalizada para convertir estas ideas en una experiencia real.',
-      buttonText: 'Ver Servicios',
-    };
-  }
-
-  return {
-    href: '/servicios',
-    badge: 'Asesoria Personalizada',
-    title: 'Planea Tu Evento con Expertos',
-    titleHighlight: 'Expertos',
-    text: 'Hablemos de tu celebracion y definamos juntos la mejor propuesta para tu mesa de dulces.',
-    buttonText: 'Ver Servicios',
-  };
-};
 
 // Layout logic
 const hasExplicitSecondaryContent = Boolean(secondaryContent);
@@ -488,7 +240,6 @@ const computedSecondaryContent =
   secondaryContent || buildSeoSecondaryContent() || (subtitle ? `<p>${subtitle}</p>` : undefined);
 const hasTwoColumns = Boolean(computedSecondaryContent || Astro.slots.has('default'));
 const showSubtitleInPrimary = Boolean(subtitle && hasExplicitSecondaryContent);
-const contextualCta = buildContextualCta();
 
 // Parse title to apply highlight styling
 const renderTitle = () => {
@@ -521,19 +272,8 @@ const renderTitle = () => {
   </div>
 </section>
 
-{showCTA && (
-  <>
-    <CTAServices
-      href={ctaHref || contextualCta.href}
-      badge={ctaBadge || contextualCta.badge}
-      title={ctaTitle || contextualCta.title}
-      titleHighlight={ctaTitleHighlight || contextualCta.titleHighlight}
-      text={ctaText || contextualCta.text}
-      buttonText={ctaButtonText || contextualCta.buttonText}
-    />
-    <TrustBadge />
-  </>
-)}
+<QuickEventNav />
+
 
 <style>
   /* =====================================================

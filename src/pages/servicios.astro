@@ -6,10 +6,14 @@ import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsFrutas, subsPostres, subsQuesos,
+  subsSnacks, subsBotanas, subsTradicionles, subsDonas,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces, subsStandPastel,
+  subsDisenoPersonalizado, subsCalidadPremium, subsServicioCompleto, subsCeroEstres,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Servicios', url: '/servicios' }
@@ -139,13 +143,6 @@ const processSteps = [
     highlight="Mesas de Dulces"
     subtitle="Desde mesas de dulces hasta estaciones interactivas, creamos experiencias memorables para cada tipo de evento"
     secondaryContent={`<p>Nuestros <strong>servicios de mesas de dulces</strong> están diseñados para transformar cualquier celebración en un momento inolvidable. Cada propuesta incluye diseño personalizado, montaje profesional y atención durante todo el evento para que tú solo disfrutes.</p><p>Ya sea que busques una elegante <strong>mesa para boda</strong>, una divertida <strong>mesa infantil</strong> o una sofisticada <strong>presentación corporativa</strong>, nuestro equipo de expertos crea la experiencia perfecta adaptada a tu visión, presupuesto y número de invitados.</p>`}
-    showCTA={true}
-    ctaHref="/#contacto"
-    ctaBadge="Cotización Gratuita"
-    ctaTitle="Solicita tu Cotización Personalizada"
-    ctaTitleHighlight="Personalizada"
-    ctaText="Cuéntanos sobre tu evento y recibe una propuesta a la medida sin compromiso. Respondemos en menos de 24 horas."
-    ctaButtonText="Cotizar Ahora"
   />
 
   <!-- Paquetes Section - Premium Design -->
@@ -261,6 +258,7 @@ const processSteps = [
           excerpt="Candy bar personalizado con dulces premium para bodas, XV años y fiestas infantiles. Diseño temático y montaje profesional incluido."
           cta="Cotizar Candy Bar"
           badge="Popular"
+          subsections={subsDulces}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-postres"
@@ -269,6 +267,7 @@ const processSteps = [
           title="Mesa de Postres"
           excerpt="Postres gourmet artesanales: macarons, cupcakes, tartaletas y más. Repostería fina para eventos de alto nivel."
           cta="Ver Postres Gourmet"
+          subsections={subsPostres}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
@@ -277,6 +276,7 @@ const processSteps = [
           title="Mesa de Frutas"
           excerpt="Frutas frescas de temporada presentadas con arte. Opción saludable y elegante que complementa cualquier celebración."
           cta="Explorar Frutas Frescas"
+          subsections={subsFrutas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
@@ -285,6 +285,7 @@ const processSteps = [
           title="Quesos y Embutidos"
           excerpt="Tabla gourmet con quesos importados y embutidos premium. Ideal para cócteles, bodas y eventos corporativos."
           cta="Ver Tabla Gourmet"
+          subsections={subsQuesos}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-snacks"
@@ -293,6 +294,7 @@ const processSteps = [
           title="Mesa de Snacks"
           excerpt="Barra de snacks variados para mantener a tus invitados felices. Perfecta para fiestas largas y eventos casuales."
           cta="Armar Mi Barra"
+          subsections={subsSnacks}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-botanas"
@@ -301,6 +303,7 @@ const processSteps = [
           title="Mesa de Botanas"
           excerpt="Botanas saladas gourmet para equilibrar lo dulce. Frutos secos, chips artesanales y opciones premium."
           cta="Ver Botanas Premium"
+          subsections={subsBotanas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
@@ -309,6 +312,7 @@ const processSteps = [
           title="Dulces Tradicionales"
           excerpt="Dulces mexicanos auténticos: mazapanes, obleas, cocadas y glorias. Nostalgia y sabor en cada bocado."
           cta="Explorar Dulces Típicos"
+          subsections={subsTradicionles}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
@@ -318,6 +322,7 @@ const processSteps = [
           excerpt="Donas gourmet y cupcakes decorados a mano. Tendencia actual en baby showers, cumpleaños y eventos modernos."
           cta="Ver Donas Decoradas"
           badge="Tendencia"
+          subsections={subsDonas}
         />
       </div>
     </div>
@@ -342,6 +347,7 @@ const processSteps = [
           excerpt="Cascada de chocolate belga derretido con frutas, malvaviscos y churros. La experiencia favorita de todos."
           cta="Rentar Fuente de Chocolate"
           badge="Estrella"
+          subsections={subsFuenteChocolate}
         />
         <ServiceCard
           href="/estaciones-interactivas/fuente-de-chamoy"
@@ -350,6 +356,7 @@ const processSteps = [
           title="Fuente de Chamoy"
           excerpt="Sabor mexicano auténtico. Chamoy artesanal para bañar frutas, gomitas y snacks favoritos."
           cta="Cotizar Fuente Chamoy"
+          subsections={subsFuenteChamoy}
         />
         <ServiceCard
           href="/estaciones-interactivas/pared-de-dulces"
@@ -358,6 +365,7 @@ const processSteps = [
           title="Pared de Dulces"
           excerpt="Candy Wall espectacular como decoración y dispensador. El selfie spot perfecto para tu evento."
           cta="Ver Candy Wall"
+          subsections={subsParedDulces}
         />
         <ServiceCard
           href="/estaciones-interactivas/stand-para-pastel"
@@ -366,20 +374,12 @@ const processSteps = [
           title="Stand para Pastel"
           excerpt="Marco decorativo premium para exhibir tu pastel. Incluye decoración con globos, flores o luces."
           cta="Ver Stands Decorados"
+          subsections={subsStandPastel}
         />
       </div>
     </div>
   </section>
 
-  <!-- CTA Intermedio -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola! Quiero cotizar una mesa de dulces para mi evento"
-    badge="Cotización Express"
-    title="¿Tienes Prisa? Cotiza por WhatsApp"
-    titleHighlight="WhatsApp"
-    text="Recibe una cotización rápida enviando los detalles de tu evento por WhatsApp. Respondemos en minutos."
-    buttonText="Cotizar por WhatsApp"
-  />
 
   <!-- Proceso Section -->
   <section class="section-proceso section-padding" id="proceso">
@@ -430,6 +430,7 @@ const processSteps = [
           title="Diseño Personalizado"
           excerpt="Cada mesa es única como tu evento. Diseñamos propuestas a la medida de tu temática, colores y estilo personal."
           cta="Ver Propuestas de Diseño"
+          subsections={subsDisenoPersonalizado}
         />
         <ServiceCard
           href="/porque-mededul/calidad-premium"
@@ -438,6 +439,7 @@ const processSteps = [
           title="Calidad Premium"
           excerpt="Solo trabajamos con proveedores selectos. Dulces artesanales, chocolates finos y postres profesionales."
           cta="Conocer Nuestros Productos"
+          subsections={subsCalidadPremium}
         />
         <ServiceCard
           href="/porque-mededul/servicio-completo"
@@ -446,6 +448,7 @@ const processSteps = [
           title="Servicio Completo"
           excerpt="Montaje, decoración, atención durante el evento y desmontaje. Tú solo disfrutas, nosotros hacemos todo."
           cta="Ver Qué Incluye"
+          subsections={subsServicioCompleto}
         />
         <ServiceCard
           href="/porque-mededul/cero-estres"
@@ -454,26 +457,11 @@ const processSteps = [
           title="Cero Estrés"
           excerpt="Puntualidad garantizada y comunicación constante. Llegamos antes, montamos todo y desaparecemos los problemas."
           cta="Conocer Nuestro Proceso"
+          subsections={subsCeroEstres}
         />
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Nuestros Servicios"
-        titleHighlight="Frecuentes"
-        subtitle="Resolvemos tus dudas sobre cómo trabajamos"
-        content={`<p>Sabemos que elegir el proveedor correcto para tu <strong>mesa de dulces</strong> es importante. Aquí respondemos las preguntas más comunes sobre nuestros servicios y procesos.</p>`}
-      />
-
-      <FAQ items={faqItems} id="faq-servicios" />
-    </div>
-  </section>
-
-  <!-- Contacto Section -->
-  <ContactSection />
-
+  <FAQContactModule faqItems={faqItems} />
 </BaseLayout>

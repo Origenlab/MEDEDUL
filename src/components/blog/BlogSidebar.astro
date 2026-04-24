@@ -17,6 +17,11 @@ const importantLinks = [
   { label: 'Estaciones interactivas', url: '/estaciones-interactivas' },
   { label: 'Tipos de mesas de dulces', url: '/tipos-de-mesas-de-dulces' }
 ];
+
+const coberturaZonas = {
+  cdmx: ['Polanco', 'Lomas', 'Bosques', 'Interlomas', 'Santa Fe', 'Pedregal', 'Condesa', 'Roma', 'Coyoacan', 'Del Valle'],
+  toluca: ['Metepec Zona Esmeralda', 'Toluca Centro', 'San Carlos', 'Las Marinas']
+};
 ---
 
 <aside class="blog-sidebar">
@@ -65,6 +70,27 @@ const importantLinks = [
       ))}
     </ul>
   </div>
+
+  <div class="sidebar-widget sidebar-cobertura">
+    <h3>Sucursales CDMX &amp; Toluca</h3>
+    <p class="cobertura-intro">Operacion profesional con cobertura activa en zonas premium:</p>
+    <div class="cobertura-block">
+      <span class="cobertura-label">CDMX</span>
+      <p class="cobertura-zonas">{coberturaZonas.cdmx.join(' · ')}</p>
+    </div>
+    <div class="cobertura-block">
+      <span class="cobertura-label">Toluca / Metepec</span>
+      <p class="cobertura-zonas">{coberturaZonas.toluca.join(' · ')}</p>
+    </div>
+    <a
+      class="cobertura-cta"
+      href="https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces"
+      target="_blank"
+      rel="noopener"
+    >
+      Cotizar por WhatsApp
+    </a>
+  </div>
 </aside>
 
 <style>
@@ -109,6 +135,58 @@ const importantLinks = [
   .sidebar-list a:hover,
   .sidebar-posts a:hover {
     color: var(--rosa-principal);
+  }
+
+  .sidebar-cobertura {
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.06), rgba(122, 43, 194, 0.06));
+    border-color: rgba(233, 30, 140, 0.18);
+  }
+
+  .cobertura-intro {
+    font-size: 0.85rem;
+    color: var(--texto-light);
+    margin: 0 0 12px;
+    line-height: 1.45;
+  }
+
+  .cobertura-block {
+    margin-bottom: 10px;
+  }
+
+  .cobertura-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--rosa-principal);
+    margin-bottom: 4px;
+  }
+
+  .cobertura-zonas {
+    font-size: 0.82rem;
+    color: var(--texto-oscuro);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cobertura-cta {
+    display: block;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: #25d366;
+    color: #fff !important;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .cobertura-cta:hover {
+    transform: translateY(-1px);
+    color: #fff !important;
   }
 
   @media (max-width: 1024px) {

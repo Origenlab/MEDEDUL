@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import BlogArchive from '@/components/blog/BlogArchive.astro';
 import Hero from '@/components/global/Hero.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { categoryMeta } from '@/content/config';
 import { sortBlogPosts } from '@/lib/blogSorting';
@@ -45,9 +44,10 @@ const featuredPosts = allPosts.slice(0, 4);
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title={categoryName}
-    subtitle={meta?.description || `Articulos sobre ${String(categoryName).toLowerCase()} para tu mesa de dulces`}
-    showCTA={false}
+    title={`Categoria ${categoryName}`}
+    highlight={categoryName}
+    subtitle={meta?.description || `Articulos especializados en ${String(categoryName).toLowerCase()} para planear tu mesa de dulces en CDMX`}
+    secondaryContent={`<p><strong>${categoryName}</strong> agrupa articulos especializados para que analices opciones reales y tomes decisiones informadas segun el tipo de evento que estas organizando. Esta categoria concentra recomendaciones practicas, errores frecuentes y criterios profesionales de seleccion para que optimices tiempo, presupuesto y resultado visual en tu candy bar.</p><p><strong>${categoryName}</strong> como eje tematico te permite profundizar en tendencias, presupuesto y ejecucion para planear con mayor precision y menor riesgo operativo. El objetivo editorial de Mededul es ayudarte a convertir informacion util en una contratacion mas inteligente y efectiva para tu evento social o corporativo en Ciudad de Mexico.</p>`}
   />
 
   <BlogArchive
@@ -58,12 +58,4 @@ const featuredPosts = allPosts.slice(0, 4);
     totalPages={1}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria por Categoria"
-    title="Lleva Tu Categoria a un Resultado"
-    titleHighlight="Profesional"
-    text={`Si te interesa ${String(categoryName).toLowerCase()}, te ayudamos a convertir esa referencia en una propuesta real para tu evento.`}
-    buttonText="Solicitar Asesoria"
-  />
 </BaseLayout>

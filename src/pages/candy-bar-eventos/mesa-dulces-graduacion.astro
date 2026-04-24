@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Graduacion"
     subtitle="Candy bar profesional para celebrar logros academicos con una propuesta visual elegante y bien ejecutada"
     secondaryContent={`<p><strong>Graduacion</strong> con mesa de dulces profesional convierte el cierre academico en una experiencia mas memorable para estudiantes, familias e invitados. En Mededul creamos montajes que combinan identidad institucional, calidad de producto y operacion eficiente.</p><p><strong>Ceremonia</strong> de graduacion bien acompanada por un candy bar premium mejora la presentacion general del evento, optimiza servicio y aporta un punto fotografico de alto valor. Ejecutamos cada detalle en CDMX con puntualidad y estandar profesional.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu Evento de"
-    ctaTitleHighlight="Graduacion"
-    ctaText="Comparte sede, aforo y formato para recibir una propuesta profesional adaptada a tu ceremonia."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de graduacion segun aforo y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu graduacion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y corporativas." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Celebra Tu Logro con una Experiencia" titleHighlight="Memorable" text="Te ayudamos a implementar una mesa de dulces para graduacion con diseno profesional y operacion impecable." buttonText="Cotizar Graduacion" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Graduacion" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la propuesta ideal para tu graduacion.</p>`} />
-      <FAQ items={faqs} id="faq-graduacion" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

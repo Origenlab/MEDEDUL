@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -97,11 +96,10 @@ const faqsCategoria = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Galletas y Cupcakes Artesanales"
+    title="Galletas y Cupcakes Artesanales en CDMX"
     highlight="Cupcakes"
-    subtitle="Decorados a mano, personalizados para tu evento"
-    secondaryContent={`<p>Los mejores proveedores de <strong>galletas decoradas y cupcakes artesanales</strong> en CDMX y Estado de Mexico. Ideales para mesas de dulces y recuerdos.</p><p><strong>${proveedores.length} proveedores verificados</strong> con disenos unicos.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} reposterias verificadas con galletas decoradas a mano, cupcakes tematicos y postres personalizados para tu evento`}
+    secondaryContent={`<p><strong>Galletas decoradas y cupcakes artesanales</strong> son imprescindibles para mesas de dulces premium, bolos de fiesta y recuerdos comestibles personalizados. En este directorio seleccionamos a las mejores reposterias de CDMX y Estado de Mexico que trabajan galletas royal icing, cupcakes con buttercream, cookies tematicas y postres con logotipos corporativos para elevar el detalle visual de cualquier evento.</p><p><strong>${proveedores.length} proveedores verificados</strong> con diseños unicos te permiten comparar estilos, tiempos de produccion y rangos de precio antes de comprometer tu evento. Cada ficha incluye ubicacion, especialidad, resenas reales y contacto directo para que coordines sabores, decoracion tematica y entrega sin intermediarios ni improvisaciones.</p>`}
   />
 
   <section class="filtros-section">
@@ -166,14 +164,7 @@ const faqsCategoria = [
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Galletas y Cupcakes" />
-      <FAQ items={faqsCategoria} id="faq-galletas" />
-    </div>
-  </section>
-
-  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20galletas%20y%20cupcakes" badge="Reposteria Creativa" title="¿Buscas Galletas o Cupcakes para tu" titleHighlight="Evento" text="Te conectamos con los mejores reposteros." buttonText="Pedir Recomendacion" />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -216,7 +207,6 @@ const faqsCategoria = [
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
   .cat-link:hover { border-color: var(--rosa-principal); }
   .cat-icon { font-size: 1.3rem; }
-  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; } }
   @media (max-width: 768px) { .proveedor-header, .proveedor-footer { flex-direction: column; gap: 16px; } .proveedor-acciones { width: 100%; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
 </style>

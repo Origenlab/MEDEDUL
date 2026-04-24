@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Por que Mededul', url: '/porque-mededul' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Cero Estres"
     subtitle="Operacion profesional para que disfrutes tu evento sin carga ni preocupaciones"
     secondaryContent={`<p><strong>Estres</strong> operativo en un evento suele venir de decisiones fragmentadas, proveedores desalineados y falta de control en sitio. En Mededul resolvemos ese riesgo con una metodologia integral que unifica planeacion, montaje y ejecucion profesional.</p><p><strong>Servicio</strong> cero estres significa previsibilidad real: tiempos claros, comunicacion efectiva y respuesta operativa ante cualquier ajuste del evento. Asi proteges tu experiencia como anfitrion y aseguras un resultado consistente para tus invitados.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Organiza Tu Evento con"
-    ctaTitleHighlight="Cero Estres"
-    ctaText="Comparte tu fecha, sede y objetivos para recibir una propuesta operativa clara y profesional."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el nivel de acompanamiento operativo segun complejidad y aforo." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Estas capacidades complementan una ejecucion estable y de alta calidad." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Disfruta Tu Evento con una Operacion" titleHighlight="Sin Fricciones" text="Te ayudamos a implementar una mesa de dulces con control profesional y acompanamiento de principio a fin." buttonText="Cotizar Servicio Cero Estres" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Servicio Cero Estres" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a entender como operamos para eliminar fricciones en tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-cero-estres" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

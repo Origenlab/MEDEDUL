@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getEstadisticasDirectorio } from '@/data/dulcerias';
 
 const stats = getEstadisticasDirectorio();
@@ -30,11 +29,10 @@ const municipiosPlaneados = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Estado de México"
-    highlight="Próximamente"
-    subtitle="Estamos verificando proveedores en el Edomex"
-    secondaryContent={`<p>Estamos verificando cada dulcería en Estado de México para ofrecerte <strong>información 100% real y confiable</strong>.</p><p>Mientras tanto, explora nuestro <strong>directorio de CDMX con ${stats.total} dulcerías verificadas</strong>.</p>`}
-    showCTA={false}
+    title="Directorio de Dulcerias en Estado de Mexico"
+    highlight="Estado de Mexico"
+    subtitle="Proximamente · Estamos auditando proveedores del Edomex para sumar fichas verificadas al directorio"
+    secondaryContent={`<p><strong>Directorio del Estado de Mexico</strong> se encuentra en proceso de verificacion para que cada dulceria publicada tenga datos confirmados de contacto, especialidad y resenas reales de Google Maps. Nuestro objetivo es replicar el estandar que ya operamos en CDMX para que encuentres proveedores confiables sin arriesgar tu evento con listados genericos.</p><p><strong>${stats.total} dulcerias verificadas en CDMX</strong> ya estan publicadas mientras completamos la cobertura de municipios conurbados del Edomex. Explora el directorio de Ciudad de Mexico para localizar mayoreo, dulce tradicional o chocolates finos y surtir con confianza tu mesa de dulces, candy bar o evento corporativo.</p>`}
   />
 
   <section class="proximamente-section">
@@ -72,14 +70,6 @@ const municipiosPlaneados = [
     </div>
   </section>
 
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20Estado%20de%20México"
-    badge="Edomex"
-    title="¿Conoces una dulcería en"
-    titleHighlight="Estado de México"
-    text="Si conoces una dulcería que debemos incluir, contáctanos. Tu recomendación nos ayuda a crecer."
-    buttonText="Recomendar Dulcería"
-  />
 </BaseLayout>
 
 <style>

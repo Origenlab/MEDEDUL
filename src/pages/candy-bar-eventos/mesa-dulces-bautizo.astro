@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Bautizo"
     subtitle="Montaje elegante y familiar para acompanar una celebracion religiosa con presentacion impecable"
     secondaryContent={`<p><strong>Bautizo</strong> con mesa de dulces profesional aporta orden visual, experiencia cuidada y coherencia con el tono simbolico de la ceremonia. En Mededul desarrollamos propuestas sobrias que equilibran estilo, calidad de producto y funcionalidad operativa.</p><p><strong>Ceremonia</strong> bien acompanada por un candy bar elegante mejora la convivencia, refuerza el recuerdo fotografico y facilita la atencion a invitados durante la recepcion. Ejecutamos montaje y servicio en CDMX con estandar premium y puntualidad total.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Organiza Tu Bautizo"
-    ctaTitleHighlight="Bautizo"
-    ctaText="Comparte sede, invitados y estilo para recibir una propuesta profesional adaptada a tu celebracion."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de bautizo al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para diferentes celebraciones." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Eleva Tu Celebracion de" titleHighlight="Bautizo" text="Te ayudamos a crear una mesa de dulces elegante, funcional y alineada al estilo de tu ceremonia." buttonText="Cotizar Bautizo" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Bautizo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir el formato adecuado para tu bautizo.</p>`} />
-      <FAQ items={faqs} id="faq-bautizo" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

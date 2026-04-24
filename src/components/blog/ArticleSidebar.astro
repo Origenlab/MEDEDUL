@@ -46,18 +46,25 @@ const enlacesRapidos = [
 
 const sucursales = [
   {
-    name: 'Anzures',
-    hours: '24 horas',
+    name: 'CDMX — Anzures',
+    hours: 'Atencion 24 h',
     addressLine1: 'Av. Ejercito Nacional Mexicano 216',
     addressLine2: 'Anzures, Miguel Hidalgo, 11590',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+Miguel+Hidalgo,+11590,+Ciudad+de+Mexico'
   },
   {
-    name: 'Condesa',
-    hours: 'Lun-Sab 10-19h',
+    name: 'CDMX — Condesa',
+    hours: 'Lun-Sab 10-19 h',
     addressLine1: 'Torre A, Av. Baja California 255',
     addressLine2: 'Condesa, Cuauhtemoc, 06170',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Torre+A,+Av.+Baja+California+255,+Condesa,+Cuauhtemoc,+06170,+Ciudad+de+Mexico'
+  },
+  {
+    name: 'Toluca — Metepec',
+    hours: 'Lun-Sab 10-19 h',
+    addressLine1: 'Zona Esmeralda, Metepec',
+    addressLine2: 'Cobertura activa en todo el Valle de Toluca',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Zona+Esmeralda,+Metepec,+Estado+de+Mexico'
   }
 ];
 
@@ -65,9 +72,17 @@ const zonasPremium = [
   { name: 'Polanco', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
   { name: 'Lomas de Chapultepec', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
   { name: 'Bosques de las Lomas', serviceUrl: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { name: 'Interlomas', serviceUrl: '/tipos-de-mesas-de-dulces/mesa-de-postres' },
   { name: 'Santa Fe', serviceUrl: '/candy-bar-eventos/mesa-dulces-corporativos' },
   { name: 'Pedregal', serviceUrl: '/candy-bar-eventos/mesa-dulces-xv-anos' },
-  { name: 'Interlomas', serviceUrl: '/tipos-de-mesas-de-dulces/mesa-de-postres' }
+  { name: 'Condesa', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
+  { name: 'Roma', serviceUrl: '/candy-bar-eventos/mesa-dulces-boda' },
+  { name: 'Coyoacan', serviceUrl: '/candy-bar-eventos/mesa-dulces-bautizo' },
+  { name: 'Del Valle', serviceUrl: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { name: 'Metepec — Zona Esmeralda', serviceUrl: '/blog/mesa-de-dulces-metepec-guia-completa' },
+  { name: 'Toluca Centro', serviceUrl: '/blog/mesa-de-dulces-toluca-guia-completa' },
+  { name: 'San Carlos', serviceUrl: '/blog/mesa-de-dulces-elegante-metepec' },
+  { name: 'Las Marinas', serviceUrl: '/blog/mesa-de-dulces-metepec-guia-completa' }
 ];
 
 const servicioCards = [
@@ -146,7 +161,7 @@ const servicioCards = [
     </div>
 
     <div class="sidebar-card sidebar-sucursales">
-      <h4 class="sidebar-title">Sucursales en CDMX</h4>
+      <h4 class="sidebar-title">Sucursales CDMX &amp; Toluca</h4>
       <div class="sucursales-list">
         {sucursales.map((sucursal) => (
           <article class="sucursal-item">

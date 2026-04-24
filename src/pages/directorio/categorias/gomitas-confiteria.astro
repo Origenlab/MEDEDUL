@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -44,11 +43,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Gomitas y Confitería"
+    title="Categoria Gomitas y Confiteria Variada"
     highlight="Gomitas"
-    subtitle="Las mejores tiendas de gomitas y confitería en CDMX"
-    secondaryContent={`<p>Encuentra <strong>gomitas importadas, dulces enchilados y confitería variada</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con amplia variedad.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con gomitas importadas, dulces enchilados y confiteria mayoreo en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria gomitas y confiteria</strong> reune a las tiendas con mayor rotacion y variedad para mesas de dulces coloridas: gomitas acidas, gomitas enchiladas, rellenos de tamarindo, ositos Haribo, regaliz, malvaviscos, paletas cristal, dulces de leche, obleas y toda la confiteria clasica que nunca falta en un candy bar infantil o juvenil.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar precios por kilo, por pieza y al mayoreo para abastecer eventos grandes, fiestas infantiles, XV anos tematicos o paquetes corporativos. Cada ficha incluye ubicacion exacta, horarios reales, telefono de contacto y especialidad confirmada mediante resenas publicas de Google Maps, evitando listados genericos sin operacion activa.</p>`}
   />
 
   <section class="categoria-listado">
@@ -69,25 +67,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Gomitas y Confitería"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-gomitas" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20gomitas%20y%20confitería%20para%20mi%20evento"
-    badge="Gomitas"
-    title="¿Necesitas Gomitas para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de gomitas y confitería."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -126,11 +106,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

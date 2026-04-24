@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -149,11 +148,10 @@ const categoriaSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Dulces Tradicionales Mexicanos"
+    title="Dulces Tradicionales Mexicanos en CDMX"
     highlight="Tradicionales"
-    subtitle="Mazapanes, cocadas, tamarindos y más"
-    secondaryContent={`<p>Descubre las mejores dulcerías de <strong>dulces tradicionales mexicanos</strong> en CDMX. Perfectos para mesas de dulces con esencia mexicana, fiestas patrias y eventos temáticos.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} dulcerias verificadas con mazapan, cocada, tamarindo, alegria, palanqueta y glorias artesanales`}
+    secondaryContent={`<p><strong>Dulces tradicionales mexicanos</strong> son memoria viva de nuestra gastronomia y el alma de cualquier mesa de dulces con identidad. En este directorio curamos las mejores dulcerias de Ciudad de Mexico especializadas en mazapan, cocada, tamarindo enchilado, palanqueta, alegria, glorias de Linares y dulces regionales con recetas heredadas de generacion en generacion.</p><p><strong>${proveedores.length} dulcerias verificadas</strong> con informacion real de Google Maps te permiten comparar precios, especialidades y zonas para abastecer fiestas patrias, bodas mexicanas, XV anos temáticos, posadas navidenas o mesas de dulces con toque autentico. Cada ficha incluye ubicacion, horarios y resenas para que compres con confianza y producto fresco.</p>`}
   />
 
   <section class="filtros-section">
@@ -293,25 +291,7 @@ const categoriaSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Dulces Tradicionales"
-        subtitle="Información útil para tu evento"
-      />
-      <FAQ items={faqsCategoria} id="faq-tradicionales" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20tradicionales%20mexicanos"
-    badge="Dulces Tradicionales"
-    title="¿Necesitas Ayuda para"
-    titleHighlight="Encontrar Proveedor"
-    text="Te ayudamos a encontrar el proveedor perfecto de dulces tradicionales para tu evento."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -602,9 +582,6 @@ const categoriaSchema = {
     font-size: 1.3rem;
   }
 
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
 
   @media (max-width: 1200px) {
     .directorio-grid {

@@ -4,7 +4,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Terminos y Condiciones', url: '/terminos-condiciones' }
@@ -36,9 +35,10 @@ const breadcrumbItems = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Terminos y Condiciones"
-    subtitle="Al contratar los servicios de Mededul, aceptas los siguientes terminos y condiciones. Te recomendamos leerlos detenidamente antes de realizar tu reservacion."
-    showCTA={false}
+    title="Terminos y Condiciones de Mededul"
+    highlight="Terminos"
+    subtitle="Marco contractual claro que define alcance, responsabilidades, pagos y garantias para cada evento contratado"
+    secondaryContent={`<p><strong>Terminos de contratacion</strong> establecen con precision el alcance del servicio de mesas de dulces, responsabilidades de ambas partes y criterios operativos para ejecutar tu evento con certidumbre. Este documento define anticipos, saldos, ajustes, cancelaciones y tiempos para evitar interpretaciones ambiguas antes, durante y despues de la celebracion.</p><p><strong>Condiciones comerciales claras</strong> protegen tu inversion y facilitan una relacion profesional basada en expectativas realistas y cumplimiento verificable. Revisar este marco te permite contratar nuestros servicios con mayor seguridad y planificar tu evento social o corporativo en CDMX con mejor control operativo y financiero.</p>`}
   />
 
   <section class="legal-content">
@@ -354,14 +354,6 @@ const breadcrumbItems = [
     </div>
   </section>
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria Comercial"
-    title="Aclara Tus Dudas Antes de"
-    titleHighlight="Contratar"
-    text="Si necesitas contexto adicional sobre alcances, pagos o condiciones, te ayudamos a revisar tu caso."
-    buttonText="Hablar con un Asesor"
-  />
 </BaseLayout>
 
 <style>

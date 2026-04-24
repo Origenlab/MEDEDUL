@@ -7,9 +7,8 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -244,13 +243,6 @@ const faqSchema = {
     highlight="Barra de Postres"
     subtitle="Tartas, chocolate, macarrones y petit fours deliciosos para bodas, cumpleanos y celebraciones"
     secondaryContent={`<p><strong>Postres deliciosos</strong> como tartas artesanales, brownies de chocolate belga, macarrones franceses y petit fours transforman cualquier fiesta en una experiencia memorable. En Mededul elaboramos buffets de postres con ingredientes selectos y decoracion tematica para bodas, baby showers, XV anos y cumpleanos en Ciudad de Mexico.</p><p><strong>Diseno moderno</strong> estilo Pinterest con bases doradas, carrito vintage y decoracion que impresiona. Ya sea para Navidad, Halloween o fiestas sociales, armamos tu barra de postres con opciones mexicanas tradicionales y reposteria fina. Renta de mesa con snacks, frutos y dulces y postres que tus invitados recordaran.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Ideas y Cotizacion"
-    ctaTitle="Disena Tu Barra de Postres"
-    ctaTitleHighlight="Postres"
-    ctaText="Comparte detalles de tu fiesta o boda para recibir ideas de decoracion y cotizacion personalizada."
-    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
@@ -294,24 +286,6 @@ const faqSchema = {
     events={eventCards}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Cotizacion sin Costo"
-    title="Haz tu Fiesta"
-    titleHighlight="Deliciosa e Inolvidable"
-    text="Te ayudamos a disenar una barra de postres con tartas, chocolate, macarrones y decoracion tematica para tu boda, cumpleanos o celebracion."
-    buttonText="Cotizar Barra de Postres"
-  />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Barra de Postres"
-        titleHighlight="Frecuentes"
-        subtitle="Ideas y respuestas para tu fiesta o boda"
-        content={`<p>Resolvemos dudas sobre tartas, chocolate, decoracion tematica y renta de buffet para tu celebracion en CDMX.</p>`}
-      />
-      <FAQ items={faqs} id="faq-postres" />
-    </div>
-  </section>
+    <FAQContactModule faqItems={faqs} />
 </BaseLayout>

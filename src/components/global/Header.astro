@@ -267,6 +267,8 @@ const isActive = (item: typeof menuItems[0]) => {
     hamburger.classList.toggle('active');
     mobileMenu?.classList.toggle('active');
     document.body.classList.toggle('menu-open');
+    const isOpen = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
   });
 
   // Mobile submenu toggles

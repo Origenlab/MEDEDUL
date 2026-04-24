@@ -8,7 +8,6 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import DirectorioSidebar from './DirectorioSidebar.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DulceriaCard from './DulceriaCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
 import type { Dulceria } from '@/data/dulcerias';
@@ -38,31 +37,49 @@ const breadcrumbItems = [
   { name: dulceria.nombre, url: `/directorio/${dulceria.slug}` }
 ];
 
+// Determinar si tiene teléfono válido (usado en FAQs y CTAs)
+const tieneTelefono = dulceria.telefono !== 'Sin teléfono registrado';
+const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : '';
+
 // Generar FAQs dinámicas basadas en los datos de la dulcería
 const faqsDulceria = [
   {
     question: `¿Dónde se encuentra ${dulceria.nombre}?`,
-    answer: `${dulceria.nombre} está ubicada en ${dulceria.direccion}, ${dulceria.colonia}, alcaldía ${dulceria.alcaldia}, CDMX. ${dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} ${dulceria.transporte.referencias?.[0] ? dulceria.transporte.referencias[0] + '.' : ''}`
+    answer: `${dulceria.nombre} está ubicada en ${dulceria.direccion}, ${dulceria.colonia}, alcaldía ${dulceria.alcaldia}, CDMX${dulceria.cp ? ' CP ' + dulceria.cp : ''}. ${dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} ${dulceria.transporte.referencias?.[0] ? dulceria.transporte.referencias[0] + '.' : ''}`
   },
   {
     question: `¿Cuál es el horario de ${dulceria.nombre}?`,
-    answer: `El horario de atención es: Lunes a Viernes de ${dulceria.horario.lunes}, Sábados de ${dulceria.horario.sabado}, y Domingos de ${dulceria.horario.domingo}. Te recomendamos llamar antes si planeas una visita especial.`
+    answer: `El horario de atención es: Lunes a Viernes de ${dulceria.horario.lunes}, Sábados de ${dulceria.horario.sabado}, y Domingos de ${dulceria.horario.domingo}. En temporadas altas (Navidad, Día de Muertos, regreso a clases, San Valentín) los horarios pueden extenderse; te recomendamos confirmar por teléfono antes de visitar.`
   },
   {
     question: `¿Qué productos venden en ${dulceria.nombre}?`,
-    answer: `En ${dulceria.nombre} encontrarás: ${dulceria.productos.slice(0, 5).join(', ')}. ${dulceria.especialidades.length > 0 ? `Se especializan en: ${dulceria.especialidades.slice(0, 3).join(', ')}.` : ''}`
+    answer: `En ${dulceria.nombre} encontrarás: ${dulceria.productos.slice(0, 6).join(', ')}. ${dulceria.especialidades.length > 0 ? `Se especializan en: ${dulceria.especialidades.slice(0, 3).join(', ')}.` : ''} El inventario puede variar según temporada y demanda.`
   },
   {
     question: `¿Cómo llegar a ${dulceria.nombre} en transporte público?`,
     answer: dulceria.transporte.metro && dulceria.transporte.metro.length > 0
-      ? `La opción más conveniente es el Metro ${dulceria.transporte.metro[0].estacion} (Línea ${dulceria.transporte.metro[0].linea}), a ${dulceria.transporte.metro[0].distancia}. ${dulceria.transporte.metrobus && dulceria.transporte.metrobus.length > 0 ? `También puedes usar Metrobús ${dulceria.transporte.metrobus[0].estacion}.` : ''}`
-      : `Para llegar te recomendamos: ${dulceria.transporte.referencias?.join('. ') || 'Consultar ubicación en Google Maps.'}`
+      ? `La opción más conveniente es el Metro ${dulceria.transporte.metro[0].estacion} (Línea ${dulceria.transporte.metro[0].linea}), a ${dulceria.transporte.metro[0].distancia}. ${dulceria.transporte.metrobus && dulceria.transporte.metrobus.length > 0 ? `También puedes usar Metrobús ${dulceria.transporte.metrobus[0].estacion} (Línea ${dulceria.transporte.metrobus[0].linea}).` : ''} En auto, considera estacionamiento limitado en vía pública en zonas comerciales de ${dulceria.alcaldia}.`
+      : `Para llegar te recomendamos: ${dulceria.transporte.referencias?.join('. ') || 'Consultar ubicación en Google Maps.'} Para cargas grandes, considera traslado en auto propio o aplicaciones de movilidad.`
   },
   {
     question: `¿${dulceria.nombre} vende al mayoreo?`,
     answer: dulceria.tipo === 'Dulcería Mayoreo'
-      ? `Sí, ${dulceria.nombre} ofrece precios especiales de mayoreo. Contacta directamente al ${dulceria.telefono} para conocer cantidades mínimas y precios por volumen.`
-      : `${dulceria.nombre} maneja principalmente venta al menudeo, aunque para pedidos grandes te recomendamos contactarlos directamente al ${dulceria.telefono !== 'Sin teléfono registrado' ? dulceria.telefono : 'número disponible en Google Maps'}.`
+      ? `Sí, ${dulceria.nombre} opera con esquema de mayoreo y ofrece precios especiales por volumen. Contacta al ${dulceria.telefono} para confirmar cantidades mínimas por producto, precios por caja o saco, y condiciones de pedido para eventos grandes o reventa.`
+      : `${dulceria.nombre} maneja principalmente venta al menudeo, aunque para pedidos grandes te recomendamos contactarlos directamente al ${dulceria.telefono !== 'Sin teléfono registrado' ? dulceria.telefono : 'número disponible en Google Maps'} y consultar si manejan descuentos por volumen o pedido bajo encargo.`
+  },
+  {
+    question: `¿Sirve ${dulceria.nombre} para abastecer una mesa de dulces o candy bar?`,
+    answer: `Sí. ${dulceria.nombre} ofrece ${dulceria.productos.slice(0, 3).join(', ').toLowerCase()}${dulceria.productos.length > 3 ? ' entre otras categorías' : ''}, mezcla adecuada para armar una mesa de dulces. Como referencia, calcula 150-200 gramos de dulce por invitado y combina al menos 4-6 tipos distintos para lograr variedad visual y de sabor. ${dulceria.especialidades[0] ? `Su fortaleza en ${dulceria.especialidades[0].toLowerCase()} puede funcionar como elemento diferencial de tu mesa.` : ''}`
+  },
+  {
+    question: `¿Qué tan buena es la reputación de ${dulceria.nombre}?`,
+    answer: `${dulceria.nombre} tiene una calificación de ${dulceria.rating}/5 estrellas basada en ${dulceria.resenas.toLocaleString()} reseñas reales publicadas en Google Maps${dulceria.verificado ? ', y el negocio está verificado por Google' : ''}. Es una referencia útil para medir consistencia en atención, disponibilidad de producto y precios frente a otras tiendas de ${dulceria.alcaldia}.`
+  },
+  {
+    question: `¿Conviene visitar ${dulceria.nombre} o hacer pedido telefónico?`,
+    answer: tieneTelefono
+      ? `Para compras pequeñas y exploración de variedad conviene visitar la tienda directamente. Para pedidos grandes, productos específicos, compras al mayoreo o confirmar existencias antes de traslados largos, llama al ${dulceria.telefono}; muchas tiendas de ${dulceria.alcaldia} permiten apartar producto o coordinar entregas locales.`
+      : `${dulceria.nombre} no tiene teléfono público registrado en Google Maps, por lo que la visita presencial sigue siendo la mejor opción. Planea tu traslado considerando horarios de menor afluencia entre semana por la mañana.`
   }
 ];
 
@@ -122,10 +139,6 @@ const localBusinessSchema = {
 
 // Meta descripción optimizada para SEO
 const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.colonia}, ${dulceria.alcaldia}. ${dulceria.rating}/5 (${dulceria.resenas.toLocaleString()} reseñas). ${dulceria.especialidades.slice(0,2).join(', ')}. Tel: ${dulceria.telefono}`;
-
-// Determinar si tiene teléfono válido
-const tieneTelefono = dulceria.telefono !== 'Sin teléfono registrado';
-const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : '';
 ---
 
 <BaseLayout
@@ -243,18 +256,22 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
             <h2>Sobre {dulceria.nombre}</h2>
             <div class="descripcion-contenido">
               <p class="descripcion-intro">{dulceria.descripcionCorta}</p>
+
               <p class="descripcion-texto">
-                Ubicada en <strong>{dulceria.colonia}</strong>, alcaldía <strong>{dulceria.alcaldia}</strong>, esta dulcería
-                {dulceria.tipo === 'Dulcería Mayoreo' ? ' ofrece precios de mayoreo competitivos para comerciantes y organizadores de eventos.' : ''}
-                {dulceria.tipo === 'Tienda de Golosinas' ? ' cuenta con una amplia variedad de dulces y golosinas para todo tipo de ocasiones.' : ''}
-                {dulceria.tipo === 'Tienda de Golosinas Premium' ? ' se especializa en productos selectos y de alta calidad para clientes exigentes.' : ''}
-                {dulceria.tipo === 'Dulcería Tradicional' ? ' mantiene viva la tradición de los dulces mexicanos auténticos.' : ''}
-                Con <strong>{dulceria.resenas.toLocaleString()} reseñas</strong> y una calificación de <strong>{dulceria.rating} estrellas</strong>,
-                es una opción confiable para quienes buscan calidad y variedad.
+                <strong>{dulceria.nombre}</strong> opera como <strong>{dulceria.tipo.toLowerCase()}</strong> en <strong>{dulceria.colonia}</strong>, una de las zonas comerciales de la alcaldía <strong>{dulceria.alcaldia}</strong> en Ciudad de México. Su catálogo concentra {dulceria.productos.slice(0, 4).join(', ').toLowerCase()}{dulceria.productos.length > 4 ? ` y ${dulceria.productos.length - 4} líneas adicionales` : ''}, ofreciendo a vecinos, organizadores de fiestas y comerciantes una alternativa de surtido confiable sin depender de cadenas comerciales.
+                {dulceria.tipo === 'Dulcería Mayoreo' ? ' El formato al mayoreo permite comprar por caja, saco o paquete múltiple, con precios escalonados según volumen, ideal para revendedores, dulcerías más pequeñas y eventos grandes que requieren abastecer 100+ invitados.' : ''}
+                {dulceria.tipo === 'Tienda de Golosinas' ? ' El formato al menudeo facilita armar bolsitas de fiesta, completar pedidos pequeños y comprar dulces por pieza, resolviendo desde la piñata del domingo hasta la mesa de dulces de un cumpleaños.' : ''}
+                {dulceria.tipo === 'Tienda de Golosinas Premium' ? ' El enfoque premium prioriza producto fresco, etiquetado claro, empaque cuidado y líneas importadas o artesanales difíciles de encontrar en dulcerías convencionales.' : ''}
+                {dulceria.tipo === 'Dulcería Tradicional' ? ' El giro tradicional mantiene recetas y productos clásicos mexicanos que cada vez son más difíciles de encontrar, conectando a clientes con sabores regionales auténticos.' : ''}
               </p>
+
+              <p class="descripcion-texto">
+                La reputación de <strong>{dulceria.nombre}</strong> se sostiene en <strong>{dulceria.resenas.toLocaleString()} reseñas verificadas en Google Maps</strong> con una calificación promedio de <strong>{dulceria.rating}/5 estrellas</strong>, señal de que la operación es consistente en atención, disponibilidad de producto y precios frente a la competencia local. {dulceria.verificado ? 'El negocio está verificado por Google, lo que confirma datos de ubicación y horario reales.' : ''} {dulceria.especialidades.length > 0 ? `Sus especialidades reconocidas incluyen ${dulceria.especialidades.slice(0, 3).join(', ').toLowerCase()}, categorías donde su inventario suele superar el de tiendas promedio del sector.` : ''}
+              </p>
+
               {infoAlcaldia && (
                 <p class="descripcion-zona">
-                  <strong>{dulceria.alcaldia}</strong> {infoAlcaldia.descripcion} {infoAlcaldia.caracteristicas.length > 0 ? `Características de la zona: ${infoAlcaldia.caracteristicas.join(', ')}.` : ''}
+                  <strong>Zona comercial {infoAlcaldia.zonaComercial || dulceria.colonia}:</strong> {infoAlcaldia.descripcion} {infoAlcaldia.caracteristicas.length > 0 ? `La zona destaca por ${infoAlcaldia.caracteristicas.join(', ').toLowerCase()}, factores que explican por qué concentra varias dulcerías y hace rentable la visita en un solo traslado cuando necesitas comparar precios o completar una lista amplia.` : ''}
                 </p>
               )}
             </div>
@@ -312,6 +329,9 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
           <!-- Productos Destacados -->
           <section class="negocio-seccion productos-section">
             <h2>Productos que Encontrarás</h2>
+            <p class="seccion-intro">
+              {dulceria.nombre} mantiene un inventario de <strong>{dulceria.productos.length} categorías</strong> de producto activas, suficiente para resolver desde una compra puntual hasta abastecer una mesa de dulces completa. La mezcla combina dulces reconocidos por su rotación con opciones menos comunes que diferencian a la tienda frente a cadenas y misceláneas.
+            </p>
             <div class="productos-lista">
               {dulceria.productos.map((producto, index) => (
                 <div class="producto-categoria">
@@ -322,25 +342,33 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
           </section>
 
           <!-- Especialidades -->
-          <section class="negocio-seccion">
-            <h2>Especialidades</h2>
-            <div class="especialidades-grid">
-              {dulceria.especialidades.map(esp => (
-                <div class="especialidad-item">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                  </svg>
-                  <span>{esp}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          {dulceria.especialidades.length > 0 && (
+            <section class="negocio-seccion">
+              <h2>Especialidades</h2>
+              <p class="seccion-intro">
+                Las especialidades son las categorías donde <strong>{dulceria.nombre}</strong> concentra mayor variedad, mejor precio o producto que no suele encontrarse en dulcerías genéricas. Son las líneas que más buscan los clientes recurrentes y los organizadores de eventos que conocen la zona.
+              </p>
+              <div class="especialidades-grid">
+                {dulceria.especialidades.map(esp => (
+                  <div class="especialidad-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                      <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span>{esp}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           <!-- Servicios -->
           {dulceria.servicios.length > 0 && (
             <section class="negocio-seccion">
               <h2>Servicios</h2>
+              <p class="seccion-intro">
+                Además de la venta directa, <strong>{dulceria.nombre}</strong> ofrece servicios complementarios que facilitan compras grandes, armado de pedidos y planeación de eventos sin necesidad de acudir a múltiples proveedores.
+              </p>
               <div class="servicios-grid">
                 {dulceria.servicios.map(serv => (
                   <div class="servicio-card">
@@ -352,9 +380,49 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
             </section>
           )}
 
+          <!-- Recomendaciones para comprar -->
+          <section class="negocio-seccion recomendaciones-section">
+            <h2>Recomendaciones para comprar en {dulceria.nombre}</h2>
+            <p class="seccion-intro">
+              Lineamientos prácticos para aprovechar mejor tu visita, reducir tiempos y obtener el mejor precio según tu tipo de compra.
+            </p>
+            <div class="recomendaciones-grid">
+              <div class="recomendacion-card">
+                <h3>Antes de ir</h3>
+                <p>
+                  Llama al <strong>{tieneTelefono ? dulceria.telefono : 'número disponible en Google Maps'}</strong> para confirmar disponibilidad de productos específicos, sobre todo si necesitas cantidades grandes o líneas de temporada. {dulceria.tipo === 'Dulcería Mayoreo' ? 'Pregunta por cantidades mínimas al mayoreo y si manejan pedido bajo reserva para eventos.' : 'Consulta si pueden apartar producto si planeas llegar más tarde.'}
+                </p>
+              </div>
+
+              <div class="recomendacion-card">
+                <h3>Mejor horario</h3>
+                <p>
+                  Entre semana por la mañana es cuando el stock está más completo y hay menor afluencia. {dulceria.horario.lunes !== 'Cerrado' ? `Abre L-V ${dulceria.horario.lunes}.` : ''} Evita últimos días previos a Navidad, Día del Niño y 14 de febrero si buscas agilidad.
+                </p>
+              </div>
+
+              <div class="recomendacion-card">
+                <h3>Para eventos y mesas de dulces</h3>
+                <p>
+                  Calcula <strong>150-200 gramos de dulce por invitado</strong> como referencia. Combina {dulceria.productos.slice(0, 2).join(' con ').toLowerCase()} y opciones de {dulceria.productos[2] ? dulceria.productos[2].toLowerCase() : 'temporada'} para lograr variedad visual y de sabor. {dulceria.especialidades[0] ? `Aprovecha su fuerte en ${dulceria.especialidades[0].toLowerCase()} como diferencial.` : ''}
+                </p>
+              </div>
+
+              <div class="recomendacion-card">
+                <h3>Pago y logística</h3>
+                <p>
+                  Confirma formas de pago aceptadas (efectivo, tarjeta, transferencia) antes de ir con un monto grande. Si compras al mayoreo, lleva bolsas o cajas propias para transporte; considera traslado en auto o DiDi si tu compra supera los 10 kg.
+                </p>
+              </div>
+            </div>
+          </section>
+
           <!-- Cómo Llegar -->
           <section class="negocio-seccion transporte-section">
             <h2>Cómo Llegar</h2>
+            <p class="seccion-intro">
+              La ubicación de {dulceria.nombre} en <strong>{dulceria.colonia}, {dulceria.alcaldia}</strong> permite acceso en auto, transporte público y aplicaciones de movilidad. {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 ? `La opción más eficiente en transporte público es el Metro ${dulceria.transporte.metro[0].estacion} de la Línea ${dulceria.transporte.metro[0].linea}, a ${dulceria.transporte.metro[0].distancia} del establecimiento.` : 'Para transporte público conviene consultar rutas de Metrobús y trolebús de la zona, además de apps de movilidad.'} Considera horarios pico de CDMX al planear tu visita, sobre todo si cargarás compras al mayoreo.
+            </p>
             <div class="transporte-grid">
               {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 && (
                 <div class="transporte-card metro-card">
@@ -413,6 +481,9 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
           <!-- Horario -->
           <section class="negocio-seccion">
             <h2>Horario de Atención</h2>
+            <p class="seccion-intro">
+              {dulceria.nombre} opera con horario de lunes a domingo. Para compras grandes y pedidos al mayoreo conviene llegar entre apertura y mediodía, cuando el stock está completo y la atención es más ágil. Los horarios pueden variar en temporadas altas como Navidad, Día de Muertos, regreso a clases y San Valentín; confirma por teléfono antes de traslados largos.
+            </p>
             <div class="horario-tabla">
               {Object.entries(dulceria.horario).map(([dia, hora]) => (
                 <div class="horario-fila">
@@ -427,6 +498,9 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
           <!-- Ubicación Detallada -->
           <section class="negocio-seccion">
             <h2>Ubicación</h2>
+            <p class="seccion-intro">
+              Dirección exacta verificada en Google Maps. {dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} Si vas en auto, considera que las zonas comerciales de {dulceria.alcaldia} suelen tener estacionamiento limitado en vía pública; conviene llegar temprano o usar estacionamientos cercanos.
+            </p>
             <div class="ubicacion-detalle">
               <div class="ubicacion-info">
                 <p><strong>Dirección:</strong> {dulceria.direccion}</p>
@@ -444,6 +518,19 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
                 </svg>
                 Abrir en Google Maps
               </a>
+            </div>
+          </section>
+
+          <!-- Contexto dentro del directorio -->
+          <section class="negocio-seccion contexto-section">
+            <h2>{dulceria.nombre} dentro del directorio de dulcerías de {dulceria.alcaldia}</h2>
+            <div class="contexto-contenido">
+              <p>
+                <strong>{dulceria.nombre}</strong> forma parte del mapa de dulcerías verificadas de <strong>{dulceria.alcaldia}</strong>, una alcaldía de Ciudad de México donde la oferta de dulces y golosinas es relevante por concentrar tanto comercio de barrio como zonas de abasto. {infoAlcaldia && infoAlcaldia.caracteristicas.length > 0 ? `La zona se caracteriza por ${infoAlcaldia.caracteristicas.slice(0, 2).join(' y ').toLowerCase()}, lo que facilita encontrar varios proveedores en un solo traslado.` : ''} Para planear eventos grandes, recorrer dos o tres puntos del directorio en una misma salida suele rendir mejor que comprar todo en un solo lugar.
+              </p>
+              <p>
+                El formato de <strong>{dulceria.tipo.toLowerCase()}</strong> de esta tienda la posiciona frente a otras opciones de la alcaldía: {dulceria.tipo === 'Dulcería Mayoreo' ? 'compite por volumen y precio, con fortaleza en abasto grande y surtido constante' : ''}{dulceria.tipo === 'Tienda de Golosinas' ? 'compite por variedad y proximidad, con fortaleza en compras por pieza y pedidos flexibles' : ''}{dulceria.tipo === 'Tienda de Golosinas Premium' ? 'compite por calidad y presentación, con fortaleza en líneas importadas y empaques cuidados' : ''}{dulceria.tipo === 'Dulcería Tradicional' ? 'compite por autenticidad y herencia, con fortaleza en dulces mexicanos que otros comercios ya no manejan' : ''}. Antes de decidir, vale la pena comparar precios y especialidades frente a otras tiendas listadas en el directorio y evaluar tiempo de traslado, formas de pago y disponibilidad de productos clave para tu evento o reventa.
+              </p>
             </div>
           </section>
 
@@ -486,15 +573,6 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
     </section>
   )}
 
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Necesito%20dulces%20para%20mi%20evento"
-    badge="Mesa de Dulces"
-    title="¿Necesitas una Mesa de Dulces"
-    titleHighlight="Profesional"
-    text="En Mededul diseñamos mesas de dulces personalizadas para bodas, XV años, baby showers y todo tipo de eventos. Déjanos hacer tu fiesta inolvidable."
-    buttonText="Cotizar Mesa de Dulces"
-  />
 </BaseLayout>
 
 <style>
@@ -852,6 +930,75 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
   .descripcion-intro strong,
   .descripcion-texto strong,
   .descripcion-zona strong {
+    color: var(--rosa-principal);
+  }
+
+  /* Intros de sección */
+  .seccion-intro {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.75;
+    margin: 0 0 24px;
+    max-width: 780px;
+  }
+
+  .seccion-intro strong {
+    color: var(--texto-oscuro);
+  }
+
+  /* Recomendaciones */
+  .recomendaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .recomendacion-card {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    border-left: 4px solid var(--rosa-principal);
+  }
+
+  .recomendacion-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 10px;
+  }
+
+  .recomendacion-card p {
+    font-size: 0.95rem;
+    color: var(--texto-light);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .recomendacion-card p strong {
+    color: var(--texto-oscuro);
+  }
+
+  /* Contexto */
+  .contexto-section .contexto-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .contexto-contenido p {
+    font-size: 1rem;
+    color: var(--texto-light);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .contexto-contenido p strong {
     color: var(--rosa-principal);
   }
 
@@ -1224,6 +1371,7 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
     .beneficios-grid,
     .especialidades-grid,
     .servicios-grid,
+    .recomendaciones-grid,
     .relacionadas-grid {
       grid-template-columns: 1fr;
     }

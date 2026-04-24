@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -156,7 +155,6 @@ const galeriaSchema = {
     highlight="Galeria"
     subtitle="Inspira tu evento con nuestros trabajos reales en Ciudad de Mexico"
     secondaryContent={`<p>Explora nuestra <strong>galeria de mesas de dulces</strong> con mas de 500 eventos realizados en CDMX. Cada imagen representa un proyecto real: bodas elegantes, XV anos espectaculares, baby showers tiernos, bautizos significativos y eventos corporativos profesionales.</p><p>Nuestro equipo diseña cada montaje con <strong>atencion al detalle</strong> y <strong>estetica personalizada</strong> segun tu vision. Encuentra inspiracion y contactanos para crear tu mesa perfecta.</p>`}
-    showCTA={false}
   />
 
   <!-- Filtros de Categoria -->
@@ -367,15 +365,6 @@ const galeriaSchema = {
     </div>
   </section>
 
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola! Vi su galeria y me gustaria cotizar una mesa de dulces"
-    badge="Te Inspiraste?"
-    title="Crea tu Mesa de Dulces"
-    titleHighlight="Perfecta"
-    text="Cotiza sin compromiso y hagamos realidad el montaje que imaginaste para tu evento."
-    buttonText="Cotizar por WhatsApp"
-  />
 </BaseLayout>
 
 <style>

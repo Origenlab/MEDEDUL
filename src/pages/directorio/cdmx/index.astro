@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { todasLasDulcerias, getDulceriasPorAlcaldia } from '@/data/dulcerias';
 
 const breadcrumbItems = [
@@ -49,11 +48,10 @@ const totalProveedores = todasLasDulcerias.length;
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Proveedores de Dulces en CDMX"
+    title="Proveedores de Dulces por Alcaldia en CDMX"
     highlight="CDMX"
-    subtitle="Directorio por alcaldia y zona"
-    secondaryContent={`<p>Encuentra proveedores de dulces para fiestas en <strong>las 16 alcaldias de Ciudad de Mexico</strong>. Dulcerias, chocolaterias, confiterias y tiendas especializadas cerca de ti.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> en toda la CDMX.</p>`}
-    showCTA={false}
+    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en las 16 alcaldias de la ciudad`}
+    secondaryContent={`<p><strong>Directorio por alcaldia</strong> organiza a los mejores proveedores de dulces de Ciudad de Mexico segun tu ubicacion, para que encuentres dulcerias, chocolaterias, confiterias y tiendas especializadas cerca de tu domicilio, oficina o venue del evento. Cada ficha incluye direccion, telefono, horarios y resenas reales de Google Maps para tomar decisiones sin perder tiempo.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos en las 16 alcaldias de CDMX te permiten comparar opciones por zona, especialidad y rango de precio. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos o localizar mayoristas historicos como los de La Merced.</p>`}
   />
 
   <!-- Todas las Alcaldias -->
@@ -99,14 +97,6 @@ const totalProveedores = todasLasDulcerias.length;
     </div>
   </section>
 
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20CDMX"
-    badge="CDMX"
-    title="¿Necesitas Ayuda para Encontrar"
-    titleHighlight="Proveedor"
-    text="Te ayudamos a encontrar el proveedor perfecto en tu zona de CDMX."
-    buttonText="Pedir Recomendacion"
-  />
 </BaseLayout>
 
 <style>

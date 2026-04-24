@@ -3,11 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 import {
   todasLasDulcerias,
@@ -157,11 +156,10 @@ const directorioSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Dulcerías en CDMX"
-    highlight="Dulcerías"
-    subtitle="Directorio Verificado 2026"
-    secondaryContent={`<p>Encuentra las <strong>mejores dulcerías y tiendas de golosinas</strong> en Ciudad de México. Todos los negocios están verificados con reseñas reales en Google.</p><p><strong>${stats.total} dulcerías verificadas</strong> en ${stats.alcaldias} alcaldías con +${stats.totalResenas.toLocaleString()} reseñas de clientes.</p>`}
-    showCTA={false}
+    title="Directorio de Dulcerias en CDMX"
+    highlight="Dulcerias"
+    subtitle={`Directorio verificado 2026 · ${stats.total} tiendas con +${stats.totalResenas.toLocaleString()} resenas reales de Google Maps`}
+    secondaryContent={`<p><strong>Directorio profesional de dulcerias en Ciudad de Mexico</strong> curado para que encuentres proveedores reales, verificados y con informacion actualizada de contacto, horarios y catalogo. Cada negocio listado cuenta con resenas auditadas y ubicacion comprobable para que compres con confianza y sin perder tiempo en busquedas fallidas.</p><p><strong>${stats.total} dulcerias verificadas</strong> distribuidas en ${stats.alcaldias} alcaldias de CDMX y zona metropolitana, respaldadas por mas de ${stats.totalResenas.toLocaleString()} resenas de clientes reales. Usa este directorio para surtir tu mesa de dulces, armar bolos para fiestas infantiles o localizar dulces tradicionales mexicanos al mejor precio del mercado.</p>`}
   />
 
   <!-- Buscador y Stats -->
@@ -185,7 +183,12 @@ const directorioSchema = {
               {zonasEdomex.map(z => <option value={z.slug} disabled>{z.nombre}</option>)}
             </optgroup>
           </select>
-          <a href="/directorio/todos" class="buscador-btn">Ver Todas</a>
+          <a href="/directorio/todos" class="buscador-btn">
+            <span>Ver Todas</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
 
         <div class="stats-row">
@@ -289,6 +292,11 @@ const directorioSchema = {
 
           <!-- Zonas -->
           <section class="zonas-section">
+            <SectionHeader
+              title="Explora por"
+              titleHighlight="Zona"
+              subtitle="Encuentra dulcerías cerca de ti en CDMX y zona metropolitana"
+            />
             <div class="zonas-grid-wrapper">
               <!-- CDMX -->
               <div class="zona-bloque">
@@ -411,38 +419,19 @@ const directorioSchema = {
   </section>
 
   <!-- FAQ -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre el"
-        titleHighlight="Directorio"
-        subtitle="Todo lo que necesitas saber"
-      />
-      <FAQ items={faqsDirectorio} id="faq-directorio" />
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20encontrar%20una%20dulcería"
-    badge="Ayuda Personalizada"
-    title="¿No encuentras lo que"
-    titleHighlight="buscas"
-    text="Contáctanos y te ayudamos a encontrar la dulcería perfecta para tu evento. Conocemos todos los negocios del directorio."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqsDirectorio} />
 </BaseLayout>
 
 <style>
   /* Layout con Sidebar */
   .directorio-layout {
-    padding: 60px 0;
+    padding: 50px 0 70px;
     background: #fff;
   }
 
   .directorio-grid {
     display: grid;
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: minmax(0, 1fr) 340px;
     gap: 40px;
     align-items: start;
   }
@@ -451,30 +440,32 @@ const directorioSchema = {
     min-width: 0;
   }
 
-  /* Buscador Section */
+  /* Buscador Section — card flotante sobre fondo gris debajo del QuickEventNav */
   .buscador-section {
-    padding: 0;
-    margin-top: -40px;
+    padding: 60px 0 10px;
+    background: linear-gradient(180deg, #faf7fa 0%, #fff 100%);
     position: relative;
-    z-index: 10;
+    z-index: 2;
   }
 
   .buscador-wrapper {
     background: #fff;
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 40px rgba(26, 26, 46, 0.08);
+    border: 1px solid #f0ebf0;
     padding: 32px;
   }
 
   .buscador-box {
     display: flex;
-    gap: 16px;
+    gap: 14px;
     align-items: center;
   }
 
   .buscador-input-group {
     flex: 1;
     position: relative;
+    min-width: 0;
   }
 
   .buscador-icon {
@@ -482,52 +473,68 @@ const directorioSchema = {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     color: #999;
+    pointer-events: none;
   }
 
   .buscador-input {
     width: 100%;
-    padding: 18px 20px 18px 56px;
+    padding: 16px 20px 16px 52px;
     border: 2px solid #f0f0f0;
-    border-radius: 14px;
-    font-size: 1rem;
-    transition: all 0.3s;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fafafa;
+    transition: all 0.25s;
   }
 
   .buscador-input:focus {
     outline: none;
+    background: #fff;
     border-color: var(--rosa-principal);
     box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.1);
   }
 
   .buscador-select {
-    padding: 18px 24px;
+    padding: 16px 20px;
     border: 2px solid #f0f0f0;
-    border-radius: 14px;
-    font-size: 1rem;
-    background: #fff;
-    min-width: 200px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fafafa;
+    min-width: 220px;
     cursor: pointer;
+    color: var(--texto-oscuro);
   }
 
   .buscador-select:focus {
     outline: none;
+    background: #fff;
     border-color: var(--rosa-principal);
   }
 
   .buscador-btn {
-    padding: 18px 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
     background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
     color: #fff;
     border: none;
-    border-radius: 14px;
-    font-size: 1rem;
-    font-weight: 600;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s;
+    white-space: nowrap;
+    transition: all 0.25s;
+  }
+
+  .buscador-btn svg {
+    width: 18px;
+    height: 18px;
   }
 
   .buscador-btn:hover {
@@ -536,11 +543,11 @@ const directorioSchema = {
   }
 
   .stats-row {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    margin-top: 28px;
-    padding-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 26px;
+    padding-top: 26px;
     border-top: 1px solid #f0f0f0;
   }
 
@@ -551,32 +558,36 @@ const directorioSchema = {
   .stat-numero {
     display: block;
     font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
+    font-size: 1.85rem;
     font-weight: 700;
     color: var(--rosa-principal);
     line-height: 1;
+    margin-bottom: 4px;
   }
 
   .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 500;
     color: var(--texto-light);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
   }
 
   /* Destacados Section */
   .destacados-section {
-    margin-bottom: 60px;
+    margin-bottom: 70px;
   }
 
   .proveedores-grid-destacados {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    margin-top: 36px;
   }
 
   .ver-todos-wrapper {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 36px;
   }
 
   .btn-ver-todos {
@@ -606,37 +617,45 @@ const directorioSchema = {
 
   /* Categorias Section */
   .categorias-section {
-    margin-bottom: 60px;
+    margin-bottom: 70px;
   }
 
   .categorias-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    margin-top: 40px;
+    margin-top: 36px;
   }
 
   .categoria-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 20px;
+    gap: 18px;
+    padding: 22px;
     background: #fff;
     border: 2px solid #f0f0f0;
     border-radius: 16px;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.25s;
   }
 
   .categoria-card:hover {
     border-color: var(--rosa-principal);
-    box-shadow: 0 8px 30px rgba(209, 0, 122, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(209, 0, 122, 0.12);
+    transform: translateY(-3px);
   }
 
   .categoria-icono {
     font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fdf4fa 0%, #fff 100%);
+    border-radius: 14px;
     flex-shrink: 0;
+    border: 1px solid rgba(209, 0, 122, 0.08);
   }
 
   .categoria-info {
@@ -646,23 +665,28 @@ const directorioSchema = {
 
   .categoria-info h3 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-size: 1.02rem;
     font-weight: 700;
     color: var(--texto-oscuro);
     margin: 0 0 4px;
+    line-height: 1.25;
   }
 
   .categoria-info p {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--texto-light);
     margin: 0 0 6px;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .categoria-cantidad {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     color: var(--rosa-principal);
+    background: rgba(209, 0, 122, 0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
   }
 
   .categoria-arrow {
@@ -670,17 +694,23 @@ const directorioSchema = {
     height: 20px;
     color: var(--rosa-principal);
     flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+
+  .categoria-card:hover .categoria-arrow {
+    transform: translateX(4px);
   }
 
   /* Zonas Section */
   .zonas-section {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   .zonas-grid-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 22px;
+    margin-top: 36px;
   }
 
   .zona-bloque {
@@ -812,7 +842,7 @@ const directorioSchema = {
 
   /* Registro Section */
   .registro-section {
-    padding: 80px 0;
+    padding: 70px 0;
     background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
     color: #fff;
   }
@@ -914,15 +944,11 @@ const directorioSchema = {
     display: block;
   }
 
-  /* FAQ Section */
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
-
   /* Responsive */
   @media (max-width: 1200px) {
     .directorio-grid {
       grid-template-columns: 1fr;
+      gap: 50px;
     }
   }
 
@@ -938,22 +964,36 @@ const directorioSchema = {
   }
 
   @media (max-width: 900px) {
-    .buscador-box {
-      flex-direction: column;
+    .buscador-section {
+      padding: 40px 0 0;
     }
 
-    .buscador-select {
+    .buscador-wrapper {
+      padding: 24px;
+    }
+
+    .buscador-box {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .buscador-input-group,
+    .buscador-select,
+    .buscador-btn {
       width: 100%;
     }
 
     .buscador-btn {
-      width: 100%;
-      text-align: center;
+      justify-content: center;
     }
 
     .stats-row {
-      gap: 30px;
-      flex-wrap: wrap;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat-numero {
+      font-size: 1.5rem;
     }
 
     .categorias-grid {
@@ -963,28 +1003,51 @@ const directorioSchema = {
     .zonas-grid-wrapper {
       grid-template-columns: 1fr;
     }
+
+    .proveedores-grid-destacados {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
     .directorio-layout {
-      padding: 40px 0;
+      padding: 40px 0 50px;
     }
 
     .buscador-section {
-      margin-top: -20px;
+      padding: 32px 0 0;
     }
 
     .buscador-wrapper {
-      padding: 24px;
-      border-radius: 20px;
+      padding: 20px;
+      border-radius: 18px;
+    }
+
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+      padding-top: 20px;
     }
 
     .stat-numero {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
 
-    .proveedores-grid-destacados {
-      grid-template-columns: repeat(2, 1fr);
+    .destacados-section,
+    .categorias-section {
+      margin-bottom: 50px;
+    }
+
+    .categoria-card {
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .categoria-icono {
+      width: 48px;
+      height: 48px;
+      font-size: 1.7rem;
     }
 
     .zona-lista {
@@ -992,7 +1055,7 @@ const directorioSchema = {
     }
 
     .zona-bloque {
-      padding: 20px;
+      padding: 22px;
     }
 
     .registro-texto h2 {
@@ -1003,6 +1066,22 @@ const directorioSchema = {
   @media (max-width: 480px) {
     .proveedores-grid-destacados {
       grid-template-columns: 1fr;
+    }
+
+    .buscador-wrapper {
+      padding: 16px;
+    }
+
+    .buscador-input,
+    .buscador-select,
+    .buscador-btn {
+      padding: 14px 16px 14px 48px;
+      font-size: 0.9rem;
+    }
+
+    .buscador-select,
+    .buscador-btn {
+      padding: 14px 16px;
     }
   }
 </style>

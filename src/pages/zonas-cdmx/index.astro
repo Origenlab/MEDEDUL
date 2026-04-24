@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -135,7 +134,6 @@ const zonasSchema = {
     highlight="CDMX"
     subtitle="Cobertura completa en Ciudad de Mexico y area metropolitana"
     secondaryContent={`<p>Ofrecemos servicio de <strong>mesas de dulces en todas las zonas de CDMX</strong>. Desde Polanco hasta Coyoacan, desde Santa Fe hasta Interlomas, llegamos a tu evento con la misma calidad y profesionalismo.</p><p>Cada zona tiene sus venues favoritos y nosotros conocemos los mejores. Selecciona tu zona para ver informacion especifica sobre <strong>tiempos de llegada, venues recomendados y testimonios locales</strong>.</p>`}
-    showCTA={false}
   />
 
   <!-- Zonas Premium -->
@@ -309,15 +307,6 @@ const zonasSchema = {
     </div>
   </section>
 
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20para%20mi%20zona"
-    badge="Servicio en Tu Zona"
-    title="Cotiza para"
-    titleHighlight="Tu Ubicacion"
-    text="Indicanos la zona de tu evento y te enviamos una cotizacion personalizada con tiempos y disponibilidad."
-    buttonText="Cotizar por WhatsApp"
-  />
 </BaseLayout>
 
 <style>

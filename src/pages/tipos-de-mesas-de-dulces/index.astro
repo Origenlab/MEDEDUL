@@ -6,10 +6,14 @@ import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsFrutas, subsPostres, subsQuesos,
+  subsSnacks, subsBotanas, subsTradicionles, subsDonas,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces, subsStandPastel,
+  subsDisenoPersonalizado, subsCalidadPremium, subsServicioCompleto, subsCeroEstres,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Servicios', url: '/servicios' },
@@ -170,13 +174,6 @@ const faqSchema = {
     highlight="Mesas de Dulces"
     subtitle="Combinaciones profesionales para bodas, XV anos, eventos corporativos y celebraciones familiares"
     secondaryContent={`<p><strong>Tipos de mesas de dulces</strong> disenados con criterio profesional te permiten elegir la configuracion exacta segun invitados, estilo de evento y objetivo visual. En Mededul te guiamos para construir una propuesta equilibrada entre estetica, variedad y funcionalidad.</p><p><strong>Combinaciones</strong> como dulces con postres, frutas con botanas o quesos con estaciones interactivas elevan la experiencia del invitado y mejoran el resultado general del montaje. Nuestro enfoque asegura coherencia visual y operativa de principio a fin.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Elige la Combinacion Ideal"
-    ctaTitleHighlight="Ideal"
-    ctaText="Comparte tu tipo de evento y te ayudamos a seleccionar la mezcla de mesas que mas valor aporte a tu celebracion."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <section class="section-paquetes" id="paquetes">
@@ -281,6 +278,7 @@ const faqSchema = {
           excerpt="Candy bar personalizado con enfoque visual y operativo para todo tipo de evento."
           cta="Ver Mesa de Dulces"
           badge="Popular"
+          subsections={subsDulces}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-postres"
@@ -289,6 +287,7 @@ const faqSchema = {
           title="Mesa de Postres"
           excerpt="Reposteria fina y presentacion premium para elevar la experiencia del invitado."
           cta="Ver Mesa de Postres"
+          subsections={subsPostres}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
@@ -297,6 +296,7 @@ const faqSchema = {
           title="Mesa de Frutas"
           excerpt="Alternativa fresca y saludable con montaje profesional y gran impacto visual."
           cta="Ver Mesa de Frutas"
+          subsections={subsFrutas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
@@ -305,6 +305,7 @@ const faqSchema = {
           title="Quesos y Embutidos"
           excerpt="Propuesta sofisticada para bodas, cocteles y eventos corporativos de alto nivel."
           cta="Ver Mesa Gourmet"
+          subsections={subsQuesos}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-snacks"
@@ -313,6 +314,7 @@ const faqSchema = {
           title="Mesa de Snacks"
           excerpt="Formato practico y versatil para mantener flujo de consumo durante todo el evento."
           cta="Ver Mesa de Snacks"
+          subsections={subsSnacks}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-botanas"
@@ -321,6 +323,7 @@ const faqSchema = {
           title="Mesa de Botanas"
           excerpt="Opciones saladas y variedad estrategica para complementar tu experiencia de servicio."
           cta="Ver Mesa de Botanas"
+          subsections={subsBotanas}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
@@ -329,6 +332,7 @@ const faqSchema = {
           title="Dulces Tradicionales"
           excerpt="Sabores mexicanos clasicos con presentacion cuidada para eventos con identidad cultural."
           cta="Ver Dulces Tradicionales"
+          subsections={subsTradicionles}
         />
         <ServiceCard
           href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
@@ -338,6 +342,7 @@ const faqSchema = {
           excerpt="Formato moderno, vistoso y altamente fotografiable para celebraciones sociales."
           cta="Ver Donas y Cupcakes"
           badge="Tendencia"
+          subsections={subsDonas}
         />
       </div>
     </div>
@@ -360,6 +365,7 @@ const faqSchema = {
           title="Fuente de Chocolate"
           excerpt="Estacion premium para elevar experiencia y flujo de invitados."
           cta="Ver Fuente de Chocolate"
+          subsections={subsFuenteChocolate}
         />
         <ServiceCard
           href="/estaciones-interactivas/fuente-de-chamoy"
@@ -368,6 +374,7 @@ const faqSchema = {
           title="Fuente de Chamoy"
           excerpt="Experiencia interactiva con identidad mexicana y alta participacion."
           cta="Ver Fuente de Chamoy"
+          subsections={subsFuenteChamoy}
         />
         <ServiceCard
           href="/estaciones-interactivas/pared-de-dulces"
@@ -376,6 +383,7 @@ const faqSchema = {
           title="Pared de Dulces"
           excerpt="Elemento escenografico funcional para decoracion y servicio en un solo punto."
           cta="Ver Candy Wall"
+          subsections={subsParedDulces}
         />
         <ServiceCard
           href="/estaciones-interactivas/stand-para-pastel"
@@ -384,19 +392,12 @@ const faqSchema = {
           title="Stand para Pastel"
           excerpt="Realza el momento del pastel con una estacion elegante y fotografiable."
           cta="Ver Stand para Pastel"
+          subsections={subsStandPastel}
         />
       </div>
     </div>
   </section>
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria sin Costo"
-    title="¿No Sabes Que Tipo de Mesa Elegir?"
-    titleHighlight="Elegir"
-    text="Te recomendamos la configuracion ideal segun tu tipo de evento, perfil de invitados y presupuesto."
-    buttonText="Solicitar Asesoria"
-  />
 
   <section class="section-proceso section-padding" id="proceso">
     <div class="container">
@@ -437,6 +438,7 @@ const faqSchema = {
           title="Diseno Personalizado"
           excerpt="Cada propuesta se adapta al concepto real de tu evento, no a plantillas genericas."
           cta="Ver Diseno"
+          subsections={subsDisenoPersonalizado}
         />
         <ServiceCard
           href="/porque-mededul/calidad-premium"
@@ -445,6 +447,7 @@ const faqSchema = {
           title="Calidad Premium"
           excerpt="Seleccion de producto y presentacion de alto nivel para resultados consistentes."
           cta="Ver Calidad"
+          subsections={subsCalidadPremium}
         />
         <ServiceCard
           href="/porque-mededul/servicio-completo"
@@ -453,6 +456,7 @@ const faqSchema = {
           title="Servicio Completo"
           excerpt="Planeacion, montaje y desmontaje con coordinacion profesional en cada fase."
           cta="Ver Servicio"
+          subsections={subsServicioCompleto}
         />
         <ServiceCard
           href="/porque-mededul/cero-estres"
@@ -461,24 +465,12 @@ const faqSchema = {
           title="Cero Estres"
           excerpt="Gestion ordenada para que disfrutes el evento mientras nosotros resolvemos la operacion."
           cta="Ver Metodologia"
+          subsections={subsCeroEstres}
         />
       </div>
     </div>
   </section>
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Tipos de Mesas"
-        titleHighlight="Frecuentes"
-        subtitle="Resolvemos las dudas clave antes de cotizar"
-        content={`<p>Estas respuestas te ayudaran a elegir la opcion correcta con criterios claros de servicio y ejecucion.</p>`}
-      />
-
-      <FAQ items={faqItems} id="faq-tipos-mesas" />
-    </div>
-  </section>
-
-  <ContactSection />
+  <FAQContactModule faqItems={faqItems} />
 </BaseLayout>
 

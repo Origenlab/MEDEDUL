@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Por que Mededul', url: '/porque-mededul' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Diseno Personalizado"
     subtitle="Direccion visual a la medida para crear montajes unicos, coherentes y memorables"
     secondaryContent={`<p><strong>Diseno</strong> personalizado profesional evita montajes genericos y te permite construir una experiencia visual alineada al objetivo real de tu evento. En Mededul convertimos idea, estilo y contexto en una propuesta clara, funcional y de alto impacto.</p><p><strong>Personalizado</strong> no significa improvisado: implica metodologia, criterio estetico y ejecucion precisa para cuidar cada detalle del montaje. Asi logramos resultados consistentes que elevan imagen, experiencia de invitados y valor percibido.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Proyecto"
-    ctaTitleHighlight="Personalizado"
-    ctaText="Comparte estilo, sede y objetivo para recibir una propuesta profesional con direccion visual clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el nivel de diseno personalizado segun complejidad y aforo del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Complementa tu decision con nuestros pilares de servicio y calidad." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Idea en un Montaje" titleHighlight="Unico" text="Te ayudamos a desarrollar una propuesta visual personalizada con ejecucion profesional de inicio a fin." buttonText="Cotizar Diseno Personalizado" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Diseno Personalizado" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir mejor el alcance de tu proyecto.</p>`} />
-      <FAQ items={faqs} id="faq-diseno-personalizado" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

@@ -5,8 +5,7 @@ import Hero from '@/components/global/Hero.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
 
 const breadcrumbItems = [
@@ -270,25 +269,7 @@ const anzuresSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre Servicio en"
-        titleHighlight="Anzures"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqsAnzures} id="faq-anzures" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Anzures%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
-    badge="Evento en Anzures"
-    title="Cotiza para tu Evento en"
-    titleHighlight="Anzures"
-    text="Somos tus vecinos. Indicanos tu evento y fecha, te visitamos sin costo para hacer propuesta."
-    buttonText="Cotizar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsAnzures} />
 </BaseLayout>
 
 <style>
@@ -348,10 +329,6 @@ const anzuresSchema = {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 50px;
-  }
-
-  .faq-section {
-    background: #fff;
   }
 
   @media (max-width: 1024px) {

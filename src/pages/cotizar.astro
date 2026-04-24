@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Cotizar', url: '/cotizar' }
@@ -133,7 +132,6 @@ const cotizarSchema = {
     highlight="Mesa de Dulces"
     subtitle="Respuesta en menos de 2 horas por WhatsApp"
     secondaryContent={`<p><strong>Cotización gratis y sin compromiso.</strong> Envíanos los datos de tu evento y recibe una propuesta personalizada con opciones y precios claros. Sin letra pequeña, sin sorpresas.</p><p>Con <strong>500+ eventos exitosos</strong> y calificación 5.0, te garantizamos respuesta rápida, precios transparentes y el mejor servicio para tu celebración en CDMX.</p>`}
-    showCTA={false}
   />
 
   <!-- CTA Principal WhatsApp -->
@@ -245,27 +243,7 @@ const cotizarSchema = {
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Cotización"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqsCotizar} id="faq-cotizar" />
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20para%20mi%20evento"
-    badge="¿Listo para Cotizar?"
-    title="Tu Evento Merece lo"
-    titleHighlight="Mejor"
-    text="Envíanos un mensaje y en menos de 2 horas tienes tu propuesta personalizada. Sin compromiso."
-    buttonText="Cotizar Ahora por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsCotizar} />
 </BaseLayout>
 
 <style>
@@ -510,11 +488,6 @@ const cotizarSchema = {
     color: var(--texto-light);
     font-size: 0.9rem;
     line-height: 1.6;
-  }
-
-  /* FAQ */
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   /* Responsive */

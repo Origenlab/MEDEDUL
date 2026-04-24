@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Boda"
     subtitle="Candy bar nupcial de alto nivel para elevar la experiencia visual y gastronomica de tu recepcion"
     secondaryContent={`<p><strong>Boda</strong> premium requiere una mesa de dulces que combine elegancia estetica, calidad de producto y coordinacion precisa con el ritmo de la celebracion. En Mededul disenamos montajes nupciales que refuerzan el concepto del evento y se integran de forma impecable al venue.</p><p><strong>Candy bar</strong> para boda bien ejecutado incrementa el valor percibido, mejora la experiencia de invitados y aporta un punto fotografico memorable durante la recepcion. Operamos cada detalle con estandar profesional para que vivas tu gran dia sin preocupaciones.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Disena Tu Mesa de"
-    ctaTitleHighlight="Boda"
-    ctaText="Comparte estilo, aforo y sede para construir una propuesta nupcial personalizada con cotizacion clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de boda segun invitados, estilo y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu boda." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para diferentes celebraciones." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Recepcion una Experiencia" titleHighlight="Inolvidable" text="Te ayudamos a implementar una mesa de dulces nupcial elegante, funcional y alineada a tu boda." buttonText="Cotizar Mesa de Boda" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Boda" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu recepcion.</p>`} />
-      <FAQ items={faqs} id="faq-boda" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

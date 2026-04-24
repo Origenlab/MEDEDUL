@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Corporativos"
     subtitle="Candy bar profesional para eventos empresariales con enfoque en imagen, hospitalidad y ejecucion puntual"
     secondaryContent={`<p><strong>Corporativos</strong> exitosos necesitan un candy bar que comunique profesionalismo, refuerce identidad de marca y mejore la experiencia de asistentes en cada interaccion. En Mededul disenamos propuestas empresariales orientadas a impacto visual y operacion eficiente.</p><p><strong>Eventos</strong> de networking, lanzamientos y celebraciones internas se benefician de un montaje bien ejecutado que eleva percepcion de calidad y ordena el flujo de servicio. Entregamos una solucion integral para que tu empresa proyecte una imagen solida y memorable.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu Evento"
-    ctaTitleHighlight="Corporativo"
-    ctaText="Comparte objetivo, aforo y sede para recibir una propuesta comercial clara y alineada a tu marca."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el candy bar corporativo al tipo de evento y nivel de servicio requerido." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu evento empresarial." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para celebraciones sociales." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Convierte Tu Evento en una Experiencia" titleHighlight="Profesional" text="Te ayudamos a implementar un candy bar corporativo alineado a imagen de marca y objetivos del evento." buttonText="Cotizar Corporativo" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Candy Bar Corporativo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir una propuesta empresarial efectiva.</p>`} />
-      <FAQ items={faqs} id="faq-corporativos" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

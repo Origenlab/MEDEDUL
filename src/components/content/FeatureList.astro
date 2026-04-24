@@ -78,16 +78,17 @@ const { items, title, icon = '✓', columns = 1, variant = 'default' } = Astro.p
 
   .feature-icon {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(255, 107, 179, 0.1) 100%);
-    color: var(--rosa-principal, #D1007A);
+    background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);
+    color: #fff;
     border-radius: 50%;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 800;
+    box-shadow: 0 3px 10px rgba(209, 0, 122, 0.35);
   }
 
   .feature-text {

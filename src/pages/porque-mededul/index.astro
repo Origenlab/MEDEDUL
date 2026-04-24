@@ -5,10 +5,12 @@ import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import {
+  subsDisenoPersonalizado, subsCalidadPremium, subsServicioCompleto, subsCeroEstres,
+  subsCatTiposMesas, subsCatCandyBar, subsCatEstaciones, subsCatServicios,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Servicios', url: '/servicios' },
@@ -166,13 +168,6 @@ const faqSchema = {
     highlight="Elegir Mededul"
     subtitle="Metodologia profesional para disenar, montar y operar experiencias de mesas de dulces sin improvisaciones"
     secondaryContent={`<p><strong>Experiencia</strong> comprobada en eventos sociales y corporativos nos permite ejecutar cada montaje con estandares consistentes de calidad, puntualidad y presentacion. En Mededul convertimos tus objetivos en una propuesta clara para que el resultado final sea visualmente potente y operativamente confiable.</p><p><strong>Confianza</strong> operativa significa procesos definidos en diseno, curaduria, montaje y desmontaje para reducir riesgos y asegurar una ejecucion impecable. Nuestro equipo te acompana de principio a fin para que vivas tu evento con control, tranquilidad y nivel premium.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Recibe una Propuesta Profesional"
-    ctaTitleHighlight="Profesional"
-    ctaText="Comparte fecha, tipo de evento y numero de invitados para recomendarte la mejor estrategia de servicio."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <section class="section-paquetes" id="paquetes">
@@ -277,6 +272,7 @@ const faqSchema = {
           excerpt="Conceptos visuales adaptados al tipo de evento, paleta y estilo del cliente."
           cta="Ver Diseno"
           badge="Pilar"
+          subsections={subsDisenoPersonalizado}
         />
         <ServiceCard
           href="/porque-mededul/calidad-premium"
@@ -285,6 +281,7 @@ const faqSchema = {
           title="Calidad Premium"
           excerpt="Curaduria de insumos y presentacion para sostener nivel premium en cada montaje."
           cta="Ver Calidad"
+          subsections={subsCalidadPremium}
         />
         <ServiceCard
           href="/porque-mededul/servicio-completo"
@@ -293,6 +290,7 @@ const faqSchema = {
           title="Servicio Completo"
           excerpt="Planeacion, montaje y desmontaje con coordinacion profesional en cada fase."
           cta="Ver Servicio"
+          subsections={subsServicioCompleto}
         />
         <ServiceCard
           href="/porque-mededul/cero-estres"
@@ -301,6 +299,7 @@ const faqSchema = {
           title="Cero Estres"
           excerpt="Procesos claros para que disfrutes el evento mientras nosotros resolvemos la operacion."
           cta="Ver Metodologia"
+          subsections={subsCeroEstres}
         />
       </div>
     </div>
@@ -323,6 +322,7 @@ const faqSchema = {
           title="Tipos de Mesas"
           excerpt="Catalogo de mesas de dulces, postres, frutas, snacks y opciones gourmet para cada tipo de evento."
           cta="Ver Tipos de Mesas"
+          subsections={subsCatTiposMesas}
         />
         <ServiceCard
           href="/candy-bar-eventos"
@@ -331,6 +331,7 @@ const faqSchema = {
           title="Candy Bar por Evento"
           excerpt="Propuestas especificas para boda, XV anos, baby shower, bautizo, corporativo y graduacion."
           cta="Ver Candy Bar"
+          subsections={subsCatCandyBar}
         />
         <ServiceCard
           href="/estaciones-interactivas"
@@ -339,6 +340,7 @@ const faqSchema = {
           title="Estaciones Interactivas"
           excerpt="Fuente de chocolate, chamoy, candy wall y stand para pastel para elevar la experiencia."
           cta="Ver Estaciones"
+          subsections={subsCatEstaciones}
         />
         <ServiceCard
           href="/servicios"
@@ -348,19 +350,12 @@ const faqSchema = {
           excerpt="Planeacion y ejecucion completa para producir eventos con resultados consistentes y premium."
           cta="Ver Servicios"
           badge="Integral"
+          subsections={subsCatServicios}
         />
       </div>
     </div>
   </section>
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria sin Costo"
-    title="Quieres una Propuesta sin Riesgo?"
-    titleHighlight="sin Riesgo"
-    text="Te ayudamos a definir una estrategia de montaje clara para tu evento con alcance, tiempos y presupuesto bien estructurados."
-    buttonText="Solicitar Asesoria"
-  />
 
   <section class="section-proceso section-padding" id="proceso">
     <div class="container">
@@ -384,18 +379,5 @@ const faqSchema = {
     </div>
   </section>
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Mededul"
-        titleHighlight="Frecuentes"
-        subtitle="Resolvemos las dudas clave antes de contratar"
-        content={`<p>Estas respuestas te permiten evaluar con claridad nuestro enfoque de trabajo y tomar una decision informada.</p>`}
-      />
-
-      <FAQ items={faqItems} id="faq-porque-mededul" />
-    </div>
-  </section>
-
-  <ContactSection />
+  <FAQContactModule faqItems={faqItems} />
 </BaseLayout>

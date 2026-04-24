@@ -7,9 +7,8 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -233,13 +232,6 @@ const faqSchema = {
     highlight="Dulces Tradicionales"
     subtitle="Cocadas, jamoncillos, glorias y sabores autenticos para fiestas, bodas y XV anos"
     secondaryContent={`<p><strong>Dulces tradicionales mexicanos</strong> son mucho mas que golosinas: son memoria viva de nuestra gastronomia mexicana, testigos de fiestas familiares y celebraciones que han pasado de generacion en generacion. En Mededul creamos mesas de dulces tradicionales con cocadas, jamoncillos, glorias de Linares, mazapan y dulces regionales que transforman cualquier fiesta en un viaje por los sabores que nos definen como mexicanos.</p><p><strong>Tematica mexicana</strong> autentica con papel picado, ceramica talavera y textiles tipicos que honran nuestras tradiciones. Ofrecemos renta de mesa con dulces tipicos para fiestas patrias, bodas mexicanas, XV anos, posadas navidenas, baby showers y celebraciones con toque mexicano. Ideas de mesa que celebran nuestras raices y sorprenden el paladar de tus invitados en Ciudad de Mexico.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Ideas y Cotizacion"
-    ctaTitle="Disena Tu Mesa Tradicional"
-    ctaTitleHighlight="Tradicional"
-    ctaText="Comparte detalles de tu fiesta o boda para recibir ideas de dulces mexicanos y cotizacion."
-    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
@@ -283,24 +275,6 @@ const faqSchema = {
     events={eventCards}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Cotizacion sin Costo"
-    title="Celebra tus Raices con una"
-    titleHighlight="Fiesta Mexicana Inolvidable"
-    text="Te ayudamos a disenar una mesa de dulces tradicionales con cocadas, glorias, dulces regionales y tematica mexicana para tu boda o celebracion."
-    buttonText="Cotizar Mesa Tradicional"
-  />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Dulces Tradicionales"
-        titleHighlight="Frecuentes"
-        subtitle="Ideas y respuestas para tu fiesta mexicana"
-        content={`<p>Resolvemos dudas sobre cocadas, jamoncillos, dulces regionales, tematica mexicana y renta de mesa tradicional para tu celebracion en CDMX.</p>`}
-      />
-      <FAQ items={faqs} id="faq-tradicionales" />
-    </div>
-  </section>
+    <FAQContactModule faqItems={faqs} />
 </BaseLayout>

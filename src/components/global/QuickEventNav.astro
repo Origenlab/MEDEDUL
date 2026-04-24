@@ -1,0 +1,250 @@
+---
+/**
+ * QuickEventNav Component
+ * =======================
+ * Barra horizontal estilo REDEIL. Auto-detecta el path actual
+ * y muestra ítems contextuales según la sección del sitio.
+ * Se usa una sola vez en Hero.astro — aplica a todo el sitio.
+ */
+
+interface NavItem {
+  href: string;
+  icon: string;
+  title: string;
+  sub: string;
+  cta?: boolean;
+}
+
+const CTA: NavItem = {
+  href: "/cotizar",
+  icon: "💬",
+  title: "Cotizar Gratis",
+  sub: "Respuesta en menos de 2 horas",
+  cta: true,
+};
+
+const L2_GLOBAL: NavItem[] = [
+  { href: "/tipos-de-mesas-de-dulces", icon: "🍬", title: "Tipos de Mesas",         sub: "Dulces · Postres · Frutas · Quesos" },
+  { href: "/candy-bar-eventos",        icon: "🎉", title: "Candy Bar por Evento",    sub: "Bodas · XV · Baby Shower · Más" },
+  { href: "/estaciones-interactivas",  icon: "⭐", title: "Estaciones Interactivas", sub: "Chocolate · Chamoy · Candy Wall" },
+  CTA,
+];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const getItems = (): NavItem[] => {
+  // Candy Bar por Evento — muestra las subcategorías de evento
+  if (path.startsWith("/candy-bar-eventos")) {
+    return [
+      { href: "/candy-bar-eventos/mesa-dulces-boda",               icon: "💍", title: "Bodas",         sub: "Candy bar nupcial premium" },
+      { href: "/candy-bar-eventos/mesa-dulces-xv-anos",            icon: "👑", title: "XV Años",       sub: "Diseño personalizado" },
+      { href: "/candy-bar-eventos/mesa-dulces-baby-shower",        icon: "🍼", title: "Baby Shower",   sub: "Temático y elegante" },
+      { href: "/candy-bar-eventos/mesa-dulces-bautizo",            icon: "🕊️", title: "Bautizos",     sub: "Sobrio y familiar" },
+      { href: "/candy-bar-eventos/mesa-dulces-cumpleanos-infantil",icon: "🎉", title: "Infantiles",    sub: "Divertido y colorido" },
+      CTA,
+    ];
+  }
+
+  // Tipos de Mesas — muestra los formatos de mesa
+  if (path.startsWith("/tipos-de-mesas-de-dulces")) {
+    return [
+      { href: "/tipos-de-mesas-de-dulces/mesa-de-dulces",              icon: "🍬", title: "Mesa de Dulces",    sub: "Candy bar clásico" },
+      { href: "/tipos-de-mesas-de-dulces/mesa-de-frutas",              icon: "🍓", title: "Mesa de Frutas",    sub: "Fresca y saludable" },
+      { href: "/tipos-de-mesas-de-dulces/mesa-de-postres",             icon: "🍰", title: "Mesa de Postres",   sub: "Gourmet y elegante" },
+      { href: "/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos", icon: "🧀", title: "Quesos y Embutidos",sub: "Premium y sofisticado" },
+      { href: "/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes",   icon: "🍩", title: "Donas y Cupcakes",  sub: "Moderno y fotográfico" },
+      CTA,
+    ];
+  }
+
+  // Estaciones Interactivas — muestra las estaciones disponibles
+  if (path.startsWith("/estaciones-interactivas")) {
+    return [
+      { href: "/estaciones-interactivas/fuente-de-chocolate", icon: "🍫", title: "Fuente Chocolate", sub: "Belga · Interactiva" },
+      { href: "/estaciones-interactivas/fuente-de-chamoy",    icon: "🌶️", title: "Fuente Chamoy",   sub: "Artesanal · Mexicana" },
+      { href: "/estaciones-interactivas/pared-de-dulces",     icon: "📸", title: "Candy Wall",       sub: "Decorativa · Fotográfica" },
+      { href: "/estaciones-interactivas/stand-para-pastel",   icon: "🎂", title: "Stand para Pastel",sub: "Elegante · Premium" },
+      CTA,
+    ];
+  }
+
+  // Zonas CDMX — L2 globales (el usuario ya está en la sección correcta)
+  if (path.startsWith("/zonas-cdmx")) {
+    return L2_GLOBAL;
+  }
+
+  // Blog — L2 globales
+  if (path.startsWith("/blog")) {
+    return L2_GLOBAL;
+  }
+
+  // Directorio — L2 globales
+  if (path.startsWith("/directorio")) {
+    return L2_GLOBAL;
+  }
+
+  // Por qué Mededul — L2 globales
+  if (path.startsWith("/porque-mededul")) {
+    return L2_GLOBAL;
+  }
+
+  // Cotizar — sin el ítem CTA (ya estás ahí)
+  if (path === "/cotizar") {
+    return [
+      { href: "/tipos-de-mesas-de-dulces", icon: "🍬", title: "Tipos de Mesas",         sub: "Dulces · Postres · Frutas · Quesos" },
+      { href: "/candy-bar-eventos",        icon: "🎉", title: "Candy Bar por Evento",    sub: "Bodas · XV · Baby Shower · Más" },
+      { href: "/estaciones-interactivas",  icon: "⭐", title: "Estaciones Interactivas", sub: "Chocolate · Chamoy · Candy Wall" },
+    ];
+  }
+
+  // Default — home y todas las demás páginas
+  return L2_GLOBAL;
+};
+
+const items = getItems();
+
+// Ítem activo: coincide con el inicio del path actual
+const isActive = (href: string) =>
+  href !== "/cotizar" && (path === href || path.startsWith(href + "/"));
+---
+
+<nav class="qen" aria-label="Navegación rápida por servicio">
+  {items.map((item) => (
+    <a
+      href={item.href}
+      class:list={[
+        "qen__item",
+        item.cta && "qen__item--cta",
+        isActive(item.href) && "qen__item--active",
+      ]}
+    >
+      <span class="qen__icon">{item.icon}</span>
+      <span class="qen__text">
+        <span class="qen__title">{item.title}</span>
+        <span class="qen__sub">{item.sub}</span>
+      </span>
+      <span class="qen__arrow">›</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .qen {
+    display: flex;
+    flex-wrap: wrap;
+    background: #D1007A;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .qen__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 0;
+    min-width: 180px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #fff;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    transition: background 0.15s;
+    box-sizing: border-box;
+  }
+
+  .qen__item:last-child {
+    border-right: none;
+  }
+
+  .qen__item:hover {
+    background: rgba(0,0,0,0.12);
+  }
+
+  /* Ítem activo: ligeramente más oscuro + sin opacidad en subtítulo */
+  .qen__item--active {
+    background: rgba(0,0,0,0.18);
+  }
+
+  .qen__item--active .qen__sub {
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* Ícono en círculo semitransparente */
+  .qen__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .qen__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .qen__title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .qen__sub {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.72);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .qen__arrow {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.55);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  /* CTA: fondo más oscuro diferenciado */
+  .qen__item--cta {
+    background: rgba(0,0,0,0.18);
+  }
+
+  .qen__item--cta:hover {
+    background: rgba(0,0,0,0.28);
+  }
+
+  /* Tablet: 3 por fila si hay 6 ítems */
+  @media (max-width: 900px) {
+    .qen__item {
+      flex: 1 1 calc(50% - 1px);
+    }
+  }
+
+  /* Móvil: scroll horizontal */
+  @media (max-width: 600px) {
+    .qen {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .qen::-webkit-scrollbar { display: none; }
+
+    .qen__item {
+      flex: 0 0 210px;
+      border-bottom: none;
+    }
+  }
+</style>

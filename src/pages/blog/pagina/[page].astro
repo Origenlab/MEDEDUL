@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import BlogArchive from '@/components/blog/BlogArchive.astro';
 import Hero from '@/components/global/Hero.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogPosts } from '@/lib/blogSorting';
 
@@ -42,9 +41,10 @@ const breadcrumbItems = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Blog de Mesas de Dulces"
-    subtitle={`Pagina ${currentPage} de ${totalPages}. Contenido relacionado, ideas y enlaces importantes para tu evento.`}
-    showCTA={false}
+    title="Blog de Mesas de Dulces y Candy Bar"
+    highlight="Mesas de Dulces"
+    subtitle={`Pagina ${currentPage} de ${totalPages} · Articulos, guias y recursos para planear candy bar y eventos en CDMX`}
+    secondaryContent={`<p><strong>Articulos especializados</strong> en mesas de dulces y candy bar se organizan aqui para facilitar una exploracion continua y eficiente de todo el contenido editorial del blog. Cada pagina incluye recursos utiles para mejorar decisiones de diseno, logistica, presupuesto y curaduria de producto en eventos de Ciudad de Mexico.</p><p><strong>Publicaciones profesionales</strong> con enfoque practico te ayudan a identificar oportunidades de mejora en experiencia de invitado, presentacion visual y ejecucion operativa. Navega por esta seccion para construir una estrategia mas solida para tu proxima celebracion, respaldada en datos reales de mercado y buenas practicas de la industria.</p>`}
   />
 
   <BlogArchive
@@ -55,12 +55,4 @@ const breadcrumbItems = [
     totalPages={totalPages}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria Profesional"
-    title="Ya Revisaste Opciones, Ahora"
-    titleHighlight="Cotiza"
-    text="Te ayudamos a convertir la inspiracion del blog en una propuesta concreta para tu evento."
-    buttonText="Solicitar Cotizacion"
-  />
 </BaseLayout>

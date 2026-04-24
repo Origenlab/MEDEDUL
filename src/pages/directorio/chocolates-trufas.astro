@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -123,11 +122,10 @@ const categoriaSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Chocolates y Trufas"
+    title="Chocolates y Trufas Finas en CDMX"
     highlight="Chocolates"
-    subtitle="Chocolates finos, trufas y bombones"
-    secondaryContent={`<p>Los mejores proveedores de <strong>chocolates y trufas</strong> en CDMX. Desde opciones gourmet en zonas premium hasta mayoreo en La Merced.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} chocolaterias verificadas con trufas artesanales, bombones gourmet y chocolate de cobertura premium`}
+    secondaryContent={`<p><strong>Chocolates y trufas de alta calidad</strong> seleccionados entre los mejores proveedores de Ciudad de Mexico, desde boutiques gourmet en Polanco, Condesa y Roma hasta mayoristas historicos de La Merced con precios competitivos. Cada tienda del directorio esta verificada con resenas reales de Google Maps para asegurar frescura de producto, variedad de cobertura y estandar de servicio al cliente.</p><p><strong>${proveedores.length} chocolaterias verificadas</strong> especializadas en trufas rellenas, bombones personalizados, tabletas artesanales y chocolate belga para mesas de dulces, fuente de chocolate y regalos corporativos. Usa este directorio para comparar estilos, rangos de precio y especialidades antes de abastecer tu evento o tu consumo personal con confianza.</p>`}
   />
 
   <section class="filtros-section">
@@ -217,21 +215,7 @@ const categoriaSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Chocolates" subtitle="Información útil para tu evento" />
-      <FAQ items={faqsCategoria} id="faq-chocolates" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20chocolates%20y%20trufas"
-    badge="Chocolates Gourmet"
-    title="¿Necesitas Chocolates para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar la dulcería perfecta para tu celebración."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -279,7 +263,6 @@ const categoriaSchema = {
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; transition: all 0.3s; }
   .cat-link:hover { border-color: var(--rosa-principal); background: rgba(209, 0, 122, 0.05); }
   .cat-icon { font-size: 1.3rem; }
-  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
 
   @media (max-width: 1200px) { .directorio-grid { grid-template-columns: 1fr; } }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; align-items: stretch; } .filtros-opciones { flex-wrap: wrap; } .filtro-select { flex: 1; min-width: 140px; } }

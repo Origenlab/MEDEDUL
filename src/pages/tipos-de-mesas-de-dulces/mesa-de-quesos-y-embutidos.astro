@@ -7,9 +7,8 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -234,13 +233,6 @@ const faqSchema = {
     highlight="Tabla de Quesos"
     subtitle="Manchego, brie, jamon serrano y acompanamientos deliciosos para bodas, reuniones y celebraciones"
     secondaryContent={`<p><strong>Quesos de alta calidad</strong> como manchego espanol, brie frances, queso de cabra, chihuahua y monterrey mexicano transforman cualquier fiesta en una experiencia rica y memorable. En Mededul armamos tablas de quesos con ingredientes frescos que sorprenden a amigos y familiares en Ciudad de Mexico.</p><p><strong>Carnes frias</strong> como jamon serrano de Espana, chorizo de pamplona y salami italiano, acompanados de fresas, higos, baguette y galletas. Creamos la botana perfecta para acompanar con vino tinto o blanco en reuniones familiares, bodas y celebraciones sociales. Facil de disfrutar y descubrir nuevos sabores.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Ideas y Cotizacion"
-    ctaTitle="Disena Tu Tabla de Quesos"
-    ctaTitleHighlight="Quesos"
-    ctaText="Comparte detalles de tu fiesta o reunion para recibir opciones de quesos, carnes frias y maridaje."
-    ctaButtonText="Solicitar Ideas"
   />
 
   <PricingPackages
@@ -284,24 +276,6 @@ const faqSchema = {
     events={eventCards}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Cotizacion sin Costo"
-    title="Sorprende a tus Amigos con una"
-    titleHighlight="Tabla Deliciosa"
-    text="Te ayudamos a armar una tabla de quesos con manchego, brie, jamon serrano, fresas y vino para tu fiesta, boda o reunion familiar."
-    buttonText="Cotizar Tabla de Quesos"
-  />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Tablas de Quesos"
-        titleHighlight="Frecuentes"
-        subtitle="Ideas y respuestas para tu fiesta o reunion"
-        content={`<p>Resolvemos dudas sobre quesos, carnes frias, acompanamientos y maridaje con vino para tu celebracion.</p>`}
-      />
-      <FAQ items={faqs} id="faq-quesos" />
-    </div>
-  </section>
+    <FAQContactModule faqItems={faqs} />
 </BaseLayout>

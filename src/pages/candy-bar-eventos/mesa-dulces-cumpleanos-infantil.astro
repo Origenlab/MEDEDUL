@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Cumpleanos Infantil"
     subtitle="Candy bar tematico para crear una fiesta divertida, ordenada y memorable para ninos y familias"
     secondaryContent={`<p><strong>Cumpleanos</strong> infantil con mesa de dulces profesional transforma la fiesta en una experiencia visual y emocional que sorprende desde el primer minuto. En Mededul disenamos propuestas tematicas por personaje para mantener coherencia estetica y alto impacto.</p><p><strong>Fiesta</strong> infantil bien planificada mejora el flujo de servicio, reduce improvisaciones y permite que la familia disfrute el evento con tranquilidad total. Ejecutamos montaje integral en CDMX con enfoque en calidad, seguridad y detalle.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Disena Tu Fiesta"
-    ctaTitleHighlight="Infantil"
-    ctaText="Comparte tema, invitados y sede para recibir una propuesta profesional de candy bar infantil."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta infantil al tamano de la fiesta y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu cumpleanos infantil." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y familiares." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Su Cumpleanos una Fiesta" titleHighlight="Inolvidable" text="Te ayudamos a implementar una mesa de dulces infantil tematica con montaje profesional y alta calidad." buttonText="Cotizar Cumpleanos Infantil" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Cumpleanos Infantil" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir el formato ideal para tu fiesta infantil.</p>`} />
-      <FAQ items={faqs} id="faq-cumpleanos-infantil" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import BlogArchive from '@/components/blog/BlogArchive.astro';
 import Hero from '@/components/global/Hero.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogPosts } from '@/lib/blogSorting';
 
@@ -28,9 +27,10 @@ const breadcrumbItems = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Blog de Mesas de Dulces"
-    subtitle="Ideas y guias practicas sobre candy bar, eventos sociales y contenido relacionado con nuestros servicios."
-    showCTA={false}
+    title="Blog de Mesas de Dulces y Candy Bar"
+    highlight="Mesas de Dulces"
+    subtitle="Guias accionables sobre candy bar, tendencias 2026, precios y ejecucion profesional para eventos en CDMX"
+    secondaryContent={`<p><strong>Blog especializado</strong> en mesas de dulces y candy bar que te ayuda a investigar, comparar y decidir con criterios profesionales antes de contratar un servicio para tu evento. Aqui publicamos guias practicas sobre tendencias, costos, formatos, montajes y ejecucion para elevar tus resultados en bodas, XV anos, baby shower y celebraciones corporativas.</p><p><strong>Contenido informativo</strong> con enfoque comercial te permite pasar de la inspiracion a una decision concreta, entendiendo que opcion se adapta mejor a tu celebracion. Cada articulo esta disenado para aumentar claridad, reducir incertidumbre y mejorar tu proceso de compra con informacion real del mercado de eventos en Ciudad de Mexico.</p>`}
   />
 
   <BlogArchive
@@ -41,12 +41,4 @@ const breadcrumbItems = [
     totalPages={totalPages}
   />
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria Profesional"
-    title="Convierte Tu Idea en un Evento"
-    titleHighlight="Inolvidable"
-    text="Si ya viste opciones en el blog, te ayudamos a aterrizar una propuesta real para tu celebracion."
-    buttonText="Solicitar Cotizacion"
-  />
 </BaseLayout>

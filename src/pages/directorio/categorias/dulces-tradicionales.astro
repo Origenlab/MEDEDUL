@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -44,11 +43,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Dulces Tradicionales"
+    title="Categoria Dulces Tradicionales Mexicanos"
     highlight="Tradicionales"
-    subtitle="Dulcerías con productos mexicanos artesanales"
-    secondaryContent={`<p>Encuentra <strong>dulces tradicionales mexicanos</strong>: alegrías, cocadas, mazapanes, tamarindos y más.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en Ciudad de México.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con mazapan, cocada, alegria, tamarindo y glorias de Linares en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria dulces tradicionales mexicanos</strong> agrupa a los proveedores que mantienen vivas las recetas clasicas del pais: mazapan de cacahuate, cocada artesanal, alegrias de amaranto, palanquetas, tamarindos enchilados, obleas rellenas, glorias de Linares, ates de Morelia y muchos mas. Filtramos tiendas con producto fresco, etiquetado claro y origen verificable para eventos con identidad mexicana.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar regiones de origen, presentaciones y precios al mayoreo antes de montar una mesa de dulces tradicional, cerrar una boda tematica, armar bolos para XV anos o regalar cajas de dulces mexicanos a clientes. Cada ficha incluye telefono, horario y especialidad para decisiones rapidas respaldadas por resenas reales en Google Maps.</p>`}
   />
 
   <section class="categoria-listado">
@@ -69,25 +67,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Dulces Tradicionales"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-tradicionales" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20dulces%20tradicionales%20mexicanos"
-    badge="Dulces Tradicionales"
-    title="¿Necesitas Dulces Tradicionales para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de dulces tradicionales mexicanos."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -126,11 +106,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

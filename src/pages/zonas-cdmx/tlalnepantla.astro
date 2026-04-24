@@ -5,8 +5,7 @@ import Hero from '@/components/global/Hero.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
 
 const breadcrumbItems = [
@@ -263,25 +262,7 @@ const tlalnepantlaSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre Servicio en"
-        titleHighlight="Tlalnepantla"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqsTlalnepantla} id="faq-tlalnepantla" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Tlalnepantla%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
-    badge="Evento en Tlalnepantla"
-    title="Cotiza para tu Evento en"
-    titleHighlight="Tlalnepantla"
-    text="Indicanos tu tipo de evento, fecha y presupuesto aproximado. Te ofrecemos la mejor opcion."
-    buttonText="Cotizar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsTlalnepantla} />
 </BaseLayout>
 
 <style>
@@ -341,10 +322,6 @@ const tlalnepantlaSchema = {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 50px;
-  }
-
-  .faq-section {
-    background: #fff;
   }
 
   @media (max-width: 1024px) {

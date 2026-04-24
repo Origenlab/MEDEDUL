@@ -4,7 +4,6 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Testimonios', url: '/testimonios' }
@@ -203,7 +202,6 @@ const testimoniosSchema = {
     highlight="Testimonios"
     subtitle="Experiencias reales de eventos memorables en CDMX"
     secondaryContent={`<p>Conoce lo que dicen nuestros <strong>clientes satisfechos</strong> sobre sus experiencias con Mededul. Cada testimonio representa un evento exitoso: bodas, XV anos, baby showers, bautizos, cumpleanos y eventos corporativos.</p><p>Con mas de <strong>500 eventos realizados</strong> y una calificacion promedio de <strong>4.9 estrellas</strong>, nos enorgullece la confianza que depositan en nosotros.</p>`}
-    showCTA={false}
   />
 
   <!-- Estadisticas -->
@@ -416,15 +414,6 @@ const testimoniosSchema = {
     </div>
   </section>
 
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Vi%20sus%20testimonios%20y%20me%20gustaria%20cotizar%20una%20mesa%20de%20dulces"
-    badge="Se Parte de Nuestra Historia"
-    title="Crea tu Propio"
-    titleHighlight="Evento Memorable"
-    text="Unete a los mas de 500 clientes satisfechos. Cotiza sin compromiso y hagamos de tu evento algo especial."
-    buttonText="Cotizar por WhatsApp"
-  />
 </BaseLayout>
 
 <style>

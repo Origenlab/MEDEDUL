@@ -5,10 +5,14 @@ import Hero from '@/components/global/Hero.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
+import {
+  subsCBBoda, subsCBXV, subsCBBabyShower, subsCBCumple,
+  subsCBBautizo, subsCBComunion, subsCBCorporativo, subsCBGraduacion,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces, subsStandPastel,
+  subsDisenoPersonalizado, subsCalidadPremium, subsServicioCompleto, subsCeroEstres,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Servicios', url: '/servicios' },
@@ -169,13 +173,6 @@ const faqSchema = {
     highlight="Tipo de Evento"
     subtitle="Montajes personalizados para bodas, XV anos, baby shower, celebraciones familiares y corporativas"
     secondaryContent={`<p><strong>Candy bar</strong> estrategico por tipo de evento permite alinear diseno, surtido y experiencia de servicio con la esencia real de tu celebracion. En Mededul construimos propuestas personalizadas para que cada montaje comunique estilo, orden y valor en cada detalle.</p><p><strong>Eventos</strong> como bodas, XV anos, bautizos y activaciones corporativas requieren criterios distintos de produccion para lograr resultados premium sin improvisaciones. Nuestro equipo integra consultoria, montaje y operacion para garantizar una ejecucion impecable de principio a fin.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Define Tu Candy Bar Ideal"
-    ctaTitleHighlight="Ideal"
-    ctaText="Comparte tipo de evento, invitados y estilo deseado para recibir una recomendacion profesional y una cotizacion clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <section class="section-paquetes" id="paquetes">
@@ -280,6 +277,7 @@ const faqSchema = {
           excerpt="Montajes nupciales premium con enfoque en elegancia, armonia visual y experiencia de invitado."
           cta="Ver Candy Bar para Boda"
           badge="Popular"
+          subsections={subsCBBoda}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-xv-anos"
@@ -288,6 +286,7 @@ const faqSchema = {
           title="Candy Bar para XV Anos"
           excerpt="Propuestas espectaculares para quinceanera con diseno personalizado y montaje profesional."
           cta="Ver Candy Bar para XV"
+          subsections={subsCBXV}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-baby-shower"
@@ -296,6 +295,7 @@ const faqSchema = {
           title="Candy Bar para Baby Shower"
           excerpt="Montajes tematicos en tonos suaves y composicion delicada para celebraciones de bienvenida."
           cta="Ver Candy Bar Baby Shower"
+          subsections={subsCBBabyShower}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
@@ -304,6 +304,7 @@ const faqSchema = {
           title="Candy Bar Infantil"
           excerpt="Experiencias coloridas y seguras para fiestas de ninos con tematica y alto impacto visual."
           cta="Ver Candy Bar Infantil"
+          subsections={subsCBCumple}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-bautizo"
@@ -312,6 +313,7 @@ const faqSchema = {
           title="Candy Bar para Bautizo"
           excerpt="Disenos sobrios y elegantes con enfoque familiar para una celebracion armonica y memorable."
           cta="Ver Candy Bar Bautizo"
+          subsections={subsCBBautizo}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-primera-comunion"
@@ -320,6 +322,7 @@ const faqSchema = {
           title="Candy Bar Primera Comunion"
           excerpt="Montajes con simbolismo y estilo refinado para recepciones de comunion con identidad propia."
           cta="Ver Candy Bar Comunion"
+          subsections={subsCBComunion}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-corporativos"
@@ -328,6 +331,7 @@ const faqSchema = {
           title="Candy Bar Corporativo"
           excerpt="Soluciones para marca y hospitalidad en eventos empresariales, activaciones y lanzamientos."
           cta="Ver Candy Bar Corporativo"
+          subsections={subsCBCorporativo}
         />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-graduacion"
@@ -336,6 +340,7 @@ const faqSchema = {
           title="Candy Bar para Graduacion"
           excerpt="Montajes festivos para cierre academico con presentacion impecable y servicio ordenado."
           cta="Ver Candy Bar Graduacion"
+          subsections={subsCBGraduacion}
         />
       </div>
     </div>
@@ -358,6 +363,7 @@ const faqSchema = {
           title="Fuente de Chocolate"
           excerpt="Estacion interactiva premium para elevar experiencia y participacion de invitados."
           cta="Ver Fuente de Chocolate"
+          subsections={subsFuenteChocolate}
         />
         <ServiceCard
           href="/estaciones-interactivas/fuente-de-chamoy"
@@ -366,6 +372,7 @@ const faqSchema = {
           title="Fuente de Chamoy"
           excerpt="Propuesta con sabor mexicano que incrementa dinamica y recordacion del evento."
           cta="Ver Fuente de Chamoy"
+          subsections={subsFuenteChamoy}
         />
         <ServiceCard
           href="/estaciones-interactivas/pared-de-dulces"
@@ -374,6 +381,7 @@ const faqSchema = {
           title="Pared de Dulces"
           excerpt="Elemento escenografico y funcional para sumar impacto visual al montaje principal."
           cta="Ver Pared de Dulces"
+          subsections={subsParedDulces}
         />
         <ServiceCard
           href="/estaciones-interactivas/stand-para-pastel"
@@ -382,19 +390,12 @@ const faqSchema = {
           title="Stand para Pastel"
           excerpt="Solucion para resaltar el momento del pastel con composicion elegante y fotografiable."
           cta="Ver Stand para Pastel"
+          subsections={subsStandPastel}
         />
       </div>
     </div>
   </section>
 
-  <CTAServices
-    href="/contacto"
-    badge="Asesoria sin Costo"
-    title="No Sabes Que Formato Elegir?"
-    titleHighlight="Elegir"
-    text="Te ayudamos a definir el candy bar ideal segun tipo de evento, invitados, estilo y nivel de personalizacion."
-    buttonText="Solicitar Asesoria"
-  />
 
   <section class="section-proceso section-padding" id="proceso">
     <div class="container">
@@ -435,6 +436,7 @@ const faqSchema = {
           title="Diseno Personalizado"
           excerpt="Cada montaje se adapta al concepto real del evento y no a plantillas genericas."
           cta="Ver Diseno"
+          subsections={subsDisenoPersonalizado}
         />
         <ServiceCard
           href="/porque-mededul/calidad-premium"
@@ -443,6 +445,7 @@ const faqSchema = {
           title="Calidad Premium"
           excerpt="Seleccion de producto y acabados de alto nivel para resultados consistentes."
           cta="Ver Calidad"
+          subsections={subsCalidadPremium}
         />
         <ServiceCard
           href="/porque-mededul/servicio-completo"
@@ -451,6 +454,7 @@ const faqSchema = {
           title="Servicio Completo"
           excerpt="Planeacion, montaje y desmontaje con coordinacion profesional en todas las fases."
           cta="Ver Servicio"
+          subsections={subsServicioCompleto}
         />
         <ServiceCard
           href="/porque-mededul/cero-estres"
@@ -459,23 +463,11 @@ const faqSchema = {
           title="Cero Estres"
           excerpt="Gestion operativa ordenada para que disfrutes el evento mientras nosotros ejecutamos."
           cta="Ver Metodologia"
+          subsections={subsCeroEstres}
         />
       </div>
     </div>
   </section>
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre Candy Bar por Evento"
-        titleHighlight="Frecuentes"
-        subtitle="Resolvemos las dudas clave antes de cotizar"
-        content={`<p>Estas respuestas te ayudan a tomar una decision clara y elegir la propuesta correcta para tu celebracion.</p>`}
-      />
-
-      <FAQ items={faqItems} id="faq-candy-eventos" />
-    </div>
-  </section>
-
-  <ContactSection />
+  <FAQContactModule faqItems={faqItems} />
 </BaseLayout>

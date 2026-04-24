@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
 import { getDulceriasPorAlcaldia, alcaldiasInfo, getAlcaldiasConDulcerias } from '@/data/dulcerias';
@@ -104,11 +103,10 @@ const alcaldiaSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title={`Dulcerías en ${info.nombre}`}
+    title={`Dulcerias en ${info.nombre}, CDMX`}
     highlight={info.nombre}
-    subtitle={info.descripcion}
-    secondaryContent={`<p>Encuentra proveedores de dulces verificados en <strong>${info.zonaComercial}</strong>. ${info.caracteristicas.join(', ')}.</p><p><strong>${dulcerias.length} proveedores verificados</strong> en esta alcaldía.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} proveedores verificados con resenas reales · ${info.descripcion}`}
+    secondaryContent={`<p><strong>Dulcerias en ${info.nombre}</strong> seleccionadas y auditadas para que encuentres opciones cercanas con datos confirmados de contacto, horario y especialidad de producto. El listado concentra negocios tradicionales, chocolaterias, tiendas de dulces importados y mayoristas distribuidos en <strong>${info.zonaComercial}</strong>, facilitando la comparacion por ubicacion, precio y categoria antes de comprar.</p><p><strong>${dulcerias.length} proveedores verificados</strong> en la alcaldia destacan por ${info.caracteristicas.join(', ')}. Usa este directorio como base operativa para surtir mesas de dulces, armar bolos de fiesta infantil o abastecer eventos sociales y corporativos sin depender de busquedas genericas o listados sin validar.</p>`}
   />
 
   <!-- Stats de la Alcaldía -->
@@ -199,25 +197,7 @@ const alcaldiaSchema = {
   )}
 
   <!-- FAQ -->
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight={`dulcerías en ${info.nombre}`}
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqsAlcaldia} id={`faq-${alcaldiaSlug}`} />
-    </div>
-  </section>
-
-  <CTAServices
-    href={`https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20en%20${encodeURIComponent(info.nombre)}`}
-    badge={info.nombre}
-    title="¿Necesitas Ayuda para Encontrar"
-    titleHighlight="Proveedor"
-    text={`Te ayudamos a encontrar el proveedor perfecto en ${info.nombre}.`}
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqsAlcaldia} />
 </BaseLayout>
 
 <style>
@@ -353,11 +333,6 @@ const alcaldiaSchema = {
     background: rgba(209, 0, 122, 0.1);
     padding: 4px 12px;
     border-radius: 20px;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

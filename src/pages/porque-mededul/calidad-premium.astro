@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Por que Mededul', url: '/porque-mededul' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Calidad Premium"
     subtitle="Curaduria de producto y estandar profesional para elevar sabor, presentacion y experiencia"
     secondaryContent={`<p><strong>Calidad</strong> premium real no depende de una sola marca, sino de una curaduria profesional que garantiza frescura, coherencia y alto valor percibido en cada montaje. En Mededul seleccionamos producto y presentacion con criterios estrictos para sostener excelencia en todo el evento.</p><p><strong>Premium</strong> en mesas de dulces significa consistencia operativa: lo que prometemos en propuesta se refleja en montaje, servicio y experiencia final de invitados. Ese enfoque protege tu imagen y mejora resultados en celebraciones sociales y corporativas.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Eleva Tu Evento con"
-    ctaTitleHighlight="Calidad Premium"
-    ctaText="Comparte tipo de evento e invitados para recibir una propuesta con estandar premium y cotizacion clara."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos nivel de curaduria premium segun aforo y alcance del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Estas capacidades complementan una propuesta premium orientada a resultados." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Implementa una Propuesta de" titleHighlight="Alto Nivel" text="Te ayudamos a ejecutar una mesa de dulces con calidad premium, imagen impecable y operacion consistente." buttonText="Cotizar Calidad Premium" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Calidad Premium" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a entender como garantizamos calidad real en tu evento.</p>`} />
-      <FAQ items={faqs} id="faq-calidad-premium" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

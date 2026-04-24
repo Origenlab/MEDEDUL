@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -149,11 +148,10 @@ const categoriaSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Gomitas y Confitería"
+    title="Gomitas y Confiteria en CDMX"
     highlight="Gomitas"
-    subtitle="Importadas, enchiladas y de todo tipo"
-    secondaryContent={`<p>Los mejores proveedores de <strong>gomitas y confitería</strong> en CDMX. Desde marcas importadas hasta dulces enchilados artesanales.</p><p><strong>${proveedores.length} dulcerías verificadas</strong> con información real de Google Maps.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} dulcerias verificadas con gomitas importadas, enchiladas artesanales, mashmelos y confiteria a granel`}
+    secondaryContent={`<p><strong>Gomitas y confiteria de alta rotacion</strong> en Ciudad de Mexico, curadas en este directorio con tiendas que manejan desde marcas importadas premium hasta gomitas enchiladas artesanales con chamoy, tamarindo y chile en polvo. Cada proveedor verificado incluye datos reales de Google Maps, horarios, especialidad y rango de precios para que surtas con confianza y producto fresco.</p><p><strong>${proveedores.length} dulcerias verificadas</strong> te permiten comparar precios por mayoreo, variedad de gomitas acidas, gomitas de oso, confiteria a granel, mashmelos y clasicos como malvaviscos cubiertos de chocolate. Ideales para abastecer mesas de dulces, candy bar infantil, bolos de fiesta y eventos empresariales con presupuesto y logistica controlados.</p>`}
   />
 
   <section class="filtros-section">
@@ -236,14 +234,7 @@ const categoriaSchema = {
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Gomitas" subtitle="Información útil" />
-      <FAQ items={faqsCategoria} id="faq-gomitas" />
-    </div>
-  </section>
-
-  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20gomitas%20y%20confitería" badge="Gomitas y Confitería" title="¿Buscas Gomitas para tu" titleHighlight="Evento" text="Te ayudamos a encontrar el proveedor perfecto." buttonText="Pedir Recomendación" />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -290,7 +281,6 @@ const categoriaSchema = {
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
   .cat-link:hover { border-color: var(--rosa-principal); }
   .cat-icon { font-size: 1.3rem; }
-  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
 
   @media (max-width: 1200px) { .directorio-grid { grid-template-columns: 1fr; } }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } .filtros-wrapper { flex-direction: column; } }

@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -44,11 +43,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Paletas y Piruletas"
+    title="Categoria Paletas y Piruletas Artesanales"
     highlight="Paletas"
-    subtitle="Las mejores tiendas de paletas en CDMX"
-    secondaryContent={`<p>Encuentra <strong>paletas artesanales, cake pops y piruletas personalizadas</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con opciones para todo evento.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con paletas artesanales, cake pops y piruletas personalizadas en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria paletas y piruletas</strong> concentra a los proveedores especializados en producto con alto impacto visual: paletas cristal transparentes, piruletas personalizadas con nombre, cake pops decorados por tematica, paletas de caramelo artesanal, paletas enchiladas estilo mexicano y piruletas gigantes para mesas de dulces fotograficas. Filtramos tiendas con entrega puntual, producto fresco y presentacion lista para evento.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten cotizar piezas personalizadas para bodas, XV anos, baby showers, cumpleanos infantiles y eventos corporativos con branding. Cada ficha incluye ubicacion, horario, telefono y especialidad comprobada con resenas reales de Google Maps para que decidas rapido y confies en la calidad antes de hacer tu pedido.</p>`}
   />
 
   <section class="categoria-listado">
@@ -69,25 +67,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Paletas y Piruletas"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-paletas" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20paletas%20y%20piruletas%20para%20mi%20evento"
-    badge="Paletas"
-    title="¿Necesitas Paletas para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de paletas y piruletas."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -126,11 +106,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

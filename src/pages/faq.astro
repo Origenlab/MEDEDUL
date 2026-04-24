@@ -3,8 +3,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
 
 const breadcrumbItems = [
   { name: 'Preguntas Frecuentes', url: '/faq' }
@@ -157,7 +157,6 @@ const categorias = [
     highlight="Frecuentes"
     subtitle="Todo lo que necesitas saber sobre nuestro servicio de mesas de dulces"
     secondaryContent={`<p>Hemos recopilado las <strong>22 preguntas más comunes</strong> sobre nuestro servicio: precios, proceso de contratación, pagos, personalización y logística.</p><p>Si no encuentras tu respuesta aquí, escríbenos por WhatsApp y te respondemos en menos de 2 horas.</p>`}
-    showCTA={false}
   />
 
   <!-- Navegación rápida -->
@@ -231,15 +230,7 @@ const categorias = [
     </div>
   </section>
 
-  <!-- CTA -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Tengo%20una%20pregunta%20sobre%20el%20servicio%20de%20mesas%20de%20dulces"
-    badge="¿Más dudas?"
-    title="¿No encontraste tu"
-    titleHighlight="respuesta"
-    text="Escríbenos por WhatsApp y te respondemos en menos de 2 horas. Sin compromiso."
-    buttonText="Preguntar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsGenerales} />
 </BaseLayout>
 
 <style>
@@ -273,11 +264,6 @@ const categorias = [
   .pill.active {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: #fff;
   }
 
   .faq-section.alt {

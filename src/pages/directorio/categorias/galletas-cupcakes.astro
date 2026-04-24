@@ -1,10 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
@@ -47,11 +46,10 @@ const faqs = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Galletas y Cupcakes"
+    title="Categoria Galletas y Cupcakes Artesanales"
     highlight="Galletas"
-    subtitle="Repostería artesanal y productos premium"
-    secondaryContent={`<p>Encuentra <strong>galletas decoradas, cupcakes artesanales y repostería fina</strong> en Ciudad de México.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> con productos premium.</p>`}
-    showCTA={false}
+    subtitle={`${dulcerias.length} tiendas verificadas con galletas decoradas, cupcakes personalizados y reposteria fina en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Categoria galletas y cupcakes</strong> concentra a los obradores especializados en reposteria visual para eventos: galletas decoradas con royal icing, cupcakes con buttercream, macarons franceses, tartaletas individuales, cake pops y mini postres personalizados por tematica o paleta de color. Filtramos proveedores con experiencia demostrada, entrega puntual y presentacion profesional que aguanta el transporte y las horas de exhibicion.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten cotizar galleta por pieza, armar packs de cupcakes corporativos, coordinar reposteria para bodas, baby showers, XV anos o eventos empresariales. Cada registro muestra ubicacion, horario, especialidad y resenas reales en Google Maps para que decidas con datos y sin listados genericos que no verifican operacion ni calidad.</p>`}
   />
 
   <section class="categoria-listado">
@@ -72,25 +70,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre"
-        titleHighlight="Galletas y Cupcakes"
-        subtitle="Resolvemos tus dudas"
-      />
-      <FAQ items={faqs} id="faq-galletas" />
-    </div>
-  </section>
-
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Busco%20galletas%20y%20cupcakes%20para%20mi%20evento"
-    badge="Repostería"
-    title="¿Necesitas Galletas para tu"
-    titleHighlight="Evento"
-    text="Te ayudamos a encontrar el proveedor perfecto de galletas y cupcakes."
-    buttonText="Pedir Recomendación"
-  />
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
 <style>
@@ -129,11 +109,6 @@ const faqs = [
   .btn-directorio:hover {
     background: var(--rosa-principal);
     color: #fff;
-  }
-
-  .faq-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   @media (max-width: 1200px) {

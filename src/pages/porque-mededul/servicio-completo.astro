@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Por que Mededul', url: '/porque-mededul' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Servicio Completo"
     subtitle="Operacion integral para que tu evento se ejecute con calidad, control y cero improvisaciones"
     secondaryContent={`<p><strong>Servicio</strong> completo profesional elimina fricciones de coordinacion y te permite concentrarte en disfrutar el evento sin asumir carga operativa. En Mededul integramos planeacion, montaje, operacion y desmontaje bajo un solo estandar de ejecucion.</p><p><strong>Completo</strong> no solo significa incluir mas tareas, sino garantizar continuidad, puntualidad y calidad en cada fase del proyecto. Nuestra metodologia protege tu inversion y mejora la experiencia de tus invitados con resultados consistentes.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu"
-    ctaTitleHighlight="Servicio Completo"
-    ctaText="Comparte alcance, sede e invitados para construir una propuesta integral y clara para tu evento."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el servicio completo segun complejidad, aforo y nivel de produccion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Valor Mededul" title="Conoce Otras" titleHighlight="Ventajas Diferenciales" subtitle="Estos pilares complementan una operacion integral orientada a resultados." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Ejecuta Tu Evento con un Servicio" titleHighlight="Integral" text="Te ayudamos a implementar una operacion completa con calidad profesional de inicio a fin." buttonText="Cotizar Servicio Completo" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Servicio Completo" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a entender mejor el alcance integral del servicio.</p>`} />
-      <FAQ items={faqs} id="faq-servicio-completo" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="XV Anos"
     subtitle="Candy bar de alto impacto para una quinceanera inolvidable con diseno tematico y ejecucion profesional"
     secondaryContent={`<p><strong>XV</strong> anos con mesa de dulces profesional transforma la celebracion en una experiencia visual impactante y totalmente alineada al estilo de la quinceanera. En Mededul desarrollamos propuestas personalizadas para potenciar estetica, servicio y recordacion del evento.</p><p><strong>Quinceanera</strong> con candy bar premium mejora la presentacion general, genera un punto fotografico memorable y eleva la experiencia de invitadas e invitados. Ejecutamos montaje integral en CDMX con puntualidad y estandar de calidad superior.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Disena Tu Evento de"
-    ctaTitleHighlight="XV Anos"
-    ctaText="Comparte tematica, aforo y sede para recibir una propuesta profesional para tu quinceanera."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de XV anos al nivel de personalizacion y aforo del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu quinceanera." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones sociales." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Haz de Tu Quinceanera una Experiencia" titleHighlight="Inolvidable" text="Te ayudamos a implementar una mesa de dulces para XV anos con diseno profesional y ejecucion impecable." buttonText="Cotizar XV Anos" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para XV Anos" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la configuracion ideal para tu quinceanera.</p>`} />
-      <FAQ items={faqs} id="faq-xv-anos" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>

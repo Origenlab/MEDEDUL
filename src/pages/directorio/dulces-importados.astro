@@ -4,8 +4,7 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
@@ -86,11 +85,10 @@ const faqsCategoria = [
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Dulces Importados del Mundo"
+    title="Dulces Importados del Mundo en CDMX"
     highlight="Importados"
-    subtitle="Americanos, japoneses, europeos y mas"
-    secondaryContent={`<p>Los mejores proveedores de <strong>dulces importados</strong> en CDMX. Desde clasicos americanos hasta exoticos dulces japoneses y europeos.</p><p><strong>${proveedores.length} tiendas especializadas verificadas</strong>.</p>`}
-    showCTA={false}
+    subtitle={`${proveedores.length} tiendas especializadas con dulces americanos, japoneses, coreanos y europeos verificadas en Ciudad de Mexico`}
+    secondaryContent={`<p><strong>Dulces importados</strong> seleccionados entre los mejores proveedores de Ciudad de Mexico, incluyendo chocolates estadounidenses, gomitas alemanas, caramelos japoneses, snacks coreanos virales y especialidades europeas dificiles de conseguir. Cada tienda del directorio esta verificada con resenas reales para que encuentres producto original, fresco y con trazabilidad garantizada.</p><p><strong>${proveedores.length} tiendas especializadas verificadas</strong> cubren desde clasicos americanos como Hershey's y Reese's hasta exoticos como Pocky, Hi-Chew, Milkita y chocolates belgas. Usa este directorio para armar mesas de dulces tematicas, surtir candy bar con productos distintos o explorar sabores internacionales con confianza en calidad y autenticidad.</p>`}
   />
 
   <section class="filtros-section">
@@ -154,14 +152,7 @@ const faqsCategoria = [
     </div>
   </section>
 
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader title="Preguntas sobre" titleHighlight="Dulces Importados" />
-      <FAQ items={faqsCategoria} id="faq-importados" />
-    </div>
-  </section>
-
-  <CTAServices href="https://wa.me/525525226442?text=Hola!%20Busco%20proveedores%20de%20dulces%20importados" badge="Dulces del Mundo" title="¿Buscas Dulces Importados para tu" titleHighlight="Evento" text="Te conectamos con tiendas especializadas." buttonText="Pedir Recomendacion" />
+  <FAQContactModule faqItems={faqsCategoria} />
 </BaseLayout>
 
 <style>
@@ -203,7 +194,6 @@ const faqsCategoria = [
   .cat-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #fff; border: 2px solid #f0f0f0; border-radius: 50px; text-decoration: none; color: var(--texto-oscuro); font-weight: 500; }
   .cat-link:hover { border-color: var(--rosa-principal); }
   .cat-icon { font-size: 1.3rem; }
-  .faq-section { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
   @media (max-width: 900px) { .proveedor-item { grid-template-columns: 1fr; } .proveedor-imagen { height: 200px; min-height: auto; } }
   @media (max-width: 768px) { .proveedor-header, .proveedor-footer { flex-direction: column; gap: 16px; } .proveedor-acciones { width: 100%; } .btn-perfil, .btn-whatsapp { flex: 1; justify-content: center; } }
 </style>

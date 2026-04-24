@@ -1,4 +1,24 @@
-
+/* Skip-to-content — accesibilidad WCAG 2.1 criterio 2.4.1 */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--rosa-principal, #D1007A);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+}
+.skip-to-content:focus {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
 
 :root {
 

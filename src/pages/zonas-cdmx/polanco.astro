@@ -5,8 +5,7 @@ import Hero from '@/components/global/Hero.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
@@ -286,26 +285,7 @@ const polancoSchema = {
   </section>
 
   <!-- FAQ Polanco -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas sobre Servicio en"
-        titleHighlight="Polanco"
-        subtitle="Resolvemos tus dudas especificas sobre eventos en esta zona"
-      />
-      <FAQ items={faqsPolanco} id="faq-polanco" />
-    </div>
-  </section>
-
-  <!-- CTA Final -->
-  <CTAServices
-    href="https://wa.me/525525226442?text=Hola!%20Tengo%20un%20evento%20en%20Polanco%20y%20quiero%20cotizar%20una%20mesa%20de%20dulces"
-    badge="Evento en Polanco"
-    title="Cotiza para tu Evento en"
-    titleHighlight="Polanco"
-    text="Indicanos tu venue y fecha. Te enviamos una propuesta personalizada con todo incluido."
-    buttonText="Cotizar por WhatsApp"
-  />
+  <FAQContactModule faqItems={faqsPolanco} />
 </BaseLayout>
 
 <style>
@@ -371,11 +351,6 @@ const polancoSchema = {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 50px;
-  }
-
-  /* FAQ */
-  .faq-section {
-    background: #fff;
   }
 
   /* Responsive */

@@ -7,9 +7,7 @@ import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
-import CTAServices from '@/components/global/CTAServices.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import FAQ from '@/components/global/FAQ.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
@@ -151,13 +149,6 @@ const faqSchema = {
     highlight="Primera Comunion"
     subtitle="Montaje elegante y familiar para una celebracion religiosa con experiencia cuidada y presentacion impecable"
     secondaryContent={`<p><strong>Comunion</strong> con mesa de dulces profesional aporta armonia visual, orden en el servicio y una experiencia familiar coherente con la ceremonia. En Mededul disenamos propuestas sobrias que equilibran estilo, calidad y funcionalidad operativa.</p><p><strong>Celebracion</strong> religiosa bien acompanada por un candy bar elegante mejora la convivencia, fortalece el recuerdo fotografico y eleva la presentacion general del evento. Ejecutamos cada detalle en CDMX con puntualidad y estandar premium.</p>`}
-    showCTA={true}
-    ctaHref="/contacto"
-    ctaBadge="Asesoria Especializada"
-    ctaTitle="Planea Tu"
-    ctaTitleHighlight="Primera Comunion"
-    ctaText="Comparte sede, invitados y estilo para recibir una propuesta profesional para tu celebracion."
-    ctaButtonText="Solicitar Asesoria"
   />
 
   <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de comunion al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
@@ -168,12 +159,6 @@ const faqSchema = {
 
   <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones familiares." events={eventCards} />
 
-  <CTAServices href="/contacto" badge="Cotizacion sin Costo" title="Eleva Tu Celebracion de" titleHighlight="Comunion" text="Te ayudamos a crear una mesa de dulces elegante y profesional para una celebracion familiar memorable." buttonText="Cotizar Comunion" />
 
-  <section class="section-faq section-padding" id="faq">
-    <div class="container">
-      <SectionHeader title="Preguntas Frecuentes sobre Mesa de Dulces para Primera Comunion" titleHighlight="Frecuentes" subtitle="Resolvemos las dudas clave antes de contratar" content={`<p>Estas respuestas te ayudan a definir la propuesta ideal para tu comunion.</p>`} />
-      <FAQ items={faqs} id="faq-primera-comunion" />
-    </div>
-  </section>
+  <FAQContactModule faqItems={faqs} />
 </BaseLayout>
