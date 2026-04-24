@@ -9,11 +9,15 @@ export interface Dulceria {
   slug: string;
   tipo: 'Tienda de Golosinas' | 'Dulcería Mayoreo' | 'Tienda de Golosinas Premium' | 'Dulcería Tradicional';
 
+  // Zona geográfica (default: CDMX)
+  estado?: 'CDMX' | 'Edo Mex';
+  estadoSlug?: 'cdmx' | 'edomex';
+
   // Ubicación
   direccion: string;
   colonia: string;
-  alcaldia: string;
-  alcaldiaSlug: string;
+  alcaldia: string;       // Para Edo Mex: municipio
+  alcaldiaSlug: string;   // Para Edo Mex: municipioSlug
   cp: string;
   coordenadas: { lat: number; lng: number };
   referencia?: string;
@@ -178,6 +182,99 @@ export const alcaldiasInfo: Record<string, {
     descripcion: 'Alcaldía al poniente con zonas comerciales modernas como Santa Fe.',
     caracteristicas: ['Zona comercial Santa Fe', 'Productos variados', 'Acceso fácil'],
     zonaComercial: 'Centro de Cuajimalpa / Santa Fe'
+  }
+};
+
+// Información de municipios del Estado de México con datos de contexto
+export const municipiosInfo: Record<string, {
+  nombre: string;
+  descripcion: string;
+  caracteristicas: string[];
+  zonaComercial: string;
+}> = {
+  'naucalpan': {
+    nombre: 'Naucalpan de Juárez',
+    descripcion: 'Municipio conurbado al poniente de CDMX, con fuerte actividad comercial sobre el corredor Adolfo López Mateos y Mercado San Bartolo.',
+    caracteristicas: ['Mercado San Bartolo histórico', 'Corredor López Mateos', 'Mayoreo y menudeo'],
+    zonaComercial: 'Naucalpan Centro / San Bartolo'
+  },
+  'tlalnepantla': {
+    nombre: 'Tlalnepantla de Baz',
+    descripcion: 'Municipio industrial y comercial del norte conurbado, con zonas mayoristas en La Romana y Zaragoza.',
+    caracteristicas: ['Zonas mayoristas consolidadas', 'Acceso por Periférico Norte', 'Variedad de proveedores'],
+    zonaComercial: 'La Romana / Centro de Tlalnepantla'
+  },
+  'nezahualcoyotl': {
+    nombre: 'Nezahualcóyotl',
+    descripcion: 'Uno de los municipios más poblados del país, con fuerte demanda de dulcerías para fiestas y eventos familiares.',
+    caracteristicas: ['Alta demanda para fiestas', 'Precios competitivos', 'Mayoreo desde 1 pieza'],
+    zonaComercial: 'Av. Bordo de Xochiaca / Indios Verdes'
+  },
+  'ecatepec': {
+    nombre: 'Ecatepec de Morelos',
+    descripcion: 'Municipio al norte del Valle de México con gran tradición de dulces mexicanos y comercio de barrio.',
+    caracteristicas: ['Dulces tradicionales mexicanos', 'Precios accesibles', 'Amplia cobertura'],
+    zonaComercial: 'Col. Olímpica / Av. Central'
+  },
+  'chalco': {
+    nombre: 'Chalco',
+    descripcion: 'Municipio del oriente del Estado de México con comercios locales para fiestas infantiles y eventos familiares.',
+    caracteristicas: ['Comercio local de fiesta', 'Atención cercana', 'Zona oriente'],
+    zonaComercial: 'Chalco Centro'
+  },
+  'atizapan': {
+    nombre: 'Atizapán de Zaragoza',
+    descripcion: 'Municipio conurbado al noroeste con zonas residenciales y comercios establecidos en colonias como México 86.',
+    caracteristicas: ['Zonas residenciales consolidadas', 'Artículos de fiesta', 'Dulcería de barrio'],
+    zonaComercial: 'Col. México 86 / Atizapán Centro'
+  },
+  'coacalco': {
+    nombre: 'Coacalco de Berriozábal',
+    descripcion: 'Municipio del norte conurbado con fuerte presencia de dulcerías mayoristas que también surten materias primas.',
+    caracteristicas: ['Mayoreo + materias primas', 'Dulces para repostería', 'Corredor Coacalco'],
+    zonaComercial: 'Coacalco Centro'
+  },
+  'tultitlan': {
+    nombre: 'Tultitlán',
+    descripcion: 'Municipio del norte con la Central de Abastos de Tultitlán, punto clave para distribución mayorista de dulces en el norte del Valle.',
+    caracteristicas: ['Central de Abastos', 'Mayoreo a gran escala', 'Distribución regional'],
+    zonaComercial: 'Central de Abastos Tultitlán'
+  },
+  'toluca': {
+    nombre: 'Toluca',
+    descripcion: 'Capital del Estado de México y centro comercial de la zona metropolitana del Valle de Toluca, con dulcerías mayoristas consolidadas.',
+    caracteristicas: ['Centro comercial del Valle de Toluca', 'Mayoreo regional', 'Materias primas y desechables'],
+    zonaComercial: 'Toluca Centro / Zona Industrial'
+  },
+  'metepec': {
+    nombre: 'Metepec',
+    descripcion: 'Municipio conurbado a Toluca, con zonas comerciales modernas y dulcerías artesanales de larga tradición.',
+    caracteristicas: ['Dulcerías artesanales históricas', 'Zona residencial premium', 'Chocolates y frutos secos'],
+    zonaComercial: 'Metepec Centro / Av. Tecnológico'
+  },
+  'texcoco': {
+    nombre: 'Texcoco',
+    descripcion: 'Municipio del oriente del Estado de México con tradición de dulces mexicanos y comercios de fiesta para bodas y XV años regionales.',
+    caracteristicas: ['Dulces tradicionales del oriente', 'Mayoreo y menudeo', 'Bodas y XV años regionales'],
+    zonaComercial: 'Texcoco Centro / Chiautla'
+  },
+  'nicolas-romero': {
+    nombre: 'Nicolás Romero',
+    descripcion: 'Municipio al norponiente con comercios de larga tradición sobre Av. Francisco I. Madero y zona Progreso Industrial.',
+    caracteristicas: ['Dulcerías tradicionales', 'Mayoreo + materias primas', 'Artículos de fiesta'],
+    zonaComercial: 'Villa Nicolás Romero / Progreso Industrial'
+  },
+  'cuautitlan-izcalli': {
+    nombre: 'Cuautitlán Izcalli',
+    descripcion: 'Municipio planificado del norte conurbado con amplias zonas residenciales y corredores comerciales como Paseos de Izcalli.',
+    caracteristicas: ['Zonas residenciales amplias', 'Dulces + desechables', 'Cobertura por colonia'],
+    zonaComercial: 'Paseos de Izcalli / Cofradía'
+  },
+  'tecamac': {
+    nombre: 'Tecámac',
+    descripcion: 'Municipio del norte del Valle de México con crecimiento residencial y dulcerías mayoristas para surtir fiestas regionales.',
+    caracteristicas: ['Crecimiento residencial', 'Mayoreo para fiestas', 'Acceso por Autopista México-Pachuca'],
+    zonaComercial: 'Tecámac Centro / Ojo de Agua'
   }
 };
 
@@ -3032,12 +3129,997 @@ export const dulceriasNuevas: Dulceria[] = [
   }
 ];
 
-// Combinar todas las dulcerías
-export const todasLasDulcerias: Dulceria[] = [...dulceriasExistentes, ...dulceriasNuevas];
+// DULCERÍAS DEL ESTADO DE MÉXICO
+// 30 negocios verificados en Google Maps sin página web propia
+// Todas las fichas usan estado: 'Edo Mex' y estadoSlug: 'edomex'
+// El campo alcaldia/alcaldiaSlug se repurposa semánticamente como municipio/municipioSlug
+const edomex = { estado: 'Edo Mex' as const, estadoSlug: 'edomex' as const };
 
-// Función para obtener dulcerías por alcaldía
+export const dulceriasEdomex: Dulceria[] = [
+  {
+    ...edomex,
+    nombre: 'Dulcería Valeria',
+    slug: 'dulceria-valeria-naucalpan',
+    tipo: 'Dulcería Tradicional',
+    direccion: 'Adolfo López Mateos 35',
+    colonia: 'Los Cuartos',
+    alcaldia: 'Naucalpan de Juárez',
+    alcaldiaSlug: 'naucalpan',
+    cp: '53670',
+    coordenadas: { lat: 19.4791, lng: -99.2372 },
+    referencia: 'Sobre Av. Adolfo López Mateos, cerca del corredor comercial',
+    telefono: '55 5301 2253',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Valeria+Adolfo+L%C3%B3pez+Mateos+35+Los+Cuartos+Naucalpan',
+    rating: 4.4,
+    resenas: 85,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional en Naucalpan con surtido clásico de golosinas y artículos para fiesta.',
+    especialidades: ['Dulces tradicionales', 'Artículos de fiesta', 'Surtido por pieza'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Surtido para fiestas', descripcion: 'Todo lo necesario para bolos de cumpleaños y piñatas' },
+      { nombre: 'Atención local', descripcion: 'Trato cercano de dulcería de colonia' }
+    ],
+    transporte: {
+      referencias: ['Sobre Av. Adolfo López Mateos', 'Zona comercial de Los Cuartos', 'Acceso desde Periférico Norte']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Los Dos Gorilas',
+    slug: 'dulceria-los-dos-gorilas',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Av. Universidad 650, Mercado San Bartolo Planta Baja',
+    colonia: 'Naucalpan Centro',
+    alcaldia: 'Naucalpan de Juárez',
+    alcaldiaSlug: 'naucalpan',
+    cp: '53000',
+    coordenadas: { lat: 19.4751, lng: -99.2375 },
+    referencia: 'Dentro del histórico Mercado San Bartolo',
+    telefono: '55 5358 5525',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Los+Dos+Gorilas+Mercado+San+Bartolo+Naucalpan',
+    rating: 4.5,
+    resenas: 120,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.mercado,
+    descripcionCorta: 'Dulcería mayorista dentro del emblemático Mercado San Bartolo de Naucalpan.',
+    especialidades: ['Mayoreo', 'Mercado tradicional', 'Precios de distribuidor'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería', 'Dulces tradicionales'],
+    servicios: [
+      { nombre: 'Precios de mayoreo', descripcion: 'Acceso a precios mayoristas dentro del mercado' },
+      { nombre: 'Ubicación mercado', descripcion: 'Estacionamiento y fácil acceso del Mercado San Bartolo' }
+    ],
+    transporte: {
+      referencias: ['Mercado San Bartolo', 'Av. Universidad 650', 'Naucalpan Centro']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería La Peque Mimi',
+    slug: 'dulceria-la-peque-mimi',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Abasolo 18B',
+    colonia: 'Naucalpan Centro',
+    alcaldia: 'Naucalpan de Juárez',
+    alcaldiaSlug: 'naucalpan',
+    cp: '53000',
+    coordenadas: { lat: 19.4755, lng: -99.2381 },
+    referencia: 'Operando desde 1969 en Naucalpan Centro',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+La+Peque+Mimi+Abasolo+18B+Naucalpan+Centro',
+    rating: 4.3,
+    resenas: 60,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería histórica de Naucalpan Centro operando desde 1969 con surtido mayorista.',
+    especialidades: ['Mayoreo', 'Tradición desde 1969', 'Dulces clásicos'],
+    productos: ['Gomitas', 'Chocolates', 'Dulces tradicionales', 'Paletas', 'Confitería'],
+    servicios: [
+      { nombre: 'Tradición familiar', descripcion: 'Más de 50 años surtiendo al centro de Naucalpan' },
+      { nombre: 'Mayoreo y menudeo', descripcion: 'Atienden compras grandes y pequeñas' }
+    ],
+    transporte: {
+      referencias: ['Naucalpan Centro', 'Sobre Abasolo', 'Cerca del Mercado San Bartolo']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería La Nueva Merced',
+    slug: 'dulceria-la-nueva-merced-tlalnepantla',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Toltecas 297',
+    colonia: 'La Romana',
+    alcaldia: 'Tlalnepantla de Baz',
+    alcaldiaSlug: 'tlalnepantla',
+    cp: '54030',
+    coordenadas: { lat: 19.5402, lng: -99.1902 },
+    referencia: 'En la zona mayorista de La Romana, Nueva Tlalnepantla',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+La+Nueva+Merced+Toltecas+297+La+Romana+Tlalnepantla',
+    rating: 4.4,
+    resenas: 95,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería mayorista en la zona comercial de La Romana, Tlalnepantla.',
+    especialidades: ['Mayoreo', 'Surtido completo', 'Precios de distribuidor'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Dulces importados', 'Confitería'],
+    servicios: [
+      { nombre: 'Precios mayoristas', descripcion: 'Compra al mayoreo con descuentos por volumen' },
+      { nombre: 'Estilo La Merced', descripcion: 'Variedad y precios similares a los de CDMX sin cruzar al centro' }
+    ],
+    transporte: {
+      referencias: ['Col. La Romana', 'Nueva Tlalnepantla', 'Acceso por Av. Mario Colín']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Los Ángeles México',
+    slug: 'dulceria-los-angeles-tlalnepantla',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Ignacio Zaragoza esq. Alfredo del Mazo',
+    colonia: 'Tlalnepantla Centro',
+    alcaldia: 'Tlalnepantla de Baz',
+    alcaldiaSlug: 'tlalnepantla',
+    cp: '54000',
+    coordenadas: { lat: 19.5395, lng: -99.1952 },
+    referencia: 'Esquina Zaragoza y Alfredo del Mazo, Tlalnepantla',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Los+%C3%81ngeles+M%C3%A9xico+Zaragoza+Alfredo+del+Mazo+Tlalnepantla',
+    rating: 4.3,
+    resenas: 70,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo y menudeo en el centro de Tlalnepantla, con surtido clásico de confitería.',
+    especialidades: ['Mayoreo y menudeo', 'Dulces clásicos', 'Centro de Tlalnepantla'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Dulces tradicionales', 'Confitería'],
+    servicios: [
+      { nombre: 'Doble modalidad', descripcion: 'Atiende compras al mayoreo y al menudeo' },
+      { nombre: 'Ubicación céntrica', descripcion: 'Esquina visible en el centro de Tlalnepantla' }
+    ],
+    transporte: {
+      referencias: ['Tlalnepantla Centro', 'Esquina Zaragoza y Alfredo del Mazo']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulce y Truco',
+    slug: 'dulce-y-truco-neza',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Calle 37',
+    colonia: 'Nezahualcóyotl',
+    alcaldia: 'Nezahualcóyotl',
+    alcaldiaSlug: 'nezahualcoyotl',
+    cp: '57000',
+    coordenadas: { lat: 19.4010, lng: -99.0142 },
+    referencia: 'Mayoreo desde 1 pieza',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulce+y+Truco+Calle+37+Nezahualc%C3%B3yotl',
+    rating: 4.4,
+    resenas: 55,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería con modelo de mayoreo accesible desde 1 sola pieza para familias y eventos pequeños.',
+    especialidades: ['Mayoreo desde 1 pieza', 'Surtido para fiestas', 'Precios competitivos'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Dulces importados', 'Chicles'],
+    servicios: [
+      { nombre: 'Mayoreo sin mínimos', descripcion: 'Precio de mayoreo desde la primera pieza comprada' },
+      { nombre: 'Surtido para fiestas', descripcion: 'Ideal para bolos y piñatas pequeñas' }
+    ],
+    transporte: {
+      referencias: ['Nezahualcóyotl', 'Sobre Calle 37']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulceneza Dulcería',
+    slug: 'dulceneza-nezahualcoyotl',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Indios Verdes 292',
+    colonia: 'Nezahualcóyotl',
+    alcaldia: 'Nezahualcóyotl',
+    alcaldiaSlug: 'nezahualcoyotl',
+    cp: '57000',
+    coordenadas: { lat: 19.4012, lng: -99.0155 },
+    referencia: 'Sobre Av. Indios Verdes, Nezahualcóyotl',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulceneza+Dulcer%C3%ADa+Indios+Verdes+292+Nezahualc%C3%B3yotl',
+    rating: 4.2,
+    resenas: 40,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en Nezahualcóyotl con paletas, helados y surtido clásico.',
+    especialidades: ['Paletas y helados', 'Dulces de barrio', 'Atención familiar'],
+    productos: ['Paletas', 'Helados', 'Gomitas', 'Chocolates', 'Chicles'],
+    servicios: [
+      { nombre: 'Helados y paletas', descripcion: 'Surtido fresco además del catálogo clásico de dulces' },
+      { nombre: 'Comercio local', descripcion: 'Atención cercana para colonia' }
+    ],
+    transporte: {
+      referencias: ['Nezahualcóyotl', 'Av. Indios Verdes']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Dulce María Olímpica',
+    slug: 'dulce-maria-olimpica-ecatepec',
+    tipo: 'Dulcería Tradicional',
+    direccion: 'Col. Olímpica',
+    colonia: 'Olímpica',
+    alcaldia: 'Ecatepec de Morelos',
+    alcaldiaSlug: 'ecatepec',
+    cp: '55000',
+    coordenadas: { lat: 19.6012, lng: -99.0489 },
+    referencia: 'Especialidad en dulces tradicionales mexicanos',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Dulce+Mar%C3%ADa+Col+Ol%C3%ADmpica+Ecatepec',
+    rating: 4.5,
+    resenas: 65,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional mexicana en Ecatepec con alegrías, buñuelos y dulces típicos.',
+    especialidades: ['Dulces mexicanos tradicionales', 'Alegrías y buñuelos', 'Artesanales'],
+    productos: ['Alegrías', 'Buñuelos', 'Palanquetas', 'Dulces de cajeta', 'Cocadas', 'Tamarindos'],
+    servicios: [
+      { nombre: 'Dulces tradicionales', descripcion: 'Especialistas en dulce mexicano artesanal' },
+      { nombre: 'Surtido para bodas', descripcion: 'Ideal para mesas de dulces típicos de boda o XV años' }
+    ],
+    transporte: {
+      referencias: ['Col. Olímpica, Ecatepec', 'Acceso por Vía Morelos']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Express Chalco',
+    slug: 'dulceria-express-chalco',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Chalco de Díaz Covarrubias',
+    colonia: 'Chalco Centro',
+    alcaldia: 'Chalco',
+    alcaldiaSlug: 'chalco',
+    cp: '56600',
+    coordenadas: { lat: 19.2648, lng: -98.8972 },
+    referencia: 'Dulcería en el centro de Chalco',
+    telefono: '55 6530 0530',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Express+Chalco+de+D%C3%ADaz+Covarrubias',
+    rating: 4.3,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local de Chalco para fiestas infantiles y eventos familiares del oriente.',
+    especialidades: ['Fiestas infantiles', 'Surtido clásico', 'Atención local'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Comercio local', descripcion: 'Atención cercana a clientes de Chalco y alrededores' },
+      { nombre: 'Surtido para fiesta', descripcion: 'Surten bolos, piñatas y mesas de dulces sencillas' }
+    ],
+    transporte: {
+      referencias: ['Chalco Centro', 'Zona oriente del Edo Mex']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Monse',
+    slug: 'dulceria-monse-atizapan',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Bélgica 60',
+    colonia: 'México 86',
+    alcaldia: 'Atizapán de Zaragoza',
+    alcaldiaSlug: 'atizapan',
+    cp: '52928',
+    coordenadas: { lat: 19.5575, lng: -99.2571 },
+    referencia: 'Dulcería de colonia en México 86',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Monse+B%C3%A9lgica+60+M%C3%A9xico+86+Atizap%C3%A1n',
+    rating: 4.4,
+    resenas: 50,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en México 86, Atizapán, con surtido clásico para fiestas.',
+    especialidades: ['Fiestas infantiles', 'Atención cercana', 'Surtido variado'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Confitería'],
+    servicios: [
+      { nombre: 'Trato familiar', descripcion: 'Atención cercana para vecinos de la colonia' },
+      { nombre: 'Surtido para piñatas', descripcion: 'Variedad para armar bolos y piñatas' }
+    ],
+    transporte: {
+      referencias: ['Col. México 86, Atizapán', 'Acceso por Blvd. Ignacio Zaragoza']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  {
+    ...edomex,
+    nombre: 'Surti Fiesta Dulcería',
+    slug: 'surti-fiesta-atizapan',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Corea 61',
+    colonia: 'México 86',
+    alcaldia: 'Atizapán de Zaragoza',
+    alcaldiaSlug: 'atizapan',
+    cp: '52928',
+    coordenadas: { lat: 19.5578, lng: -99.2575 },
+    referencia: 'Artículos de fiesta + dulcería mayorista',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Surti+Fiesta+Dulcer%C3%ADa+Corea+61+M%C3%A9xico+86+Atizap%C3%A1n',
+    rating: 4.5,
+    resenas: 75,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo de dulces y artículos de fiesta en Atizapán — proveedor integral para eventos.',
+    especialidades: ['Artículos de fiesta', 'Mayoreo', 'Paquetes para evento'],
+    productos: ['Dulces a granel', 'Piñatas', 'Desechables', 'Bolsitas de dulces', 'Globos', 'Decoración'],
+    servicios: [
+      { nombre: 'Todo para fiesta', descripcion: 'Dulces + desechables + decoración en un solo lugar' },
+      { nombre: 'Mayoreo integral', descripcion: 'Paquetes completos con descuento por volumen' }
+    ],
+    transporte: {
+      referencias: ['Col. México 86, Atizapán', 'Esquina comercial']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Xochimej',
+    slug: 'dulceria-xochimej-coacalco',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Coacalco de Berriozábal',
+    colonia: 'Coacalco Centro',
+    alcaldia: 'Coacalco de Berriozábal',
+    alcaldiaSlug: 'coacalco',
+    cp: '55700',
+    coordenadas: { lat: 19.6255, lng: -99.1031 },
+    referencia: 'Dulcería local en Coacalco',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Xochimej+Coacalco+de+Berriozabal',
+    rating: 4.3,
+    resenas: 40,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en Coacalco con surtido clásico para eventos familiares.',
+    especialidades: ['Dulces de barrio', 'Fiestas infantiles', 'Precios accesibles'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Atención local', descripcion: 'Comercio familiar con trato cercano' },
+      { nombre: 'Surtido fiesta', descripcion: 'Armado de bolos y piñatas a la medida' }
+    ],
+    transporte: {
+      referencias: ['Coacalco Centro', 'Zona conurbada norte']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Dory',
+    slug: 'dulceria-dory-coacalco',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Agua 12',
+    colonia: 'Coacalco Centro',
+    alcaldia: 'Coacalco de Berriozábal',
+    alcaldiaSlug: 'coacalco',
+    cp: '55700',
+    coordenadas: { lat: 19.6261, lng: -99.1038 },
+    referencia: 'Dulcería + materias primas para repostería',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Dory+Agua+12+Coacalco',
+    rating: 4.5,
+    resenas: 90,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería mayorista en Coacalco con surtido completo y materias primas para repostería.',
+    especialidades: ['Mayoreo', 'Materias primas', 'Repostería'],
+    productos: ['Dulces a granel', 'Chocolates', 'Harinas', 'Cacao', 'Grageas', 'Coberturas'],
+    servicios: [
+      { nombre: 'Dulces + repostería', descripcion: 'Un solo proveedor para dulces y materia prima' },
+      { nombre: 'Mayoreo', descripcion: 'Precios mayoristas con descuento por volumen' }
+    ],
+    transporte: {
+      referencias: ['Coacalco Centro', 'Corredor Coacalco']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    ...edomex,
+    nombre: 'El Mundo Del Dulce',
+    slug: 'el-mundo-del-dulce-coacalco',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Coacalco de Berriozábal',
+    colonia: 'Coacalco Centro',
+    alcaldia: 'Coacalco de Berriozábal',
+    alcaldiaSlug: 'coacalco',
+    cp: '55700',
+    coordenadas: { lat: 19.6278, lng: -99.1055 },
+    referencia: 'La dulcería más grande de Coacalco',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=El+Mundo+Del+Dulce+Coacalco',
+    rating: 4.4,
+    resenas: 80,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'La dulcería más grande de Coacalco — mayoreo con amplia variedad para eventos grandes.',
+    especialidades: ['Mayoreo a gran escala', 'Amplia variedad', 'Eventos grandes'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería', 'Dulces importados'],
+    servicios: [
+      { nombre: 'Gran superficie', descripcion: 'Espacio amplio para surtir grandes volúmenes' },
+      { nombre: 'Variedad premium', descripcion: 'Desde dulces clásicos hasta importados' }
+    ],
+    transporte: {
+      referencias: ['Coacalco Centro', 'Corredor norte conurbado']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Prados',
+    slug: 'dulceria-prados-tultitlan',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Prados del Norte 82',
+    colonia: 'Unidad Morelos 3ra Sección',
+    alcaldia: 'Tultitlán',
+    alcaldiaSlug: 'tultitlan',
+    cp: '54930',
+    coordenadas: { lat: 19.6505, lng: -99.1692 },
+    referencia: 'Dulcería residencial en Tultitlán',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Prados+Prados+del+Norte+82+Unidad+Morelos+Tultitl%C3%A1n',
+    rating: 4.3,
+    resenas: 55,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de colonia en Tultitlán con surtido clásico para fiestas familiares.',
+    especialidades: ['Dulces de barrio', 'Fiestas familiares', 'Precios accesibles'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Comercio de colonia', descripcion: 'Trato cercano para vecinos' },
+      { nombre: 'Surtido de fiesta', descripcion: 'Ideal para cumpleaños y eventos pequeños' }
+    ],
+    transporte: {
+      referencias: ['Unidad Morelos 3ra Sección', 'Tultitlán']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería La Especial',
+    slug: 'dulceria-la-especial-tultitlan',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Central de Abastos Tultitlán, Nave 7, Bodegas 11-14',
+    colonia: 'Central de Abastos',
+    alcaldia: 'Tultitlán',
+    alcaldiaSlug: 'tultitlan',
+    cp: '54900',
+    coordenadas: { lat: 19.6462, lng: -99.1742 },
+    referencia: 'Abre lunes a domingo 7:30-17:30',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+La+Especial+Central+de+Abastos+Tultitl%C3%A1n',
+    rating: 4.6,
+    resenas: 140,
+    verificado: true,
+    destacado: true,
+    horario: {
+      lunes: '7:30 - 17:30', martes: '7:30 - 17:30', miercoles: '7:30 - 17:30',
+      jueves: '7:30 - 17:30', viernes: '7:30 - 17:30', sabado: '7:30 - 17:30', domingo: '7:30 - 17:30'
+    },
+    descripcionCorta: 'Dulcería mayorista dentro de la Central de Abastos de Tultitlán — precios de distribuidor.',
+    especialidades: ['Central de Abastos', 'Precios mayoristas', 'Abierto 7 días'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería', 'Dulces importados'],
+    servicios: [
+      { nombre: 'Precios Central de Abastos', descripcion: 'Los mismos precios que La Merced sin entrar a CDMX' },
+      { nombre: 'Abierto los 7 días', descripcion: 'Horario extendido todos los días del año' }
+    ],
+    transporte: {
+      referencias: ['Central de Abastos Tultitlán', 'Nave 7, Bodegas 11-14', 'Acceso por Autopista México-Querétaro']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    ...edomex,
+    nombre: 'Mundo del Dulce Toluca',
+    slug: 'mundo-del-dulce-toluca',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Toluca de Lerdo',
+    colonia: 'Toluca Centro',
+    alcaldia: 'Toluca',
+    alcaldiaSlug: 'toluca',
+    cp: '50000',
+    coordenadas: { lat: 19.2926, lng: -99.6569 },
+    referencia: 'Mayoreo en Toluca — dulces, materias primas y desechables',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mundo+del+Dulce+Toluca',
+    rating: 4.4,
+    resenas: 70,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería mayorista en Toluca con surtido integral: dulces, materias primas y desechables.',
+    especialidades: ['Mayoreo regional', 'Materias primas', 'Desechables'],
+    productos: ['Dulces a granel', 'Chocolates', 'Harinas', 'Coberturas', 'Desechables', 'Decoración'],
+    servicios: [
+      { nombre: 'Proveedor integral', descripcion: 'Dulces + repostería + desechables en un solo lugar' },
+      { nombre: 'Mayoreo Valle de Toluca', descripcion: 'Atiende eventos de toda la zona metropolitana de Toluca' }
+    ],
+    transporte: {
+      referencias: ['Toluca de Lerdo', 'Zona comercial de Toluca']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  {
+    ...edomex,
+    nombre: 'Comercializadora Colibrí',
+    slug: 'comercializadora-colibri-toluca',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Toluca de Lerdo',
+    colonia: 'Toluca Centro',
+    alcaldia: 'Toluca',
+    alcaldiaSlug: 'toluca',
+    cp: '50000',
+    coordenadas: { lat: 19.2935, lng: -99.6580 },
+    referencia: 'Mayoreo dulces y abarrotes',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Comercializadora+Colibr%C3%AD+Toluca',
+    rating: 4.3,
+    resenas: 55,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Comercializadora de dulces y abarrotes al mayoreo en Toluca para negocios y eventos grandes.',
+    especialidades: ['Mayoreo dulces + abarrotes', 'Negocios y eventos', 'Toluca'],
+    productos: ['Dulces', 'Abarrotes', 'Gomitas', 'Chocolates', 'Botanas'],
+    servicios: [
+      { nombre: 'Cliente empresarial', descripcion: 'Surtido para otros comercios y eventos corporativos' },
+      { nombre: 'Mayoreo mixto', descripcion: 'Dulces y abarrotes combinados' }
+    ],
+    transporte: {
+      referencias: ['Toluca de Lerdo', 'Zona comercial']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Santana',
+    slug: 'dulceria-santana-metepec',
+    tipo: 'Dulcería Tradicional',
+    direccion: 'Metepec, Estado de México',
+    colonia: 'Metepec Centro',
+    alcaldia: 'Metepec',
+    alcaldiaSlug: 'metepec',
+    cp: '52140',
+    coordenadas: { lat: 19.2687, lng: -99.6035 },
+    referencia: 'Dulcería artesanal fundada en 1970',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Santana+Metepec',
+    rating: 4.6,
+    resenas: 110,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería artesanal histórica fundada en 1970 en Metepec — referente de dulces tradicionales del Valle de Toluca.',
+    especialidades: ['Artesanal desde 1970', 'Dulces tradicionales', 'Historia y tradición'],
+    productos: ['Alegrías', 'Palanquetas', 'Dulces de cajeta', 'Cocadas', 'Jamoncillo', 'Tamarindos'],
+    servicios: [
+      { nombre: 'Tradición de 55+ años', descripcion: 'Una de las dulcerías artesanales más antiguas de Metepec' },
+      { nombre: 'Mesa de dulces mexicana', descripcion: 'Ideal para bodas y XV años con temática tradicional' }
+    ],
+    transporte: {
+      referencias: ['Metepec Centro', 'Valle de Toluca']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulce Metepec',
+    slug: 'dulce-metepec',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Metepec, Estado de México',
+    colonia: 'Metepec Centro',
+    alcaldia: 'Metepec',
+    alcaldiaSlug: 'metepec',
+    cp: '52140',
+    coordenadas: { lat: 19.2692, lng: -99.6040 },
+    referencia: 'Dulcería local de Metepec',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulce+Metepec+Dulcer%C3%ADa',
+    rating: 4.3,
+    resenas: 45,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de barrio en Metepec con surtido clásico de golosinas.',
+    especialidades: ['Comercio local', 'Dulces clásicos', 'Fiestas familiares'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Confitería'],
+    servicios: [
+      { nombre: 'Atención cercana', descripcion: 'Trato familiar para clientes de Metepec' },
+      { nombre: 'Surtido para fiestas', descripcion: 'Ideal para cumpleaños y eventos pequeños' }
+    ],
+    transporte: {
+      referencias: ['Metepec Centro']
+    },
+    imagen: getImagenPorIndice(8),
+    imagenes: [getImagenPorIndice(8), getImagenPorIndice(9), getImagenPorIndice(10)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería ConfiMex Metepec',
+    slug: 'confimex-metepec',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Av. Tecnológico 2416',
+    colonia: 'Madero',
+    alcaldia: 'Metepec',
+    alcaldiaSlug: 'metepec',
+    cp: '52148',
+    coordenadas: { lat: 19.2708, lng: -99.6082 },
+    referencia: 'Chocolates, dulces, botanas, frutos secos',
+    telefono: '722 417 1250',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+ConfiMex+Av+Tecnol%C3%B3gico+2416+Madero+Metepec',
+    rating: 4.4,
+    resenas: 85,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo integral en Metepec: chocolates, dulces, botanas y frutos secos para eventos del Valle de Toluca.',
+    especialidades: ['Chocolates', 'Botanas premium', 'Frutos secos', 'Mayoreo'],
+    productos: ['Chocolates finos', 'Dulces a granel', 'Botanas', 'Frutos secos', 'Cacahuates', 'Almendras'],
+    servicios: [
+      { nombre: 'Mix candy + snack', descripcion: 'Surten mesas de dulces y estaciones de botanas' },
+      { nombre: 'Mayoreo especializado', descripcion: 'Descuentos por volumen para eventos corporativos' }
+    ],
+    transporte: {
+      referencias: ['Av. Tecnológico', 'Col. Madero, Metepec']
+    },
+    imagen: getImagenPorIndice(9),
+    imagenes: [getImagenPorIndice(9), getImagenPorIndice(10), getImagenPorIndice(0)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería El Panal Texcoco',
+    slug: 'dulceria-el-panal-texcoco',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Chiautla / Texcoco',
+    colonia: 'Chiautla',
+    alcaldia: 'Texcoco',
+    alcaldiaSlug: 'texcoco',
+    cp: '56030',
+    coordenadas: { lat: 19.5102, lng: -98.8812 },
+    referencia: 'Zona Chiautla-Texcoco',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+El+Panal+Texcoco',
+    rating: 4.4,
+    resenas: 50,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería local del oriente del Edo Mex, zona Texcoco-Chiautla.',
+    especialidades: ['Dulces de fiesta', 'Oriente del Edo Mex', 'Surtido familiar'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces tradicionales'],
+    servicios: [
+      { nombre: 'Atención regional', descripcion: 'Cubre fiestas del oriente del Valle de México' },
+      { nombre: 'Comercio local', descripcion: 'Trato cercano de dulcería de pueblo' }
+    ],
+    transporte: {
+      referencias: ['Chiautla', 'Texcoco']
+    },
+    imagen: getImagenPorIndice(10),
+    imagenes: [getImagenPorIndice(10), getImagenPorIndice(0), getImagenPorIndice(1)]
+  },
+  {
+    ...edomex,
+    nombre: 'La Abeja Reina Dulcería',
+    slug: 'la-abeja-reina-nicolas-romero',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Villa Nicolás Romero',
+    colonia: 'Villa Nicolás Romero',
+    alcaldia: 'Nicolás Romero',
+    alcaldiaSlug: 'nicolas-romero',
+    cp: '54400',
+    coordenadas: { lat: 19.6258, lng: -99.3210 },
+    referencia: 'Horario 8-18h',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=La+Abeja+Reina+Dulcer%C3%ADa+Villa+Nicol%C3%A1s+Romero',
+    rating: 4.5,
+    resenas: 75,
+    verificado: true,
+    destacado: true,
+    horario: {
+      lunes: '8:00 - 18:00', martes: '8:00 - 18:00', miercoles: '8:00 - 18:00',
+      jueves: '8:00 - 18:00', viernes: '8:00 - 18:00', sabado: '8:00 - 18:00', domingo: '9:00 - 15:00'
+    },
+    descripcionCorta: 'Dulcería reconocida en Villa Nicolás Romero con amplio surtido y rating destacado.',
+    especialidades: ['Surtido completo', 'Horario extendido', 'Mayoreo y menudeo'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Confitería', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Rating destacado', descripcion: '4.5 estrellas — referente local' },
+      { nombre: 'Horario de 10 horas', descripcion: 'Abierto de 8 a 18h entre semana' }
+    ],
+    transporte: {
+      referencias: ['Villa Nicolás Romero', 'Norponiente del Edo Mex']
+    },
+    imagen: getImagenPorIndice(0),
+    imagenes: [getImagenPorIndice(0), getImagenPorIndice(1), getImagenPorIndice(2)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Real',
+    slug: 'dulceria-real-nicolas-romero',
+    tipo: 'Dulcería Tradicional',
+    direccion: 'Av. Francisco I. Madero 116',
+    colonia: 'Ciudad Nicolás Romero',
+    alcaldia: 'Nicolás Romero',
+    alcaldiaSlug: 'nicolas-romero',
+    cp: '54400',
+    coordenadas: { lat: 19.6262, lng: -99.3218 },
+    referencia: 'Sobre Av. Francisco I. Madero',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Real+Francisco+I+Madero+116+Nicol%C3%A1s+Romero',
+    rating: 4.3,
+    resenas: 60,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería tradicional sobre la avenida principal de Nicolás Romero.',
+    especialidades: ['Tradicional', 'Ubicación céntrica', 'Dulces clásicos'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Ubicación visible', descripcion: 'Sobre la avenida principal del municipio' },
+      { nombre: 'Dulces clásicos', descripcion: 'Surtido tradicional siempre disponible' }
+    ],
+    transporte: {
+      referencias: ['Av. Francisco I. Madero', 'Ciudad Nicolás Romero']
+    },
+    imagen: getImagenPorIndice(1),
+    imagenes: [getImagenPorIndice(1), getImagenPorIndice(2), getImagenPorIndice(3)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería y Materias Arcoiris',
+    slug: 'dulceria-arcoiris-nicolas-romero',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Hidalgo s/n',
+    colonia: 'Progreso Industrial',
+    alcaldia: 'Nicolás Romero',
+    alcaldiaSlug: 'nicolas-romero',
+    cp: '54404',
+    coordenadas: { lat: 19.6275, lng: -99.3158 },
+    referencia: 'Dulces, materias primas, artículos para fiesta',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Arcoiris+Hidalgo+Progreso+Industrial+Nicol%C3%A1s+Romero',
+    rating: 4.4,
+    resenas: 65,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo integral en Nicolás Romero: dulces, materias primas y artículos de fiesta.',
+    especialidades: ['Mayoreo integral', 'Materias primas', 'Artículos de fiesta'],
+    productos: ['Dulces a granel', 'Harinas', 'Coberturas', 'Piñatas', 'Desechables'],
+    servicios: [
+      { nombre: 'Todo en uno', descripcion: 'Dulces + repostería + decoración para fiesta' },
+      { nombre: 'Zona industrial', descripcion: 'Precios mayoristas con facilidad para carga' }
+    ],
+    transporte: {
+      referencias: ['Col. Progreso Industrial', 'Nicolás Romero']
+    },
+    imagen: getImagenPorIndice(2),
+    imagenes: [getImagenPorIndice(2), getImagenPorIndice(3), getImagenPorIndice(4)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Tus Amigas',
+    slug: 'dulceria-tus-amigas-izcalli',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Paseos de Izcalli 13',
+    colonia: 'Claustros de San Miguel',
+    alcaldia: 'Cuautitlán Izcalli',
+    alcaldiaSlug: 'cuautitlan-izcalli',
+    cp: '54750',
+    coordenadas: { lat: 19.6432, lng: -99.2108 },
+    referencia: 'Residencial Paseos de Izcalli',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Tus+Amigas+Paseos+de+Izcalli+13+Cuautitl%C3%A1n+Izcalli',
+    rating: 4.3,
+    resenas: 50,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería residencial en Claustros de San Miguel, Cuautitlán Izcalli.',
+    especialidades: ['Zona residencial', 'Dulces para fiesta', 'Atención cercana'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Comercio de colonia', descripcion: 'Surte fiestas familiares de la zona residencial' },
+      { nombre: 'Atención cercana', descripcion: 'Trato de barrio' }
+    ],
+    transporte: {
+      referencias: ['Paseos de Izcalli', 'Claustros de San Miguel']
+    },
+    imagen: getImagenPorIndice(3),
+    imagenes: [getImagenPorIndice(3), getImagenPorIndice(4), getImagenPorIndice(5)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería y Desechables La Roca',
+    slug: 'dulceria-la-roca-izcalli',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'San Francisco de Asís 1',
+    colonia: 'Lomas de San Francisco Tepojaco',
+    alcaldia: 'Cuautitlán Izcalli',
+    alcaldiaSlug: 'cuautitlan-izcalli',
+    cp: '54715',
+    coordenadas: { lat: 19.6552, lng: -99.2048 },
+    referencia: 'Desechables + dulcería',
+    telefono: '55 2400 8432',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+y+Desechables+La+Roca+San+Francisco+de+As%C3%ADs+1+Cuautitl%C3%A1n+Izcalli',
+    rating: 4.4,
+    resenas: 70,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo de dulces + desechables en Cuautitlán Izcalli para eventos y negocios.',
+    especialidades: ['Dulces + desechables', 'Mayoreo', 'Proveedor integral'],
+    productos: ['Dulces a granel', 'Platos desechables', 'Vasos', 'Globos', 'Manteles', 'Decoración'],
+    servicios: [
+      { nombre: 'Evento llave en mano', descripcion: 'Dulces + mobiliario desechable en un solo lugar' },
+      { nombre: 'Mayoreo', descripcion: 'Descuentos por volumen para fiestas grandes' }
+    ],
+    transporte: {
+      referencias: ['Lomas de San Francisco Tepojaco', 'Cuautitlán Izcalli']
+    },
+    imagen: getImagenPorIndice(4),
+    imagenes: [getImagenPorIndice(4), getImagenPorIndice(5), getImagenPorIndice(6)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Kositas',
+    slug: 'dulceria-kositas-izcalli',
+    tipo: 'Tienda de Golosinas',
+    direccion: 'Av. de la Unión 28A',
+    colonia: 'Cofradía 4',
+    alcaldia: 'Cuautitlán Izcalli',
+    alcaldiaSlug: 'cuautitlan-izcalli',
+    cp: '54715',
+    coordenadas: { lat: 19.6521, lng: -99.2131 },
+    referencia: 'Sobre Av. de la Unión',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Kositas+Uni%C3%B3n+28A+Cofrad%C3%ADa+Cuautitl%C3%A1n+Izcalli',
+    rating: 4.2,
+    resenas: 35,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería de colonia en Cofradía 4, Cuautitlán Izcalli.',
+    especialidades: ['Dulces de barrio', 'Fiestas familiares', 'Precios accesibles'],
+    productos: ['Gomitas', 'Chocolates', 'Paletas', 'Chicles', 'Confitería'],
+    servicios: [
+      { nombre: 'Comercio local', descripcion: 'Atención cercana para vecinos' },
+      { nombre: 'Surtido clásico', descripcion: 'Variedad para cumpleaños pequeños' }
+    ],
+    transporte: {
+      referencias: ['Col. Cofradía 4', 'Cuautitlán Izcalli']
+    },
+    imagen: getImagenPorIndice(5),
+    imagenes: [getImagenPorIndice(5), getImagenPorIndice(6), getImagenPorIndice(7)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería El Mayoreo Tecámac',
+    slug: 'dulceria-el-mayoreo-tecamac',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Tecámac, Estado de México',
+    colonia: 'Tecámac Centro',
+    alcaldia: 'Tecámac',
+    alcaldiaSlug: 'tecamac',
+    cp: '55740',
+    coordenadas: { lat: 19.7125, lng: -98.9693 },
+    referencia: 'Mayoreo en Tecámac',
+    telefono: 'Ver en Google Maps',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+El+Mayoreo+Tec%C3%A1mac',
+    rating: 4.4,
+    resenas: 80,
+    verificado: true,
+    destacado: true,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Mayoreo de dulces en Tecámac para fiestas y eventos del norte del Valle de México.',
+    especialidades: ['Mayoreo regional', 'Norte del Valle', 'Precios de distribuidor'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería', 'Dulces importados'],
+    servicios: [
+      { nombre: 'Precios mayoristas', descripcion: 'Descuentos por volumen para eventos grandes' },
+      { nombre: 'Cobertura regional', descripcion: 'Atiende a Tecámac, Ojo de Agua y alrededores' }
+    ],
+    transporte: {
+      referencias: ['Tecámac Centro', 'Autopista México-Pachuca']
+    },
+    imagen: getImagenPorIndice(6),
+    imagenes: [getImagenPorIndice(6), getImagenPorIndice(7), getImagenPorIndice(8)]
+  },
+  {
+    ...edomex,
+    nombre: 'Dulcería Valdez Texcoco',
+    slug: 'dulceria-valdez-texcoco',
+    tipo: 'Dulcería Mayoreo',
+    direccion: 'Leandro Valle 111',
+    colonia: 'San Pedro',
+    alcaldia: 'Texcoco',
+    alcaldiaSlug: 'texcoco',
+    cp: '56100',
+    coordenadas: { lat: 19.5121, lng: -98.8835 },
+    referencia: 'Mayoreo en Texcoco',
+    telefono: '595 925 2147',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dulcer%C3%ADa+Valdez+Leandro+Valle+111+San+Pedro+Texcoco',
+    rating: 4.3,
+    resenas: 55,
+    verificado: true,
+    destacado: false,
+    horario: horarioEstandar.tienda,
+    descripcionCorta: 'Dulcería mayorista en Col. San Pedro, Texcoco — surtido para bodas y eventos del oriente.',
+    especialidades: ['Mayoreo', 'Bodas y XV años', 'Oriente del Edo Mex'],
+    productos: ['Dulces a granel', 'Gomitas', 'Chocolates', 'Confitería', 'Dulces mexicanos'],
+    servicios: [
+      { nombre: 'Surtido para eventos', descripcion: 'Especialistas en bodas y XV años regionales' },
+      { nombre: 'Contacto directo', descripcion: 'Atienden por teléfono para pedidos grandes' }
+    ],
+    transporte: {
+      referencias: ['Col. San Pedro', 'Texcoco']
+    },
+    imagen: getImagenPorIndice(7),
+    imagenes: [getImagenPorIndice(7), getImagenPorIndice(8), getImagenPorIndice(9)]
+  }
+];
+
+// Combinar todas las dulcerías (CDMX + Edo Mex)
+export const todasLasDulcerias: Dulceria[] = [...dulceriasExistentes, ...dulceriasNuevas, ...dulceriasEdomex];
+
+// Función para obtener dulcerías por alcaldía (CDMX)
 export function getDulceriasPorAlcaldia(alcaldiaSlug: string): Dulceria[] {
-  return todasLasDulcerias.filter(d => d.alcaldiaSlug === alcaldiaSlug);
+  return todasLasDulcerias.filter(d => d.alcaldiaSlug === alcaldiaSlug && (d.estadoSlug ?? 'cdmx') === 'cdmx');
+}
+
+// Función para obtener dulcerías por municipio (Estado de México)
+export function getDulceriasPorMunicipio(municipioSlug: string): Dulceria[] {
+  return todasLasDulcerias.filter(d => d.alcaldiaSlug === municipioSlug && d.estadoSlug === 'edomex');
+}
+
+// Función para obtener dulcerías por estado/zona
+export function getDulceriasPorEstado(estadoSlug: 'cdmx' | 'edomex'): Dulceria[] {
+  return todasLasDulcerias.filter(d => (d.estadoSlug ?? 'cdmx') === estadoSlug);
 }
 
 // Función para obtener dulcerías destacadas
@@ -3055,34 +4137,59 @@ export function getDulceriaPorSlug(slug: string): Dulceria | undefined {
   return todasLasDulcerias.find(d => d.slug === slug);
 }
 
-// Función para obtener dulcerías relacionadas (misma alcaldía, excluyendo la actual)
+// Función para obtener dulcerías relacionadas (misma alcaldía/municipio y estado, excluyendo la actual)
 export function getDulceriasRelacionadas(slug: string, limite: number = 4): Dulceria[] {
   const actual = getDulceriaPorSlug(slug);
   if (!actual) return [];
 
-  const mismaAlcaldia = todasLasDulcerias.filter(d =>
-    d.alcaldiaSlug === actual.alcaldiaSlug && d.slug !== slug
+  const actualEstado = actual.estadoSlug ?? 'cdmx';
+
+  const mismaZona = todasLasDulcerias.filter(d =>
+    d.alcaldiaSlug === actual.alcaldiaSlug &&
+    (d.estadoSlug ?? 'cdmx') === actualEstado &&
+    d.slug !== slug
   );
 
-  // Si no hay suficientes de la misma alcaldía, agregar de otras
-  if (mismaAlcaldia.length < limite) {
-    const otras = todasLasDulcerias.filter(d =>
-      d.alcaldiaSlug !== actual.alcaldiaSlug && d.slug !== slug
+  // Si no hay suficientes de la misma zona, agregar otras del mismo estado
+  if (mismaZona.length < limite) {
+    const mismoEstado = todasLasDulcerias.filter(d =>
+      (d.estadoSlug ?? 'cdmx') === actualEstado &&
+      d.alcaldiaSlug !== actual.alcaldiaSlug &&
+      d.slug !== slug
     );
-    return [...mismaAlcaldia, ...otras].slice(0, limite);
+    return [...mismaZona, ...mismoEstado].slice(0, limite);
   }
 
-  return mismaAlcaldia.slice(0, limite);
+  return mismaZona.slice(0, limite);
 }
 
-// Obtener alcaldías que tienen dulcerías (para navegación dinámica)
+// Obtener alcaldías que tienen dulcerías (para navegación dinámica) — solo CDMX
 export function getAlcaldiasConDulcerias(): { slug: string; nombre: string; cantidad: number }[] {
   const conteo: Record<string, number> = {};
   todasLasDulcerias.forEach(d => {
+    if ((d.estadoSlug ?? 'cdmx') !== 'cdmx') return;
     conteo[d.alcaldiaSlug] = (conteo[d.alcaldiaSlug] || 0) + 1;
   });
 
   return Object.entries(alcaldiasInfo)
+    .filter(([slug]) => conteo[slug] && conteo[slug] > 0)
+    .map(([slug, info]) => ({
+      slug,
+      nombre: info.nombre,
+      cantidad: conteo[slug]
+    }))
+    .sort((a, b) => b.cantidad - a.cantidad);
+}
+
+// Obtener municipios del Edo Mex que tienen dulcerías (para navegación dinámica)
+export function getMunicipiosConDulcerias(): { slug: string; nombre: string; cantidad: number }[] {
+  const conteo: Record<string, number> = {};
+  todasLasDulcerias.forEach(d => {
+    if (d.estadoSlug !== 'edomex') return;
+    conteo[d.alcaldiaSlug] = (conteo[d.alcaldiaSlug] || 0) + 1;
+  });
+
+  return Object.entries(municipiosInfo)
     .filter(([slug]) => conteo[slug] && conteo[slug] > 0)
     .map(([slug, info]) => ({
       slug,

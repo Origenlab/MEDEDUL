@@ -11,7 +11,7 @@ import DulceriaCard from './DulceriaCard.astro';
 import FAQ from '@/components/global/FAQ.astro';
 import { getCdnUrl } from '@/lib/cdn';
 import type { Dulceria } from '@/data/dulcerias';
-import { getDulceriasRelacionadas, alcaldiasInfo } from '@/data/dulcerias';
+import { getDulceriasRelacionadas, alcaldiasInfo, municipiosInfo } from '@/data/dulcerias';
 
 interface Props {
   dulceria: Dulceria;
@@ -19,11 +19,23 @@ interface Props {
 
 const { dulceria } = Astro.props;
 
+// Zona geográfica — default CDMX para fichas heredadas
+const estadoSlug = dulceria.estadoSlug ?? 'cdmx';
+const esEdomex = estadoSlug === 'edomex';
+const estadoLabel = esEdomex ? 'Estado de México' : 'Ciudad de México';
+const estadoCorto = esEdomex ? 'Edo Mex' : 'CDMX';
+const zonaLabel = esEdomex ? 'Municipio' : 'Alcaldía';
+const zonaLabelLower = esEdomex ? 'municipio' : 'alcaldía';
+const addressRegion = esEdomex ? 'MEX' : 'CDMX';
+const hubZonaUrl = esEdomex ? `/directorio/edomex/${dulceria.alcaldiaSlug}` : `/directorio/cdmx/${dulceria.alcaldiaSlug}`;
+const hubEstadoUrl = esEdomex ? '/directorio/edomex' : '/directorio/cdmx';
+
 // Obtener dulcerías relacionadas
 const dulceriasRelacionadas = getDulceriasRelacionadas(dulceria.slug, 4);
 
-// Información de la alcaldía
-const infoAlcaldia = alcaldiasInfo[dulceria.alcaldiaSlug] || {
+// Información de la alcaldía/municipio
+const zonaInfoMap = esEdomex ? municipiosInfo : alcaldiasInfo;
+const infoAlcaldia = zonaInfoMap[dulceria.alcaldiaSlug] || {
   nombre: dulceria.alcaldia,
   descripcion: `Encuentra las mejores dulcerías en ${dulceria.alcaldia}.`,
   caracteristicas: ['Dulces variados', 'Buenos precios'],
@@ -33,7 +45,8 @@ const infoAlcaldia = alcaldiasInfo[dulceria.alcaldiaSlug] || {
 // Breadcrumbs
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
-  { name: dulceria.alcaldia, url: `/directorio/cdmx/${dulceria.alcaldiaSlug}` },
+  { name: estadoLabel, url: hubEstadoUrl },
+  { name: dulceria.alcaldia, url: hubZonaUrl },
   { name: dulceria.nombre, url: `/directorio/${dulceria.slug}` }
 ];
 
@@ -45,7 +58,7 @@ const telefonoLimpio = tieneTelefono ? dulceria.telefono.replace(/\s/g, '') : ''
 const faqsDulceria = [
   {
     question: `¿Dónde se encuentra ${dulceria.nombre}?`,
-    answer: `${dulceria.nombre} está ubicada en ${dulceria.direccion}, ${dulceria.colonia}, alcaldía ${dulceria.alcaldia}, CDMX${dulceria.cp ? ' CP ' + dulceria.cp : ''}. ${dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} ${dulceria.transporte.referencias?.[0] ? dulceria.transporte.referencias[0] + '.' : ''}`
+    answer: `${dulceria.nombre} está ubicada en ${dulceria.direccion}, ${dulceria.colonia}, ${zonaLabelLower} ${dulceria.alcaldia}, ${estadoCorto}${dulceria.cp ? ' CP ' + dulceria.cp : ''}. ${dulceria.referencia ? `Referencia: ${dulceria.referencia}.` : ''} ${dulceria.transporte.referencias?.[0] ? dulceria.transporte.referencias[0] + '.' : ''}`
   },
   {
     question: `¿Cuál es el horario de ${dulceria.nombre}?`,
@@ -96,7 +109,7 @@ const localBusinessSchema = {
     "@type": "PostalAddress",
     "streetAddress": dulceria.direccion,
     "addressLocality": dulceria.alcaldia,
-    "addressRegion": "CDMX",
+    "addressRegion": addressRegion,
     "postalCode": dulceria.cp,
     "addressCountry": "MX"
   },
@@ -191,7 +204,7 @@ const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.col
             </svg>
             <div>
               <p class="direccion">{dulceria.direccion}</p>
-              <p class="zona">{dulceria.colonia}, {dulceria.alcaldia}, CDMX {dulceria.cp}</p>
+              <p class="zona">{dulceria.colonia}, {dulceria.alcaldia}, {estadoCorto} {dulceria.cp}</p>
             </div>
           </div>
 
@@ -258,7 +271,7 @@ const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.col
               <p class="descripcion-intro">{dulceria.descripcionCorta}</p>
 
               <p class="descripcion-texto">
-                <strong>{dulceria.nombre}</strong> opera como <strong>{dulceria.tipo.toLowerCase()}</strong> en <strong>{dulceria.colonia}</strong>, una de las zonas comerciales de la alcaldía <strong>{dulceria.alcaldia}</strong> en Ciudad de México. Su catálogo concentra {dulceria.productos.slice(0, 4).join(', ').toLowerCase()}{dulceria.productos.length > 4 ? ` y ${dulceria.productos.length - 4} líneas adicionales` : ''}, ofreciendo a vecinos, organizadores de fiestas y comerciantes una alternativa de surtido confiable sin depender de cadenas comerciales.
+                <strong>{dulceria.nombre}</strong> opera como <strong>{dulceria.tipo.toLowerCase()}</strong> en <strong>{dulceria.colonia}</strong>, una de las zonas comerciales {esEdomex ? 'del municipio' : 'de la alcaldía'} <strong>{dulceria.alcaldia}</strong> en {estadoLabel}. Su catálogo concentra {dulceria.productos.slice(0, 4).join(', ').toLowerCase()}{dulceria.productos.length > 4 ? ` y ${dulceria.productos.length - 4} líneas adicionales` : ''}, ofreciendo a vecinos, organizadores de fiestas y comerciantes una alternativa de surtido confiable sin depender de cadenas comerciales.
                 {dulceria.tipo === 'Dulcería Mayoreo' ? ' El formato al mayoreo permite comprar por caja, saco o paquete múltiple, con precios escalonados según volumen, ideal para revendedores, dulcerías más pequeñas y eventos grandes que requieren abastecer 100+ invitados.' : ''}
                 {dulceria.tipo === 'Tienda de Golosinas' ? ' El formato al menudeo facilita armar bolsitas de fiesta, completar pedidos pequeños y comprar dulces por pieza, resolviendo desde la piñata del domingo hasta la mesa de dulces de un cumpleaños.' : ''}
                 {dulceria.tipo === 'Tienda de Golosinas Premium' ? ' El enfoque premium prioriza producto fresco, etiquetado claro, empaque cuidado y líneas importadas o artesanales difíciles de encontrar en dulcerías convencionales.' : ''}
@@ -421,7 +434,7 @@ const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.col
           <section class="negocio-seccion transporte-section">
             <h2>Cómo Llegar</h2>
             <p class="seccion-intro">
-              La ubicación de {dulceria.nombre} en <strong>{dulceria.colonia}, {dulceria.alcaldia}</strong> permite acceso en auto, transporte público y aplicaciones de movilidad. {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 ? `La opción más eficiente en transporte público es el Metro ${dulceria.transporte.metro[0].estacion} de la Línea ${dulceria.transporte.metro[0].linea}, a ${dulceria.transporte.metro[0].distancia} del establecimiento.` : 'Para transporte público conviene consultar rutas de Metrobús y trolebús de la zona, además de apps de movilidad.'} Considera horarios pico de CDMX al planear tu visita, sobre todo si cargarás compras al mayoreo.
+              La ubicación de {dulceria.nombre} en <strong>{dulceria.colonia}, {dulceria.alcaldia}</strong> permite acceso en auto, transporte público y aplicaciones de movilidad. {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 ? `La opción más eficiente en transporte público es el Metro ${dulceria.transporte.metro[0].estacion} de la Línea ${dulceria.transporte.metro[0].linea}, a ${dulceria.transporte.metro[0].distancia} del establecimiento.` : 'Para transporte público conviene consultar rutas de Metrobús y trolebús de la zona, además de apps de movilidad.'} Considera horarios pico de la ZMVM al planear tu visita, sobre todo si cargarás compras al mayoreo.
             </p>
             <div class="transporte-grid">
               {dulceria.transporte.metro && dulceria.transporte.metro.length > 0 && (
@@ -505,8 +518,8 @@ const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.col
               <div class="ubicacion-info">
                 <p><strong>Dirección:</strong> {dulceria.direccion}</p>
                 <p><strong>Colonia:</strong> {dulceria.colonia}</p>
-                <p><strong>Alcaldía:</strong> {dulceria.alcaldia}</p>
-                <p><strong>Ciudad:</strong> Ciudad de México</p>
+                <p><strong>{zonaLabel}:</strong> {dulceria.alcaldia}</p>
+                <p><strong>Entidad:</strong> {estadoLabel}</p>
                 <p><strong>CP:</strong> {dulceria.cp}</p>
                 {dulceria.referencia && <p><strong>Referencia:</strong> {dulceria.referencia}</p>}
               </div>
@@ -526,10 +539,10 @@ const metaDescription = `${dulceria.nombre} - ${dulceria.tipo} en ${dulceria.col
             <h2>{dulceria.nombre} dentro del directorio de dulcerías de {dulceria.alcaldia}</h2>
             <div class="contexto-contenido">
               <p>
-                <strong>{dulceria.nombre}</strong> forma parte del mapa de dulcerías verificadas de <strong>{dulceria.alcaldia}</strong>, una alcaldía de Ciudad de México donde la oferta de dulces y golosinas es relevante por concentrar tanto comercio de barrio como zonas de abasto. {infoAlcaldia && infoAlcaldia.caracteristicas.length > 0 ? `La zona se caracteriza por ${infoAlcaldia.caracteristicas.slice(0, 2).join(' y ').toLowerCase()}, lo que facilita encontrar varios proveedores en un solo traslado.` : ''} Para planear eventos grandes, recorrer dos o tres puntos del directorio en una misma salida suele rendir mejor que comprar todo en un solo lugar.
+                <strong>{dulceria.nombre}</strong> forma parte del mapa de dulcerías verificadas de <strong>{dulceria.alcaldia}</strong>, {esEdomex ? 'un municipio del Estado de México' : 'una alcaldía de Ciudad de México'} donde la oferta de dulces y golosinas es relevante por concentrar tanto comercio de barrio como zonas de abasto. {infoAlcaldia && infoAlcaldia.caracteristicas.length > 0 ? `La zona se caracteriza por ${infoAlcaldia.caracteristicas.slice(0, 2).join(' y ').toLowerCase()}, lo que facilita encontrar varios proveedores en un solo traslado.` : ''} Para planear eventos grandes, recorrer dos o tres puntos del directorio en una misma salida suele rendir mejor que comprar todo en un solo lugar.
               </p>
               <p>
-                El formato de <strong>{dulceria.tipo.toLowerCase()}</strong> de esta tienda la posiciona frente a otras opciones de la alcaldía: {dulceria.tipo === 'Dulcería Mayoreo' ? 'compite por volumen y precio, con fortaleza en abasto grande y surtido constante' : ''}{dulceria.tipo === 'Tienda de Golosinas' ? 'compite por variedad y proximidad, con fortaleza en compras por pieza y pedidos flexibles' : ''}{dulceria.tipo === 'Tienda de Golosinas Premium' ? 'compite por calidad y presentación, con fortaleza en líneas importadas y empaques cuidados' : ''}{dulceria.tipo === 'Dulcería Tradicional' ? 'compite por autenticidad y herencia, con fortaleza en dulces mexicanos que otros comercios ya no manejan' : ''}. Antes de decidir, vale la pena comparar precios y especialidades frente a otras tiendas listadas en el directorio y evaluar tiempo de traslado, formas de pago y disponibilidad de productos clave para tu evento o reventa.
+                El formato de <strong>{dulceria.tipo.toLowerCase()}</strong> de esta tienda la posiciona frente a otras opciones {esEdomex ? 'del municipio' : 'de la alcaldía'}: {dulceria.tipo === 'Dulcería Mayoreo' ? 'compite por volumen y precio, con fortaleza en abasto grande y surtido constante' : ''}{dulceria.tipo === 'Tienda de Golosinas' ? 'compite por variedad y proximidad, con fortaleza en compras por pieza y pedidos flexibles' : ''}{dulceria.tipo === 'Tienda de Golosinas Premium' ? 'compite por calidad y presentación, con fortaleza en líneas importadas y empaques cuidados' : ''}{dulceria.tipo === 'Dulcería Tradicional' ? 'compite por autenticidad y herencia, con fortaleza en dulces mexicanos que otros comercios ya no manejan' : ''}. Antes de decidir, vale la pena comparar precios y especialidades frente a otras tiendas listadas en el directorio y evaluar tiempo de traslado, formas de pago y disponibilidad de productos clave para tu evento o reventa.
               </p>
             </div>
           </section>

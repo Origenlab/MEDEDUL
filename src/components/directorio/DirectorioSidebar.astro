@@ -3,7 +3,7 @@
  * DirectorioSidebar - Sidebar para páginas del directorio
  * Proporciona interlinking con servicios y secciones del sitio
  */
-import { getEstadisticasDirectorio, getDulceriasDestacadas } from '@/data/dulcerias';
+import { getEstadisticasDirectorio, getDulceriasDestacadas, getDulceriasPorEstado, getMunicipiosConDulcerias } from '@/data/dulcerias';
 
 interface Props {
   currentSlug?: string;
@@ -44,9 +44,11 @@ const eventos = [
 ];
 
 // Zonas con datos reales
+const dulceriasEdomexCount = getDulceriasPorEstado('edomex').length;
+const municipiosActivosCount = getMunicipiosConDulcerias().length;
 const zonas = [
-  { label: 'CDMX', href: '/directorio/todos', count: `${stats.alcaldias} alcaldías` },
-  { label: 'Estado de México', href: '/directorio/edomex', count: 'Próximamente' }
+  { label: 'CDMX', href: '/directorio/cdmx', count: `${stats.alcaldias} alcaldías` },
+  { label: 'Estado de México', href: '/directorio/edomex', count: `${dulceriasEdomexCount} en ${municipiosActivosCount} municipios` }
 ];
 
 const categorias = [
