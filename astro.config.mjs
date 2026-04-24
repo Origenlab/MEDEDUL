@@ -1,4 +1,4 @@
-import sitemap from '@astrojs/sitemap';import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
@@ -20,27 +20,7 @@ export default defineConfig({
     '/blog/mesa-de-dulces-baby-shower-transforma-tu-celebracion-con-enc-pedr': '/blog/mesa-de-dulces-para-baby-shower-guia-completa',
     '/blog/mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas': '/blog/mesa-de-dulces-para-baby-shower-guia-completa'
   },
-  integrations: [sitemap({
-      filter: (page) => {
-        const redirectSources = [
-          'mesa-de-dulces-para-bodas-endulza-tu-dia-perfecto-cdmx',
-          'mesa-dulces-boda-cdmx-elegancia-y-estilo',
-          'mesa-dulces-bodas-exclusivas-cdmx',
-          'mesas-de-dulces-para-bodas-elegantes-en-cdmx',
-          'mesa-de-dulces-para-xv-anos-guia-completa-para-una-cele-pedregal',
-          'mesa-de-dulces-corporativo-catering-premium-para-eventos-emp-roma',
-          'mesa-de-dulces-corporativos-eleva-tus-eventos-empresari-condesa',
-          'mesa-de-dulces-corporativos-endulza-tus-eventos-empresariale-sant',
-          'mesa-de-dulces-corporativos-impresiona-en-eventos-empresaria-pola',
-          'mesa-de-dulces-infantil-guia-completa-para-fiestas-magi-polanco',
-          'mesa-de-dulces-infantil-un-sueno-hecho-realidad-interlomas',
-          'la-magia-de-la-mesa-de-dulces-en-baby-showers-bosques-de-las-loma',
-          'mesa-de-dulces-baby-shower-transforma-tu-celebracion-con-enc-pedr',
-          'mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas'
-        ];
-        return !redirectSources.some(slug => page.includes(slug));
-      }
-    }),
+  integrations: [
     mdx()
   ],
   image: {
