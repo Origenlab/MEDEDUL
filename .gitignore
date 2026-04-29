@@ -38,3 +38,6 @@ _legacy-html-backup/
 # Sensitive folders
 workflow/
 _md-backup/
+
+# Análisis local de Graphify
+graphify-out/
