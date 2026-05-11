@@ -3,70 +3,213 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import { todasLasDulcerias, getDulceriasPorAlcaldia } from '@/data/dulcerias';
+import {
+  getDulceriasPorAlcaldia,
+  getDulceriasPorEstado,
+  alcaldiasInfo
+} from '@/data/dulcerias';
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
   { name: 'CDMX', url: '/directorio/cdmx' }
 ];
 
-// Calcular proveedores dinámicamente desde la base de datos
-const alcaldiasConfig = [
-  { nombre: 'Álvaro Obregón', slug: 'alvaro-obregon' },
-  { nombre: 'Azcapotzalco', slug: 'azcapotzalco' },
-  { nombre: 'Benito Juárez', slug: 'benito-juarez' },
-  { nombre: 'Coyoacán', slug: 'coyoacan' },
-  { nombre: 'Cuajimalpa', slug: 'cuajimalpa' },
-  { nombre: 'Cuauhtémoc', slug: 'cuauhtemoc' },
-  { nombre: 'Gustavo A. Madero', slug: 'gustavo-a-madero' },
-  { nombre: 'Iztacalco', slug: 'iztacalco' },
-  { nombre: 'Iztapalapa', slug: 'iztapalapa' },
-  { nombre: 'La Magdalena Contreras', slug: 'magdalena-contreras' },
-  { nombre: 'Miguel Hidalgo', slug: 'miguel-hidalgo' },
-  { nombre: 'Milpa Alta', slug: 'milpa-alta' },
-  { nombre: 'Tláhuac', slug: 'tlahuac' },
-  { nombre: 'Tlalpan', slug: 'tlalpan' },
-  { nombre: 'Venustiano Carranza', slug: 'venustiano-carranza' },
-  { nombre: 'Xochimilco', slug: 'xochimilco' }
-];
-
-const alcaldias = alcaldiasConfig.map(a => ({
-  ...a,
-  proveedores: getDulceriasPorAlcaldia(a.slug).length
+// Conteo dinámico por alcaldía (todas las 16, aunque estén en 0)
+const alcaldiasConteo = Object.entries(alcaldiasInfo).map(([slug, info]) => ({
+  nombre: info.nombre,
+  slug,
+  proveedores: getDulceriasPorAlcaldia(slug).length,
+  zonaComercial: info.zonaComercial
 })).sort((a, b) => b.proveedores - a.proveedores);
 
-const totalProveedores = todasLasDulcerias.length;
+const totalProveedores = getDulceriasPorEstado('cdmx').length;
+const alcaldiasActivas = alcaldiasConteo.filter((a) => a.proveedores > 0).length;
+
+// Segmentación geográfica — cuatro corredores de la ZMVM capitalina
+const zonasCDMX = [
+  {
+    id: 'centro-merced',
+    titulo: 'Centro y La Merced',
+    subtitulo: 'Mayoreo histórico nacional',
+    descripcion: 'El corazón comercial del país. El Mercado de La Merced (Venustiano Carranza) es el centro de distribución de dulces más grande de México; el Centro Histórico (Cuauhtémoc) suma calles completas de mayoristas. Aquí se consiguen los precios más agresivos de toda la metrópoli para abasto de fiestas, bolos y eventos grandes.',
+    alcaldias: ['cuauhtemoc', 'venustiano-carranza']
+  },
+  {
+    id: 'norte-gam',
+    titulo: 'Norte · Norte 70 · GAM',
+    subtitulo: 'Corredor mayorista del norte',
+    descripcion: 'Gustavo A. Madero concentra el corredor Norte 70 / Bondojito con dulcerías de alta competencia que operan mayoreo y menudeo. Azcapotzalco y Miguel Hidalgo complementan el norte con acceso por Periférico y Metro Tacuba. Ideal para eventos en la zona norte y frontera con Edo Mex.',
+    alcaldias: ['gustavo-a-madero', 'azcapotzalco', 'miguel-hidalgo']
+  },
+  {
+    id: 'poniente-sur',
+    titulo: 'Poniente · Polanco · San Ángel',
+    subtitulo: 'Dulce premium y gourmet',
+    descripcion: 'Corredor premium de la CDMX. Miguel Hidalgo (Polanco), Álvaro Obregón (San Ángel), Benito Juárez (Del Valle / Narvarte) y Cuajimalpa (Santa Fe) agrupan dulcerías boutique, chocolate de autor y productos importados. Ticket más alto, pero acceso directo a mesa de postres gourmet para bodas, XV años y eventos corporativos.',
+    alcaldias: ['alvaro-obregon', 'benito-juarez', 'cuajimalpa']
+  },
+  {
+    id: 'oriente-sur',
+    titulo: 'Oriente y Sur',
+    subtitulo: 'Demanda masiva y tradición mexicana',
+    descripcion: 'Iztapalapa concentra la mayor demanda residencial del país para fiestas infantiles; Coyoacán, Tlalpan, Xochimilco y Milpa Alta aportan dulce tradicional mexicano artesanal, alegrías, cocadas y jamoncillo. Tláhuac e Iztacalco suman dulcerías de barrio con precios económicos para eventos familiares del oriente.',
+    alcaldias: ['iztapalapa', 'coyoacan', 'tlalpan', 'xochimilco', 'iztacalco', 'tlahuac', 'milpa-alta', 'magdalena-contreras']
+  }
+] as const;
+
+// Mapa alcaldía → zona para mostrar en tarjeta
+const alcaldiaZona: Record<string, string> = {};
+zonasCDMX.forEach((z) => z.alcaldias.forEach((a) => { alcaldiaZona[a] = z.titulo; }));
+
+// FAQ regional — cinco preguntas densas con keywords reales
+const faqsRegion = [
+  {
+    pregunta: '¿Cuántas alcaldías cubre el directorio MEDEDUL en CDMX?',
+    respuesta: `MEDEDUL reúne proveedores verificados en las 16 alcaldías de la Ciudad de México. Actualmente hay ${totalProveedores} dulcerías documentadas con presencia activa en ${alcaldiasActivas} alcaldías — desde Miguel Hidalgo y Cuauhtémoc hasta Milpa Alta y Tláhuac. Cada ficha incluye dirección, teléfono, horarios y reseñas reales de Google Maps para que puedas comparar sin recorrer la ciudad.`
+  },
+  {
+    pregunta: '¿Dónde están las dulcerías mayoristas más grandes de CDMX?',
+    respuesta: 'Tres polos concentran el mayoreo: (1) Mercado de La Merced en Venustiano Carranza — el centro de distribución de dulces más grande del país, donde compran revendedores de toda la república; (2) Centro Histórico de Cuauhtémoc con calles completas de mayoristas; (3) corredor Norte 70 / Bondojito en Gustavo A. Madero, con alta competencia y precios competitivos para eventos del norte de la ciudad y frontera con Edo Mex.'
+  },
+  {
+    pregunta: '¿Qué tipos de dulcerías predominan en cada zona de CDMX?',
+    respuesta: 'El directorio clasifica los negocios capitalinos por perfil: mayoristas históricos en La Merced y Centro Histórico; corredores de alta rotación en Norte 70 (GAM) y Bordo de Xochiaca; dulcerías premium y boutique en Polanco, Santa Fe, San Ángel y Del Valle; tiendas de fiesta con línea completa en Iztapalapa, Coyoacán y zona oriente; y dulce tradicional mexicano artesanal en Xochimilco, Milpa Alta y Tlalpan.'
+  },
+  {
+    pregunta: '¿Cómo elijo proveedor si mi venue está en un punto específico?',
+    respuesta: 'Usa el directorio por alcaldía para minimizar tiempo de traslado y riesgo de derretimiento del chocolate. Para eventos en Polanco o Roma Norte conviene Miguel Hidalgo o Cuauhtémoc; para bodas en el sur (San Ángel, Pedregal, Coyoacán) apunta a Álvaro Obregón o Coyoacán; para fiestas infantiles en Iztapalapa, Tláhuac o Xochimilco el proveedor local siempre gana en costo logístico. Si el venue es corporativo en Santa Fe, Cuajimalpa y oeste de Miguel Hidalgo son las mejores opciones.'
+  },
+  {
+    pregunta: '¿Qué incluye cada ficha del directorio MEDEDUL CDMX?',
+    respuesta: 'Cada ficha trae: nombre del negocio, dirección completa con CP, colonia y alcaldía de la Ciudad de México, horarios verificados por día, referencias por Metro, Metrobús o calles principales (Norte 70, Eje Central, Insurgentes, Periférico), teléfono, coordenadas para Google Maps, listado de especialidades (gomitas, chocolates, dulce tradicional, bolsitas de bolo, piñatas, importados), rating y reseñas reales de Maps y, cuando existe, enlace a Instagram o WhatsApp.'
+  }
+];
+
+// JSON-LD: FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqsRegion.map((f) => ({
+    '@type': 'Question',
+    name: f.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: f.respuesta }
+  }))
+};
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    { '@type': 'ListItem', position: 3, name: 'CDMX', item: 'https://mesas-de-dulces.com/directorio/cdmx' }
+  ]
+};
+
+// JSON-LD: CollectionPage apuntando a CDMX como AdministrativeArea
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Directorio de Dulcerías y Proveedores de Dulces en Ciudad de México',
+  description: `Directorio verificado de ${totalProveedores} proveedores de dulces, mayoristas y dulcerías premium distribuidos en ${alcaldiasActivas} alcaldías de la Ciudad de México, incluyendo el histórico Mercado de La Merced y el corredor Norte 70.`,
+  url: 'https://mesas-de-dulces.com/directorio/cdmx',
+  about: {
+    '@type': 'AdministrativeArea',
+    name: 'Ciudad de México',
+    alternateName: 'CDMX',
+    containsPlace: alcaldiasConteo.filter((a) => a.proveedores > 0).map((a) => ({
+      '@type': 'City',
+      name: a.nombre
+    }))
+  }
+};
+
+// JSON-LD: ItemList de alcaldías para discovery
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: alcaldiasConteo
+    .filter((a) => a.proveedores > 0)
+    .map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://mesas-de-dulces.com/directorio/cdmx/${a.slug}`,
+      name: `Dulcerías en ${a.nombre}`
+    }))
+};
 ---
 
 <BaseLayout
-  title="Directorio de Dulces en CDMX | Proveedores por Alcaldia"
-  description={`Encuentra proveedores de dulces para fiestas en todas las alcaldías de Ciudad de México. ${totalProveedores}+ negocios verificados.`}
+  title={`${totalProveedores}+ Dulcerías en CDMX por Alcaldía | Directorio Verificado`}
+  description={`Directorio geolocalizado con ${totalProveedores}+ dulcerías, mayoristas y tiendas de dulces verificadas en ${alcaldiasActivas} alcaldías de Ciudad de México. La Merced, Norte 70, Polanco, Iztapalapa y más.`}
   canonical="/directorio/cdmx"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Proveedores de Dulces por Alcaldia en CDMX"
+    title="Proveedores de Dulces por Alcaldía en CDMX"
     highlight="CDMX"
-    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en las 16 alcaldias de la ciudad`}
-    secondaryContent={`<p><strong>Directorio por alcaldia</strong> organiza a los mejores proveedores de dulces de Ciudad de Mexico segun tu ubicacion, para que encuentres dulcerias, chocolaterias, confiterias y tiendas especializadas cerca de tu domicilio, oficina o venue del evento. Cada ficha incluye direccion, telefono, horarios y resenas reales de Google Maps para tomar decisiones sin perder tiempo.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos en las 16 alcaldias de CDMX te permiten comparar opciones por zona, especialidad y rango de precio. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos o localizar mayoristas historicos como los de La Merced.</p>`}
+    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en ${alcaldiasActivas} de las 16 alcaldías de la ciudad`}
+    secondaryContent={`<p><strong>Directorio por alcaldía</strong> organiza a los mejores proveedores de dulces de Ciudad de México según tu ubicación, para que encuentres dulcerías, chocolaterías, confiterías y tiendas especializadas cerca de tu domicilio, oficina o venue del evento. Cada ficha incluye dirección, teléfono, horarios y reseñas reales de Google Maps para tomar decisiones sin perder tiempo.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos entre el histórico Mercado de La Merced, el corredor mayorista Norte 70, las tiendas premium de Polanco y Santa Fe, y el dulce tradicional mexicano de Xochimilco y Milpa Alta. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos o localizar mayoristas históricos.</p>`}
   />
 
-  <!-- Todas las Alcaldias -->
+  <!-- Zonas / Corredores -->
+  <section class="zonas-section">
+    <div class="container">
+      <SectionHeader
+        title="Cuatro"
+        titleHighlight="Corredores"
+        subtitle="La Ciudad de México se organiza en cuatro regiones logísticas; elige la tuya según la ubicación del evento"
+      />
+      <div class="zonas-grid">
+        {zonasCDMX.map((zona) => (
+          <article class="zona-card" id={zona.id}>
+            <h3 class="zona-titulo">{zona.titulo}</h3>
+            <p class="zona-subtitulo">{zona.subtitulo}</p>
+            <p class="zona-descripcion">{zona.descripcion}</p>
+            <div class="zona-municipios">
+              {zona.alcaldias
+                .map((slug) => ({ slug, info: alcaldiasConteo.find((a) => a.slug === slug) }))
+                .filter((a) => a.info && a.info.proveedores > 0)
+                .map(({ slug, info }) => (
+                  <a href={`/directorio/cdmx/${slug}`} class="zona-mun-chip">
+                    {info!.nombre}
+                    <span class="chip-count">{info!.proveedores}</span>
+                  </a>
+                ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Todas las Alcaldías -->
   <section class="alcaldias-section">
     <div class="container">
       <SectionHeader
         title="Todas las"
-        titleHighlight="Alcaldias"
-        subtitle="Explora proveedores en toda la Ciudad de Mexico"
+        titleHighlight="Alcaldías"
+        subtitle="Explora proveedores en las 16 alcaldías de Ciudad de México"
       />
       <div class="alcaldias-grid">
-        {alcaldias.map(alcaldia => (
-          <a href={`/directorio/cdmx/${alcaldia.slug}`} class="alcaldia-card">
+        {alcaldiasConteo.map((alcaldia) => (
+          <a href={`/directorio/cdmx/${alcaldia.slug}`} class="alcaldia-card" data-proveedores={alcaldia.proveedores}>
             <span class="alcaldia-nombre">{alcaldia.nombre}</span>
-            <span class="alcaldia-count">{alcaldia.proveedores} proveedores</span>
+            <span class="alcaldia-count">
+              {alcaldia.proveedores} {alcaldia.proveedores === 1 ? 'proveedor' : 'proveedores'}
+            </span>
+            {alcaldiaZona[alcaldia.slug] && (
+              <span class="alcaldia-zona">{alcaldiaZona[alcaldia.slug]}</span>
+            )}
           </a>
         ))}
       </div>
@@ -82,16 +225,53 @@ const totalProveedores = todasLasDulcerias.length;
           <span class="stat-label">Proveedores en CDMX</span>
         </div>
         <div class="stat-card">
-          <span class="stat-numero">16</span>
-          <span class="stat-label">Alcaldias cubiertas</span>
+          <span class="stat-numero">{alcaldiasActivas}/16</span>
+          <span class="stat-label">Alcaldías con cobertura</span>
         </div>
         <div class="stat-card">
-          <span class="stat-numero">6</span>
-          <span class="stat-label">Categorias</span>
+          <span class="stat-numero">4</span>
+          <span class="stat-label">Corredores (Centro · Norte · Poniente · Oriente-Sur)</span>
         </div>
         <div class="stat-card">
           <span class="stat-numero">100%</span>
-          <span class="stat-label">Verificados</span>
+          <span class="stat-label">Verificados en Google Maps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ regional -->
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas"
+        titleHighlight="Frecuentes"
+        subtitle="Dudas comunes al comprar dulces para eventos en Ciudad de México"
+      />
+      <div class="faq-list">
+        {faqsRegion.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-pregunta">{faq.pregunta}</summary>
+            <div class="faq-respuesta">{faq.respuesta}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Enlaces cruzados a Edo Mex y Valle de Toluca -->
+  <section class="cross-link-section">
+    <div class="container">
+      <div class="cross-links-grid">
+        <div class="cross-link-card">
+          <h2>¿Tu evento es en zona conurbada?</h2>
+          <p>Naucalpan, Tlalnepantla, Ecatepec, Texcoco y demás municipios del Estado de México están cubiertos en nuestro directorio Edo Mex con proveedores locales cercanos al venue.</p>
+          <a href="/directorio/edomex" class="cross-link-btn">Ver directorio Edo Mex →</a>
+        </div>
+        <div class="cross-link-card">
+          <h2>¿Evento en Toluca o Metepec?</h2>
+          <p>El Valle de Toluca tiene directorio propio con dulcerías mayoristas de 5 de Mayo, tiendas premium de Galerías Metepec y mayoristas del corredor Lerma.</p>
+          <a href="/directorio/toluca" class="cross-link-btn">Ver directorio Valle de Toluca →</a>
         </div>
       </div>
     </div>
@@ -100,6 +280,84 @@ const totalProveedores = todasLasDulcerias.length;
 </BaseLayout>
 
 <style>
+  .zonas-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+  }
+
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .zona-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .zona-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .zona-subtitulo {
+    font-size: 0.9rem;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+
+  .zona-descripcion {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px;
+  }
+
+  .zona-municipios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .zona-mun-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+  .zona-mun-chip:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .chip-count {
+    background: rgba(255, 255, 255, 0.35);
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .zona-mun-chip:hover .chip-count {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
   .alcaldias-section {
     padding: 80px 0;
     background: #fff;
@@ -119,11 +377,14 @@ const totalProveedores = todasLasDulcerias.length;
     background: #fafafa;
     border-radius: 12px;
     text-decoration: none;
-    transition: all 0.3s;
-  }
+}
 
   .alcaldia-card:hover {
     background: rgba(209, 0, 122, 0.08);
+  }
+
+  .alcaldia-card[data-proveedores='0'] {
+    opacity: 0.55;
   }
 
   .alcaldia-nombre {
@@ -135,6 +396,13 @@ const totalProveedores = todasLasDulcerias.length;
   .alcaldia-count {
     font-size: 0.85rem;
     color: var(--rosa-principal);
+  }
+
+  .alcaldia-zona {
+    font-size: 0.72rem;
+    color: #999;
+    margin-top: 6px;
+    font-style: italic;
   }
 
   .stats-section {
@@ -167,34 +435,131 @@ const totalProveedores = todasLasDulcerias.length;
     opacity: 0.85;
   }
 
-  @media (max-width: 1024px) {
-    .alcaldias-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .faq-section {
+    padding: 80px 0;
+    background: #fafafa;
+  }
 
+  .faq-list {
+    max-width: 900px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .faq-pregunta {
+    cursor: pointer;
+    padding: 20px 24px;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    list-style: none;
+    position: relative;
+    padding-right: 50px;
+  }
+
+  .faq-pregunta::-webkit-details-marker { display: none; }
+
+  .faq-pregunta::after {
+    content: '+';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+}
+
+  .faq-item[open] .faq-pregunta::after {
+    content: '−';
+  }
+
+  .faq-respuesta {
+    padding: 0 24px 20px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .cross-link-section {
+    padding: 60px 0 80px;
+    background: #fff;
+  }
+
+  .cross-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .cross-link-card {
+    text-align: center;
+    padding: 40px 28px;
+    background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(209, 0, 122, 0.12);
+  }
+
+  .cross-link-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .cross-link-card p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+  }
+
+  .cross-link-btn {
+    display: inline-block;
+    background: var(--rosa-principal);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+  .cross-link-btn:hover {
+    background: #A0005F;
+}
+
+  @media (max-width: 1024px) {
+    .zonas-grid { grid-template-columns: 1fr; }
+    .alcaldias-grid { grid-template-columns: repeat(2, 1fr); }
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 30px;
     }
+    .cross-links-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 768px) {
-    .zonas-populares,
-    .alcaldias-section {
-      padding: 50px 0;
-    }
-
-    .alcaldias-grid {
-      grid-template-columns: 1fr;
-    }
-
+    .zonas-section,
+    .alcaldias-section,
+    .faq-section { padding: 50px 0; }
+    .alcaldias-grid { grid-template-columns: 1fr; }
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-
-    .stat-numero {
-      font-size: 2rem;
-    }
+    .stat-numero { font-size: 2rem; }
+    .cross-link-card { padding: 32px 20px; }
   }
 </style>

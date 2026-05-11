@@ -1,0 +1,557 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import {
+  getDulceriasPorMunicipioToluca,
+  getDulceriasPorEstado,
+  municipiosToluca
+} from '@/data/dulcerias';
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: 'Valle de Toluca', url: '/directorio/toluca' }
+];
+
+// Conteo dinámico de proveedores por municipio (Valle de Toluca)
+const municipiosConteo = Object.entries(municipiosToluca).map(([slug, info]) => ({
+  nombre: info.nombre,
+  slug,
+  proveedores: getDulceriasPorMunicipioToluca(slug).length
+})).sort((a, b) => b.proveedores - a.proveedores);
+
+const totalProveedores = getDulceriasPorEstado('toluca').length;
+const municipiosActivos = municipiosConteo.filter((m) => m.proveedores > 0).length;
+
+// Segmentación geográfica — tres corredores de la ZMVT
+const zonasToluca = [
+  {
+    id: 'capital-toluca',
+    titulo: 'Capital Toluca',
+    subtitulo: 'Centro histórico y 5 de Mayo',
+    descripcion: 'Corazón del Valle de Toluca. La Calle 5 de Mayo es el corredor tradicional de dulce a mayoreo con más de 50 años de operación, a unas cuadras del Mercado Juárez y la Catedral. Aquí se concentran los precios más competitivos de la zona para abasto de fiestas y eventos.',
+    municipios: ['toluca']
+  },
+  {
+    id: 'metepec-premium',
+    titulo: 'Metepec Premium',
+    subtitulo: 'Galerías, Pueblo Mágico y zona residencial',
+    descripcion: 'Segundo polo comercial del valle. Metepec suma dulcerías premium orientadas a eventos sociales, baby showers, bodas y XV años, además de artesanía dulce del Pueblo Mágico. Galerías Metepec y Av. Baja Velocidad concentran el ticket premium.',
+    municipios: ['metepec']
+  },
+  {
+    id: 'corredor-lerma',
+    titulo: 'Corredor Lerma–Zinacantepec',
+    subtitulo: 'Periferia industrial y conurbada',
+    descripcion: 'Municipios que rodean a Toluca sobre la Paseo Tollocan y la Autopista México–Toluca. Lerma y San Mateo Atenco aportan mayoristas con precios de entrada baja; Zinacantepec y la salida a Valle de Bravo surten zonas residenciales del poniente.',
+    municipios: ['lerma', 'san-mateo-atenco', 'zinacantepec']
+  }
+] as const;
+
+// Mapa municipio → zona para mostrar en tarjeta
+const municipioZona: Record<string, string> = {};
+zonasToluca.forEach((z) => z.municipios.forEach((m) => { municipioZona[m] = z.titulo; }));
+
+// FAQ regional — cinco preguntas densas con keywords reales
+const faqsRegion = [
+  {
+    pregunta: '¿Por qué MEDEDUL separa al Valle de Toluca del resto del Estado de México?',
+    respuesta: `Aunque políticamente Toluca y Metepec son municipios del Estado de México, operativamente forman parte de la Zona Metropolitana del Valle de Toluca (ZMVT) — una región distinta a la conurbada con CDMX. Un proveedor en Toluca no es práctico para un evento en Ecatepec (88 km) ni viceversa. Por eso MEDEDUL presenta al Valle de Toluca como región independiente, con ${totalProveedores} proveedores verificados en ${municipiosActivos} municipios de la capital mexiquense.`
+  },
+  {
+    pregunta: '¿Qué tipos de dulcerías predominan en el Valle de Toluca?',
+    respuesta: 'El directorio clasifica los negocios del valle en cuatro perfiles: dulcerías mayoreo concentradas en 5 de Mayo y centro de Toluca; dulcerías tradicionales con producto artesanal del Estado de México; tiendas de golosinas premium en Metepec y zona Galerías orientadas a eventos; y tiendas de línea completa para fiestas infantiles distribuidas por toda la zona conurbada Toluca–Metepec–Lerma.'
+  },
+  {
+    pregunta: '¿Dónde se concentran las dulcerías mayoristas de Toluca?',
+    respuesta: 'Dos polos principales: (1) Calle 5 de Mayo y entorno del Mercado Juárez en el centro de Toluca, corredor histórico donde operan Mundo del Dulce Toluca, Dulcería El Portal y Comercializadora Colibrí — la zona de mayor densidad mayorista de la ZMVT; (2) Paseo Tollocan y accesos Lerma / San Mateo Atenco, donde mayoristas regionales abastecen a revendedores del poniente mexiquense y salida a Valle de Bravo.'
+  },
+  {
+    pregunta: '¿Conviene cruzar a CDMX desde Toluca por dulces?',
+    respuesta: 'Casi nunca. La Autopista México–Toluca toma 50–70 min a Santa Fe y otras tantas a La Merced, sumando peaje y combustible. El ticket por kilo en 5 de Mayo Toluca es comparable al de Mercado Sonora o Norte 70; y para Metepec premium hay opciones locales que replican lo de Polanco o Roma Norte sin el costo logístico. Surtir en tu propio valle baja el riesgo de derretimiento del chocolate en trayecto y deja tiempo operativo para el día del evento.'
+  },
+  {
+    pregunta: '¿Qué incluye cada ficha del directorio MEDEDUL Toluca?',
+    respuesta: 'Cada ficha trae: nombre del negocio, dirección completa con CP, colonia y municipio del Valle de Toluca, horarios verificados por día, referencias de Paseo Tollocan / 5 de Mayo / Galerías, teléfono, coordenadas para Google Maps, listado de especialidades, productos (gomitas, chocolates, dulce tradicional mexiquense, bolsitas de bolo, piñatas), rating y reseñas reales de Maps y, cuando existe, enlace a Instagram o WhatsApp.'
+  }
+];
+
+// JSON-LD: FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqsRegion.map((f) => ({
+    '@type': 'Question',
+    name: f.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: f.respuesta }
+  }))
+};
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    { '@type': 'ListItem', position: 3, name: 'Valle de Toluca', item: 'https://mesas-de-dulces.com/directorio/toluca' }
+  ]
+};
+
+// JSON-LD: CollectionPage apuntando al Valle de Toluca como AdministrativeArea
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Directorio de Dulcerías y Proveedores de Dulces en el Valle de Toluca',
+  description: `Directorio verificado de ${totalProveedores} proveedores de dulces, mayoristas y dulcerías premium distribuidos en ${municipiosActivos} municipios del Valle de Toluca, capital del Estado de México.`,
+  url: 'https://mesas-de-dulces.com/directorio/toluca',
+  about: {
+    '@type': 'AdministrativeArea',
+    name: 'Zona Metropolitana del Valle de Toluca',
+    alternateName: 'ZMVT',
+    containsPlace: municipiosConteo.filter((m) => m.proveedores > 0).map((m) => ({
+      '@type': 'City',
+      name: m.nombre
+    }))
+  }
+};
+
+// JSON-LD: ItemList de municipios para discovery
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: municipiosConteo
+    .filter((m) => m.proveedores > 0)
+    .map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://mesas-de-dulces.com/directorio/toluca/${m.slug}`,
+      name: `Dulcerías en ${m.nombre}`
+    }))
+};
+---
+
+<BaseLayout
+  title="Directorio de Dulcerías en Valle de Toluca | Proveedores por Municipio"
+  description={`Directorio geolocalizado con ${totalProveedores}+ dulcerías, mayoristas y tiendas de dulces verificadas en ${municipiosActivos} municipios del Valle de Toluca. Toluca, Metepec, Zinacantepec, Lerma y San Mateo Atenco.`}
+  canonical="/directorio/toluca"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Proveedores de Dulces por Municipio en el Valle de Toluca"
+    highlight="Valle de Toluca"
+    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en ${municipiosActivos} municipios de la ZMVT`}
+    secondaryContent={`<p><strong>Directorio por municipio</strong> organiza a los mejores proveedores de dulces del Valle de Toluca según tu ubicación, para que encuentres dulcerías mayoristas en 5 de Mayo, tiendas premium en Galerías Metepec, dulce artesanal del Pueblo Mágico y mayoristas periféricos en Lerma sin tener que cruzar a CDMX o al norte del Estado de México. Cada ficha incluye dirección, teléfono, horarios y reseñas reales de Google Maps.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos en capital Toluca, Metepec premium y corredor Lerma–Zinacantepec te permiten comparar opciones por zona, especialidad y rango de precio. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos del corredor industrial Tollocan o localizar dulce tradicional mexiquense.</p>`}
+  />
+
+  <!-- Zonas / Corredores -->
+  <section class="zonas-section">
+    <div class="container">
+      <SectionHeader
+        title="Tres"
+        titleHighlight="Corredores"
+        subtitle="El Valle de Toluca se organiza en tres regiones logísticas; elige la tuya según la ubicación del evento"
+      />
+      <div class="zonas-grid">
+        {zonasToluca.map((zona) => (
+          <article class="zona-card" id={zona.id}>
+            <h3 class="zona-titulo">{zona.titulo}</h3>
+            <p class="zona-subtitulo">{zona.subtitulo}</p>
+            <p class="zona-descripcion">{zona.descripcion}</p>
+            <div class="zona-municipios">
+              {zona.municipios
+                .map((slug) => ({ slug, info: municipiosConteo.find((m) => m.slug === slug) }))
+                .filter((m) => m.info && m.info.proveedores > 0)
+                .map(({ slug, info }) => (
+                  <a href={`/directorio/toluca/${slug}`} class="zona-mun-chip">
+                    {info!.nombre}
+                    <span class="chip-count">{info!.proveedores}</span>
+                  </a>
+                ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Todos los Municipios -->
+  <section class="alcaldias-section">
+    <div class="container">
+      <SectionHeader
+        title="Todos los"
+        titleHighlight="Municipios"
+        subtitle="Explora proveedores en todo el Valle de Toluca"
+      />
+      <div class="alcaldias-grid">
+        {municipiosConteo.map((municipio) => (
+          <a href={`/directorio/toluca/${municipio.slug}`} class="alcaldia-card" data-proveedores={municipio.proveedores}>
+            <span class="alcaldia-nombre">{municipio.nombre}</span>
+            <span class="alcaldia-count">
+              {municipio.proveedores} {municipio.proveedores === 1 ? 'proveedor' : 'proveedores'}
+            </span>
+            {municipioZona[municipio.slug] && (
+              <span class="alcaldia-zona">{municipioZona[municipio.slug]}</span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-numero">{totalProveedores}+</span>
+          <span class="stat-label">Proveedores en Valle de Toluca</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{municipiosActivos}</span>
+          <span class="stat-label">Municipios cubiertos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">3</span>
+          <span class="stat-label">Corredores (capital · Metepec · Lerma)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">100%</span>
+          <span class="stat-label">Verificados en Google Maps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ regional -->
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas"
+        titleHighlight="Frecuentes"
+        subtitle="Dudas comunes al comprar dulces para eventos en el Valle de Toluca"
+      />
+      <div class="faq-list">
+        {faqsRegion.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-pregunta">{faq.pregunta}</summary>
+            <div class="faq-respuesta">{faq.respuesta}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Enlaces cruzados a CDMX y Edo Mex -->
+  <section class="cross-link-section">
+    <div class="container">
+      <div class="cross-links-grid">
+        <div class="cross-link-card">
+          <h2>¿Tu evento es en CDMX?</h2>
+          <p>Si el venue está en alguna de las 16 alcaldías de la Ciudad de México, consulta nuestro directorio capitalino con proveedores desde Polanco hasta Iztapalapa.</p>
+          <a href="/directorio/cdmx" class="cross-link-btn">Ver directorio CDMX →</a>
+        </div>
+        <div class="cross-link-card">
+          <h2>¿Evento en zona conurbada?</h2>
+          <p>Naucalpan, Tlalnepantla, Ecatepec, Texcoco y otros municipios del Estado de México están cubiertos en nuestro directorio Edo Mex.</p>
+          <a href="/directorio/edomex" class="cross-link-btn">Ver directorio Edo Mex →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .zonas-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+  }
+
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .zona-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .zona-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .zona-subtitulo {
+    font-size: 0.9rem;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+
+  .zona-descripcion {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px;
+  }
+
+  .zona-municipios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .zona-mun-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+  .zona-mun-chip:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .chip-count {
+    background: rgba(255, 255, 255, 0.35);
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .zona-mun-chip:hover .chip-count {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .alcaldias-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .alcaldias-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 50px;
+  }
+
+  .alcaldia-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    background: #fafafa;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+  .alcaldia-card:hover {
+    background: rgba(209, 0, 122, 0.08);
+  }
+
+  .alcaldia-card[data-proveedores='0'] {
+    opacity: 0.55;
+  }
+
+  .alcaldia-nombre {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .alcaldia-count {
+    font-size: 0.85rem;
+    color: var(--rosa-principal);
+  }
+
+  .alcaldia-zona {
+    font-size: 0.72rem;
+    color: #999;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .stats-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    color: #fff;
+  }
+
+  .stat-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .faq-section {
+    padding: 80px 0;
+    background: #fafafa;
+  }
+
+  .faq-list {
+    max-width: 900px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .faq-pregunta {
+    cursor: pointer;
+    padding: 20px 24px;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    list-style: none;
+    position: relative;
+    padding-right: 50px;
+  }
+
+  .faq-pregunta::-webkit-details-marker { display: none; }
+
+  .faq-pregunta::after {
+    content: '+';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+}
+
+  .faq-item[open] .faq-pregunta::after {
+    content: '−';
+  }
+
+  .faq-respuesta {
+    padding: 0 24px 20px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .cross-link-section {
+    padding: 60px 0 80px;
+    background: #fff;
+  }
+
+  .cross-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .cross-link-card {
+    text-align: center;
+    padding: 40px 28px;
+    background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(209, 0, 122, 0.12);
+  }
+
+  .cross-link-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .cross-link-card p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+  }
+
+  .cross-link-btn {
+    display: inline-block;
+    background: var(--rosa-principal);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+  .cross-link-btn:hover {
+    background: #A0005F;
+}
+
+  @media (max-width: 1024px) {
+    .zonas-grid { grid-template-columns: 1fr; }
+    .alcaldias-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .cross-links-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .zonas-section,
+    .alcaldias-section,
+    .faq-section { padding: 50px 0; }
+    .alcaldias-grid { grid-template-columns: 1fr; }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .stat-numero { font-size: 2rem; }
+    .cross-link-card { padding: 32px 20px; }
+  }
+</style>

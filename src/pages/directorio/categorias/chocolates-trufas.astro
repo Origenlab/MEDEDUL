@@ -1,133 +1,55 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.productos.some(p => p.toLowerCase().includes('chocolate')) ||
-  d.especialidades.some(e => e.toLowerCase().includes('chocolate'))
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.productos.some((p) => p.toLowerCase().includes('chocolate')) ||
+      d.especialidades.some((e) => e.toLowerCase().includes('chocolate'))
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Chocolates y Trufas', url: '/directorio/categorias/chocolates-trufas' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
-    question: '¿Dónde comprar chocolates al mayoreo en CDMX?',
-    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen chocolates y trufas. Las mejores opciones al mayoreo están en La Merced y tiendas especializadas en distintas alcaldías.`
+    question: '¿Dónde comprar chocolates al mayoreo en CDMX, Edo Mex o Valle de Toluca?',
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} proveedores de chocolate en las tres regiones. Para mayoreo agresivo el Mercado de La Merced (Venustiano Carranza, CDMX) y el corredor Norte 70 (GAM) siguen siendo los polos nacionales. En Estado de México destacan la Central de Abasto Tultitlán y mayoristas de Naucalpan; en Valle de Toluca los mayoristas de 5 de Mayo ofrecen precios competitivos para eventos regionales.`
   },
   {
-    question: '¿Qué tipos de chocolates encuentro en estas tiendas?',
-    answer: 'Encontrarás chocolates nacionales e importados, trufas artesanales, bombones finos, chocolate belga, chocolate para fuentes, barras premium y más.'
+    question: '¿Qué tipos de chocolate encuentro en estas tiendas?',
+    answer: 'Chocolate nacional (Ricolino, Carlos V, Turin), chocolate belga y suizo importado, trufas artesanales mexicanas, bombones rellenos, chocolate para fuente, cobertura Callebaut y Cacao Barry, tabletas premium origen único, barras gourmet y chocolates personalizados para eventos corporativos y bodas.'
   },
   {
     question: '¿Los chocolates sirven para mesas de dulces?',
-    answer: 'Sí, los chocolates son imprescindibles en cualquier mesa de dulces. Trufas, bombones y barras de chocolate son de los productos más solicitados para eventos.'
+    answer: 'Sí, son pieza central de cualquier candy bar. Trufas, bombones y tabletas acompañan perfecto a macarons, cake pops y dulce tradicional. Para eventos al aire libre o en temporada cálida recomendamos chocolate con mayor % de cacao (resiste mejor el calor) o montar la fuente de chocolate dentro del salón climatizado.'
+  },
+  {
+    question: '¿Conviene chocolate artesanal o industrial para eventos grandes?',
+    answer: 'Depende del ticket y formato. Chocolate industrial (Ricolino, Hershey) optimiza costo para bolos de fiesta infantil y eventos masivos — dulces de tamaño consistente, empaque uniforme y disponibilidad inmediata. Chocolate artesanal (trufas de autor, bombones personalizados) eleva el ticket premium para bodas, XV años y mesas de postres gourmet donde la presentación vale más que el costo por kilo.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye dirección, teléfono, horarios, productos de chocolate específicos y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Chocolates y Trufas | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra las mejores tiendas de chocolates y trufas en CDMX. ${dulcerias.length} dulcerías verificadas con chocolates artesanales, importados y gourmet.`}
-  canonical="/directorio/categorias/chocolates-trufas"
+<CategoriaLayout
+  categoriaNombre="Chocolates y Trufas"
+  categoriaSlug="chocolates-trufas"
+  metaTitle={`Chocolates y Trufas | ${dulcerias.length} Tiendas en CDMX, Edo Mex y Valle de Toluca`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} tiendas de chocolates y trufas en CDMX, Estado de México y Valle de Toluca. Chocolate belga, trufas artesanales, bombones finos y cobertura gourmet con reseñas reales de Google Maps.`}
+  heroTitle="Categoría Chocolates y Trufas Gourmet"
+  heroHighlight="Chocolates"
+  heroSubtitle={`${dulcerias.length} tiendas verificadas con chocolate belga, trufas artesanales y bombones finos en 3 regiones`}
+  heroBody={`<p><strong>Categoría chocolates y trufas</strong> concentra a los proveedores más especializados de la zona metropolitana en chocolate artesanal, trufas rellenas, bombones gourmet y tabletas de cobertura premium. Filtramos solo tiendas con reseñas reales de Google Maps para que encuentres producto fresco, presentación profesional y atención capaz de resolver pedidos personalizados para eventos o regalos corporativos.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en CDMX, Estado de México y Valle de Toluca te permiten comparar marcas, tipos de cacao, precios y ubicaciones antes de abastecer tu mesa de dulces, fuente de chocolate o empacar detalles personalizados. Cada registro incluye horario, teléfono, especialidad y ficha técnica.</p>`}
   ogImage="/img/galeria/dulces-gourmet-chocolate-belga-lujo.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Chocolates y Trufas Gourmet"
-    highlight="Chocolates"
-    subtitle={`${dulcerias.length} tiendas verificadas con chocolate belga, trufas artesanales y bombones finos en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria chocolates y trufas</strong> concentra a los proveedores mas especializados de Ciudad de Mexico en chocolate artesanal, trufas rellenas, bombones gourmet y tabletas de cobertura premium. Filtramos solo tiendas con resenas reales de Google Maps para que encuentres producto fresco, presentacion profesional y atencion capaz de resolver pedidos personalizados para eventos o regalos corporativos.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar marcas, tipos de cacao, precios y ubicaciones antes de abastecer tu mesa de dulces, fuente de chocolate o empacar detalles personalizados. Cada registro incluye horario, telefono, especialidad y ficha tecnica para que decidas rapido y sin depender de listados genericos que no verifican la operacion real del negocio.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Tiendas de"
-        titleHighlight="Chocolates y Trufas"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Tiendas de"
+  sectionHighlight="Chocolates y Trufas"
+/>

@@ -1,0 +1,312 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Mesas de Dulces Zinacantepec', url: '/mesas-de-dulces-zinacantepec' }
+];
+
+const venuesZinacantepec = [
+  'Hacienda San Pedro Tejalpa',
+  'Jardín Santa María',
+  'Salón Familiar Zinacantepec',
+  'Hacienda La Soledad',
+  'Centro Recreativo Zinacantepec',
+  'Quinta San Antonio Acahualco',
+  'Hacienda San Cristóbal',
+  'Salón Eventos del Volcán'
+];
+
+const paquetesZinacantepec = [
+  {
+    name: 'Zinacantepec Esencial',
+    icon: '🍬',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Eventos familiares con calidad premium',
+    features: [
+      '8-10 variedades de dulces premium',
+      'Montaje elegante para salones locales',
+      'Cristalería y mantelería incluida',
+      '4 horas de servicio',
+      'Traslado desde Metepec incluido',
+      'Atención personalizada'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20Esencial%20en%20Zinacantepec'
+  },
+  {
+    name: 'Zinacantepec Premium',
+    icon: '⭐',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '70-130 personas',
+    tagline: 'Para bodas y XV años memorables',
+    features: [
+      '14+ variedades de dulces premium',
+      'Diseño personalizado a tu temática',
+      'Backdrop decorativo incluido',
+      '5 horas de servicio',
+      'Dulces artesanales y chocolates finos',
+      'Coordinación con venue',
+      'Servicio en haciendas y salones'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20mi%20evento%20en%20Zinacantepec'
+  },
+  {
+    name: 'Zinacantepec Luxury',
+    icon: '💎',
+    price: '$13,500',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Experiencia exclusiva al pie del Nevado',
+    features: [
+      '22+ variedades exclusivas',
+      'Dirección creativa completa',
+      'Fuente de chocolate incluida',
+      'Mesa de quesos o postres gourmet',
+      'Personal dedicado todo el evento',
+      'Backdrop floral o temático premium',
+      'Servicio extendido hasta 8 horas'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20para%20mi%20evento%20en%20Zinacantepec'
+  }
+];
+
+const caracteristicasZinacantepec = [
+  {
+    num: 1,
+    title: 'Acceso desde Metepec',
+    desc: 'Nuestra sucursal Toluca-Metepec está a 20 minutos de Zinacantepec. Tiempos de respuesta y montaje optimizados.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Estilo Hacienda y Campestre',
+    desc: 'Especialistas en estilos hacienda, campestre y rústico-elegante, perfectos para los venues característicos de Zinacantepec.',
+    img: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif'
+  },
+  {
+    num: 3,
+    title: 'Eventos a tu Medida',
+    desc: 'Desde bodas íntimas en haciendas hasta XV años en salones familiares, adaptamos la propuesta a tu evento y presupuesto.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  },
+  {
+    num: 4,
+    title: 'Cobertura San Miguel Zinacantepec',
+    desc: 'Atendemos toda la cabecera municipal y delegaciones: San Pedro Tejalpa, San Antonio Acahualco, San Cristóbal, La Soledad y más.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  }
+];
+
+const testimoniosZinacantepec = [
+  {
+    name: 'Karla y Roberto',
+    initials: 'KR',
+    review: 'Nuestra boda en Hacienda San Pedro Tejalpa fue espectacular. La mesa de dulces se integró perfecto con el estilo campestre del venue. Trabajo profesional de Mededul.',
+    event: 'Boda en Hacienda San Pedro, Zinacantepec',
+    rating: 5
+  },
+  {
+    name: 'Familia Sandoval',
+    initials: 'FS',
+    review: 'Los XV años de mi sobrina en Zinacantepec quedaron increíbles. La mesa cumplió las expectativas y los invitados quedaron encantados con la calidad.',
+    event: 'XV Años en Zinacantepec',
+    rating: 5
+  },
+  {
+    name: 'Norma Gutiérrez',
+    initials: 'NG',
+    review: 'Baby shower en Quinta San Antonio. Mededul trasladó todo desde Metepec sin problema. Mesa muy bonita y atención excelente. Recomendados.',
+    event: 'Baby Shower en San Antonio Acahualco',
+    rating: 5
+  }
+];
+
+const faqsZinacantepec = [
+  {
+    question: '¿Atienden eventos en Zinacantepec y sus delegaciones?',
+    answer: 'Sí. Cubrimos toda la cabecera municipal de San Miguel Zinacantepec y sus delegaciones: San Pedro Tejalpa, San Antonio Acahualco, San Cristóbal, La Soledad y otras. Operamos desde nuestra sucursal Metepec con traslado incluido.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces en Zinacantepec?',
+    answer: 'Nuestros paquetes para Zinacantepec inician en $5,500 MXN para 40-70 personas. El Premium ($8,500) es ideal para bodas y XV años en haciendas, y el Luxury ($13,500) para eventos de mayor escala con fuente de chocolate y mesa gourmet.'
+  },
+  {
+    question: '¿Tienen experiencia en haciendas y venues de Zinacantepec?',
+    answer: 'Sí. Hemos trabajado en Hacienda San Pedro Tejalpa, Quinta San Antonio Acahualco, Hacienda La Soledad y salones locales. Conocemos los accesos y reglamentos.'
+  },
+  {
+    question: '¿El traslado desde Metepec tiene costo extra?',
+    answer: 'No. El traslado desde nuestra sucursal Toluca-Metepec hacia Zinacantepec está incluido en todos los paquetes Premium y Luxury. Para el paquete Esencial, validamos según ubicación específica.'
+  },
+  {
+    question: '¿Hacen mesa de dulces estilo hacienda?',
+    answer: 'Sí. Es uno de nuestros estilos más solicitados en Zinacantepec por la estética de los venues locales. Combinamos madera, cristalería rústica, flores naturales y dulces tradicionales mexicanos con presentación premium.'
+  },
+  {
+    question: '¿Con cuánta anticipación reservar para Zinacantepec?',
+    answer: 'Recomendamos 4-6 semanas para bodas y XV años. Para baby showers, bautizos y cumpleaños familiares, 2-3 semanas suelen ser suficientes en condiciones normales.'
+  }
+];
+
+const zinacantepecSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Zinacantepec",
+  "description": "Servicio profesional de mesas de dulces, candy bar y estaciones interactivas para bodas, XV años, baby shower y eventos en Zinacantepec, Estado de México. Cobertura completa desde nuestra sucursal Metepec.",
+  "url": "https://mesas-de-dulces.com/mesas-de-dulces-zinacantepec",
+  "telephone": "+525521775184",
+  "priceRange": "$5,500 - $13,500 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Blvd. Toluca-Metepec 913",
+    "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+    "addressRegion": "Estado de México",
+    "postalCode": "52169",
+    "addressCountry": "MX"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Zinacantepec" },
+    { "@type": "Place", "name": "San Pedro Tejalpa, Zinacantepec" },
+    { "@type": "Place", "name": "San Antonio Acahualco, Zinacantepec" },
+    { "@type": "Place", "name": "San Cristóbal, Zinacantepec" },
+    { "@type": "Place", "name": "La Soledad, Zinacantepec" }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "12",
+    "bestRating": "5"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Zinacantepec | Sucursal Metepec | Mededul"
+  description="Mesas de dulces premium en Zinacantepec, Estado de México. Bodas, XV años, baby shower y eventos en haciendas y salones locales. Cobertura completa desde sucursal Metepec. Cotización gratis."
+  canonical="/mesas-de-dulces-zinacantepec"
+  ogImage="/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(zinacantepecSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Zinacantepec, EdoMex"
+    highlight="Zinacantepec"
+    subtitle="Servicio premium desde sucursal Metepec · Cobertura completa al pie del Nevado"
+    secondaryContent={`<p><strong>Mededul</strong> atiende todo el municipio de <strong>San Miguel Zinacantepec</strong> desde nuestra sucursal Toluca-Metepec (Blvd. Toluca-Metepec 913). Servicio profesional para bodas, XV años, baby shower y eventos en haciendas, salones y jardines locales.</p><p>Conocemos los venues clásicos de la región: Hacienda San Pedro Tejalpa, Quinta San Antonio Acahualco, salones familiares y jardines campestres. Diseñamos <strong>mesas de dulces a la altura</strong> con dulces premium, montaje impecable y traslado incluido.</p>`}
+  />
+
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues donde hemos <span>trabajado</span></h2>
+        <p>Haciendas, jardines y salones de Zinacantepec</p>
+        <div class="venues-grid">
+          {venuesZinacantepec.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-zinacantepec"
+    badge="Paquetes para Zinacantepec"
+    title="Servicios para"
+    titleHighlight="Zinacantepec"
+    subtitle="Paquetes adaptados a bodas, XV años y eventos familiares"
+    packages={paquetesZinacantepec}
+    note="💡 <strong>Traslado desde Metepec incluido</strong> en paquetes Premium y Luxury. Cobertura completa al municipio."
+  />
+
+  <WhyChooseUs
+    id="ventajas-zinacantepec"
+    badge="Servicio en Zinacantepec"
+    title="Por qué confiar en"
+    titleHighlight="Mededul"
+    descriptions={[
+      'Nuestra sucursal Metepec nos permite atender Zinacantepec con la misma calidad y profesionalismo que en CDMX. Mismo equipo, mismos estándares.',
+      'Especialistas en estilos hacienda, campestre y rústico-elegante, característicos de los venues de Zinacantepec y su entorno.'
+    ]}
+    stats={[
+      { number: '12+', label: 'Eventos en Zinacantepec' },
+      { number: '5.0', label: 'Calificación' },
+      { number: '20 min', label: 'Desde sucursal' },
+      { number: '100%', label: 'Traslado incluido' }
+    ]}
+    features={caracteristicasZinacantepec}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Zinacantepec"
+        subtitle="Lo que dicen nuestros clientes del municipio"
+      />
+      <div class="testimonios-grid">
+        {testimoniosZinacantepec.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FAQContactModule faqItems={faqsZinacantepec} />
+</BaseLayout>
+
+<style>
+  .venues-section { padding: 60px 0; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); }
+  .venues-content { text-align: center; color: #fff; }
+  .venues-content h2 { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 700; margin: 0 0 12px; }
+  .venues-content h2 span { color: rgba(255,255,255,0.8); }
+  .venues-content > p { font-size: 1rem; opacity: 0.85; margin: 0 0 40px; }
+  .venues-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .venue-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 500;
+  }
+  .venue-item svg { fill: #FFB800; }
+
+  .testimonios-section { padding: 80px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .testimonios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px; }
+
+  @media (max-width: 1024px) { .testimonios-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    .venues-content h2 { font-size: 1.5rem; }
+    .venues-grid { gap: 10px; }
+    .venue-item { padding: 10px 16px; font-size: 0.8rem; }
+    .testimonios-grid { grid-template-columns: 1fr; }
+  }
+</style>

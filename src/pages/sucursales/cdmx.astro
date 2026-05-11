@@ -1,0 +1,1870 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'CDMX', url: '/sucursales/cdmx' }
+];
+
+// =============== Sucursales CDMX ===============
+const sucursalesCdmx = [
+  {
+    id: 'anzures',
+    nombre: 'Sucursal Anzures',
+    badge: 'Matriz CDMX',
+    destacada: true,
+    direccion: 'Av. Ejercito Nacional Mexicano 216',
+    zona: 'Anzures, Miguel Hidalgo',
+    cp: '11590, Ciudad de Mexico',
+    telefono: '55 2522 6442',
+    telefonoHref: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20CDMX%20%28Anzures%29',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'Polanco, Lomas, Interlomas, Santa Fe, Roma, Condesa, Coyoacan, Del Valle, Pedregal y poniente.',
+    tiempoMontaje: 'Llegada 2-3 h antes del evento',
+    mapUrl: 'https://www.google.com/maps?q=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+11590+CDMX&output=embed',
+    mapLink: 'https://maps.google.com/?q=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+11590+CDMX'
+  },
+  {
+    id: 'condesa',
+    nombre: 'Sucursal Condesa',
+    badge: 'Sucursal CDMX',
+    direccion: 'Torre A, Av. Baja California 255',
+    zona: 'Hipodromo Condesa, Cuauhtemoc',
+    cp: '06170, Ciudad de Mexico',
+    telefono: '55 2522 6442',
+    telefonoHref: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20CDMX%20%28Condesa%29',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'Condesa, Roma Norte, Roma Sur, Juarez, Cuauhtemoc, Doctores, Narvarte, Del Valle y centro.',
+    tiempoMontaje: 'Llegada 2-3 h antes del evento',
+    mapUrl: 'https://www.google.com/maps?q=Av.+Baja+California+255,+Hipodromo+Condesa,+06170+CDMX&output=embed',
+    mapLink: 'https://maps.google.com/?q=Av.+Baja+California+255,+Hipodromo+Condesa,+06170+CDMX'
+  }
+];
+
+// =============== Trust Stats ===============
+const stats = [
+  { number: '8+', label: 'Anos en CDMX' },
+  { number: '500+', label: 'Eventos exitosos' },
+  { number: '16', label: 'Alcaldias cubiertas' },
+  { number: '24h', label: 'Respuesta cotizacion' }
+];
+
+// =============== A. Mesas por Tipo de Evento (8) ===============
+const serviciosEventos = [
+  {
+    title: 'Mesa de Dulces para Bodas',
+    excerpt: 'El dia mas importante de tu vida merece una mesa a la altura. Disenamos cada montaje pensando en tu paleta de boda, tu venue en CDMX y el momento exacto en que tus invitados van a acercarse a probarla.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Mas solicitado',
+    cta: 'Ver mesa para bodas'
+  },
+  {
+    title: 'Candy Bar para XV Anos',
+    excerpt: 'Los XV son una noche unica. Sabemos lo que significa para tu hija y para ti. Por eso cuidamos la paleta, las texturas y el surtido para que la mesa se vuelva el rincon mas fotografiado de la fiesta.',
+    img: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    badge: 'Top XV CDMX',
+    cta: 'Ver mesa XV anos'
+  },
+  {
+    title: 'Mesa para Baby Shower',
+    excerpt: 'Bienvenida tierna, paleta pastel y detalles delicados. Curamos dulces y postres que se ven hermosos en foto y que de verdad les gustan a las invitadas: macarons, gomitas suaves, galletas decoradas.',
+    img: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    href: '/candy-bar-eventos/mesa-dulces-baby-shower',
+    cta: 'Ver baby shower'
+  },
+  {
+    title: 'Mesa para Bautizo',
+    excerpt: 'Una celebracion familiar merece un montaje sobrio y elegante. Trabajamos paletas suaves, simbolos del bautismo y opciones aptas para invitados de todas las edades, desde abuelitos hasta primos pequenos.',
+    img: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver mesa bautizo'
+  },
+  {
+    title: 'Mesa para Primera Comunion',
+    excerpt: 'Una de las celebraciones mas significativas de la infancia. Diseno limpio, paleta blanco-dorado o azul-plata, y un surtido balanceado que respeta el tono ceremonial sin perder la magia del dia.',
+    img: '/img/galeria/candy-bar-primera-comunion-blanco-dorado-macarons.avif',
+    href: '/candy-bar-eventos/mesa-dulces-primera-comunion',
+    cta: 'Ver primera comunion'
+  },
+  {
+    title: 'Cumpleanos Infantil',
+    excerpt: 'Que tu hijo o hija recuerde su fiesta toda la vida. Trabajamos tematicas: princesas, dinosaurios, Mickey, Frozen, safari, paw patrol, superheroes... y muchas mas. Colores vibrantes y dulces que les encantan.',
+    img: '/img/galeria/candy-bar-superheroes-cumpleanos-nino.avif',
+    href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
+    cta: 'Ver cumpleanos infantil'
+  },
+  {
+    title: 'Mesa para Graduacion',
+    excerpt: 'Cierras una etapa importante. La mesa se vuelve protagonista del brindis: paleta de tu universidad, birrete decorado, surtido pensado para una generacion que va a recordar este momento.',
+    img: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver mesa graduacion'
+  },
+  {
+    title: 'Eventos Corporativos',
+    excerpt: 'Tu marca, tu paleta, tu mensaje. Montajes sobrios y profesionales con branding integrado para lanzamientos, posadas, fin de ano, juntas de directorio y experiencias para colaboradores en CDMX.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    badge: 'B2B',
+    cta: 'Ver corporativos'
+  }
+];
+
+// =============== B. Tipos de Mesa por Estilo Gastronomico (8) ===============
+const serviciosTipos = [
+  {
+    title: 'Mesa de Dulces Clasica',
+    excerpt: 'La opcion mas completa: chocolates, gomitas, paletas, mexicanos y postres en una sola estacion. Ideal cuando quieres que haya algo para cada invitado, desde los ninos hasta los adultos.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-dulces',
+    cta: 'Ver mesa clasica'
+  },
+  {
+    title: 'Mesa de Postres Gourmet',
+    excerpt: 'Reposteria fina: macarons frances, tartaletas individuales, mini-cheesecakes, eclairs, profiteroles y trufas artesanales. Para eventos donde el detalle pesa mas que la cantidad.',
+    img: '/img/galeria/mesa-dulces-gourmet-premium.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-postres',
+    badge: 'Premium',
+    cta: 'Ver mesa postres'
+  },
+  {
+    title: 'Mesa de Frutas',
+    excerpt: 'Fresca, ligera y muy visual. Frutas de temporada, brochetas, chamoy artesanal y opciones perfectas para eventos de dia, brunches de boda o celebraciones con clima calido en CDMX.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    cta: 'Ver mesa de frutas'
+  },
+  {
+    title: 'Mesa de Quesos y Embutidos',
+    excerpt: 'Tabla profesional para hora del aperitivo o cocteles: quesos madurados, jamon serrano, salami, frutos secos, mieles, panes artesanales y mermeladas. Funciona en boda civil, lanzamiento o cena privada.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos',
+    badge: 'Gourmet',
+    cta: 'Ver mesa quesos'
+  },
+  {
+    title: 'Mesa de Snacks',
+    excerpt: 'La opcion que mas se acaba la noche: papas gourmet, pretzels, palomitas saborizadas, cacahuates japoneses, mix mexicano y opciones picantes. Ideal para fiestas largas y barras libres.',
+    img: '/img/galeria/mesa-dulces-saludables-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-snacks',
+    cta: 'Ver mesa snacks'
+  },
+  {
+    title: 'Mesa de Botanas',
+    excerpt: 'Sabor mexicano y gourmet: chicharrones, frituras artesanales, salsas, dips, cacahuates enchilados y opciones para acompanar mezcal o tequila. Perfecta para eventos con identidad mexicana.',
+    img: '/img/tipos-de-mesas/botanas/botanas-gourmet-fiestas.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-botanas',
+    cta: 'Ver mesa botanas'
+  },
+  {
+    title: 'Mesa de Donas y Cupcakes',
+    excerpt: 'Reposteria visual y divertida. Donas glaseadas en torres, cupcakes decorados al tema del evento y opciones mini para invitados que prefieren porciones pequenas. Foto perfecta garantizada.',
+    img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes',
+    cta: 'Ver donas y cupcakes'
+  },
+  {
+    title: 'Mesa de Dulces Tradicionales Mexicanos',
+    excerpt: 'Cocadas, jamoncillos, palanquetas, alegrias, dulces de leche, ate de membrillo y favoritos regionales. Para bodas con tematica mexicana, eventos patrios o homenajes a la abuela.',
+    img: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales',
+    badge: 'Mexicano',
+    cta: 'Ver dulces tradicionales'
+  }
+];
+
+// =============== C. Estaciones Interactivas (4) ===============
+const serviciosEstaciones = [
+  {
+    title: 'Fuente de Chocolate',
+    excerpt: 'Estacion sensorial que siempre genera fila feliz. Chocolate fundido en cascada con brochetas de fresa, malvavisco, platano, marshmallows y galletas. Operador profesional incluido.',
+    img: '/img/galeria/candy-bar-chocolate-oscuro-elegante.avif',
+    href: '/estaciones-interactivas/fuente-de-chocolate',
+    badge: 'Favorita',
+    cta: 'Ver fuente chocolate'
+  },
+  {
+    title: 'Fuente de Chamoy',
+    excerpt: 'Mexicana, vibrante e instagrameable. Chamoy artesanal con gomitas, mangos, pepinos, jicama y duraznos. Personalizable en nivel de picante. Lleva tu evento de XV o boda mexicana al siguiente nivel.',
+    img: '/img/galeria/candy-bar-dia-muertos-pan-muerto-cempasuchil.avif',
+    href: '/estaciones-interactivas/fuente-de-chamoy',
+    badge: 'Mexicano',
+    cta: 'Ver fuente chamoy'
+  },
+  {
+    title: 'Candy Wall / Pared de Dulces',
+    excerpt: 'Una pared completa de dulces que tambien es escenografia y backdrop fotografico. Personalizamos paleta y surtido. Funciona como punto focal en bodas modernas, XV y lanzamientos de marca.',
+    img: '/img/galeria/candy-bar-tema-neon-brillante-colores.avif',
+    href: '/estaciones-interactivas/pared-de-dulces',
+    cta: 'Ver candy wall'
+  },
+  {
+    title: 'Stand Decorado para Pastel',
+    excerpt: 'Convertimos el area del pastel en un espacio protagonista: estructura, flores, telas, luces y tipografia personalizada. El momento del corte se vuelve la foto principal de la noche.',
+    img: '/img/galeria/candy-bar-bodas-oro-dorado-ferrero-pastel.avif',
+    href: '/estaciones-interactivas/stand-para-pastel',
+    cta: 'Ver stand pastel'
+  }
+];
+
+// =============== Zonas CDMX cubiertas ===============
+const zonasCdmx = [
+  { nombre: 'Polanco', href: '/zonas-cdmx/polanco', alcaldia: 'Miguel Hidalgo', destacada: true },
+  { nombre: 'Santa Fe', href: '/zonas-cdmx/santa-fe', alcaldia: 'Cuajimalpa', destacada: true },
+  { nombre: 'Condesa', href: '/zonas-cdmx/condesa', alcaldia: 'Cuauhtemoc', destacada: true },
+  { nombre: 'Roma Norte', href: '/zonas-cdmx/roma-norte', alcaldia: 'Cuauhtemoc' },
+  { nombre: 'Anzures', href: '/zonas-cdmx/anzures', alcaldia: 'Miguel Hidalgo' },
+  { nombre: 'Del Valle', href: '/zonas-cdmx/del-valle', alcaldia: 'Benito Juarez' },
+  { nombre: 'Coyoacan', href: '/zonas-cdmx/coyoacan', alcaldia: 'Coyoacan' },
+  { nombre: 'Narvarte', href: '/zonas-cdmx/narvarte', alcaldia: 'Benito Juarez' },
+  { nombre: 'Lomas', href: '/zonas-cdmx', alcaldia: 'Miguel Hidalgo' },
+  { nombre: 'Pedregal', href: '/zonas-cdmx', alcaldia: 'Alvaro Obregon' },
+  { nombre: 'Interlomas', href: '/zonas-cdmx/interlomas', alcaldia: 'Huixquilucan, EdoMex' },
+  { nombre: 'Satelite', href: '/zonas-cdmx/satelite', alcaldia: 'Naucalpan, EdoMex' }
+];
+
+// =============== Venues iconicos ===============
+const venuesCdmx = [
+  'Hotel Presidente InterContinental',
+  'Hotel W Mexico City',
+  'Hotel Four Seasons',
+  'Hotel Hyatt Regency',
+  'Hotel St. Regis',
+  'Hacienda de los Morales',
+  'Casa Lamm',
+  'Club de Industriales',
+  'Antiguo Colegio de San Ildefonso',
+  'Quinta Real Polanco',
+  'Salon Aristos',
+  'Hipodromo de las Americas',
+  'Casino Espanol',
+  'Jardin de las Lomas',
+  'Salon La Vista',
+  'Centro de Convenciones Tlatelolco'
+];
+
+// =============== Caracteristicas / Diferenciadores ===============
+const caracteristicasCdmx = [
+  {
+    num: 1,
+    title: 'Conocemos cada venue de CDMX',
+    desc: 'Mas de 500 eventos en hoteles, haciendas, salones y casas particulares de CDMX. Conocemos reglamentos, tiempos de acceso, rutas de carga y coordinadores.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Dos sucursales fisicas estrategicas',
+    desc: 'Anzures (Miguel Hidalgo) y Condesa (Cuauhtemoc) nos permiten llegar en menos de 30 min a cualquier zona premium de la ciudad sin importar trafico.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif'
+  },
+  {
+    num: 3,
+    title: 'Estandar premium replicable',
+    desc: 'El mismo diseno, surtido y operacion en cada montaje. Nada se improvisa: procesos profesionales, checklists y equipo capacitado en cada evento.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Cotizacion rapida y sin sorpresas',
+    desc: 'Respuesta en menos de 24 horas habiles, propuesta visual clara, paquetes transparentes y contrato formal. Servicio sin estres para ti.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  }
+];
+
+// =============== Paquetes CDMX ===============
+const paquetesCdmx = [
+  {
+    name: 'CDMX Esencial',
+    icon: '🍬',
+    price: '$6,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Ideal para eventos sociales pequenos',
+    features: [
+      '10+ variedades de dulces de calidad',
+      'Diseno personalizado a tu evento',
+      'Montaje profesional en venue',
+      '4 horas de servicio',
+      'Traslado en zonas centrales',
+      'Operador de mesa incluido'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20el%20paquete%20CDMX%20Esencial'
+  },
+  {
+    name: 'CDMX Premium',
+    icon: '👑',
+    price: '$10,500',
+    currency: 'MXN',
+    guests: '80-150 personas',
+    tagline: 'El mas elegido para bodas y XV en CDMX',
+    features: [
+      '15+ variedades premium y postres',
+      'Direccion creativa y briefing visual',
+      'Fuente de chocolate o estacion extra',
+      '5 horas de servicio + reposicion',
+      'Coordinacion con venue y planner',
+      'Traslado incluido CDMX completo',
+      'Backdrop y atrezzo coordinado'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20CDMX%20Premium'
+  },
+  {
+    name: 'CDMX Luxury',
+    icon: '✨',
+    price: '$16,500',
+    currency: 'MXN',
+    guests: '150+ personas',
+    tagline: 'Experiencia exclusiva alto nivel CDMX',
+    features: [
+      '22+ variedades exclusivas e importadas',
+      'Diseno de autor 100% personalizado',
+      'Multiples estaciones interactivas',
+      'Mesa de quesos y embutidos premium',
+      'Equipo completo de servicio dedicado',
+      'Backdrop floral / branding extendido',
+      'Coordinacion full con wedding planner',
+      'Concierge durante todo el evento'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20paquete%20CDMX%20Luxury'
+  }
+];
+
+// =============== Proceso ===============
+const procesoCdmx = [
+  {
+    num: 1,
+    title: 'Contacto y briefing',
+    desc: 'Nos cuentas tipo de evento, fecha, sede en CDMX, numero de invitados y estilo. Te asignamos la sucursal mas cercana al venue para optimizar logistica.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta visual y cotizacion',
+    desc: 'Recibes en menos de 24 h propuesta con paleta, surtido sugerido, render conceptual y precio cerrado. Sin sorpresas ni costos ocultos.'
+  },
+  {
+    num: 3,
+    title: 'Diseno y confirmacion',
+    desc: 'Ajustamos detalles segun tu feedback, confirmamos paleta, surtido final y firmamos contrato. Coordinamos con venue y wedding planner si aplica.'
+  },
+  {
+    num: 4,
+    title: 'Montaje, operacion y desmontaje',
+    desc: 'Llegamos 2-3 h antes con todo el equipo. Montamos, operamos durante el evento con reposicion continua y desmontamos discretamente al cierre.'
+  }
+];
+
+// =============== Testimonios CDMX ===============
+const testimoniosCdmx = [
+  {
+    name: 'Mariana y Eduardo',
+    initials: 'ME',
+    review: 'Nuestra boda en Hotel W Polanco fue impecable. MEDEDUL coordino directo con el venue y el wedding planner. La mesa fue el rincon mas fotografiado de la noche.',
+    event: 'Boda en Hotel W Polanco',
+    rating: 5
+  },
+  {
+    name: 'Patricia Olvera',
+    initials: 'PO',
+    review: 'Los XV de mi hija en Hacienda de los Morales quedaron de revista. El surtido, las alturas, el papel picado dorado... todo perfecto. Muy profesionales.',
+    event: 'XV Anos Hacienda de los Morales',
+    rating: 5
+  },
+  {
+    name: 'Grupo Financiero MX',
+    initials: 'GF',
+    review: 'Para nuestro evento corporativo en Club de Industriales necesitabamos branding sobrio y operacion impecable. MEDEDUL entrego ambos, llegaron antes de la hora.',
+    event: 'Evento corporativo Club de Industriales',
+    rating: 5
+  },
+  {
+    name: 'Andrea Salazar',
+    initials: 'AS',
+    review: 'Mi baby shower en Roma Norte fue exactamente como lo imagine. Paleta pastel, montaje delicado y dulces de muy buena calidad. Recomendados 100%.',
+    event: 'Baby shower Roma Norte',
+    rating: 5
+  },
+  {
+    name: 'Familia Lopez Reyes',
+    initials: 'LR',
+    review: 'Cumpleanos de mi mama, 70 anos, en Coyoacan. Personalizaron todo a sus gustos. Montaje precioso y atencion durante todo el evento.',
+    event: 'Cumpleanos Coyoacan',
+    rating: 5
+  },
+  {
+    name: 'Sofia y Diego',
+    initials: 'SD',
+    review: 'Boda civil en Casa Lamm. Llegaron temprano, coordinaron sin problema con el chef del venue. La mesa hizo match perfecto con la decoracion floral.',
+    event: 'Boda Casa Lamm',
+    rating: 5
+  }
+];
+
+// =============== FAQ CDMX ===============
+const faqsCdmx = [
+  {
+    question: 'Que zonas de CDMX cubre MEDEDUL?',
+    answer: 'Cubrimos las 16 alcaldias de Ciudad de Mexico y zonas metropolitanas como Interlomas, Satelite, Naucalpan, Huixquilucan y Tlalnepantla. Nuestras sucursales de Anzures y Condesa nos permiten llegar a cualquier punto premium en menos de 30 minutos.'
+  },
+  {
+    question: 'Cuanto cuesta una mesa de dulces en CDMX?',
+    answer: 'Los paquetes inician en $6,500 MXN (CDMX Esencial, 40-70 invitados) y llegan a $16,500 MXN (CDMX Luxury, 150+ invitados). El precio depende de surtido, numero de invitados, duracion del servicio y nivel de personalizacion. La cotizacion es gratuita y sin compromiso.'
+  },
+  {
+    question: 'Cuanto tiempo antes hay que contratar la mesa de dulces?',
+    answer: 'Para bodas y XV anos en temporada alta (marzo-mayo y octubre-diciembre) recomendamos reservar minimo 2-3 meses antes. Para eventos corporativos y reuniones familiares, 3-4 semanas suelen ser suficientes. Trabajamos por orden de confirmacion.'
+  },
+  {
+    question: 'El traslado dentro de CDMX tiene costo adicional?',
+    answer: 'En los paquetes Premium y Luxury el traslado a cualquier zona de CDMX esta incluido. En el paquete Esencial el traslado esta incluido en zonas centrales (Polanco, Roma, Condesa, Del Valle, Coyoacan, Anzures); para zonas mas alejadas se cotiza un costo simbolico de logistica.'
+  },
+  {
+    question: 'MEDEDUL coordina directamente con el venue o wedding planner?',
+    answer: 'Si, lo hacemos en cada evento. Trabajamos frecuentemente con los principales hoteles, haciendas y salones de CDMX. Conocemos reglamentos de montaje, horarios de acceso, rutas de carga y coordinadores. Tambien nos integramos al plan del wedding planner si lo tienes.'
+  },
+  {
+    question: 'Que tipo de eventos atienden en CDMX?',
+    answer: 'Bodas, XV anos, baby shower, bautizos, primera comunion, cumpleanos infantiles y de adulto, despedidas de soltera, eventos corporativos, lanzamientos de marca, posadas, graduaciones y celebraciones familiares. Cada tipo tiene un enfoque y surtido distinto.'
+  },
+  {
+    question: 'A que hora llegan al venue?',
+    answer: 'Llegamos generalmente 2-3 horas antes del horario de evento para montaje completo. Para venues con reglamentos especiales (hoteles 5 estrellas, haciendas con tiempo limitado), nos adaptamos al horario que indique el coordinador del lugar.'
+  },
+  {
+    question: 'Que dulces y postres incluye una mesa MEDEDUL?',
+    answer: 'Curamos surtido segun el tipo de evento y perfil de invitados: chocolates premium (Ferrero, Lindt, Hershey selecto), bombones, gomitas gourmet, paletas decoradas, brownies, macarons, mini-pasteles, trufas, mexicanos tradicionales y opciones importadas. En paquetes superiores incluimos reposteria fina y mesa de quesos.'
+  },
+  {
+    question: 'Pueden hacer mesa de dulces con tematica especifica?',
+    answer: 'Si, cada montaje se disena a tu tematica: rustico, glamour dorado, minimalista contemporaneo, tropical, vintage, mexicano elegante, infantil tematizado (safari, princesas, marvel, etc.). Te pedimos referencias visuales para alinear paleta y estilo.'
+  },
+  {
+    question: 'Tienen contrato y politicas formales?',
+    answer: 'Si. Trabajamos siempre con contrato formal, anticipo del 50% para reservar fecha y liquidacion 48 h antes del evento. Politica clara de cancelacion y cambios de fecha. Te enviamos toda la documentacion antes de pagar.'
+  }
+];
+
+// =============== Imagenes para galeria ===============
+const galeriaCdmx = [
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces de boda elegante con dorado y velas en CDMX' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces de XV anos lujosa con cristaleria rosa en CDMX' },
+  { src: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista en CDMX' },
+  { src: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif', alt: 'Mesa de dulces de boda en jardin romantica con luces en CDMX' },
+  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar de baby shower rosa pastel con flores en CDMX' },
+  { src: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif', alt: 'Mesa de dulces de lujo con dorado y cristal para eventos en CDMX' }
+];
+
+// =============== JSON-LD: LocalBusiness + Service + BreadcrumbList ===============
+const cdmxLocalBusinessSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx#anzures",
+      "name": "MEDEDUL - Sucursal Anzures CDMX",
+      "image": "https://mesas-de-dulces.com/img/mededul.png",
+      "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+      "telephone": "+525525226442",
+      "priceRange": "$$-$$$",
+      "description": "Mesas de dulces y candy bar premium en Ciudad de Mexico. Sucursal matriz Anzures, Miguel Hidalgo. Cobertura completa CDMX.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+        "addressLocality": "Anzures, Miguel Hidalgo",
+        "postalCode": "11590",
+        "addressRegion": "Ciudad de Mexico",
+        "addressCountry": "MX"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:00"
+      }],
+      "areaServed": [
+        "Polanco","Lomas","Interlomas","Santa Fe","Roma","Condesa","Coyoacan","Del Valle","Pedregal","Anzures","Narvarte","Juarez","Cuauhtemoc","Miguel Hidalgo","Benito Juarez","Alvaro Obregon"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "127",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx#condesa",
+      "name": "MEDEDUL - Sucursal Condesa CDMX",
+      "image": "https://mesas-de-dulces.com/img/mededul.png",
+      "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+      "telephone": "+525525226442",
+      "priceRange": "$$-$$$",
+      "description": "Mesas de dulces y candy bar premium en Condesa, Cuauhtemoc, CDMX. Cobertura zona centro y poniente.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Torre A, Av. Baja California 255",
+        "addressLocality": "Hipodromo Condesa, Cuauhtemoc",
+        "postalCode": "06170",
+        "addressRegion": "Ciudad de Mexico",
+        "addressCountry": "MX"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:00"
+      }]
+    },
+    {
+      "@type": "Service",
+      "name": "Mesa de Dulces en CDMX",
+      "serviceType": "Mesa de Dulces, Candy Bar, Mesa de Postres Gourmet",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "url": "https://mesas-de-dulces.com"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "6500",
+        "highPrice": "16500"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en CDMX | Sucursal MEDEDUL Anzures y Condesa"
+  description="Sucursal MEDEDUL en CDMX: mesas de dulces y candy bar premium en Ciudad de Mexico. Dos sucursales fisicas (Anzures y Condesa), cobertura completa, 500+ eventos."
+  canonical="/sucursales/cdmx"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(cdmxLocalBusinessSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en CDMX"
+    highlight="CDMX"
+    subtitle="Sucursal MEDEDUL en Ciudad de Mexico | Anzures y Condesa"
+    secondaryContent={`<p><strong>MEDEDUL es la empresa de referencia en mesas de dulces premium en CDMX</strong>. Operamos desde dos sucursales fisicas: la matriz en <strong>Anzures (Miguel Hidalgo)</strong> y nuestra sucursal en <strong>Condesa (Cuauhtemoc)</strong>, lo que nos permite cubrir las 16 alcaldias y la zona metropolitana sin friccion logistica.</p><p>Con mas de <strong>8 anos de experiencia y 500+ eventos exitosos</strong> en CDMX, hemos disenado mesas de dulces y candy bars para bodas, XV anos, eventos corporativos, baby shower y celebraciones familiares en los venues mas exigentes de la ciudad: Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm, Club de Industriales y muchos mas.</p>`}
+  />
+
+  <!-- ===================== Stats Trust Bar ===================== -->
+  <section class="cdmx-stats">
+    <div class="container">
+      <div class="cdmx-stats__grid">
+        {stats.map(s => (
+          <div class="cdmx-stat">
+            <span class="cdmx-stat__num">{s.number}</span>
+            <span class="cdmx-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursales CDMX (Anzures + Condesa) ===================== -->
+  <section class="sucursales-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Nuestras dos sucursales en"
+        titleHighlight="CDMX"
+        subtitle="Dos puntos estrategicos para llegar a tu evento en cualquier zona de la ciudad"
+      />
+
+      <div class="sucursales-cdmx__grid">
+        {sucursalesCdmx.map(s => (
+          <article class:list={['sucursal-card', { 'sucursal-card--destacada': s.destacada }]} id={s.id}>
+            <div class="sucursal-mapa">
+              <iframe
+                src={s.mapUrl}
+                width="100%"
+                height="240"
+                style="border:0;"
+                allowfullscreen={false}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title={`Ubicacion ${s.nombre}`}
+              ></iframe>
+              <span class="sucursal-badge">{s.badge}</span>
+            </div>
+
+            <div class="sucursal-body">
+              <header class="sucursal-header">
+                <h3>{s.nombre}</h3>
+                <span class="sucursal-ciudad">Ciudad de Mexico</span>
+              </header>
+
+              <ul class="sucursal-info">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <div>
+                    <strong>{s.direccion}</strong>
+                    <span>{s.zona}</span>
+                    <span>{s.cp}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <div>
+                    <strong>Horario de atencion</strong>
+                    <span>{s.horario}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  <div>
+                    <strong>Cobertura desde esta sucursal</strong>
+                    <span>{s.cobertura}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <div>
+                    <strong>Operacion de montaje</strong>
+                    <span>{s.tiempoMontaje}</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="sucursal-acciones">
+                <a href={s.whatsapp} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--primary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  Cotizar por WhatsApp
+                </a>
+                <a href={s.telefonoHref} class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                  {s.telefono}
+                </a>
+                <a href={s.mapLink} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                    <line x1="8" y1="2" x2="8" y2="18"/>
+                    <line x1="16" y1="6" x2="16" y2="22"/>
+                  </svg>
+                  Ver en Google Maps
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por que MEDEDUL en CDMX (Intro SEO + diferenciadores) ===================== -->
+  <section class="cdmx-intro">
+    <div class="container">
+      <div class="cdmx-intro__grid">
+        <div class="cdmx-intro__copy">
+          <span class="cdmx-intro__badge">Servicio profesional en CDMX</span>
+          <h2>Mesas de dulces premium en <span>Ciudad de Mexico</span>, con metodo y experiencia</h2>
+          <p>En CDMX, una mesa de dulces no es solo decoracion: es parte central de la experiencia de tu evento, un punto de encuentro visual y una fuente constante de contenido para tus invitados. Por eso en <strong>MEDEDUL</strong> trabajamos cada montaje con un enfoque profesional integral: diseno conceptual, curaduria de productos, montaje impecable, operacion durante el evento y desmontaje sin friccion.</p>
+          <p>Nuestras dos sucursales fisicas en <strong>Anzures</strong> y <strong>Condesa</strong> no son casualidad: son la base operativa que nos permite garantizar tiempos de respuesta cortos, llegada puntual a tu venue y logistica eficiente, incluso en zonas complicadas de CDMX como Santa Fe, Pedregal, Lomas o el centro historico.</p>
+          <p>Si buscas una <strong>mesa de dulces en CDMX</strong> con estandar premium, ejecucion confiable y un equipo que entienda los venues, los reglamentos y las expectativas de los eventos de la ciudad, MEDEDUL es el aliado estrategico que necesitas.</p>
+          <div class="cdmx-intro__ctas">
+            <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20CDMX" target="_blank" rel="noopener" class="cdmx-btn cdmx-btn--primary">Cotizar por WhatsApp</a>
+            <a href="/cotizar" class="cdmx-btn cdmx-btn--ghost">Formulario de cotizacion</a>
+          </div>
+        </div>
+        <div class="cdmx-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces premium MEDEDUL en evento de boda CDMX"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WhyChooseUs ===================== -->
+  <WhyChooseUs
+    id="por-que-mededul-cdmx"
+    badge="Por que MEDEDUL en CDMX"
+    title="Por que somos la mejor opcion para tu evento en"
+    titleHighlight="CDMX"
+    descriptions={[
+      'En MEDEDUL no llegamos solo a montar dulces: llegamos a resolver un componente clave de tu evento. Por eso cada propuesta se construye con criterio profesional, anclado en mas de 8 anos de experiencia en CDMX.',
+      'Trabajamos con la misma exigencia para una boda en Polanco, un XV anos en Coyoacan o un corporativo en Santa Fe. Tu evento se vuelve nuestro estandar.'
+    ]}
+    stats={[
+      { number: '500+', label: 'Eventos en CDMX' },
+      { number: '5.0', label: 'Calificacion clientes' },
+      { number: '2', label: 'Sucursales fisicas' },
+      { number: '< 24h', label: 'Cotizacion' }
+    ]}
+    features={caracteristicasCdmx}
+  />
+
+  <!-- ===================== Catalogo de Servicios CDMX (20 cards) ===================== -->
+  <section class="cdmx-servicios" id="servicios-cdmx">
+    <div class="container">
+      <div class="cdmx-servicios__intro">
+        <span class="cdmx-servicios__badge">Catalogo completo de servicios en CDMX</span>
+        <h2>Todo lo que ofrecemos para tu evento en <span>Ciudad de Mexico</span></h2>
+        <p>Despues de mas de 500 eventos en CDMX aprendimos algo importante: cada celebracion es distinta. Una boda en Polanco no necesita lo mismo que un baby shower en Roma Norte o un corporativo en Santa Fe. Por eso nuestro catalogo se divide en tres familias claras, para que encuentres exactamente el formato que tu evento necesita, sin tener que pedirte algo que no va contigo.</p>
+      </div>
+
+      <!-- =============== A. Mesas por Tipo de Evento =============== -->
+      <div class="servicios-grupo servicios-grupo--eventos">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">01</span>
+          <div>
+            <h3>Mesas de dulces por tipo de evento</h3>
+            <p>Cada celebracion en CDMX tiene su propio lenguaje visual, su tono y su ritmo. Estas son las ocho mesas que mas montamos en la ciudad, cada una pensada desde el momento que la celebras y para quien la celebras.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid">
+          {serviciosEventos.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} en CDMX por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- =============== B. Tipos de Mesa por Estilo =============== -->
+      <div class="servicios-grupo servicios-grupo--tipos">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">02</span>
+          <div>
+            <h3>Tipos de mesa por estilo gastronomico</h3>
+            <p>A veces el tipo de evento ya esta definido y lo que falta decidir es el formato gastronomico: dulce, postre fino, fresco, salado, mexicano o reposteria visual. Aqui estan los ocho formatos que ofrecemos en CDMX, listos para combinarse o usarse solos.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid">
+          {serviciosTipos.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} para eventos en CDMX por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- =============== C. Estaciones Interactivas =============== -->
+      <div class="servicios-grupo servicios-grupo--estaciones">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">03</span>
+          <div>
+            <h3>Estaciones interactivas y experiencias</h3>
+            <p>Son los momentos que tus invitados van a recordar y contar despues. Generan fila feliz, se vuelven foto en redes y suman dinamica a la fiesta. Funcionan perfecto como complemento de una mesa principal o como protagonistas de eventos corporativos.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid servicios-grupo__grid--4">
+          {serviciosEstaciones.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} para eventos en CDMX por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- =============== Cierre humanizado del catalogo =============== -->
+      <div class="cdmx-servicios__cierre">
+        <div class="cdmx-servicios__cierre-copy">
+          <h3>No estas seguro de cual elegir?</h3>
+          <p>Tranquila, tranquilo. La mayoria de nuestros clientes llegan exactamente asi: con una idea general, fecha de evento y muchas dudas. Cuentanos en WhatsApp como te imaginas tu evento (aunque sea con frases sueltas) y nosotros te proponemos el formato, el surtido y el montaje que tiene mas sentido para tu fecha, tu venue en CDMX y tu presupuesto.</p>
+        </div>
+        <div class="cdmx-servicios__cierre-ctas">
+          <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20no%20se%20que%20tipo%20de%20mesa%20necesito.%20Me%20pueden%20asesorar%3F" target="_blank" rel="noopener" class="cdmx-btn cdmx-btn--primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Hablar con un asesor
+          </a>
+          <a href="/cotizar" class="cdmx-btn cdmx-btn--ghost">Cotizar online</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Zonas que cubrimos ===================== -->
+  <section class="cdmx-zonas">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura"
+        titleHighlight="Completa CDMX"
+        subtitle="Llegamos a las 16 alcaldias de CDMX y zona metropolitana premium"
+      />
+      <div class="cdmx-zonas__grid">
+        {zonasCdmx.map(z => (
+          <a href={z.href} class:list={['cdmx-zona', { 'cdmx-zona--destacada': z.destacada }]}>
+            <span class="cdmx-zona__nombre">{z.nombre}</span>
+            <span class="cdmx-zona__alcaldia">{z.alcaldia}</span>
+            {z.destacada && <span class="cdmx-zona__badge">Top</span>}
+          </a>
+        ))}
+      </div>
+      <p class="cdmx-zonas__nota">
+        No ves tu zona? Tambien cubrimos Pedregal, Lomas de Chapultepec, Lomas Virreyes, Bosques de las Lomas, Tlalpan, Magdalena Contreras, Iztapalapa, Iztacalco, Venustiano Carranza, Gustavo A. Madero, Azcapotzalco, Cuajimalpa, Milpa Alta, Tlahuac y Xochimilco.{' '}
+        <a href="/zonas-cdmx">Ver todas las zonas</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Venues iconicos ===================== -->
+  <section class="venues-cdmx">
+    <div class="container">
+      <div class="venues-cdmx__content">
+        <h2>Venues donde hemos montado en <span>CDMX</span></h2>
+        <p>Experiencia comprobada en los espacios mas exigentes de la ciudad</p>
+        <div class="venues-cdmx__grid">
+          {venuesCdmx.map(v => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {v}
+            </div>
+          ))}
+        </div>
+        <p class="venues-cdmx__nota">Tambien trabajamos en haciendas, jardines, terrazas, casas particulares y venues no tradicionales. Si tu venue no esta en la lista, ya conocemos otros similares.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes CDMX ===================== -->
+  <PricingPackages
+    id="paquetes-cdmx"
+    badge="Paquetes para CDMX"
+    title="Paquetes de"
+    titleHighlight="Mesa de Dulces CDMX"
+    subtitle="Tres niveles claros con todo incluido. Sin sorpresas ni costos ocultos."
+    packages={paquetesCdmx}
+    note="💡 <strong>Todos los paquetes incluyen:</strong> diseno conceptual, mobiliario, montaje, operacion, reposicion y desmontaje. Traslado en zonas centrales incluido."
+  />
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-cdmx"
+    badge="Como trabajamos"
+    title="Como trabajamos en"
+    titleHighlight="CDMX"
+    subtitle="4 pasos claros, sin estres, con tiempos definidos"
+    steps={procesoCdmx}
+  />
+
+  <!-- ===================== Galeria visual ===================== -->
+  <section class="cdmx-galeria">
+    <div class="container">
+      <SectionHeader
+        title="Galeria de eventos en"
+        titleHighlight="CDMX"
+        subtitle="Mesas de dulces reales, montadas por MEDEDUL en Ciudad de Mexico"
+      />
+      <div class="cdmx-galeria__grid">
+        {galeriaCdmx.map((img, i) => (
+          <figure class:list={['galeria-item', { 'galeria-item--lg': i === 0 || i === 3 }]}>
+            <img
+              src={getCdnUrl(img.src, { w: 720, q: 82 })}
+              alt={img.alt}
+              loading="lazy"
+              width="720"
+              height="480"
+            />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="testimonios-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de eventos en"
+        titleHighlight="CDMX"
+        subtitle="Lo que dicen los clientes que ya celebraron con nosotros"
+      />
+      <div class="testimonios-cdmx__grid">
+        {testimoniosCdmx.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqsCdmx} />
+
+</BaseLayout>
+
+<style>
+  /* =====================================================
+     STATS TRUST BAR
+     ===================================================== */
+  .cdmx-stats {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    padding: 40px 0;
+  }
+
+  .cdmx-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .cdmx-stat {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cdmx-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .cdmx-stat__label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    opacity: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  /* =====================================================
+     SUCURSALES CDMX (Anzures + Condesa)
+     ===================================================== */
+  .sucursales-cdmx {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .sucursales-cdmx__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 50px;
+  }
+
+  .sucursal-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    scroll-margin-top: 180px;
+  }
+
+  .sucursal-card--destacada {
+    border: 2px solid rgba(209, 0, 122, 0.22);
+    box-shadow: 0 12px 40px rgba(209, 0, 122, 0.10);
+  }
+
+  .sucursal-mapa {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: #fdf8fa;
+  }
+
+  .sucursal-mapa iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .sucursal-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 7px 16px;
+    border-radius: 24px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.35);
+  }
+
+  .sucursal-body {
+    padding: 30px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .sucursal-header {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #f3f3f3;
+  }
+
+  .sucursal-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+    line-height: 1.25;
+  }
+
+  .sucursal-ciudad {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    letter-spacing: 0.3px;
+  }
+
+  .sucursal-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .sucursal-info li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .sucursal-info svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sucursal-info > li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .sucursal-info strong {
+    color: var(--texto-oscuro);
+    font-weight: 600;
+    font-size: 0.93rem;
+  }
+
+  .sucursal-info span {
+    color: var(--gris-texto, #636E72);
+    font-size: 0.88rem;
+  }
+
+  .sucursal-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .sucursal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 16px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+  .sucursal-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  }
+
+  .sucursal-btn--primary:hover {
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.42);
+  }
+
+  .sucursal-btn--ghost {
+    background: #fafafa;
+    color: var(--texto-oscuro);
+    border: 1px solid #ececec;
+  }
+
+  .sucursal-btn--ghost:hover {
+    background: #fff;
+    color: var(--rosa-principal);
+    border-color: rgba(209, 0, 122, 0.25);
+}
+
+  /* =====================================================
+     INTRO SEO + Diferenciadores
+     ===================================================== */
+  .cdmx-intro {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cdmx-intro__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .cdmx-intro__badge {
+    display: inline-block;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+  }
+
+  .cdmx-intro__copy h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    line-height: 1.25;
+    margin: 0 0 22px;
+  }
+
+  .cdmx-intro__copy h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .cdmx-intro__copy p {
+    font-size: 1.02rem;
+    color: var(--gris-texto, #4a4a5a);
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+
+  .cdmx-intro__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  .cdmx-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 26px;
+    font-size: 0.96rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+  .cdmx-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32);
+  }
+
+  .cdmx-btn--primary:hover {
+    box-shadow: 0 10px 24px rgba(37, 211, 102, 0.42);
+  }
+
+  .cdmx-btn--ghost {
+    background: #fff;
+    color: var(--texto-oscuro);
+    border: 1.5px solid #e7e7e7;
+  }
+
+  .cdmx-btn--ghost:hover {
+    color: var(--rosa-principal);
+    border-color: rgba(209, 0, 122, 0.35);
+}
+
+  .cdmx-intro__visual img {
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+    display: block;
+  }
+
+  /* =====================================================
+     CATALOGO DE SERVICIOS CDMX (20 cards en 3 grupos)
+     ===================================================== */
+  .cdmx-servicios {
+    padding: 90px 0 100px;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .cdmx-servicios__intro {
+    max-width: 880px;
+    margin: 0 auto 70px;
+    text-align: center;
+  }
+
+  .cdmx-servicios__badge {
+    display: inline-block;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 7px 16px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+  }
+
+  .cdmx-servicios__intro h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    line-height: 1.2;
+    margin: 0 0 20px;
+  }
+
+  .cdmx-servicios__intro h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .cdmx-servicios__intro p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--gris-texto, #4a4a5a);
+    margin: 0;
+  }
+
+  /* ===== Grupos ===== */
+  .servicios-grupo {
+    margin-bottom: 80px;
+  }
+
+  .servicios-grupo:last-of-type {
+    margin-bottom: 60px;
+  }
+
+  .servicios-grupo__header {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 30px;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    padding-bottom: 28px;
+    border-bottom: 1.5px solid #f0e6ed;
+  }
+
+  .servicios-grupo__numero {
+    font-family: 'Poppins', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+  }
+
+  .servicios-grupo__header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 10px;
+    line-height: 1.3;
+  }
+
+  .servicios-grupo__header p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--gris-texto, #4a4a5a);
+    margin: 0;
+  }
+
+  .servicios-grupo__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  .servicios-grupo__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* ===== Cierre humanizado ===== */
+  .cdmx-servicios__cierre {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 70px;
+    padding: 44px 50px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1a3e 100%);
+    border-radius: 24px;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(26, 26, 46, 0.18);
+  }
+
+  .cdmx-servicios__cierre-copy h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+    line-height: 1.3;
+  }
+
+  .cdmx-servicios__cierre-copy p {
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0;
+    opacity: 0.88;
+  }
+
+  .cdmx-servicios__cierre-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cdmx-servicios__cierre-ctas .cdmx-btn {
+    width: 100%;
+  }
+
+  .cdmx-servicios__cierre-ctas .cdmx-btn--ghost {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .cdmx-servicios__cierre-ctas .cdmx-btn--ghost:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  /* ===== Responsive Servicios ===== */
+  @media (max-width: 1280px) {
+    .servicios-grupo__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .servicios-grupo__grid,
+    .servicios-grupo__grid--4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-servicios__cierre {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 36px 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cdmx-servicios {
+      padding: 60px 0 70px;
+    }
+
+    .cdmx-servicios__intro {
+      margin-bottom: 50px;
+    }
+
+    .cdmx-servicios__intro h2 {
+      font-size: 1.7rem;
+    }
+
+    .cdmx-servicios__intro p {
+      font-size: 0.96rem;
+    }
+
+    .servicios-grupo {
+      margin-bottom: 60px;
+    }
+
+    .servicios-grupo__header {
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+      margin-bottom: 30px;
+      padding-bottom: 22px;
+    }
+
+    .servicios-grupo__numero {
+      font-size: 2.8rem;
+    }
+
+    .servicios-grupo__header h3 {
+      font-size: 1.3rem;
+    }
+
+    .servicios-grupo__header p {
+      font-size: 0.92rem;
+    }
+
+    .servicios-grupo__grid,
+    .servicios-grupo__grid--4 {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .cdmx-servicios__cierre-copy h3 {
+      font-size: 1.3rem;
+    }
+
+    .cdmx-servicios__cierre-copy p {
+      font-size: 0.94rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .servicios-grupo__header {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .servicios-grupo__numero {
+      font-size: 2.2rem;
+    }
+
+    .cdmx-servicios__cierre {
+      padding: 28px 22px;
+    }
+  }
+
+  /* =====================================================
+     ZONAS GRID
+     ===================================================== */
+  .cdmx-zonas {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .cdmx-zonas__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 44px;
+  }
+
+  .cdmx-zona {
+    position: relative;
+    background: #fff;
+    border: 1.5px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 20px 22px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+  .cdmx-zona:hover {
+    box-shadow: 0 10px 24px rgba(209, 0, 122, 0.10);
+    border-color: rgba(209, 0, 122, 0.25);
+  }
+
+  .cdmx-zona--destacada {
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.04) 0%, #fff 100%);
+    border-color: rgba(209, 0, 122, 0.18);
+  }
+
+  .cdmx-zona__nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+  }
+
+  .cdmx-zona__alcaldia {
+    font-size: 0.82rem;
+    color: var(--gris-texto, #636E72);
+  }
+
+  .cdmx-zona__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .cdmx-zonas__nota {
+    margin: 36px auto 0;
+    max-width: 880px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+    line-height: 1.7;
+  }
+
+  .cdmx-zonas__nota a {
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .cdmx-zonas__nota a:hover {
+    text-decoration: underline;
+  }
+
+  /* =====================================================
+     VENUES ICONICOS
+     ===================================================== */
+  .venues-cdmx {
+    padding: 70px 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1a3e 100%);
+  }
+
+  .venues-cdmx__content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-cdmx__content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-cdmx__content h2 span {
+    color: #ffb3da;
+  }
+
+  .venues-cdmx__content > p {
+    font-size: 1rem;
+    opacity: 0.78;
+    margin: 0 0 40px;
+  }
+
+  .venues-cdmx__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 11px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .venues-cdmx__nota {
+    margin-top: 32px;
+    font-size: 0.88rem;
+    opacity: 0.7;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* =====================================================
+     GALERIA
+     ===================================================== */
+  .cdmx-galeria {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cdmx-galeria__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 44px;
+  }
+
+  .galeria-item {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    aspect-ratio: 4 / 3;
+  }
+
+  .galeria-item--lg {
+    grid-column: span 2;
+  }
+
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+  .galeria-item:hover img {}
+
+  /* =====================================================
+     TESTIMONIOS
+     ===================================================== */
+  .testimonios-cdmx {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .testimonios-cdmx__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* =====================================================
+     RESPONSIVE
+     ===================================================== */
+  @media (max-width: 1024px) {
+    .cdmx-stats__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .cdmx-stat__num {
+      font-size: 2rem;
+    }
+
+    .sucursales-cdmx__grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .cdmx-intro__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .cdmx-intro__visual {
+      order: -1;
+    }
+
+    .cdmx-zonas__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonios-cdmx__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-galeria__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .galeria-item--lg {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cdmx-stats {
+      padding: 32px 0;
+    }
+
+    .cdmx-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .cdmx-stat__num {
+      font-size: 1.9rem;
+    }
+
+    .cdmx-stat__label {
+      font-size: 0.78rem;
+    }
+
+    .sucursales-cdmx,
+    .cdmx-intro,
+    .cdmx-zonas,
+    .cdmx-galeria,
+    .testimonios-cdmx {
+      padding: 50px 0;
+    }
+
+    .venues-cdmx {
+      padding: 50px 0;
+    }
+
+    .sucursal-mapa {
+      height: 200px;
+    }
+
+    .sucursal-body {
+      padding: 26px 22px;
+    }
+
+    .sucursal-header h3 {
+      font-size: 1.25rem;
+    }
+
+    .cdmx-intro__copy h2 {
+      font-size: 1.6rem;
+    }
+
+    .cdmx-zonas__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .cdmx-zona {
+      padding: 16px 18px;
+    }
+
+    .cdmx-zona__nombre {
+      font-size: 0.98rem;
+    }
+
+    .venues-cdmx__content h2 {
+      font-size: 1.55rem;
+    }
+
+    .venue-item {
+      padding: 9px 14px;
+      font-size: 0.82rem;
+    }
+
+    .testimonios-cdmx__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-galeria__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cdmx-stat__num {
+      font-size: 1.7rem;
+    }
+
+    .sucursal-mapa {
+      height: 180px;
+    }
+
+    .sucursal-body {
+      padding: 22px 18px;
+    }
+
+    .cdmx-intro__copy h2 {
+      font-size: 1.4rem;
+    }
+
+    .cdmx-intro__copy p {
+      font-size: 0.95rem;
+    }
+
+    .cdmx-btn {
+      width: 100%;
+      padding: 13px 22px;
+      font-size: 0.92rem;
+    }
+
+    .cdmx-zonas__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .venues-cdmx__content h2 {
+      font-size: 1.35rem;
+    }
+  }
+</style>

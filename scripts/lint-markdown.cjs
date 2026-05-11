@@ -14,7 +14,7 @@ const ROOT = process.cwd();
 const BLOG_DIR = path.join(ROOT, 'src', 'content', 'blog');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const PAGES_DIR = path.join(ROOT, 'src', 'pages');
-const REQUIRED_KEYS = ['title', 'description', 'publishDate', 'category', 'heroImage', 'heroImageAlt', 'tags'];
+const REQUIRED_KEYS = ['title', 'description', 'category', 'heroImage', 'heroImageAlt', 'tags'];
 
 function walk(dir, files = []) {
   if (!fs.existsSync(dir)) return files;

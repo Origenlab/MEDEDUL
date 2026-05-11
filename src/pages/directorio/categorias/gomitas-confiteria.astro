@@ -1,133 +1,57 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.productos.some(p => p.toLowerCase().includes('gomita')) ||
-  d.especialidades.some(e => e.toLowerCase().includes('confitería') || e.toLowerCase().includes('gomita'))
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.productos.some((p) => p.toLowerCase().includes('gomita')) ||
+      d.especialidades.some(
+        (e) => e.toLowerCase().includes('confitería') || e.toLowerCase().includes('gomita')
+      )
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Gomitas y Confitería', url: '/directorio/categorias/gomitas-confiteria' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
-    question: '¿Dónde comprar gomitas al mayoreo en CDMX?',
-    answer: `Tenemos ${dulcerias.length} dulcerías con gomitas y confitería variada. Los mejores precios al mayoreo están en La Merced y el corredor de Norte 70.`
+    question: '¿Dónde comprar gomitas al mayoreo en la zona metropolitana?',
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} dulcerías con gomitas y confitería variada en las tres regiones. Los mejores precios mayoreo están en La Merced (CDMX) y corredor Norte 70 (GAM). En Edo Mex destacan Central de Abasto Tultitlán y mayoristas de Naucalpan; en Valle de Toluca los mayoristas de 5 de Mayo ofrecen precios competitivos para eventos regionales.`
   },
   {
-    question: '¿Qué tipos de gomitas encuentro?',
-    answer: 'Encontrarás gomitas de azúcar, gomitas enchiladas, gomitas importadas, ositos de goma, gusanos, aros, gomitas ácidas y muchas variedades más.'
+    question: '¿Qué tipos de gomitas encuentro en el directorio?',
+    answer: 'Catálogo típico: gomitas de azúcar y sin azúcar, enchiladas (chamoy, tajín), importadas (Haribo, Trolli, Albanese), ositos de goma, gusanos, aros ácidos, serpientes, dientes, corazones, cereza, mango, sandía y combos surtidos. Muchas tiendas venden por kilo al mayoreo y por pieza al menudeo.'
   },
   {
     question: '¿Las gomitas son populares para mesas de dulces?',
-    answer: 'Sí, las gomitas son de los dulces más populares para mesas de dulces en fiestas infantiles y eventos. Su colorido las hace ideales para decoraciones temáticas.'
+    answer: 'Son de los dulces más versátiles para candy bar: colorido intenso, precio accesible por kilo, bajo riesgo de derretimiento, vida de anaquel larga y gustan a todas las edades. Ideales para fiestas infantiles, XV años, baby showers y eventos corporativos informales. Funcionan muy bien en frascos de vidrio transparente para potenciar el impacto visual.'
+  },
+  {
+    question: '¿Cómo calcular cuántas gomitas necesito para mi evento?',
+    answer: 'Regla general: 80–120 gramos por invitado en mesa de dulces con 6–8 variedades. Para eventos con 100 personas eso son 8–12 kg de gomitas surtidas. Si tu candy bar incluye chocolate, cupcakes y dulces tradicionales además de gomitas, baja a 40–60 gramos por invitado. Compra 15% extra como margen de seguridad.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye variedades de gomitas, precios por kilo, horarios verificados y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Gomitas y Confitería | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra las mejores tiendas de gomitas y confitería en CDMX. ${dulcerias.length} dulcerías verificadas con gomitas importadas, enchiladas y más.`}
-  canonical="/directorio/categorias/gomitas-confiteria"
+<CategoriaLayout
+  categoriaNombre="Gomitas y Confitería"
+  categoriaSlug="gomitas-confiteria"
+  metaTitle={`Gomitas y Confitería | ${dulcerias.length} Tiendas en CDMX, Edo Mex y Valle de Toluca`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} tiendas de gomitas y confitería en CDMX, Estado de México y Valle de Toluca. Gomitas importadas, enchiladas, ácidas, ositos y surtidos al mayoreo con reseñas reales.`}
+  heroTitle="Categoría Gomitas y Confitería"
+  heroHighlight="Gomitas"
+  heroSubtitle={`${dulcerias.length} tiendas verificadas con gomitas importadas, enchiladas, ácidas y surtidos al mayoreo en 3 regiones`}
+  heroBody={`<p><strong>Categoría gomitas y confitería</strong> concentra a las tiendas con mayor variedad de gomitas nacionales e importadas de la zona metropolitana: ositos Haribo, gusanos Trolli, gomitas enchiladas con chamoy y tajín, ácidas, mini-frutas, aros y combos surtidos. Ideal para mesas de dulces de fiestas infantiles, XV años, bodas informales y bolos de regalo con estética colorida.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en CDMX, Estado de México y Valle de Toluca te permiten comparar precios por kilo, variedad y disponibilidad antes de surtir tu evento. Cada ficha incluye teléfono, horarios, variedades clave y reseñas reales de Google Maps.</p>`}
   ogImage="/img/galeria/candy-bar-colorido-fiestas.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Gomitas y Confiteria Variada"
-    highlight="Gomitas"
-    subtitle={`${dulcerias.length} tiendas verificadas con gomitas importadas, dulces enchilados y confiteria mayoreo en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria gomitas y confiteria</strong> reune a las tiendas con mayor rotacion y variedad para mesas de dulces coloridas: gomitas acidas, gomitas enchiladas, rellenos de tamarindo, ositos Haribo, regaliz, malvaviscos, paletas cristal, dulces de leche, obleas y toda la confiteria clasica que nunca falta en un candy bar infantil o juvenil.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar precios por kilo, por pieza y al mayoreo para abastecer eventos grandes, fiestas infantiles, XV anos tematicos o paquetes corporativos. Cada ficha incluye ubicacion exacta, horarios reales, telefono de contacto y especialidad confirmada mediante resenas publicas de Google Maps, evitando listados genericos sin operacion activa.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Tiendas de"
-        titleHighlight="Gomitas y Confitería"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Tiendas de"
+  sectionHighlight="Gomitas y Confitería"
+/>

@@ -44,7 +44,7 @@ article {
 .breadcrumb-section .breadcrumb a {
     color: var(--rosa-principal);
     text-decoration: none;
-    transition: all 0.3s ease;
+
     font-weight: 500;
 }
 

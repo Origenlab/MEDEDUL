@@ -1,0 +1,419 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Mesas de Dulces Metepec', url: '/mesas-de-dulces-metepec' }
+];
+
+// Venues populares en Metepec
+const venuesMetepec = [
+  'Hacienda Cantalagua',
+  'Hacienda San Antonio',
+  'Centro de Convenciones Metepec',
+  'Salón Quinta Lupita',
+  'Hacienda La Asunción',
+  'Jardín Hacienda Tlachalola',
+  'Hacienda San Jorge',
+  'Salón Vitalia Eventos',
+  'Hotel Crowne Plaza Toluca',
+  'Hacienda San Isidro Boxipe'
+];
+
+// Colonias premium en Metepec
+const coloniasMetepec = [
+  { nombre: 'La Asunción', desc: 'Zona residencial premium NSE A/B con haciendas y salones exclusivos' },
+  { nombre: 'San Jerónimo Chicahualco', desc: 'Colonia residencial con jardines y espacios privados ideales' },
+  { nombre: 'Portofino', desc: 'Fraccionamiento exclusivo con salones de eventos cerrados' },
+  { nombre: 'Vitalia', desc: 'Zona residencial moderna con venues contemporáneos' },
+  { nombre: 'Santa Ana Tlapaltitlán', desc: 'Área tradicional con haciendas y jardines clásicos' },
+  { nombre: 'Cittadina', desc: 'Desarrollo residencial premium con espacios de eventos' },
+  { nombre: 'San Jorge Pueblo Nuevo', desc: 'Ubicación de nuestra sucursal Toluca-Metepec' },
+  { nombre: 'San Salvador Tizatlalli', desc: 'Zona en crecimiento con jardines y salones modernos' }
+];
+
+// Paquetes especiales para Metepec
+const paquetesMetepec = [
+  {
+    name: 'Metepec Esencial',
+    icon: '🍬',
+    price: '$5,900',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Perfecto para celebraciones íntimas en Metepec',
+    features: [
+      '8-10 variedades de dulces premium',
+      'Montaje elegante adaptado a tu venue',
+      'Cristalería y mantelería incluida',
+      '4 horas de servicio',
+      'Traslado dentro de Metepec incluido',
+      'Coordinación con venue local'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Metepec Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20Esencial%20en%20Metepec'
+  },
+  {
+    name: 'Metepec Premium',
+    icon: '⭐',
+    price: '$9,500',
+    currency: 'MXN',
+    guests: '70-130 personas',
+    tagline: 'El favorito para bodas y XV años en La Asunción',
+    features: [
+      '14+ variedades de dulces premium',
+      'Diseño 100% personalizado a tu temática',
+      'Backdrop decorativo elegante incluido',
+      '5 horas de servicio',
+      'Dulces artesanales y chocolates finos',
+      'Coordinación con wedding planner',
+      'Servicio en haciendas y salones premium'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Metepec Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20mi%20evento%20en%20Metepec'
+  },
+  {
+    name: 'Metepec Luxury',
+    icon: '💎',
+    price: '$15,500',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Experiencia exclusiva para venues de alto nivel',
+    features: [
+      '22+ variedades exclusivas',
+      'Dirección creativa completa',
+      'Fuente de chocolate belga incluida',
+      'Mesa de quesos gourmet',
+      'Personal dedicado todo el evento',
+      'Backdrop floral o temático premium',
+      'Coordinación integral con venue',
+      'Servicio extendido hasta 8 horas'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Metepec Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20para%20mi%20evento%20en%20Metepec'
+  }
+];
+
+// Características de servicio en Metepec
+const caracteristicasMetepec = [
+  {
+    num: 1,
+    title: 'Sucursal en Metepec',
+    desc: 'Operamos desde Blvd. Toluca-Metepec 913 en San Jorge Pueblo Nuevo. Acceso rápido a La Asunción, Portofino, Vitalia, San Jerónimo y todas las colonias premium.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Especialistas en Haciendas',
+    desc: 'Conocemos los reglamentos y tiempos de montaje de las principales haciendas y salones de Metepec: Cantalagua, La Asunción, San Antonio y más.',
+    img: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif'
+  },
+  {
+    num: 3,
+    title: 'Diseño Premium',
+    desc: 'Estética sofisticada a la altura de bodas, XV años y eventos corporativos de alto nivel que se celebran en las zonas residenciales premium de Metepec.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Cobertura Completa',
+    desc: 'Traslado incluido a todas las colonias de Metepec: La Asunción, San Jerónimo Chicahualco, Portofino, Vitalia, Cittadina, Santa Ana Tlapaltitlán y más.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  }
+];
+
+// Testimonios de Metepec
+const testimoniosMetepec = [
+  {
+    name: 'Valentina y Diego',
+    initials: 'VD',
+    review: 'Mi boda en Hacienda Cantalagua quedó perfecta. La mesa de dulces de Mededul fue uno de los puntos más comentados. Profesionalismo y elegancia de principio a fin.',
+    event: 'Boda en Hacienda Cantalagua, Metepec',
+    rating: 5
+  },
+  {
+    name: 'Familia Reyes',
+    initials: 'FR',
+    review: 'Los XV años de mi hija en La Asunción fueron espectaculares. La mesa combinó perfecto con la decoración y la calidad de los dulces fue notoria. Recomendados al 100%.',
+    event: 'XV Años en La Asunción, Metepec',
+    rating: 5
+  },
+  {
+    name: 'Carolina Méndez',
+    initials: 'CM',
+    review: 'Contraté a Mededul para el baby shower de mi hermana en Portofino. Mesa elegante, montaje impecable y excelente atención. Volveré a contratarlos sin duda.',
+    event: 'Baby Shower en Portofino, Metepec',
+    rating: 5
+  }
+];
+
+// FAQs específicas de Metepec
+const faqsMetepec = [
+  {
+    question: '¿Atienden eventos en todas las colonias de Metepec?',
+    answer: 'Sí. Cubrimos La Asunción, San Jerónimo Chicahualco, Portofino, Vitalia, Cittadina, Santa Ana Tlapaltitlán, San Salvador Tizatlalli y todas las colonias de Metepec. Nuestra sucursal está en San Jorge Pueblo Nuevo (Blvd. Toluca-Metepec 913).'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces en Metepec?',
+    answer: 'Nuestros paquetes inician en $5,900 MXN para eventos de 40-70 personas. El paquete Premium ($9,500) es el más solicitado para bodas y XV años en La Asunción y Portofino, y el Luxury ($15,500) para eventos en haciendas premium.'
+  },
+  {
+    question: '¿Tienen experiencia en Hacienda Cantalagua y haciendas de Metepec?',
+    answer: 'Sí. Hemos trabajado en Hacienda Cantalagua, Hacienda San Antonio, Centro de Convenciones Metepec, Salón Quinta Lupita y otros venues. Conocemos sus reglamentos, accesos y coordinadores.'
+  },
+  {
+    question: '¿Cuáles son las mejores fechas para reservar en Metepec?',
+    answer: 'Las temporadas más solicitadas son mayo (bodas), noviembre (XV años) y diciembre (corporativos y posadas). Recomendamos reservar con 6-8 semanas para asegurar disponibilidad.'
+  },
+  {
+    question: '¿Ofrecen mesa para bodas elegantes en Metepec?',
+    answer: 'Por supuesto. Nuestro paquete Metepec Premium y Metepec Luxury están diseñados para bodas elegantes. Incluyen dulces premium, backdrop decorativo, coordinación con wedding planner y servicio completo.'
+  },
+  {
+    question: '¿Pueden hacer candy bar para XV años en Metepec?',
+    answer: 'Sí. Los XV años en Metepec son uno de nuestros eventos más solicitados. Adaptamos la mesa a la temática y paleta de colores que elija la quinceañera, con dulces favoritos y diseño personalizado.'
+  },
+  {
+    question: '¿Hacen mesa de postres gourmet en Metepec?',
+    answer: 'Sí. Ofrecemos mesa de postres gourmet con macarons, éclairs, pays, tartaletas y creaciones de alta repostería. Ideal para bodas y eventos corporativos de alto nivel en Metepec.'
+  }
+];
+
+const metepecSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Metepec",
+  "description": "Servicio profesional de mesas de dulces, candy bar y estaciones interactivas para bodas, XV años, baby shower y eventos corporativos en Metepec, Estado de México. Sucursal local con cobertura en La Asunción, Portofino, Vitalia, San Jerónimo y todas las colonias premium.",
+  "url": "https://mesas-de-dulces.com/mesas-de-dulces-metepec",
+  "telephone": "+525521775184",
+  "priceRange": "$5,900 - $15,500 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Blvd. Toluca-Metepec 913",
+    "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+    "addressRegion": "Estado de México",
+    "postalCode": "52169",
+    "addressCountry": "MX"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Metepec" },
+    { "@type": "Place", "name": "La Asunción, Metepec" },
+    { "@type": "Place", "name": "San Jerónimo Chicahualco, Metepec" },
+    { "@type": "Place", "name": "Portofino, Metepec" },
+    { "@type": "Place", "name": "Vitalia, Metepec" },
+    { "@type": "Place", "name": "Santa Ana Tlapaltitlán, Metepec" },
+    { "@type": "Place", "name": "Cittadina, Metepec" }
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "10:00",
+    "closes": "19:00"
+  }],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "26",
+    "bestRating": "5"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Metepec | Sucursal Local | Mededul"
+  description="Mesas de dulces premium en Metepec, Estado de México. Bodas, XV años, baby shower y eventos corporativos en La Asunción, Portofino, Vitalia y todas las colonias. Sucursal en Blvd. Toluca-Metepec 913. Cotización gratis."
+  canonical="/mesas-de-dulces-metepec"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(metepecSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Metepec, Estado de México"
+    highlight="Metepec"
+    subtitle="Sucursal local · Cobertura en La Asunción, Portofino, Vitalia y todas las colonias premium"
+    secondaryContent={`<p><strong>Mededul Metepec</strong> opera desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913, San Jorge Pueblo Nuevo</strong>, con acceso rápido a <strong>La Asunción, San Jerónimo Chicahualco, Portofino, Vitalia, Cittadina y Santa Ana Tlapaltitlán</strong>. Servicio premium para bodas, XV años, baby shower y eventos corporativos.</p><p>Diseñamos <strong>mesas de dulces a la altura de Metepec</strong>: dulces premium, montaje impecable, coordinación con haciendas y salones, y servicio completo de inicio a fin. <strong>Cotización en menos de 24 horas</strong> y atención por WhatsApp.</p>`}
+  />
+
+  <!-- Venues en Metepec -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues y haciendas donde hemos <span>trabajado</span></h2>
+        <p>Experiencia comprobada en los mejores espacios de Metepec</p>
+        <div class="venues-grid">
+          {venuesMetepec.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colonias Metepec -->
+  <section class="colonias-section">
+    <div class="container">
+      <SectionHeader
+        title="Colonias premium de"
+        titleHighlight="Metepec"
+        subtitle="Cobertura completa con traslado incluido"
+      />
+      <div class="colonias-grid">
+        {coloniasMetepec.map(c => (
+          <div class="colonia-card">
+            <h3>{c.nombre}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Paquetes Metepec -->
+  <PricingPackages
+    id="paquetes-metepec"
+    badge="Paquetes para Metepec"
+    title="Servicios para"
+    titleHighlight="Metepec"
+    subtitle="Paquetes diseñados para bodas, XV años y eventos corporativos en las colonias premium"
+    packages={paquetesMetepec}
+    note="💡 <strong>Todos los paquetes incluyen:</strong> Traslado dentro de Metepec, coordinación con venue y montaje profesional desde nuestra sucursal local."
+  />
+
+  <!-- Por qué elegirnos en Metepec -->
+  <WhyChooseUs
+    id="ventajas-metepec"
+    badge="Servicio en Metepec"
+    title="Por qué somos la mejor opción en"
+    titleHighlight="Metepec"
+    descriptions={[
+      'Nuestra sucursal en San Jorge Pueblo Nuevo nos da acceso directo a todas las colonias premium de Metepec. Tiempos de respuesta y montaje optimizados.',
+      '8+ años de experiencia y conocimiento profundo de las haciendas, salones y venues de Metepec. Coordinación profesional con cada espacio.'
+    ]}
+    stats={[
+      { number: '26+', label: 'Eventos en Metepec' },
+      { number: '5.0', label: 'Calificación' },
+      { number: '10 min', label: 'Desde sucursal' },
+      { number: '100%', label: 'Traslado incluido' }
+    ]}
+    features={caracteristicasMetepec}
+  />
+
+  <!-- Testimonios de Metepec -->
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Metepec"
+        subtitle="Lo que dicen nuestros clientes de Metepec"
+      />
+      <div class="testimonios-grid">
+        {testimoniosMetepec.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Metepec -->
+  <FAQContactModule faqItems={faqsMetepec} />
+</BaseLayout>
+
+<style>
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+  .venues-content { text-align: center; color: #fff; }
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  .venues-content h2 span { color: rgba(255,255,255,0.8); }
+  .venues-content > p { font-size: 1rem; opacity: 0.85; margin: 0 0 40px; }
+  .venues-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .venue-item svg { fill: #FFB800; }
+
+  .colonias-section { padding: 80px 0; background: #fff; }
+  .colonias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .colonia-card {
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 22px;
+  }
+  .colonia-card:hover {
+    border-color: rgba(209,0,122,.25);
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+  .colonia-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: var(--rosa-principal);
+    margin: 0 0 8px;
+  }
+  .colonia-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #555;
+    margin: 0;
+  }
+
+  .testimonios-section { padding: 80px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 1024px) {
+    .testimonios-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .venues-content h2 { font-size: 1.5rem; }
+    .venues-grid { gap: 10px; }
+    .venue-item { padding: 10px 16px; font-size: 0.8rem; }
+    .testimonios-grid { grid-template-columns: 1fr; }
+  }
+</style>

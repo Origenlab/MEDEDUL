@@ -6,7 +6,7 @@ import Hero from '@/components/global/Hero.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogPosts } from '@/lib/blogSorting';
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
 const allPosts = sortBlogPosts(await getCollection('blog', ({ data }) => !data.draft));
 
 const posts = allPosts.slice(0, PAGE_SIZE);

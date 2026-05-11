@@ -24,7 +24,6 @@
 .breadcrumb a {
     color: var(--texto-gris);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 .breadcrumb a:hover {
@@ -901,78 +900,4 @@
     }
 }
 
-/* =====================================================
-   SIN ANIMACIONES EN CARDS E IMAGENES - GLOBAL
-   ===================================================== */
-
-/* Eliminar transiciones de TODAS las cards */
-.post-card,
-.article-card,
-.tipo-card,
-.evento-card,
-.resena-card,
-.galeria-item,
-.incluye-card,
-.caracteristica-card,
-.estacion-card,
-.servicio-card,
-.faq-item,
-.info-item,
-[class*="-card"] {
-    transition: none !important;
-}
-
-/* Sin transform en hover para cards */
-.post-card:hover,
-.article-card:hover,
-.tipo-card:hover,
-.evento-card:hover,
-.resena-card:hover,
-.galeria-item:hover,
-.incluye-card:hover,
-.caracteristica-card:hover,
-.estacion-card:hover,
-.servicio-card:hover,
-[class*="-card"]:hover {
-    transform: none !important;
-}
-
-/* Sin animaciones en imagenes */
-img {
-    transition: none !important;
-}
-
-img:hover,
-.galeria-item:hover img,
-.tipo-card:hover img,
-.evento-card:hover img,
-[class*="-card"]:hover img {
-    transform: none !important;
-    filter: none !important;
-}
-
-/* Sin animaciones en enlaces de cards */
-[class*="-card"] a,
-[class*="-card"] h3 a,
-[class*="-card"] h4 a {
-    transition: none !important;
-}
-
-/* Botones mantienen color en hover pero sin transform */
-.btn,
-.btn-primary,
-.btn-secondary,
-.btn-white,
-.btn-submit,
-[class*="btn-"] {
-    transition: none !important;
-}
-
-.btn:hover,
-.btn-primary:hover,
-.btn-secondary:hover,
-.btn-white:hover,
-.btn-submit:hover,
-[class*="btn-"]:hover {
-    transform: none !important;
-}
+/* Kill-switch global aplica en src/styles/global.css */

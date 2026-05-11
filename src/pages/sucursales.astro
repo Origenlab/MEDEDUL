@@ -1,0 +1,655 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' }
+];
+
+const sucursales = [
+  {
+    id: 'anzures',
+    nombre: 'Sucursal Anzures',
+    ciudad: 'Ciudad de Mexico',
+    badge: 'Matriz CDMX',
+    destacada: true,
+    direccion: 'Av. Ejercito Nacional Mexicano 216',
+    zona: 'Anzures, Miguel Hidalgo',
+    cp: '11590, Ciudad de Mexico',
+    telefono: '55 2522 6442',
+    telefonoHref: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20%28Anzures%29',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'CDMX, Polanco, Lomas, Interlomas, Santa Fe, Roma, Condesa, Coyoacan, Del Valle y zona metropolitana poniente.',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.4!2d-99.18!3d19.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Ejercito%20Nacional%20Mexicano%20216%2C%20Anzures%2C%20Miguel%20Hidalgo!5e0!3m2!1ses!2smx',
+    mapLink: 'https://maps.google.com/?q=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+11590+CDMX'
+  },
+  {
+    id: 'condesa',
+    nombre: 'Sucursal Condesa',
+    ciudad: 'Ciudad de Mexico',
+    badge: 'Sucursal CDMX',
+    direccion: 'Torre A, Av. Baja California 255',
+    zona: 'Hipodromo Condesa, Cuauhtemoc',
+    cp: '06170, Ciudad de Mexico',
+    telefono: '55 2522 6442',
+    telefonoHref: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20%28Condesa%29',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'Condesa, Roma Norte, Roma Sur, Juarez, Cuauhtemoc, Doctores, Narvarte, Del Valle y centro de la ciudad.',
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.0!2d-99.17!3d19.41!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Baja%20California%20255%2C%20Hipodromo%20Condesa%2C%20Cuauhtemoc!5e0!3m2!1ses!2smx',
+    mapLink: 'https://maps.google.com/?q=Av.+Baja+California+255,+Hipodromo+Condesa,+06170+CDMX'
+  },
+  {
+    id: 'toluca',
+    nombre: 'Sucursal Toluca Metepec',
+    ciudad: 'Estado de Mexico',
+    badge: 'Nueva Sucursal',
+    nueva: true,
+    direccion: 'Blvrd Toluca Metepec 913',
+    zona: 'San Jorge Pueblo Nuevo, Metepec',
+    cp: '52169, Toluca de Lerdo, Mexico',
+    telefono: '52 55 2177 5184',
+    telefonoHref: 'tel:+525521775184',
+    whatsapp: 'https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20Toluca%2FMetepec',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'Toluca, Metepec, Lerma, San Mateo Atenco, Ocoyoacac, Calimaya, Almoloya, Zinacantepec y Valle de Toluca.',
+    mapUrl: 'https://www.google.com/maps?q=Blvrd+Toluca+Metepec+913,+San+Jorge+Pueblo+Nuevo,+52169+Toluca+de+Lerdo&output=embed',
+    mapLink: 'https://maps.google.com/?q=Blvrd+Toluca+Metepec+913,+San+Jorge+Pueblo+Nuevo,+52169+Toluca+de+Lerdo'
+  }
+];
+
+const sucursalesSchema = {
+  "@context": "https://schema.org",
+  "@graph": sucursales.map(s => ({
+    "@type": "LocalBusiness",
+    "@id": `https://mesas-de-dulces.com/sucursales#${s.id}`,
+    "name": `MEDEDUL - ${s.nombre}`,
+    "image": "https://mesas-de-dulces.com/img/mededul.png",
+    "url": `https://mesas-de-dulces.com/sucursales#${s.id}`,
+    "telephone": s.telefonoHref.replace('tel:', ''),
+    "priceRange": "$$-$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": s.direccion,
+      "addressLocality": s.zona,
+      "postalCode": s.cp.split(',')[0].trim(),
+      "addressRegion": s.ciudad,
+      "addressCountry": "MX"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "10:00",
+      "closes": "19:00"
+    }],
+    "areaServed": s.cobertura
+  }))
+};
+---
+
+<BaseLayout
+  title="Sucursales MEDEDUL | CDMX, Toluca y Metepec | Mesas de Dulces"
+  description="Conoce las sucursales MEDEDUL: Anzures y Condesa en CDMX, y nuestra nueva sucursal en Toluca Metepec. Cobertura premium para mesas de dulces y candy bar."
+  canonical="/sucursales"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(sucursalesSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Sucursales MEDEDUL en CDMX y Toluca"
+    highlight="Sucursales"
+    subtitle="Tres puntos estrategicos para llevarte la mejor mesa de dulces premium"
+    secondaryContent={`<p>MEDEDUL opera desde <strong>tres sucursales estrategicas</strong>: nuestra matriz en Anzures (CDMX), la sucursal Condesa para zona centro y poniente, y nuestra <strong>nueva sucursal en Toluca Metepec</strong> que abre la cobertura completa del Valle de Toluca.</p><p>Cada sucursal opera con el mismo estandar de calidad, los mismos procesos profesionales y el mismo equipo capacitado. Elige la sucursal mas cercana a tu evento para asesoria, cotizacion y logistica eficiente.</p>`}
+  />
+
+  <!-- Sucursales Grid -->
+  <section class="sucursales-section">
+    <div class="container">
+      <SectionHeader
+        title="Nuestras"
+        titleHighlight="Sucursales"
+        subtitle="Atencion profesional y cobertura completa desde CDMX hasta el Valle de Toluca"
+      />
+
+      <div class="sucursales-grid">
+        {sucursales.map(s => (
+          <article class:list={['sucursal-card', { 'sucursal-card--nueva': s.nueva, 'sucursal-card--destacada': s.destacada }]} id={s.id}>
+            <div class="sucursal-mapa">
+              <iframe
+                src={s.mapUrl}
+                width="100%"
+                height="220"
+                style="border:0;"
+                allowfullscreen={false}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title={`Ubicacion ${s.nombre}`}
+              ></iframe>
+              <span class:list={['sucursal-badge', { 'sucursal-badge--nueva': s.nueva }]}>
+                {s.badge}
+              </span>
+            </div>
+
+            <div class="sucursal-contenido">
+              <header class="sucursal-header">
+                <h3>{s.nombre}</h3>
+                <span class="sucursal-ciudad">{s.ciudad}</span>
+              </header>
+
+              <ul class="sucursal-info">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <div>
+                    <strong>{s.direccion}</strong>
+                    <span>{s.zona}</span>
+                    <span>{s.cp}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <div>
+                    <strong>Horario</strong>
+                    <span>{s.horario}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  <div>
+                    <strong>Cobertura</strong>
+                    <span>{s.cobertura}</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="sucursal-acciones">
+                <a href={s.whatsapp} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--primary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+                <a href={s.telefonoHref} class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                  {s.telefono}
+                </a>
+                <a href={s.mapLink} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                    <line x1="8" y1="2" x2="8" y2="18"/>
+                    <line x1="16" y1="6" x2="16" y2="22"/>
+                  </svg>
+                  Ver en Google Maps
+                </a>
+                {(s.id === 'anzures' || s.id === 'condesa') && (
+                  <a href="/sucursales/cdmx" class="sucursal-btn sucursal-btn--ghost">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 3h7v7"/>
+                      <path d="M10 14L21 3"/>
+                      <path d="M21 14v7h-7"/>
+                      <path d="M3 21l7-7"/>
+                    </svg>
+                    Detalle sucursal CDMX
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cobertura Global -->
+  <section class="cobertura-section">
+    <div class="container">
+      <div class="cobertura-content">
+        <div class="cobertura-texto">
+          <h2>Cobertura <span>Premium</span> en CDMX, EdoMex y Toluca</h2>
+          <p>Operamos con <strong>tres sucursales activas</strong> para garantizar tiempos de respuesta cortos, montaje puntual y logistica eficiente sin importar la ubicacion de tu evento.</p>
+          <ul class="cobertura-lista">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Traslado incluido en zonas centrales de cada sucursal
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Atencion personalizada por sucursal mas cercana al venue
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Mismo estandar de calidad premium en las tres ubicaciones
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Cotizacion en menos de 24 horas habiles
+            </li>
+          </ul>
+        </div>
+
+        <div class="cobertura-cta">
+          <h3>Cotiza desde la sucursal mas cercana</h3>
+          <p>Te asignamos la sucursal optima segun la sede de tu evento para que la logistica sea eficiente y los tiempos de respuesta minimos.</p>
+          <a href="/cotizar" class="cobertura-btn">
+            Cotizar mi evento
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="tel:+525525226442" class="cobertura-telefono">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            55 2522 6442
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* =====================================================
+     SUCURSALES SECTION
+     ===================================================== */
+  .sucursales-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .sucursales-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* Sucursal Card */
+  .sucursal-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    scroll-margin-top: 180px;
+  }
+
+  .sucursal-card--destacada {
+    border: 2px solid rgba(209, 0, 122, 0.18);
+  }
+
+  .sucursal-card--nueva {
+    border: 2px solid rgba(122, 43, 194, 0.25);
+    box-shadow: 0 10px 35px rgba(122, 43, 194, 0.12);
+  }
+
+  /* Mapa */
+  .sucursal-mapa {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #fdf8fa;
+  }
+
+  .sucursal-mapa iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .sucursal-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.35);
+  }
+
+  .sucursal-badge--nueva {
+    background: linear-gradient(135deg, #7A2BC2 0%, #5A1AA3 100%);
+    box-shadow: 0 4px 14px rgba(122, 43, 194, 0.4);
+  }
+
+  /* Contenido */
+  .sucursal-contenido {
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .sucursal-header {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f3f3f3;
+  }
+
+  .sucursal-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+    line-height: 1.25;
+  }
+
+  .sucursal-ciudad {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    letter-spacing: 0.3px;
+  }
+
+  /* Info List */
+  .sucursal-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .sucursal-info li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .sucursal-info svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sucursal-info > li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .sucursal-info strong {
+    color: var(--texto-oscuro);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .sucursal-info span {
+    color: var(--gris-texto, #636E72);
+    font-size: 0.88rem;
+  }
+
+  /* Acciones */
+  .sucursal-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .sucursal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+  .sucursal-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  }
+
+  .sucursal-btn--primary:hover {
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+  }
+
+  .sucursal-btn--ghost {
+    background: #fafafa;
+    color: var(--texto-oscuro);
+    border: 1px solid #ececec;
+  }
+
+  .sucursal-btn--ghost:hover {
+    background: #fff;
+    color: var(--rosa-principal);
+    border-color: rgba(209, 0, 122, 0.25);
+}
+
+  /* =====================================================
+     COBERTURA SECTION
+     ===================================================== */
+  .cobertura-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cobertura-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .cobertura-texto h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 20px;
+    line-height: 1.25;
+  }
+
+  .cobertura-texto h2 span {
+    color: var(--rosa-principal);
+  }
+
+  .cobertura-texto > p {
+    font-size: 1.05rem;
+    color: var(--gris-texto, #636E72);
+    line-height: 1.7;
+    margin: 0 0 28px;
+  }
+
+  .cobertura-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cobertura-lista li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+  }
+
+  .cobertura-cta {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+    text-align: center;
+  }
+
+  .cobertura-cta h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .cobertura-cta > p {
+    font-size: 0.95rem;
+    color: var(--gris-texto, #636E72);
+    line-height: 1.6;
+    margin: 0 0 24px;
+  }
+
+  .cobertura-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 6px 20px rgba(209, 0, 122, 0.3);
+    margin-bottom: 14px;
+  }
+
+  .cobertura-btn:hover {
+    box-shadow: 0 8px 24px rgba(209, 0, 122, 0.4);
+  }
+
+  .cobertura-telefono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    background: #fafafa;
+    color: var(--texto-oscuro);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid #ececec;
+  }
+
+  .cobertura-telefono:hover {
+    color: var(--rosa-principal);
+    border-color: rgba(209, 0, 122, 0.25);
+  }
+
+  /* =====================================================
+     RESPONSIVE
+     ===================================================== */
+  @media (max-width: 1024px) {
+    .sucursales-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cobertura-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sucursales-section,
+    .cobertura-section {
+      padding: 50px 0;
+    }
+
+    .sucursales-grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 36px;
+    }
+
+    .sucursal-mapa {
+      height: 200px;
+    }
+
+    .sucursal-contenido {
+      padding: 24px 22px;
+    }
+
+    .sucursal-header h3 {
+      font-size: 1.2rem;
+    }
+
+    .cobertura-texto h2 {
+      font-size: 1.6rem;
+    }
+
+    .cobertura-cta {
+      padding: 28px 22px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sucursales-section,
+    .cobertura-section {
+      padding: 40px 0;
+    }
+
+    .sucursal-mapa {
+      height: 180px;
+    }
+
+    .sucursal-contenido {
+      padding: 22px 18px;
+    }
+
+    .sucursal-badge {
+      font-size: 0.68rem;
+      padding: 5px 12px;
+    }
+
+    .sucursal-btn {
+      font-size: 0.88rem;
+      padding: 12px 14px;
+    }
+  }
+</style>

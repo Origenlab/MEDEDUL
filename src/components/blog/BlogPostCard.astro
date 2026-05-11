@@ -1,6 +1,7 @@
 ---
 import { categoryMeta } from '@/content/config';
 import { getBlogCardCta } from '@/lib/blogCardCta';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -10,68 +11,146 @@ interface Props {
 
 const { post, index = 0 } = Astro.props;
 const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mesas-de-dulces.com';
+const articleUrl = `/blog/${post.slug}`;
+const absoluteUrl = `${siteUrl}${articleUrl}`;
+const categoryUrl = `/blog/categoria/${post.data.category}`;
+const categoryName = meta?.name || post.data.category;
+
+const cardImage = post.data.heroImage
+  ? getCdnUrl(post.data.heroImage, { w: 600, q: 78 })
+  : '';
+const cardSrcSet = post.data.heroImage
+  ? getCdnSrcSet(post.data.heroImage, [320, 480, 600, 800], { q: 78 })
+  : '';
+const cardSizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 28vw';
+
+const imageAlt = post.data.heroImageAlt || `${post.data.title} — MEDEDUL mesas de dulces`;
+const cta = getBlogCardCta(post.data.category, post.data.title);
+const ctaAria = `${cta}: leer el articulo ${post.data.title}`;
+const readTime = post.data.readTime || '';
+const isPriority = index === 0;
 ---
 
-<article class="post-card">
-  <a href={`/blog/${post.slug}`}>
-    <img
-      src={post.data.heroImage}
-      alt={post.data.heroImageAlt}
-      width="400"
-      height="250"
-      loading={index === 0 ? 'eager' : 'lazy'}
-      fetchpriority={index === 0 ? 'high' : 'auto'}
-      decoding="async"
-    />
+<article
+  class="post-card"
+  itemscope
+  itemtype="https://schema.org/Article"
+  itemprop="itemListElement"
+>
+  <meta itemprop="url" content={absoluteUrl} />
+  <meta itemprop="mainEntityOfPage" content={absoluteUrl} />
+
+  <a
+    href={articleUrl}
+    class="post-card-media"
+    aria-label={`Leer articulo: ${post.data.title}`}
+    tabindex="-1"
+  >
+    {cardImage && (
+      <img
+        src={cardImage}
+        srcset={cardSrcSet}
+        sizes={cardSizes}
+        alt={imageAlt}
+        width="600"
+        height="375"
+        loading={isPriority ? 'eager' : 'lazy'}
+        fetchpriority={isPriority ? 'high' : 'auto'}
+        decoding="async"
+        itemprop="image"
+      />
+    )}
   </a>
-  <div class="post-meta">
-    <span class="category">
-      <span class="category-icon">{meta?.icon}</span>
-      {meta?.name || post.data.category}
-    </span>
+
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <a href={categoryUrl} class="category" itemprop="articleSection" aria-label={`Ver mas articulos de ${categoryName}`}>
+        <span class="category-icon" aria-hidden="true">{meta?.icon}</span>
+        <span>{categoryName}</span>
+      </a>
+      {readTime && (
+        <span class="read-time" aria-label={`Tiempo de lectura ${readTime}`}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+          <span>{readTime}</span>
+        </span>
+      )}
+    </div>
+
+    <h3 class="post-card-title" itemprop="headline">
+      <a href={articleUrl}>{post.data.title}</a>
+    </h3>
+
+    <p class="post-card-desc" itemprop="description">{post.data.description}</p>
+
+    <div class="post-card-footer">
+      <a
+        href={articleUrl}
+        class="btn btn-primary"
+        aria-label={ctaAria}
+      >
+        <span>{cta}</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
   </div>
-  <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-  <p>{post.data.description}</p>
-  <a href={`/blog/${post.slug}`} class="btn btn-primary">{getBlogCardCta(post.data.category, post.data.title)}</a>
+
+  <meta itemprop="author" content="MEDEDUL" />
+  <meta itemprop="publisher" content="MEDEDUL" />
 </article>
 
 <style>
   .post-card {
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(116, 185, 255, 0.2);
+    border: 1px solid rgba(116, 185, 255, 0.18);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
   }
 
   .post-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    border-color: rgba(116, 185, 255, 0.38);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.09);
+    border-color: rgba(209, 0, 122, 0.28);
   }
 
-  .post-card > a:first-child {
+  .post-card-media {
     display: block;
-    aspect-ratio: 16/10;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
+    background: linear-gradient(135deg, #f5f3f7 0%, #faf6f9 100%);
   }
 
-  .post-card > a:first-child img {
+  .post-card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.35s ease;
+    transition: transform 0.45s ease;
   }
 
-  .post-card:hover > a:first-child img {
+  .post-card:hover .post-card-media img {
     transform: scale(1.04);
   }
 
-  .post-meta {
-    padding: 16px 20px 0;
+  .post-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px 20px 20px;
+    gap: 10px;
+  }
+
+  .post-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .post-card .category {
@@ -80,39 +159,67 @@ const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
     gap: 5px;
     background: linear-gradient(135deg, rgba(116, 185, 255, 0.18) 0%, rgba(85, 239, 196, 0.12) 100%);
     color: #1d4f7a;
-    padding: 6px 12px;
+    padding: 5px 11px;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
     border: 1px solid rgba(116, 185, 255, 0.25);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 
-  .post-card h3 {
-    font-size: 1.08rem;
+  .post-card .category:hover {
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.12) 0%, rgba(122, 43, 194, 0.08) 100%);
+    color: #d1007a;
+    border-color: rgba(209, 0, 122, 0.32);
+  }
+
+  .post-card .read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--texto-light);
+    letter-spacing: 0.2px;
+  }
+
+  .post-card .read-time svg {
+    opacity: 0.7;
+  }
+
+  .post-card-title {
+    font-size: 1.06rem;
     font-weight: 700;
-    line-height: 1.4;
-    margin: 12px 0 10px;
-    padding: 0 20px;
+    line-height: 1.38;
+    margin: 4px 0 0;
     color: var(--texto-oscuro);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .post-card h3 a {
+  .post-card-title a {
     color: inherit;
     text-decoration: none;
+    background-image: linear-gradient(transparent calc(100% - 1px), rgba(209, 0, 122, 0) 1px);
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: color 0.2s ease, background-size 0.3s ease;
   }
 
-  .post-card h3 a:hover {
+  .post-card-title a:hover {
     color: var(--rosa-principal);
   }
 
-  .post-card > p {
-    font-size: 0.92rem;
+  .post-card-desc {
+    font-size: 0.9rem;
     color: var(--texto-light);
-    line-height: 1.65;
-    padding: 0 20px;
-    margin-bottom: 18px;
+    line-height: 1.6;
+    margin: 0;
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -120,27 +227,57 @@ const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
     overflow: hidden;
   }
 
+  .post-card-footer {
+    margin-top: auto;
+    padding-top: 6px;
+  }
+
   .post-card .btn.btn-primary {
     background: linear-gradient(135deg, #2f8fd8 0%, #4ecdc4 100%);
     color: #fff;
-    padding: 12px 16px;
-    margin: 0 20px 20px;
+    padding: 11px 16px;
     border-radius: 12px;
     font-weight: 700;
     font-size: 0.82rem;
-    line-height: 1.25;
+    line-height: 1.2;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    width: 100%;
     text-align: center;
     min-height: 44px;
-    box-shadow: 0 4px 15px rgba(47, 143, 216, 0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px rgba(47, 143, 216, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
   }
 
   .post-card .btn.btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(47, 143, 216, 0.4);
+    box-shadow: 0 8px 20px rgba(47, 143, 216, 0.4);
+    background: linear-gradient(135deg, #1f7fc7 0%, #3abeb5 100%);
+  }
+
+  .post-card .btn.btn-primary svg {
+    transition: transform 0.25s ease;
+  }
+
+  .post-card .btn.btn-primary:hover svg {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 480px) {
+    .post-card-body {
+      padding: 16px 18px 18px;
+    }
+
+    .post-card-title {
+      font-size: 1rem;
+    }
+
+    .post-card-desc {
+      font-size: 0.88rem;
+      -webkit-line-clamp: 2;
+    }
   }
 </style>

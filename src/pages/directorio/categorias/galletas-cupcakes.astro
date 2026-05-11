@@ -1,136 +1,58 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.productos.some(p => {
-    const lower = p.toLowerCase();
-    return lower.includes('galleta') || lower.includes('cupcake') || lower.includes('postre');
-  }) ||
-  d.tipo === 'Tienda de Golosinas Premium'
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.productos.some((p) => {
+        const lower = p.toLowerCase();
+        return lower.includes('galleta') || lower.includes('cupcake') || lower.includes('postre');
+      }) ||
+      d.tipo === 'Tienda de Golosinas Premium'
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Galletas y Cupcakes', url: '/directorio/categorias/galletas-cupcakes' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
-    question: '¿Dónde comprar galletas decoradas en CDMX?',
-    answer: `Tenemos ${dulcerias.length} tiendas que ofrecen galletas, cupcakes y productos premium. Muchas ofrecen opciones personalizadas para eventos.`
+    question: '¿Dónde comprar galletas decoradas y cupcakes en la zona metropolitana?',
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} tiendas con galletas, cupcakes y repostería fina en las tres regiones. Las tiendas premium están concentradas en Polanco y Del Valle (CDMX), Galerías Metepec (Valle de Toluca) y zonas residenciales del Estado de México. La mayoría acepta pedidos personalizados con 48–72 horas de anticipación.`
   },
   {
-    question: '¿Qué tipos de galletas y cupcakes encuentro?',
-    answer: 'Encontrarás galletas decoradas, cupcakes artesanales, galletas de mantequilla, brownies, cake pops, macarons y productos de repostería fina.'
+    question: '¿Qué tipos de productos encuentro en esta categoría?',
+    answer: 'Galletas decoradas con glasé real, cupcakes con buttercream o ganache, galletas de mantequilla en formas temáticas, brownies, cake pops, macarons franceses, tartaletas individuales, whoopie pies, pay de limón en vaso, tiramisú personal y cheesecake en formato minimal para mesa de postres.'
   },
   {
     question: '¿Puedo pedir galletas personalizadas para mi evento?',
-    answer: 'Sí, muchas tiendas premium ofrecen galletas decoradas y cupcakes personalizados con la temática de tu evento. Contacta directamente a cada tienda para conocer opciones.'
+    answer: 'Sí — la mayoría de tiendas premium trabaja sobre pedido con diseños personalizados: logo de empresa, iniciales de novios, personajes de fiesta infantil, colores pantone específicos para bodas y XV años. El tiempo mínimo suele ser 5–7 días para pedidos de 50+ piezas; 2–3 semanas para eventos con 200+ galletas decoradas. Pide siempre muestra antes de confirmar.'
+  },
+  {
+    question: '¿Cuánto cuesta una galleta decorada o cupcake para evento?',
+    answer: 'Rango típico: galleta decorada sencilla $25–45, galleta con glasé detallado $50–90, cupcake con topping básico $30–55, cupcake con figura fondant $70–120. Macarons franceses $35–60 por pieza. Pedidos de 100+ piezas suelen tener descuento escalonado. Estos precios reflejan tiendas premium; tiendas de barrio pueden estar 30–40% abajo.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye productos específicos, capacidad de pedido personalizado, tiempos de entrega y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Galletas y Cupcakes | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra tiendas de galletas decoradas y cupcakes en CDMX. ${dulcerias.length} tiendas verificadas con repostería artesanal y productos premium.`}
-  canonical="/directorio/categorias/galletas-cupcakes"
-  ogImage="/img/galeria/candy-bar-gourmet-elegante.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Galletas y Cupcakes Artesanales"
-    highlight="Galletas"
-    subtitle={`${dulcerias.length} tiendas verificadas con galletas decoradas, cupcakes personalizados y reposteria fina en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria galletas y cupcakes</strong> concentra a los obradores especializados en reposteria visual para eventos: galletas decoradas con royal icing, cupcakes con buttercream, macarons franceses, tartaletas individuales, cake pops y mini postres personalizados por tematica o paleta de color. Filtramos proveedores con experiencia demostrada, entrega puntual y presentacion profesional que aguanta el transporte y las horas de exhibicion.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten cotizar galleta por pieza, armar packs de cupcakes corporativos, coordinar reposteria para bodas, baby showers, XV anos o eventos empresariales. Cada registro muestra ubicacion, horario, especialidad y resenas reales en Google Maps para que decidas con datos y sin listados genericos que no verifican operacion ni calidad.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Tiendas de"
-        titleHighlight="Galletas y Cupcakes"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+<CategoriaLayout
+  categoriaNombre="Galletas y Cupcakes"
+  categoriaSlug="galletas-cupcakes"
+  metaTitle={`Galletas, Cupcakes y Repostería Fina | ${dulcerias.length} Tiendas Verificadas`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} tiendas de galletas decoradas, cupcakes, macarons y repostería fina en CDMX, Estado de México y Valle de Toluca. Pedidos personalizados para eventos con reseñas reales de Google Maps.`}
+  heroTitle="Categoría Galletas, Cupcakes y Repostería Fina"
+  heroHighlight="Galletas y Cupcakes"
+  heroSubtitle={`${dulcerias.length} tiendas premium verificadas con galletas decoradas, cupcakes artesanales y macarons en 3 regiones`}
+  heroBody={`<p><strong>Categoría galletas y cupcakes</strong> concentra a las tiendas premium de repostería fina de la zona metropolitana: galletas decoradas con glasé real, cupcakes con buttercream o fondant, macarons franceses, cake pops, brownies, tartaletas y postres individuales. Ideal para mesas de postres de bodas, XV años, baby showers y eventos corporativos con estética cuidada.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en CDMX, Estado de México y Valle de Toluca te permiten comparar catálogos, tiempos de entrega, capacidad de personalización y precios por pieza. La mayoría acepta pedidos personalizados — pide siempre muestra y confirma tiempos 5–7 días antes del evento.</p>`}
+  ogImage="/img/galeria/dulces-gourmet-chocolate-belga-lujo.avif"
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Tiendas de"
+  sectionHighlight="Galletas y Cupcakes"
+/>

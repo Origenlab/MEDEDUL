@@ -6,11 +6,15 @@ import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
 import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
-import { getDulceriasPorAlcaldia, alcaldiasInfo, getAlcaldiasConDulcerias } from '@/data/dulcerias';
+import {
+  getDulceriasPorAlcaldia,
+  alcaldiasInfo,
+  getAlcaldiasConDulcerias
+} from '@/data/dulcerias';
 
 export function getStaticPaths() {
   const alcaldias = Object.keys(alcaldiasInfo);
-  return alcaldias.map(slug => ({
+  return alcaldias.map((slug) => ({
     params: { alcaldia: slug },
     props: { alcaldiaSlug: slug }
   }));
@@ -26,87 +30,185 @@ const breadcrumbItems = [
   { name: info.nombre, url: `/directorio/cdmx/${alcaldiaSlug}` }
 ];
 
-const faqsAlcaldia = [
-  {
-    question: `¿Cuántas dulcerías hay en ${info.nombre}?`,
-    answer: `Actualmente tenemos ${dulcerias.length} dulcerías verificadas en ${info.nombre}. ${info.descripcion}`
-  },
-  {
-    question: `¿Cuál es la zona comercial principal de ${info.nombre}?`,
-    answer: `La zona comercial principal es ${info.zonaComercial}. ${info.caracteristicas.join('. ')}.`
-  },
-  {
-    question: `¿Las dulcerías en ${info.nombre} venden al mayoreo?`,
-    answer: `Sí, varias dulcerías en ${info.nombre} ofrecen precios de mayoreo. Te recomendamos contactar directamente a cada negocio para conocer precios y mínimos de compra.`
-  },
-  {
-    question: `¿Cómo llegar a las dulcerías de ${info.nombre} en transporte público?`,
-    answer: `La zona de ${info.zonaComercial} es accesible por transporte público. Consulta la ficha de cada dulcería para ver las estaciones de Metro y Metrobús más cercanas.`
-  }
-];
+// Desglose por tipo de negocio — composición real de la alcaldía
+const tiposConteo = dulcerias.reduce<Record<string, number>>((acc, d) => {
+  acc[d.tipo] = (acc[d.tipo] || 0) + 1;
+  return acc;
+}, {});
 
+const tipoOrden = [
+  'Dulcería Mayoreo',
+  'Tienda de Golosinas',
+  'Tienda de Golosinas Premium',
+  'Dulcería Tradicional'
+];
+const tiposEnAlcaldia = tipoOrden
+  .filter((t) => tiposConteo[t])
+  .map((t) => ({ tipo: t, conteo: tiposConteo[t] }));
+
+// Estadísticas agregadas
 const totalResenas = dulcerias.reduce((sum, d) => sum + d.resenas, 0);
-const promedioRating = dulcerias.length > 0
-  ? (dulcerias.reduce((sum, d) => sum + d.rating, 0) / dulcerias.length).toFixed(1)
-  : '0';
+const promedioRating =
+  dulcerias.length > 0
+    ? (dulcerias.reduce((sum, d) => sum + d.rating, 0) / dulcerias.length).toFixed(1)
+    : '0';
+const destacadas = dulcerias.filter((d) => d.destacado).length;
+
+// Top 3 por reseñas — para el intro SEO
+const top3 = [...dulcerias].sort((a, b) => b.resenas - a.resenas).slice(0, 3);
 
 // Alcaldías cercanas para internal linking
 const todasAlcaldias = getAlcaldiasConDulcerias();
-const alcaldiasCercanas = todasAlcaldias.filter(a => a.slug !== alcaldiaSlug).slice(0, 6);
+const alcaldiasCercanas = todasAlcaldias.filter((a) => a.slug !== alcaldiaSlug).slice(0, 6);
 
-// Schema LocalBusiness + AggregateRating
-const alcaldiaSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": `Dulcerías en ${info.nombre}, CDMX`,
-  "description": `Directorio de ${dulcerias.length} dulcerías verificadas en ${info.nombre}, Ciudad de México.`,
-  "numberOfItems": dulcerias.length,
-  "itemListElement": dulcerias.slice(0, 20).map((d, i) => ({
-    "@type": "ListItem",
-    "position": i + 1,
-    "item": {
-      "@type": "LocalBusiness",
-      "name": d.nombre,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": d.direccion,
-        "addressLocality": d.alcaldia,
-        "addressRegion": "CDMX",
-        "addressCountry": "MX",
-        "postalCode": d.cp
+// FAQ — 6 preguntas alcaldía-específicas con datos reales
+const faqsAlcaldia = [
+  {
+    question: `¿Cuántas dulcerías verificadas hay en ${info.nombre}?`,
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} ${dulcerias.length === 1 ? 'dulcería verificada' : 'dulcerías verificadas'} en ${info.nombre}. ${info.descripcion} Cada ficha incluye dirección, teléfono, horarios, especialidades y reseñas reales de Google Maps.`
+  },
+  {
+    question: `¿Dónde se concentran las dulcerías en ${info.nombre}?`,
+    answer: `La zona comercial principal es ${info.zonaComercial}. ${info.caracteristicas.join(', ')}. Para planear visitas de compra eficientes, conviene agrupar paradas en este corredor y aprovechar que varios negocios operan con horarios similares entre semana.`
+  },
+  {
+    question: `¿Qué tipos de dulcerías puedo encontrar en ${info.nombre}?`,
+    answer:
+      tiposEnAlcaldia.length > 0
+        ? `En ${info.nombre} encontrarás ${tiposEnAlcaldia
+            .map((t) => `${t.conteo} ${t.tipo.toLowerCase()}${t.conteo > 1 ? 's' : ''}`)
+            .join(', ')}. Esto permite cubrir desde abasto mayorista hasta regalo gourmet y dulces tradicionales mexicanos.`
+        : `${info.nombre} cuenta con una mezcla de dulcerías tradicionales y tiendas de golosinas que atienden fiestas, eventos familiares y comercio de barrio.`
+  },
+  {
+    question: `¿Las dulcerías en ${info.nombre} venden al mayoreo?`,
+    answer: `Sí. Varias dulcerías locales ofrecen precios escalonados por volumen, sobre todo las catalogadas como "Dulcería Mayoreo". Recomendamos llamar por teléfono antes de ir para confirmar disponibilidad, mínimos de compra y si manejan factura. Para mayoreo nacional, recuerda que el Mercado de La Merced (Venustiano Carranza) y Norte 70 (Gustavo A. Madero) son los dos polos históricos de CDMX.`
+  },
+  {
+    question: `¿Cómo llegar a las dulcerías de ${info.nombre} en transporte público?`,
+    answer: `La zona de ${info.zonaComercial} es accesible por Metro, Metrobús y rutas de transporte concesionado. Consulta la ficha individual de cada dulcería para ver la estación de Metro/Metrobús más cercana, referencias de calles principales y coordenadas para Google Maps o Waze.`
+  },
+  {
+    question: `¿Qué productos son típicos de las dulcerías de ${info.nombre}?`,
+    answer: `El catálogo estándar incluye: gomitas nacionales e importadas, paletas Vero/De la Rosa/Indy, chocolates Ricolino/Hershey, tamarindos y cacahuates enchilados, dulces tradicionales mexicanos, bolsitas transparentes para bolo, piñatas y artículos de fiesta. En negocios tipo "Dulcería Tradicional" encontrarás dulce típico artesanal (palanquetas, jamoncillos, alegrías, cocadas) sobre todo cerca de ${info.zonaComercial}.`
+  }
+];
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    { '@type': 'ListItem', position: 3, name: 'CDMX', item: 'https://mesas-de-dulces.com/directorio/cdmx' },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: info.nombre,
+      item: `https://mesas-de-dulces.com/directorio/cdmx/${alcaldiaSlug}`
+    }
+  ]
+};
+
+// JSON-LD: FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqsAlcaldia.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+// JSON-LD: ItemList con LocalBusiness
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Dulcerías en ${info.nombre}, CDMX`,
+  description: `Directorio verificado de ${dulcerias.length} dulcerías en ${info.nombre}, Ciudad de México.`,
+  numberOfItems: dulcerias.length,
+  itemListElement: dulcerias.slice(0, 20).map((d, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://mesas-de-dulces.com/directorio/${d.slug}`,
+    item: {
+      '@type': 'LocalBusiness',
+      '@id': `https://mesas-de-dulces.com/directorio/${d.slug}#business`,
+      name: d.nombre,
+      url: `https://mesas-de-dulces.com/directorio/${d.slug}`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: d.direccion,
+        addressLocality: d.alcaldia,
+        addressRegion: 'CDMX',
+        addressCountry: 'MX',
+        postalCode: d.cp
       },
-      ...(d.telefono !== 'Sin teléfono registrado' ? { "telephone": `+52${d.telefono.replace(/\s/g, '')}` } : {}),
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": d.rating,
-        "reviewCount": d.resenas
+      ...(d.telefono !== 'Sin teléfono registrado' && d.telefono !== 'Ver en Google Maps'
+        ? { telephone: `+52${d.telefono.replace(/\s/g, '')}` }
+        : {}),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: d.rating,
+        reviewCount: d.resenas
       },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": d.coordenadas.lat,
-        "longitude": d.coordenadas.lng
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: d.coordenadas.lat,
+        longitude: d.coordenadas.lng
       }
     }
   }))
 };
+
+// JSON-LD: Place para la alcaldía
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Place',
+  name: info.nombre,
+  description: info.descripcion,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: info.nombre,
+    addressRegion: 'CDMX',
+    addressCountry: 'MX'
+  },
+  containedInPlace: {
+    '@type': 'AdministrativeArea',
+    name: 'Ciudad de México'
+  }
+};
+
+// Etiqueta humana por tipo (plural)
+const tipoPluralLabel: Record<string, string> = {
+  'Dulcería Mayoreo': 'mayoristas',
+  'Tienda de Golosinas': 'tiendas de golosinas',
+  'Tienda de Golosinas Premium': 'tiendas premium',
+  'Dulcería Tradicional': 'dulcerías tradicionales'
+};
 ---
 
 <BaseLayout
-  title={`Dulcerías en ${info.nombre} | Directorio Verificado CDMX 2026`}
-  description={`Encuentra las mejores dulcerías en ${info.nombre}, CDMX. ${dulcerias.length} proveedores verificados en ${info.zonaComercial}. Mayoreo, menudeo y precios competitivos.`}
+  title={`Dulcerías en ${info.nombre}, CDMX | ${dulcerias.length} Proveedores Verificados`}
+  description={`Directorio verificado de ${dulcerias.length} dulcerías en ${info.nombre}, Ciudad de México. ${info.zonaComercial}. Mayoreo, menudeo, dulces importados y tradicionales con reseñas reales de Google Maps.`}
   canonical={`/directorio/cdmx/${alcaldiaSlug}`}
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(alcaldiaSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title={`Dulcerias en ${info.nombre}, CDMX`}
+    title={`Dulcerías en ${info.nombre}, CDMX`}
     highlight={info.nombre}
-    subtitle={`${dulcerias.length} proveedores verificados con resenas reales · ${info.descripcion}`}
-    secondaryContent={`<p><strong>Dulcerias en ${info.nombre}</strong> seleccionadas y auditadas para que encuentres opciones cercanas con datos confirmados de contacto, horario y especialidad de producto. El listado concentra negocios tradicionales, chocolaterias, tiendas de dulces importados y mayoristas distribuidos en <strong>${info.zonaComercial}</strong>, facilitando la comparacion por ubicacion, precio y categoria antes de comprar.</p><p><strong>${dulcerias.length} proveedores verificados</strong> en la alcaldia destacan por ${info.caracteristicas.join(', ')}. Usa este directorio como base operativa para surtir mesas de dulces, armar bolos de fiesta infantil o abastecer eventos sociales y corporativos sin depender de busquedas genericas o listados sin validar.</p>`}
+    subtitle={`${dulcerias.length} proveedores verificados con reseñas reales · ${info.descripcion}`}
+    secondaryContent={`<p><strong>Dulcerías en ${info.nombre}</strong> seleccionadas y auditadas para que encuentres opciones cercanas con datos confirmados de contacto, horario y especialidad de producto. El listado concentra negocios tradicionales, chocolaterías, tiendas de dulces importados y mayoristas distribuidos en <strong>${info.zonaComercial}</strong>, facilitando la comparación por ubicación, precio y categoría antes de comprar.</p><p><strong>${dulcerias.length} proveedores verificados</strong> en la alcaldía destacan por ${info.caracteristicas.join(', ').toLowerCase()}. ${top3.length > 0 ? `Entre los más reseñados figuran <strong>${top3.map((d) => d.nombre).join('</strong>, <strong>')}</strong>.` : ''} Usa este directorio como base operativa para surtir mesas de dulces, armar bolos de fiesta infantil o abastecer eventos sociales y corporativos sin depender de búsquedas genéricas.</p>`}
   />
 
   <!-- Stats de la Alcaldía -->
@@ -119,19 +221,41 @@ const alcaldiaSchema = {
         </div>
         <div class="stat-card">
           <span class="stat-numero">{promedioRating}</span>
-          <span class="stat-label">Rating promedio</span>
+          <span class="stat-label">Rating promedio Google</span>
         </div>
         <div class="stat-card">
-          <span class="stat-numero">{totalResenas.toLocaleString()}</span>
-          <span class="stat-label">Reseñas en Google</span>
+          <span class="stat-numero">{totalResenas.toLocaleString('es-MX')}</span>
+          <span class="stat-label">Reseñas reales en Maps</span>
         </div>
         <div class="stat-card">
-          <span class="stat-numero">100%</span>
-          <span class="stat-label">Verificados</span>
+          <span class="stat-numero">{destacadas > 0 ? destacadas : '100%'}</span>
+          <span class="stat-label">{destacadas > 0 ? 'Destacadas por MEDEDUL' : 'Verificados'}</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Tipos de dulcería de la alcaldía -->
+  {tiposEnAlcaldia.length > 1 && (
+    <section class="tipos-section">
+      <div class="container">
+        <SectionHeader
+          title="Mezcla de"
+          titleHighlight="Proveedores"
+          subtitle={`Composición del directorio en ${info.nombre} por tipo de negocio`}
+        />
+        <div class="tipos-grid">
+          {tiposEnAlcaldia.map((t) => (
+            <div class="tipo-card">
+              <span class="tipo-conteo">{t.conteo}</span>
+              <span class="tipo-nombre">{tipoPluralLabel[t.tipo] ?? t.tipo}</span>
+              <span class="tipo-descr">{t.tipo}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Características de la zona -->
   <section class="zona-info">
@@ -145,7 +269,7 @@ const alcaldiaSchema = {
         {info.caracteristicas.map((carac) => (
           <div class="caracteristica-card">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>{carac}</span>
           </div>
@@ -185,7 +309,7 @@ const alcaldiaSchema = {
           subtitle="Más dulcerías verificadas en CDMX"
         />
         <div class="alcaldias-grid">
-          {alcaldiasCercanas.map(a => (
+          {alcaldiasCercanas.map((a) => (
             <a href={`/directorio/cdmx/${a.slug}`} class="alcaldia-link">
               <span class="alcaldia-nombre">{a.nombre}</span>
               <span class="alcaldia-count">{a.cantidad} dulcerías</span>
@@ -203,7 +327,7 @@ const alcaldiaSchema = {
 <style>
   .stats-section {
     padding: 60px 0;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #a0005f 100%);
   }
 
   .stats-grid {
@@ -231,6 +355,49 @@ const alcaldiaSchema = {
     opacity: 0.85;
   }
 
+  .tipos-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .tipo-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: #fafafa;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    text-align: center;
+  }
+
+  .tipo-conteo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--rosa-principal);
+    line-height: 1;
+  }
+
+  .tipo-nombre {
+    margin-top: 6px;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    text-transform: capitalize;
+  }
+
+  .tipo-descr {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: #888;
+  }
+
   .zona-info {
     padding: 80px 0;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
@@ -251,7 +418,7 @@ const alcaldiaSchema = {
     padding: 16px 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     border: 1px solid #f0f0f0;
   }
 
@@ -309,15 +476,14 @@ const alcaldiaSchema = {
     padding: 20px 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     border: 1px solid #f0f0f0;
     text-decoration: none;
-    transition: all 0.3s;
-  }
+}
 
   .alcaldia-link:hover {
     border-color: var(--rosa-principal);
-    transform: translateY(-2px);
+
     box-shadow: 0 8px 30px rgba(209, 0, 122, 0.1);
   }
 
@@ -339,7 +505,6 @@ const alcaldiaSchema = {
     .directorio-grid {
       grid-template-columns: 1fr;
     }
-
     .proveedores-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -350,38 +515,36 @@ const alcaldiaSchema = {
       grid-template-columns: repeat(2, 1fr);
       gap: 30px;
     }
+    .tipos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
     .stats-section {
       padding: 40px 0;
     }
-
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-
     .stat-numero {
       font-size: 2rem;
     }
-
+    .tipos-section,
     .zona-info,
     .dulcerias-listado,
     .faq-section,
     .alcaldias-cercanas {
       padding: 50px 0;
     }
-
     .caracteristicas-grid {
       flex-direction: column;
       align-items: stretch;
     }
-
     .proveedores-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-
     .alcaldias-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -391,7 +554,6 @@ const alcaldiaSchema = {
     .proveedores-grid {
       grid-template-columns: 1fr;
     }
-
     .alcaldias-grid {
       grid-template-columns: 1fr;
     }

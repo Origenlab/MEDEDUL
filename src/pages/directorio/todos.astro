@@ -16,29 +16,74 @@ const proveedores = [...todasLasDulcerias].sort((a, b) => b.resenas - a.resenas)
 const stats = getEstadisticasDirectorio();
 
 // Categorías únicas
-const categorias = ['Todos', ...new Set(proveedores.map(p => p.tipo))];
+const categorias = ['Todos', ...new Set(proveedores.map((p) => p.tipo))];
 
-// Alcaldías únicas
-const alcaldias = [...new Set(proveedores.map(p => p.alcaldia))].sort();
+// Regiones (CDMX / Edo Mex / Valle de Toluca)
+const regiones = [
+  { slug: 'todos', label: 'Todas las regiones', count: stats.total },
+  { slug: 'cdmx', label: 'CDMX', count: stats.porRegion.cdmx },
+  { slug: 'edomex', label: 'Estado de México', count: stats.porRegion.edomex },
+  { slug: 'toluca', label: 'Valle de Toluca', count: stats.porRegion.toluca }
+];
 
+// Zonas (alcaldías/municipios) únicas — agrupadas por región
+const zonasPorRegion: Record<string, Array<{ slug: string; nombre: string }>> = {
+  cdmx: [],
+  edomex: [],
+  toluca: []
+};
+const zonasVistas: Record<string, Set<string>> = { cdmx: new Set(), edomex: new Set(), toluca: new Set() };
+proveedores.forEach((p) => {
+  const region = (p.estadoSlug ?? 'cdmx') as 'cdmx' | 'edomex' | 'toluca';
+  if (!zonasVistas[region].has(p.alcaldiaSlug)) {
+    zonasVistas[region].add(p.alcaldiaSlug);
+    zonasPorRegion[region].push({ slug: p.alcaldiaSlug, nombre: p.alcaldia });
+  }
+});
+Object.values(zonasPorRegion).forEach((arr) => arr.sort((a, b) => a.nombre.localeCompare(b.nombre)));
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    { '@type': 'ListItem', position: 3, name: 'Todos los Proveedores', item: 'https://mesas-de-dulces.com/directorio/todos' }
+  ]
+};
+
+// JSON-LD: ItemList (top 20 por reseñas)
 const listSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Directorio Completo de Dulcerías en CDMX",
-  "description": `Listado completo de ${stats.total} dulcerías verificadas en Ciudad de México`,
-  "numberOfItems": stats.total,
-  "itemListElement": proveedores.slice(0, 20).map((p, i) => ({
-    "@type": "ListItem",
-    "position": i + 1,
-    "item": {
-      "@type": "LocalBusiness",
-      "name": p.nombre,
-      "address": `${p.direccion}, ${p.colonia}, ${p.alcaldia}`,
-      "telephone": p.telefono !== 'Sin teléfono registrado' ? `+52${p.telefono.replace(/\s/g, '')}` : undefined,
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": p.rating,
-        "reviewCount": p.resenas
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Directorio Completo de Dulcerías en CDMX, Edo Mex y Valle de Toluca',
+  description: `Listado completo de ${stats.total} dulcerías verificadas en CDMX, Estado de México y Valle de Toluca`,
+  numberOfItems: stats.total,
+  itemListElement: proveedores.slice(0, 20).map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://mesas-de-dulces.com/directorio/${p.slug}`,
+    item: {
+      '@type': 'LocalBusiness',
+      '@id': `https://mesas-de-dulces.com/directorio/${p.slug}#business`,
+      name: p.nombre,
+      url: `https://mesas-de-dulces.com/directorio/${p.slug}`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: p.direccion,
+        addressLocality: p.alcaldia,
+        addressRegion: (p.estadoSlug ?? 'cdmx') === 'cdmx' ? 'CDMX' : 'MEX',
+        addressCountry: 'MX',
+        postalCode: p.cp
+      },
+      ...(p.telefono !== 'Sin teléfono registrado' && p.telefono !== 'Ver en Google Maps'
+        ? { telephone: `+52${p.telefono.replace(/\s/g, '')}` }
+        : {}),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: p.rating,
+        reviewCount: p.resenas
       }
     }
   }))
@@ -46,26 +91,35 @@ const listSchema = {
 ---
 
 <BaseLayout
-  title={`${stats.total} Dulcerías en CDMX | Directorio Completo Verificado 2026`}
-  description={`Directorio completo de ${stats.total} dulcerías verificadas en ${stats.alcaldias} alcaldías de Ciudad de México. +${stats.totalResenas.toLocaleString()} reseñas reales. Encuentra la dulcería perfecta para tu evento.`}
+  title={`${stats.total} Dulcerías en CDMX, Edo Mex y Valle de Toluca | Directorio Completo Verificado`}
+  description={`Directorio completo de ${stats.total} dulcerías verificadas en CDMX (${stats.porRegion.cdmx}), Estado de México (${stats.porRegion.edomex}) y Valle de Toluca (${stats.porRegion.toluca}). +${stats.totalResenas.toLocaleString()} reseñas reales de Google Maps.`}
   canonical="/directorio/todos"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(listSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Todas las Dulcerias del Directorio"
-    highlight="Dulcerias"
-    subtitle={`${stats.total} proveedores verificados en ${stats.alcaldias} alcaldias con +${stats.totalResenas.toLocaleString()} resenas reales`}
-    secondaryContent={`<p><strong>Directorio completo de dulcerias en CDMX</strong> con datos validados de Google Maps para que compares opciones sin depender de listados genericos o publicidad pagada. Incluye ficha tecnica por negocio con telefono, horario, categoria de producto y resenas recientes para agilizar tu decision de compra o proveeduria para eventos.</p><p><strong>${stats.total} dulcerias verificadas</strong> en ${stats.alcaldias} alcaldias y zona metropolitana, ordenadas por categoria y ubicacion para que encuentres mayoreo, dulce tradicional, chocolates gourmet o dulces importados sin rodeos. Respaldamos cada registro con mas de ${stats.totalResenas.toLocaleString()} resenas reales de clientes locales.</p>`}
+    title="Todas las Dulcerías del Directorio"
+    highlight="Dulcerías"
+    subtitle={`${stats.total} proveedores verificados en 3 regiones · CDMX, Edo Mex y Valle de Toluca · +${stats.totalResenas.toLocaleString()} reseñas reales`}
+    secondaryContent={`<p><strong>Directorio completo de dulcerías</strong> con datos validados de Google Maps para que compares opciones sin depender de listados genéricos o publicidad pagada. Incluye ficha técnica por negocio con teléfono, horario, categoría de producto y reseñas recientes para agilizar tu decisión de compra o proveeduría para eventos.</p><p><strong>${stats.total} dulcerías verificadas</strong> distribuidas en ${stats.porRegion.cdmx} en CDMX, ${stats.porRegion.edomex} en Estado de México y ${stats.porRegion.toluca} en Valle de Toluca. Filtra por región, alcaldía/municipio y tipo de negocio para encontrar mayoreo, dulce tradicional mexicano, chocolates gourmet o dulces importados sin rodeos. Respaldamos cada registro con más de ${stats.totalResenas.toLocaleString()} reseñas reales.</p>`}
   />
 
   <section class="filtros-section">
     <div class="container">
       <div class="filtros-wrapper">
+        <div class="filtros-regiones">
+          {regiones.map((r, i) => (
+            <button class={`filtro-region-btn ${i === 0 ? 'active' : ''}`} data-region={r.slug}>
+              {r.label}
+              <span class="filtro-region-count">{r.count}</span>
+            </button>
+          ))}
+        </div>
         <div class="filtros-categorias">
           {categorias.map((cat, i) => (
             <button class={`filtro-btn ${i === 0 ? 'active' : ''}`} data-categoria={cat}>{cat}</button>
@@ -73,10 +127,16 @@ const listSchema = {
         </div>
         <div class="filtros-secundarios">
           <select class="filtro-select" id="filtro-zona">
-            <option value="">Todas las alcaldías</option>
-            {alcaldias.map(alc => (
-              <option value={alc.toLowerCase().replace(/\./g, '').replace(/\s/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}>{alc}</option>
-            ))}
+            <option value="">Todas las alcaldías/municipios</option>
+            <optgroup label="CDMX · Alcaldías">
+              {zonasPorRegion.cdmx.map((z) => <option value={`cdmx:${z.slug}`}>{z.nombre}</option>)}
+            </optgroup>
+            <optgroup label="Edo Mex · Municipios">
+              {zonasPorRegion.edomex.map((z) => <option value={`edomex:${z.slug}`}>{z.nombre}</option>)}
+            </optgroup>
+            <optgroup label="Valle de Toluca · Municipios">
+              {zonasPorRegion.toluca.map((z) => <option value={`toluca:${z.slug}`}>{z.nombre}</option>)}
+            </optgroup>
           </select>
           <select class="filtro-select" id="filtro-orden">
             <option value="resenas">Más reseñas</option>
@@ -93,17 +153,26 @@ const listSchema = {
       <div class="directorio-grid">
         <main class="directorio-main">
           <div class="proveedores-header">
-            <span class="resultados-count">{stats.total} dulcerías encontradas</span>
+            <span class="resultados-count" id="resultados-count">{stats.total} dulcerías encontradas</span>
             <div class="stats-mini">
-              <span><strong>{stats.verificadas}</strong> verificadas</span>
-              <span><strong>{stats.destacadas}</strong> destacadas</span>
+              <span><strong>{stats.porRegion.cdmx}</strong> CDMX</span>
+              <span><strong>{stats.porRegion.edomex}</strong> Edo Mex</span>
+              <span><strong>{stats.porRegion.toluca}</strong> Valle de Toluca</span>
               <span><strong>+{stats.totalResenas.toLocaleString()}</strong> reseñas</span>
             </div>
           </div>
 
-          <div class="proveedores-grid">
-            {proveedores.map(prov => (
-              <div data-categoria={prov.tipo} data-alcaldia={prov.alcaldiaSlug}>
+          <div class="proveedores-grid" id="proveedores-grid">
+            {proveedores.map((prov) => (
+              <div
+                class="proveedor-wrapper"
+                data-categoria={prov.tipo}
+                data-region={prov.estadoSlug ?? 'cdmx'}
+                data-zona={prov.alcaldiaSlug}
+                data-rating={prov.rating}
+                data-resenas={prov.resenas}
+                data-nombre={prov.nombre.toLowerCase()}
+              >
                 <DulceriaCard dulceria={prov} />
               </div>
             ))}
@@ -116,6 +185,74 @@ const listSchema = {
   </div>
 
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    const grid = document.getElementById('proveedores-grid');
+    const resultadosCount = document.getElementById('resultados-count');
+    const btnRegion = document.querySelectorAll('.filtro-region-btn');
+    const btnCategoria = document.querySelectorAll('.filtro-btn');
+    const selZona = document.getElementById('filtro-zona');
+    const selOrden = document.getElementById('filtro-orden');
+
+    const state = { region: 'todos', categoria: 'Todos', zona: '', orden: 'resenas' };
+
+    function aplicar() {
+      if (!grid) return;
+      const items = Array.from(grid.querySelectorAll('.proveedor-wrapper'));
+      let visibles = 0;
+
+      items.forEach((el) => {
+        const r = el.dataset.region || 'cdmx';
+        const c = el.dataset.categoria || '';
+        const z = el.dataset.zona || '';
+
+        let mostrar = true;
+        if (state.region !== 'todos' && r !== state.region) mostrar = false;
+        if (state.categoria !== 'Todos' && c !== state.categoria) mostrar = false;
+        if (state.zona) {
+          const [zr, zs] = state.zona.split(':');
+          if (r !== zr || z !== zs) mostrar = false;
+        }
+        el.style.display = mostrar ? '' : 'none';
+        if (mostrar) visibles++;
+      });
+
+      // Ordenar los visibles
+      const sorted = items
+        .filter((el) => el.style.display !== 'none')
+        .sort((a, b) => {
+          if (state.orden === 'rating') return parseFloat(b.dataset.rating || '0') - parseFloat(a.dataset.rating || '0');
+          if (state.orden === 'nombre') return (a.dataset.nombre || '').localeCompare(b.dataset.nombre || '');
+          return parseInt(b.dataset.resenas || '0') - parseInt(a.dataset.resenas || '0');
+        });
+      sorted.forEach((el) => grid.appendChild(el));
+      // Agregar los ocultos al final para mantenerlos en el DOM
+      items.filter((el) => el.style.display === 'none').forEach((el) => grid.appendChild(el));
+
+      if (resultadosCount) resultadosCount.textContent = `${visibles} dulcerías encontradas`;
+    }
+
+    btnRegion.forEach((b) => {
+      b.addEventListener('click', () => {
+        btnRegion.forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        state.region = b.dataset.region || 'todos';
+        aplicar();
+      });
+    });
+    btnCategoria.forEach((b) => {
+      b.addEventListener('click', () => {
+        btnCategoria.forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        state.categoria = b.dataset.categoria || 'Todos';
+        aplicar();
+      });
+    });
+    if (selZona) selZona.addEventListener('change', (e) => { state.zona = e.target.value; aplicar(); });
+    if (selOrden) selOrden.addEventListener('change', (e) => { state.orden = e.target.value; aplicar(); });
+  })();
+</script>
 
 <style>
   .filtros-section {
@@ -133,6 +270,50 @@ const listSchema = {
     gap: 16px;
   }
 
+  .filtros-regiones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filtro-region-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #fafafa;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    cursor: pointer;
+}
+
+  .filtro-region-btn:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .filtro-region-btn.active {
+    background: var(--rosa-principal);
+    border-color: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .filtro-region-count {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .filtro-region-btn:not(.active) .filtro-region-count {
+    background: rgba(209, 0, 122, 0.1);
+    color: var(--rosa-principal);
+  }
+
   .filtros-categorias {
     display: flex;
     gap: 10px;
@@ -148,8 +329,7 @@ const listSchema = {
     font-weight: 500;
     color: var(--texto-oscuro);
     cursor: pointer;
-    transition: all 0.3s;
-  }
+}
 
   .filtro-btn:hover,
   .filtro-btn.active {
@@ -201,6 +381,7 @@ const listSchema = {
     gap: 20px;
     font-size: 0.9rem;
     color: var(--texto-light);
+    flex-wrap: wrap;
   }
 
   .stats-mini strong {
@@ -228,13 +409,15 @@ const listSchema = {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .filtros-categorias {
+    .filtros-categorias,
+    .filtros-regiones {
       overflow-x: auto;
       flex-wrap: nowrap;
       padding-bottom: 10px;
     }
 
-    .filtro-btn {
+    .filtro-btn,
+    .filtro-region-btn {
       flex-shrink: 0;
     }
 

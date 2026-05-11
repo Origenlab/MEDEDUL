@@ -42,6 +42,7 @@ const navColumns = [
       { label: 'Nosotros',         href: '/nosotros' },
       { label: '¿Por qué Mededul?',href: '/porque-mededul' },
       { label: 'Cómo Trabajamos',  href: '/proceso' },
+      { label: 'Sucursales',       href: '/sucursales' },
       { label: 'Contacto',         href: '/contacto' },
       { label: 'Cotizar',          href: '/cotizar' },
     ]
@@ -62,17 +63,37 @@ const navColumns = [
 const sucursales = [
   {
     nombre: 'Anzures',
+    ciudad: 'CDMX',
     direccion: 'Av. Ejército Nacional Mexicano 216',
     colonia: 'Anzures, Miguel Hidalgo · CP 11590',
     horario: 'Atención 24 h',
+    telefono: '55 2522 6442',
+    telefonoLink: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442',
     mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9'
   },
   {
     nombre: 'Condesa',
+    ciudad: 'CDMX',
     direccion: 'Torre A, Av. Baja California 255',
     colonia: 'Condesa, Cuauhtémoc · CP 06170',
     horario: 'Lun–Sáb · 10:00–19:00',
+    telefono: '55 2522 6442',
+    telefonoLink: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442',
     mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86'
+  },
+  {
+    nombre: 'Toluca',
+    ciudad: 'Edo. México',
+    destacada: true,
+    direccion: 'Blvd. Toluca–Metepec 913',
+    colonia: 'San Jorge Pueblo Nuevo · CP 52169',
+    horario: 'Lun–Sáb · 10:00–19:00',
+    telefono: '52 55 2177 5184',
+    telefonoLink: 'tel:+525521775184',
+    whatsapp: 'https://wa.me/525521775184',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca'
   }
 ];
 
@@ -118,13 +139,14 @@ const legalLinks = [
           <span class="mf-logo__icon" aria-hidden="true">🍬</span>
           <div class="mf-logo__text">
             <span class="mf-logo__name">Mededul</span>
-            <span class="mf-logo__sub">Mesas de Dulces · CDMX</span>
+            <span class="mf-logo__sub">Mesas de Dulces · CDMX &amp; Toluca</span>
           </div>
         </a>
 
         <p class="mf-brand__desc">
           Creamos experiencias visuales y gastronómicas que transforman cada celebración en un momento
-          <strong>inolvidable</strong>. Más de <strong>500 eventos</strong> exitosos en CDMX.
+          <strong>inolvidable</strong>. Más de <strong>500 eventos</strong> exitosos en
+          <strong>CDMX, Estado de México y Toluca</strong>.
         </p>
 
         <!-- Stats -->
@@ -140,8 +162,8 @@ const legalLinks = [
           </div>
           <span class="mf-stat__div" aria-hidden="true"></span>
           <div class="mf-stat">
-            <span class="mf-stat__num">10+</span>
-            <span class="mf-stat__lbl">Años en CDMX</span>
+            <span class="mf-stat__num">3</span>
+            <span class="mf-stat__lbl">Sucursales</span>
           </div>
         </div>
 
@@ -204,24 +226,59 @@ const legalLinks = [
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Nuestras Sucursales
         </span>
-        <p class="mf-locations__sub">Visítanos en CDMX · Atención personalizada</p>
+        <h3 class="mf-locations__title">Cobertura en CDMX, Estado de México y Toluca</h3>
+        <p class="mf-locations__sub">3 puntos de operación · Atención personalizada · Servicio integral</p>
       </div>
-      <div class="mf-locations__grid">
+
+      <ul class="mf-locations__list" role="list">
         {sucursales.map(s => (
-          <div class="mf-loc">
-            <div class="mf-loc__top">
-              <span class="mf-loc__badge">{s.nombre}</span>
-              <span class="mf-loc__hours">{s.horario}</span>
+          <li class={`mf-loc${s.destacada ? ' mf-loc--new' : ''}`}>
+            {s.destacada && <span class="mf-loc__ribbon">Nueva</span>}
+
+            <div class="mf-loc__ident">
+              <span class="mf-loc__pin" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <div class="mf-loc__ident-text">
+                <h4 class="mf-loc__name">{s.nombre}</h4>
+                <span class="mf-loc__city">{s.ciudad}</span>
+              </div>
             </div>
-            <p class="mf-loc__addr">{s.direccion}</p>
-            <p class="mf-loc__col">{s.colonia}</p>
-            <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" class="mf-loc__map">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Ver en Google Maps
-            </a>
-          </div>
+
+            <div class="mf-loc__info">
+              <p class="mf-loc__addr">{s.direccion}</p>
+              <p class="mf-loc__meta">
+                <span class="mf-loc__colonia">{s.colonia}</span>
+                <span class="mf-loc__dot" aria-hidden="true">·</span>
+                <span class="mf-loc__hours">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  {s.horario}
+                </span>
+              </p>
+            </div>
+
+            <div class="mf-loc__actions">
+              <a href={s.telefonoLink} class="mf-loc__phone" aria-label={`Llamar a sucursal ${s.nombre}`}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                {s.telefono}
+              </a>
+              <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" class="mf-loc__btn mf-loc__btn--maps" aria-label={`Ver sucursal ${s.nombre} en Google Maps`}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Maps
+              </a>
+              <a href={s.whatsapp} target="_blank" rel="noopener noreferrer" class="mf-loc__btn mf-loc__btn--wa" aria-label={`Escribir por WhatsApp a sucursal ${s.nombre}`}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <p class="mf-locations__foot">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Servicio a domicilio en toda la zona metropolitana de CDMX y Valle de Toluca · Cotización sin compromiso
+      </p>
     </div>
   </div>
 
@@ -230,7 +287,7 @@ const legalLinks = [
     <div class="mf-wrap">
       <div class="mf-bar__inner">
         <p class="mf-bar__copy">
-          &copy; {currentYear} <strong>Mededul</strong> · Mesas de Dulces CDMX ·
+          &copy; {currentYear} <strong>Mededul</strong> · Mesas de Dulces CDMX &amp; Toluca ·
           Hecho con <span class="mf-heart" aria-hidden="true">♥</span> en México
         </p>
         <nav class="mf-bar__legal" aria-label="Páginas legales">
@@ -361,7 +418,6 @@ const legalLinks = [
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
 }
 
 .mf-btn--solid {
@@ -506,13 +562,12 @@ const legalLinks = [
   border: 1px solid rgba(255,255,255,.09);
   color: rgba(255,255,255,.6);
   text-decoration: none;
-  transition: all .25s ease;
 }
 .mf-social__a:hover {
   background: linear-gradient(135deg, #D1007A, #A0005F);
   border-color: transparent;
   color: #fff;
-  transform: translateY(-3px);
+
   box-shadow: 0 8px 20px rgba(209,0,122,.35);
 }
 .mf-social__a--wa:hover {
@@ -533,7 +588,6 @@ const legalLinks = [
   font-size: .82rem;
   color: rgba(255,255,255,.5);
   text-decoration: none;
-  transition: color .2s;
 }
 .mf-contact__row:hover { color: #ff6bab; }
 
@@ -571,7 +625,6 @@ const legalLinks = [
   color: rgba(255,255,255,.48);
   text-decoration: none;
   display: block;
-  transition: color .2s ease, padding-left .2s ease;
   line-height: 1.4;
 }
 .mf-nav__link:hover {
@@ -595,14 +648,14 @@ const legalLinks = [
    ════════════════════════════════════════════════════════════ */
 .mf-locations {
   width: 100%;
-  padding: clamp(40px, 5vw, 60px) 0;
+  padding: clamp(48px, 6vw, 72px) 0;
   position: relative;
   z-index: 1;
 }
 
 .mf-locations__head {
   text-align: center;
-  margin-bottom: clamp(24px, 3vw, 40px);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
 }
 .mf-locations__label {
   display: inline-flex;
@@ -614,86 +667,233 @@ const legalLinks = [
   text-transform: uppercase;
   color: #D1007A;
 }
-.mf-locations__sub {
-  font-size: .83rem;
-  color: rgba(255,255,255,.35);
-  margin: 8px 0 0;
-}
-
-.mf-locations__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 820px;
-  margin: 0 auto;
-}
-
-.mf-loc {
-  background: rgba(255,255,255,.028);
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 16px;
-  padding: clamp(20px, 2.5vw, 28px);
-  transition: border-color .3s, transform .3s, box-shadow .3s;
-}
-.mf-loc:hover {
-  border-color: rgba(209,0,122,.25);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0,0,0,.25);
-}
-
-.mf-loc__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.mf-loc__badge {
-  font-size: .75rem;
+.mf-locations__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
   font-weight: 700;
   color: #fff;
-  padding: 5px 14px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #D1007A, #A0005F);
-  letter-spacing: .3px;
+  margin: 10px 0 6px;
+  line-height: 1.25;
+  letter-spacing: -.2px;
 }
-.mf-loc__hours {
-  font-size: .7rem;
-  color: rgba(255,255,255,.4);
-  padding: 4px 10px;
-  background: rgba(255,255,255,.06);
-  border-radius: 50px;
-  white-space: nowrap;
+.mf-locations__sub {
+  font-size: .83rem;
+  color: rgba(255,255,255,.42);
+  margin: 0;
 }
 
-.mf-loc__addr {
-  font-size: .88rem;
-  font-weight: 500;
-  color: rgba(255,255,255,.82);
-  margin: 0 0 3px;
+/* Grid horizontal 3 columnas — tarjetas compactas */
+.mf-locations__list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
-.mf-loc__col {
-  font-size: .76rem;
-  color: rgba(255,255,255,.38);
-  margin: 0 0 16px;
+
+/* Tarjeta compacta vertical */
+.mf-loc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.035) 0%, rgba(255,255,255,.018) 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 16px 18px;
 }
-.mf-loc__map {
+.mf-loc:hover {
+  border-color: rgba(209,0,122,.32);
+
+  box-shadow: 0 14px 36px rgba(0,0,0,.3);
+}
+
+/* Variante destacada (Toluca / nueva) */
+.mf-loc--new {
+  border-color: rgba(209,0,122,.4);
+  background:
+    linear-gradient(180deg, rgba(209,0,122,.1) 0%, rgba(90,26,163,.04) 60%, rgba(255,255,255,.02) 100%),
+    rgba(255,255,255,.02);
+  box-shadow: 0 0 0 1px rgba(209,0,122,.18) inset;
+}
+.mf-loc--new:hover {
+  border-color: rgba(209,0,122,.6);
+  box-shadow: 0 18px 42px rgba(209,0,122,.16);
+}
+
+.mf-loc__ribbon {
+  position: absolute;
+  top: -8px;
+  right: 14px;
+  font-size: .54rem;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 9px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #D1007A, #7c3aed);
+  box-shadow: 0 5px 14px rgba(209,0,122,.4);
+  z-index: 2;
+}
+
+/* ── Bloque 1: identidad (pin + nombre + ciudad) ──── */
+.mf-loc__ident {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.mf-loc__pin {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(209,0,122,.18), rgba(90,26,163,.12));
+  border: 1px solid rgba(209,0,122,.28);
+  color: #ff6bab;
+  flex-shrink: 0;
+}
+.mf-loc__pin svg { width: 15px; height: 15px; }
+.mf-loc--new .mf-loc__pin {
+  background: linear-gradient(135deg, #D1007A, #A0005F);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(209,0,122,.35);
+}
+.mf-loc__ident-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mf-loc__name {
+  font-size: .98rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -.2px;
+  line-height: 1.1;
+}
+.mf-loc__city {
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+}
+
+/* ── Bloque 2: info (dirección + colonia · horario) ──── */
+.mf-loc__info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 0;
+  border-top: 1px dashed rgba(255,255,255,.06);
+  border-bottom: 1px dashed rgba(255,255,255,.06);
+}
+.mf-loc__addr {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.9);
+  margin: 0;
+  line-height: 1.3;
+}
+.mf-loc__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: .7rem;
+  color: rgba(255,255,255,.5);
+  margin: 0;
+  line-height: 1.35;
+}
+.mf-loc__colonia { color: rgba(255,255,255,.5); }
+.mf-loc__dot { color: rgba(255,255,255,.2); }
+.mf-loc__hours {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+}
+.mf-loc__hours svg { color: #ff6bab; flex-shrink: 0; }
+
+/* ── Bloque 3: acciones (tel + maps + wa) ──── */
+.mf-loc__actions {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 6px;
+  align-items: center;
+}
+.mf-loc__phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 6px;
   font-size: .78rem;
-  font-weight: 500;
-  color: #D1007A;
+  font-weight: 600;
+  color: #fff;
   text-decoration: none;
-  padding: 8px 14px;
-  border: 1px solid rgba(209,0,122,.25);
-  border-radius: 8px;
-  transition: all .22s ease;
+  padding: 8px 10px;
+  background: rgba(209,0,122,.14);
+  border: 1px solid rgba(209,0,122,.32);
+  border-radius: 9px;
+  white-space: nowrap;
 }
-.mf-loc__map:hover {
-  background: rgba(209,0,122,.12);
-  color: #ff6bab;
+.mf-loc__phone svg { color: #ff6bab; flex-shrink: 0; }
+.mf-loc__phone:hover {
+  background: rgba(209,0,122,.24);
+  border-color: rgba(209,0,122,.55);
 }
+
+.mf-loc__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 9px;
+  white-space: nowrap;
+}
+.mf-loc__btn svg { width: 14px; height: 14px; }
+.mf-loc__btn--maps {
+  color: #fff;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+}
+.mf-loc__btn--maps:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.2);
+}
+.mf-loc__btn--wa {
+  color: #fff;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(37,211,102,.4);
+  box-shadow: 0 6px 16px rgba(37,211,102,.18);
+}
+.mf-loc__btn--wa:hover {
+  filter: brightness(1.08);
+
+  box-shadow: 0 10px 22px rgba(37,211,102,.28);
+}
+
+.mf-locations__foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: clamp(22px, 3vw, 32px) auto 0;
+  max-width: 720px;
+  font-size: .8rem;
+  color: rgba(255,255,255,.42);
+  text-align: center;
+}
+.mf-locations__foot svg { color: #25D366; flex-shrink: 0; }
 
 /* ════════════════════════════════════════════════════════════
    BARRA INFERIOR
@@ -727,11 +927,6 @@ const legalLinks = [
 .mf-heart {
   color: #D1007A;
   display: inline-block;
-  animation: mfbeat 1.4s ease-in-out infinite;
-}
-@keyframes mfbeat {
-  0%,100% { transform: scale(1); }
-  50%      { transform: scale(1.3); }
 }
 
 .mf-bar__legal {
@@ -747,7 +942,6 @@ const legalLinks = [
   text-decoration: none;
   padding: 3px 6px;
   border-radius: 4px;
-  transition: all .18s;
   white-space: nowrap;
 }
 .mf-bar__legal a:hover {
@@ -796,11 +990,24 @@ const legalLinks = [
   }
 }
 
-/* 960px → nav 3 col */
+/* 1080px → sucursales 3 cols (más compactas) */
+@media (max-width: 1080px) {
+  .mf-locations__list { gap: 12px; }
+  .mf-loc { padding: 14px 15px; gap: 11px; }
+  .mf-loc__phone { padding: 7px 9px; font-size: .74rem; }
+  .mf-loc__btn   { padding: 7px 9px; }
+  .mf-loc__btn svg { width: 13px; height: 13px; }
+}
+
+/* 960px → sucursales 2 cols */
 @media (max-width: 960px) {
   .mf-nav {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px 18px;
+  }
+  .mf-locations__list {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 820px;
   }
 }
 
@@ -819,10 +1026,16 @@ const legalLinks = [
     gap: 28px 16px;
   }
 
-  .mf-locations__grid {
+  /* sucursales: una columna apilada vertical */
+  .mf-locations__list {
     grid-template-columns: 1fr;
-    max-width: 460px;
+    max-width: 480px;
+    gap: 12px;
   }
+  .mf-loc { padding: 16px 18px; gap: 12px; }
+  .mf-loc__phone { padding: 8px 12px; font-size: .8rem; }
+  .mf-loc__btn   { padding: 8px 11px; }
+  .mf-loc__ribbon { top: -8px; right: 14px; }
 
   .mf-bar__inner {
     flex-direction: column;

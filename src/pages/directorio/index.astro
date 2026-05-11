@@ -12,6 +12,8 @@ import {
   todasLasDulcerias,
   getDulceriasDestacadas,
   getEstadisticasDirectorio,
+  getMunicipiosConDulcerias,
+  getMunicipiosTolucaConDulcerias,
   alcaldiasInfo
 } from '@/data/dulcerias';
 
@@ -69,8 +71,14 @@ const categorias = [
   }
 ];
 
-// Zonas CDMX con datos reales
-const zonasCDMX = Object.entries(stats.porAlcaldia).map(([nombre, cantidad]) => ({
+// Zonas CDMX — sólo dulcerías con estadoSlug cdmx (o sin flag, legado)
+const cdmxDulcerias = todasLasDulcerias.filter(d => (d.estadoSlug ?? 'cdmx') === 'cdmx');
+const zonasCDMX = Object.entries(
+  cdmxDulcerias.reduce<Record<string, number>>((acc, d) => {
+    acc[d.alcaldia] = (acc[d.alcaldia] || 0) + 1;
+    return acc;
+  }, {})
+).map(([nombre, cantidad]) => ({
   nombre,
   cantidad,
   slug: nombre.toLowerCase()
@@ -79,15 +87,25 @@ const zonasCDMX = Object.entries(stats.porAlcaldia).map(([nombre, cantidad]) => 
     .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')
 })).sort((a, b) => b.cantidad - a.cantidad);
 
-// Zonas Estado de Mexico (placeholder para futura expansión)
-const zonasEdomex = [
-  { nombre: 'Naucalpan', cantidad: 5, slug: 'naucalpan' },
-  { nombre: 'Tlalnepantla', cantidad: 4, slug: 'tlalnepantla' },
-  { nombre: 'Ecatepec', cantidad: 6, slug: 'ecatepec' },
-  { nombre: 'Nezahualcóyotl', cantidad: 3, slug: 'nezahualcoyotl' },
-  { nombre: 'Toluca', cantidad: 8, slug: 'toluca' },
-  { nombre: 'Metepec', cantidad: 4, slug: 'metepec' }
-];
+// Zonas Edo Mex — datos reales
+const zonasEdomex = getMunicipiosConDulcerias().map((m) => ({
+  nombre: m.nombre,
+  cantidad: m.cantidad,
+  slug: m.slug
+}));
+
+// Zonas Valle de Toluca — datos reales
+const zonasToluca = getMunicipiosTolucaConDulcerias().map((m) => ({
+  nombre: m.nombre,
+  cantidad: m.cantidad,
+  slug: m.slug
+}));
+
+// Contadores regionales
+const totalCDMX = stats.porRegion.cdmx;
+const totalEdomex = stats.porRegion.edomex;
+const totalToluca = stats.porRegion.toluca;
+const alcaldiasCDMX = zonasCDMX.length;
 
 // FAQs del directorio
 const faqsDirectorio = [
@@ -108,8 +126,8 @@ const faqsDirectorio = [
     answer: 'El Mercado de Dulces de La Merced es el centro de distribución más grande de México, con los mejores precios de mayoreo. El corredor de Norte 70 en Gustavo A. Madero también tiene excelentes opciones con alta competencia y buenos precios.'
   },
   {
-    question: '¿Qué zonas de CDMX cubre el directorio?',
-    answer: `Actualmente cubrimos ${stats.alcaldias} alcaldías de CDMX con ${stats.total} dulcerías verificadas: ${zonasCDMX.slice(0, 5).map(z => z.nombre).join(', ')}, y más. Estamos en constante expansión agregando nuevos negocios cada semana.`
+    question: '¿Qué regiones y zonas cubre el directorio MEDEDUL?',
+    answer: `Cubrimos tres regiones con ${stats.total} proveedores verificados: (1) Ciudad de México con ${totalCDMX} dulcerías en ${alcaldiasCDMX} alcaldías — ${zonasCDMX.slice(0, 4).map(z => z.nombre).join(', ')}, y más; (2) Estado de México con ${totalEdomex} proveedores en zona conurbada ZMVM y oriente — Naucalpan, Tlalnepantla, Ecatepec, Texcoco, Chalco; (3) Valle de Toluca (ZMVT) con ${totalToluca} proveedores en Toluca, Metepec, Zinacantepec, Lerma y San Mateo Atenco. Estamos en constante expansión agregando nuevos negocios cada semana.`
   }
 ];
 
@@ -145,8 +163,8 @@ const directorioSchema = {
 ---
 
 <BaseLayout
-  title={`${stats.total} Dulcerías en CDMX | Directorio Verificado 2026`}
-  description={`Encuentra las mejores dulcerías en CDMX. ${stats.total} tiendas verificadas con +${stats.totalResenas.toLocaleString()} reseñas reales en ${stats.alcaldias} alcaldías. La Merced, Norte 70, Mixcoac y más.`}
+  title={`${stats.total} Dulcerías en CDMX, Edo Mex y Valle de Toluca | Directorio Verificado 2026`}
+  description={`Directorio verificado 2026 con ${stats.total} dulcerías en CDMX (${totalCDMX}), Estado de México (${totalEdomex}) y Valle de Toluca (${totalToluca}). +${stats.totalResenas.toLocaleString()} reseñas reales de Google Maps en ${stats.alcaldias} zonas.`}
   canonical="/directorio"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
@@ -156,10 +174,10 @@ const directorioSchema = {
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Directorio de Dulcerias en CDMX"
+    title="Directorio de Dulcerias en CDMX, Edo Mex y Valle de Toluca"
     highlight="Dulcerias"
-    subtitle={`Directorio verificado 2026 · ${stats.total} tiendas con +${stats.totalResenas.toLocaleString()} resenas reales de Google Maps`}
-    secondaryContent={`<p><strong>Directorio profesional de dulcerias en Ciudad de Mexico</strong> curado para que encuentres proveedores reales, verificados y con informacion actualizada de contacto, horarios y catalogo. Cada negocio listado cuenta con resenas auditadas y ubicacion comprobable para que compres con confianza y sin perder tiempo en busquedas fallidas.</p><p><strong>${stats.total} dulcerias verificadas</strong> distribuidas en ${stats.alcaldias} alcaldias de CDMX y zona metropolitana, respaldadas por mas de ${stats.totalResenas.toLocaleString()} resenas de clientes reales. Usa este directorio para surtir tu mesa de dulces, armar bolos para fiestas infantiles o localizar dulces tradicionales mexicanos al mejor precio del mercado.</p>`}
+    subtitle={`Directorio verificado 2026 · ${stats.total} tiendas en 3 regiones con +${stats.totalResenas.toLocaleString()} resenas reales de Google Maps`}
+    secondaryContent={`<p><strong>Directorio profesional de dulcerias en CDMX, Estado de Mexico y Valle de Toluca</strong> curado para que encuentres proveedores reales, verificados y con informacion actualizada de contacto, horarios y catalogo. Cada negocio listado cuenta con resenas auditadas y ubicacion comprobable para que compres con confianza y sin perder tiempo en busquedas fallidas.</p><p><strong>${stats.total} dulcerias verificadas</strong> distribuidas en tres regiones: ${totalCDMX} en Ciudad de Mexico (${alcaldiasCDMX} alcaldias), ${totalEdomex} en Estado de Mexico (zona conurbada y oriente) y ${totalToluca} en el Valle de Toluca (Toluca, Metepec, Lerma y Zinacantepec). Respaldadas por mas de ${stats.totalResenas.toLocaleString()} resenas de clientes reales, usa este directorio para surtir tu mesa de dulces, armar bolos para fiestas infantiles o localizar dulces tradicionales mexicanos al mejor precio del mercado.</p>`}
   />
 
   <!-- Buscador y Stats -->
@@ -179,8 +197,11 @@ const directorioSchema = {
             <optgroup label="CDMX">
               {zonasCDMX.map(z => <option value={z.slug}>{z.nombre} ({z.cantidad})</option>)}
             </optgroup>
-            <optgroup label="Estado de México (Próximamente)">
-              {zonasEdomex.map(z => <option value={z.slug} disabled>{z.nombre}</option>)}
+            <optgroup label="Estado de México">
+              {zonasEdomex.map(z => <option value={z.slug}>{z.nombre} ({z.cantidad})</option>)}
+            </optgroup>
+            <optgroup label="Valle de Toluca">
+              {zonasToluca.map(z => <option value={z.slug}>{z.nombre} ({z.cantidad})</option>)}
             </optgroup>
           </select>
           <a href="/directorio/todos" class="buscador-btn">
@@ -198,7 +219,7 @@ const directorioSchema = {
           </div>
           <div class="stat-item">
             <span class="stat-numero">{stats.alcaldias}</span>
-            <span class="stat-label">Alcaldías</span>
+            <span class="stat-label">Zonas</span>
           </div>
           <div class="stat-item">
             <span class="stat-numero">{Math.round(stats.totalResenas / 1000)}k+</span>
@@ -223,14 +244,14 @@ const directorioSchema = {
     ]}
     stats={[
       { number: String(stats.total), label: 'Dulcerías Verificadas' },
-      { number: String(stats.alcaldias), label: 'Alcaldías Cubiertas' },
+      { number: String(stats.alcaldias), label: 'Zonas Cubiertas' },
       { number: `${Math.round(stats.totalResenas / 1000)}k+`, label: 'Reseñas Totales' },
-      { number: '100%', label: 'Verificadas en Google' }
+      { number: '3', label: 'Regiones' }
     ]}
     features={[
       { num: 1, title: 'Verificados en Google', desc: 'Cada dulcería tiene ficha activa en Google Maps con reseñas reales de clientes.', img: '/img/galeria/candy-bar-profesional-eventos.avif' },
       { num: 2, title: 'Precios de Mayoreo', desc: 'Muchos proveedores ofrecen precios de mayoreo sin mínimos de compra.', img: '/img/galeria/dulces-variados-mesa.avif' },
-      { num: 3, title: 'Todas las Alcaldías', desc: `Cobertura en ${stats.alcaldias} alcaldías de CDMX para que encuentres cerca de ti.`, img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif' },
+      { num: 3, title: 'CDMX · Edo Mex · Valle de Toluca', desc: `Cobertura en ${stats.alcaldias} zonas distribuidas en tres regiones metropolitanas — ZMVM, zona conurbada y ZMVT.`, img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif' },
       { num: 4, title: 'Actualizado 2026', desc: 'Información actualizada con horarios, teléfonos y direcciones confirmadas.', img: '/img/galeria/candy-bar-gourmet-elegante.avif' }
     ]}
   />
@@ -295,7 +316,7 @@ const directorioSchema = {
             <SectionHeader
               title="Explora por"
               titleHighlight="Zona"
-              subtitle="Encuentra dulcerías cerca de ti en CDMX y zona metropolitana"
+              subtitle="Tres regiones metropolitanas: CDMX, Estado de México y Valle de Toluca"
             />
             <div class="zonas-grid-wrapper">
               <!-- CDMX -->
@@ -309,7 +330,7 @@ const directorioSchema = {
                   </div>
                   <div>
                     <h2>Ciudad de México</h2>
-                    <p>{stats.alcaldias} alcaldías con dulcerías verificadas</p>
+                    <p>{totalCDMX} dulcerías en {alcaldiasCDMX} alcaldías</p>
                   </div>
                 </div>
                 <div class="zona-lista">
@@ -320,7 +341,7 @@ const directorioSchema = {
                     </a>
                   ))}
                 </div>
-                <a href="/directorio/todos" class="zona-ver-todas">Ver todas las dulcerías en CDMX</a>
+                <a href="/directorio/cdmx" class="zona-ver-todas">Ver directorio CDMX completo</a>
               </div>
 
               <!-- Estado de Mexico -->
@@ -334,18 +355,43 @@ const directorioSchema = {
                   </div>
                   <div>
                     <h2>Estado de México</h2>
-                    <p>Próximamente disponible</p>
+                    <p>{totalEdomex} dulcerías en {zonasEdomex.length} municipios</p>
                   </div>
                 </div>
                 <div class="zona-lista">
                   {zonasEdomex.map(z => (
-                    <span class="zona-item zona-item--edomex zona-item--disabled">
+                    <a href={`/directorio/edomex/${z.slug}`} class="zona-item zona-item--edomex">
                       <span class="zona-nombre">{z.nombre}</span>
-                      <span class="zona-cantidad zona-cantidad--edomex">Pronto</span>
-                    </span>
+                      <span class="zona-cantidad zona-cantidad--edomex">{z.cantidad}</span>
+                    </a>
                   ))}
                 </div>
-                <span class="zona-ver-todas zona-ver-todas--edomex zona-ver-todas--disabled">Próximamente</span>
+                <a href="/directorio/edomex" class="zona-ver-todas zona-ver-todas--edomex">Ver directorio Edo Mex completo</a>
+              </div>
+
+              <!-- Valle de Toluca -->
+              <div class="zona-bloque zona-bloque--toluca">
+                <div class="zona-header">
+                  <div class="zona-icono zona-icono--toluca">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2>Valle de Toluca</h2>
+                    <p>{totalToluca} dulcerías en {zonasToluca.length} municipios</p>
+                  </div>
+                </div>
+                <div class="zona-lista">
+                  {zonasToluca.map(z => (
+                    <a href={`/directorio/toluca/${z.slug}`} class="zona-item zona-item--toluca">
+                      <span class="zona-nombre">{z.nombre}</span>
+                      <span class="zona-cantidad zona-cantidad--toluca">{z.cantidad}</span>
+                    </a>
+                  ))}
+                </div>
+                <a href="/directorio/toluca" class="zona-ver-todas zona-ver-todas--toluca">Ver directorio Toluca completo</a>
               </div>
             </div>
           </section>
@@ -364,7 +410,7 @@ const directorioSchema = {
         <div class="registro-texto">
           <span class="registro-badge">Para Negocios</span>
           <h2>¿Tienes una Dulcería? <span>Regístrate Gratis</span></h2>
-          <p>Si tienes una dulcería o tienda de golosinas en CDMX o Estado de México, puedes aparecer en nuestro directorio sin costo. Ya tenemos {stats.total} negocios verificados.</p>
+          <p>Si tienes una dulcería o tienda de golosinas en CDMX, Estado de México o Valle de Toluca, puedes aparecer en nuestro directorio sin costo. Ya tenemos {stats.total} negocios verificados.</p>
 
           <ul class="registro-beneficios">
             <li>
@@ -487,7 +533,6 @@ const directorioSchema = {
     font-size: 0.95rem;
     font-family: inherit;
     background: #fafafa;
-    transition: all 0.25s;
   }
 
   .buscador-input:focus {
@@ -529,7 +574,6 @@ const directorioSchema = {
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
-    transition: all 0.25s;
   }
 
   .buscador-btn svg {
@@ -538,7 +582,6 @@ const directorioSchema = {
   }
 
   .buscador-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(209, 0, 122, 0.3);
   }
 
@@ -602,7 +645,6 @@ const directorioSchema = {
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
   }
 
   .btn-ver-todos svg {
@@ -636,13 +678,11 @@ const directorioSchema = {
     border: 2px solid #f0f0f0;
     border-radius: 16px;
     text-decoration: none;
-    transition: all 0.25s;
   }
 
   .categoria-card:hover {
     border-color: var(--rosa-principal);
     box-shadow: 0 10px 30px rgba(209, 0, 122, 0.12);
-    transform: translateY(-3px);
   }
 
   .categoria-icono {
@@ -694,11 +734,9 @@ const directorioSchema = {
     height: 20px;
     color: var(--rosa-principal);
     flex-shrink: 0;
-    transition: transform 0.25s;
   }
 
   .categoria-card:hover .categoria-arrow {
-    transform: translateX(4px);
   }
 
   /* Zonas Section */
@@ -708,7 +746,7 @@ const directorioSchema = {
 
   .zonas-grid-wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 22px;
     margin-top: 36px;
   }
@@ -742,6 +780,10 @@ const directorioSchema = {
 
   .zona-icono--edomex {
     background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  }
+
+  .zona-icono--toluca {
+    background: linear-gradient(135deg, #0EA5E9 0%, #0369A1 100%);
   }
 
   .zona-icono svg {
@@ -778,7 +820,6 @@ const directorioSchema = {
     background: #fafafa;
     border-radius: 10px;
     text-decoration: none;
-    transition: all 0.3s;
   }
 
   .zona-item:hover {
@@ -787,6 +828,10 @@ const directorioSchema = {
 
   .zona-item--edomex:hover {
     background: rgba(99, 102, 241, 0.08);
+  }
+
+  .zona-item--toluca:hover {
+    background: rgba(14, 165, 233, 0.08);
   }
 
   .zona-item--disabled {
@@ -814,6 +859,11 @@ const directorioSchema = {
     background: rgba(99, 102, 241, 0.1);
   }
 
+  .zona-cantidad--toluca {
+    color: #0369A1;
+    background: rgba(14, 165, 233, 0.1);
+  }
+
   .zona-ver-todas {
     display: block;
     text-align: center;
@@ -824,7 +874,6 @@ const directorioSchema = {
     font-size: 0.9rem;
     text-decoration: none;
     border-radius: 10px;
-    transition: all 0.3s;
   }
 
   .zona-ver-todas:hover {
@@ -833,6 +882,18 @@ const directorioSchema = {
 
   .zona-ver-todas--edomex {
     color: #6366F1;
+  }
+
+  .zona-ver-todas--edomex:hover {
+    background: rgba(99, 102, 241, 0.08);
+  }
+
+  .zona-ver-todas--toluca {
+    color: #0369A1;
+  }
+
+  .zona-ver-todas--toluca:hover {
+    background: rgba(14, 165, 233, 0.08);
   }
 
   .zona-ver-todas--disabled {
@@ -919,7 +980,6 @@ const directorioSchema = {
     font-size: 1.1rem;
     font-weight: 700;
     text-decoration: none;
-    transition: all 0.3s;
   }
 
   .btn-registrar svg {
@@ -949,6 +1009,10 @@ const directorioSchema = {
     .directorio-grid {
       grid-template-columns: 1fr;
       gap: 50px;
+    }
+
+    .zonas-grid-wrapper {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

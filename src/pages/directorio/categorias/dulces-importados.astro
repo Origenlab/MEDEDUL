@@ -1,133 +1,55 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.especialidades.some(e => e.toLowerCase().includes('importado')) ||
-  d.productos.some(p => p.toLowerCase().includes('importado'))
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.especialidades.some((e) => e.toLowerCase().includes('importado')) ||
+      d.productos.some((p) => p.toLowerCase().includes('importado'))
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Dulces Importados', url: '/directorio/categorias/dulces-importados' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
-    question: '¿Dónde comprar dulces importados en CDMX?',
-    answer: `Tenemos ${dulcerias.length} dulcerías con dulces importados verificadas en CDMX. Encontrarás dulces americanos, japoneses, coreanos y europeos.`
+    question: '¿Dónde comprar dulces importados en CDMX, Edo Mex o Valle de Toluca?',
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} tiendas verificadas con dulces importados distribuidas en las tres regiones. Encontrarás dulces americanos, japoneses, coreanos y europeos. La Merced (CDMX) y Norte 70 (GAM) siguen siendo los polos mayoristas; en Edo Mex hay opciones en Naucalpan y Tlalnepantla; en Valle de Toluca destacan tiendas de Metepec premium.`
   },
   {
     question: '¿Qué marcas de dulces importados encuentro?',
-    answer: 'Encontrarás marcas como Haribo, Trolli, Hi-Chew, Pocky, Kit Kat japonés, Reese\'s, Sour Patch, Swedish Fish y muchas marcas más de USA, Japón, Corea y Europa.'
+    answer: "Haribo y Trolli (Alemania), Hi-Chew y Pocky (Japón), Kit Kat japonés, Reese's, Sour Patch Kids, Swedish Fish y Airheads (USA), chocolate belga Godiva y Callebaut, galletas Walkers (UK), y marcas coreanas como Lotte. La rotación depende de importadores y estacionalidad — conviene llamar antes de ir."
   },
   {
-    question: '¿Los dulces importados son más caros?',
-    answer: 'Los dulces importados suelen tener un precio mayor que los nacionales, pero comprando al mayoreo puedes obtener mejores precios. Las tiendas en La Merced y Norte 70 tienen opciones competitivas.'
+    question: '¿Los dulces importados son más caros que los nacionales?',
+    answer: 'Sí — el ticket por pieza es 2 a 4 veces mayor que el dulce nacional equivalente, por tipo de cambio, aranceles y logística internacional. Para eventos grandes el truco es mezclar 20–30% importado (como diferenciador premium) con 70–80% nacional. Comprando al mayoreo en La Merced o Central de Abasto Tultitlán el margen mejora notablemente.'
+  },
+  {
+    question: '¿Cómo verificar que los dulces importados son frescos?',
+    answer: 'Revisa siempre la fecha de caducidad en la etiqueta original del fabricante — no la etiqueta de la tienda. Dulces japoneses y coreanos rotan rápido en tiendas especializadas; americanos y europeos suelen tener vida de anaquel más larga. Evita comprar empaques con puntos blancos (chocolate "quemado" por temperatura) o con sellos rotos.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye productos importados específicos, horarios verificados y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Dulces Importados | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra tiendas de dulces importados en CDMX. ${dulcerias.length} dulcerías verificadas con dulces americanos, japoneses, coreanos y europeos.`}
-  canonical="/directorio/categorias/dulces-importados"
+<CategoriaLayout
+  categoriaNombre="Dulces Importados"
+  categoriaSlug="dulces-importados"
+  metaTitle={`Dulces Importados | ${dulcerias.length} Tiendas en CDMX, Edo Mex y Valle de Toluca`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} tiendas de dulces importados en CDMX, Estado de México y Valle de Toluca. Haribo, Hi-Chew, Kit Kat japonés, Reese's, Sour Patch y más marcas de USA, Japón, Corea y Europa.`}
+  heroTitle="Categoría Dulces Importados Premium"
+  heroHighlight="Dulces Importados"
+  heroSubtitle={`${dulcerias.length} tiendas verificadas con dulces americanos, japoneses, coreanos y europeos en 3 regiones`}
+  heroBody={`<p><strong>Categoría dulces importados</strong> agrupa tiendas especializadas en golosinas de USA, Japón, Corea y Europa: Haribo, Hi-Chew, Kit Kat japonés, Pocky, Reese's, Sour Patch, chocolate belga y galletas británicas. Filtramos solo proveedores con reseñas reales de Google Maps para que encuentres producto fresco, rotación activa y disponibilidad confiable para eventos y regalos.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en las tres regiones te permiten comparar precios y disponibilidad antes de abastecer mesas de dulces temáticas, regalos corporativos o detalles para XV años con estética internacional. Cada registro incluye teléfono, horario, marcas clave y ficha técnica.</p>`}
   ogImage="/img/galeria/candy-bar-profesional-eventos.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Dulces Importados Premium"
-    highlight="Importados"
-    subtitle={`${dulcerias.length} tiendas verificadas con dulces americanos, japoneses, coreanos y europeos en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria dulces importados</strong> reune a las tiendas especializadas en producto americano, asiatico y europeo dentro de Ciudad de Mexico. Filtramos proveedores con catalogo estable de Hershey's, Reese's, Pocky, Hi-Chew, KitKat japones, Haribo aleman, Cadbury britanico y golosinas coreanas para que tu mesa de dulces tenga la variedad premium que los invitados reconocen y valoran como diferencial.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te ayudan a comparar precios, marcas y disponibilidad real antes de comprar cajas completas para eventos, candy bars tematicos, regalos corporativos o packs personalizados. Cada registro incluye ubicacion, horario y especialidad confirmada para que planifiques pedidos al mayoreo o por pieza sin depender de listados genericos sin verificacion operativa.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Tiendas de"
-        titleHighlight="Dulces Importados"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Tiendas de"
+  sectionHighlight="Dulces Importados"
+/>

@@ -85,15 +85,15 @@ const faqsCotizar = [
   },
   {
     question: '¿Qué información necesitan para cotizar?',
-    answer: 'Fecha del evento, número de invitados, tipo de evento y zona de CDMX. Con eso preparamos una propuesta inicial.'
+    answer: 'Fecha del evento, número de invitados, tipo de evento y zona (CDMX, Toluca, Metepec o Valle de Toluca). Con eso preparamos una propuesta inicial.'
   },
   {
     question: '¿Cómo funciona el pago?',
     answer: '50% de anticipo para apartar fecha y el 50% restante el día del evento. Aceptamos transferencia, depósito y efectivo.'
   },
   {
-    question: '¿Cubren toda la CDMX?',
-    answer: 'Sí, cubrimos toda la CDMX y área metropolitana. Tenemos sucursales en Anzures y Condesa para atención rápida.'
+    question: '¿Cubren CDMX, Toluca y Metepec?',
+    answer: 'Sí, operamos con 3 sucursales: Anzures y Condesa en CDMX, y Toluca-Metepec en el Valle de Toluca. Cubrimos toda la zona metropolitana de CDMX, Toluca, Metepec, Zinacantepec, Lerma, Ocoyoacac y Calimaya para atención rápida en toda la región.'
   }
 ];
 
@@ -101,13 +101,20 @@ const cotizarSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Cotización de Mesas de Dulces - Mededul",
-  "description": "Solicita cotización gratuita para mesa de dulces en CDMX. Respuesta en menos de 2 horas por WhatsApp.",
+  "description": "Solicita cotización gratuita para mesa de dulces en CDMX, Toluca y Metepec. Respuesta en menos de 2 horas por WhatsApp.",
   "provider": {
     "@type": "LocalBusiness",
     "name": "Mededul",
     "telephone": "+525525226442"
   },
-  "areaServed": "Ciudad de México",
+  "areaServed": [
+    { "@type": "City", "name": "Ciudad de México" },
+    { "@type": "City", "name": "Toluca" },
+    { "@type": "City", "name": "Metepec" },
+    { "@type": "City", "name": "Zinacantepec" },
+    { "@type": "City", "name": "Lerma" },
+    { "@type": "AdministrativeArea", "name": "Valle de Toluca" }
+  ],
   "availableChannel": {
     "@type": "ServiceChannel",
     "serviceType": "WhatsApp",
@@ -117,8 +124,8 @@ const cotizarSchema = {
 ---
 
 <BaseLayout
-  title="Cotizar Mesa de Dulces CDMX | Respuesta en 2 Horas | Mededul"
-  description="Solicita cotización gratuita para tu mesa de dulces en CDMX. Respuesta en menos de 2 horas por WhatsApp. Precios desde $4,500. Sin compromiso."
+  title="Cotizar Mesa de Dulces CDMX, Toluca y Metepec | Respuesta en 2 Horas | Mededul"
+  description="Solicita cotización gratuita para tu mesa de dulces en CDMX, Toluca, Metepec y Valle de Toluca. Respuesta en menos de 2 horas por WhatsApp. Precios desde $4,500. Sin compromiso."
   canonical="/cotizar"
   ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
   includeCategoryStyles={true}
@@ -131,7 +138,7 @@ const cotizarSchema = {
     title="Cotiza tu Mesa de Dulces"
     highlight="Mesa de Dulces"
     subtitle="Respuesta en menos de 2 horas por WhatsApp"
-    secondaryContent={`<p><strong>Cotización gratis y sin compromiso.</strong> Envíanos los datos de tu evento y recibe una propuesta personalizada con opciones y precios claros. Sin letra pequeña, sin sorpresas.</p><p>Con <strong>500+ eventos exitosos</strong> y calificación 5.0, te garantizamos respuesta rápida, precios transparentes y el mejor servicio para tu celebración en CDMX.</p>`}
+    secondaryContent={`<p><strong>Cotización gratis y sin compromiso.</strong> Envíanos los datos de tu evento y recibe una propuesta personalizada con opciones y precios claros. Sin letra pequeña, sin sorpresas.</p><p>Con <strong>500+ eventos exitosos</strong> y calificación 5.0, te garantizamos respuesta rápida, precios transparentes y el mejor servicio para tu celebración en CDMX, Toluca o Metepec.</p>`}
   />
 
   <!-- CTA Principal WhatsApp -->
@@ -430,8 +437,7 @@ const cotizarSchema = {
 
   .evento-card:hover {
     border-color: var(--rosa-principal);
-    transform: translateY(-4px);
-  }
+}
 
   .evento-icon {
     font-size: 2.5rem;

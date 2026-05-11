@@ -1,5 +1,5 @@
 ---
-// Header Component - Professional Navigation
+// Header Component - Professional Navigation v2
 import { getCdnUrl } from '@/lib/cdn';
 
 interface Props {
@@ -8,15 +8,15 @@ interface Props {
 
 const { currentPath = '/' } = Astro.props;
 const logoPath = '/img/mededul.png';
-const logoSrc = getCdnUrl(logoPath, { w: 280, q: 80 });
+const logoSrc = getCdnUrl(logoPath, { w: 240, q: 80 });
 const logoSrcSet = [
-  `${getCdnUrl(logoPath, { w: 140, q: 80 })} 140w`,
-  `${getCdnUrl(logoPath, { w: 280, q: 80 })} 280w`,
-  `${getCdnUrl(logoPath, { w: 420, q: 80 })} 420w`,
-  `${getCdnUrl(logoPath, { w: 560, q: 80 })} 560w`
+  `${getCdnUrl(logoPath, { w: 120, q: 80 })} 120w`,
+  `${getCdnUrl(logoPath, { w: 240, q: 80 })} 240w`,
+  `${getCdnUrl(logoPath, { w: 360, q: 80 })} 360w`,
+  `${getCdnUrl(logoPath, { w: 480, q: 80 })} 480w`
 ].join(', ');
 
-// Navigation structure - Simplified menu
+// Navigation structure — Directorio movido al footer
 const menuItems = [
   { label: 'Inicio', href: '/', exact: true },
   {
@@ -82,8 +82,8 @@ const menuItems = [
     ]
   },
   { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Sucursales', href: '/sucursales' },
   { label: 'Blog', href: '/blog', startsWith: true },
-  { label: 'Directorio', href: '/directorio', startsWith: true },
   { label: 'Contacto', href: '/contacto' }
 ];
 
@@ -98,14 +98,14 @@ const isActive = (item: typeof menuItems[0]) => {
 <header class="header" id="header">
   <div class="header__container">
     <!-- Logo -->
-    <a href="/" class="header__logo">
+    <a href="/" class="header__logo" aria-label="Mededul — inicio">
       <img
         src={logoSrc}
         srcset={logoSrcSet}
-        sizes="280px"
-        alt="Mededul - Mesas de Dulces CDMX"
-        width="280"
-        height="71"
+        sizes="240px"
+        alt="Mededul - Mesas de Dulces CDMX, Toluca y Metepec"
+        width="240"
+        height="60"
         loading="eager"
         decoding="async"
         fetchpriority="high"
@@ -113,7 +113,7 @@ const isActive = (item: typeof menuItems[0]) => {
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="header__nav" id="nav-menu">
+    <nav class="header__nav" id="nav-menu" aria-label="Navegación principal">
       <ul class="header__menu">
         {menuItems.map(item => (
           <li class:list={['header__item', { 'has-mega': item.megaMenu }]}>
@@ -121,9 +121,9 @@ const isActive = (item: typeof menuItems[0]) => {
               href={item.href}
               class:list={['header__link', { active: isActive(item) }]}
             >
-              {item.label}
+              <span class="header__link-text">{item.label}</span>
               {item.megaMenu && (
-                <svg class="header__arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="header__arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               )}
@@ -135,7 +135,7 @@ const isActive = (item: typeof menuItems[0]) => {
                   {item.megaMenu.map(column => (
                     <div class="mega-menu__column">
                       <div class="mega-menu__header" style={`--column-color: ${column.color}`}>
-                        <span class="mega-menu__icon">{column.icon}</span>
+                        <span class="mega-menu__icon" aria-hidden="true">{column.icon}</span>
                         <span class="mega-menu__title">{column.title}</span>
                       </div>
                       <ul class="mega-menu__list">
@@ -149,7 +149,7 @@ const isActive = (item: typeof menuItems[0]) => {
                       </ul>
                       <a href={column.viewAll.href} class="mega-menu__view-all" style={`--column-color: ${column.color}`}>
                         {column.viewAll.label}
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                           <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                       </a>
@@ -165,19 +165,27 @@ const isActive = (item: typeof menuItems[0]) => {
 
     <!-- Actions -->
     <div class="header__actions">
-      <a href="tel:+525525226442" class="header__phone">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-        </svg>
-        <span>55 2522 6442</span>
+      <a href="tel:+525525226442" class="header__phone" aria-label="Llamar al 55 2522 6442">
+        <span class="header__phone-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </span>
+        <span class="header__phone-text">
+          <span class="header__phone-label">Llámanos</span>
+          <span class="header__phone-num">55 2522 6442</span>
+        </span>
       </a>
       <a href="/cotizar" class="header__cta">
-        Cotizar
+        <span>Cotizar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
       </a>
     </div>
 
     <!-- Mobile Toggle -->
-    <button class="header__toggle" id="hamburger" aria-label="Abrir menú">
+    <button class="header__toggle" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
@@ -269,6 +277,7 @@ const isActive = (item: typeof menuItems[0]) => {
     document.body.classList.toggle('menu-open');
     const isOpen = hamburger.classList.contains('active');
     hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
   // Mobile submenu toggles
@@ -296,13 +305,14 @@ const isActive = (item: typeof menuItems[0]) => {
       hamburger?.classList.remove('active');
       mobileMenu?.classList.remove('active');
       document.body.classList.remove('menu-open');
+      hamburger?.setAttribute('aria-expanded', 'false');
     });
   });
 </script>
 
 <style>
   /* =====================================================
-     HEADER - Professional Design
+     HEADER v2 — Professional Premium Design
      ===================================================== */
   .header {
     position: fixed;
@@ -310,23 +320,28 @@ const isActive = (item: typeof menuItems[0]) => {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: #ffffff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid rgba(15, 15, 30, 0.06);
+    transition: box-shadow .25s ease, background .25s ease, border-color .25s ease;
   }
 
   .header.scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 6px 24px rgba(15, 15, 30, 0.07);
+    border-bottom-color: rgba(15, 15, 30, 0.08);
   }
 
   .header__container {
-    max-width: 1400px;
+    max-width: 1380px;
     margin: 0 auto;
-    padding: 28px 30px;
-    min-height: 111px;
+    padding: 14px 36px;
+    min-height: 82px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24px;
   }
 
   /* Logo */
@@ -334,12 +349,15 @@ const isActive = (item: typeof menuItems[0]) => {
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    line-height: 0;
+    transition: opacity .2s ease;
   }
+  .header__logo:hover { opacity: .85; }
 
   .header__logo img {
-    max-height: 90px;
+    height: 56px;
     width: auto;
-    max-width: 280px;
+    max-width: 240px;
     display: block;
     object-fit: contain;
   }
@@ -354,55 +372,56 @@ const isActive = (item: typeof menuItems[0]) => {
   .header__menu {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .header__item {
-    position: relative;
-  }
+  .header__item { position: relative; }
 
   .header__link {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 12px 18px;
-    font-size: 0.95rem;
+    gap: 6px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
     font-weight: 500;
-    color: #333;
+    color: #2a2a35;
     text-decoration: none;
     border-radius: 8px;
-    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+    transition: color .2s ease, background .2s ease;
   }
 
-  .header__link:hover {
-    color: #D1007A;
-    background: rgba(233, 30, 140, 0.05);
-  }
-
-  .header__link.active {
-    color: #D1007A;
-  }
-
-  .header__link.active::after {
+  .header__link::before {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 16px;
-    right: 16px;
+    left: 14px;
+    right: 14px;
+    bottom: 4px;
     height: 2px;
-    background: #D1007A;
+    background: linear-gradient(90deg, #D1007A, #7A2BC2);
     border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .25s ease;
   }
+
+  .header__link:hover { color: #D1007A; }
+  .header__link:hover::before { transform: scaleX(1); }
+
+  .header__link.active { color: #D1007A; }
+  .header__link.active::before { transform: scaleX(1); }
 
   .header__arrow {
-    transition: transform 0.2s ease;
+    transition: transform .25s ease;
+    opacity: .65;
   }
-
-  .header__item.has-mega:hover .header__arrow {
+  .header__item.has-mega:hover > .header__link .header__arrow {
     transform: rotate(180deg);
+    opacity: 1;
   }
 
   /* Mega Menu */
@@ -410,16 +429,20 @@ const isActive = (item: typeof menuItems[0]) => {
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
-    padding-top: 15px;
+    transform: translateX(-50%) translateY(-8px);
+    padding-top: 14px;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s ease;
+    transition: opacity .2s ease, transform .25s ease, visibility 0s linear .2s;
+    pointer-events: none;
   }
 
   .header__item.has-mega:hover .mega-menu {
     opacity: 1;
     visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity .25s ease, transform .25s ease, visibility 0s linear 0s;
+    pointer-events: auto;
   }
 
   .mega-menu__container {
@@ -427,190 +450,198 @@ const isActive = (item: typeof menuItems[0]) => {
     grid-template-columns: repeat(4, 220px);
     gap: 0;
     background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border-radius: 14px;
+    border: 1px solid rgba(15, 15, 30, 0.06);
+    box-shadow:
+      0 1px 2px rgba(15, 15, 30, 0.04),
+      0 24px 60px rgba(15, 15, 30, 0.14);
     overflow: hidden;
   }
 
   .mega-menu__column {
-    padding: 24px 20px;
-    border-right: 1px solid #f0f0f0;
+    padding: 22px 20px;
+    border-right: 1px solid #f3f3f6;
   }
-
-  .mega-menu__column:last-child {
-    border-right: none;
-  }
+  .mega-menu__column:last-child { border-right: none; }
 
   .mega-menu__header {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
     border-bottom: 2px solid var(--column-color, #D1007A);
   }
 
-  .mega-menu__icon {
-    font-size: 1.2rem;
-  }
+  .mega-menu__icon { font-size: 1.1rem; line-height: 1; }
 
   .mega-menu__title {
-    font-size: 0.85rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #1a1a26;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.2px;
   }
 
   .mega-menu__list {
     list-style: none;
     padding: 0;
-    margin: 0 0 16px;
+    margin: 0 0 14px;
   }
-
-  .mega-menu__list li {
-    margin-bottom: 4px;
-  }
+  .mega-menu__list li { margin-bottom: 2px; }
 
   .mega-menu__link {
     display: block;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    color: #555;
+    padding: 7px 10px;
+    font-size: 0.875rem;
+    color: #555560;
     text-decoration: none;
     border-radius: 6px;
-    transition: all 0.15s ease;
+    transition: color .15s ease, background .15s ease, padding-left .2s ease;
   }
-
   .mega-menu__link:hover {
     color: #D1007A;
-    background: rgba(233, 30, 140, 0.06);
-    padding-left: 16px;
+    background: rgba(209, 0, 122, 0.05);
+    padding-left: 14px;
   }
 
   .mega-menu__view-all {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--column-color, #D1007A);
     text-decoration: none;
-    padding: 8px 0;
-    transition: gap 0.2s ease;
+    padding: 6px 0;
+    transition: gap .2s ease;
   }
-
-  .mega-menu__view-all:hover {
-    gap: 10px;
-  }
+  .mega-menu__view-all:hover { gap: 10px; }
 
   /* Actions */
   .header__actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     flex-shrink: 0;
   }
 
   .header__phone {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #333;
+    gap: 10px;
+    padding: 6px 12px 6px 6px;
     text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    border-radius: 12px;
+    transition: background .2s ease;
+  }
+  .header__phone:hover { background: rgba(209, 0, 122, 0.05); }
+
+  .header__phone-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.12), rgba(122, 43, 194, 0.10));
+    color: #D1007A;
+    flex-shrink: 0;
   }
 
-  .header__phone:hover {
-    color: #D1007A;
-    background: rgba(233, 30, 140, 0.05);
+  .header__phone-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
   }
-
-  .header__phone svg {
-    color: #D1007A;
+  .header__phone-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #8b8b95;
+  }
+  .header__phone-num {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1a1a26;
+    margin-top: 2px;
   }
 
   .header__cta {
     display: inline-flex;
     align-items: center;
-    padding: 14px 28px;
-    font-size: 0.95rem;
+    gap: 8px;
+    padding: 12px 22px;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 60%, #7A2BC2 100%);
+    background-size: 200% 100%;
+    background-position: 0% 50%;
     border-radius: 50px;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
-    transition: all 0.2s ease;
+    box-shadow:
+      0 1px 2px rgba(209, 0, 122, 0.25),
+      0 6px 18px rgba(209, 0, 122, 0.28);
+    transition: background-position .35s ease, box-shadow .25s ease, transform .15s ease;
+    letter-spacing: 0.02em;
   }
-
   .header__cta:hover {
-    box-shadow: 0 6px 20px rgba(233, 30, 140, 0.4);
+    background-position: 100% 50%;
+    box-shadow:
+      0 1px 2px rgba(209, 0, 122, 0.3),
+      0 10px 26px rgba(209, 0, 122, 0.38);
     transform: translateY(-1px);
   }
+  .header__cta:active { transform: translateY(0); }
+  .header__cta svg { transition: transform .2s ease; }
+  .header__cta:hover svg { transform: translateX(3px); }
 
   /* Mobile Toggle */
   .header__toggle {
     display: none;
     flex-direction: column;
     justify-content: center;
-    gap: 6px;
-    width: 48px;
-    height: 48px;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
     padding: 12px;
     background: none;
-    border: none;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.2s ease;
+    transition: background .2s ease, border-color .2s ease;
   }
-
-  .header__toggle:active {
-    background: rgba(0, 0, 0, 0.05);
-  }
+  .header__toggle:hover { background: rgba(15, 15, 30, 0.03); border-color: rgba(15, 15, 30, 0.14); }
+  .header__toggle:active { background: rgba(15, 15, 30, 0.05); }
 
   .header__toggle span {
     display: block;
-    width: 24px;
+    width: 20px;
     height: 2px;
-    background: #333;
+    background: #2a2a35;
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: transform .25s ease, opacity .2s ease;
   }
-
-  .header__toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .header__toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .header__toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
+  .header__toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .header__toggle.active span:nth-child(2) { opacity: 0; }
+  .header__toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
   /* Mobile Menu */
   .mobile-menu {
     display: none;
     position: fixed;
-    top: calc(38px + 111px);
+    top: calc(38px + 82px);
     left: 0;
     right: 0;
     bottom: 0;
     background: #ffffff;
     overflow-y: auto;
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
   }
-
-  .mobile-menu.active {
-    transform: translateX(0);
-  }
+  .mobile-menu.active { transform: translateX(0); }
 
   .mobile-menu__inner {
     padding: 20px;
@@ -626,9 +657,7 @@ const isActive = (item: typeof menuItems[0]) => {
     flex: 1;
   }
 
-  .mobile-menu__item {
-    border-bottom: 1px solid #f0f0f0;
-  }
+  .mobile-menu__item { border-bottom: 1px solid #f0f0f0; }
 
   .mobile-menu__link {
     display: flex;
@@ -636,41 +665,24 @@ const isActive = (item: typeof menuItems[0]) => {
     justify-content: space-between;
     width: 100%;
     padding: 16px 0;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 500;
-    color: #333;
+    color: #2a2a35;
     text-decoration: none;
     background: none;
     border: none;
     cursor: pointer;
     text-align: left;
   }
-
-  .mobile-menu__link.active {
-    color: #D1007A;
-  }
-
-  .mobile-menu__link svg {
-    transition: transform 0.2s ease;
-  }
-
-  .mobile-menu__item.open > .mobile-menu__trigger svg {
-    transform: rotate(180deg);
-  }
+  .mobile-menu__link.active { color: #D1007A; }
+  .mobile-menu__link svg { transition: transform .25s ease; }
+  .mobile-menu__item.open > .mobile-menu__trigger svg { transform: rotate(180deg); }
 
   /* Mobile Submenu */
-  .mobile-menu__submenu {
-    display: none;
-    padding-bottom: 16px;
-  }
+  .mobile-menu__submenu { display: none; padding-bottom: 16px; }
+  .mobile-menu__item.open .mobile-menu__submenu { display: block; }
 
-  .mobile-menu__item.open .mobile-menu__submenu {
-    display: block;
-  }
-
-  .mobile-menu__group {
-    margin-bottom: 8px;
-  }
+  .mobile-menu__group { margin-bottom: 8px; }
 
   .mobile-menu__group-header {
     display: flex;
@@ -678,29 +690,19 @@ const isActive = (item: typeof menuItems[0]) => {
     gap: 8px;
     width: 100%;
     padding: 12px 16px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: #333;
-    background: rgba(0, 0, 0, 0.02);
+    color: #2a2a35;
+    background: rgba(15, 15, 30, 0.025);
     border: none;
     border-left: 3px solid var(--column-color, #D1007A);
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     text-align: left;
   }
-
-  .mobile-menu__group-icon {
-    font-size: 1rem;
-  }
-
-  .mobile-menu__group-header svg {
-    margin-left: auto;
-    transition: transform 0.2s ease;
-  }
-
-  .mobile-menu__group.open .mobile-menu__group-header svg {
-    transform: rotate(180deg);
-  }
+  .mobile-menu__group-icon { font-size: 1rem; }
+  .mobile-menu__group-header svg { margin-left: auto; transition: transform .25s ease; }
+  .mobile-menu__group.open .mobile-menu__group-header svg { transform: rotate(180deg); }
 
   .mobile-menu__group-list {
     display: none;
@@ -708,29 +710,25 @@ const isActive = (item: typeof menuItems[0]) => {
     padding: 8px 0 8px 24px;
     margin: 0;
   }
-
-  .mobile-menu__group.open .mobile-menu__group-list {
-    display: block;
-  }
+  .mobile-menu__group.open .mobile-menu__group-list { display: block; }
 
   .mobile-menu__sublink {
     display: block;
     padding: 10px 16px;
-    font-size: 0.95rem;
-    color: #555;
+    font-size: 0.92rem;
+    color: #555560;
     text-decoration: none;
     border-radius: 6px;
   }
-
   .mobile-menu__sublink:hover {
     color: #D1007A;
-    background: rgba(233, 30, 140, 0.05);
+    background: rgba(209, 0, 122, 0.05);
   }
 
   .mobile-menu__view-all {
     display: block;
     padding: 10px 16px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: #D1007A;
     text-decoration: none;
@@ -751,16 +749,13 @@ const isActive = (item: typeof menuItems[0]) => {
     padding: 14px;
     font-size: 1rem;
     font-weight: 500;
-    color: #333;
+    color: #2a2a35;
     text-decoration: none;
-    background: #f8f8f8;
+    background: #f8f8fa;
     border-radius: 10px;
     margin-bottom: 12px;
   }
-
-  .mobile-menu__phone svg {
-    color: #D1007A;
-  }
+  .mobile-menu__phone svg { color: #D1007A; }
 
   .mobile-menu__cta {
     display: block;
@@ -771,90 +766,52 @@ const isActive = (item: typeof menuItems[0]) => {
     color: #ffffff;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.3);
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.3);
   }
 
   /* =====================================================
      RESPONSIVE
      ===================================================== */
-  @media (max-width: 1200px) {
-    .mega-menu__container {
-      grid-template-columns: repeat(4, 200px);
-    }
+  @media (max-width: 1280px) {
+    .header__container { padding: 14px 24px; gap: 18px; }
+    .header__menu { gap: 0; }
+    .header__link { padding: 10px 11px; font-size: 0.88rem; }
+    .header__phone-text { display: none; }
+    .header__phone { padding: 6px; }
+  }
 
-    .mega-menu__column {
-      padding: 20px 16px;
-    }
+  @media (max-width: 1100px) {
+    .mega-menu__container { grid-template-columns: repeat(4, 200px); }
+    .mega-menu__column { padding: 20px 16px; }
   }
 
   @media (max-width: 1024px) {
     .header__nav,
-    .header__actions {
-      display: none;
-    }
-
-    .header__toggle {
-      display: flex;
-    }
-
-    .mobile-menu {
-      display: block;
-    }
+    .header__actions { display: none; }
+    .header__toggle { display: flex; }
+    .mobile-menu { display: block; }
+    .header__container { padding: 14px 20px; min-height: 76px; }
+    .header__logo img { height: 50px; }
   }
 
   @media (max-width: 768px) {
-    .header {
-      top: 34px;
-    }
-
-    .header__container {
-      padding: 22px 16px;
-      min-height: 92px;
-    }
-
-    .header__logo img {
-      max-height: 72px;
-      max-width: 230px;
-    }
-
-    .mobile-menu {
-      top: calc(34px + 92px);
-    }
+    .header { top: 34px; }
+    .header__container { padding: 12px 16px; min-height: 68px; }
+    .header__logo img { height: 44px; max-width: 200px; }
+    .mobile-menu { top: calc(34px + 68px); }
   }
 
   @media (max-width: 480px) {
-    .header {
-      top: 30px;
-    }
-
-    .header__container {
-      padding: 18px 12px;
-      min-height: 78px;
-    }
-
-    .header__logo img {
-      max-height: 60px;
-      max-width: 190px;
-    }
-
-    .mobile-menu {
-      top: calc(30px + 78px);
-    }
-
-    .mobile-menu__inner {
-      padding: 16px;
-    }
-
-    .mobile-menu__link {
-      padding: 14px 0;
-      font-size: 1rem;
-    }
+    .header { top: 30px; }
+    .header__container { padding: 10px 12px; min-height: 60px; }
+    .header__logo img { height: 38px; max-width: 170px; }
+    .mobile-menu { top: calc(30px + 60px); }
+    .mobile-menu__inner { padding: 16px; }
+    .mobile-menu__link { padding: 14px 0; font-size: 1rem; }
   }
 
   /* Body scroll lock when menu is open */
-  :global(body.menu-open) {
-    overflow: hidden;
-  }
+  :global(body.menu-open) { overflow: hidden; }
 </style>

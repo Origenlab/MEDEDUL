@@ -500,8 +500,7 @@ const estaciones = [
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
-<style>
-  /* Galeria Section */
+<style>/* Galeria Section */
   .galeria-section {
     padding: 100px 0;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
@@ -786,7 +785,7 @@ const estaciones = [
   }
 
   .btn-estaciones {
-    display: inline-block;
+display: inline-block;
     background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
     color: #fff;
     padding: 16px 40px;
@@ -801,53 +800,53 @@ const estaciones = [
   @media (max-width: 1024px) {
     .galeria-bento {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto;
-    }
+    grid-template-rows: auto;
+  }
 
-    .galeria-item:nth-child(1) {
-      grid-column: span 2;
-      grid-row: span 1;
-    }
+  .galeria-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
 
-    .galeria-item:nth-child(5),
+  .galeria-item:nth-child(5),
     .galeria-item:nth-child(6) {
-      grid-column: span 1;
-    }
+    grid-column: span 1;
+  }
 
-    .incluye-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .incluye-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    .estaciones-grid {
-      grid-template-columns: 1fr;
-    }
+  .estaciones-grid {
+    grid-template-columns: 1fr;
+  }
+
   }
 
   @media (max-width: 768px) {
     .incluye-grid {
       grid-template-columns: 1fr;
-    }
-
-    .otras-estaciones {
-      padding: 60px 0;
-    }
-
-    .estaciones-header h2 {
-      font-size: 1.6rem;
-    }
-
-    .estacion-image {
-      height: 160px;
-    }
-
-    .estacion-content {
-      padding: 20px;
-    }
-
-    .estacion-content h3 {
-      font-size: 1.1rem;
-    }
-
   }
+
+  .otras-estaciones {
+    padding: 60px 0;
+  }
+
+  .estaciones-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .estacion-image {
+    height: 160px;
+  }
+
+  .estacion-content {
+    padding: 20px;
+  }
+
+  .estacion-content h3 {
+    font-size: 1.1rem;
+  }
+}
 </style>
 

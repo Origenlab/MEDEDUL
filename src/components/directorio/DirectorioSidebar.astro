@@ -3,7 +3,7 @@
  * DirectorioSidebar - Sidebar para páginas del directorio
  * Proporciona interlinking con servicios y secciones del sitio
  */
-import { getEstadisticasDirectorio, getDulceriasDestacadas, getDulceriasPorEstado, getMunicipiosConDulcerias } from '@/data/dulcerias';
+import { getEstadisticasDirectorio, getDulceriasDestacadas, getDulceriasPorEstado, getMunicipiosConDulcerias, getMunicipiosTolucaConDulcerias } from '@/data/dulcerias';
 
 interface Props {
   currentSlug?: string;
@@ -43,12 +43,16 @@ const eventos = [
   { label: 'Cumpleaños', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', icon: '🎂' }
 ];
 
-// Zonas con datos reales
-const dulceriasEdomexCount = getDulceriasPorEstado('edomex').length;
-const municipiosActivosCount = getMunicipiosConDulcerias().length;
+// Zonas con datos reales — 3 regiones
+const dulceriasCdmxCount = stats.porRegion.cdmx;
+const dulceriasEdomexCount = stats.porRegion.edomex;
+const municipiosEdomexCount = getMunicipiosConDulcerias().length;
+const dulceriasTolucaCount = stats.porRegion.toluca;
+const municipiosTolucaCount = getMunicipiosTolucaConDulcerias().length;
 const zonas = [
-  { label: 'CDMX', href: '/directorio/cdmx', count: `${stats.alcaldias} alcaldías` },
-  { label: 'Estado de México', href: '/directorio/edomex', count: `${dulceriasEdomexCount} en ${municipiosActivosCount} municipios` }
+  { label: 'CDMX', href: '/directorio/cdmx', count: `${dulceriasCdmxCount} dulcerías` },
+  { label: 'Estado de México', href: '/directorio/edomex', count: `${dulceriasEdomexCount} en ${municipiosEdomexCount} municipios` },
+  { label: 'Valle de Toluca', href: '/directorio/toluca', count: `${dulceriasTolucaCount} en ${municipiosTolucaCount} municipios` }
 ];
 
 const categorias = [
@@ -70,7 +74,7 @@ const categorias = [
     </div>
     <div class="stat-row">
       <span class="stat-num">{stats.alcaldias}</span>
-      <span class="stat-txt">Alcaldías</span>
+      <span class="stat-txt">Zonas</span>
     </div>
     <div class="stat-row">
       <span class="stat-num">{Math.round(stats.totalResenas / 1000)}k+</span>
@@ -186,9 +190,9 @@ const categorias = [
       Blog & Consejos
     </h4>
     <ul class="sidebar-list">
-      <li><a href="/blog/mesa-de-dulces-cdmx-guia-completa" class="sidebar-link sidebar-link--articulo">Guía: Mesa de Dulces CDMX</a></li>
-      <li><a href="/blog/tendencias-mesas-dulces-2025" class="sidebar-link sidebar-link--articulo">Tendencias 2025</a></li>
-      <li><a href="/blog/cuantos-dulces-necesito-para-mi-fiesta" class="sidebar-link sidebar-link--articulo">¿Cuántos dulces necesito?</a></li>
+      <li><a href="/blog/mesa-dulces-bodas-guia-completa" class="sidebar-link sidebar-link--articulo">Guía: Mesa de Dulces Bodas</a></li>
+      <li><a href="/blog/tendencias-candy-bar-bodas-2025" class="sidebar-link sidebar-link--articulo">Tendencias 2025</a></li>
+      <li><a href="/blog/mesa-de-dulces-toluca-guia-completa" class="sidebar-link sidebar-link--articulo">Guía: Mesa de Dulces Toluca</a></li>
     </ul>
     <a href="/blog" class="sidebar-ver-mas">Ver todos los artículos →</a>
   </div>
@@ -271,7 +275,6 @@ const categorias = [
     font-weight: 700;
     text-decoration: none;
     border-radius: 50px;
-    transition: all 0.3s;
   }
 
   .sidebar-cta-btn:hover {
@@ -323,7 +326,6 @@ const categorias = [
     color: var(--texto-light);
     text-decoration: none;
     border-radius: 10px;
-    transition: all 0.2s;
   }
 
   .sidebar-link:hover {
@@ -377,7 +379,6 @@ const categorias = [
     font-weight: 600;
     color: var(--rosa-principal);
     text-decoration: none;
-    transition: gap 0.2s;
   }
 
   .sidebar-ver-mas:hover {
@@ -404,7 +405,6 @@ const categorias = [
     font-size: 0.95rem;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
   }
 
   .sidebar-telefono {
@@ -431,8 +431,7 @@ const categorias = [
 
   .sidebar-whatsapp:hover {
     background: #128C7E;
-    transform: translateY(-2px);
-  }
+}
 
   .sidebar-whatsapp svg {
     width: 22px;

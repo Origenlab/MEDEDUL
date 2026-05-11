@@ -226,6 +226,31 @@ main a:not(.btn):not([class*="btn-"]):not(.service-card__cta):not(.service-card_
   text-underline-offset: 3px;
 }
 
+/* Override: cards, sidebar, paginacion y navegacion no llevan subrayado */
+main .post-card a,
+main .post-card-title a,
+main .post-card-media,
+main .blog-sidebar a,
+main .blog-pagination a,
+main .article-card a,
+main .article-card h3 a,
+main .blog-posts-grid a,
+main .related-articles a,
+main .sidebar-widget a {
+  text-decoration: none !important;
+}
+
+main .post-card a:hover,
+main .post-card-title a:hover,
+main .blog-sidebar a:hover,
+main .blog-pagination a:hover,
+main .article-card a:hover,
+main .article-card h3 a:hover,
+main .related-articles a:hover,
+main .sidebar-widget a:hover {
+  text-decoration: none !important;
+}
+
 /* ====================================================
    5. HERO — full width fluido
    ==================================================== */

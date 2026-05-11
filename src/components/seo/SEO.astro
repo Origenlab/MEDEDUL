@@ -47,11 +47,14 @@ const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;
 <!-- Canonical -->
 <link rel="canonical" href={canonicalUrl} />
 
-<!-- Geo Tags -->
+<!-- Geo Tags · Cobertura CDMX + Estado de México + Valle de Toluca -->
 <meta name="geo.region" content="MX-CMX" />
-<meta name="geo.placename" content="Ciudad de Mexico" />
+<meta name="geo.region" content="MX-MEX" />
+<meta name="geo.placename" content="Ciudad de Mexico, Toluca, Metepec" />
 <meta name="geo.position" content="19.4326;-99.1332" />
 <meta name="ICBM" content="19.4326, -99.1332" />
+<meta name="coverage" content="CDMX, Estado de Mexico, Toluca, Metepec, Zinacantepec, Lerma, Calimaya" />
+<meta name="target" content="Ciudad de Mexico, Toluca, Metepec y Valle de Toluca" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />

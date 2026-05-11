@@ -1,133 +1,55 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.tipo === 'Dulcería Tradicional' ||
-  d.especialidades.some(e => e.toLowerCase().includes('tradicional'))
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.tipo === 'Dulcería Tradicional' ||
+      d.especialidades.some((e) => e.toLowerCase().includes('tradicional'))
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Dulces Tradicionales', url: '/directorio/categorias/dulces-tradicionales' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
     question: '¿Qué son los dulces tradicionales mexicanos?',
-    answer: 'Los dulces tradicionales mexicanos incluyen alegrías, cocadas, mazapanes, tamarindos, palanquetas, borrachitos, obleas y más. Son dulces artesanales con recetas que pasan de generación en generación.'
+    answer: 'Dulces artesanales con recetas de generación en generación: alegrías, cocadas, mazapanes, tamarindos enchilados y de dulce, palanquetas de cacahuate o ajonjolí, borrachitos, obleas rellenas de cajeta, jamoncillos de leche, cubiertos de camote y calabaza, muéganos, charamuscas y glorias. Varían por región — Estado de México y Puebla son dos polos históricos.'
   },
   {
-    question: '¿Dónde comprar dulces tradicionales al mayoreo en CDMX?',
-    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen dulces tradicionales. Las mejores opciones al mayoreo están en La Merced y el corredor de Norte 70 en Gustavo A. Madero.`
+    question: '¿Dónde comprar dulces tradicionales al mayoreo en la zona metropolitana?',
+    answer: `El directorio MEDEDUL reúne ${dulcerias.length} dulcerías con dulce tradicional mexicano. Las mejores opciones mayoristas están en La Merced (Venustiano Carranza, CDMX) y Norte 70 (Gustavo A. Madero). En Estado de México destacan mercados de Texcoco y Chalco; en Valle de Toluca hay artesanía mexiquense en centro de Toluca y Pueblo Mágico de Metepec.`
   },
   {
     question: '¿Los dulces tradicionales sirven para mesas de dulces?',
-    answer: 'Sí, son perfectos para mesas de dulces temáticas mexicanas. Alegrías, cocadas y mazapanes son opciones muy populares para fiestas patrias, bodas mexicanas y eventos con temática tradicional.'
+    answer: 'Son perfectos para mesas con temática mexicana: bodas rancheras, XV años con folklor, fiestas patrias, bautizos con concepto tradicional. Alegrías, cocadas, mazapanes y palanquetas acompañan frutas cristalizadas, aguas frescas y postres de convento. También ideales para bolos de recuerdo con estética artesanal.'
+  },
+  {
+    question: '¿Cómo conservar dulces tradicionales si compro con anticipación?',
+    answer: 'La mayoría aguanta 2–4 semanas en seco y fresco (alegrías, palanquetas, mazapanes). Cocadas y borrachitos pierden textura después de 10 días. Dulces con leche (jamoncillos, cajeta) prefieren refrigeración si el evento es en temporada cálida. Comprar 3–5 días antes del evento suele ser el punto dulce entre frescura y organización.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye dulces tradicionales específicos, precios por kilo o pieza y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Dulces Tradicionales Mexicanos | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra las mejores dulcerías de dulces tradicionales mexicanos en CDMX. ${dulcerias.length} tiendas verificadas. Alegrías, cocadas, mazapanes y más.`}
-  canonical="/directorio/categorias/dulces-tradicionales"
-  ogImage="/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Dulces Tradicionales Mexicanos"
-    highlight="Tradicionales"
-    subtitle={`${dulcerias.length} tiendas verificadas con mazapan, cocada, alegria, tamarindo y glorias de Linares en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria dulces tradicionales mexicanos</strong> agrupa a los proveedores que mantienen vivas las recetas clasicas del pais: mazapan de cacahuate, cocada artesanal, alegrias de amaranto, palanquetas, tamarindos enchilados, obleas rellenas, glorias de Linares, ates de Morelia y muchos mas. Filtramos tiendas con producto fresco, etiquetado claro y origen verificable para eventos con identidad mexicana.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten comparar regiones de origen, presentaciones y precios al mayoreo antes de montar una mesa de dulces tradicional, cerrar una boda tematica, armar bolos para XV anos o regalar cajas de dulces mexicanos a clientes. Cada ficha incluye telefono, horario y especialidad para decisiones rapidas respaldadas por resenas reales en Google Maps.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Dulcerías de"
-        titleHighlight="Dulces Tradicionales"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+<CategoriaLayout
+  categoriaNombre="Dulces Tradicionales"
+  categoriaSlug="dulces-tradicionales"
+  metaTitle={`Dulces Tradicionales Mexicanos | ${dulcerias.length} Tiendas Verificadas`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} dulcerías con dulces tradicionales mexicanos en CDMX, Edo Mex y Valle de Toluca. Alegrías, cocadas, mazapanes, palanquetas, borrachitos y jamoncillos artesanales con reseñas reales.`}
+  heroTitle="Categoría Dulces Tradicionales Mexicanos"
+  heroHighlight="Dulces Tradicionales"
+  heroSubtitle={`${dulcerias.length} dulcerías verificadas con dulce típico mexicano artesanal en 3 regiones`}
+  heroBody={`<p><strong>Categoría dulces tradicionales</strong> reúne a las dulcerías históricas del centro de México especializadas en alegrías, cocadas, mazapanes, tamarindos, palanquetas, borrachitos y dulce de leche. Son productos artesanales con recetas que pasan de generación en generación, ideales para mesas de dulces con temática mexicana, bodas rancheras, XV años con folklor y fiestas patrias.</p><p><strong>${dulcerias.length} dulcerías verificadas</strong> en CDMX, Estado de México y Valle de Toluca te permiten comparar precios por kilo, frescura y especialidad regional. Cada ficha incluye dirección, teléfono, horarios y reseñas reales de Google Maps para que compres directamente con productores o mayoristas sin intermediarios.</p>`}
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Dulcerías de"
+  sectionHighlight="Dulces Tradicionales"
+/>

@@ -1,0 +1,478 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import DirectorioSidebar from '@/components/directorio/DirectorioSidebar.astro';
+import type { Dulceria } from '@/data/dulcerias';
+
+export interface Props {
+  categoriaNombre: string;
+  categoriaSlug: string;
+  metaTitle: string;
+  metaDescription: string;
+  heroTitle: string;
+  heroHighlight: string;
+  heroSubtitle: string;
+  heroBody: string;
+  ogImage: string;
+  dulcerias: Dulceria[];
+  faqs: { question: string; answer: string }[];
+  sectionTitle: string;
+  sectionHighlight: string;
+}
+
+const {
+  categoriaNombre,
+  categoriaSlug,
+  metaTitle,
+  metaDescription,
+  heroTitle,
+  heroHighlight,
+  heroSubtitle,
+  heroBody,
+  ogImage,
+  dulcerias,
+  faqs,
+  sectionTitle,
+  sectionHighlight
+} = Astro.props;
+
+const breadcrumbItems = [
+  { name: 'Directorio', url: '/directorio' },
+  { name: categoriaNombre, url: `/directorio/categorias/${categoriaSlug}` }
+];
+
+// Agregados por región
+const porRegion = {
+  cdmx: dulcerias.filter((d) => (d.estadoSlug ?? 'cdmx') === 'cdmx').length,
+  edomex: dulcerias.filter((d) => d.estadoSlug === 'edomex').length,
+  toluca: dulcerias.filter((d) => d.estadoSlug === 'toluca').length
+};
+
+const regiones = [
+  { slug: 'todos', label: 'Todas las regiones', count: dulcerias.length },
+  { slug: 'cdmx', label: 'CDMX', count: porRegion.cdmx },
+  { slug: 'edomex', label: 'Estado de México', count: porRegion.edomex },
+  { slug: 'toluca', label: 'Valle de Toluca', count: porRegion.toluca }
+];
+
+const totalResenas = dulcerias.reduce((sum, d) => sum + d.resenas, 0);
+const promedioRating =
+  dulcerias.length > 0
+    ? (dulcerias.reduce((sum, d) => sum + d.rating, 0) / dulcerias.length).toFixed(1)
+    : '0';
+const destacadas = dulcerias.filter((d) => d.destacado).length;
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: categoriaNombre,
+      item: `https://mesas-de-dulces.com/directorio/categorias/${categoriaSlug}`
+    }
+  ]
+};
+
+// JSON-LD: FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+// JSON-LD: CollectionPage + ItemList de negocios
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${categoriaNombre} — Directorio de Proveedores`,
+  description: metaDescription,
+  url: `https://mesas-de-dulces.com/directorio/categorias/${categoriaSlug}`,
+  about: {
+    '@type': 'Thing',
+    name: categoriaNombre
+  }
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Proveedores de ${categoriaNombre}`,
+  description: `Directorio verificado de ${dulcerias.length} proveedores de ${categoriaNombre.toLowerCase()} en CDMX, Estado de México y Valle de Toluca.`,
+  numberOfItems: dulcerias.length,
+  itemListElement: dulcerias.slice(0, 20).map((d, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://mesas-de-dulces.com/directorio/${d.slug}`,
+    item: {
+      '@type': 'LocalBusiness',
+      '@id': `https://mesas-de-dulces.com/directorio/${d.slug}#business`,
+      name: d.nombre,
+      url: `https://mesas-de-dulces.com/directorio/${d.slug}`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: d.direccion,
+        addressLocality: d.alcaldia,
+        addressRegion: (d.estadoSlug ?? 'cdmx') === 'cdmx' ? 'CDMX' : 'MEX',
+        addressCountry: 'MX',
+        postalCode: d.cp
+      },
+      ...(d.telefono !== 'Sin teléfono registrado' && d.telefono !== 'Ver en Google Maps'
+        ? { telephone: `+52${d.telefono.replace(/\s/g, '')}` }
+        : {}),
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: d.rating,
+        reviewCount: d.resenas
+      }
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  canonical={`/directorio/categorias/${categoriaSlug}`}
+  ogImage={ogImage}
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title={heroTitle}
+    highlight={heroHighlight}
+    subtitle={heroSubtitle}
+    secondaryContent={heroBody}
+  />
+
+  <!-- Stats de Categoría -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-numero">{dulcerias.length}</span>
+          <span class="stat-label">Tiendas verificadas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{promedioRating}</span>
+          <span class="stat-label">Rating promedio Google</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{totalResenas.toLocaleString('es-MX')}</span>
+          <span class="stat-label">Reseñas reales en Maps</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-numero">{destacadas > 0 ? destacadas : '100%'}</span>
+          <span class="stat-label">{destacadas > 0 ? 'Destacadas por MEDEDUL' : 'Verificados'}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtro por región + Listado -->
+  <section class="categoria-listado">
+    <div class="container">
+      <SectionHeader
+        title={sectionTitle}
+        titleHighlight={sectionHighlight}
+        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps · filtra por región`}
+      />
+
+      <div class="filtros-regiones">
+        {regiones.map((r, i) => (
+          <button class={`filtro-region-btn ${i === 0 ? 'active' : ''}`} data-region={r.slug}>
+            {r.label}
+            <span class="filtro-region-count">{r.count}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="directorio-grid">
+        <main class="directorio-main">
+          <div class="proveedores-grid" id="categoria-grid">
+            {dulcerias.map((prov) => (
+              <div class="proveedor-wrapper" data-region={prov.estadoSlug ?? 'cdmx'}>
+                <DulceriaCard dulceria={prov} />
+              </div>
+            ))}
+          </div>
+          <div class="ver-directorio">
+            <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
+          </div>
+        </main>
+        <DirectorioSidebar currentSlug={categoriaSlug} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-links a los 3 hubs regionales -->
+  <section class="cross-link-section">
+    <div class="container">
+      <SectionHeader
+        title="Explora por"
+        titleHighlight="Región"
+        subtitle="Cambia a directorio geolocalizado por alcaldía o municipio"
+      />
+      <div class="cross-links-grid">
+        <a href="/directorio/cdmx" class="cross-link-card">
+          <h3>CDMX</h3>
+          <p>{porRegion.cdmx} tiendas en 16 alcaldías</p>
+        </a>
+        <a href="/directorio/edomex" class="cross-link-card">
+          <h3>Estado de México</h3>
+          <p>{porRegion.edomex} tiendas en zona conurbada y oriente</p>
+        </a>
+        <a href="/directorio/toluca" class="cross-link-card">
+          <h3>Valle de Toluca</h3>
+          <p>{porRegion.toluca} tiendas en ZMVT</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const grid = document.getElementById('categoria-grid');
+    if (!grid) return;
+    const botones = document.querySelectorAll('.filtro-region-btn');
+    botones.forEach((b) => {
+      b.addEventListener('click', () => {
+        botones.forEach((x) => x.classList.remove('active'));
+        b.classList.add('active');
+        const region = b.dataset.region || 'todos';
+        grid.querySelectorAll('.proveedor-wrapper').forEach((el) => {
+          const r = el.dataset.region || 'cdmx';
+          el.style.display = region === 'todos' || r === region ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .stats-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #a0005f 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    color: #fff;
+  }
+
+  .stat-numero {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .categoria-listado {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .filtros-regiones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 40px 0;
+  }
+
+  .filtro-region-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #fafafa;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    cursor: pointer;
+}
+
+  .filtro-region-btn:hover {
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .filtro-region-btn.active {
+    background: var(--rosa-principal);
+    border-color: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .filtro-region-count {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .filtro-region-btn:not(.active) .filtro-region-count {
+    background: rgba(209, 0, 122, 0.1);
+    color: var(--rosa-principal);
+  }
+
+  .directorio-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .directorio-main {
+    min-width: 0;
+  }
+
+  .proveedores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .ver-directorio {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn-directorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: #fff;
+    border: 2px solid var(--rosa-principal);
+    border-radius: 50px;
+    color: var(--rosa-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-directorio:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .cross-link-section {
+    padding: 60px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cross-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .cross-link-card {
+    display: block;
+    padding: 28px 24px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(209, 0, 122, 0.12);
+    text-decoration: none;
+    text-align: center;
+}
+
+  .cross-link-card:hover {
+    border-color: var(--rosa-principal);
+
+    box-shadow: 0 8px 30px rgba(209, 0, 122, 0.1);
+  }
+
+  .cross-link-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: var(--texto-oscuro);
+    margin: 0 0 8px;
+  }
+
+  .cross-link-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  @media (max-width: 1200px) {
+    .directorio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .cross-links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-section {
+      padding: 40px 0;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .stat-numero {
+      font-size: 2rem;
+    }
+    .categoria-listado {
+      padding: 50px 0;
+    }
+    .proveedores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proveedores-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

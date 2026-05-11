@@ -1,133 +1,55 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
-import Hero from '@/components/global/Hero.astro';
-import SectionHeader from '@/components/global/SectionHeader.astro';
-import DulceriaCard from '@/components/directorio/DulceriaCard.astro';
+import CategoriaLayout from '@/components/directorio/CategoriaLayout.astro';
 import { todasLasDulcerias } from '@/data/dulcerias';
 
-const dulcerias = todasLasDulcerias.filter(d =>
-  d.productos.some(p => p.toLowerCase().includes('paleta')) ||
-  d.especialidades.some(e => e.toLowerCase().includes('paleta'))
-).sort((a, b) => b.resenas - a.resenas);
+const dulcerias = todasLasDulcerias
+  .filter(
+    (d) =>
+      d.productos.some((p) => p.toLowerCase().includes('paleta')) ||
+      d.especialidades.some((e) => e.toLowerCase().includes('paleta'))
+  )
+  .sort((a, b) => b.resenas - a.resenas);
 
-const breadcrumbItems = [
-  { name: 'Directorio', url: '/directorio' },
-  { name: 'Paletas y Piruletas', url: '/directorio/categorias/paletas-piruletas' }
-];
+const top3 = dulcerias.slice(0, 3);
 
 const faqs = [
   {
-    question: '¿Dónde comprar paletas al mayoreo en CDMX?',
-    answer: `Tenemos ${dulcerias.length} dulcerías que ofrecen paletas y piruletas. Las mejores opciones al mayoreo están en La Merced y tiendas especializadas en toda la CDMX.`
+    question: '¿Dónde comprar paletas al mayoreo en la zona metropolitana?',
+    answer: `El directorio MEDEDUL lista ${dulcerias.length} dulcerías con paletas y piruletas en las tres regiones. Las mejores opciones mayoreo están en La Merced (CDMX) y Norte 70 (GAM). En Edo Mex destacan mayoristas de Tultitlán y Naucalpan; en Valle de Toluca hay mayoristas en 5 de Mayo y tiendas artesanales de Metepec para paletas de autor y cake pops personalizados.`
   },
   {
-    question: '¿Qué tipos de paletas encuentro?',
-    answer: 'Encontrarás paletas de caramelo, paletas enchiladas, paletas de chocolate, piruletas artesanales, cake pops, paletas de goma y muchas variedades más.'
+    question: '¿Qué tipos de paletas encuentro en el directorio?',
+    answer: 'Paletas de caramelo (Vero, De la Rosa, Indy, Rockaleta), paletas enchiladas con chamoy y tajín, paletas de chocolate tipo chocoretas, piruletas artesanales con rayas de colores, cake pops personalizados, paletas de goma, paletas rellenas, Bon Bon Bum (importada de Colombia) y paletas heladas tipo Paletón.'
   },
   {
     question: '¿Las paletas son buena opción para mesas de dulces?',
-    answer: 'Sí, las paletas y piruletas son excelentes para mesas de dulces. Se pueden personalizar con colores temáticos y son muy vistosas como decoración comestible.'
+    answer: 'Excelentes — funcionan como "estación visible" clavadas en espumas floral o bases decoradas, generan fotos muy vistosas y los invitados las toman fácilmente. Para bodas y XV años prefiere piruletas artesanales con colores pantone específicos; para fiestas infantiles paletas comerciales por costo; para eventos corporativos cake pops personalizados con logo.'
+  },
+  {
+    question: '¿Cuántas paletas necesito para mi evento?',
+    answer: 'Regla general: 1.5–2 paletas por invitado si son el dulce principal de una estación, o 0.5–1 por invitado si son complemento en mesa de dulces más amplia. Para 100 invitados: 150–200 paletas surtidas. Las piruletas artesanales/cake pops cuentan como 1 por invitado por su mayor tamaño y costo.'
+  },
+  {
+    question: '¿Qué tiendas destacan en esta categoría?',
+    answer: top3.length
+      ? `Entre los más reseñados figuran ${top3.map((d) => d.nombre).join(', ')}. Cada ficha incluye variedad de paletas, precios por pieza o paquete, capacidad de personalización y reseñas reales de Google Maps.`
+      : 'Consulta el listado para comparar por región, rating y número de reseñas.'
   }
 ];
 ---
 
-<BaseLayout
-  title={`Paletas y Piruletas | ${dulcerias.length} Tiendas en CDMX`}
-  description={`Encuentra las mejores tiendas de paletas y piruletas en CDMX. ${dulcerias.length} dulcerías verificadas con paletas artesanales, cake pops y más.`}
-  canonical="/directorio/categorias/paletas-piruletas"
+<CategoriaLayout
+  categoriaNombre="Paletas y Piruletas"
+  categoriaSlug="paletas-piruletas"
+  metaTitle={`Paletas y Piruletas | ${dulcerias.length} Tiendas en CDMX, Edo Mex y Valle de Toluca`}
+  metaDescription={`Directorio verificado de ${dulcerias.length} tiendas de paletas, piruletas y cake pops en CDMX, Estado de México y Valle de Toluca. Paletas artesanales, enchiladas, de chocolate y personalizadas para eventos con reseñas reales.`}
+  heroTitle="Categoría Paletas y Piruletas"
+  heroHighlight="Paletas"
+  heroSubtitle={`${dulcerias.length} tiendas verificadas con paletas artesanales, piruletas, cake pops y paletas enchiladas en 3 regiones`}
+  heroBody={`<p><strong>Categoría paletas y piruletas</strong> concentra a las tiendas especializadas en paletas de caramelo, paletas enchiladas, piruletas artesanales con rayas de colores, cake pops personalizados y paletas de chocolate. Ideal para mesas de dulces tipo "estación visible" clavadas en base floral, fiestas infantiles, XV años con estética vibrante y eventos corporativos con paleta de marca.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> en CDMX, Estado de México y Valle de Toluca te permiten comparar variedad, precios por pieza y capacidad de personalización. Cada ficha incluye teléfono, horarios, tipos de paleta y reseñas reales de Google Maps.</p>`}
   ogImage="/img/galeria/candy-bar-infantil-colorido.avif"
-  includeCategoryStyles={true}
->
-  <Breadcrumbs items={breadcrumbItems} />
-
-  <Hero
-    title="Categoria Paletas y Piruletas Artesanales"
-    highlight="Paletas"
-    subtitle={`${dulcerias.length} tiendas verificadas con paletas artesanales, cake pops y piruletas personalizadas en Ciudad de Mexico`}
-    secondaryContent={`<p><strong>Categoria paletas y piruletas</strong> concentra a los proveedores especializados en producto con alto impacto visual: paletas cristal transparentes, piruletas personalizadas con nombre, cake pops decorados por tematica, paletas de caramelo artesanal, paletas enchiladas estilo mexicano y piruletas gigantes para mesas de dulces fotograficas. Filtramos tiendas con entrega puntual, producto fresco y presentacion lista para evento.</p><p><strong>${dulcerias.length} tiendas verificadas</strong> te permiten cotizar piezas personalizadas para bodas, XV anos, baby showers, cumpleanos infantiles y eventos corporativos con branding. Cada ficha incluye ubicacion, horario, telefono y especialidad comprobada con resenas reales de Google Maps para que decidas rapido y confies en la calidad antes de hacer tu pedido.</p>`}
-  />
-
-  <section class="categoria-listado">
-    <div class="container">
-      <SectionHeader
-        title="Tiendas de"
-        titleHighlight="Paletas y Piruletas"
-        subtitle={`${dulcerias.length} tiendas verificadas en Google Maps`}
-      />
-      <div class="proveedores-grid">
-        {dulcerias.map(prov => (
-          <DulceriaCard dulceria={prov} />
-        ))}
-      </div>
-      <div class="ver-directorio">
-        <a href="/directorio" class="btn-directorio">Ver directorio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <FAQContactModule faqItems={faqs} />
-</BaseLayout>
-
-<style>
-  .categoria-listado {
-    padding: 80px 0;
-    background: #fff;
-  }
-
-  .proveedores-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-  }
-
-  .ver-directorio {
-    text-align: center;
-    margin-top: 40px;
-  }
-
-  .btn-directorio {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 36px;
-    background: #fff;
-    border: 2px solid var(--rosa-principal);
-    border-radius: 50px;
-    color: var(--rosa-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-directorio:hover {
-    background: var(--rosa-principal);
-    color: #fff;
-  }
-
-  @media (max-width: 1200px) {
-    .proveedores-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .categoria-listado,
-    .faq-section {
-      padding: 50px 0;
-    }
-
-    .proveedores-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proveedores-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  dulcerias={dulcerias}
+  faqs={faqs}
+  sectionTitle="Tiendas de"
+  sectionHighlight="Paletas y Piruletas"
+/>

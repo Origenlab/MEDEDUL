@@ -6,7 +6,7 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string().max(150), // Extended to accommodate longer SEO titles
     description: z.string().max(300), // Extended for longer meta descriptions
-    publishDate: z.coerce.date(),
+    publishDate: z.coerce.date().optional(),
     modifiedDate: z.coerce.date().optional(),
     category: z.enum([
       'bodas',

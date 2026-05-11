@@ -3,14 +3,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
-import { getDulceriasPorMunicipio, getDulceriasPorEstado, municipiosInfo } from '@/data/dulcerias';
+import {
+  getDulceriasPorMunicipio,
+  getDulceriasPorEstado,
+  municipiosInfo
+} from '@/data/dulcerias';
 
 const breadcrumbItems = [
   { name: 'Directorio', url: '/directorio' },
   { name: 'Estado de México', url: '/directorio/edomex' }
 ];
 
-// Calcular municipios dinámicamente desde la base de datos
+// Conteo dinámico de proveedores por municipio
 const municipiosConteo = Object.entries(municipiosInfo).map(([slug, info]) => ({
   nombre: info.nombre,
   slug,
@@ -18,24 +22,160 @@ const municipiosConteo = Object.entries(municipiosInfo).map(([slug, info]) => ({
 })).sort((a, b) => b.proveedores - a.proveedores);
 
 const totalProveedores = getDulceriasPorEstado('edomex').length;
-const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length;
+const municipiosActivos = municipiosConteo.filter((m) => m.proveedores > 0).length;
+
+// Segmentación geográfica profesional — dos corredores del Edo Mex (Valle de Toluca vive en su propia región)
+const zonasEdomex = [
+  {
+    id: 'zona-conurbada',
+    titulo: 'Zona Conurbada (ZMVM)',
+    subtitulo: 'Norte y nororiente de la metrópoli',
+    descripcion: 'Municipios que comparten continuo urbano con la CDMX. Es la franja con mayor densidad de dulcerías del estado, conectada por Vía López Portillo, Gustavo Baz, Periférico Norte, Circuito Exterior Mexiquense y las líneas 4, 6, B y 12 del Metro.',
+    municipios: ['naucalpan', 'tlalnepantla', 'nezahualcoyotl', 'ecatepec', 'atizapan', 'coacalco', 'tultitlan', 'cuautitlan-izcalli', 'nicolas-romero', 'tecamac']
+  },
+  {
+    id: 'oriente-chalco',
+    titulo: 'Oriente y Valle de Chalco',
+    subtitulo: 'Texcoco, Chalco y municipios rurales',
+    descripcion: 'Corredor oriente del estado. Texcoco es referencia histórica de dulces típicos mexicanos; Chalco abastece fiestas del sector popular con mayoreo de bajo ticket. Accesos por Autopista Peñón–Texcoco y Carretera Federal México–Puebla.',
+    municipios: ['texcoco', 'chalco']
+  }
+] as const;
+
+// Mapa municipio → zona para mostrar en tarjeta
+const municipioZona: Record<string, string> = {};
+zonasEdomex.forEach((z) => z.municipios.forEach((m) => { municipioZona[m] = z.titulo; }));
+
+// FAQ regional — cinco preguntas densas con keywords reales
+const faqsRegion = [
+  {
+    pregunta: '¿Por qué conviene comprar dulces dentro del Estado de México en vez de cruzar a CDMX?',
+    respuesta: `Para eventos realizados en la zona conurbada u oriente del estado, surtir dentro del Edo Mex reduce logística, traslados y riesgo de derretimiento de chocolate en el trayecto. Nuestro directorio reúne ${totalProveedores} proveedores verificados en ${municipiosActivos} municipios, con horarios, rutas y teléfonos revisados. Mayoristas como los de Central de Abasto Tultitlán y Tianguis de Texcoco ofrecen precios competitivos con mercados de CDMX sin el costo del cruce. Nota: el Valle de Toluca tiene directorio independiente dado que es una zona metropolitana distinta con logística propia.`
+  },
+  {
+    pregunta: '¿Qué tipos de negocios de dulces existen en el directorio de Edo Mex?',
+    respuesta: 'El directorio clasifica los proveedores en cuatro categorías: tiendas de golosinas (línea completa para fiestas infantiles), dulcerías mayoreo (abasto a revendedores y eventos grandes), tiendas de golosinas premium (chocolatería fina, importados y regalo gourmet) y dulcerías tradicionales (dulce típico mexicano y artesanía regional). Cada ficha especifica la categoría y los productos clave para que elijas según el tipo de evento.'
+  },
+  {
+    pregunta: '¿Los proveedores del directorio tienen tienda en línea o sólo atención presencial?',
+    respuesta: 'La mayoría opera exclusivamente presencial: se atiende en mostrador, pedidos especiales por teléfono o WhatsApp y entregas por mensajería local o recolección directa. Por esa razón el directorio incluye direcciones exactas, referencias de corredor y teléfonos verificados — el contacto real es telefónico o visita física. Algunos permiten apartar bolos y piñatas con anticipación.'
+  },
+  {
+    pregunta: '¿Dónde se concentran las dulcerías mayoristas del Estado de México?',
+    respuesta: 'Dos polos principales en la zona metropolitana: (1) Central de Abasto de Tultitlán, principal nodo mayorista del norte metropolitano; (2) Mercados de Texcoco y Chalco, especializados en dulces mexicanos y bajo costo para fiestas populares. Naucalpan, Tlalnepantla y Ecatepec concentran las tiendas medianas orientadas al consumidor final. El Valle de Toluca (5 de Mayo, Mercado Juárez) se cubre en su directorio propio por distancia y logística distinta.'
+  },
+  {
+    pregunta: '¿Qué incluye cada ficha del directorio MEDEDUL?',
+    respuesta: 'Cada ficha trae: nombre del negocio, dirección completa con CP, colonia y municipio, horarios verificados por día, referencias de transporte y corredor vial, teléfono, coordenadas para Google Maps, listado de especialidades, productos, servicios internos (armado de bolos, venta por kilo, bolsitas para fiesta, piñatas), rating y reseñas reales de Maps y, cuando existe, enlace a Instagram o WhatsApp del negocio.'
+  }
+];
+
+// JSON-LD: FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqsRegion.map((f) => ({
+    '@type': 'Question',
+    name: f.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: f.respuesta }
+  }))
+};
+
+// JSON-LD: BreadcrumbList
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://mesas-de-dulces.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Directorio', item: 'https://mesas-de-dulces.com/directorio' },
+    { '@type': 'ListItem', position: 3, name: 'Estado de México', item: 'https://mesas-de-dulces.com/directorio/edomex' }
+  ]
+};
+
+// JSON-LD: CollectionPage apuntando al estado como AdministrativeArea
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Directorio de Dulcerías y Proveedores de Dulces en Estado de México',
+  description: `Directorio verificado de ${totalProveedores} proveedores de dulces, mayoristas y dulcerías tradicionales distribuidos en ${municipiosActivos} municipios del Estado de México.`,
+  url: 'https://mesas-de-dulces.com/directorio/edomex',
+  about: {
+    '@type': 'AdministrativeArea',
+    name: 'Estado de México',
+    alternateName: 'Edo Mex',
+    containsPlace: municipiosConteo.filter((m) => m.proveedores > 0).map((m) => ({
+      '@type': 'City',
+      name: m.nombre
+    }))
+  }
+};
+
+// JSON-LD: ItemList de municipios para discovery
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: municipiosConteo
+    .filter((m) => m.proveedores > 0)
+    .map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://mesas-de-dulces.com/directorio/edomex/${m.slug}`,
+      name: `Dulcerías en ${m.nombre}`
+    }))
+};
 ---
 
 <BaseLayout
-  title="Directorio de Dulces en Estado de México | Proveedores por Municipio"
-  description={`Encuentra proveedores de dulces para fiestas en municipios del Estado de México. ${totalProveedores}+ negocios verificados en Naucalpan, Tlalnepantla, Toluca, Metepec y más.`}
+  title="Directorio de Dulcerías en Estado de México | Proveedores por Municipio"
+  description={`Directorio geolocalizado con ${totalProveedores}+ dulcerías, mayoristas y tiendas de dulces verificadas en ${municipiosActivos} municipios del Estado de México. Naucalpan, Tlalnepantla, Ecatepec, Toluca, Metepec, Texcoco y más.`}
   canonical="/directorio/edomex"
   ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
   includeCategoryStyles={true}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
     title="Proveedores de Dulces por Municipio en Edo Mex"
     highlight="Edo Mex"
-    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en ${municipiosActivos} municipios del Estado de Mexico`}
-    secondaryContent={`<p><strong>Directorio por municipio</strong> organiza a los mejores proveedores de dulces del Estado de Mexico segun tu ubicacion, para que encuentres dulcerias, mayoristas, tiendas tradicionales y proveedores de materias primas cerca de tu domicilio o venue del evento sin necesidad de cruzar a CDMX. Cada ficha incluye direccion, telefono, horarios y resenas reales de Google Maps para tomar decisiones sin perder tiempo.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos en la zona conurbada, Valle de Toluca y oriente del estado te permiten comparar opciones por zona, especialidad y rango de precio. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos o localizar mayoristas regionales como los de Central de Abastos Tultitlan.</p>`}
+    subtitle={`Directorio geolocalizado con ${totalProveedores}+ proveedores verificados en ${municipiosActivos} municipios del Estado de México`}
+    secondaryContent={`<p><strong>Directorio por municipio</strong> organiza a los mejores proveedores de dulces del Estado de México según tu ubicación, para que encuentres dulcerías, mayoristas, tiendas tradicionales y proveedores de materias primas cerca de tu domicilio o venue del evento sin necesidad de cruzar a CDMX. Cada ficha incluye dirección, teléfono, horarios y reseñas reales de Google Maps para tomar decisiones sin perder tiempo.</p><p><strong>${totalProveedores}+ proveedores verificados</strong> repartidos en zona conurbada y oriente del estado te permiten comparar opciones por zona, especialidad y rango de precio. Usa este directorio para surtir mesas de dulces, armar bolos de fiesta infantil, abastecer eventos corporativos o localizar mayoristas regionales como los de la Central de Abasto Tultitlán. Si tu evento es en Toluca, Metepec o Lerma, consulta nuestro directorio Valle de Toluca.</p>`}
   />
+
+  <!-- Zonas / Corredores -->
+  <section class="zonas-section">
+    <div class="container">
+      <SectionHeader
+        title="Dos"
+        titleHighlight="Corredores"
+        subtitle="Zona conurbada a CDMX y corredor oriente; el Valle de Toluca tiene directorio propio"
+      />
+      <div class="zonas-grid">
+        {zonasEdomex.map((zona) => (
+          <article class="zona-card" id={zona.id}>
+            <h3 class="zona-titulo">{zona.titulo}</h3>
+            <p class="zona-subtitulo">{zona.subtitulo}</p>
+            <p class="zona-descripcion">{zona.descripcion}</p>
+            <div class="zona-municipios">
+              {zona.municipios
+                .map((slug) => ({ slug, info: municipiosConteo.find((m) => m.slug === slug) }))
+                .filter((m) => m.info && m.info.proveedores > 0)
+                .map(({ slug, info }) => (
+                  <a href={`/directorio/edomex/${slug}`} class="zona-mun-chip">
+                    {info!.nombre}
+                    <span class="chip-count">{info!.proveedores}</span>
+                  </a>
+                ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- Todos los Municipios -->
   <section class="alcaldias-section">
@@ -43,13 +183,18 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
       <SectionHeader
         title="Todos los"
         titleHighlight="Municipios"
-        subtitle="Explora proveedores en todo el Estado de Mexico"
+        subtitle="Explora proveedores en todo el Estado de México"
       />
       <div class="alcaldias-grid">
-        {municipiosConteo.map(municipio => (
-          <a href={`/directorio/edomex/${municipio.slug}`} class="alcaldia-card">
+        {municipiosConteo.map((municipio) => (
+          <a href={`/directorio/edomex/${municipio.slug}`} class="alcaldia-card" data-proveedores={municipio.proveedores}>
             <span class="alcaldia-nombre">{municipio.nombre}</span>
-            <span class="alcaldia-count">{municipio.proveedores} {municipio.proveedores === 1 ? 'proveedor' : 'proveedores'}</span>
+            <span class="alcaldia-count">
+              {municipio.proveedores} {municipio.proveedores === 1 ? 'proveedor' : 'proveedores'}
+            </span>
+            {municipioZona[municipio.slug] && (
+              <span class="alcaldia-zona">{municipioZona[municipio.slug]}</span>
+            )}
           </a>
         ))}
       </div>
@@ -69,12 +214,49 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
           <span class="stat-label">Municipios cubiertos</span>
         </div>
         <div class="stat-card">
-          <span class="stat-numero">3</span>
-          <span class="stat-label">Zonas (conurbada · Valle Toluca · oriente)</span>
+          <span class="stat-numero">2</span>
+          <span class="stat-label">Corredores (conurbada · oriente)</span>
         </div>
         <div class="stat-card">
           <span class="stat-numero">100%</span>
-          <span class="stat-label">Verificados</span>
+          <span class="stat-label">Verificados en Google Maps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ regional -->
+  <section class="faq-section">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas"
+        titleHighlight="Frecuentes"
+        subtitle="Dudas comunes al comprar dulces para eventos en el Estado de México"
+      />
+      <div class="faq-list">
+        {faqsRegion.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-pregunta">{faq.pregunta}</summary>
+            <div class="faq-respuesta">{faq.respuesta}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Enlaces cruzados a CDMX y Valle de Toluca -->
+  <section class="cross-link-section">
+    <div class="container">
+      <div class="cross-links-grid">
+        <div class="cross-link-card">
+          <h2>¿Tu evento es en la Ciudad de México?</h2>
+          <p>Si el venue está dentro de alguna de las 16 alcaldías de la CDMX, consulta nuestro directorio capitalino con proveedores verificados desde Polanco y Roma Norte hasta Iztapalapa y Coyoacán.</p>
+          <a href="/directorio/cdmx" class="cross-link-btn">Ver directorio CDMX →</a>
+        </div>
+        <div class="cross-link-card">
+          <h2>¿Evento en Toluca o Metepec?</h2>
+          <p>El Valle de Toluca tiene directorio propio con dulcerías mayoristas de 5 de Mayo, tiendas premium de Galerías Metepec y mayoristas del corredor Lerma–Zinacantepec.</p>
+          <a href="/directorio/toluca" class="cross-link-btn">Ver directorio Valle de Toluca →</a>
         </div>
       </div>
     </div>
@@ -83,6 +265,84 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
 </BaseLayout>
 
 <style>
+  .zonas-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+  }
+
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .zona-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .zona-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .zona-subtitulo {
+    font-size: 0.9rem;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+
+  .zona-descripcion {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px;
+  }
+
+  .zona-municipios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .zona-mun-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(209, 0, 122, 0.08);
+    color: var(--rosa-principal);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+  .zona-mun-chip:hover {
+    background: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .chip-count {
+    background: rgba(255, 255, 255, 0.35);
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .zona-mun-chip:hover .chip-count {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
   .alcaldias-section {
     padding: 80px 0;
     background: #fff;
@@ -102,11 +362,14 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
     background: #fafafa;
     border-radius: 12px;
     text-decoration: none;
-    transition: all 0.3s;
-  }
+}
 
   .alcaldia-card:hover {
     background: rgba(209, 0, 122, 0.08);
+  }
+
+  .alcaldia-card[data-proveedores='0'] {
+    opacity: 0.55;
   }
 
   .alcaldia-nombre {
@@ -118,6 +381,13 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
   .alcaldia-count {
     font-size: 0.85rem;
     color: var(--rosa-principal);
+  }
+
+  .alcaldia-zona {
+    font-size: 0.72rem;
+    color: #999;
+    margin-top: 6px;
+    font-style: italic;
   }
 
   .stats-section {
@@ -150,33 +420,131 @@ const municipiosActivos = municipiosConteo.filter(m => m.proveedores > 0).length
     opacity: 0.85;
   }
 
-  @media (max-width: 1024px) {
-    .alcaldias-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .faq-section {
+    padding: 80px 0;
+    background: #fafafa;
+  }
 
+  .faq-list {
+    max-width: 900px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .faq-pregunta {
+    cursor: pointer;
+    padding: 20px 24px;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    list-style: none;
+    position: relative;
+    padding-right: 50px;
+  }
+
+  .faq-pregunta::-webkit-details-marker { display: none; }
+
+  .faq-pregunta::after {
+    content: '+';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--rosa-principal);
+}
+
+  .faq-item[open] .faq-pregunta::after {
+    content: '−';
+  }
+
+  .faq-respuesta {
+    padding: 0 24px 20px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .cross-link-section {
+    padding: 60px 0 80px;
+    background: #fff;
+  }
+
+  .cross-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .cross-link-card {
+    text-align: center;
+    padding: 40px 28px;
+    background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(209, 0, 122, 0.12);
+  }
+
+  .cross-link-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .cross-link-card p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+  }
+
+  .cross-link-btn {
+    display: inline-block;
+    background: var(--rosa-principal);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+  .cross-link-btn:hover {
+    background: #A0005F;
+}
+
+  @media (max-width: 1024px) {
+    .zonas-grid { grid-template-columns: 1fr; }
+    .alcaldias-grid { grid-template-columns: repeat(2, 1fr); }
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 30px;
     }
+    .cross-links-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 768px) {
-    .alcaldias-section {
-      padding: 50px 0;
-    }
-
-    .alcaldias-grid {
-      grid-template-columns: 1fr;
-    }
-
+    .zonas-section,
+    .alcaldias-section,
+    .faq-section { padding: 50px 0; }
+    .alcaldias-grid { grid-template-columns: 1fr; }
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-
-    .stat-numero {
-      font-size: 2rem;
-    }
+    .stat-numero { font-size: 2rem; }
+    .cross-link-card { padding: 32px 20px; }
   }
 </style>

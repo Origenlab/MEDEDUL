@@ -36,7 +36,6 @@ const { value, label, suffix, icon, accent = false } = Astro.props;
     text-align: center;
     box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
   }
@@ -50,17 +49,13 @@ const { value, label, suffix, icon, accent = false } = Astro.props;
     height: 110px;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(209,0,122,0.08), rgba(122,43,194,0.08));
-    transition: transform 0.4s ease;
   }
 
   .stat-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 14px 36px rgba(209, 0, 122, 0.16);
   }
 
-  .stat-card:hover::after {
-    transform: scale(1.4);
-  }
+  .stat-card:hover::after {}
 
   .stat-accent {
     background: linear-gradient(135deg, #d1007a 0%, #7a2bc2 100%);

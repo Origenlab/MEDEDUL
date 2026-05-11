@@ -1,0 +1,311 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Mesas de Dulces Lerma', url: '/mesas-de-dulces-lerma' }
+];
+
+const venuesLerma = [
+  'Corporativo Lerma — Salones de eventos empresariales',
+  'Hacienda La Glorieta',
+  'Salón Jardín San Mateo Otzacatipan',
+  'Hotel Riu Plaza Lerma',
+  'Centro de Convenciones Lerma',
+  'Jardín Hacienda Tultenango',
+  'Quinta Real Lerma',
+  'Salones de Parques Industriales Lerma'
+];
+
+const paquetesLerma = [
+  {
+    name: 'Lerma Esencial',
+    icon: '🍬',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Eventos sociales y familiares',
+    features: [
+      '8-10 variedades de dulces premium',
+      'Montaje elegante',
+      'Cristalería y mantelería incluida',
+      '4 horas de servicio',
+      'Traslado desde Metepec incluido',
+      'Atención personalizada'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20Esencial%20en%20Lerma'
+  },
+  {
+    name: 'Lerma Corporativo',
+    icon: '🏢',
+    price: '$9,200',
+    currency: 'MXN',
+    guests: '70-150 personas',
+    tagline: 'Pensado para eventos empresariales en parques industriales',
+    features: [
+      '14+ variedades de dulces premium',
+      'Diseño con branding corporativo',
+      'Backdrop con logo de la empresa',
+      '5 horas de servicio',
+      'Mesa de quesos opcional',
+      'Coordinación con RRHH y eventos',
+      'Factura CFDI emitida'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Corporativo',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Corporativo%20para%20mi%20evento%20en%20Lerma'
+  },
+  {
+    name: 'Lerma Premium',
+    icon: '💎',
+    price: '$13,500',
+    currency: 'MXN',
+    guests: '150+ personas',
+    tagline: 'Para bodas, XV años y eventos de alto nivel',
+    features: [
+      '22+ variedades exclusivas',
+      'Dirección creativa completa',
+      'Fuente de chocolate incluida',
+      'Mesa de quesos gourmet',
+      'Personal dedicado todo el evento',
+      'Backdrop floral o temático premium',
+      'Servicio extendido hasta 8 horas'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20mi%20evento%20en%20Lerma'
+  }
+];
+
+const caracteristicasLerma = [
+  {
+    num: 1,
+    title: 'Especialistas en Corporativos',
+    desc: 'Lerma concentra parques industriales y corporativos. Tenemos paquetes diseñados para eventos empresariales, lanzamientos, fin de año y activaciones de marca.',
+    img: '/img/galeria/mesa-dulces-evento-corporativo-profesional.avif'
+  },
+  {
+    num: 2,
+    title: 'Branding Corporativo',
+    desc: 'Integramos logos, colores institucionales y mensajes de marca al diseño de la mesa. Backdrops, vasos y empaques personalizados disponibles.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'
+  },
+  {
+    num: 3,
+    title: 'Eventos Sociales en Haciendas',
+    desc: 'También atendemos bodas, XV años y celebraciones familiares en haciendas y salones de Lerma. Mismo estándar premium que en CDMX y Metepec.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 4,
+    title: 'Factura CFDI',
+    desc: 'Emitimos factura CFDI para personas físicas y morales. Atención profesional con RRHH y áreas de eventos para procesos empresariales.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  }
+];
+
+const testimoniosLerma = [
+  {
+    name: 'TechnoLerma SA',
+    initials: 'TL',
+    review: 'Contratamos a Mededul para nuestro evento de fin de año en planta Lerma. Profesionales, puntuales y la mesa quedó alineada con nuestro branding. Volveremos a contratarlos.',
+    event: 'Evento Corporativo, Parque Industrial Lerma',
+    rating: 5
+  },
+  {
+    name: 'Ana y Mateo',
+    initials: 'AM',
+    review: 'Nuestra boda en Hacienda La Glorieta fue inolvidable. La mesa de dulces se integró perfecto con la decoración y los invitados quedaron sorprendidos.',
+    event: 'Boda en Hacienda La Glorieta, Lerma',
+    rating: 5
+  },
+  {
+    name: 'Logistica del Centro',
+    initials: 'LC',
+    review: 'Para nuestro lanzamiento en Lerma necesitábamos algo elegante con presencia de marca. Mededul integró nuestro logo a la perfección. Excelente trabajo.',
+    event: 'Lanzamiento Corporativo, Lerma',
+    rating: 5
+  }
+];
+
+const faqsLerma = [
+  {
+    question: '¿Atienden eventos corporativos en parques industriales de Lerma?',
+    answer: 'Sí. Es una de nuestras especialidades en la zona. Tenemos paquetes diseñados para eventos empresariales: fin de año, lanzamientos, activaciones, capacitaciones y celebraciones internas. Coordinamos con RRHH y áreas de eventos.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces en Lerma?',
+    answer: 'Paquetes desde $5,500 MXN para eventos sociales. Nuestro paquete Corporativo ($9,200) es el más solicitado por empresas en parques industriales, incluye branding corporativo y backdrop con logo. El Premium ($13,500) para eventos grandes y bodas.'
+  },
+  {
+    question: '¿Pueden integrar el branding de mi empresa?',
+    answer: 'Por supuesto. Incluimos logo de la empresa en backdrop, vasos personalizados, empaques temáticos y colores institucionales en el diseño general. Ideal para activaciones de marca.'
+  },
+  {
+    question: '¿Emiten factura CFDI?',
+    answer: 'Sí. Emitimos factura CFDI completa para personas físicas y morales. Solicítala al momento de cotizar y la incluiremos en el proceso comercial.'
+  },
+  {
+    question: '¿Atienden eventos sociales también?',
+    answer: 'Sí. Además de corporativos, atendemos bodas, XV años, baby showers y cumpleaños en haciendas y salones de Lerma como Hacienda La Glorieta, Quinta Real Lerma y jardines locales.'
+  },
+  {
+    question: '¿Cubren toda la zona de Lerma incluyendo San Mateo Otzacatipan?',
+    answer: 'Sí. Cubrimos toda la cabecera municipal de Lerma y sus delegaciones (San Mateo Otzacatipan, San Pedro Tultepec, San Lorenzo Huitzizilapan, etc.) con traslado incluido desde nuestra sucursal Metepec.'
+  }
+];
+
+const lermaSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Lerma",
+  "description": "Servicio profesional de mesas de dulces para eventos corporativos en parques industriales, bodas, XV años y eventos sociales en Lerma, Estado de México. Branding corporativo, factura CFDI y cobertura completa.",
+  "url": "https://mesas-de-dulces.com/mesas-de-dulces-lerma",
+  "telephone": "+525521775184",
+  "priceRange": "$5,500 - $13,500 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Blvd. Toluca-Metepec 913",
+    "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+    "addressRegion": "Estado de México",
+    "postalCode": "52169",
+    "addressCountry": "MX"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Lerma" },
+    { "@type": "Place", "name": "San Mateo Otzacatipan, Lerma" },
+    { "@type": "Place", "name": "San Pedro Tultepec, Lerma" },
+    { "@type": "Place", "name": "Parque Industrial Lerma" }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "11",
+    "bestRating": "5"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Lerma | Corporativos y Eventos | Mededul"
+  description="Mesas de dulces premium en Lerma, Estado de México. Especialistas en eventos corporativos para parques industriales, bodas y XV años. Branding incluido, factura CFDI. Cotización gratis."
+  canonical="/mesas-de-dulces-lerma"
+  ogImage="/img/galeria/mesa-dulces-evento-corporativo-profesional.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(lermaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Lerma, EdoMex"
+    highlight="Lerma"
+    subtitle="Especialistas en eventos corporativos y bodas · Branding y factura CFDI"
+    secondaryContent={`<p><strong>Mededul Lerma</strong> opera desde nuestra sucursal Toluca-Metepec con cobertura completa para <strong>parques industriales, corporativos y eventos sociales</strong>. Lerma concentra empresas, plantas y oficinas corporativas, y diseñamos paquetes especializados para activaciones, fin de año, lanzamientos y celebraciones internas.</p><p>También atendemos <strong>bodas, XV años y eventos familiares</strong> en Hacienda La Glorieta, Quinta Real Lerma, jardines y salones locales. Branding corporativo, factura CFDI y servicio premium con respuesta en menos de 24 horas.</p>`}
+  />
+
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues y Corporativos donde hemos <span>trabajado</span></h2>
+        <p>Parques industriales, haciendas y salones de Lerma</p>
+        <div class="venues-grid">
+          {venuesLerma.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-lerma"
+    badge="Paquetes para Lerma"
+    title="Servicios para"
+    titleHighlight="Lerma"
+    subtitle="Paquetes diseñados para corporativos, bodas y eventos sociales"
+    packages={paquetesLerma}
+    note="💡 <strong>Branding corporativo, factura CFDI y traslado desde Metepec incluidos.</strong> Coordinación con RRHH y áreas de eventos."
+  />
+
+  <WhyChooseUs
+    id="ventajas-lerma"
+    badge="Servicio en Lerma"
+    title="Por qué elegir"
+    titleHighlight="Mededul Lerma"
+    descriptions={[
+      'Especialistas en eventos corporativos para parques industriales y oficinas de Lerma. Branding integrado, factura CFDI y coordinación profesional.',
+      'También cobertura premium para bodas, XV años y eventos sociales en haciendas y salones de Lerma con la misma calidad que en CDMX.'
+    ]}
+    stats={[
+      { number: '11+', label: 'Eventos en Lerma' },
+      { number: '5.0', label: 'Calificación' },
+      { number: '25 min', label: 'Desde sucursal' },
+      { number: '100%', label: 'Branding incluido' }
+    ]}
+    features={caracteristicasLerma}
+  />
+
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Lerma"
+        subtitle="Corporativos y eventos sociales"
+      />
+      <div class="testimonios-grid">
+        {testimoniosLerma.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FAQContactModule faqItems={faqsLerma} />
+</BaseLayout>
+
+<style>
+  .venues-section { padding: 60px 0; background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); }
+  .venues-content { text-align: center; color: #fff; }
+  .venues-content h2 { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 700; margin: 0 0 12px; }
+  .venues-content h2 span { color: rgba(255,255,255,0.8); }
+  .venues-content > p { font-size: 1rem; opacity: 0.85; margin: 0 0 40px; }
+  .venues-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .venue-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 500;
+  }
+  .venue-item svg { fill: #FFB800; }
+
+  .testimonios-section { padding: 80px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .testimonios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px; }
+
+  @media (max-width: 1024px) { .testimonios-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    .venues-content h2 { font-size: 1.5rem; }
+    .venues-grid { gap: 10px; }
+    .venue-item { padding: 10px 16px; font-size: 0.8rem; }
+    .testimonios-grid { grid-template-columns: 1fr; }
+  }
+</style>

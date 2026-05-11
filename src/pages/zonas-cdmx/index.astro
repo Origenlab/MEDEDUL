@@ -102,8 +102,8 @@ const zonasMetropolitanas = [
 const zonasSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Mededul - Mesas de Dulces CDMX",
-  "description": "Servicio de mesas de dulces en todas las zonas de Ciudad de Mexico y area metropolitana",
+  "name": "Mededul - Mesas de Dulces CDMX y Valle de Toluca",
+  "description": "Servicio de mesas de dulces en todas las zonas de CDMX, area metropolitana y Valle de Toluca (Toluca, Metepec, Zinacantepec, Lerma)",
   "areaServed": [
     ...zonasPremium.map(z => ({ "@type": "Place", "name": z.nombre + ", " + z.alcaldia })),
     ...zonasPopulares.map(z => ({ "@type": "Place", "name": z.nombre + ", " + z.alcaldia })),
@@ -119,8 +119,8 @@ const zonasSchema = {
 ---
 
 <BaseLayout
-  title="Mesas de Dulces en CDMX por Zona | Servicio Local"
-  description="Servicio de mesas de dulces en todas las zonas de CDMX: Polanco, Santa Fe, Condesa, Roma, Del Valle, Coyoacan y area metropolitana. Cobertura completa."
+  title="Mesas de Dulces en CDMX y Valle de Toluca por Zona | Mededul"
+  description="Servicio de mesas de dulces por zona: Polanco, Santa Fe, Condesa, Roma, Del Valle, Coyoacan, area metropolitana y Valle de Toluca (Toluca, Metepec, Zinacantepec, Lerma). Cobertura completa."
   canonical="/zonas-cdmx"
   ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
   includeCategoryStyles={true}
@@ -133,7 +133,7 @@ const zonasSchema = {
     title="Mesas de Dulces en CDMX por Zona"
     highlight="CDMX"
     subtitle="Cobertura completa en Ciudad de Mexico y area metropolitana"
-    secondaryContent={`<p>Ofrecemos servicio de <strong>mesas de dulces en todas las zonas de CDMX</strong>. Desde Polanco hasta Coyoacan, desde Santa Fe hasta Interlomas, llegamos a tu evento con la misma calidad y profesionalismo.</p><p>Cada zona tiene sus venues favoritos y nosotros conocemos los mejores. Selecciona tu zona para ver informacion especifica sobre <strong>tiempos de llegada, venues recomendados y testimonios locales</strong>.</p>`}
+    secondaryContent={`<p>Ofrecemos servicio de <strong>mesas de dulces en todas las zonas de CDMX y Valle de Toluca</strong>. Desde Polanco hasta Coyoacan, desde Santa Fe hasta Interlomas, y desde Metepec hasta Toluca, Zinacantepec y Lerma, llegamos a tu evento con la misma calidad y profesionalismo.</p><p>Cada zona tiene sus venues favoritos y nosotros conocemos los mejores. ¿Tu evento es en el Valle de Toluca? Visita nuestras landings dedicadas: <a href="/mesas-de-dulces-toluca/">Mesas de Dulces Toluca</a>, <a href="/mesas-de-dulces-metepec/">Mesas de Dulces Metepec</a>, <a href="/mesas-de-dulces-zinacantepec/">Zinacantepec</a> y <a href="/mesas-de-dulces-lerma/">Lerma</a>.</p>`}
   />
 
   <!-- Zonas Premium -->
@@ -309,8 +309,7 @@ const zonasSchema = {
 
 </BaseLayout>
 
-<style>
-  /* Zonas Section */
+<style>/* Zonas Section */
   .zonas-section {
     padding: 80px 0;
     background: #fff;

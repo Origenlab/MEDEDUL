@@ -277,8 +277,7 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
     <FAQContactModule faqItems={faqs} />
 </BaseLayout>
 
-<style>
-  /* Variedad Section */
+<style>/* Variedad Section */
   .variedad-section {
     padding: 100px 0;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
@@ -584,7 +583,7 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
   }
 
   .btn-servicio {
-    display: inline-block;
+display: inline-block;
     background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
     color: #fff;
     padding: 16px 40px;
@@ -600,11 +599,12 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
   @media (max-width: 1024px) {
     .variedad-grid {
       grid-template-columns: repeat(2, 1fr);
-    }
+  }
 
-    .ideas-grid {
-      grid-template-columns: 1fr;
-    }
+  .ideas-grid {
+    grid-template-columns: 1fr;
+  }
+
   }
 
   @media (max-width: 768px) {
@@ -612,28 +612,28 @@ const gallerySizes = '(max-width: 768px) 100vw, 50vw';
     .ideas-section,
     .ocasiones-section {
       padding: 60px 0;
-    }
+  }
 
-    .variedad-header h2,
+  .variedad-header h2,
     .ideas-header h2,
     .ocasiones-header h2 {
-      font-size: 1.6rem;
-    }
-
-    .variedad-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .ocasiones-content {
-      grid-template-columns: 1fr;
-    }
-
-    .servicio-cdmx-section {
-      padding: 50px 0;
-    }
-
-    .servicio-cdmx-content h2 {
-      font-size: 1.6rem;
-    }
+    font-size: 1.6rem;
   }
+
+  .variedad-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ocasiones-content {
+    grid-template-columns: 1fr;
+  }
+
+  .servicio-cdmx-section {
+    padding: 50px 0;
+  }
+
+  .servicio-cdmx-content h2 {
+    font-size: 1.6rem;
+  }
+}
 </style>

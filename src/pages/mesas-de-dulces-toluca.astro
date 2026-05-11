@@ -1,0 +1,485 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+
+const breadcrumbItems = [
+  { name: 'Mesas de Dulces Toluca', url: '/mesas-de-dulces-toluca' }
+];
+
+// Venues populares en Toluca y Valle de Toluca
+const venuesToluca = [
+  'Hacienda La Pila',
+  'Hacienda Cantalagua',
+  'Hacienda San Antonio Cuajimalpa',
+  'Hotel Quinta del Rey',
+  'Centro de Convenciones Metepec',
+  'Salón Quinta Lupita',
+  'Hacienda San Isidro Boxipe',
+  'Jardín Hacienda Tlachalola',
+  'Club Hípico La Asunción',
+  'Hotel Crowne Plaza Toluca'
+];
+
+// Zonas que cubrimos en el Valle de Toluca
+const zonasValleToluca = [
+  { nombre: 'Metepec', desc: 'La Asunción, San Jerónimo Chicahualco, Portofino, Vitalia, Santa Ana Tlapaltitlán', href: '/mesas-de-dulces-metepec' },
+  { nombre: 'Toluca Centro', desc: 'Las Américas, Federal, Country Club, Reforma, Santa Bárbara, Pilares', href: null },
+  { nombre: 'Zinacantepec', desc: 'San Miguel Zinacantepec y colonias residenciales en crecimiento', href: '/mesas-de-dulces-zinacantepec' },
+  { nombre: 'Lerma', desc: 'Corporativo Lerma, parques industriales y zona residencial', href: '/mesas-de-dulces-lerma' },
+  { nombre: 'San Mateo Atenco', desc: 'Salones de eventos y haciendas con encanto local', href: null },
+  { nombre: 'Ocoyoacac', desc: 'Haciendas y jardines para bodas y eventos especiales', href: null },
+  { nombre: 'Calimaya', desc: 'Campestre y haciendas para celebraciones íntimas', href: null }
+];
+
+// Paquetes especiales para Toluca
+const paquetesToluca = [
+  {
+    name: 'Toluca Esencial',
+    icon: '🍬',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Ideal para eventos familiares en Toluca',
+    features: [
+      '8-10 variedades de dulces premium',
+      'Montaje elegante para haciendas y salones',
+      'Cristalería y manteleria incluida',
+      '4 horas de servicio',
+      'Traslado dentro del Valle de Toluca',
+      'Coordinación con venue local'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Toluca Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20una%20mesa%20de%20dulces%20Esencial%20en%20Toluca'
+  },
+  {
+    name: 'Toluca Premium',
+    icon: '⭐',
+    price: '$8,900',
+    currency: 'MXN',
+    guests: '70-130 personas',
+    tagline: 'El paquete más solicitado en bodas y XV años',
+    features: [
+      '14+ variedades de dulces premium',
+      'Diseño 100% personalizado a tu temática',
+      'Backdrop decorativo incluido',
+      '5 horas de servicio',
+      'Dulces artesanales y chocolates finos',
+      'Coordinación con wedding planner',
+      'Montaje en venues de Toluca y Metepec'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Toluca Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Premium%20para%20mi%20evento%20en%20Toluca'
+  },
+  {
+    name: 'Toluca Luxury',
+    icon: '💎',
+    price: '$14,500',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Experiencia de alto nivel en Valle de Toluca',
+    features: [
+      '22+ variedades exclusivas',
+      'Dirección creativa completa',
+      'Fuente de chocolate incluida',
+      'Mesa de quesos y postres gourmet',
+      'Personal dedicado todo el evento',
+      'Backdrop floral o temático premium',
+      'Coordinación integral con venue',
+      'Servicio extendido hasta 8 horas'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Toluca Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Luxury%20para%20mi%20evento%20en%20Toluca'
+  }
+];
+
+// Características de servicio en Toluca
+const caracteristicasToluca = [
+  {
+    num: 1,
+    title: 'Sucursal Toluca-Metepec',
+    desc: 'Operamos desde Blvd. Toluca-Metepec 913 en San Jorge Pueblo Nuevo. Tiempo de respuesta y montaje optimizados para el Valle de Toluca.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Conocemos los Venues',
+    desc: 'Hemos trabajado en las principales haciendas, salones y hoteles de Toluca, Metepec, Zinacantepec y Lerma. Coordinación profesional con cada venue.',
+    img: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif'
+  },
+  {
+    num: 3,
+    title: 'Estilo Premium para el Valle',
+    desc: 'Diseños sofisticados que combinan con la elegancia de bodas, XV años y eventos corporativos de alto nivel en el Valle de Toluca.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Traslado Incluido',
+    desc: 'Cobertura completa Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco y Calimaya con traslado incluido en todos los paquetes.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  }
+];
+
+// Testimonios de Toluca
+const testimoniosToluca = [
+  {
+    name: 'Andrea y Sebastián',
+    initials: 'AS',
+    review: 'Nuestra boda en Hacienda La Pila fue inolvidable. La mesa de dulces de Mededul fue el detalle del que todos hablaron toda la noche. Profesionales y puntuales.',
+    event: 'Boda en Hacienda La Pila, Toluca',
+    rating: 5
+  },
+  {
+    name: 'Mariana López',
+    initials: 'ML',
+    review: 'Para los XV años de mi hija en Metepec contraté a Mededul. La mesa quedó preciosa, combinó perfecto con la decoración y todos los invitados pedían fotos.',
+    event: 'XV Años en Metepec',
+    rating: 5
+  },
+  {
+    name: 'Industrias del Valle SA',
+    initials: 'IV',
+    review: 'Para nuestro evento corporativo en Lerma necesitábamos algo elegante y profesional. Mededul cumplió perfectamente, integraron nuestro branding al diseño.',
+    event: 'Evento Corporativo, Lerma',
+    rating: 5
+  }
+];
+
+// FAQs específicas de Toluca
+const faqsToluca = [
+  {
+    question: '¿Atienden eventos en todo el Valle de Toluca?',
+    answer: 'Sí. Nuestra sucursal en Blvd. Toluca-Metepec 913, San Jorge Pueblo Nuevo nos permite cubrir Metepec, Toluca, Zinacantepec, Lerma, San Mateo Atenco, Ocoyoacac y Calimaya con traslado incluido.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces en Toluca?',
+    answer: 'Nuestros paquetes para Toluca y Valle de Toluca inician en $5,500 MXN para eventos de 40-70 personas. El paquete Premium ($8,900) es el más solicitado para bodas y XV años, y el Luxury ($14,500) para eventos de alto nivel.'
+  },
+  {
+    question: '¿Tienen experiencia en venues de Toluca y Metepec?',
+    answer: 'Sí. Hemos trabajado en Hacienda La Pila, Hacienda Cantalagua, Hotel Quinta del Rey, Crowne Plaza Toluca, Centro de Convenciones Metepec y otros salones del Valle. Coordinamos directamente con sus equipos.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Recomendamos reservar con 4-6 semanas para bodas y XV años en Toluca, especialmente en temporada alta (mayo, noviembre, diciembre). Para otros eventos, 2-3 semanas suelen ser suficientes.'
+  },
+  {
+    question: '¿Pueden adaptar la mesa al estilo de hacienda mexicana?',
+    answer: 'Por supuesto. Tenemos amplia experiencia en estilos hacienda, campestre y rústico-elegante, muy populares en el Valle de Toluca. También podemos hacer estilos minimalistas, románticos o temáticos.'
+  },
+  {
+    question: '¿Aceptan eventos en Zinacantepec, Lerma y Calimaya?',
+    answer: 'Sí. Cubrimos todo el Valle de Toluca incluyendo Zinacantepec, Lerma, Calimaya, Ocoyoacac y San Mateo Atenco. El traslado a estas zonas está incluido en nuestros paquetes Premium y Luxury.'
+  },
+  {
+    question: '¿Cómo coordinan con el venue?',
+    answer: 'Una vez confirmada la reservación, contactamos al venue para acordar tiempos de acceso, ubicación de montaje y reglamentos específicos. Tú no te preocupas por nada.'
+  }
+];
+
+const tolucaSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mededul - Mesas de Dulces en Toluca y Valle de Toluca",
+  "description": "Servicio profesional de mesas de dulces, candy bar, fuente de chocolate y mesa de postres para bodas, XV años, baby shower, corporativos y eventos en Toluca, Metepec, Zinacantepec, Lerma y todo el Valle de Toluca.",
+  "url": "https://mesas-de-dulces.com/mesas-de-dulces-toluca",
+  "telephone": "+525521775184",
+  "priceRange": "$5,500 - $14,500 MXN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Blvd. Toluca-Metepec 913",
+    "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+    "addressRegion": "Estado de México",
+    "postalCode": "52169",
+    "addressCountry": "MX"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Toluca" },
+    { "@type": "City", "name": "Metepec" },
+    { "@type": "City", "name": "Zinacantepec" },
+    { "@type": "City", "name": "Lerma" },
+    { "@type": "City", "name": "Ocoyoacac" },
+    { "@type": "City", "name": "San Mateo Atenco" },
+    { "@type": "City", "name": "Calimaya" },
+    { "@type": "AdministrativeArea", "name": "Valle de Toluca" }
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "10:00",
+    "closes": "19:00"
+  }],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "38",
+    "bestRating": "5"
+  }
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Toluca | Sucursal Metepec | Mededul"
+  description="Mesas de dulces premium en Toluca, Metepec y Valle de Toluca. Bodas, XV años, baby shower y eventos corporativos. Sucursal en Blvd. Toluca-Metepec 913. Cotización gratis."
+  canonical="/mesas-de-dulces-toluca"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(tolucaSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Toluca y Valle de Toluca"
+    highlight="Toluca"
+    subtitle="Sucursal en Metepec · 8+ años de experiencia · 500+ eventos exitosos"
+    secondaryContent={`<p><strong>Mededul Toluca</strong> opera desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913, San Jorge Pueblo Nuevo</strong>, atendiendo bodas, XV años, baby shower, eventos corporativos y celebraciones en todo el <strong>Valle de Toluca</strong>: Toluca, Metepec, Zinacantepec, Lerma, San Mateo Atenco, Ocoyoacac y Calimaya.</p><p>Diseñamos <strong>mesas de dulces premium</strong> con curaduría profesional, montaje impecable y servicio completo. Conocemos los principales venues, haciendas y salones del Valle. <strong>Cotización en menos de 24 horas</strong> y respuesta inmediata por WhatsApp.</p>`}
+  />
+
+  <!-- Venues en Toluca -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-content">
+        <h2>Venues donde hemos <span>trabajado</span></h2>
+        <p>Experiencia comprobada en los mejores espacios del Valle de Toluca</p>
+        <div class="venues-grid">
+          {venuesToluca.map(venue => (
+            <div class="venue-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              {venue}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zonas Valle de Toluca -->
+  <section class="zonas-toluca-section">
+    <div class="container">
+      <SectionHeader
+        title="Zonas del Valle de"
+        titleHighlight="Toluca"
+        subtitle="Cobertura completa con traslado incluido"
+      />
+      <div class="zonas-toluca-grid">
+        {zonasValleToluca.map(z => (
+          <div class="zona-toluca-card">
+            <h3>{z.nombre}</h3>
+            <p>{z.desc}</p>
+            {z.href && <a href={z.href} class="zona-toluca-link">Ver landing dedicada →</a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Paquetes Toluca -->
+  <PricingPackages
+    id="paquetes-toluca"
+    badge="Paquetes para Toluca"
+    title="Servicios para el"
+    titleHighlight="Valle de Toluca"
+    subtitle="Paquetes diseñados para bodas, XV años y eventos corporativos en Toluca y Metepec"
+    packages={paquetesToluca}
+    note="💡 <strong>Todos los paquetes incluyen:</strong> Traslado dentro del Valle de Toluca, coordinación con venue y montaje profesional desde nuestra sucursal Metepec."
+  />
+
+  <!-- Por qué elegirnos en Toluca -->
+  <WhyChooseUs
+    id="ventajas-toluca"
+    badge="Servicio en Toluca"
+    title="Por qué somos la mejor opción en"
+    titleHighlight="Toluca"
+    descriptions={[
+      'Operamos desde nuestra sucursal Toluca-Metepec con tiempo de respuesta y montaje optimizados para el Valle. Mismo estándar premium que en CDMX.',
+      '8+ años de experiencia en eventos premium y conocimiento profundo de venues, haciendas y salones de Toluca, Metepec, Zinacantepec y Lerma.'
+    ]}
+    stats={[
+      { number: '38+', label: 'Eventos en Toluca' },
+      { number: '5.0', label: 'Calificación' },
+      { number: '20 min', label: 'Desde sucursal' },
+      { number: '100%', label: 'Traslado incluido' }
+    ]}
+    features={caracteristicasToluca}
+  />
+
+  <!-- Testimonios de Toluca -->
+  <section class="testimonios-section">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de Eventos en"
+        titleHighlight="Toluca y Metepec"
+        subtitle="Lo que dicen nuestros clientes del Valle"
+      />
+      <div class="testimonios-grid">
+        {testimoniosToluca.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Toluca -->
+  <FAQContactModule faqItems={faqsToluca} />
+</BaseLayout>
+
+<style>
+  /* Venues Section */
+  .venues-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .venues-content {
+    text-align: center;
+    color: #fff;
+  }
+
+  .venues-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .venues-content h2 span {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .venues-content > p {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin: 0 0 40px;
+  }
+
+  .venues-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .venue-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .venue-item svg {
+    fill: #FFB800;
+  }
+
+  /* Zonas Toluca */
+  .zonas-toluca-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .zonas-toluca-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  .zona-toluca-card {
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 24px;
+    transition: box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .zona-toluca-card:hover {
+    border-color: rgba(209,0,122,.25);
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+
+  .zona-toluca-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    color: var(--rosa-principal);
+    margin: 0 0 8px;
+  }
+
+  .zona-toluca-card p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #555;
+    margin: 0 0 12px;
+  }
+
+  .zona-toluca-link {
+    display: inline-flex;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-decoration: none;
+  }
+
+  .zona-toluca-link:hover { text-decoration: underline; }
+
+  /* Testimonios */
+  .testimonios-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .venues-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .venues-grid {
+      gap: 10px;
+    }
+
+    .venue-item {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

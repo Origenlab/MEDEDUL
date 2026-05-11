@@ -6,12 +6,12 @@ import Hero from '@/components/global/Hero.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogPosts } from '@/lib/blogSorting';
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
 const allPosts = sortBlogPosts(await getCollection('blog', ({ data }) => !data.draft));
 const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
 
 export async function getStaticPaths() {
-  const PAGE_SIZE = 9;
+  const PAGE_SIZE = 12;
   const posts = sortBlogPosts(await getCollection('blog', ({ data }) => !data.draft));
   const totalPages = Math.ceil(posts.length / PAGE_SIZE);
 

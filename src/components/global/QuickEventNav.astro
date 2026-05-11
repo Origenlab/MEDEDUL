@@ -128,8 +128,7 @@ const isActive = (href: string) =>
   ))}
 </nav>
 
-<style>
-  .qen {
+<style>.qen {
     display: flex;
     flex-wrap: wrap;
     background: #D1007A;
@@ -149,7 +148,6 @@ const isActive = (href: string) =>
     color: #fff;
     border-right: 1px solid rgba(255,255,255,0.15);
     border-bottom: 1px solid rgba(255,255,255,0.15);
-    transition: background 0.15s;
     box-sizing: border-box;
   }
 
@@ -240,7 +238,10 @@ const isActive = (href: string) =>
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
-    .qen::-webkit-scrollbar { display: none; }
+
+    .qen::-webkit-scrollbar {
+      display: none;
+    }
 
     .qen__item {
       flex: 0 0 210px;

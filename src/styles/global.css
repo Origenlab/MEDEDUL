@@ -1,3 +1,97 @@
+/* =====================================================
+   KILL-SWITCH GLOBAL — SIN ANIMACIONES EXCEPTO BOTONES
+   Solo botones pueden tener transition / transform / animation.
+   ===================================================== */
+*,
+*::before,
+*::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+*:hover,
+*:focus,
+*:active {
+    transform: none !important;
+    filter: none !important;
+}
+
+/* Whitelist: botones conservan animaciones (incluye pseudo-elementos decorativos) */
+.btn,
+.btn::before,
+.btn::after,
+.btn-primary,
+.btn-primary::before,
+.btn-primary::after,
+.btn-secondary,
+.btn-white,
+.btn-outline-white,
+.btn-submit,
+.btn-cta,
+.btn-whatsapp,
+[class*="btn-"],
+[class*="btn-"]::before,
+[class*="btn-"]::after,
+.btn *,
+[class*="btn-"] *,
+button,
+button::before,
+button::after,
+button *,
+input[type="submit"],
+input[type="button"],
+.cta-btn,
+.cta-btn::before,
+.cta-btn::after,
+.cta-btn.primary,
+.cta-btn.secondary,
+.sidebar-cta-btn,
+.sidebar-cta-btn-wa,
+.sidebar-cta-btn-final,
+.pagination-btn,
+.package-cta,
+.mf-btn,
+.mf-btn--solid,
+.mf-btn--outline,
+.whatsapp-float,
+.skip-to-content {
+    transition: all 0.3s ease !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-white:hover,
+.btn-outline-white:hover,
+.btn-submit:hover,
+.btn-cta:hover,
+.btn-whatsapp:hover,
+[class*="btn-"]:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.cta-btn:hover,
+.cta-btn.primary:hover,
+.cta-btn.secondary:hover,
+.sidebar-cta-btn:hover,
+.sidebar-cta-btn-wa:hover,
+.sidebar-cta-btn-final:hover,
+.pagination-btn:hover,
+.package-cta:hover,
+.mf-btn:hover,
+.mf-btn--solid:hover,
+.mf-btn--outline:hover,
+.whatsapp-float:hover {
+    transform: translateY(-3px) !important;
+}
+
+.whatsapp-float:active,
+button:active,
+.btn:active,
+[class*="btn-"]:active {
+    transform: scale(0.97) !important;
+}
+
 /* Skip-to-content — accesibilidad WCAG 2.1 criterio 2.4.1 */
 .skip-to-content {
   position: absolute;
@@ -118,7 +212,6 @@ body {
 .breadcrumb a {
     color: var(--gris-texto);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 .breadcrumb a:hover {
@@ -880,7 +973,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-principal);
-    transition: all 0.3s ease;
 }
 
 .faq-question:hover {
@@ -889,7 +981,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 
 .faq-question .icon {
     font-size: 1.5rem;
-    transition: transform 0.3s ease;
 }
 
 .faq-item.active .faq-question .icon {
@@ -899,7 +990,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
 .faq-item.active .faq-answer {
@@ -1039,7 +1129,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .info-item a {
     color: var(--gris-texto);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 .info-item a:hover {
@@ -1057,7 +1146,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     font-size: 0.85rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s ease;
 }
 
 .maps-link:hover {
@@ -1109,7 +1197,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     border-radius: var(--radio-pequeno);
     font-size: 1rem;
     font-family: var(--font-principal);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
     background: var(--blanco);
 }
 
@@ -1746,14 +1834,13 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 500;
-    transition: all 0.3s ease;
 }
 
 .social-link:hover {
     background: #D1007A;
     border-color: #D1007A;
     color: #ffffff;
-    transform: translateY(-2px);
+
     box-shadow: 0 5px 20px rgba(233, 30, 140, 0.3);
 }
 
@@ -1794,7 +1881,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     color: #888888;
     text-decoration: none;
     font-size: 0.88rem;
-    transition: all 0.3s ease;
+
     display: inline-block;
     position: relative;
 }
@@ -1807,7 +1894,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     width: 0;
     height: 1px;
     background: #D1007A;
-    transition: width 0.3s ease;
 }
 
 .footer-links ul a:hover {
@@ -1876,7 +1962,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     font-size: 0.8rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s ease;
 }
 
 .footer-maps-link:hover {
@@ -1904,7 +1989,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     font-weight: 700;
     color: #ffffff;
     text-decoration: none;
-    transition: all 0.3s ease;
 }
 
 .footer-phone:hover {
@@ -1916,7 +2000,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     font-size: 0.9rem;
     color: #888888;
     text-decoration: none;
-    transition: all 0.3s ease;
 }
 
 .footer-email:hover {
@@ -1948,7 +2031,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     color: #555555;
     text-decoration: none;
     font-size: 0.85rem;
-    transition: color 0.3s ease;
+
     position: relative;
 }
 
@@ -1960,7 +2043,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     width: 0;
     height: 1px;
     background: #D1007A;
-    transition: width 0.3s ease;
 }
 
 .footer-legal a:hover {
@@ -2298,12 +2380,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     justify-content: center;
     box-shadow: 0 2px 8px rgba(229, 57, 53, 0.5);
     border: 2px solid #fff;
-    animation: pulse-badge 2s ease-in-out infinite;
-}
-
-@keyframes pulse-badge {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
 }
 
 /* =====================================================
@@ -2460,7 +2536,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 @media (hover: none) and (pointer: coarse) {
     .whatsapp-float {
         /* Desactivar hover en táctiles */
-        transition: transform 0.2s ease;
+
     }
 
     .whatsapp-float:hover {
@@ -2474,15 +2550,6 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
         box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
     }
 
-    /* Animación de pulso sutil para llamar atención */
-    .whatsapp-badge {
-        animation: pulse-badge-mobile 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-badge-mobile {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.15); opacity: 0.9; }
-    }
 }
 
 /* =====================================================
@@ -2490,7 +2557,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
    ===================================================== */
 @media (prefers-reduced-motion: reduce) {
     .whatsapp-float {
-        transition: none;
+
     }
 
     .whatsapp-float:hover,
@@ -2499,7 +2566,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
     }
 
     .whatsapp-badge {
-        animation: none;
+
     }
 }
 
@@ -4042,7 +4109,6 @@ a.btn.btn-whatsapp {
     font-weight: 600;
     color: #333;
     position: relative;
-    transition: all 0.3s ease;
 }
 
 .faq-section .faq-question:hover {
@@ -4064,7 +4130,6 @@ a.btn.btn-whatsapp {
     color: #fff;
     font-size: 18px;
     font-weight: 400;
-    transition: transform 0.3s ease;
 }
 
 .faq-section .faq-answer {

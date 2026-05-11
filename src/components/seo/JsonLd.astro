@@ -17,23 +17,32 @@ const organizationSchema = {
   "alternateName": "Mededul Mesas de Dulces",
   "url": siteUrl,
   "logo": getCdnUrl("/img/branding/logo-mededul-mesas-de-dulces.avif"),
-  "description": "Empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México",
+  "description": "Empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México, Estado de México, Toluca y Metepec",
   "foundingDate": "2020",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Ciudad de México",
-    "addressLocality": "Mexico City",
+    "streetAddress": "Av. Ejército Nacional Mexicano 216, Anzures",
+    "addressLocality": "Miguel Hidalgo",
     "addressRegion": "CDMX",
-    "postalCode": "06600",
+    "postalCode": "11590",
     "addressCountry": "MX"
   },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+52-55-2522-6442",
-    "contactType": "customer service",
-    "areaServed": ["MX-CMX", "MX-MEX"],
-    "availableLanguage": "Spanish"
-  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+52-55-2522-6442",
+      "contactType": "customer service",
+      "areaServed": ["MX-CMX", "MX-MEX"],
+      "availableLanguage": "Spanish"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+52-55-2177-5184",
+      "contactType": "customer service",
+      "areaServed": "MX-MEX",
+      "availableLanguage": "Spanish"
+    }
+  ],
   "sameAs": [
     "https://www.facebook.com/mededul",
     "https://www.instagram.com/mededul",
@@ -46,19 +55,19 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": `${siteUrl}/#localbusiness`,
-  "name": "Mededul - Mesas de Dulces CDMX",
+  "name": "Mededul - Mesas de Dulces CDMX, Toluca y Metepec",
   "image": [
     getCdnUrl("/img/galeria/mesa-dulces-elegante-01.avif"),
     getCdnUrl("/img/galeria/mesa-dulces-elegante-02.avif"),
     getCdnUrl("/img/galeria/mesa-dulces-elegante-03.avif")
   ],
-  "description": "Servicio profesional de renta de mesas de dulces, candy bar, fuente de chocolate y mesa de postres para bodas, XV años, baby shower, cumpleaños y eventos corporativos en Ciudad de México y área metropolitana.",
+  "description": "Servicio profesional de renta de mesas de dulces, candy bar, fuente de chocolate y mesa de postres para bodas, XV años, baby shower, cumpleaños y eventos corporativos en Ciudad de México, Estado de México, Toluca, Metepec y Valle de Toluca.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Polanco, Miguel Hidalgo",
-    "addressLocality": "Ciudad de México",
+    "streetAddress": "Av. Ejército Nacional Mexicano 216, Anzures",
+    "addressLocality": "Miguel Hidalgo",
     "addressRegion": "CDMX",
-    "postalCode": "11560",
+    "postalCode": "11590",
     "addressCountry": "MX"
   },
   "geo": {
@@ -88,7 +97,15 @@ const localBusinessSchema = {
     { "@type": "City", "name": "Naucalpan" },
     { "@type": "City", "name": "Tlalnepantla" },
     { "@type": "City", "name": "Huixquilucan" },
-    { "@type": "City", "name": "Atizapán" }
+    { "@type": "City", "name": "Atizapán" },
+    { "@type": "City", "name": "Toluca" },
+    { "@type": "City", "name": "Metepec" },
+    { "@type": "City", "name": "Zinacantepec" },
+    { "@type": "City", "name": "Lerma" },
+    { "@type": "City", "name": "Calimaya" },
+    { "@type": "City", "name": "Ocoyoacac" },
+    { "@type": "City", "name": "San Mateo Atenco" },
+    { "@type": "AdministrativeArea", "name": "Valle de Toluca" }
   ],
   "serviceType": [
     "Renta de mesas de dulces",
@@ -171,10 +188,14 @@ const serviceSchema = {
     "@type": "LocalBusiness",
     "name": "Mededul"
   },
-  "areaServed": {
-    "@type": "City",
-    "name": "Ciudad de México"
-  },
+  "areaServed": [
+    { "@type": "City", "name": "Ciudad de México" },
+    { "@type": "City", "name": "Toluca" },
+    { "@type": "City", "name": "Metepec" },
+    { "@type": "City", "name": "Zinacantepec" },
+    { "@type": "City", "name": "Lerma" },
+    { "@type": "AdministrativeArea", "name": "Estado de México" }
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Servicios de Mesas de Dulces",
