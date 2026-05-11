@@ -99,7 +99,30 @@
 .dir-container,
 .testi-container,
 .contact-container,
-.zonas-container {
+.zonas-container,
+.mf-wrap,
+.fqm-container,
+.container-1400,
+.top-bar .container,
+.blog-layout,
+.cat-wrap,
+.dir-wrap,
+.article-layout,
+.process-container,
+.process-wrap,
+.pricing-container,
+.pricing-wrap,
+.events-container,
+.testi-wrap,
+.testi-grid-wrap,
+.zonas-wrap,
+.galeria-wrap,
+.proceso-wrap,
+.aviso-wrap,
+.terms-wrap,
+.cot-wrap,
+[class$="__container"],
+[class$="-container"] {
   width: 100% !important;
   max-width: var(--ds-container-width) !important;
   margin-left: auto !important;
@@ -107,6 +130,26 @@
   padding-left: var(--ds-container-px) !important;
   padding-right: var(--ds-container-px) !important;
   box-sizing: border-box !important;
+}
+
+/* Containers internos que viven DENTRO de una band y NO deben tener padding lateral propio
+   (su band ya lo aporta). Detectar por uso típico y volverlos width-only. */
+.mf-wrap {
+  /* Footer band-wrapper — mantener padding fluido propio */
+}
+
+/* Excepciones: containers de contenido editorial que SÍ deben ser angostos */
+.faq-container { max-width: min(960px, 92vw) !important; }
+.events-header,
+.pricing-header,
+.process-header,
+.testi-header,
+.contact-header,
+.section-header__intro,
+.section-heading {
+  max-width: min(760px, 92%) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 /* Safe-area iOS */
@@ -686,4 +729,387 @@ a, button, [role="button"] {
   }
 }
 
-/* Final del design-system */
+/* ====================================================
+   21. POLISH PREMIUM v2 — Refinements profesionales
+   ==================================================== */
+
+/* --- Section header con divider sutil --- */
+.section-header {
+  position: relative;
+  padding-top: clamp(0.5rem, 1vw, 1rem);
+}
+.section-header__title,
+.section-header h2,
+h2.section-title {
+  position: relative;
+  font-weight: 800;
+}
+
+/* Pill superior decorativa universal (eyebrow) */
+.section-header__eyebrow,
+.eyebrow,
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(209, 0, 122, 0.08);
+  color: var(--rosa-principal, #D1007A);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: var(--ds-radius-pill);
+  border: 1px solid rgba(209, 0, 122, 0.15);
+  margin-bottom: 0.85rem;
+}
+
+/* --- Servicios/Eventos/Estaciones grid containers fluido --- */
+.service-grid,
+.pricing-grid,
+.process-timeline,
+.directorio-grid,
+.stats-grid,
+.posts-grid,
+.review-grid,
+.resenas-grid,
+.galeria-grid,
+.cards-grid {
+  width: 100% !important;
+  max-width: var(--ds-container-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Stats grid premium */
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 18vw, 240px), 1fr)) !important;
+  gap: var(--ds-gap-md) !important;
+}
+
+/* --- Pricing cards refinement --- */
+.pricing-card,
+.package-card {
+  border-radius: var(--ds-radius-xl) !important;
+  border: var(--ds-border) !important;
+  background: var(--ds-surface) !important;
+  box-shadow: var(--ds-shadow-sm) !important;
+  padding: clamp(1.5rem, 3vw, 2.5rem) !important;
+}
+.pricing-card:hover,
+.package-card:hover {
+  box-shadow: var(--ds-shadow-lg) !important;
+  border-color: rgba(209, 0, 122, 0.15) !important;
+}
+.pricing-card--featured,
+.package-card--featured,
+.package-card.is-featured {
+  border: 2px solid var(--rosa-principal, #D1007A) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fff5fa 100%) !important;
+  box-shadow: var(--ds-shadow-rosa) !important;
+}
+
+/* --- Process steps refinement --- */
+.process-step,
+.step-card {
+  border-radius: var(--ds-radius-lg) !important;
+  background: var(--ds-surface) !important;
+  border: var(--ds-border) !important;
+  padding: clamp(1.25rem, 2.4vw, 1.85rem) !important;
+  box-shadow: var(--ds-shadow-sm) !important;
+}
+.process-step:hover,
+.step-card:hover {
+  box-shadow: var(--ds-shadow-md) !important;
+}
+.process-step__number,
+.step-card__number,
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.5rem, 3.5vw, 3.25rem);
+  height: clamp(2.5rem, 3.5vw, 3.25rem);
+  border-radius: 50%;
+  background: var(--gradiente-dulce, linear-gradient(135deg, #D1007A 0%, #A0005F 55%, #5A1AA3 100%));
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  box-shadow: var(--ds-shadow-rosa);
+  margin-bottom: 1rem;
+}
+
+/* --- Stat card refinement --- */
+.stat-card,
+.metric-card {
+  border-radius: var(--ds-radius-lg) !important;
+  background: var(--ds-surface) !important;
+  border: var(--ds-border) !important;
+  padding: clamp(1.25rem, 2.4vw, 1.85rem) !important;
+  box-shadow: var(--ds-shadow-sm) !important;
+  text-align: center;
+}
+.stat-card__number,
+.metric-card__number,
+.stat-number {
+  font-size: clamp(2rem, 3vw, 2.75rem) !important;
+  font-weight: 800;
+  background: var(--gradiente-dulce, linear-gradient(135deg, #D1007A 0%, #5A1AA3 100%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+.stat-card__label,
+.metric-card__label,
+.stat-label {
+  font-size: clamp(0.85rem, 0.85rem + 0.1vw, 0.95rem);
+  color: #5a5862;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* --- Section dividers gradient sutil --- */
+section + section:not(.cta-section):not(.hero):not(.page-hero) {
+  position: relative;
+}
+
+/* --- Alternancia suave de fondos por secciones --- */
+.bg-soft,
+.section--soft {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfafd 100%);
+}
+
+/* --- WhatsApp float modernizado --- */
+.whatsapp-float {
+  border-radius: 50% !important;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.42), 0 4px 12px rgba(37, 211, 102, 0.28) !important;
+}
+.whatsapp-float:hover {
+  box-shadow: 0 14px 38px rgba(37, 211, 102, 0.55), 0 6px 16px rgba(37, 211, 102, 0.35) !important;
+}
+
+/* --- Skip link refinado --- */
+.skip-to-content {
+  border-radius: 0 0 var(--ds-radius-md) var(--ds-radius-md) !important;
+}
+
+/* --- Badges y etiquetas premium --- */
+.badge,
+.tag,
+.label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--ds-radius-pill);
+  letter-spacing: 0.02em;
+}
+
+/* --- Featured / Highlight badge --- */
+.badge-featured,
+.badge-popular,
+.badge-premium {
+  background: var(--gradiente-dulce, linear-gradient(135deg, #D1007A 0%, #A0005F 100%));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(209, 0, 122, 0.28);
+}
+
+/* --- Refined focus rings (accesibilidad) --- */
+*:focus-visible {
+  outline: 2px solid var(--rosa-principal, #D1007A);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* --- TopBar refinement --- */
+.top-bar {
+  font-size: clamp(0.78rem, 0.78rem + 0.1vw, 0.88rem);
+}
+.top-bar__content {
+  padding-top: clamp(0.4rem, 0.7vw, 0.55rem);
+  padding-bottom: clamp(0.4rem, 0.7vw, 0.55rem);
+}
+
+/* --- Header refinement --- */
+.header__container {
+  padding-top: clamp(0.85rem, 1.5vw, 1.5rem) !important;
+  padding-bottom: clamp(0.85rem, 1.5vw, 1.5rem) !important;
+  min-height: auto !important;
+}
+.header__logo img {
+  max-height: clamp(56px, 5.5vw, 84px) !important;
+  width: auto !important;
+}
+
+/* --- Mega menu polish --- */
+.mega-menu,
+.dropdown-menu {
+  border-radius: var(--ds-radius-lg) !important;
+  border: var(--ds-border) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+}
+
+/* --- Article content typography refinement --- */
+.article-content p,
+.prose p,
+article p {
+  font-size: clamp(0.98rem, 0.95rem + 0.18vw, 1.08rem);
+  line-height: 1.78;
+  margin-bottom: 1.1rem;
+}
+.article-content h2,
+.prose h2,
+article h2 {
+  margin-top: clamp(2rem, 3.5vw, 3rem);
+  margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+}
+.article-content h3,
+.prose h3,
+article h3 {
+  margin-top: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
+}
+
+/* --- CTA section refinada --- */
+.cta-section {
+  padding-top: clamp(3rem, 6vw, 5.5rem) !important;
+  padding-bottom: clamp(3rem, 6vw, 5.5rem) !important;
+}
+.cta-content h2 {
+  font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.8rem) !important;
+  color: #fff !important;
+}
+
+/* --- Forms select arrow refined --- */
+.form-group select,
+select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23D1007A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  padding-right: 2.75rem !important;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* --- Smooth scroll padding para sticky header --- */
+html {
+  scroll-padding-top: calc(var(--site-header-offset, 120px) + 1rem);
+}
+
+/* --- Listas estilizadas --- */
+.article-content ul,
+.prose ul,
+article ul {
+  padding-left: 1.2rem;
+}
+.article-content ul li,
+.prose ul li,
+article ul li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+
+/* --- Quote / blockquote premium --- */
+blockquote,
+.quote-block {
+  border-left: 4px solid var(--rosa-principal, #D1007A) !important;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.5vw, 1.85rem) !important;
+  background: linear-gradient(90deg, rgba(209, 0, 122, 0.04) 0%, transparent 100%) !important;
+  border-radius: 0 var(--ds-radius-md) var(--ds-radius-md) 0 !important;
+  font-style: italic;
+  color: #2d2c38;
+  margin: clamp(1.25rem, 2.5vw, 2rem) 0 !important;
+}
+
+/* --- Map / iframe responsivos --- */
+iframe[src*="google.com/maps"],
+iframe[src*="youtube.com"],
+iframe[src*="vimeo.com"] {
+  width: 100% !important;
+  border: 0;
+  border-radius: var(--ds-radius-md);
+  aspect-ratio: 16 / 9;
+}
+
+/* --- Mejor Hero shape blending para fondos brand --- */
+.hero {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfafd 60%, #fbf6fb 100%) !important;
+}
+
+/* --- Section spacing rítmico entre secciones consecutivas --- */
+main > section:first-child {
+  padding-top: 0;
+}
+
+/* --- Cards image hover (sin transform, solo brillo via shadow) --- */
+.service-card__image-wrapper,
+.tipo-card,
+.evento-card,
+.estacion-card {
+  position: relative;
+}
+
+/* --- Listas de servicios en sidebar --- */
+.sidebar-list,
+.directorio-sidebar ul,
+.blog-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-list li,
+.directorio-sidebar ul li,
+.blog-sidebar ul li {
+  margin-bottom: 0.5rem;
+}
+.sidebar-list a,
+.directorio-sidebar ul a,
+.blog-sidebar ul a {
+  display: block;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--ds-radius-sm);
+  font-size: 0.92rem;
+  color: #2d2c38;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.sidebar-list a:hover,
+.directorio-sidebar ul a:hover,
+.blog-sidebar ul a:hover {
+  background: rgba(209, 0, 122, 0.05);
+  border-color: rgba(209, 0, 122, 0.12);
+  color: var(--rosa-principal, #D1007A);
+}
+
+/* --- Polish para .reviews-section + .testimonials section --- */
+.testi-section,
+.testimonials-section,
+.resenas-section {
+  background: linear-gradient(180deg, #fafafb 0%, #fff5fa 100%);
+}
+
+/* --- Final responsive fine-tune --- */
+@media (max-width: 1280px) {
+  :root {
+    --ds-container-width: min(1240px, 94vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card,
+  .metric-card,
+  .pricing-card,
+  .process-step,
+  .step-card {
+    padding: 1.1rem !important;
+  }
+  .section-header {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Final del design-system v2 */
