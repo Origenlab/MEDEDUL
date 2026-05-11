@@ -141,10 +141,16 @@ const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@4
     <script is:inline>
       (() => {
         let lastOffset = -1;
+        let lastTopbar = -1;
         const applyHeaderOffset = () => {
           const topBar = document.querySelector('.top-bar');
           const header = document.querySelector('.header');
-          const offset = (topBar?.offsetHeight || 0) + (header?.offsetHeight || 0);
+          const topbarH = topBar?.offsetHeight || 0;
+          const offset = topbarH + (header?.offsetHeight || 0);
+          if (topbarH !== lastTopbar) {
+            lastTopbar = topbarH;
+            document.documentElement.style.setProperty('--topbar-offset', `${topbarH}px`);
+          }
           if (offset !== lastOffset) {
             lastOffset = offset;
             document.documentElement.style.setProperty('--site-header-offset', `${offset}px`);
