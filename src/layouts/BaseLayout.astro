@@ -166,7 +166,7 @@ const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@4
 
     <slot name="scripts" />
 
-    <!-- DMChamp chat widget -->
-    <script src="https://api.dmchamp.com/v1/chat-widget/QjJvgg44KjPKkctV92lS"></script>
+    <!-- DMChamp chat widget (data-cfasync=false → opt-out de Cloudflare Rocket Loader) -->
+    <script data-cfasync="false" src="https://api.dmchamp.com/v1/chat-widget/QjJvgg44KjPKkctV92lS"></script>
   </body>
 </html>
