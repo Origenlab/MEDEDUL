@@ -20,21 +20,22 @@ const RULES = {
 };
 
 // Componentes con props REQUERIDOS (debe pasarlos)
+// Fuente: contratos reales declarados en cada src/components/.../*.astro
 const REQUIRED_PROPS = {
-  StepList:        ['items'],
+  StepList:        ['steps'],
   FeatureList:     ['items'],
-  FAQAccordion:    ['items'],
   ProsCons:        ['pros', 'cons'],
   ComparisonTable: ['headers'],
-  CTABox:          ['title', 'buttonText', 'buttonLink'],
+  CTABox:          ['title', 'buttonText', 'buttonUrl'],
   StatCard:        ['value', 'label'],
 };
 
-// Mapeo de nombres-de-prop equivocados frecuentes
+// Mapeo de nombres-de-prop equivocados frecuentes -> nombre correcto del contrato
 const PROP_ALIASES = {
-  StepList:    { steps: 'items' },
+  StepList:    { items: 'steps' },
   FeatureList: { features: 'items' },
-  FAQAccordion:{ faqs: 'items', questions: 'items' },
+  CTABox:      { buttonLink: 'buttonUrl', buttonHref: 'buttonUrl', link: 'buttonUrl', url: 'buttonUrl' },
+  StatCard:    { number: 'value' },
 };
 
 function listMdx(dir) {
