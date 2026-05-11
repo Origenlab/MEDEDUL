@@ -5,7 +5,6 @@ import JsonLd from '@/components/seo/JsonLd.astro';
 import TopBar from '@/components/global/TopBar.astro';
 import Header from '@/components/global/Header.astro';
 import Footer from '@/components/global/Footer.astro';
-import WhatsAppButton from '@/components/global/WhatsAppButton.astro';
 import '@/styles/global.css';
 import '@/styles/layout.css';
 import '@/styles/design-system.css';
@@ -136,7 +135,6 @@ const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@4
     </main>
 
     <Footer />
-    <WhatsAppButton />
 
     <script is:inline>
       (() => {
@@ -167,5 +165,8 @@ const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@4
     </script>
 
     <slot name="scripts" />
+
+    <!-- DMChamp chat widget -->
+    <script src="https://api.dmchamp.com/v1/chat-widget/QjJvgg44KjPKkctV92lS"></script>
   </body>
 </html>

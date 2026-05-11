@@ -906,15 +906,6 @@ section + section:not(.cta-section):not(.hero):not(.page-hero) {
   background: linear-gradient(180deg, #ffffff 0%, #fdfafd 100%);
 }
 
-/* --- WhatsApp float modernizado --- */
-.whatsapp-float {
-  border-radius: 50% !important;
-  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.42), 0 4px 12px rgba(37, 211, 102, 0.28) !important;
-}
-.whatsapp-float:hover {
-  box-shadow: 0 14px 38px rgba(37, 211, 102, 0.55), 0 6px 16px rgba(37, 211, 102, 0.35) !important;
-}
-
 /* --- Skip link refinado --- */
 .skip-to-content {
   border-radius: 0 0 var(--ds-radius-md) var(--ds-radius-md) !important;
