@@ -1,0 +1,732 @@
+/* =====================================================
+   MEDEDUL — MOBILE-FIRST OVERHAUL
+   Hoja central de overrides responsive. Se carga al FINAL
+   del cascade desde global.css → BaseLayout.astro.
+   Usa !important quirúrgico para vencer hojas scoped que
+   se cargan después por componente.
+   Breakpoints: 1024 / 768 / 640 / 480 / 380
+   ===================================================== */
+
+/* =========================================================
+   1. TOKENS RESPONSIVE — header/topbar/section heights
+   ========================================================= */
+@media (max-width: 1024px) {
+  :root {
+    --ds-section-py: clamp(2.5rem, 5vw, 4rem);
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --ds-section-py: clamp(2rem, 6vw, 3.5rem);
+    --ds-container-px: clamp(0.9rem, 4vw, 1.25rem);
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --ds-section-py: clamp(1.85rem, 7vw, 3rem);
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --ds-section-py: clamp(1.5rem, 6vw, 2.5rem);
+    --ds-container-px: 0.95rem;
+  }
+}
+@media (max-width: 380px) {
+  :root {
+    --ds-container-px: 0.8rem;
+  }
+}
+
+/* =========================================================
+   2. CONTAINER FLUIDO — safe-area iOS
+   ========================================================= */
+@supports (padding: max(0px)) {
+  @media (max-width: 1024px) {
+    .container,
+    .top-bar .container,
+    .header__container,
+    .hero__container,
+    .footer .mf-wrap,
+    .breadcrumb-section .container,
+    .section__container,
+    .contact-container,
+    [class$="__container"],
+    [class$="-container"] {
+      padding-left: max(var(--ds-container-px, 1rem), env(safe-area-inset-left)) !important;
+      padding-right: max(var(--ds-container-px, 1rem), env(safe-area-inset-right)) !important;
+    }
+  }
+}
+
+/* =========================================================
+   3. HEADER — móvil: logo + toggle, sin nav desktop
+   ========================================================= */
+@media (max-width: 1024px) {
+  .header__container {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    min-height: 64px !important;
+    gap: 12px !important;
+  }
+  .header__logo img {
+    height: 46px !important;
+    max-width: 180px !important;
+  }
+  .header__toggle {
+    display: flex !important;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 640px) {
+  .header__container {
+    padding: 8px 14px !important;
+    min-height: 60px !important;
+  }
+  .header__logo img {
+    height: 42px !important;
+    max-width: 160px !important;
+  }
+}
+@media (max-width: 380px) {
+  .header__container {
+    padding: 8px 10px !important;
+    min-height: 56px !important;
+  }
+  .header__logo img {
+    height: 38px !important;
+    max-width: 140px !important;
+  }
+}
+
+/* =========================================================
+   4. MOBILE MENU — siempre full-screen pulido
+   ========================================================= */
+@media (max-width: 1024px) {
+  .mobile-menu {
+    display: block !important;
+    top: var(--site-header-offset, 110px) !important;
+    background: #ffffff !important;
+    z-index: 999 !important;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-menu__inner {
+    padding: 16px 18px 28px !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .mobile-menu__link {
+    min-height: 48px;
+    padding: 14px 4px !important;
+    font-size: 1rem !important;
+  }
+  .mobile-menu__group-header {
+    min-height: 46px;
+  }
+  .mobile-menu__sublink {
+    min-height: 44px;
+    display: flex !important;
+    align-items: center;
+  }
+  .mobile-menu__phone,
+  .mobile-menu__cta {
+    min-height: 50px;
+    font-size: 1rem !important;
+  }
+  /* Body lock cuando el menú está abierto */
+  body.menu-open {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* =========================================================
+   5. TOPBAR — compacto sin desbordes
+   ========================================================= */
+@media (max-width: 640px) {
+  .top-bar {
+    padding: 6px 0 !important;
+    min-height: 40px !important;
+  }
+  .top-bar .container {
+    padding: 0 14px !important;
+  }
+  .top-bar__content {
+    gap: 8px;
+  }
+  .top-bar__name {
+    font-size: 11px !important;
+  }
+  .top-bar__social a {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px;
+    min-height: 30px;
+  }
+}
+@media (max-width: 380px) {
+  .top-bar__brand {
+    gap: 4px;
+  }
+  .top-bar__contact {
+    gap: 6px;
+  }
+}
+
+/* =========================================================
+   6. HERO — stack vertical, padding ajustado, sin overflow
+   ========================================================= */
+@media (max-width: 900px) {
+  .hero {
+    padding-top: calc(var(--site-header-offset, 110px) + 1.75rem) !important;
+    padding-bottom: 2rem !important;
+  }
+  .hero--full .hero__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  .hero__container {
+    padding-left: var(--ds-container-px, 1rem) !important;
+    padding-right: var(--ds-container-px, 1rem) !important;
+  }
+  .hero h1 {
+    font-size: clamp(1.55rem, 5.5vw, 2.1rem) !important;
+    line-height: 1.18 !important;
+    word-break: break-word;
+  }
+  .hero__subtitle {
+    font-size: 0.98rem !important;
+  }
+  .hero__description,
+  .hero__secondary :global(p),
+  .hero__secondary p {
+    font-size: 0.9rem !important;
+    line-height: 1.65 !important;
+  }
+}
+@media (max-width: 640px) {
+  .hero {
+    padding-top: calc(var(--site-header-offset, 100px) + 1.25rem) !important;
+    padding-bottom: 1.75rem !important;
+  }
+  .hero h1 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    padding-top: calc(var(--site-header-offset, 96px) + 1rem) !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .hero__shape--3 { display: none !important; }
+  .hero__shape--1,
+  .hero__shape--2 {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+
+/* =========================================================
+   7. GRIDS — auto-fit que colapsa a 1col en móvil
+   ========================================================= */
+@media (max-width: 768px) {
+  .service-grid,
+  .tipos-grid,
+  .eventos-grid,
+  .estaciones-grid,
+  .porque-grid,
+  .review-grid,
+  .resenas-grid,
+  .cards-grid,
+  .stats-grid,
+  .pricing-grid,
+  .process-timeline,
+  .seo-grid,
+  .posts-grid,
+  .blog-posts-grid,
+  .directorio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    grid-auto-rows: minmax(140px, 1fr) !important;
+  }
+  /* Stats: 2x2 en lugar de 4-col */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 480px) {
+  .galeria-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: minmax(180px, 1fr) !important;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================================================
+   8. CARDS — padding y radios para móvil
+   ========================================================= */
+@media (max-width: 640px) {
+  .tipo-card,
+  .evento-card,
+  .estacion-card,
+  .porque-card,
+  .resena-card,
+  .service-card,
+  .review-card,
+  .info-card,
+  .dulceria-card,
+  .blog-card,
+  .blog-post-card,
+  .related-card {
+    border-radius: 14px !important;
+  }
+  .tipo-card-content,
+  .evento-card-content,
+  .estacion-card-content,
+  .porque-card-content,
+  .service-card__content {
+    padding: 0.9rem 0.9rem 1.1rem !important;
+  }
+  .resena-card,
+  .pricing-card,
+  .package-card,
+  .process-step,
+  .step-card,
+  .stat-card,
+  .metric-card {
+    padding: 1.05rem !important;
+  }
+  .service-card__title,
+  .tipo-card h4,
+  .evento-card h4,
+  .estacion-card h4,
+  .porque-card h4 {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* =========================================================
+   9. CTAs / BOTONES — full-width en móvil + 48px touch
+   ========================================================= */
+@media (max-width: 768px) {
+  .cta-buttons,
+  .hero__ctas {
+    flex-direction: column !important;
+    width: 100%;
+    align-items: stretch !important;
+  }
+  .cta-buttons .btn,
+  .hero__ctas .btn,
+  .cta-buttons [class*="btn-"],
+  .hero__ctas [class*="btn-"],
+  .cta-buttons a,
+  .hero__ctas a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-submit,
+  [class*="btn-"],
+  .cta-btn,
+  button,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 48px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+/* =========================================================
+   10. FORMULARIOS — iOS no-zoom + touch + stack
+   ========================================================= */
+@media (max-width: 768px) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="date"],
+  input[type="time"],
+  input[type="url"],
+  input[type="password"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+    min-height: 50px !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 12px !important;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+  }
+  .form-group label {
+    font-size: 0.9rem !important;
+  }
+  .form-group textarea,
+  textarea {
+    min-height: 120px !important;
+  }
+  .contacto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  .contacto-form-wrapper {
+    padding: 1.1rem !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* =========================================================
+   11. SECTION HEADERS — apilados centrados
+   ========================================================= */
+@media (max-width: 900px) {
+  .section-header {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    gap: 0.75rem !important;
+  }
+  .section-header-right {
+    text-align: left;
+  }
+}
+@media (max-width: 640px) {
+  .section-header {
+    margin-bottom: 1.5rem !important;
+  }
+  .section-header__eyebrow,
+  .eyebrow,
+  .section-eyebrow {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+/* =========================================================
+   12. FAQ — touch friendly
+   ========================================================= */
+@media (max-width: 640px) {
+  .faq-item {
+    border-radius: 12px !important;
+  }
+  .faq-question {
+    padding: 0.95rem 1rem !important;
+    font-size: 0.98rem !important;
+    min-height: 52px;
+  }
+  .faq-item.active .faq-answer {
+    padding: 0 1rem 1rem !important;
+    font-size: 0.92rem;
+  }
+}
+
+/* =========================================================
+   13. FOOTER — refuerzo mobile
+   ========================================================= */
+@media (max-width: 768px) {
+  .mf-cta {
+    padding: 28px 0 !important;
+  }
+  .mf-cta__inner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center;
+    gap: 16px !important;
+  }
+  .mf-cta__text {
+    text-align: center;
+  }
+  .mf-cta__btns {
+    justify-content: center !important;
+    width: 100%;
+  }
+  .mf-btn {
+    flex: 1 1 calc(50% - 7px);
+    justify-content: center;
+    padding: 12px 16px !important;
+    font-size: 0.85rem !important;
+  }
+  .mf-body {
+    padding: 40px 0 !important;
+  }
+  .mf-brand {
+    align-items: center;
+    text-align: center;
+    max-width: 100% !important;
+  }
+  .mf-logo {
+    justify-content: center;
+  }
+  .mf-social,
+  .mf-contact,
+  .mf-stats {
+    justify-content: center !important;
+  }
+  .mf-contact {
+    align-items: center;
+  }
+}
+@media (max-width: 560px) {
+  .mf-nav {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 22px 12px !important;
+  }
+  .mf-nav__title {
+    font-size: 0.62rem !important;
+    margin-bottom: 12px !important;
+  }
+  .mf-nav__link {
+    font-size: 0.82rem !important;
+  }
+  .mf-locations {
+    padding: 40px 0 !important;
+  }
+  .mf-locations__list {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .mf-loc__actions {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .mf-loc__btn {
+    font-size: 0.72rem !important;
+    padding: 9px 10px !important;
+  }
+  /* Mostrar texto en botones maps (font-size: 0 quita label) */
+  .mf-loc__btn--maps,
+  .mf-loc__btn--wa {
+    font-size: 0.72rem !important;
+  }
+  .mf-loc__btn--maps svg,
+  .mf-loc__btn--wa svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+@media (max-width: 400px) {
+  .mf-cta__heading {
+    font-size: 1.15rem !important;
+    line-height: 1.25;
+  }
+  .mf-btn {
+    flex: 1 1 100%;
+  }
+  .mf-bar__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .mf-bar__legal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   14. BREADCRUMB — compacto en móvil
+   ========================================================= */
+@media (max-width: 640px) {
+  .breadcrumb-section,
+  section.breadcrumb-section {
+    padding: 8px 0 4px !important;
+  }
+  .breadcrumb-section .breadcrumb {
+    font-size: 0.78rem !important;
+    gap: 6px;
+  }
+  .breadcrumb-section .breadcrumb svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* =========================================================
+   15. TABLAS — scroll horizontal suave
+   ========================================================= */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   16. OVERFLOW PROTECTION — anti-desbordes globales
+   ========================================================= */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  img,
+  video,
+  iframe,
+  picture,
+  svg.responsive {
+    max-width: 100% !important;
+    height: auto;
+  }
+  pre, code {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* =========================================================
+   17. PROCESO / STEP-LIST — apilado y números prominentes
+   ========================================================= */
+@media (max-width: 768px) {
+  .process-step,
+  .step-card {
+    text-align: left;
+  }
+  .process-step__number,
+  .step-card__number,
+  .step-number {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* =========================================================
+   18. CTA SECTION — padding generoso, no aplastado
+   ========================================================= */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 2.5rem 0 !important;
+  }
+  .cta-content h2 {
+    font-size: clamp(1.4rem, 5vw, 1.8rem) !important;
+    line-height: 1.25 !important;
+  }
+  .cta-content p {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* =========================================================
+   19. BLOG / ARTÍCULOS — legibilidad móvil
+   ========================================================= */
+@media (max-width: 768px) {
+  .blog-layout,
+  .article-layout,
+  .cat-wrap,
+  .dir-wrap {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  .blog-sidebar,
+  .article-sidebar,
+  .directorio-sidebar {
+    width: 100% !important;
+    margin-top: 1rem;
+  }
+  .article-content,
+  .prose,
+  article {
+    font-size: 1rem;
+  }
+}
+
+/* =========================================================
+   20. DIRECTORIO — sidebar al final, cards stack
+   ========================================================= */
+@media (max-width: 768px) {
+  .dir-grid,
+  .directorio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.9rem !important;
+  }
+  .dulceria-card {
+    padding: 1rem !important;
+  }
+}
+
+/* =========================================================
+   21. QUICK EVENT NAV — scroll horizontal en móvil
+   ========================================================= */
+@media (max-width: 768px) {
+  .quick-event-nav,
+  .quick-events {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  .quick-event-nav > *,
+  .quick-events > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+/* =========================================================
+   22. SUCURSALES PAGE — cards stack
+   ========================================================= */
+@media (max-width: 768px) {
+  .sucursales-grid,
+  .sucursal-card {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+/* =========================================================
+   23. CONTACT SECTION — info + form stack
+   ========================================================= */
+@media (max-width: 968px) {
+  .contact-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.75rem !important;
+  }
+}
+@media (max-width: 640px) {
+  .contact-info__title {
+    font-size: 1.45rem !important;
+  }
+  .contact-card {
+    padding: 1rem !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* =========================================================
+   24. TAP HIGHLIGHT + accessibility focus
+   ========================================================= */
+a, button, [role="button"], input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* =========================================================
+   25. SCROLL PADDING ajustado a header en móvil
+   ========================================================= */
+@media (max-width: 1024px) {
+  html {
+    scroll-padding-top: calc(var(--site-header-offset, 110px) + 0.5rem);
+  }
+}
