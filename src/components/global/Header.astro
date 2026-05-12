@@ -472,33 +472,67 @@ const isActive = (item: typeof menuItems[0]) => {
         });
       }
 
-      /* ====== Desktop mega menu: click toggle + outside close ====== */
+      /* ====== Desktop mega menu: hover-intent JS + click toggle ====== */
       const megaItems = header.querySelectorAll('.header__item.has-mega');
+      const closeTimers = new WeakMap();
+
+      const closeItem = (it) => {
+        it.classList.remove('open');
+        const btn = it.querySelector('.header__mega-toggle');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      };
 
       const closeAllMega = () => {
         megaItems.forEach((it) => {
-          it.classList.remove('open');
-          const btn = it.querySelector('.header__mega-toggle');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
+          const t = closeTimers.get(it);
+          if (t) { clearTimeout(t); closeTimers.delete(it); }
+          closeItem(it);
         });
       };
 
+      const openItem = (it) => {
+        const t = closeTimers.get(it);
+        if (t) { clearTimeout(t); closeTimers.delete(it); }
+        megaItems.forEach((other) => { if (other !== it) closeItem(other); });
+        it.classList.add('open');
+        const btn = it.querySelector('.header__mega-toggle');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      };
+
+      const scheduleClose = (it, delay = 220) => {
+        const prev = closeTimers.get(it);
+        if (prev) clearTimeout(prev);
+        const t = setTimeout(() => {
+          closeItem(it);
+          closeTimers.delete(it);
+        }, delay);
+        closeTimers.set(it, t);
+      };
+
       megaItems.forEach((item) => {
-        const btn = item.querySelector('.header__mega-toggle');
-        if (!btn) return;
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const willOpen = !item.classList.contains('open');
-          closeAllMega();
-          if (willOpen) {
-            item.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-          }
+        // Hover-intent: abrir al entrar, cerrar con delay al salir
+        item.addEventListener('mouseenter', () => {
+          if (!isDesktop()) return;
+          openItem(item);
         });
+        item.addEventListener('mouseleave', () => {
+          if (!isDesktop()) return;
+          scheduleClose(item);
+        });
+
+        // Click en la flecha = toggle (cubre teclado, touchscreen, trackpad lento)
+        const btn = item.querySelector('.header__mega-toggle');
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (item.classList.contains('open')) closeItem(item);
+            else openItem(item);
+          });
+        }
       });
 
-      // Click outside closes any open mega
+      // Click fuera del header cierra todos
       document.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -667,7 +701,6 @@ const isActive = (item: typeof menuItems[0]) => {
     transition: transform .25s ease;
     opacity: .7;
   }
-  .header__item.has-mega:hover > .header__mega-toggle .header__arrow,
   .header__item.has-mega.open > .header__mega-toggle .header__arrow {
     transform: rotate(180deg);
     opacity: 1;
@@ -688,7 +721,6 @@ const isActive = (item: typeof menuItems[0]) => {
     z-index: 1001;
   }
 
-  .header__item.has-mega:hover > .mega-menu,
   .header__item.has-mega:focus-within > .mega-menu,
   .header__item.has-mega.open > .mega-menu {
     opacity: 1;
