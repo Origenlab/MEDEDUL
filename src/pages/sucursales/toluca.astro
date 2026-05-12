@@ -1,0 +1,1414 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca', url: '/sucursales/toluca' }
+];
+
+// =============== Sucursal Toluca-Metepec (1) ===============
+const sucursalesToluca = [
+  {
+    id: 'metepec',
+    nombre: 'Sucursal Toluca - Metepec',
+    badge: 'Sucursal Valle de Toluca',
+    destacada: true,
+    direccion: 'Blvd. Toluca-Metepec 913',
+    zona: 'San Jorge Pueblo Nuevo, Metepec',
+    cp: '52169, Estado de Mexico',
+    telefono: '55 2177 5184',
+    telefonoHref: 'tel:+525521775184',
+    whatsapp: 'https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20el%20Valle%20de%20Toluca',
+    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
+    cobertura: 'Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya y todo el Valle de Toluca.',
+    tiempoMontaje: 'Llegada 2-3 h antes del evento',
+    mapUrl: 'https://www.google.com/maps?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169&output=embed',
+    mapLink: 'https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169'
+  }
+];
+
+// =============== Trust Stats ===============
+const stats = [
+  { number: '8+', label: 'Anos de experiencia' },
+  { number: '150+', label: 'Eventos en Valle Toluca' },
+  { number: '7', label: 'Municipios cubiertos' },
+  { number: '24h', label: 'Respuesta cotizacion' }
+];
+
+// =============== A. Mesas por Tipo de Evento (8) ===============
+const serviciosEventos = [
+  {
+    title: 'Mesa de Dulces para Bodas',
+    excerpt: 'El dia mas importante de tu vida merece una mesa a la altura. Disenamos cada montaje pensando en tu paleta de boda, tu hacienda o salon en el Valle de Toluca y el momento exacto del corte de pastel.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif',
+    href: '/candy-bar-eventos/mesa-dulces-boda',
+    badge: 'Mas solicitado',
+    cta: 'Ver mesa para bodas'
+  },
+  {
+    title: 'Candy Bar para XV Anos',
+    excerpt: 'Los XV son una noche unica. Sabemos lo que significa para tu hija y para ti. Por eso cuidamos la paleta, las texturas y el surtido para que la mesa se vuelva el rincon mas fotografiado de la fiesta en Toluca o Metepec.',
+    img: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif',
+    href: '/candy-bar-eventos/mesa-dulces-xv-anos',
+    badge: 'Top XV Toluca',
+    cta: 'Ver mesa XV anos'
+  },
+  {
+    title: 'Mesa para Baby Shower',
+    excerpt: 'Bienvenida tierna, paleta pastel y detalles delicados. Curamos dulces y postres que se ven hermosos en foto y que de verdad les gustan a las invitadas: macarons, gomitas suaves, galletas decoradas.',
+    img: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif',
+    href: '/candy-bar-eventos/mesa-dulces-baby-shower',
+    cta: 'Ver baby shower'
+  },
+  {
+    title: 'Mesa para Bautizo',
+    excerpt: 'Una celebracion familiar merece un montaje sobrio y elegante. Trabajamos paletas suaves, simbolos del bautismo y opciones aptas para invitados de todas las edades, desde abuelitos hasta primos pequenos.',
+    img: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver mesa bautizo'
+  },
+  {
+    title: 'Mesa para Primera Comunion',
+    excerpt: 'Una de las celebraciones mas significativas de la infancia. Diseno limpio, paleta blanco-dorado o azul-plata, y un surtido balanceado que respeta el tono ceremonial sin perder la magia del dia.',
+    img: '/img/galeria/candy-bar-primera-comunion-blanco-dorado-macarons.avif',
+    href: '/candy-bar-eventos/mesa-dulces-primera-comunion',
+    cta: 'Ver primera comunion'
+  },
+  {
+    title: 'Cumpleanos Infantil',
+    excerpt: 'Que tu hijo o hija recuerde su fiesta toda la vida. Trabajamos tematicas: princesas, dinosaurios, Mickey, Frozen, safari, paw patrol, superheroes... y muchas mas. Colores vibrantes y dulces que les encantan.',
+    img: '/img/galeria/candy-bar-superheroes-cumpleanos-nino.avif',
+    href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil',
+    cta: 'Ver cumpleanos infantil'
+  },
+  {
+    title: 'Mesa para Graduacion',
+    excerpt: 'Cierras una etapa importante. La mesa se vuelve protagonista del brindis: paleta de tu universidad, birrete decorado, surtido pensado para una generacion que va a recordar este momento.',
+    img: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver mesa graduacion'
+  },
+  {
+    title: 'Eventos Corporativos',
+    excerpt: 'Tu marca, tu paleta, tu mensaje. Montajes sobrios y profesionales con branding integrado para lanzamientos, posadas, fin de ano y experiencias para colaboradores en parques industriales de Lerma y Toluca.',
+    img: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    badge: 'B2B',
+    cta: 'Ver corporativos'
+  }
+];
+
+// =============== B. Tipos de Mesa por Estilo Gastronomico (8) ===============
+const serviciosTipos = [
+  {
+    title: 'Mesa de Dulces Clasica',
+    excerpt: 'La opcion mas completa: chocolates, gomitas, paletas, mexicanos y postres en una sola estacion. Ideal cuando quieres que haya algo para cada invitado, desde los ninos hasta los adultos.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-dulces',
+    cta: 'Ver mesa clasica'
+  },
+  {
+    title: 'Mesa de Postres Gourmet',
+    excerpt: 'Reposteria fina: macarons frances, tartaletas individuales, mini-cheesecakes, eclairs, profiteroles y trufas artesanales. Para eventos donde el detalle pesa mas que la cantidad.',
+    img: '/img/galeria/mesa-dulces-gourmet-premium.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-postres',
+    badge: 'Premium',
+    cta: 'Ver mesa postres'
+  },
+  {
+    title: 'Mesa de Frutas',
+    excerpt: 'Fresca, ligera y muy visual. Frutas de temporada, brochetas, chamoy artesanal y opciones perfectas para brunches de boda, baby showers y bodas en jardin en Valle de Toluca.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    cta: 'Ver mesa de frutas'
+  },
+  {
+    title: 'Mesa de Quesos y Embutidos',
+    excerpt: 'Tabla profesional para hora del aperitivo o cocteles: quesos madurados, jamon serrano, salami, frutos secos, mieles, panes artesanales y mermeladas. Ideal en boda civil o cena privada.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos',
+    badge: 'Gourmet',
+    cta: 'Ver mesa quesos'
+  },
+  {
+    title: 'Mesa de Snacks',
+    excerpt: 'La opcion que mas se acaba la noche: papas gourmet, pretzels, palomitas saborizadas, cacahuates japoneses, mix mexicano y opciones picantes. Ideal para fiestas largas y barras libres.',
+    img: '/img/galeria/mesa-dulces-saludables-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-snacks',
+    cta: 'Ver mesa snacks'
+  },
+  {
+    title: 'Mesa de Botanas',
+    excerpt: 'Sabor mexicano y gourmet: chicharrones, frituras artesanales, salsas, dips, cacahuates enchilados y opciones para acompanar mezcal o tequila. Perfecta para eventos con identidad mexicana.',
+    img: '/img/tipos-de-mesas/botanas/botanas-gourmet-fiestas.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-botanas',
+    cta: 'Ver mesa botanas'
+  },
+  {
+    title: 'Mesa de Donas y Cupcakes',
+    excerpt: 'Reposteria visual y divertida. Donas glaseadas en torres, cupcakes decorados al tema del evento y opciones mini para invitados que prefieren porciones pequenas. Foto perfecta garantizada.',
+    img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes',
+    cta: 'Ver donas y cupcakes'
+  },
+  {
+    title: 'Mesa de Dulces Tradicionales Mexicanos',
+    excerpt: 'Cocadas, jamoncillos, palanquetas, alegrias, dulces de leche, ate de membrillo y favoritos regionales. Ideal para bodas en hacienda estilo mexicano y eventos con identidad regional.',
+    img: '/img/galeria/mesa-dulces-mexicanos-tradicionales-exterior.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales',
+    badge: 'Mexicano',
+    cta: 'Ver dulces tradicionales'
+  }
+];
+
+// =============== C. Estaciones Interactivas (4) ===============
+const serviciosEstaciones = [
+  {
+    title: 'Fuente de Chocolate',
+    excerpt: 'Estacion sensorial que siempre genera fila feliz. Chocolate fundido en cascada con brochetas de fresa, malvavisco, platano, marshmallows y galletas. Operador profesional incluido.',
+    img: '/img/galeria/candy-bar-chocolate-oscuro-elegante.avif',
+    href: '/estaciones-interactivas/fuente-de-chocolate',
+    badge: 'Favorita',
+    cta: 'Ver fuente chocolate'
+  },
+  {
+    title: 'Fuente de Chamoy',
+    excerpt: 'Mexicana, vibrante e instagrameable. Chamoy artesanal con gomitas, mangos, pepinos, jicama y duraznos. Personalizable en nivel de picante. Lleva tus XV o boda mexicana en Toluca al siguiente nivel.',
+    img: '/img/galeria/candy-bar-dia-muertos-pan-muerto-cempasuchil.avif',
+    href: '/estaciones-interactivas/fuente-de-chamoy',
+    badge: 'Mexicano',
+    cta: 'Ver fuente chamoy'
+  },
+  {
+    title: 'Candy Wall / Pared de Dulces',
+    excerpt: 'Una pared completa de dulces que tambien es escenografia y backdrop fotografico. Personalizamos paleta y surtido. Funciona como punto focal en bodas modernas, XV y lanzamientos de marca.',
+    img: '/img/galeria/candy-bar-tema-neon-brillante-colores.avif',
+    href: '/estaciones-interactivas/pared-de-dulces',
+    cta: 'Ver candy wall'
+  },
+  {
+    title: 'Stand Decorado para Pastel',
+    excerpt: 'Convertimos el area del pastel en un espacio protagonista: estructura, flores, telas, luces y tipografia personalizada. El momento del corte se vuelve la foto principal de la noche.',
+    img: '/img/galeria/candy-bar-bodas-oro-dorado-ferrero-pastel.avif',
+    href: '/estaciones-interactivas/stand-para-pastel',
+    cta: 'Ver stand pastel'
+  }
+];
+
+// =============== Zonas Valle de Toluca cubiertas ===============
+const zonasToluca = [
+  { nombre: 'Metepec', href: '/mesas-de-dulces-metepec', alcaldia: 'Estado de Mexico', destacada: true },
+  { nombre: 'Toluca Centro', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico', destacada: true },
+  { nombre: 'Zinacantepec', href: '/mesas-de-dulces-zinacantepec', alcaldia: 'Estado de Mexico', destacada: true },
+  { nombre: 'Lerma', href: '/mesas-de-dulces-lerma', alcaldia: 'Estado de Mexico' },
+  { nombre: 'San Mateo Atenco', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Ocoyoacac', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Calimaya', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Santiago Tianguistenco', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Almoloya de Juarez', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Temoaya', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Xonacatlan', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' },
+  { nombre: 'Capulhuac', href: '/mesas-de-dulces-toluca', alcaldia: 'Estado de Mexico' }
+];
+
+// =============== Venues iconicos Valle de Toluca ===============
+const venuesGrupos = [
+  {
+    categoria: 'Hoteles premium',
+    descripcion: 'Cadenas y hoteles boutique con reglamentos estrictos de proveedores en Toluca y Metepec.',
+    iconKey: 'hotel',
+    items: [
+      { nombre: 'Hotel Crowne Plaza Toluca', zona: 'Toluca', tipo: '5 estrellas' },
+      { nombre: 'Hotel Quinta del Rey', zona: 'Toluca', tipo: '4 estrellas' },
+      { nombre: 'Holiday Inn Toluca', zona: 'Toluca', tipo: 'Cadena internacional' },
+      { nombre: 'Hotel del Rey Inn', zona: 'Toluca', tipo: '4 estrellas' },
+      { nombre: 'Hotel Cathy', zona: 'Metepec', tipo: 'Boutique' },
+      { nombre: 'Hotel Mision Toluca', zona: 'Toluca Centro', tipo: 'Cadena nacional' }
+    ]
+  },
+  {
+    categoria: 'Haciendas y recintos patrimoniales',
+    descripcion: 'Haciendas coloniales y espacios historicos del Valle de Toluca con coordinacion especial.',
+    iconKey: 'landmark',
+    items: [
+      { nombre: 'Hacienda La Pila', zona: 'Toluca', tipo: 'Hacienda S.XVI' },
+      { nombre: 'Hacienda Cantalagua', zona: 'Lerma', tipo: 'Hacienda colonial' },
+      { nombre: 'Hacienda San Isidro Boxipe', zona: 'Lerma', tipo: 'Hacienda colonial' },
+      { nombre: 'Centro Cultural Mexiquense', zona: 'Toluca', tipo: 'Patrimonio cultural' },
+      { nombre: 'Cosmovitral Jardin Botanico', zona: 'Toluca Centro', tipo: 'Patrimonio' }
+    ]
+  },
+  {
+    categoria: 'Salones de eventos y jardines',
+    descripcion: 'Salones de banquetes y jardines en zonas residenciales premium del Valle.',
+    iconKey: 'glass',
+    items: [
+      { nombre: 'Salon Quinta Lupita', zona: 'Metepec', tipo: 'Salon eventos' },
+      { nombre: 'Jardin Hacienda Tlachalola', zona: 'Metepec', tipo: 'Jardin eventos' },
+      { nombre: 'Club Hipico La Asuncion', zona: 'Metepec', tipo: 'Club privado' },
+      { nombre: 'Country Club Toluca', zona: 'Toluca', tipo: 'Club privado' },
+      { nombre: 'Salon Las Bugambilias', zona: 'Lerma', tipo: 'Salon banquetes' }
+    ]
+  },
+  {
+    categoria: 'Recintos y centros de convenciones',
+    descripcion: 'Espacios de gran escala para eventos corporativos y celebraciones masivas en el Valle de Toluca.',
+    iconKey: 'star',
+    items: [
+      { nombre: 'Centro de Convenciones Metepec', zona: 'Metepec', tipo: 'Centro convenciones' },
+      { nombre: 'World Trade Center Toluca', zona: 'Toluca', tipo: 'Centro convenciones' },
+      { nombre: 'Foro Magico', zona: 'Toluca', tipo: 'Recinto multiple' }
+    ]
+  }
+];
+
+// =============== Caracteristicas / Diferenciadores ===============
+const caracteristicasToluca = [
+  {
+    num: 1,
+    title: 'Conocemos cada venue del Valle',
+    desc: 'Mas de 150 eventos en haciendas, hoteles, salones y jardines del Valle de Toluca. Conocemos reglamentos, tiempos de acceso y coordinadores de Hacienda La Pila, Cantalagua, Crowne Plaza y mas.',
+    img: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'
+  },
+  {
+    num: 2,
+    title: 'Sucursal fisica en Metepec',
+    desc: 'Operamos desde Blvd. Toluca-Metepec 913 en San Jorge Pueblo Nuevo. Tiempo de respuesta corto y montaje sin friccion en Toluca, Metepec, Zinacantepec y Lerma.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif'
+  },
+  {
+    num: 3,
+    title: 'Estandar premium replicable',
+    desc: 'El mismo nivel de diseno, surtido y operacion que ofrecemos en CDMX, ahora en el Valle de Toluca. Procesos profesionales y checklists en cada evento.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Cotizacion rapida y sin sorpresas',
+    desc: 'Respuesta en menos de 24 horas habiles, propuesta visual clara, paquetes transparentes y contrato formal. Servicio sin estres para tu evento en el Valle.',
+    img: '/img/galeria/candy-bar-elegante-tonos-neutros-macarons.avif'
+  }
+];
+
+// =============== Paquetes Toluca ===============
+const paquetesToluca = [
+  {
+    name: 'Toluca Esencial',
+    icon: '🍬',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Ideal para eventos familiares en el Valle',
+    features: [
+      '10+ variedades de dulces premium',
+      'Diseno personalizado a tu evento',
+      'Montaje profesional en venue',
+      '4 horas de servicio',
+      'Traslado dentro del Valle de Toluca',
+      'Coordinacion con venue local'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20el%20paquete%20Toluca%20Esencial'
+  },
+  {
+    name: 'Toluca Premium',
+    icon: '👑',
+    price: '$8,900',
+    currency: 'MXN',
+    guests: '70-130 personas',
+    tagline: 'El mas elegido para bodas y XV en el Valle',
+    features: [
+      '15+ variedades premium y postres',
+      'Direccion creativa y briefing visual',
+      'Fuente de chocolate o estacion extra',
+      '5 horas de servicio + reposicion',
+      'Coordinacion con venue y wedding planner',
+      'Traslado incluido Valle de Toluca',
+      'Backdrop y atrezzo coordinado'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Toluca%20Premium'
+  },
+  {
+    name: 'Toluca Luxury',
+    icon: '✨',
+    price: '$14,500',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Experiencia exclusiva alto nivel Valle de Toluca',
+    features: [
+      '22+ variedades exclusivas e importadas',
+      'Diseno de autor 100% personalizado',
+      'Multiples estaciones interactivas',
+      'Mesa de quesos y embutidos premium',
+      'Equipo completo de servicio dedicado',
+      'Backdrop floral / branding extendido',
+      'Coordinacion full con wedding planner',
+      'Concierge durante todo el evento'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20el%20paquete%20Toluca%20Luxury'
+  }
+];
+
+// =============== Proceso ===============
+const procesoToluca = [
+  {
+    num: 1,
+    title: 'Contacto y briefing',
+    desc: 'Nos cuentas tipo de evento, fecha, sede en el Valle de Toluca, numero de invitados y estilo. Te asignamos coordinador desde nuestra sucursal Metepec para optimizar logistica.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta visual y cotizacion',
+    desc: 'Recibes en menos de 24 h propuesta con paleta, surtido sugerido, render conceptual y precio cerrado. Sin sorpresas ni costos ocultos.'
+  },
+  {
+    num: 3,
+    title: 'Diseno y confirmacion',
+    desc: 'Ajustamos detalles segun tu feedback, confirmamos paleta, surtido final y firmamos contrato. Coordinamos con venue (hacienda, hotel, salon) y wedding planner si aplica.'
+  },
+  {
+    num: 4,
+    title: 'Montaje, operacion y desmontaje',
+    desc: 'Llegamos 2-3 h antes con todo el equipo. Montamos, operamos durante el evento con reposicion continua y desmontamos discretamente al cierre.'
+  }
+];
+
+// =============== Testimonios Toluca ===============
+const testimoniosToluca = [
+  {
+    name: 'Andrea y Sebastian',
+    initials: 'AS',
+    review: 'Nuestra boda en Hacienda La Pila fue inolvidable. La mesa de dulces de MEDEDUL fue el detalle del que todos hablaron toda la noche. Profesionales y puntuales.',
+    event: 'Boda Hacienda La Pila, Toluca',
+    rating: 5
+  },
+  {
+    name: 'Mariana Lopez',
+    initials: 'ML',
+    review: 'Para los XV anos de mi hija en Metepec contrate a MEDEDUL. La mesa quedo preciosa, combino perfecto con la decoracion y todos los invitados pedian fotos.',
+    event: 'XV Anos Metepec',
+    rating: 5
+  },
+  {
+    name: 'Industrias del Valle SA',
+    initials: 'IV',
+    review: 'Para nuestro evento corporativo en parque industrial Lerma necesitabamos algo elegante y profesional. MEDEDUL cumplio perfectamente, integraron nuestro branding al diseno.',
+    event: 'Corporativo Lerma',
+    rating: 5
+  },
+  {
+    name: 'Diana y Roberto',
+    initials: 'DR',
+    review: 'Boda en Hacienda Cantalagua. Coordinaron directo con el venue, montaje impecable, paleta perfecta. La mesa fue el punto focal del coctel de bienvenida.',
+    event: 'Boda Hacienda Cantalagua, Lerma',
+    rating: 5
+  },
+  {
+    name: 'Familia Hernandez Castro',
+    initials: 'HC',
+    review: 'Bautizo de nuestro hijo en Toluca centro. Montaje delicado, paleta celeste y blanco, mucho cuidado en cada detalle. Excelente atencion.',
+    event: 'Bautizo Toluca Centro',
+    rating: 5
+  },
+  {
+    name: 'Sara Mendez',
+    initials: 'SM',
+    review: 'Baby shower en jardin de Metepec. Todo el equipo de MEDEDUL impecable, dulces de muy buena calidad y un montaje natural-botanico precioso.',
+    event: 'Baby shower Metepec',
+    rating: 5
+  }
+];
+
+// =============== FAQ Toluca ===============
+const faqsToluca = [
+  {
+    question: 'Que zonas del Valle de Toluca cubre MEDEDUL?',
+    answer: 'Desde nuestra sucursal en Blvd. Toluca-Metepec 913, cubrimos Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya, Santiago Tianguistenco, Almoloya de Juarez, Temoaya, Xonacatlan y Capulhuac. Traslado incluido en paquetes Premium y Luxury.'
+  },
+  {
+    question: 'Cuanto cuesta una mesa de dulces en Toluca?',
+    answer: 'Nuestros paquetes para Valle de Toluca inician en $5,500 MXN (Esencial, 40-70 invitados) y llegan a $14,500 MXN (Luxury, 130+ invitados). El paquete Premium ($8,900) es el mas solicitado para bodas y XV anos en haciendas y salones del Valle. Cotizacion gratuita.'
+  },
+  {
+    question: 'Tienen experiencia en venues de Toluca y Metepec?',
+    answer: 'Si. Hemos trabajado en Hacienda La Pila, Hacienda Cantalagua, Hotel Crowne Plaza Toluca, Hotel Quinta del Rey, Centro de Convenciones Metepec, Country Club Toluca, Salon Quinta Lupita y otros venues del Valle. Coordinamos directamente con sus equipos.'
+  },
+  {
+    question: 'Con cuanta anticipacion debo reservar?',
+    answer: 'Recomendamos reservar con 4-6 semanas para bodas y XV anos en Valle de Toluca, especialmente en temporada alta (mayo, noviembre, diciembre). Para otros eventos, 2-3 semanas suelen ser suficientes. Trabajamos por orden de confirmacion con anticipo del 50%.'
+  },
+  {
+    question: 'Pueden adaptar la mesa al estilo de hacienda mexicana?',
+    answer: 'Por supuesto. Tenemos amplia experiencia en estilos hacienda, campestre y rustico-elegante, muy populares en el Valle de Toluca. Tambien podemos hacer estilos minimalistas, romanticos, contemporaneos o tematicos.'
+  },
+  {
+    question: 'Aceptan eventos en Zinacantepec, Lerma y Calimaya?',
+    answer: 'Si. Cubrimos todo el Valle de Toluca incluyendo Zinacantepec, Lerma, Calimaya, Ocoyoacac y San Mateo Atenco. El traslado a estas zonas esta incluido en nuestros paquetes Premium y Luxury sin costo adicional.'
+  },
+  {
+    question: 'Como coordinan con el venue?',
+    answer: 'Una vez confirmada la reservacion, contactamos directamente al coordinador del venue (hacienda, hotel, salon) para acordar tiempos de acceso, ubicacion de montaje, reglamentos y requerimientos. Tu no te preocupas por nada.'
+  },
+  {
+    question: 'Que dulces y postres incluye una mesa MEDEDUL en Toluca?',
+    answer: 'Curamos surtido segun el tipo de evento: chocolates premium (Ferrero, Lindt, Hershey selecto), bombones, gomitas gourmet, paletas decoradas, brownies, macarons, mini-pasteles, trufas, mexicanos tradicionales (cocadas, jamoncillos, alegrias) y opciones importadas en paquetes Premium y Luxury.'
+  },
+  {
+    question: 'Pueden hacer mesa de dulces con tematica especifica?',
+    answer: 'Si. Cada montaje se disena a tu tematica: rustico-hacienda, glamour dorado, minimalista contemporaneo, mexicano elegante, infantil tematizado (princesas, Marvel, safari) o boda romantica. Te pedimos referencias visuales para alinear paleta y estilo.'
+  },
+  {
+    question: 'Tienen contrato y politicas formales?',
+    answer: 'Si. Trabajamos siempre con contrato formal, anticipo del 50% para reservar fecha y liquidacion 48 h antes del evento. Politica clara de cancelacion y cambios de fecha. Te enviamos toda la documentacion antes de pagar.'
+  }
+];
+
+// =============== Imagenes para galeria ===============
+const galeriaToluca = [
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces boda elegante con dorado y velas en Toluca', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces XV anos lujosa con cristaleria rosa en Metepec', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista en Lerma', categoria: 'Corporativo' },
+  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar baby shower rosa pastel con flores en Toluca', categoria: 'Baby shower' },
+  { src: '/img/galeria/candy-bar-boda-jardin-luces-elegante.avif', alt: 'Candy bar boda en jardin con luces elegante en Valle de Toluca', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif', alt: 'Mesa de dulces lujo dorado cristal para eventos en Metepec', categoria: 'Premium' },
+  { src: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif', alt: 'Candy bar bautizo celeste con cruz y macarons en Toluca', categoria: 'Bautizo' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif', alt: 'Mesa de dulces XV anos rosa dorado con papel picado en Toluca', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif', alt: 'Candy bar boda rosa dorado con peonias elegante en Metepec', categoria: 'Boda' },
+  { src: '/img/galeria/candy-bar-baby-shower-eucalipto-macarons-verde.avif', alt: 'Candy bar baby shower eucalipto con macarons verde en Toluca', categoria: 'Baby shower' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-blanco-dorado-iglesia.avif', alt: 'Mesa de dulces primera comunion blanco dorado en Toluca', categoria: 'Comunion' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Candy bar corporativo de lujo con chocolate y whisky en Lerma', categoria: 'Corporativo' },
+  { src: '/img/galeria/mesa-dulces-superheroes-marvel-colorido.avif', alt: 'Mesa de dulces superheroes Marvel colorido en Toluca', categoria: 'Infantil' },
+  { src: '/img/galeria/mesa-dulces-unicornio-arcoiris-cumpleanos-nina.avif', alt: 'Mesa de dulces unicornio arcoiris cumpleanos nina en Metepec', categoria: 'Infantil' },
+  { src: '/img/galeria/mesa-postres-gourmet-premium-elegante.avif', alt: 'Mesa de postres gourmet premium elegante en Valle de Toluca', categoria: 'Postres' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif', alt: 'Mesa de dulces XV anos morado lila elegante en Toluca', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif', alt: 'Candy bar boda lujo chocolates dorado cristaleria en Metepec', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif', alt: 'Mesa de dulces graduacion negro dorado en Toluca', categoria: 'Graduacion' }
+];
+
+// =============== JSON-LD: LocalBusiness + Service + BreadcrumbList ===============
+const tolucaLocalBusinessSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca#metepec",
+      "name": "MEDEDUL - Sucursal Toluca Metepec",
+      "image": "https://mesas-de-dulces.com/img/mededul.png",
+      "url": "https://mesas-de-dulces.com/sucursales/toluca",
+      "telephone": "+525521775184",
+      "priceRange": "$$-$$$",
+      "description": "Mesas de dulces y candy bar premium en Toluca, Metepec y Valle de Toluca. Sucursal fisica en Blvd. Toluca-Metepec, San Jorge Pueblo Nuevo, Metepec. Cobertura completa Valle de Toluca.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Blvd. Toluca-Metepec 913",
+        "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+        "postalCode": "52169",
+        "addressRegion": "Estado de Mexico",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "19.2756",
+        "longitude": "-99.6090"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "19:00"
+      }],
+      "areaServed": [
+        "Metepec","Toluca","Zinacantepec","Lerma","Ocoyoacac","San Mateo Atenco","Calimaya","Santiago Tianguistenco","Almoloya de Juarez","Temoaya","Xonacatlan","Capulhuac","Valle de Toluca"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "38",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "Service",
+      "name": "Mesa de Dulces en Toluca y Valle de Toluca",
+      "serviceType": "Mesa de Dulces, Candy Bar, Mesa de Postres Gourmet",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "url": "https://mesas-de-dulces.com"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Toluca" },
+        { "@type": "City", "name": "Metepec" },
+        { "@type": "City", "name": "Zinacantepec" },
+        { "@type": "City", "name": "Lerma" },
+        { "@type": "City", "name": "Ocoyoacac" },
+        { "@type": "City", "name": "San Mateo Atenco" },
+        { "@type": "City", "name": "Calimaya" },
+        { "@type": "AdministrativeArea", "name": "Valle de Toluca" }
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "5500",
+        "highPrice": "14500"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca", "item": "https://mesas-de-dulces.com/sucursales/toluca" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesas de Dulces en Toluca y Valle de Toluca | Sucursal Metepec | MEDEDUL"
+  description="Sucursal MEDEDUL en Toluca-Metepec: mesas de dulces y candy bar premium para bodas, XV anos, baby shower y eventos corporativos en Toluca, Metepec, Zinacantepec, Lerma y Valle de Toluca. 150+ eventos exitosos."
+  canonical="/sucursales/toluca"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(tolucaLocalBusinessSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesas de Dulces en Toluca y Valle de Toluca"
+    highlight="Toluca"
+    subtitle="Sucursal MEDEDUL en Metepec | Cobertura Valle de Toluca completo"
+    secondaryContent={`<p><strong>MEDEDUL es la empresa de referencia en mesas de dulces premium en el Valle de Toluca</strong>. Operamos desde nuestra sucursal fisica en <strong>Blvd. Toluca-Metepec 913, San Jorge Pueblo Nuevo (Metepec)</strong>, atendiendo bodas, XV anos, baby shower, eventos corporativos y celebraciones en Toluca, Metepec, Zinacantepec, Lerma, San Mateo Atenco, Ocoyoacac y Calimaya.</p><p>Con mas de <strong>8 anos de experiencia y 150+ eventos exitosos</strong> en el Valle de Toluca, hemos disenado mesas de dulces y candy bars para los venues mas exigentes de la region: Hacienda La Pila, Hacienda Cantalagua, Hotel Crowne Plaza Toluca, Centro de Convenciones Metepec, Country Club Toluca y muchos mas.</p>`}
+  />
+
+  <!-- ===================== Stats Trust Bar ===================== -->
+  <section class="cdmx-stats">
+    <div class="container">
+      <div class="cdmx-stats__grid">
+        {stats.map(s => (
+          <div class="cdmx-stat">
+            <span class="cdmx-stat__num">{s.number}</span>
+            <span class="cdmx-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por que MEDEDUL en Toluca (Intro SEO + diferenciadores) ===================== -->
+  <section class="cdmx-intro">
+    <div class="container">
+      <div class="cdmx-intro__grid">
+        <div class="cdmx-intro__copy">
+          <span class="cdmx-intro__badge">Servicio profesional en Valle de Toluca</span>
+          <h2>Mesas de dulces premium en <span>Valle de Toluca</span>, con metodo y experiencia</h2>
+          <p>En el Valle de Toluca, una mesa de dulces no es solo decoracion: es parte central de la experiencia de tu evento, un punto de encuentro visual y una fuente constante de contenido para tus invitados. Por eso en <strong>MEDEDUL</strong> trabajamos cada montaje con un enfoque profesional integral: diseno conceptual, curaduria de productos, montaje impecable, operacion durante el evento y desmontaje sin friccion.</p>
+          <p>Nuestra sucursal fisica en <strong>Blvd. Toluca-Metepec, San Jorge Pueblo Nuevo</strong> nos permite garantizar tiempos de respuesta cortos, llegada puntual a tu venue y logistica eficiente, incluso en zonas con accesos complicados como Calimaya, Ocoyoacac o Almoloya de Juarez.</p>
+          <p>Si buscas una <strong>mesa de dulces en Toluca o Metepec</strong> con estandar premium, ejecucion confiable y un equipo que entienda los venues, las haciendas y las expectativas de los eventos del Valle, MEDEDUL es el aliado estrategico que necesitas.</p>
+          <div class="cdmx-intro__ctas">
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20el%20Valle%20de%20Toluca" target="_blank" rel="noopener" class="cdmx-btn cdmx-btn--primary">Cotizar por WhatsApp</a>
+            <a href="/cotizar" class="cdmx-btn cdmx-btn--ghost">Formulario de cotizacion</a>
+          </div>
+        </div>
+        <div class="cdmx-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces premium MEDEDUL en boda en hacienda del Valle de Toluca"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WhyChooseUs ===================== -->
+  <WhyChooseUs
+    id="por-que-mededul-toluca"
+    badge="Por que MEDEDUL en Toluca"
+    title="Por que somos la mejor opcion para tu evento en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      'En MEDEDUL no llegamos solo a montar dulces: llegamos a resolver un componente clave de tu evento. Por eso cada propuesta se construye con criterio profesional, anclado en mas de 8 anos de experiencia y 150+ eventos en el Valle de Toluca.',
+      'Trabajamos con la misma exigencia para una boda en Hacienda La Pila, un XV anos en Metepec o un corporativo en parque industrial Lerma. Tu evento se vuelve nuestro estandar.'
+    ]}
+    stats={[
+      { number: '150+', label: 'Eventos en Valle Toluca' },
+      { number: '5.0', label: 'Calificacion clientes' },
+      { number: '1', label: 'Sucursal en Metepec' },
+      { number: '< 24h', label: 'Cotizacion' }
+    ]}
+    features={caracteristicasToluca}
+  />
+
+  <!-- ===================== Catalogo de Servicios Toluca (20 cards) ===================== -->
+  <section class="cdmx-servicios" id="servicios-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Todo lo que ofrecemos para tu evento en Valle de Toluca"
+        titleHighlight="Valle de Toluca"
+        subtitle="Catalogo completo de servicios en Toluca y Metepec"
+        content={`<p>Despues de mas de <strong>150 eventos en el Valle de Toluca</strong> aprendimos algo importante: cada celebracion es distinta. Una boda en Hacienda La Pila no necesita lo mismo que un baby shower en Metepec o un corporativo en Lerma.</p><p>Por eso nuestro catalogo se divide en <strong>tres familias claras</strong>, para que encuentres exactamente el formato que tu evento necesita, sin tener que pedirte algo que no va contigo.</p>`}
+      />
+
+      <!-- =============== A. Mesas por Tipo de Evento =============== -->
+      <div class="servicios-grupo servicios-grupo--eventos">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">01</span>
+          <div>
+            <h3>Mesas de dulces por tipo de evento</h3>
+            <p>Cada celebracion en el Valle de Toluca tiene su propio lenguaje visual, su tono y su ritmo. Estas son las ocho mesas que mas montamos en la region, cada una pensada desde el momento que la celebras y para quien la celebras.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid">
+          {serviciosEventos.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} en Toluca y Valle de Toluca por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- =============== B. Tipos de Mesa por Estilo =============== -->
+      <div class="servicios-grupo servicios-grupo--tipos">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">02</span>
+          <div>
+            <h3>Tipos de mesa por estilo gastronomico</h3>
+            <p>A veces el tipo de evento ya esta definido y lo que falta decidir es el formato gastronomico: dulce, postre fino, fresco, salado, mexicano o reposteria visual. Aqui estan los ocho formatos que ofrecemos en el Valle de Toluca, listos para combinarse o usarse solos.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid">
+          {serviciosTipos.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} para eventos en Toluca y Valle de Toluca por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- =============== C. Estaciones Interactivas =============== -->
+      <div class="servicios-grupo servicios-grupo--estaciones">
+        <header class="servicios-grupo__header">
+          <span class="servicios-grupo__numero">03</span>
+          <div>
+            <h3>Estaciones interactivas y experiencias</h3>
+            <p>Son los momentos que tus invitados van a recordar y contar despues. Generan fila feliz, se vuelven foto en redes y suman dinamica a la fiesta. Funcionan perfecto como complemento de una mesa principal o como protagonistas de eventos corporativos en Lerma o Toluca.</p>
+          </div>
+        </header>
+        <div class="servicios-grupo__grid servicios-grupo__grid--4">
+          {serviciosEstaciones.map(s => (
+            <ServiceCard
+              href={s.href}
+              image={s.img}
+              alt={`${s.title} para eventos en Valle de Toluca por MEDEDUL`}
+              title={s.title}
+              excerpt={s.excerpt}
+              badge={s.badge}
+              cta={s.cta}
+            />
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== Zonas que cubrimos ===================== -->
+  <section class="cdmx-zonas">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura"
+        titleHighlight="Valle de Toluca"
+        subtitle="Llegamos a los principales municipios del Valle desde nuestra sucursal Metepec"
+      />
+      <div class="cdmx-zonas__grid">
+        {zonasToluca.map(z => (
+          <a href={z.href} class:list={['cdmx-zona', { 'cdmx-zona--destacada': z.destacada }]}>
+            <span class="cdmx-zona__nombre">{z.nombre}</span>
+            <span class="cdmx-zona__alcaldia">{z.alcaldia}</span>
+            {z.destacada && <span class="cdmx-zona__badge">Top</span>}
+          </a>
+        ))}
+      </div>
+      <p class="cdmx-zonas__nota">
+        Tambien cubrimos zonas residenciales premium como La Asuncion, San Jeronimo Chicahualco, Portofino, Vitalia, Santa Ana Tlapaltitlan, Country Club, Las Americas, Federal, Reforma, Santa Barbara y Pilares.{' '}
+        <a href="/mesas-de-dulces-toluca">Ver mas zonas Valle de Toluca</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Venues iconicos ===================== -->
+  <section class="venues-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Venues donde hemos montado en Valle de Toluca"
+        titleHighlight="Valle de Toluca"
+        subtitle="Experiencia comprobada en haciendas, hoteles y salones de Toluca y Metepec"
+        content={`<p>Cada venue del Valle tiene reglamento propio, tiempos de acceso definidos y coordinadores con criterios particulares. En MEDEDUL <strong>ya conocemos esos protocolos</strong> y montamos sin friccion en las haciendas, hoteles y salones mas exigentes de Toluca y Metepec.</p><p>Esta es solo una muestra. Tambien trabajamos en <strong>haciendas privadas, jardines, terrazas, casas particulares y venues no tradicionales</strong>. Si tu venue del Valle no esta en la lista, probablemente ya conocemos uno similar.</p>`}
+      />
+
+      <div class="venues-cdmx__grupos">
+        {venuesGrupos.map((g, i) => (
+          <article class="venue-grupo">
+            <header class="venue-grupo__header">
+              <span class="venue-grupo__numero">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{g.categoria}</h3>
+                <p>{g.descripcion}</p>
+              </div>
+            </header>
+            <ul class="venue-grupo__lista">
+              {g.items.map(v => (
+                <li class="venue-card">
+                  <span class="venue-card__icon">
+                    {g.iconKey === 'hotel' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                        <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'landmark' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <line x1="3" y1="22" x2="21" y2="22"/>
+                        <line x1="6" y1="18" x2="6" y2="11"/>
+                        <line x1="10" y1="18" x2="10" y2="11"/>
+                        <line x1="14" y1="18" x2="14" y2="11"/>
+                        <line x1="18" y1="18" x2="18" y2="11"/>
+                        <polygon points="12 2 20 7 4 7"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'glass' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M6 2h12l-1 9a5 5 0 01-10 0L6 2z"/>
+                        <line x1="12" y1="16" x2="12" y2="22"/>
+                        <line x1="8" y1="22" x2="16" y2="22"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'star' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    )}
+                  </span>
+                  <div class="venue-card__body">
+                    <span class="venue-card__name">{v.nombre}</span>
+                    <div class="venue-card__meta">
+                      <span class="venue-card__zona">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {v.zona}
+                      </span>
+                      <span class="venue-card__tipo">{v.tipo}</span>
+                    </div>
+                  </div>
+                  <span class="venue-card__check" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes Toluca ===================== -->
+  <PricingPackages
+    id="paquetes-toluca"
+    badge="Paquetes para Valle de Toluca"
+    title="Paquetes de"
+    titleHighlight="Mesa de Dulces Toluca"
+    subtitle="Tres niveles claros con todo incluido. Sin sorpresas ni costos ocultos."
+    content={`<p>Diseñamos <strong>tres niveles de paquete</strong> para que encuentres el formato adecuado segun el tamaño y estandar de tu evento en el Valle de Toluca. Todos incluyen el mismo nivel profesional de diseño, montaje y operacion, lo que cambia es el alcance del surtido y la escala del montaje.</p><p>Trabajamos con <strong>tarifas claras y sin costos ocultos</strong>: cotizacion en menos de 24 horas, anticipo del 50% para reservar fecha y liquidacion el dia del evento. Si necesitas algo a medida, partimos del paquete mas cercano y lo ajustamos a tu venue (hacienda, hotel, salon), tu paleta y tu presupuesto.</p>`}
+    packages={paquetesToluca}
+    note="💡 <strong>Todos los paquetes incluyen:</strong> diseno conceptual, mobiliario, montaje, operacion, reposicion y desmontaje. Traslado dentro del Valle de Toluca incluido."
+  />
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-toluca"
+    badge="Como trabajamos"
+    title="Como trabajamos en"
+    titleHighlight="Valle de Toluca"
+    subtitle="4 pasos claros, sin estres, con tiempos definidos"
+    content={`<p>Nuestro proceso esta <strong>diseñado para que tu evento fluya sin estres</strong>. Desde el primer contacto hasta el desmontaje, cada etapa tiene tiempos definidos, un responsable claro y deliverables especificos. Tu solo decides; nosotros ejecutamos.</p><p>En el Valle de Toluca manejamos los <strong>protocolos y reglamentos de cada venue</strong>: tiempos de carga en haciendas, accesos en hoteles, coordinacion con planner y wedding designer. Llegamos 2-3 horas antes, montamos sin friccion y desmontamos sin que te enteres.</p>`}
+    steps={procesoToluca}
+  />
+
+  <!-- ===================== Galeria visual ===================== -->
+  <section class="cdmx-galeria">
+    <div class="container">
+      <SectionHeader
+        title="Galeria de eventos en Valle de Toluca"
+        titleHighlight="Valle de Toluca"
+        subtitle="Mesas de dulces reales, montadas por MEDEDUL en Toluca y Metepec"
+        content={`<p>Esta es una <strong>seleccion curada de eventos reales</strong> que hemos montado en el Valle de Toluca: bodas en Hacienda La Pila y Cantalagua, XV anos en Metepec, baby showers en Toluca, corporativos en Lerma y celebraciones familiares en Zinacantepec. Cada montaje refleja la <strong>paleta, tematica y estandar</strong> del cliente.</p><p>Si quieres ver mas referencias de tu tipo de evento (boda, XV, baby shower, corporativo) escribenos por WhatsApp y te enviamos un portafolio especifico segun tu fecha, venue y presupuesto.</p>`}
+      />
+
+      <div class="cdmx-galeria__grid">
+        {galeriaToluca.map((img, i) => (
+          <figure class:list={['galeria-item', { 'galeria-item--lg': i === 0 || i === 7 }]}>
+            <img
+              src={getCdnUrl(img.src, { w: 600, q: 80 })}
+              alt={img.alt}
+              loading="lazy"
+              width="600"
+              height="450"
+            />
+            <figcaption class="galeria-item__caption">
+              <span class="galeria-item__tag">{img.categoria}</span>
+              <span class="galeria-item__zoom" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <line x1="11" y1="8" x2="11" y2="14"/>
+                  <line x1="8" y1="11" x2="14" y2="11"/>
+                </svg>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="cdmx-galeria__cta">
+        <p>+ 150 eventos montados en Valle de Toluca. <a href="/galeria">Ver galeria completa</a> o solicita un portafolio segun tu tipo de evento.</p>
+        <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20gustaria%20ver%20un%20portafolio%20de%20eventos%20similares%20al%20mio%20en%20Valle%20de%20Toluca" target="_blank" rel="noopener" class="cdmx-galeria__btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Pedir portafolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="testimonios-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de eventos en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Lo que dicen los clientes que ya celebraron con nosotros en Toluca y Metepec"
+      />
+      <div class="testimonios-cdmx__grid">
+        {testimoniosToluca.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqsToluca} />
+
+  <!-- ===================== Sucursal Toluca-Metepec - pre-footer ===================== -->
+  <section class="sucursales-cdmx sucursales-cdmx--footer">
+    <div class="container">
+      <SectionHeader
+        title="Nuestra sucursal en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Visitanos en Metepec o cotiza por WhatsApp para tu evento en el Valle"
+      />
+
+      <div class="sucursales-cdmx__grid sucursales-cdmx__grid--single">
+        {sucursalesToluca.map(s => (
+          <article class:list={['sucursal-card', { 'sucursal-card--destacada': s.destacada }]} id={s.id}>
+            <div class="sucursal-mapa">
+              <iframe
+                src={s.mapUrl}
+                width="100%"
+                height="240"
+                style="border:0;"
+                allowfullscreen={false}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title={`Ubicacion ${s.nombre}`}
+              ></iframe>
+              <span class="sucursal-badge">{s.badge}</span>
+            </div>
+
+            <div class="sucursal-body">
+              <header class="sucursal-header">
+                <h3>{s.nombre}</h3>
+                <span class="sucursal-ciudad">Estado de Mexico</span>
+              </header>
+
+              <ul class="sucursal-info">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <div>
+                    <strong>{s.direccion}</strong>
+                    <span>{s.zona}</span>
+                    <span>{s.cp}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <div>
+                    <strong>Horario de atencion</strong>
+                    <span>{s.horario}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  <div>
+                    <strong>Cobertura desde esta sucursal</strong>
+                    <span>{s.cobertura}</span>
+                  </div>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <div>
+                    <strong>Operacion de montaje</strong>
+                    <span>{s.tiempoMontaje}</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="sucursal-acciones">
+                <a href={s.whatsapp} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--primary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  Cotizar por WhatsApp
+                </a>
+                <a href={s.telefonoHref} class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                  {s.telefono}
+                </a>
+                <a href={s.mapLink} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--ghost">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                    <line x1="8" y1="2" x2="8" y2="18"/>
+                    <line x1="16" y1="6" x2="16" y2="22"/>
+                  </svg>
+                  Ver en Google Maps
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* =====================================================
+     SUCURSAL TOLUCA - HOMOLOGADO con CDMX
+     Class names .cdmx-* se reusan via Astro CSS scoping
+     (no hay conflicto global). Refactor a clases neutras
+     pendiente como mejora futura.
+     ===================================================== */
+
+  /* ========== STATS TRUST BAR ========== */
+  .cdmx-stats {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    padding: 40px 0;
+  }
+  .cdmx-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+  .cdmx-stat { color: #fff; display: flex; flex-direction: column; gap: 4px; }
+  .cdmx-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.4rem; font-weight: 800; line-height: 1; letter-spacing: -0.5px;
+  }
+  .cdmx-stat__label {
+    font-size: 0.88rem; font-weight: 500; opacity: 0.92;
+    text-transform: uppercase; letter-spacing: 0.6px;
+  }
+
+  /* ========== SUCURSALES (1 card en Toluca) ========== */
+  .sucursales-cdmx { padding: 80px 0; background: #fff; }
+  .sucursales-cdmx__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 50px;
+  }
+  .sucursales-cdmx__grid--single {
+    grid-template-columns: minmax(0, 760px);
+    justify-content: center;
+  }
+
+  .sucursal-card {
+    background: #fff; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08); border: 1px solid #f0f0f0;
+    display: flex; flex-direction: column; scroll-margin-top: 180px;
+  }
+  .sucursal-card--destacada {
+    border: 2px solid rgba(209, 0, 122, 0.22);
+    box-shadow: 0 12px 40px rgba(209, 0, 122, 0.10);
+  }
+  .sucursal-mapa { position: relative; height: 240px; overflow: hidden; background: #fdf8fa; }
+  .sucursal-mapa iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .sucursal-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff; padding: 7px 16px; border-radius: 24px;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.35);
+  }
+  .sucursal-body { padding: 30px 28px; display: flex; flex-direction: column; flex: 1; }
+  .sucursal-header { margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid #f3f3f3; }
+  .sucursal-header h3 {
+    font-family: 'Poppins', sans-serif; font-size: 1.45rem; font-weight: 700;
+    color: var(--texto-oscuro); margin: 0 0 4px; line-height: 1.25;
+  }
+  .sucursal-ciudad { font-size: 0.85rem; font-weight: 600; color: var(--rosa-principal); letter-spacing: 0.3px; }
+  .sucursal-info {
+    list-style: none; padding: 0; margin: 0 0 26px;
+    display: flex; flex-direction: column; gap: 16px; flex: 1;
+  }
+  .sucursal-info li { display: flex; gap: 12px; align-items: flex-start; }
+  .sucursal-info svg { flex-shrink: 0; margin-top: 2px; }
+  .sucursal-info > li > div { display: flex; flex-direction: column; gap: 2px; font-size: 0.9rem; line-height: 1.5; }
+  .sucursal-info strong { color: var(--texto-oscuro); font-weight: 600; font-size: 0.93rem; }
+  .sucursal-info span { color: var(--gris-texto, #636E72); font-size: 0.88rem; }
+  .sucursal-acciones { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .sucursal-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 16px; font-size: 0.92rem; font-weight: 600;
+    border-radius: 12px; text-decoration: none;
+  }
+  .sucursal-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  }
+  .sucursal-btn--primary:hover { box-shadow: 0 6px 18px rgba(37, 211, 102, 0.42); }
+  .sucursal-btn--ghost { background: #fafafa; color: var(--texto-oscuro); border: 1px solid #ececec; }
+  .sucursal-btn--ghost:hover { background: #fff; color: var(--rosa-principal); border-color: rgba(209, 0, 122, 0.25); }
+
+  /* ========== INTRO ========== */
+  .cdmx-intro { padding: 80px 0; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .cdmx-intro__grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 60px; align-items: center; }
+  .cdmx-intro__badge {
+    display: inline-block; background: rgba(209, 0, 122, 0.08); color: var(--rosa-principal);
+    font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 6px 14px; border-radius: 30px; margin-bottom: 18px;
+  }
+  .cdmx-intro__copy h2 {
+    font-family: 'Poppins', sans-serif; font-size: 2.1rem; font-weight: 700;
+    color: var(--texto-oscuro); line-height: 1.25; margin: 0 0 22px;
+  }
+  .cdmx-intro__copy h2 span { color: var(--rosa-principal); }
+  .cdmx-intro__copy p { font-size: 1.02rem; color: var(--gris-texto, #4a4a5a); line-height: 1.75; margin: 0 0 16px; }
+  .cdmx-intro__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .cdmx-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 26px; font-size: 0.96rem; font-weight: 700;
+    border-radius: 50px; text-decoration: none;
+  }
+  .cdmx-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32);
+  }
+  .cdmx-btn--primary:hover { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.42); }
+  .cdmx-btn--ghost { background: #fff; color: var(--texto-oscuro); border: 1.5px solid #e7e7e7; }
+  .cdmx-btn--ghost:hover { color: var(--rosa-principal); border-color: rgba(209, 0, 122, 0.35); }
+  .cdmx-intro__visual img {
+    width: 100%; height: auto; border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.12); display: block;
+  }
+
+  /* ========== SERVICIOS ========== */
+  .cdmx-servicios { padding: 90px 0 100px; background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%); }
+  .servicios-grupo { margin-bottom: 80px; }
+  .servicios-grupo:last-of-type { margin-bottom: 60px; }
+  .servicios-grupo__header {
+    display: grid; grid-template-columns: 100px 1fr; gap: 30px; align-items: start;
+    max-width: 1000px; margin: 0 auto 40px; padding-bottom: 28px; border-bottom: 1.5px solid #f0e6ed;
+  }
+  .servicios-grupo__numero {
+    font-family: 'Poppins', sans-serif; font-size: 4rem; font-weight: 800; line-height: 1;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+  }
+  .servicios-grupo__header h3 {
+    font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 700;
+    color: var(--texto-oscuro); margin: 0 0 10px; line-height: 1.3;
+  }
+  .servicios-grupo__header p { font-size: 1rem; line-height: 1.7; color: var(--gris-texto, #4a4a5a); margin: 0; }
+  .servicios-grupo__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .servicios-grupo__grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ========== ZONAS ========== */
+  .cdmx-zonas { padding: 80px 0; background: #fff; }
+  .cdmx-zonas__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+  .cdmx-zona {
+    position: relative; background: #fff; border: 1.5px solid #f0f0f0;
+    border-radius: 14px; padding: 20px 22px; text-decoration: none;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .cdmx-zona:hover { box-shadow: 0 10px 24px rgba(209, 0, 122, 0.10); border-color: rgba(209, 0, 122, 0.25); }
+  .cdmx-zona--destacada { background: linear-gradient(135deg, rgba(209, 0, 122, 0.04) 0%, #fff 100%); border-color: rgba(209, 0, 122, 0.18); }
+  .cdmx-zona__nombre { font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--texto-oscuro); }
+  .cdmx-zona__alcaldia { font-size: 0.82rem; color: var(--gris-texto, #636E72); }
+  .cdmx-zona__badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--rosa-principal); color: #fff;
+    font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .cdmx-zonas__nota { margin: 36px auto 0; max-width: 880px; text-align: center; font-size: 0.95rem; color: var(--gris-texto, #636E72); line-height: 1.7; }
+  .cdmx-zonas__nota a { color: var(--rosa-principal); font-weight: 600; text-decoration: none; }
+  .cdmx-zonas__nota a:hover { text-decoration: underline; }
+
+  /* ========== VENUES ========== */
+  .venues-cdmx { padding: 90px 0 100px; background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%); }
+  .venues-cdmx__grupos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 10px; }
+  .venue-grupo {
+    background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 32px 30px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .venue-grupo:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(209, 0, 122, 0.10); border-color: rgba(209, 0, 122, 0.20); }
+  .venue-grupo__header {
+    display: flex; gap: 16px; align-items: flex-start; margin-bottom: 22px;
+    padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;
+  }
+  .venue-grupo__numero {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff; display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.3px; box-shadow: 0 6px 14px rgba(209, 0, 122, 0.25);
+  }
+  .venue-grupo__header h3 { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--texto-oscuro); margin: 0 0 6px; line-height: 1.3; }
+  .venue-grupo__header p { font-size: 0.88rem; color: var(--gris-texto, #636E72); line-height: 1.5; margin: 0; }
+  .venue-grupo__lista { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .venue-card {
+    position: relative; display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+    background: linear-gradient(135deg, #fff 0%, #fdfafc 100%); border: 1px solid #f0e6ee;
+    border-radius: 14px; overflow: hidden;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+  }
+  .venue-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--rosa-principal) 0%, #A0005F 100%);
+    opacity: 0; transition: opacity .22s ease;
+  }
+  .venue-card:hover { transform: translateX(4px); border-color: rgba(209, 0, 122, 0.30); box-shadow: 0 8px 22px rgba(209, 0, 122, 0.10); background: #fff; }
+  .venue-card:hover::before { opacity: 1; }
+  .venue-card__icon {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 11px;
+    background: linear-gradient(135deg, rgba(209,0,122,0.10) 0%, rgba(160,0,95,0.06) 100%);
+    color: var(--rosa-principal); display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(209,0,122,0.12);
+    transition: background .22s ease, color .22s ease, border-color .22s ease;
+  }
+  .venue-card:hover .venue-card__icon { background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%); color: #fff; border-color: transparent; }
+  .venue-card__body { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .venue-card__name { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.96rem; color: var(--texto-oscuro); line-height: 1.3; letter-spacing: -0.1px; }
+  .venue-card__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .venue-card__zona { display: inline-flex; align-items: center; gap: 3px; font-size: 0.76rem; color: var(--gris-texto, #636E72); font-weight: 500; }
+  .venue-card__zona svg { color: var(--rosa-principal); opacity: 0.7; }
+  .venue-card__tipo {
+    font-size: 0.72rem; color: var(--rosa-principal); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px;
+    background: rgba(209, 0, 122, 0.07); border-radius: 20px;
+  }
+  .venue-card__check {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(16, 185, 129, 0.10); color: #10B981;
+    display: inline-flex; align-items: center; justify-content: center;
+    opacity: 0.85; transition: opacity .22s ease, transform .22s ease;
+  }
+  .venue-card:hover .venue-card__check { opacity: 1; transform: scale(1.08); }
+
+  /* ========== GALERIA ========== */
+  .cdmx-galeria { padding: 90px 0 100px; background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+  .cdmx-galeria__grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 14px; margin-top: 50px; }
+  .galeria-item {
+    position: relative; margin: 0; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07); cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease; background: #f3f3f5;
+  }
+  .galeria-item--lg { grid-column: span 2; grid-row: span 2; }
+  .galeria-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+  .galeria-item:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(20, 10, 25, 0.18); }
+  .galeria-item:hover img { transform: scale(1.08); }
+  .galeria-item__caption {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(20,10,25,0.55) 100%);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 14px; pointer-events: none; transition: background .3s ease;
+  }
+  .galeria-item:hover .galeria-item__caption {
+    background: linear-gradient(180deg, rgba(20,10,25,0.0) 0%, rgba(20,10,25,0.45) 60%, rgba(20,10,25,0.75) 100%);
+  }
+  .galeria-item__tag {
+    display: inline-flex; align-items: center; padding: 5px 10px;
+    background: rgba(255,255,255,0.95); color: var(--rosa-principal, #D1007A);
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+    border-radius: 50px; backdrop-filter: blur(8px); box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .galeria-item__zoom {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.95); color: var(--rosa-principal, #D1007A);
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0.8) translateY(8px);
+    transition: opacity .3s ease, transform .3s ease;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+  .galeria-item:hover .galeria-item__zoom { opacity: 1; transform: scale(1) translateY(0); }
+  .cdmx-galeria__cta {
+    margin-top: 42px; padding: 22px 28px; background: #fff;
+    border: 1px solid rgba(209, 0, 122, 0.12); border-radius: 18px;
+    box-shadow: 0 10px 26px rgba(20, 10, 25, 0.05);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .cdmx-galeria__cta p { margin: 0; font-size: 0.95rem; color: #4a4a55; line-height: 1.5; }
+  .cdmx-galeria__cta p strong { color: var(--rosa-principal); }
+  .cdmx-galeria__cta a { color: var(--rosa-principal, #D1007A); font-weight: 600; text-decoration: none; border-bottom: 1px dashed rgba(209,0,122,0.4); }
+  .cdmx-galeria__cta a:hover { border-bottom-style: solid; }
+  .cdmx-galeria__btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff !important; font-size: 0.9rem; font-weight: 700;
+    border-radius: 50px; text-decoration: none !important; border: none !important;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32);
+    transition: transform .2s ease, box-shadow .2s ease; flex-shrink: 0;
+  }
+  .cdmx-galeria__btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45); }
+
+  /* ========== TESTIMONIOS ========== */
+  .testimonios-cdmx { padding: 80px 0; background: #fff; }
+  .testimonios-cdmx__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1280px) {
+    .servicios-grupo__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 1024px) {
+    .servicios-grupo__grid,
+    .servicios-grupo__grid--4 { grid-template-columns: repeat(2, 1fr); }
+    .cdmx-stats__grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .cdmx-stat__num { font-size: 2rem; }
+    .sucursales-cdmx__grid { grid-template-columns: 1fr; gap: 26px; }
+    .sucursales-cdmx__grid--single { grid-template-columns: 1fr; }
+    .cdmx-intro__grid { grid-template-columns: 1fr; gap: 40px; }
+    .cdmx-intro__visual { order: -1; }
+    .cdmx-zonas__grid { grid-template-columns: repeat(3, 1fr); }
+    .testimonios-cdmx__grid { grid-template-columns: repeat(2, 1fr); }
+    .cdmx-galeria__grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 180px; gap: 12px; }
+    .galeria-item--lg { grid-column: span 2; grid-row: span 2; }
+    .venues-cdmx__grupos { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .cdmx-stats { padding: 32px 0; }
+    .cdmx-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .cdmx-stat__num { font-size: 1.9rem; }
+    .cdmx-stat__label { font-size: 0.78rem; }
+    .sucursales-cdmx, .cdmx-intro, .cdmx-zonas, .cdmx-galeria, .testimonios-cdmx, .venues-cdmx, .cdmx-servicios { padding: 50px 0; }
+    .sucursal-mapa { height: 200px; }
+    .sucursal-body { padding: 26px 22px; }
+    .sucursal-header h3 { font-size: 1.25rem; }
+    .cdmx-intro__copy h2 { font-size: 1.6rem; }
+    .cdmx-zonas__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cdmx-zona { padding: 16px 18px; }
+    .cdmx-zona__nombre { font-size: 0.98rem; }
+    .venues-cdmx__grupos { grid-template-columns: 1fr; gap: 18px; }
+    .venue-grupo { padding: 26px 22px; }
+    .venue-grupo__numero { width: 38px; height: 38px; font-size: 0.85rem; }
+    .venue-grupo__header h3 { font-size: 1.05rem; }
+    .venue-card { padding: 12px 14px; gap: 12px; }
+    .venue-card__icon { width: 38px; height: 38px; }
+    .venue-card__name { font-size: 0.92rem; }
+    .testimonios-cdmx__grid { grid-template-columns: 1fr; }
+    .cdmx-galeria__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; gap: 10px; }
+    .galeria-item--lg { grid-column: span 2; grid-row: span 2; }
+    .cdmx-galeria__cta { flex-direction: column; align-items: stretch; text-align: center; padding: 18px 20px; }
+    .cdmx-galeria__btn { justify-content: center; }
+    .servicios-grupo { margin-bottom: 60px; }
+    .servicios-grupo__header { grid-template-columns: 70px 1fr; gap: 18px; margin-bottom: 30px; padding-bottom: 22px; }
+    .servicios-grupo__numero { font-size: 2.8rem; }
+    .servicios-grupo__header h3 { font-size: 1.3rem; }
+    .servicios-grupo__header p { font-size: 0.92rem; }
+    .servicios-grupo__grid, .servicios-grupo__grid--4 { grid-template-columns: 1fr; gap: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .cdmx-stat__num { font-size: 1.7rem; }
+    .sucursal-mapa { height: 180px; }
+    .sucursal-body { padding: 22px 18px; }
+    .cdmx-intro__copy h2 { font-size: 1.4rem; }
+    .cdmx-intro__copy p { font-size: 0.95rem; }
+    .cdmx-btn { width: 100%; padding: 13px 22px; font-size: 0.92rem; }
+    .cdmx-zonas__grid { grid-template-columns: 1fr; }
+    .venue-grupo { padding: 22px 18px; }
+    .venue-card { padding: 11px 12px; gap: 10px; }
+    .venue-card__icon { width: 34px; height: 34px; }
+    .venue-card__name { font-size: 0.88rem; }
+    .venue-card__zona, .venue-card__tipo { font-size: 0.7rem; }
+    .venue-card__check { width: 22px; height: 22px; }
+    .servicios-grupo__header { grid-template-columns: 1fr; gap: 8px; }
+    .servicios-grupo__numero { font-size: 2.2rem; }
+  }
+</style>

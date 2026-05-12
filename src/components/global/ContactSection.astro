@@ -33,7 +33,8 @@ const sucursales = [
     telefonoLink: 'tel:+525525226442',
     waNumero: '525525226442',
     waText: 'Hola! Me interesa una mesa de dulces — sucursal Anzures CDMX',
-    mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9'
+    mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9',
+    detalleUrl: '/sucursales/cdmx#anzures'
   },
   {
     id: 'condesa',
@@ -50,7 +51,8 @@ const sucursales = [
     telefonoLink: 'tel:+525525226442',
     waNumero: '525525226442',
     waText: 'Hola! Me interesa una mesa de dulces — sucursal Condesa CDMX',
-    mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86'
+    mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86',
+    detalleUrl: '/sucursales/cdmx#condesa'
   },
   {
     id: 'toluca',
@@ -68,7 +70,8 @@ const sucursales = [
     telefonoLink: 'tel:+525521775184',
     waNumero: '525521775184',
     waText: 'Hola! Me interesa una mesa de dulces — sucursal Toluca / Metepec',
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca'
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca',
+    detalleUrl: '/sucursales/toluca'
   }
 ];
 ---
@@ -109,10 +112,10 @@ const sucursales = [
               <circle cx="12" cy="10" r="3"/>
             </svg>
           </span>
-          <div class="branch-card__title">
+          <a href={s.detalleUrl} class="branch-card__title" aria-label={`Ver detalle sucursal ${s.nombre}`}>
             <h3>{s.nombre}</h3>
             <span class="branch-card__city">{s.ciudad}</span>
-          </div>
+          </a>
         </header>
 
         <div class="branch-card__body">
@@ -170,6 +173,16 @@ const sucursales = [
               Maps
             </a>
           </div>
+          <a
+            href={s.detalleUrl}
+            class="branch-card__detail"
+            aria-label={`Ver pagina completa de sucursal ${s.nombre}`}
+          >
+            Ver sucursal completa
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
       </article>
     ))}
@@ -518,7 +531,11 @@ const sucursales = [
     display: flex;
     flex-direction: column;
     min-width: 0;
+    text-decoration: none;
+    color: inherit;
+    transition: color .18s ease;
   }
+  .branch-card__title:hover h3 { color: #D1007A; }
   .branch-card__title h3 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -527,6 +544,29 @@ const sucursales = [
     color: #1a1a26;
     letter-spacing: -0.01em;
     line-height: 1.15;
+    transition: color .18s ease;
+  }
+  .branch-card__detail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 9px 12px;
+    width: 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #D1007A;
+    text-decoration: none;
+    background: rgba(209, 0, 122, 0.05);
+    border: 1px solid rgba(209, 0, 122, 0.18);
+    border-radius: 9px;
+    transition: background .18s ease, border-color .18s ease, gap .18s ease;
+  }
+  .branch-card__detail:hover {
+    background: rgba(209, 0, 122, 0.10);
+    border-color: rgba(209, 0, 122, 0.35);
+    gap: 9px;
   }
   .branch-card__city {
     font-size: 0.7rem;

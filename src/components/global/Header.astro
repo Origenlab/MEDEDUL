@@ -106,7 +106,50 @@ const menuItems = [
     ]
   },
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Sucursales', href: '/sucursales' },
+  {
+    label: 'Sucursales',
+    href: '/sucursales',
+    startsWith: true,
+    megaMenu: [
+      {
+        title: 'Sucursal CDMX',
+        icon: '🏙️',
+        color: '#D1007A',
+        items: [
+          { label: 'Sucursal CDMX (Anzures + Condesa)', href: '/sucursales/cdmx' },
+          { label: 'Anzures (Matriz)', href: '/sucursales/cdmx#anzures' },
+          { label: 'Condesa', href: '/sucursales/cdmx#condesa' },
+          { label: 'Zonas CDMX que cubrimos', href: '/zonas-cdmx' }
+        ],
+        viewAll: { label: 'Ver sucursal CDMX', href: '/sucursales/cdmx' }
+      },
+      {
+        title: 'Sucursal Toluca',
+        icon: '🏞️',
+        color: '#7A2BC2',
+        items: [
+          { label: 'Sucursal Toluca - Metepec', href: '/sucursales/toluca' },
+          { label: 'Mesas de Dulces Metepec', href: '/mesas-de-dulces-metepec' },
+          { label: 'Mesas de Dulces Toluca', href: '/mesas-de-dulces-toluca' },
+          { label: 'Mesas de Dulces Zinacantepec', href: '/mesas-de-dulces-zinacantepec' },
+          { label: 'Mesas de Dulces Lerma', href: '/mesas-de-dulces-lerma' }
+        ],
+        viewAll: { label: 'Ver sucursal Toluca', href: '/sucursales/toluca' }
+      },
+      {
+        title: 'Cobertura total',
+        icon: '📍',
+        color: '#A0005F',
+        items: [
+          { label: 'Ver todas las sucursales', href: '/sucursales' },
+          { label: 'Cobertura CDMX (16 alcaldias)', href: '/zonas-cdmx' },
+          { label: 'Cobertura Valle de Toluca', href: '/sucursales/toluca#zonas-toluca' },
+          { label: 'Como trabajamos', href: '/proceso' }
+        ],
+        viewAll: { label: 'Hub de sucursales', href: '/sucursales' }
+      }
+    ]
+  },
   { label: 'Blog', href: '/blog', startsWith: true },
   { label: 'Contacto', href: '/contacto' }
 ];
@@ -560,7 +603,8 @@ const isActive = (item: typeof menuItems[0]) => {
 
   .mega-menu__container {
     display: grid;
-    grid-template-columns: repeat(4, 220px);
+    grid-auto-flow: column;
+    grid-auto-columns: 220px;
     gap: 0;
     background: #ffffff;
     border-radius: 14px;
@@ -569,6 +613,7 @@ const isActive = (item: typeof menuItems[0]) => {
       0 1px 2px rgba(15, 15, 30, 0.04),
       0 24px 60px rgba(15, 15, 30, 0.14);
     overflow: hidden;
+    width: max-content;
   }
 
   .mega-menu__column {
@@ -1021,7 +1066,7 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   @media (max-width: 1100px) {
-    .mega-menu__container { grid-template-columns: repeat(4, 200px); }
+    .mega-menu__container { grid-auto-columns: 200px; }
     .mega-menu__column { padding: 20px 16px; }
     /* Ocultamos chips, dejamos solo WhatsApp + CTA */
     .header__contact { display: none; }

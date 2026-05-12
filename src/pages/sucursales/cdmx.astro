@@ -238,23 +238,51 @@ const zonasCdmx = [
 ];
 
 // =============== Venues iconicos ===============
-const venuesCdmx = [
-  'Hotel Presidente InterContinental',
-  'Hotel W Mexico City',
-  'Hotel Four Seasons',
-  'Hotel Hyatt Regency',
-  'Hotel St. Regis',
-  'Hacienda de los Morales',
-  'Casa Lamm',
-  'Club de Industriales',
-  'Antiguo Colegio de San Ildefonso',
-  'Quinta Real Polanco',
-  'Salon Aristos',
-  'Hipodromo de las Americas',
-  'Casino Espanol',
-  'Jardin de las Lomas',
-  'Salon La Vista',
-  'Centro de Convenciones Tlatelolco'
+const venuesGrupos = [
+  {
+    categoria: 'Hoteles premium',
+    descripcion: 'Cadenas internacionales y boutique con reglamentos estrictos de proveedores.',
+    iconKey: 'hotel',
+    items: [
+      { nombre: 'Hotel Presidente InterContinental', zona: 'Polanco', tipo: '5 estrellas' },
+      { nombre: 'Hotel W Mexico City', zona: 'Polanco', tipo: 'Boutique lujo' },
+      { nombre: 'Hotel Four Seasons', zona: 'Reforma', tipo: '5 estrellas' },
+      { nombre: 'Hotel Hyatt Regency', zona: 'Polanco', tipo: '5 estrellas' },
+      { nombre: 'Hotel St. Regis', zona: 'Reforma', tipo: '5 estrellas' },
+      { nombre: 'Quinta Real Polanco', zona: 'Polanco', tipo: 'Gran lujo' }
+    ]
+  },
+  {
+    categoria: 'Haciendas y recintos patrimoniales',
+    descripcion: 'Espacios historicos con coordinacion especial de carga, accesos y montaje.',
+    iconKey: 'landmark',
+    items: [
+      { nombre: 'Hacienda de los Morales', zona: 'Polanco', tipo: 'Hacienda S.XVI' },
+      { nombre: 'Antiguo Colegio de San Ildefonso', zona: 'Centro Historico', tipo: 'Patrimonio' },
+      { nombre: 'Casa Lamm', zona: 'Roma Norte', tipo: 'Casona historica' },
+      { nombre: 'Casino Espanol', zona: 'Centro Historico', tipo: 'Patrimonio' }
+    ]
+  },
+  {
+    categoria: 'Clubes y salones de eventos',
+    descripcion: 'Espacios sociales privados y salones de banquetes en zonas premium.',
+    iconKey: 'glass',
+    items: [
+      { nombre: 'Club de Industriales', zona: 'Polanco', tipo: 'Club privado' },
+      { nombre: 'Salon Aristos', zona: 'Roma', tipo: 'Salon banquetes' },
+      { nombre: 'Salon La Vista', zona: 'Interlomas', tipo: 'Salon eventos' },
+      { nombre: 'Jardin de las Lomas', zona: 'Lomas', tipo: 'Jardin de eventos' }
+    ]
+  },
+  {
+    categoria: 'Recintos y centros de convenciones',
+    descripcion: 'Espacios de gran escala para eventos corporativos y celebraciones masivas.',
+    iconKey: 'star',
+    items: [
+      { nombre: 'Hipodromo de las Americas', zona: 'Lomas', tipo: 'Recinto multiple' },
+      { nombre: 'Centro de Convenciones Tlatelolco', zona: 'Centro', tipo: 'Centro convenciones' }
+    ]
+  }
 ];
 
 // =============== Caracteristicas / Diferenciadores ===============
@@ -465,12 +493,24 @@ const faqsCdmx = [
 
 // =============== Imagenes para galeria ===============
 const galeriaCdmx = [
-  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces de boda elegante con dorado y velas en CDMX' },
-  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces de XV anos lujosa con cristaleria rosa en CDMX' },
-  { src: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista en CDMX' },
-  { src: '/img/galeria/mesa-dulces-boda-jardin-romantica-rosa-luces.avif', alt: 'Mesa de dulces de boda en jardin romantica con luces en CDMX' },
-  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar de baby shower rosa pastel con flores en CDMX' },
-  { src: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif', alt: 'Mesa de dulces de lujo con dorado y cristal para eventos en CDMX' }
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces de boda elegante con dorado y velas en CDMX', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces de XV anos lujosa con cristaleria rosa en CDMX', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista en CDMX', categoria: 'Corporativo' },
+  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar de baby shower rosa pastel con flores en CDMX', categoria: 'Baby shower' },
+  { src: '/img/galeria/candy-bar-boda-jardin-luces-elegante.avif', alt: 'Candy bar de boda en jardin con luces elegante en CDMX', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif', alt: 'Mesa de dulces de lujo con dorado y cristal para eventos en CDMX', categoria: 'Premium' },
+  { src: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif', alt: 'Candy bar de bautizo celeste con cruz y macarons en CDMX', categoria: 'Bautizo' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif', alt: 'Mesa de dulces XV anos rosa dorado con papel picado en CDMX', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif', alt: 'Candy bar boda rosa dorado con peonias elegante en CDMX', categoria: 'Boda' },
+  { src: '/img/galeria/candy-bar-baby-shower-eucalipto-macarons-verde.avif', alt: 'Candy bar baby shower eucalipto con macarons verde en CDMX', categoria: 'Baby shower' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-blanco-dorado-iglesia.avif', alt: 'Mesa de dulces primera comunion blanco dorado en CDMX', categoria: 'Comunion' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Candy bar corporativo de lujo con chocolate y whisky en CDMX', categoria: 'Corporativo' },
+  { src: '/img/galeria/mesa-dulces-superheroes-marvel-colorido.avif', alt: 'Mesa de dulces tema superheroes Marvel colorido en CDMX', categoria: 'Infantil' },
+  { src: '/img/galeria/mesa-dulces-unicornio-arcoiris-cumpleanos-nina.avif', alt: 'Mesa de dulces unicornio arcoiris cumpleanos nina en CDMX', categoria: 'Infantil' },
+  { src: '/img/galeria/mesa-postres-gourmet-premium-elegante.avif', alt: 'Mesa de postres gourmet premium elegante en CDMX', categoria: 'Postres' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif', alt: 'Mesa de dulces XV anos morado lila elegante en CDMX', categoria: 'XV anos' },
+  { src: '/img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif', alt: 'Candy bar boda lujo chocolates dorado cristaleria CDMX', categoria: 'Boda' },
+  { src: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif', alt: 'Mesa de dulces graduacion negro dorado en CDMX', categoria: 'Graduacion' }
 ];
 
 // =============== JSON-LD: LocalBusiness + Service + BreadcrumbList ===============
@@ -648,11 +688,12 @@ const cdmxLocalBusinessSchema = {
   <!-- ===================== Catalogo de Servicios CDMX (20 cards) ===================== -->
   <section class="cdmx-servicios" id="servicios-cdmx">
     <div class="container">
-      <div class="cdmx-servicios__intro">
-        <span class="cdmx-servicios__badge">Catalogo completo de servicios en CDMX</span>
-        <h2>Todo lo que ofrecemos para tu evento en <span>Ciudad de Mexico</span></h2>
-        <p>Despues de mas de 500 eventos en CDMX aprendimos algo importante: cada celebracion es distinta. Una boda en Polanco no necesita lo mismo que un baby shower en Roma Norte o un corporativo en Santa Fe. Por eso nuestro catalogo se divide en tres familias claras, para que encuentres exactamente el formato que tu evento necesita, sin tener que pedirte algo que no va contigo.</p>
-      </div>
+      <SectionHeader
+        title="Todo lo que ofrecemos para tu evento en Ciudad de Mexico"
+        titleHighlight="Ciudad de Mexico"
+        subtitle="Catalogo completo de servicios en CDMX"
+        content={`<p>Despues de mas de <strong>500 eventos en CDMX</strong> aprendimos algo importante: cada celebracion es distinta. Una boda en Polanco no necesita lo mismo que un baby shower en Roma Norte o un corporativo en Santa Fe.</p><p>Por eso nuestro catalogo se divide en <strong>tres familias claras</strong>, para que encuentres exactamente el formato que tu evento necesita, sin tener que pedirte algo que no va contigo.</p>`}
+      />
 
       <!-- =============== A. Mesas por Tipo de Evento =============== -->
       <div class="servicios-grupo servicios-grupo--eventos">
@@ -726,20 +767,6 @@ const cdmxLocalBusinessSchema = {
         </div>
       </div>
 
-      <!-- =============== Cierre humanizado del catalogo =============== -->
-      <div class="cdmx-servicios__cierre">
-        <div class="cdmx-servicios__cierre-copy">
-          <h3>No estas seguro de cual elegir?</h3>
-          <p>Tranquila, tranquilo. La mayoria de nuestros clientes llegan exactamente asi: con una idea general, fecha de evento y muchas dudas. Cuentanos en WhatsApp como te imaginas tu evento (aunque sea con frases sueltas) y nosotros te proponemos el formato, el surtido y el montaje que tiene mas sentido para tu fecha, tu venue en CDMX y tu presupuesto.</p>
-        </div>
-        <div class="cdmx-servicios__cierre-ctas">
-          <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20no%20se%20que%20tipo%20de%20mesa%20necesito.%20Me%20pueden%20asesorar%3F" target="_blank" rel="noopener" class="cdmx-btn cdmx-btn--primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            Hablar con un asesor
-          </a>
-          <a href="/cotizar" class="cdmx-btn cdmx-btn--ghost">Cotizar online</a>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -770,20 +797,79 @@ const cdmxLocalBusinessSchema = {
   <!-- ===================== Venues iconicos ===================== -->
   <section class="venues-cdmx">
     <div class="container">
-      <div class="venues-cdmx__content">
-        <h2>Venues donde hemos montado en <span>CDMX</span></h2>
-        <p>Experiencia comprobada en los espacios mas exigentes de la ciudad</p>
-        <div class="venues-cdmx__grid">
-          {venuesCdmx.map(v => (
-            <div class="venue-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFB800">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              {v}
-            </div>
-          ))}
-        </div>
-        <p class="venues-cdmx__nota">Tambien trabajamos en haciendas, jardines, terrazas, casas particulares y venues no tradicionales. Si tu venue no esta en la lista, ya conocemos otros similares.</p>
+      <SectionHeader
+        title="Venues donde hemos montado en CDMX"
+        titleHighlight="CDMX"
+        subtitle="Experiencia comprobada en los espacios mas exigentes de la ciudad"
+        content={`<p>Cada venue tiene reglamento propio, tiempos de acceso definidos y coordinadores con criterios particulares. En MEDEDUL <strong>ya conocemos esos protocolos</strong> y montamos sin friccion en los espacios mas exigentes de CDMX.</p><p>Esta es solo una muestra. Tambien trabajamos en <strong>haciendas, jardines, terrazas, casas particulares y venues no tradicionales</strong>. Si tu venue no esta en la lista, probablemente ya conocemos uno similar.</p>`}
+      />
+
+      <div class="venues-cdmx__grupos">
+        {venuesGrupos.map((g, i) => (
+          <article class="venue-grupo">
+            <header class="venue-grupo__header">
+              <span class="venue-grupo__numero">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{g.categoria}</h3>
+                <p>{g.descripcion}</p>
+              </div>
+            </header>
+            <ul class="venue-grupo__lista">
+              {g.items.map(v => (
+                <li class="venue-card">
+                  <span class="venue-card__icon">
+                    {g.iconKey === 'hotel' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                        <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'landmark' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <line x1="3" y1="22" x2="21" y2="22"/>
+                        <line x1="6" y1="18" x2="6" y2="11"/>
+                        <line x1="10" y1="18" x2="10" y2="11"/>
+                        <line x1="14" y1="18" x2="14" y2="11"/>
+                        <line x1="18" y1="18" x2="18" y2="11"/>
+                        <polygon points="12 2 20 7 4 7"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'glass' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M6 2h12l-1 9a5 5 0 01-10 0L6 2z"/>
+                        <line x1="12" y1="16" x2="12" y2="22"/>
+                        <line x1="8" y1="22" x2="16" y2="22"/>
+                      </svg>
+                    )}
+                    {g.iconKey === 'star' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    )}
+                  </span>
+                  <div class="venue-card__body">
+                    <span class="venue-card__name">{v.nombre}</span>
+                    <div class="venue-card__meta">
+                      <span class="venue-card__zona">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {v.zona}
+                      </span>
+                      <span class="venue-card__tipo">{v.tipo}</span>
+                    </div>
+                  </div>
+                  <span class="venue-card__check" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -795,6 +881,7 @@ const cdmxLocalBusinessSchema = {
     title="Paquetes de"
     titleHighlight="Mesa de Dulces CDMX"
     subtitle="Tres niveles claros con todo incluido. Sin sorpresas ni costos ocultos."
+    content={`<p>Diseñamos <strong>tres niveles de paquete</strong> para que encuentres el formato adecuado segun el tamaño y estandar de tu evento en CDMX. Todos incluyen el mismo nivel profesional de diseño, montaje y operacion, lo que cambia es el alcance del surtido y la escala del montaje.</p><p>Trabajamos con <strong>tarifas claras y sin costos ocultos</strong>: cotizacion en menos de 24 horas, anticipo del 50% para reservar fecha y liquidacion el dia del evento. Si necesitas algo a medida, partimos del paquete mas cercano y lo ajustamos a tu venue, tu paleta y tu presupuesto.</p>`}
     packages={paquetesCdmx}
     note="💡 <strong>Todos los paquetes incluyen:</strong> diseno conceptual, mobiliario, montaje, operacion, reposicion y desmontaje. Traslado en zonas centrales incluido."
   />
@@ -806,6 +893,7 @@ const cdmxLocalBusinessSchema = {
     title="Como trabajamos en"
     titleHighlight="CDMX"
     subtitle="4 pasos claros, sin estres, con tiempos definidos"
+    content={`<p>Nuestro proceso esta <strong>diseñado para que tu evento fluya sin estres</strong>. Desde el primer contacto hasta el desmontaje, cada etapa tiene tiempos definidos, un responsable claro y deliverables especificos. Tu solo decides; nosotros ejecutamos.</p><p>En CDMX manejamos los <strong>protocolos y reglamentos de cada venue</strong>: tiempos de carga, accesos, coordinacion con planner y wedding designer. Llegamos 2-3 horas antes, montamos sin friccion y desmontamos sin que te enteres.</p>`}
     steps={procesoCdmx}
   />
 
@@ -813,22 +901,45 @@ const cdmxLocalBusinessSchema = {
   <section class="cdmx-galeria">
     <div class="container">
       <SectionHeader
-        title="Galeria de eventos en"
+        title="Galeria de eventos en CDMX"
         titleHighlight="CDMX"
         subtitle="Mesas de dulces reales, montadas por MEDEDUL en Ciudad de Mexico"
+        content={`<p>Esta es una <strong>seleccion curada de eventos reales</strong> que hemos montado en CDMX: bodas en Polanco, XV anos en Lomas, baby showers en Roma Norte, corporativos en Santa Fe y celebraciones familiares en Coyoacan. Cada montaje refleja la <strong>paleta, tematica y estandar</strong> del cliente.</p><p>Si quieres ver mas referencias de tu tipo de evento (boda, XV, baby shower, corporativo) escribenos por WhatsApp y te enviamos un portafolio especifico segun tu fecha, venue y presupuesto.</p>`}
       />
+
       <div class="cdmx-galeria__grid">
         {galeriaCdmx.map((img, i) => (
-          <figure class:list={['galeria-item', { 'galeria-item--lg': i === 0 || i === 3 }]}>
+          <figure class:list={['galeria-item', { 'galeria-item--lg': i === 0 || i === 7 }]}>
             <img
-              src={getCdnUrl(img.src, { w: 720, q: 82 })}
+              src={getCdnUrl(img.src, { w: 600, q: 80 })}
               alt={img.alt}
               loading="lazy"
-              width="720"
-              height="480"
+              width="600"
+              height="450"
             />
+            <figcaption class="galeria-item__caption">
+              <span class="galeria-item__tag">{img.categoria}</span>
+              <span class="galeria-item__zoom" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <line x1="11" y1="8" x2="11" y2="14"/>
+                  <line x1="8" y1="11" x2="14" y2="11"/>
+                </svg>
+              </span>
+            </figcaption>
           </figure>
         ))}
+      </div>
+
+      <div class="cdmx-galeria__cta">
+        <p>+ 500 eventos montados en CDMX. <a href="/galeria">Ver galeria completa</a> o solicita un portafolio segun tu tipo de evento.</p>
+        <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20gustaria%20ver%20un%20portafolio%20de%20eventos%20similares%20al%20mio%20en%20CDMX" target="_blank" rel="noopener" class="cdmx-galeria__btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Pedir portafolio
+        </a>
       </div>
     </div>
   </section>
@@ -1601,90 +1712,239 @@ const cdmxLocalBusinessSchema = {
   }
 
   /* =====================================================
-     VENUES ICONICOS
+     VENUES ICONICOS (homologado: SectionHeader + grupos)
      ===================================================== */
   .venues-cdmx {
-    padding: 70px 0;
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d1a3e 100%);
+    padding: 90px 0 100px;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
   }
 
-  .venues-cdmx__content {
-    text-align: center;
-    color: #fff;
+  .venues-cdmx__grupos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-top: 10px;
   }
 
-  .venues-cdmx__content h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 12px;
+  .venue-grupo {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    padding: 32px 30px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
 
-  .venues-cdmx__content h2 span {
-    color: #ffb3da;
+  .venue-grupo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(209, 0, 122, 0.10);
+    border-color: rgba(209, 0, 122, 0.20);
   }
 
-  .venues-cdmx__content > p {
-    font-size: 1rem;
-    opacity: 0.78;
-    margin: 0 0 40px;
-  }
-
-  .venues-cdmx__grid {
+  .venue-grupo__header {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    max-width: 1000px;
-    margin: 0 auto;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
   }
 
-  .venue-item {
+  .venue-grupo__numero {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 11px 18px;
-    border-radius: 50px;
-    font-size: 0.9rem;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 14px rgba(209, 0, 122, 0.25);
+  }
+
+  .venue-grupo__header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+
+  .venue-grupo__header p {
+    font-size: 0.88rem;
+    color: var(--gris-texto, #636E72);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .venue-grupo__lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .venue-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #fff 0%, #fdfafc 100%);
+    border: 1px solid #f0e6ee;
+    border-radius: 14px;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+    overflow: hidden;
+  }
+
+  .venue-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--rosa-principal) 0%, #A0005F 100%);
+    opacity: 0;
+    transition: opacity .22s ease;
+  }
+
+  .venue-card:hover {
+    transform: translateX(4px);
+    border-color: rgba(209, 0, 122, 0.30);
+    box-shadow: 0 8px 22px rgba(209, 0, 122, 0.10);
+    background: #fff;
+  }
+
+  .venue-card:hover::before {
+    opacity: 1;
+  }
+
+  .venue-card__icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(209,0,122,0.10) 0%, rgba(160,0,95,0.06) 100%);
+    color: var(--rosa-principal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(209,0,122,0.12);
+    transition: background .22s ease, color .22s ease, border-color .22s ease;
+  }
+
+  .venue-card:hover .venue-card__icon {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .venue-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .venue-card__name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.96rem;
+    color: var(--texto-oscuro);
+    line-height: 1.3;
+    letter-spacing: -0.1px;
+  }
+
+  .venue-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .venue-card__zona {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.76rem;
+    color: var(--gris-texto, #636E72);
     font-weight: 500;
   }
 
-  .venues-cdmx__nota {
-    margin-top: 32px;
-    font-size: 0.88rem;
+  .venue-card__zona svg {
+    color: var(--rosa-principal);
     opacity: 0.7;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
+  }
+
+  .venue-card__tipo {
+    font-size: 0.72rem;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 2px 8px;
+    background: rgba(209, 0, 122, 0.07);
+    border-radius: 20px;
+  }
+
+  .venue-card__check {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.10);
+    color: #10B981;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+    transition: opacity .22s ease, transform .22s ease;
+  }
+
+  .venue-card:hover .venue-card__check {
+    opacity: 1;
+    transform: scale(1.08);
   }
 
   /* =====================================================
      GALERIA
      ===================================================== */
   .cdmx-galeria {
-    padding: 80px 0;
+    padding: 90px 0 100px;
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
   .cdmx-galeria__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 44px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    gap: 14px;
+    margin-top: 50px;
   }
 
   .galeria-item {
+    position: relative;
     margin: 0;
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    aspect-ratio: 4 / 3;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease;
+    background: #f3f3f5;
   }
 
   .galeria-item--lg {
     grid-column: span 2;
+    grid-row: span 2;
   }
 
   .galeria-item img {
@@ -1692,9 +1952,124 @@ const cdmxLocalBusinessSchema = {
     height: 100%;
     object-fit: cover;
     display: block;
-}
+    transition: transform .6s ease;
+  }
 
-  .galeria-item:hover img {}
+  .galeria-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(20, 10, 25, 0.18);
+  }
+
+  .galeria-item:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Overlay */
+  .galeria-item__caption {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(20,10,25,0.55) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 14px;
+    pointer-events: none;
+    transition: background .3s ease;
+  }
+
+  .galeria-item:hover .galeria-item__caption {
+    background: linear-gradient(180deg, rgba(20,10,25,0.0) 0%, rgba(20,10,25,0.45) 60%, rgba(20,10,25,0.75) 100%);
+  }
+
+  .galeria-item__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.95);
+    color: var(--rosa-principal, #D1007A);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .galeria-item__zoom {
+    width: 34px;
+    height: 34px;
+    background: rgba(255,255,255,0.95);
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8) translateY(8px);
+    transition: opacity .3s ease, transform .3s ease;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+
+  .galeria-item:hover .galeria-item__zoom {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  /* CTA pie de galeria */
+  .cdmx-galeria__cta {
+    margin-top: 42px;
+    padding: 22px 28px;
+    background: #fff;
+    border: 1px solid rgba(209, 0, 122, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 10px 26px rgba(20, 10, 25, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .cdmx-galeria__cta p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4a4a55;
+    line-height: 1.5;
+  }
+
+  .cdmx-galeria__cta p strong { color: var(--rosa-principal); }
+
+  .cdmx-galeria__cta a {
+    color: var(--rosa-principal, #D1007A);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(209,0,122,0.4);
+  }
+
+  .cdmx-galeria__cta a:hover { border-bottom-style: solid; }
+
+  .cdmx-galeria__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff !important;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32);
+    transition: transform .2s ease, box-shadow .2s ease;
+    flex-shrink: 0;
+  }
+
+  .cdmx-galeria__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+  }
 
   /* =====================================================
      TESTIMONIOS
@@ -1747,11 +2122,14 @@ const cdmxLocalBusinessSchema = {
     }
 
     .cdmx-galeria__grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 180px;
+      gap: 12px;
     }
 
     .galeria-item--lg {
-      grid-column: span 1;
+      grid-column: span 2;
+      grid-row: span 2;
     }
   }
 
@@ -1814,13 +2192,37 @@ const cdmxLocalBusinessSchema = {
       font-size: 0.98rem;
     }
 
-    .venues-cdmx__content h2 {
-      font-size: 1.55rem;
+    .venues-cdmx__grupos {
+      grid-template-columns: 1fr;
+      gap: 18px;
     }
 
-    .venue-item {
-      padding: 9px 14px;
-      font-size: 0.82rem;
+    .venue-grupo {
+      padding: 26px 22px;
+    }
+
+    .venue-grupo__numero {
+      width: 38px;
+      height: 38px;
+      font-size: 0.85rem;
+    }
+
+    .venue-grupo__header h3 {
+      font-size: 1.05rem;
+    }
+
+    .venue-card {
+      padding: 12px 14px;
+      gap: 12px;
+    }
+
+    .venue-card__icon {
+      width: 38px;
+      height: 38px;
+    }
+
+    .venue-card__name {
+      font-size: 0.92rem;
     }
 
     .testimonios-cdmx__grid {
@@ -1828,8 +2230,24 @@ const cdmxLocalBusinessSchema = {
     }
 
     .cdmx-galeria__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 160px;
+      gap: 10px;
     }
+
+    .galeria-item--lg {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .cdmx-galeria__cta {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+      padding: 18px 20px;
+    }
+
+    .cdmx-galeria__btn { justify-content: center; }
   }
 
   @media (max-width: 480px) {
@@ -1863,8 +2281,32 @@ const cdmxLocalBusinessSchema = {
       grid-template-columns: 1fr;
     }
 
-    .venues-cdmx__content h2 {
-      font-size: 1.35rem;
+    .venue-grupo {
+      padding: 22px 18px;
+    }
+
+    .venue-card {
+      padding: 11px 12px;
+      gap: 10px;
+    }
+
+    .venue-card__icon {
+      width: 34px;
+      height: 34px;
+    }
+
+    .venue-card__name {
+      font-size: 0.88rem;
+    }
+
+    .venue-card__zona,
+    .venue-card__tipo {
+      font-size: 0.7rem;
+    }
+
+    .venue-card__check {
+      width: 22px;
+      height: 22px;
     }
   }
 </style>
