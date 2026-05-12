@@ -723,3 +723,30 @@ a, button, [role="button"], input, select, textarea {
     scroll-padding-top: calc(var(--site-header-offset, 110px) + 0.5rem);
   }
 }
+
+/* =========================================================
+   26. NO UNDERLINE GLOBAL — regla universal
+   Ningun enlace en todo el sitio lleva subrayado, incluso
+   hover/focus/visited. Aplica sobre cualquier hoja anterior.
+   ========================================================= */
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active,
+main a,
+main a:hover,
+article a,
+article a:hover,
+.prose a,
+.prose a:hover,
+.article-content a,
+.article-content a:hover,
+.blog-content a,
+.blog-content a:hover {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-thickness: 0 !important;
+}
