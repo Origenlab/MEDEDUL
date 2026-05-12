@@ -272,9 +272,11 @@ const isActive = (item: typeof menuItems[0]) => {
       <span></span>
     </button>
   </div>
+</header>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+<!-- Mobile Menu (FUERA del <header> porque el backdrop-filter del header crea un
+     containing block que rompe position:fixed de los hijos) -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <div class="mobile-menu__inner">
       <ul class="mobile-menu__list">
         {menuItems.map(item => (
@@ -360,8 +362,7 @@ const isActive = (item: typeof menuItems[0]) => {
         </a>
       </div>
     </div>
-  </div>
-</header>
+</div>
 
 <script is:inline>
   (function () {
