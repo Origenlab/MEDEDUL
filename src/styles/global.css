@@ -9,9 +9,12 @@
     animation: none !important;
 }
 
-*:hover,
-*:focus,
-*:active {
+/* Reset universal de transform/filter en interacciones, EXCEPTUANDO componentes que
+   dependen de transform para su POSICIONAMIENTO (no decoración). El mega-menu se
+   centra con translateX(-50%); resetearlo lo desplaza fuera de su anclaje. */
+*:hover:not(.mega-menu):not(.mega-menu *),
+*:focus:not(.mega-menu):not(.mega-menu *),
+*:active:not(.mega-menu):not(.mega-menu *) {
     transform: none !important;
     filter: none !important;
 }

@@ -712,7 +712,8 @@ const isActive = (item: typeof menuItems[0]) => {
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(-8px);
+    /* !important: global.css aplica `*:hover { transform: none !important }` que rompe el centrado */
+    transform: translateX(-50%) translateY(-8px) !important;
     padding-top: 14px;
     opacity: 0;
     visibility: hidden;
@@ -725,9 +726,19 @@ const isActive = (item: typeof menuItems[0]) => {
   .header__item.has-mega.open > .mega-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) !important;
     transition: opacity .25s ease, transform .25s ease, visibility 0s linear 0s;
     pointer-events: auto;
+  }
+
+  /* Refuerzo: incluso bajo :hover/:focus/:active el centrado debe mantenerse */
+  .mega-menu:hover,
+  .mega-menu:focus-within,
+  .mega-menu:active,
+  .header__item.has-mega.open > .mega-menu:hover,
+  .header__item.has-mega.open > .mega-menu:focus-within,
+  .header__item.has-mega.open > .mega-menu:active {
+    transform: translateX(-50%) translateY(0) !important;
   }
 
   .mega-menu__container {
