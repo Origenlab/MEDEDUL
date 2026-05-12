@@ -1,5 +1,5 @@
 ---
-// Header Component - Professional Navigation v3 (dual sucursal contact)
+// Header Component - Professional Navigation v4 (robust click + hover + mobile)
 import { getCdnUrl } from '@/lib/cdn';
 
 interface Props {
@@ -182,22 +182,30 @@ const isActive = (item: typeof menuItems[0]) => {
     <!-- Desktop Navigation -->
     <nav class="header__nav" id="nav-menu" aria-label="Navegación principal">
       <ul class="header__menu">
-        {menuItems.map(item => (
-          <li class:list={['header__item', { 'has-mega': item.megaMenu }]}>
+        {menuItems.map((item, idx) => (
+          <li class:list={['header__item', { 'has-mega': item.megaMenu }]} data-mega-id={item.megaMenu ? `mega-${idx}` : undefined}>
             <a
               href={item.href}
               class:list={['header__link', { active: isActive(item) }]}
             >
               <span class="header__link-text">{item.label}</span>
-              {item.megaMenu && (
-                <svg class="header__arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            </a>
+            {item.megaMenu && (
+              <button
+                type="button"
+                class="header__mega-toggle"
+                aria-expanded="false"
+                aria-controls={`mega-${idx}`}
+                aria-label={`Abrir submenú de ${item.label}`}
+              >
+                <svg class="header__arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
-              )}
-            </a>
+              </button>
+            )}
 
             {item.megaMenu && (
-              <div class="mega-menu">
+              <div class="mega-menu" id={`mega-${idx}`} role="region" aria-label={`Submenú de ${item.label}`}>
                 <div class="mega-menu__container">
                   {item.megaMenu.map(column => (
                     <div class="mega-menu__column">
@@ -258,7 +266,7 @@ const isActive = (item: typeof menuItems[0]) => {
     </div>
 
     <!-- Mobile Toggle -->
-    <button class="header__toggle" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+    <button class="header__toggle" id="hamburger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
       <span></span>
       <span></span>
       <span></span>
@@ -266,25 +274,29 @@ const isActive = (item: typeof menuItems[0]) => {
   </div>
 
   <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <div class="mobile-menu__inner">
       <ul class="mobile-menu__list">
         {menuItems.map(item => (
           <li class:list={['mobile-menu__item', { 'has-submenu': item.megaMenu }]}>
             {item.megaMenu ? (
               <>
-                <button class="mobile-menu__link mobile-menu__trigger" type="button" aria-expanded="false">
-                  {item.label}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
+                <div class="mobile-menu__row">
+                  <a href={item.href} class:list={['mobile-menu__link', 'mobile-menu__link--main', { active: isActive(item) }]}>
+                    {item.label}
+                  </a>
+                  <button class="mobile-menu__trigger" type="button" aria-expanded="false" aria-label={`Mostrar submenú de ${item.label}`}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+                </div>
                 <div class="mobile-menu__submenu">
                   {item.megaMenu.map(column => (
                     <div class="mobile-menu__group">
-                      <button class="mobile-menu__group-header" type="button" style={`--column-color: ${column.color}`}>
+                      <button class="mobile-menu__group-header" type="button" aria-expanded="false" style={`--column-color: ${column.color}`}>
                         <span class="mobile-menu__group-icon">{column.icon}</span>
-                        {column.title}
+                        <span class="mobile-menu__group-title">{column.title}</span>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                           <polyline points="6 9 12 15 18 9" />
                         </svg>
@@ -356,7 +368,7 @@ const isActive = (item: typeof menuItems[0]) => {
     if (window.__mededulHeaderInit) return;
     window.__mededulHeaderInit = true;
 
-    const onReady = (fn) => {
+    const ready = (fn) => {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', fn, { once: true });
       } else {
@@ -364,93 +376,152 @@ const isActive = (item: typeof menuItems[0]) => {
       }
     };
 
-    onReady(function init() {
+    ready(function init() {
       const header = document.getElementById('header');
       const hamburger = document.getElementById('hamburger');
       const mobileMenu = document.getElementById('mobile-menu');
+      if (!header) return;
 
-      // Scroll effect
+      const isDesktop = () => window.matchMedia('(min-width: 1025px)').matches;
+
+      /* ====== Scroll effect ====== */
       let lastScroll = -1;
       const onScroll = () => {
         const cur = window.scrollY;
         if (cur === lastScroll) return;
         lastScroll = cur;
-        if (!header) return;
         if (cur > 50) header.classList.add('scrolled');
         else header.classList.remove('scrolled');
       };
       window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
-      const closeMenu = () => {
-        hamburger?.classList.remove('active');
-        mobileMenu?.classList.remove('active');
+      /* ====== Mobile menu open/close ====== */
+      const closeMobile = () => {
+        if (!hamburger || !mobileMenu) return;
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenu.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('menu-open');
-        hamburger?.setAttribute('aria-expanded', 'false');
-        hamburger?.setAttribute('aria-label', 'Abrir menú');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Abrir menú');
       };
 
-      const openMenu = () => {
-        hamburger?.classList.add('active');
-        mobileMenu?.classList.add('active');
+      const openMobile = () => {
+        if (!hamburger || !mobileMenu) return;
+        hamburger.classList.add('active');
+        mobileMenu.classList.add('active');
+        mobileMenu.setAttribute('aria-hidden', 'false');
         document.body.classList.add('menu-open');
-        hamburger?.setAttribute('aria-expanded', 'true');
-        hamburger?.setAttribute('aria-label', 'Cerrar menú');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Cerrar menú');
       };
 
       if (hamburger && mobileMenu) {
-        const toggle = (e) => {
+        hamburger.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          const isOpen = hamburger.classList.contains('active');
-          if (isOpen) closeMenu();
-          else openMenu();
-        };
-        hamburger.addEventListener('click', toggle);
-        hamburger.addEventListener('touchstart', toggle, { passive: false });
+          if (hamburger.classList.contains('active')) closeMobile();
+          else openMobile();
+        });
       }
 
-      mobileMenu?.addEventListener('click', (e) => {
-        const target = e.target;
-        if (!(target instanceof Element)) return;
+      /* ====== Mobile menu inner interactions ====== */
+      if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+          const t = e.target;
+          if (!(t instanceof Element)) return;
 
-        const trigger = target.closest('.mobile-menu__trigger');
-        if (trigger) {
+          // top-level submenu toggle (Servicios, Sucursales)
+          const trigger = t.closest('.mobile-menu__trigger');
+          if (trigger) {
+            e.preventDefault();
+            const item = trigger.closest('.mobile-menu__item');
+            if (!item) return;
+            const willOpen = !item.classList.contains('open');
+            // Close other top-level submenus
+            mobileMenu.querySelectorAll('.mobile-menu__item.open').forEach((el) => {
+              if (el !== item) {
+                el.classList.remove('open');
+                const otherTrig = el.querySelector('.mobile-menu__trigger');
+                if (otherTrig) otherTrig.setAttribute('aria-expanded', 'false');
+              }
+            });
+            item.classList.toggle('open', willOpen);
+            trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            return;
+          }
+
+          // group header toggle (Tipos de Mesas, Candy Bar, ...)
+          const groupHead = t.closest('.mobile-menu__group-header');
+          if (groupHead) {
+            e.preventDefault();
+            const group = groupHead.parentElement;
+            if (!group) return;
+            const willOpen = !group.classList.contains('open');
+            group.classList.toggle('open', willOpen);
+            groupHead.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            return;
+          }
+
+          // any navigation link closes the menu
+          const link = t.closest(
+            'a.mobile-menu__sublink, a.mobile-menu__view-all, a.mobile-menu__link, a.mm-suc__btn, a.mobile-menu__cta'
+          );
+          if (link) closeMobile();
+        });
+      }
+
+      /* ====== Desktop mega menu: click toggle + outside close ====== */
+      const megaItems = header.querySelectorAll('.header__item.has-mega');
+
+      const closeAllMega = () => {
+        megaItems.forEach((it) => {
+          it.classList.remove('open');
+          const btn = it.querySelector('.header__mega-toggle');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      };
+
+      megaItems.forEach((item) => {
+        const btn = item.querySelector('.header__mega-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', (e) => {
           e.preventDefault();
-          const parent = trigger.parentElement;
-          const willOpen = !parent?.classList.contains('open');
-          parent?.classList.toggle('open');
-          trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-          return;
-        }
-
-        const groupHead = target.closest('.mobile-menu__group-header');
-        if (groupHead) {
-          e.preventDefault();
-          const parent = groupHead.parentElement;
-          parent?.classList.toggle('open');
-          return;
-        }
-
-        const link = target.closest(
-          'a.mobile-menu__sublink, a.mobile-menu__view-all, a.mobile-menu__link, a.mm-suc__btn, a.mobile-menu__cta'
-        );
-        if (link && !link.classList.contains('mobile-menu__trigger')) {
-          closeMenu();
-        }
+          e.stopPropagation();
+          const willOpen = !item.classList.contains('open');
+          closeAllMega();
+          if (willOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
       });
 
+      // Click outside closes any open mega
+      document.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        if (!t.closest('.header__item.has-mega')) closeAllMega();
+      });
+
+      /* ====== Escape closes everything ====== */
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
-          closeMenu();
-        }
+        if (e.key !== 'Escape') return;
+        if (mobileMenu && mobileMenu.classList.contains('active')) closeMobile();
+        closeAllMega();
       });
 
+      /* ====== Resize: close mobile on desktop, close mega on mobile ====== */
       let resizeRaf;
       window.addEventListener('resize', () => {
         if (resizeRaf) cancelAnimationFrame(resizeRaf);
         resizeRaf = requestAnimationFrame(() => {
-          if (window.innerWidth > 1024 && mobileMenu?.classList.contains('active')) {
-            closeMenu();
+          if (isDesktop() && mobileMenu && mobileMenu.classList.contains('active')) {
+            closeMobile();
+          }
+          if (!isDesktop()) {
+            closeAllMega();
           }
         });
       }, { passive: true });
@@ -460,7 +531,7 @@ const isActive = (item: typeof menuItems[0]) => {
 
 <style>
   /* =====================================================
-     HEADER v3 — Premium con dos sucursales (CDMX + Toluca)
+     HEADER v4 — Premium con click+hover robusto
      ===================================================== */
   .header {
     position: fixed;
@@ -528,13 +599,12 @@ const isActive = (item: typeof menuItems[0]) => {
     padding: 0;
   }
 
-  .header__item { position: relative; }
+  .header__item { position: relative; display: flex; align-items: center; }
 
   .header__link {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 6px;
     padding: 10px 13px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -544,6 +614,8 @@ const isActive = (item: typeof menuItems[0]) => {
     letter-spacing: 0.01em;
     transition: color .2s ease, background .2s ease;
   }
+
+  .header__item.has-mega > .header__link { padding-right: 4px; }
 
   .header__link::before {
     content: '';
@@ -570,14 +642,37 @@ const isActive = (item: typeof menuItems[0]) => {
     outline-offset: 3px;
   }
 
-  .header__arrow {
-    transition: transform .25s ease;
-    opacity: .6;
+  /* Botón flecha del mega-menu */
+  .header__mega-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin-left: 1px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: #2a2a35;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
   }
-  .header__item.has-mega:hover > .header__link .header__arrow {
+  .header__mega-toggle:hover { background: rgba(209, 0, 122, 0.08); color: #D1007A; }
+  .header__mega-toggle:focus-visible {
+    outline: 2px solid #D1007A;
+    outline-offset: 2px;
+  }
+  .header__mega-toggle .header__arrow {
+    transition: transform .25s ease;
+    opacity: .7;
+  }
+  .header__item.has-mega:hover > .header__mega-toggle .header__arrow,
+  .header__item.has-mega.open > .header__mega-toggle .header__arrow {
     transform: rotate(180deg);
     opacity: 1;
   }
+  .header__item.has-mega.open > .header__mega-toggle { background: rgba(209, 0, 122, 0.08); color: #D1007A; }
 
   /* ---------- Mega Menu ---------- */
   .mega-menu {
@@ -590,10 +685,12 @@ const isActive = (item: typeof menuItems[0]) => {
     visibility: hidden;
     transition: opacity .2s ease, transform .25s ease, visibility 0s linear .2s;
     pointer-events: none;
+    z-index: 1001;
   }
 
-  .header__item.has-mega:hover .mega-menu,
-  .header__item.has-mega:focus-within .mega-menu {
+  .header__item.has-mega:hover > .mega-menu,
+  .header__item.has-mega:focus-within > .mega-menu,
+  .header__item.has-mega.open > .mega-menu {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
@@ -614,6 +711,7 @@ const isActive = (item: typeof menuItems[0]) => {
       0 24px 60px rgba(15, 15, 30, 0.14);
     overflow: hidden;
     width: max-content;
+    max-width: min(95vw, 1080px);
   }
 
   .mega-menu__column {
@@ -682,7 +780,6 @@ const isActive = (item: typeof menuItems[0]) => {
     flex-shrink: 0;
   }
 
-  /* Contact block: dos sucursales lado a lado */
   .header__contact {
     display: flex;
     align-items: stretch;
@@ -788,15 +885,18 @@ const isActive = (item: typeof menuItems[0]) => {
     display: none;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 5px;
     width: 44px;
     height: 44px;
-    padding: 12px;
+    padding: 0;
     background: none;
     border: 1px solid rgba(15, 15, 30, 0.08);
     border-radius: 10px;
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   .header__toggle:hover { background: rgba(15, 15, 30, 0.03); border-color: rgba(15, 15, 30, 0.14); }
   .header__toggle:active { background: rgba(15, 15, 30, 0.05); }
@@ -807,15 +907,16 @@ const isActive = (item: typeof menuItems[0]) => {
 
   .header__toggle span {
     display: block;
-    width: 20px;
+    width: 22px;
     height: 2px;
     background: #2a2a35;
     border-radius: 2px;
     transition: transform .25s ease, opacity .2s ease;
+    pointer-events: none;
   }
-  .header__toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .header__toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .header__toggle.active span:nth-child(2) { opacity: 0; }
-  .header__toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .header__toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* =====================================================
      MOBILE MENU
@@ -835,11 +936,13 @@ const isActive = (item: typeof menuItems[0]) => {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+    transition: opacity .2s ease, visibility 0s linear .2s;
   }
   .mobile-menu.active {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+    transition: opacity .2s ease, visibility 0s linear 0s;
   }
 
   .mobile-menu__inner {
@@ -847,6 +950,7 @@ const isActive = (item: typeof menuItems[0]) => {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
   }
 
   .mobile-menu__list {
@@ -857,6 +961,14 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   .mobile-menu__item { border-bottom: 1px solid #f0f0f0; }
+
+  /* Row: enlace principal + botón flecha */
+  .mobile-menu__row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+  .mobile-menu__row .mobile-menu__link--main { flex: 1; }
 
   .mobile-menu__link {
     display: flex;
@@ -872,13 +984,37 @@ const isActive = (item: typeof menuItems[0]) => {
     border: none;
     cursor: pointer;
     text-align: left;
+    min-height: 52px;
   }
   .mobile-menu__link.active { color: #D1007A; }
-  .mobile-menu__link svg { transition: transform .25s ease; }
-  .mobile-menu__item.open > .mobile-menu__trigger svg { transform: rotate(180deg); }
 
-  .mobile-menu__submenu { display: none; padding-bottom: 16px; }
-  .mobile-menu__item.open .mobile-menu__submenu { display: block; }
+  .mobile-menu__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    min-height: 52px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #2a2a35;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(209, 0, 122, 0.08);
+    touch-action: manipulation;
+  }
+  .mobile-menu__trigger svg { transition: transform .25s ease; }
+  .mobile-menu__item.open .mobile-menu__trigger svg { transform: rotate(180deg); }
+  .mobile-menu__trigger:active { background: rgba(15, 15, 30, 0.04); }
+
+  .mobile-menu__submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .mobile-menu__item.open .mobile-menu__submenu {
+    max-height: 2000px;
+    padding-bottom: 12px;
+  }
 
   .mobile-menu__group { margin-bottom: 8px; }
 
@@ -887,7 +1023,7 @@ const isActive = (item: typeof menuItems[0]) => {
     align-items: center;
     gap: 8px;
     width: 100%;
-    padding: 12px 16px;
+    padding: 12px 14px;
     font-size: 0.92rem;
     font-weight: 600;
     color: #2a2a35;
@@ -897,39 +1033,56 @@ const isActive = (item: typeof menuItems[0]) => {
     border-radius: 0 8px 8px 0;
     cursor: pointer;
     text-align: left;
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(209, 0, 122, 0.08);
   }
-  .mobile-menu__group-icon { font-size: 1rem; }
-  .mobile-menu__group-header svg { margin-left: auto; transition: transform .25s ease; }
+  .mobile-menu__group-icon { font-size: 1rem; flex-shrink: 0; }
+  .mobile-menu__group-title { flex: 1; }
+  .mobile-menu__group-header svg { transition: transform .25s ease; flex-shrink: 0; }
   .mobile-menu__group.open .mobile-menu__group-header svg { transform: rotate(180deg); }
 
   .mobile-menu__group-list {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
     list-style: none;
-    padding: 8px 0 8px 24px;
+    padding: 0 0 0 24px;
     margin: 0;
+    transition: max-height .3s ease;
   }
-  .mobile-menu__group.open .mobile-menu__group-list { display: block; }
+  .mobile-menu__group.open .mobile-menu__group-list {
+    max-height: 1000px;
+    padding: 8px 0 8px 24px;
+  }
 
   .mobile-menu__sublink {
     display: block;
-    padding: 10px 16px;
-    font-size: 0.92rem;
+    padding: 12px 14px;
+    font-size: 0.93rem;
     color: #555560;
     text-decoration: none;
     border-radius: 6px;
+    min-height: 44px;
   }
-  .mobile-menu__sublink:hover {
+  .mobile-menu__sublink:active {
     color: #D1007A;
     background: rgba(209, 0, 122, 0.05);
+  }
+  @media (hover: hover) {
+    .mobile-menu__sublink:hover {
+      color: #D1007A;
+      background: rgba(209, 0, 122, 0.05);
+    }
   }
 
   .mobile-menu__view-all {
     display: block;
-    padding: 10px 16px;
-    font-size: 0.82rem;
+    padding: 12px 14px;
+    font-size: 0.83rem;
     font-weight: 600;
     color: #D1007A;
     text-decoration: none;
+    min-height: 44px;
   }
 
   /* ---------- Mobile Footer: dual sucursal cards ---------- */
@@ -1002,11 +1155,12 @@ const isActive = (item: typeof menuItems[0]) => {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 10px 12px;
-    font-size: 0.85rem;
+    padding: 11px 12px;
+    font-size: 0.86rem;
     font-weight: 600;
     text-decoration: none;
     border-radius: 10px;
+    min-height: 44px;
     transition: transform .15s ease, box-shadow .2s ease;
   }
   .mm-suc__btn--call {
@@ -1014,13 +1168,13 @@ const isActive = (item: typeof menuItems[0]) => {
     background: #f4f4f7;
     border: 1px solid rgba(15, 15, 30, 0.08);
   }
-  .mm-suc__btn--call:hover { background: #ececf0; }
+  .mm-suc__btn--call:active { background: #ececf0; }
   .mm-suc__btn--wa {
     color: #ffffff;
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   }
-  .mm-suc__btn--wa:hover { transform: translateY(-1px); }
+  .mm-suc__btn--wa:active { transform: translateY(-1px); }
 
   .mobile-menu__cta {
     display: inline-flex;
@@ -1037,8 +1191,9 @@ const isActive = (item: typeof menuItems[0]) => {
     background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(209, 0, 122, 0.3);
+    min-height: 52px;
   }
-  .mobile-menu__cta:hover { transform: translateY(-1px); }
+  .mobile-menu__cta:active { transform: translateY(-1px); }
 
   /* =====================================================
      RESPONSIVE
@@ -1050,6 +1205,7 @@ const isActive = (item: typeof menuItems[0]) => {
   @media (max-width: 1280px) {
     .header__menu { gap: 0; }
     .header__link { padding: 10px 10px; font-size: 0.86rem; }
+    .header__mega-toggle { width: 22px; height: 22px; }
     .header__contact { padding: 3px; }
     .suc-chip { padding: 4px 8px 4px 5px; gap: 6px; }
     .suc-chip__icon { width: 24px; height: 24px; }
@@ -1059,7 +1215,6 @@ const isActive = (item: typeof menuItems[0]) => {
   }
 
   @media (max-width: 1180px) {
-    /* Comprimimos: chips solo iconos + numero compacto */
     .suc-chip__city { display: none; }
     .suc-chip__num { font-size: 0.78rem; }
     .header__actions { gap: 8px; }
@@ -1068,7 +1223,6 @@ const isActive = (item: typeof menuItems[0]) => {
   @media (max-width: 1100px) {
     .mega-menu__container { grid-auto-columns: 200px; }
     .mega-menu__column { padding: 20px 16px; }
-    /* Ocultamos chips, dejamos solo WhatsApp + CTA */
     .header__contact { display: none; }
   }
 
@@ -1097,4 +1251,21 @@ const isActive = (item: typeof menuItems[0]) => {
 
   /* Body scroll lock when menu is open */
   :global(body.menu-open) { overflow: hidden; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .header,
+    .header__link,
+    .header__link::before,
+    .header__arrow,
+    .mega-menu,
+    .header__cta,
+    .mobile-menu,
+    .mobile-menu__submenu,
+    .mobile-menu__group-list,
+    .mobile-menu__trigger svg,
+    .mobile-menu__group-header svg {
+      transition: none !important;
+    }
+  }
 </style>
