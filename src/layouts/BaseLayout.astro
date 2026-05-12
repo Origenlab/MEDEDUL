@@ -169,5 +169,97 @@ const googleFontsHref = 'https://fonts.googleapis.com/css2?family=Poppins:wght@4
 
     <!-- DMChamp chat widget (data-cfasync=false → opt-out de Cloudflare Rocket Loader) -->
     <script data-cfasync="false" src="https://api.dmchamp.com/v1/chat-widget/QjJvgg44KjPKkctV92lS"></script>
+
+    <!--
+      Interceptor global: cualquier link/botón a WhatsApp (wa.me, api.whatsapp.com,
+      whatsapp://, [data-whatsapp]) abre el widget DMChamp en vez de salir a WA.
+      Opt-out por elemento: agregar `data-no-dmchamp` para conservar el flujo directo.
+    -->
+    <script is:inline>
+      (function () {
+        if (window.__mededulDMChampInterceptor) return;
+        window.__mededulDMChampInterceptor = true;
+
+        var WA_PATTERN = /(?:^|[\/.@:])(?:wa\.me|api\.whatsapp\.com|web\.whatsapp\.com|whatsapp:)/i;
+
+        function tryOpenDMChamp() {
+          // 1) APIs globales conocidas que pudiera exponer el widget
+          var apis = [
+            window.dmchamp, window.DMChamp, window.DMChampWidget,
+            window.DmChamp, window.dmChamp, window.dmchampWidget
+          ];
+          for (var i = 0; i < apis.length; i++) {
+            var a = apis[i];
+            if (!a) continue;
+            if (typeof a.open === 'function')   { try { a.open();   return true; } catch (_) {} }
+            if (typeof a.show === 'function')   { try { a.show();   return true; } catch (_) {} }
+            if (typeof a.toggle === 'function') { try { a.toggle(); return true; } catch (_) {} }
+          }
+          // 2) Botón launcher del widget (DOM o shadow DOM)
+          var hostSelectors = [
+            '[id^="dmchamp"]', '[id*="dm-champ"]', '[id*="dmchamp"]',
+            '[class*="dmchamp"]', '[class*="dm-champ"]',
+            '[data-dmchamp-launcher]', '.dmchamp-launcher'
+          ];
+          for (var j = 0; j < hostSelectors.length; j++) {
+            var host = document.querySelector(hostSelectors[j]);
+            if (!host) continue;
+            // shadow DOM
+            if (host.shadowRoot) {
+              var inner = host.shadowRoot.querySelector('button, [role="button"], a');
+              if (inner && typeof inner.click === 'function') { inner.click(); return true; }
+            }
+            // light DOM
+            var btn = host.querySelector ? host.querySelector('button, [role="button"], a') : null;
+            var target = btn || host;
+            if (target && typeof target.click === 'function') { target.click(); return true; }
+          }
+          return false;
+        }
+
+        function openWithRetry(fallbackHref) {
+          var start = Date.now();
+          var maxMs = 5000;
+          (function tick() {
+            if (tryOpenDMChamp()) return;
+            if (Date.now() - start > maxMs) {
+              // Fallback: si después de 5s no carga el widget, abre WhatsApp directo
+              if (fallbackHref) {
+                try { window.open(fallbackHref, '_blank', 'noopener,noreferrer'); } catch (_) {}
+              }
+              return;
+            }
+            setTimeout(tick, 180);
+          })();
+        }
+
+        function isWAHref(href) {
+          if (!href) return false;
+          return WA_PATTERN.test(href);
+        }
+
+        document.addEventListener('click', function (e) {
+          var node = e.target;
+          if (!(node instanceof Element)) return;
+          var trigger = node.closest('a, button, [role="button"], [data-whatsapp]');
+          if (!trigger) return;
+          if (trigger.hasAttribute('data-no-dmchamp')) return;
+
+          var href = trigger.getAttribute('href') || trigger.getAttribute('data-whatsapp') || '';
+          var clsList = trigger.classList || { contains: function () { return false; } };
+          var isWA =
+            isWAHref(href) ||
+            trigger.hasAttribute('data-whatsapp') ||
+            clsList.contains('whatsapp-trigger') ||
+            clsList.contains('js-whatsapp');
+
+          if (!isWA) return;
+
+          e.preventDefault();
+          e.stopPropagation();
+          openWithRetry(href);
+        }, true); // capture: intercepta antes que cualquier otro handler
+      })();
+    </script>
   </body>
 </html>

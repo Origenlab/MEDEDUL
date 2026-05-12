@@ -147,35 +147,28 @@
 }
 
 /* =========================================================
-   5. TOPBAR — compacto sin desbordes
+   5. TOPBAR — compacto con dos pills de sucursales
    ========================================================= */
 @media (max-width: 640px) {
   .top-bar {
-    padding: 6px 0 !important;
-    min-height: 40px !important;
+    padding: 0 !important;
+    min-height: 42px !important;
   }
   .top-bar .container {
-    padding: 0 14px !important;
+    padding: 0 12px !important;
   }
   .top-bar__content {
     gap: 8px;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
   }
   .top-bar__name {
     font-size: 11px !important;
-  }
-  .top-bar__social a {
-    width: 30px !important;
-    height: 30px !important;
-    min-width: 30px;
-    min-height: 30px;
   }
 }
 @media (max-width: 380px) {
   .top-bar__brand {
     gap: 4px;
-  }
-  .top-bar__contact {
-    gap: 6px;
   }
 }
 

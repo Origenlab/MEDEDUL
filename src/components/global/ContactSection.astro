@@ -1,9 +1,9 @@
 ---
 /**
- * ContactSection Component - Modern Contact & Form Design
- * =======================================================
- * Sección de contacto profesional con información y formulario.
- * Diseño moderno con íconos, cards y formulario optimizado.
+ * ContactSection v4 — Modern Multi-Branch Contact
+ * ================================================
+ * Layout: cabecera centrada + 3 sucursales (Anzures matriz, Condesa, Toluca)
+ * + canales globales (WhatsApp, Email, Horarios) + formulario premium.
  */
 
 interface Props {
@@ -13,907 +13,937 @@ interface Props {
 }
 
 const {
-  phone = '55 2522 6442',
   email = 'info@mesas-de-dulces.com',
   whatsappNumber = '525525226442'
 } = Astro.props;
+
+const sucursales = [
+  {
+    id: 'anzures',
+    nombre: 'Anzures',
+    ciudad: 'CDMX',
+    tag: 'Matriz',
+    matriz: true,
+    direccion: 'Av. Ejército Nacional Mexicano 216',
+    colonia: 'Anzures, Miguel Hidalgo',
+    cp: 'CP 11590',
+    horario: 'Atención 24 horas',
+    horarioCorto: '24 h',
+    telefono: '55 2522 6442',
+    telefonoLink: 'tel:+525525226442',
+    waNumero: '525525226442',
+    waText: 'Hola! Me interesa una mesa de dulces — sucursal Anzures CDMX',
+    mapsUrl: 'https://maps.app.goo.gl/JV69HuQt3djPx9WZ9'
+  },
+  {
+    id: 'condesa',
+    nombre: 'Condesa',
+    ciudad: 'CDMX',
+    tag: 'Showroom',
+    matriz: false,
+    direccion: 'Torre A, Av. Baja California 255',
+    colonia: 'Condesa, Cuauhtémoc',
+    cp: 'CP 06170',
+    horario: 'Lun – Sáb · 10:00 – 19:00',
+    horarioCorto: 'Lun-Sáb 10-19',
+    telefono: '55 2522 6442',
+    telefonoLink: 'tel:+525525226442',
+    waNumero: '525525226442',
+    waText: 'Hola! Me interesa una mesa de dulces — sucursal Condesa CDMX',
+    mapsUrl: 'https://maps.app.goo.gl/Ze5acD2HRQ73QTa86'
+  },
+  {
+    id: 'toluca',
+    nombre: 'Toluca / Metepec',
+    ciudad: 'Edo. México',
+    tag: 'Nueva',
+    matriz: false,
+    destacada: true,
+    direccion: 'Blvd. Toluca – Metepec 913',
+    colonia: 'San Jorge Pueblo Nuevo, Metepec',
+    cp: 'CP 52169',
+    horario: 'Lun – Sáb · 10:00 – 19:00',
+    horarioCorto: 'Lun-Sáb 10-19',
+    telefono: '55 2177 5184',
+    telefonoLink: 'tel:+525521775184',
+    waNumero: '525521775184',
+    waText: 'Hola! Me interesa una mesa de dulces — sucursal Toluca / Metepec',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca'
+  }
+];
 ---
 
-<section class="contact-section" id="contacto">
-  <div class="contact-container">
-    <!-- Info Column -->
-    <div class="contact-info">
-      <div class="contact-info__header">
-        <span class="contact-info__badge">Contáctanos</span>
-        <h2 class="contact-info__title">
-          Hagamos tu evento <span>inolvidable</span>
-        </h2>
-        <p class="contact-info__intro">
-          Nuestro equipo está listo para asesorarte y crear la mesa de dulces perfecta para tu celebración.
-        </p>
-      </div>
+<section class="contact-section" id="contacto" aria-labelledby="contact-heading">
 
-      <div class="contact-cards">
-        <!-- Sucursal Condesa -->
-        <div class="contact-card">
-          <div class="contact-card__icon contact-card__icon--location">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+  <!-- ═══ HEADER ═══════════════════════════════════════════ -->
+  <div class="contact-header">
+    <span class="contact-header__badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      Contáctanos · 3 sucursales
+    </span>
+    <h2 class="contact-header__title" id="contact-heading">
+      Hagamos tu evento <span>inolvidable</span>
+    </h2>
+    <p class="contact-header__intro">
+      Cobertura completa en <strong>CDMX, Estado de México y Toluca</strong>. Elige la sucursal más cercana o escríbenos directamente por WhatsApp.
+    </p>
+  </div>
+
+  <!-- ═══ SUCURSALES GRID ══════════════════════════════════ -->
+  <div class="contact-branches">
+    {sucursales.map(s => (
+      <article class={`branch-card${s.destacada ? ' branch-card--new' : ''}${s.matriz ? ' branch-card--matriz' : ''}`}>
+        {s.tag && (
+          <span class={`branch-card__ribbon${s.destacada ? ' branch-card__ribbon--new' : s.matriz ? ' branch-card__ribbon--matriz' : ''}`}>
+            {s.tag}
+          </span>
+        )}
+
+        <header class="branch-card__head">
+          <span class="branch-card__pin" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
+          </span>
+          <div class="branch-card__title">
+            <h3>{s.nombre}</h3>
+            <span class="branch-card__city">{s.ciudad}</span>
           </div>
-          <div class="contact-card__content">
-            <h3>Sucursal Condesa</h3>
-            <p>Torre A, Av. Baja California 255, Col. Condesa, Cuauhtémoc, 06170 CDMX</p>
-            <a
-              href="https://www.google.com/maps/place/MESAS+DE+DULCES/@19.4061421,-99.1726122,17z"
-              target="_blank"
-              rel="noopener"
-              class="contact-card__link"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-              </svg>
-              Ver en Google Maps
-            </a>
-          </div>
-        </div>
+        </header>
 
-        <!-- Sucursal Anzures -->
-        <div class="contact-card">
-          <div class="contact-card__icon contact-card__icon--location">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-          <div class="contact-card__content">
-            <h3>Sucursal Anzures (Matriz CDMX)</h3>
-            <p>Av. Ejército Nacional Mexicano 216, Anzures, Miguel Hidalgo, 11590 CDMX</p>
-            <a
-              href="https://www.google.com/maps/place/Mesa+de+dulces+para+fiestas+y+eventos+sociales/@19.4358273,-99.1795263,17z"
-              target="_blank"
-              rel="noopener"
-              class="contact-card__link"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-              </svg>
-              Ver en Google Maps
-            </a>
-          </div>
-        </div>
-
-        <!-- Sucursal Toluca / Metepec -->
-        <div class="contact-card">
-          <div class="contact-card__icon contact-card__icon--location">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-          <div class="contact-card__content">
-            <h3>Sucursal Toluca / Metepec <span style="background:linear-gradient(135deg,#D1007A,#7A2BC2);color:#fff;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;margin-left:6px;vertical-align:middle;">Nueva</span></h3>
-            <p>Blvd. Toluca–Metepec 913, San Jorge Pueblo Nuevo, 52169 Metepec, Estado de México</p>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca"
-              target="_blank"
-              rel="noopener"
-              class="contact-card__link"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-              </svg>
-              Ver en Google Maps
-            </a>
-          </div>
-        </div>
-
-        <!-- Contact Info Row -->
-        <div class="contact-cards__row">
-          <!-- WhatsApp -->
-          <div class="contact-card contact-card--small">
-            <div class="contact-card__icon contact-card__icon--whatsapp">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-            </div>
-            <div class="contact-card__content">
-              <h3>WhatsApp</h3>
-              <a href={`tel:+${whatsappNumber}`}>{phone}</a>
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="contact-card contact-card--small">
-            <div class="contact-card__icon contact-card__icon--email">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M22 6l-10 7L2 6"/>
-              </svg>
-            </div>
-            <div class="contact-card__content">
-              <h3>Email</h3>
-              <a href={`mailto:${email}`}>{email}</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Horario -->
-        <div class="contact-card contact-card--schedule">
-          <div class="contact-card__icon contact-card__icon--clock">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="branch-card__body">
+          <p class="branch-card__addr">{s.direccion}</p>
+          <p class="branch-card__meta">
+            <span>{s.colonia}</span>
+            <span class="branch-card__dot" aria-hidden="true">·</span>
+            <span>{s.cp}</span>
+          </p>
+          <p class="branch-card__hours">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <polyline points="12 6 12 12 16 14"/>
             </svg>
-          </div>
-          <div class="contact-card__content">
-            <h3>Horario de Atención</h3>
-            <div class="schedule-grid">
-              <span>Lun - Vie:</span><strong>9:00 AM - 7:00 PM</strong>
-              <span>Sábados:</span><strong>10:00 AM - 3:00 PM</strong>
-            </div>
+            {s.horario}
+          </p>
+        </div>
+
+        <div class="branch-card__actions">
+          <a
+            href={s.telefonoLink}
+            class="branch-card__btn branch-card__btn--phone"
+            aria-label={`Llamar a sucursal ${s.nombre}`}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            <span>{s.telefono}</span>
+          </a>
+          <div class="branch-card__actions-row">
+            <a
+              href={`https://wa.me/${s.waNumero}?text=${encodeURIComponent(s.waText)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="branch-card__btn branch-card__btn--wa"
+              aria-label={`Escribir por WhatsApp a sucursal ${s.nombre}`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp
+            </a>
+            <a
+              href={s.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="branch-card__btn branch-card__btn--maps"
+              aria-label={`Ver sucursal ${s.nombre} en Google Maps`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Maps
+            </a>
           </div>
         </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- ═══ CANALES GLOBALES ══════════════════════════════════ -->
+  <div class="contact-channels" aria-label="Canales de contacto generales">
+    <a href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola! Me interesa una mesa de dulces para mi evento')}`} target="_blank" rel="noopener noreferrer" class="channel channel--wa">
+      <span class="channel__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </span>
+      <div class="channel__text">
+        <span class="channel__label">WhatsApp general</span>
+        <strong>Respuesta en 2 h</strong>
+      </div>
+    </a>
+
+    <a href={`mailto:${email}`} class="channel channel--email">
+      <span class="channel__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M22 6l-10 7L2 6"/>
+        </svg>
+      </span>
+      <div class="channel__text">
+        <span class="channel__label">Email</span>
+        <strong>{email}</strong>
+      </div>
+    </a>
+
+    <div class="channel channel--hours">
+      <span class="channel__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </span>
+      <div class="channel__text">
+        <span class="channel__label">Horarios</span>
+        <strong>Anzures 24 h · Condesa &amp; Toluca Lun–Sáb 10–19</strong>
       </div>
     </div>
+  </div>
 
-    <!-- Form Column -->
-    <div class="contact-form-wrapper">
-      <div class="contact-form__header">
-        <h3>Reserva tu Evento</h3>
-        <p>Completa el formulario y te contactaremos por WhatsApp para darte una cotización personalizada</p>
+  <!-- ═══ FORM ════════════════════════════════════════════ -->
+  <div class="contact-form-wrapper">
+    <div class="contact-form__header">
+      <span class="contact-form__pill">Cotización rápida</span>
+      <h3>Reserva tu evento</h3>
+      <p>Completa el formulario y te contactaremos por WhatsApp con una propuesta personalizada en menos de 2 horas.</p>
+    </div>
+
+    <form id="reserva-form" class="contact-form" novalidate>
+      <div class="form-group">
+        <label for="nombre">Nombre completo <span class="required">*</span></label>
+        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" autocomplete="name" />
       </div>
 
-      <form id="reserva-form" class="contact-form">
+      <div class="form-row">
         <div class="form-group">
-          <label for="nombre">Nombre completo <span class="required">*</span></label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            required
-            placeholder="Tu nombre completo"
-            autocomplete="name"
-          />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="telefono">WhatsApp <span class="required">*</span></label>
-            <div class="input-with-icon">
-              <span class="input-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-              </span>
-              <input
-                type="tel"
-                id="telefono"
-                name="telefono"
-                required
-                placeholder="55 1234 5678"
-                autocomplete="tel"
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="tu@email.com"
-              autocomplete="email"
-            />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="tipo-evento">Tipo de evento <span class="required">*</span></label>
-            <select id="tipo-evento" name="tipo-evento" required>
-              <option value="">Selecciona tu evento...</option>
-              <option value="Boda">💒 Boda</option>
-              <option value="XV Anos">👑 XV Años</option>
-              <option value="Baby Shower">👶 Baby Shower</option>
-              <option value="Cumpleanos">🎂 Cumpleaños</option>
-              <option value="Bautizo">⛪ Bautizo</option>
-              <option value="Comunion">✝️ Primera Comunión</option>
-              <option value="Corporativo">🏢 Evento Corporativo</option>
-              <option value="Graduacion">🎓 Graduación</option>
-              <option value="Otro">✨ Otro</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="fecha">Fecha del evento <span class="required">*</span></label>
-            <input type="date" id="fecha" name="fecha" required />
+          <label for="telefono">WhatsApp <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <span class="input-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </span>
+            <input type="tel" id="telefono" name="telefono" required placeholder="55 1234 5678" autocomplete="tel" inputmode="tel" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="invitados">Número de invitados aproximado</label>
-          <input
-            type="number"
-            id="invitados"
-            name="invitados"
-            placeholder="Ej: 100 personas"
-            min="1"
-          />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="sucursal">Sucursal preferida <span class="required">*</span></label>
+          <select id="sucursal" name="sucursal" required>
+            <option value="">Selecciona ubicación...</option>
+            <option value="Anzures CDMX">📍 Anzures · CDMX (Matriz)</option>
+            <option value="Condesa CDMX">📍 Condesa · CDMX</option>
+            <option value="Toluca / Metepec">📍 Toluca / Metepec · Edo. México</option>
+            <option value="Sin preferencia">Sin preferencia · más cercana</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="mensaje">Cuéntanos sobre tu evento</label>
-          <textarea
-            id="mensaje"
-            name="mensaje"
-            rows="4"
-            placeholder="Describe tu evento: temática, colores preferidos, servicios que te interesan, ubicación..."
-          ></textarea>
+          <label for="tipo-evento">Tipo de evento <span class="required">*</span></label>
+          <select id="tipo-evento" name="tipo-evento" required>
+            <option value="">Selecciona evento...</option>
+            <option value="Boda">💒 Boda</option>
+            <option value="XV Anos">👑 XV Años</option>
+            <option value="Baby Shower">👶 Baby Shower</option>
+            <option value="Cumpleanos">🎂 Cumpleaños</option>
+            <option value="Bautizo">⛪ Bautizo</option>
+            <option value="Comunion">✝️ Primera Comunión</option>
+            <option value="Corporativo">🏢 Evento Corporativo</option>
+            <option value="Graduacion">🎓 Graduación</option>
+            <option value="Otro">✨ Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fecha">Fecha del evento <span class="required">*</span></label>
+          <input type="date" id="fecha" name="fecha" required />
         </div>
 
-        <button type="submit" class="btn-whatsapp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          Enviar por WhatsApp
-        </button>
+        <div class="form-group">
+          <label for="invitados">Invitados aproximados</label>
+          <input type="number" id="invitados" name="invitados" placeholder="Ej: 100" min="1" inputmode="numeric" />
+        </div>
+      </div>
 
-        <p class="form-disclaimer">
-          Al enviar este formulario serás redirigido a WhatsApp para completar tu solicitud
-        </p>
-      </form>
-    </div>
+      <div class="form-group">
+        <label for="mensaje">Cuéntanos sobre tu evento</label>
+        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Temática, colores, servicios que te interesan, ubicación del evento..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-whatsapp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar por WhatsApp
+      </button>
+
+      <p class="form-disclaimer">
+        Al enviar serás redirigido a WhatsApp · Respuesta en menos de 2 horas.
+      </p>
+    </form>
   </div>
 </section>
 
 <script is:inline define:vars={{ whatsappNumber }}>
-  // Formulario de reserva - WhatsApp integration
-  function initContactForm() {
-    const reservaForm = document.getElementById('reserva-form');
+  (function () {
+    if (window.__mededulContactInit) return;
+    window.__mededulContactInit = true;
 
-    reservaForm?.addEventListener('submit', (e) => {
-      e.preventDefault();
+    const ready = (fn) => document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', fn, { once: true })
+      : fn();
 
-      const formData = new FormData(reservaForm);
-      const nombre = formData.get('nombre');
-      const telefono = formData.get('telefono');
-      const email = formData.get('email');
-      const tipoEvento = formData.get('tipo-evento');
-      const fecha = formData.get('fecha');
-      const invitados = formData.get('invitados');
-      const mensaje = formData.get('mensaje');
+    const sucursalToNumber = {
+      'Anzures CDMX': '525525226442',
+      'Condesa CDMX': '525525226442',
+      'Toluca / Metepec': '525521775184',
+      'Sin preferencia': whatsappNumber
+    };
 
-      let whatsappMsg = `¡Hola! Me gustaría cotizar una mesa de dulces.\n\n`;
-      whatsappMsg += `*Nombre:* ${nombre}\n`;
-      whatsappMsg += `*Teléfono:* ${telefono}\n`;
-      if (email) whatsappMsg += `*Email:* ${email}\n`;
-      whatsappMsg += `*Tipo de evento:* ${tipoEvento}\n`;
-      whatsappMsg += `*Fecha:* ${fecha}\n`;
-      if (invitados) whatsappMsg += `*Invitados:* ${invitados}\n`;
-      if (mensaje) whatsappMsg += `\n*Detalles:* ${mensaje}`;
+    ready(function () {
+      const form = document.getElementById('reserva-form');
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const nombre = fd.get('nombre');
+        const telefono = fd.get('telefono');
+        const email = fd.get('email');
+        const sucursal = fd.get('sucursal');
+        const tipoEvento = fd.get('tipo-evento');
+        const fecha = fd.get('fecha');
+        const invitados = fd.get('invitados');
+        const mensaje = fd.get('mensaje');
 
-      const encodedMsg = encodeURIComponent(whatsappMsg);
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
+        let msg = '¡Hola! Me gustaría cotizar una mesa de dulces.\n\n';
+        msg += `*Nombre:* ${nombre}\n`;
+        msg += `*WhatsApp:* ${telefono}\n`;
+        if (email) msg += `*Email:* ${email}\n`;
+        msg += `*Sucursal:* ${sucursal}\n`;
+        msg += `*Tipo de evento:* ${tipoEvento}\n`;
+        msg += `*Fecha:* ${fecha}\n`;
+        if (invitados) msg += `*Invitados:* ${invitados}\n`;
+        if (mensaje) msg += `\n*Detalles:* ${mensaje}`;
+
+        const target = sucursalToNumber[sucursal] || whatsappNumber;
+        const encoded = encodeURIComponent(msg);
+        window.open(`https://wa.me/${target}?text=${encoded}`, '_blank');
+      });
     });
-  }
 
-  // Init on load and on navigation
-  initContactForm();
-  document.addEventListener('astro:after-swap', initContactForm);
+    document.addEventListener('astro:after-swap', () => {
+      window.__mededulContactInit = false;
+    });
+  })();
 </script>
 
 <style>
   /* =====================================================
-     CONTACT SECTION - Modern Professional Design
+     CONTACT SECTION v4 — Multi-Branch Premium
      ===================================================== */
-
   .contact-section {
-    background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
-    padding: 80px 0 100px;
-  }
-
-  .contact-container {
-    max-width: 1200px;
+    background:
+      radial-gradient(ellipse 60% 40% at 0% 0%, rgba(209, 0, 122, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 100% 100%, rgba(122, 43, 194, 0.04) 0%, transparent 60%),
+      linear-gradient(180deg, #fafafd 0%, #ffffff 100%);
+    padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(3.5rem, 6.5vw, 6rem);
+    width: 100%;
+    max-width: 1380px;
     margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 60px;
-    align-items: start;
+    padding-left: clamp(1rem, 4vw, 2.5rem);
+    padding-right: clamp(1rem, 4vw, 2.5rem);
+    box-sizing: border-box;
   }
 
-  /* =========================
-     INFO COLUMN
-     ========================= */
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  /* ── HEADER ────────────────────────────────────────────── */
+  .contact-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
   }
-
-  .contact-info__badge {
+  .contact-header__badge {
     display: inline-flex;
     align-items: center;
-    padding: 6px 16px;
-    background: linear-gradient(135deg, rgba(209, 0, 122, 0.1) 0%, rgba(160, 0, 95, 0.05) 100%);
-    color: var(--rosa-principal, #D1007A);
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px;
-    width: fit-content;
-  }
-
-  .contact-info__title {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    gap: 7px;
+    padding: 7px 16px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.1), rgba(122, 43, 194, 0.08));
+    color: #D1007A;
+    font-size: 0.78rem;
     font-weight: 700;
-    line-height: 1.2;
-    color: #1a1a2e;
-    margin: 12px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    border-radius: 50px;
+    border: 1px solid rgba(209, 0, 122, 0.18);
+    margin-bottom: 1rem;
   }
+  .contact-header__badge svg { color: #D1007A; }
 
-  .contact-info__title span {
-    font-family: 'Pacifico', cursive;
-    color: var(--rosa-principal, #D1007A);
-    font-weight: 400;
-  }
-
-  .contact-info__intro {
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.7;
-    margin: 8px 0 0 0;
-  }
-
-  /* =========================
-     CONTACT CARDS
-     ========================= */
-  .contact-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .contact-cards__row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .contact-card {
-    display: flex;
-    gap: 16px;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  }
-
-  .contact-card--small {
-    padding: 16px;
-  }
-
-  .contact-card--schedule {
-    background: linear-gradient(135deg, rgba(209, 0, 122, 0.03) 0%, #ffffff 100%);
-    border-color: rgba(209, 0, 122, 0.1);
-  }
-
-  .contact-card__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    border-radius: 12px;
-    color: #ffffff;
-  }
-
-  .contact-card--small .contact-card__icon {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-  }
-
-  .contact-card__icon--location {
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-  }
-
-  .contact-card__icon--whatsapp {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-  }
-
-  .contact-card__icon--email {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-
-  .contact-card__icon--clock {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  }
-
-  .contact-card__content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .contact-card__content h3 {
+  .contact-header__title {
     font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin: 0 0 6px 0;
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #1a1a26;
+    margin: 0 0 0.85rem;
   }
-
-  .contact-card--small .contact-card__content h3 {
-    font-size: 0.85rem;
-    margin-bottom: 4px;
+  .contact-header__title span {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    background: linear-gradient(135deg, #D1007A, #7A2BC2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-
-  .contact-card__content p {
-    font-size: 0.88rem;
-    color: #555;
-    line-height: 1.5;
+  .contact-header__intro {
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    line-height: 1.65;
+    color: #555560;
     margin: 0;
   }
-
-  .contact-card__content a {
-    color: #555;
-    text-decoration: none;
-    font-size: 0.9rem;
+  .contact-header__intro strong {
+    color: #1a1a26;
+    font-weight: 600;
   }
 
-  .contact-card__content a:hover {
-    color: var(--rosa-principal, #D1007A);
+  /* ── BRANCHES GRID ─────────────────────────────────────── */
+  .contact-branches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 1.8vw, 1.5rem);
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    max-width: 1200px;
   }
 
-  .contact-card__link {
+  .branch-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1.25rem, 2.2vw, 1.65rem);
+    background: #ffffff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(15, 15, 30, 0.04), 0 8px 24px rgba(15, 15, 30, 0.04);
+  }
+  .branch-card:hover {
+    border-color: rgba(209, 0, 122, 0.18);
+    box-shadow: 0 4px 14px rgba(15, 15, 30, 0.06), 0 18px 40px rgba(209, 0, 122, 0.1);
+  }
+
+  .branch-card--new {
+    border-color: rgba(209, 0, 122, 0.32);
+    background:
+      linear-gradient(180deg, rgba(209, 0, 122, 0.06) 0%, rgba(122, 43, 194, 0.02) 50%, #ffffff 100%);
+    box-shadow: 0 0 0 1px rgba(209, 0, 122, 0.15) inset, 0 12px 32px rgba(209, 0, 122, 0.1);
+  }
+  .branch-card--matriz {
+    border-color: rgba(209, 0, 122, 0.16);
+  }
+
+  /* Ribbon */
+  .branch-card__ribbon {
+    position: absolute;
+    top: -10px;
+    right: 18px;
+    padding: 4px 11px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+  .branch-card__ribbon--matriz {
+    background: linear-gradient(135deg, #D1007A, #A0005F);
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.35);
+  }
+  .branch-card__ribbon--new {
+    background: linear-gradient(135deg, #D1007A, #7A2BC2);
+    box-shadow: 0 5px 16px rgba(209, 0, 122, 0.4);
+  }
+
+  /* Card head */
+  .branch-card__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .branch-card__pin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.14), rgba(122, 43, 194, 0.08));
+    border: 1px solid rgba(209, 0, 122, 0.2);
+    color: #D1007A;
+  }
+  .branch-card--new .branch-card__pin {
+    background: linear-gradient(135deg, #D1007A, #A0005F);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(209, 0, 122, 0.32);
+  }
+  .branch-card__title {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .branch-card__title h3 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a26;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .branch-card__city {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8b8b95;
+    margin-top: 3px;
+  }
+
+  /* Card body */
+  .branch-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0.9rem 0;
+    border-top: 1px dashed rgba(15, 15, 30, 0.08);
+    border-bottom: 1px dashed rgba(15, 15, 30, 0.08);
+    flex: 1;
+  }
+  .branch-card__addr {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #2d2d38;
+    line-height: 1.35;
+  }
+  .branch-card__meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: #6b6b75;
+    line-height: 1.4;
+  }
+  .branch-card__dot { color: rgba(15, 15, 30, 0.2); }
+  .branch-card__hours {
+    margin: 6px 0 0;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 10px;
-    padding: 6px 12px;
-    background: rgba(209, 0, 122, 0.08);
-    color: var(--rosa-principal, #D1007A) !important;
-    font-size: 0.8rem !important;
+    font-size: 0.82rem;
     font-weight: 500;
-    border-radius: 20px;
-    text-decoration: none !important;
+    color: #D1007A;
   }
+  .branch-card__hours svg { flex-shrink: 0; }
 
-  .contact-card__link:hover {
-    background: var(--rosa-principal, #D1007A);
-    color: #ffffff !important;
-  }
-
-  .schedule-grid {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4px 12px;
-    font-size: 0.88rem;
-  }
-
-  .schedule-grid span {
-    color: #666;
-  }
-
-  .schedule-grid strong {
-    color: #1a1a2e;
-    font-weight: 600;
-  }
-
-  /* =========================
-     FORM WRAPPER
-     ========================= */
-  .contact-form-wrapper {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.05),
-      0 10px 30px -5px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-  }
-
-  .contact-form__header {
-    margin-bottom: 28px;
-    text-align: center;
-  }
-
-  .contact-form__header h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 0 0 8px 0;
-  }
-
-  .contact-form__header p {
-    font-size: 0.95rem;
-    color: #666;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* =========================
-     FORM STYLES
-     ========================= */
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .form-group {
+  /* Card actions */
+  .branch-card__actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
+  .branch-card__actions-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
 
+  .branch-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    min-height: 44px;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+  .branch-card__btn--phone {
+    color: #fff;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 60%, #7A2BC2 100%);
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.28);
+  }
+  .branch-card__btn--phone:hover {
+    box-shadow: 0 10px 24px rgba(209, 0, 122, 0.4);
+  }
+  .branch-card__btn--wa {
+    color: #fff;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+  }
+  .branch-card__btn--wa:hover {
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+  }
+  .branch-card__btn--maps {
+    color: #2d2d38;
+    background: #f4f4f7;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+  }
+  .branch-card__btn--maps:hover {
+    background: #ffffff;
+    border-color: rgba(209, 0, 122, 0.3);
+    color: #D1007A;
+  }
+
+  /* ── CHANNELS ROW (WhatsApp, Email, Hours) ────────────── */
+  .contact-channels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto clamp(2.25rem, 4vw, 3.25rem);
+  }
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 15, 30, 0.06);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    min-height: 64px;
+  }
+  .channel:hover {
+    border-color: rgba(209, 0, 122, 0.2);
+    box-shadow: 0 8px 20px rgba(15, 15, 30, 0.06);
+  }
+  .channel__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 11px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .channel--wa .channel__icon {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+  .channel--email .channel__icon {
+    background: linear-gradient(135deg, #D1007A, #7A2BC2);
+    box-shadow: 0 4px 12px rgba(209, 0, 122, 0.3);
+  }
+  .channel--hours .channel__icon {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+  .channel__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .channel__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #8b8b95;
+  }
+  .channel__text strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a26;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  /* ── FORM WRAPPER ──────────────────────────────────────── */
+  .contact-form-wrapper {
+    max-width: 920px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: 24px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.04),
+      0 18px 50px -10px rgba(15, 15, 30, 0.1);
+    border: 1px solid rgba(15, 15, 30, 0.05);
+  }
+  .contact-form__header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+  .contact-form__pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 13px;
+    background: rgba(37, 211, 102, 0.12);
+    color: #128C7E;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    border-radius: 50px;
+    margin-bottom: 0.6rem;
+  }
+  .contact-form__header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    font-weight: 800;
+    color: #1a1a26;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .contact-form__header p {
+    font-size: 0.95rem;
+    color: #5a5a65;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
   .form-group label {
     font-size: 0.88rem;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600;
+    color: #2d2d38;
   }
-
-  .form-group label .required {
-    color: var(--rosa-principal, #D1007A);
-  }
+  .form-group label .required { color: #D1007A; }
 
   .form-group input,
   .form-group select,
   .form-group textarea {
-    padding: 14px 16px;
-    border: 2px solid #e5e7eb;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #e5e7eb;
     border-radius: 12px;
-    font-size: 0.95rem;
+    font-size: 16px; /* iOS no-zoom */
     font-family: inherit;
-    color: #1a1a2e;
+    color: #1a1a26;
     background: #fafafa;
+    min-height: 48px;
+    box-sizing: border-box;
+    width: 100%;
   }
-
   .form-group input:hover,
   .form-group select:hover,
   .form-group textarea:hover {
     border-color: #d1d5db;
     background: #ffffff;
   }
-
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--rosa-principal, #D1007A);
+    border-color: #D1007A;
     background: #ffffff;
     box-shadow: 0 0 0 4px rgba(209, 0, 122, 0.1);
   }
-
   .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: #9ca3af;
-  }
+  .form-group textarea::placeholder { color: #9ca3af; }
 
   .form-group select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23D1007A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 44px;
+    background-position: right 14px center;
+    padding-right: 2.5rem;
   }
-
   .form-group textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 110px;
+    line-height: 1.5;
   }
 
-  .input-with-icon {
-    position: relative;
-  }
-
+  .input-with-icon { position: relative; }
   .input-with-icon .input-icon {
     position: absolute;
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
     color: #9ca3af;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    pointer-events: none;
   }
+  .input-with-icon input { padding-left: 40px; }
 
-  .input-with-icon input {
-    padding-left: 42px;
-  }
-
-  /* =========================
-     WHATSAPP BUTTON
-     ========================= */
   .btn-whatsapp {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 16px 32px;
+    padding: 1rem 2rem;
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     color: #ffffff;
     border: none;
     border-radius: 50px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    margin-top: 8px;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+    margin-top: 0.5rem;
+    min-height: 54px;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+    letter-spacing: 0.01em;
   }
-
   .btn-whatsapp:hover {
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.5);
   }
 
   .form-disclaimer {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: #6b7280;
     text-align: center;
-    margin: 8px 0 0 0;
+    margin: 0.5rem 0 0;
   }
 
-  /* =========================
-     RESPONSIVE - Tablet
-     ========================= */
+  /* =====================================================
+     RESPONSIVE
+     ===================================================== */
   @media (max-width: 1024px) {
-    .contact-container {
-      gap: 40px;
+    .contact-branches {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
     }
-
-    .contact-form-wrapper {
-      padding: 32px;
-    }
+    .branch-card { padding: 1.15rem; }
+    .branch-card__title h3 { font-size: 1rem; }
+    .branch-card__btn { padding: 10px 12px; font-size: 0.8rem; }
   }
 
   @media (max-width: 900px) {
-    .contact-section {
-      padding: 60px 0 80px;
-    }
-
-    .contact-container {
+    .contact-branches {
       grid-template-columns: 1fr;
-      gap: 48px;
+      max-width: 560px;
     }
-
-    .contact-info__title {
-      font-size: 1.8rem;
-    }
-
-    .contact-cards__row {
-      grid-template-columns: 1fr 1fr;
+    .contact-channels {
+      grid-template-columns: 1fr;
+      max-width: 560px;
     }
   }
 
-  /* =========================
-     RESPONSIVE - Mobile
-     ========================= */
   @media (max-width: 768px) {
     .contact-section {
-      padding: 50px 0 70px;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-
-    .contact-container {
-      padding: 0 20px;
-      gap: 40px;
+    .contact-header { margin-bottom: 1.75rem; }
+    .contact-header__title { font-size: 1.55rem; }
+    .branch-card__actions-row {
+      grid-template-columns: 1fr 1fr;
     }
-
-    .contact-info__badge {
-      font-size: 0.75rem;
-      padding: 5px 14px;
-    }
-
-    .contact-info__title {
-      font-size: 1.6rem;
-    }
-
-    .contact-info__intro {
-      font-size: 0.95rem;
-    }
-
-    .contact-cards__row {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-card {
-      padding: 16px;
-      border-radius: 14px;
-    }
-
-    .contact-card__icon {
-      width: 44px;
-      height: 44px;
-      min-width: 44px;
-      border-radius: 10px;
-    }
-
-    .contact-card__content h3 {
-      font-size: 0.9rem;
-    }
-
-    .contact-card__content p {
-      font-size: 0.85rem;
-    }
-
-    .contact-form-wrapper {
-      padding: 28px 24px;
-      border-radius: 20px;
-    }
-
-    .contact-form__header h3 {
-      font-size: 1.3rem;
-    }
-
-    .contact-form__header p {
-      font-size: 0.9rem;
-    }
-
     .form-row {
       grid-template-columns: 1fr;
-      gap: 20px;
     }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 12px 14px;
-      font-size: 0.9rem;
-      border-radius: 10px;
+    .contact-form-wrapper {
+      padding: 1.4rem 1.15rem;
+      border-radius: 20px;
     }
-
     .btn-whatsapp {
-      padding: 14px 28px;
-      font-size: 0.95rem;
+      width: 100%;
+      padding: 0.9rem 1.5rem;
     }
   }
 
-  /* =========================
-     RESPONSIVE - Small Mobile
-     ========================= */
   @media (max-width: 480px) {
-    .contact-section {
-      padding: 40px 0 60px;
+    .contact-header__badge {
+      font-size: 0.7rem;
+      padding: 5px 12px;
     }
-
-    .contact-container {
-      padding: 0 16px;
-      gap: 36px;
+    .contact-header__title { font-size: 1.4rem; }
+    .contact-header__intro { font-size: 0.92rem; }
+    .branch-card {
+      padding: 1rem;
+      border-radius: 16px;
     }
-
-    .contact-info__header {
-      text-align: center;
+    .branch-card__title h3 { font-size: 0.98rem; }
+    .branch-card__addr { font-size: 0.88rem; }
+    .branch-card__meta { font-size: 0.78rem; }
+    .branch-card__btn {
+      padding: 10px 11px;
+      font-size: 0.78rem;
+      min-height: 42px;
     }
-
-    .contact-info__badge {
-      margin: 0 auto;
-    }
-
-    .contact-info__title {
-      font-size: 1.4rem;
-    }
-
-    .contact-info__intro {
-      font-size: 0.9rem;
-    }
-
-    .contact-cards {
-      gap: 12px;
-    }
-
-    .contact-card {
-      padding: 14px;
-      gap: 12px;
-      border-radius: 12px;
-    }
-
-    .contact-card__icon {
-      width: 40px;
-      height: 40px;
-      min-width: 40px;
-      border-radius: 10px;
-    }
-
-    .contact-card__icon svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .contact-card__content h3 {
+    .branch-card__btn--phone {
       font-size: 0.85rem;
     }
-
-    .contact-card__content p,
-    .contact-card__content a {
-      font-size: 0.82rem;
+    .channel {
+      padding: 12px 14px;
+      min-height: 60px;
     }
-
-    .contact-card__link {
-      font-size: 0.75rem !important;
-      padding: 5px 10px;
-    }
-
-    .schedule-grid {
-      font-size: 0.82rem;
-    }
-
+    .channel__text strong { font-size: 0.85rem; }
     .contact-form-wrapper {
-      padding: 24px 20px;
-      border-radius: 18px;
+      padding: 1.15rem 0.95rem;
+      border-radius: 16px;
     }
-
-    .contact-form__header h3 {
-      font-size: 1.2rem;
-    }
-
-    .contact-form__header p {
-      font-size: 0.85rem;
-    }
-
-    .contact-form {
-      gap: 16px;
-    }
-
-    .form-group label {
-      font-size: 0.85rem;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 11px 12px;
-      font-size: 0.88rem;
-    }
-
-    .input-with-icon input {
-      padding-left: 38px;
-    }
-
-    .input-with-icon .input-icon {
-      left: 12px;
-    }
-
-    .btn-whatsapp {
-      padding: 13px 24px;
-      font-size: 0.9rem;
-      border-radius: 12px;
-    }
-
-    .btn-whatsapp svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .form-disclaimer {
-      font-size: 0.75rem;
-    }
+    .contact-form__header h3 { font-size: 1.2rem; }
+    .contact-form__header p { font-size: 0.88rem; }
   }
 
   @media (max-width: 380px) {
-    .contact-info__title {
-      font-size: 1.3rem;
+    .branch-card__actions-row {
+      grid-template-columns: 1fr;
     }
-
-    .contact-form-wrapper {
-      padding: 20px 16px;
-    }
-
-    .contact-form__header h3 {
-      font-size: 1.1rem;
+    .branch-card__ribbon {
+      right: 12px;
+      font-size: 0.56rem;
+      padding: 3px 9px;
     }
   }
 </style>
