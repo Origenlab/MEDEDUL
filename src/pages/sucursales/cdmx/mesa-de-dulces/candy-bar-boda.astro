@@ -1,0 +1,1433 @@
+---
+// Candy Bar para Boda - Sucursal CDMX (Subsección Mesa de Dulces)
+// SEO + GEO heavy: posicionamiento Ciudad de México, venues premium, alcaldías
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'CDMX', url: '/sucursales/cdmx' },
+  { name: 'Mesa de Dulces', url: '/sucursales/cdmx/mesa-de-dulces' },
+  { name: 'Candy Bar para Boda', url: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda' }
+];
+
+// =============== Trust Stats (Bodas CDMX) ===============
+const stats = [
+  { number: '180+', label: 'Bodas en CDMX' },
+  { number: '40+', label: 'Venues premium trabajados' },
+  { number: '8+', label: 'Años de experiencia' },
+  { number: '< 24h', label: 'Cotización nupcial' }
+];
+
+// =============== Características (Diferenciadores Boda CDMX) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño nupcial alineado a tu paleta',
+    desc: 'Trabajamos contigo, tu wedding planner y tu decorador para que la mesa de dulces refleje exactamente la paleta cromática de tu boda en CDMX: blancos y dorados, rosa palo y eucalipto, terracota, mexicano elegante o tonalidades que tú definas.',
+    img: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido premium curado para bodas',
+    desc: 'Curaduría específica para banquete nupcial CDMX: chocolates finos Lindt y Ferrero, macarons franceses, mini-pasteles, trufas artesanales, gomitas gourmet importadas, mexicanos tradicionales y opciones aptas para invitados con restricciones alimenticias.',
+    img: '/img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con tu wedding planner',
+    desc: 'Nos integramos al plan general del evento. Conocemos los protocolos de los principales hoteles, haciendas y jardines de CDMX, los tiempos de acceso, las rutas de carga y los coordinadores de banquetes. Cero fricción.',
+    img: '/img/galeria/mesa-dulces-lujo-dorado-cristal-eventos.avif'
+  },
+  {
+    num: 4,
+    title: 'Montaje editorial 2-3 h antes',
+    desc: 'Llegamos al venue con tiempo suficiente para construir un montaje editorial: alturas calculadas, cristalería pulida, iluminación LED si aplica, etiquetas personalizadas y atrezzo coordinado. La mesa luce desde el primer invitado.',
+    img: '/img/galeria/candy-bar-boda-jardin-luces-elegante.avif'
+  }
+];
+
+// =============== Paquetes Boda CDMX ===============
+const paquetesBoda = [
+  {
+    name: 'Boda CDMX Esencial',
+    icon: '💍',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '60-100 invitados',
+    tagline: 'Ideal para boda íntima en CDMX',
+    features: [
+      'Mesa de dulces nupcial base (10-12 variedades)',
+      'Diseño coordinado con paleta de boda',
+      'Cristalería y soportes incluidos',
+      'Montaje 2 h antes del evento',
+      'Operación durante el banquete',
+      'Desmontaje y empaque de sobrantes',
+      'Traslado zonas centrales CDMX'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Candy%20Bar%20para%20Boda%20CDMX%20-%20Esencial'
+  },
+  {
+    name: 'Boda CDMX Premium',
+    icon: '⭐',
+    price: '$14,500',
+    currency: 'MXN',
+    guests: '100-180 invitados',
+    tagline: 'El más solicitado en bodas CDMX',
+    features: [
+      'Mesa de dulces nupcial completa (15-20 variedades)',
+      'Macarons, mini-pasteles y reposteria fina',
+      'Backdrop floral coordinado',
+      'Coordinación con wedding planner',
+      'Operador dedicado durante recepción',
+      'Reposición continua del producto',
+      'Etiquetas personalizadas (nombres novios)',
+      'Traslado completo CDMX'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Candy%20Bar%20para%20Boda%20CDMX%20-%20Premium'
+  },
+  {
+    name: 'Boda CDMX Luxury',
+    icon: '💎',
+    price: '$22,000',
+    currency: 'MXN',
+    guests: '180+ invitados',
+    tagline: 'Experiencia exclusiva nupcial',
+    features: [
+      'Mesa de dulces de autor (22+ variedades)',
+      'Chocolates importados y dulces exclusivos',
+      'Fuente de chocolate belga incluida',
+      'Backdrop floral premium con iluminación',
+      'Concierge dedicado toda la recepción',
+      'Coordinación full con wedding planner',
+      'Fotografía profesional de la mesa',
+      'Mesa de quesos y embutidos complementaria',
+      'Operación extendida hasta cierre'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Candy%20Bar%20para%20Boda%20CDMX%20-%20Luxury'
+  }
+];
+
+// =============== Proceso Boda CDMX ===============
+const procesoBoda = [
+  {
+    num: 1,
+    title: 'Brief nupcial',
+    desc: 'Nos cuentas fecha de boda, venue en CDMX, número de invitados, estilo (clásico, moderno, mexicano, vintage), paleta cromática y si tienes wedding planner. Te asignamos sucursal (Anzures o Condesa) según ubicación.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta visual nupcial',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual, surtido sugerido alineado a tu paleta, opciones de atrezzo (cristalería, iluminación, backdrop floral) y cotización cerrada en 3 niveles. Sin sorpresas.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con proveedores',
+    desc: 'Coordinamos directamente con tu wedding planner, decorador, coordinador del venue y otros proveedores. Confirmamos paleta final, tiempos de acceso al hotel/hacienda, rutas de carga y posición exacta de la mesa en el salón.'
+  },
+  {
+    num: 4,
+    title: 'Ejecución del gran día',
+    desc: 'Llegamos 2-3 h antes con todo el equipo. Montamos sin interferir con otros proveedores, operamos durante la recepción con reposición continua y desmontamos discretamente al cierre. Empacamos sobrantes para tus invitados.'
+  }
+];
+
+// =============== Galería bodas CDMX ===============
+const galeriaImages = [
+  { src: '/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif', alt: 'Candy bar para boda rosa y dorado con peonías elegante en CDMX' },
+  { src: '/img/galeria/candy-bar-boda-lujo-chocolates-dorado-cristaleria.avif', alt: 'Candy bar boda de lujo con chocolates dorados y cristalería CDMX' },
+  { src: '/img/galeria/candy-bar-boda-jardin-luces-elegante.avif', alt: 'Candy bar boda en jardín con luces elegantes CDMX' },
+  { src: '/img/galeria/candy-bar-bodas-oro-dorado-ferrero-pastel.avif', alt: 'Candy bar bodas dorado Ferrero con pastel en CDMX' },
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces boda elegante dorado velas y trufas CDMX' },
+  { src: '/img/galeria/candy-bar-boda-blanco-dorado-clasica.avif', alt: 'Candy bar boda blanco y dorado clásica CDMX' }
+];
+
+// =============== Qué incluye (Boda) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium nupcial', desc: 'Surtido de 10 a 22+ variedades según paquete: chocolates Lindt y Ferrero, macarons franceses, mini-pasteles, trufas artesanales, gomitas gourmet, mexicanos tradicionales y opciones especiales para invitados con restricciones (vegano, sin gluten, sin azúcar).' },
+  { num: '02', title: 'Diseño nupcial a tu paleta', desc: 'Cristalería, soportes dorados, bases tipo cake stand, bandejas decorativas, manteles de diseño y backdrop coordinado con la paleta de tu boda. Alturas calculadas para foto editorial y iluminación LED opcional.' },
+  { num: '03', title: 'Etiquetas y personalización', desc: 'Etiquetas con los nombres de los novios, fecha de la boda, monograma o frase personalizada. Atrezzo floral coordinado, letras decorativas y elementos temáticos según el estilo (clásico, vintage, mexicano elegante, moderno).' },
+  { num: '04', title: 'Coordinación CDMX completa', desc: 'Trabajamos con tu wedding planner y los coordinadores del venue. Conocemos los protocolos de Hotel W, Four Seasons, St. Regis, Hacienda de los Morales, Casa Lamm, Club de Industriales y los principales recintos premium de la ciudad.' },
+  { num: '05', title: 'Operación durante recepción', desc: 'Operador profesional asignado durante toda la recepción. Reposición continua del producto, mantenimiento de la estética del montaje, atención a invitados y solución inmediata de cualquier eventualidad.' },
+  { num: '06', title: 'Empaque y desmontaje', desc: 'Al cierre de la recepción empacamos los dulces sobrantes en bolsas o cajas decorativas con la estética de tu boda, listas para que tus invitados se las lleven como recuerdo. Desmontamos discretamente sin interferir con el final del evento.' }
+];
+
+// =============== Eventos compatibles (cross-link) ===============
+const eventos = [
+  {
+    title: 'Mesa para XV Años CDMX',
+    excerpt: 'Diseños glamour y sofisticados para quinceañera en haciendas y salones de CDMX. Paleta alineada al vestido, papel picado dorado, backdrop instagramable y surtido aesthetic-friendly desde $7,500 MXN.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos',
+    badge: 'Top XV',
+    cta: 'Ver Mesa XV CDMX'
+  },
+  {
+    title: 'Baby Shower CDMX',
+    excerpt: 'Montajes tiernos pastel y gender reveal. Apto para mamá embarazada. Cobertura en domicilios y venues boutique de Roma, Condesa, Polanco, Lomas y Pedregal. Desde $4,500 MXN.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/baby-shower',
+    badge: 'Pastel CDMX',
+    cta: 'Ver Baby Shower CDMX'
+  },
+  {
+    title: 'Cumpleaños Infantil CDMX',
+    excerpt: '30+ temáticas (Disney, Marvel, Pokemon, Frozen, Bluey). Control alergias sin nueces default y operador disfrazado opcional. Cobertura casas + salones infantiles CDMX desde $3,500 MXN.',
+    img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil',
+    badge: 'Temático CDMX',
+    cta: 'Ver Cumple CDMX'
+  },
+  {
+    title: 'Eventos Corporativos CDMX',
+    excerpt: 'Branding y elegancia para lanzamientos, posadas y convenciones B2B en Polanco, Santa Fe y Reforma.',
+    img: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos'
+  }
+];
+
+// =============== Venues iconicos CDMX donde hemos montado bodas ===============
+const venuesBodas = [
+  { nombre: 'Hotel W Mexico City', zona: 'Polanco', tipo: 'Hotel boutique' },
+  { nombre: 'Hotel Four Seasons', zona: 'Reforma', tipo: '5 estrellas' },
+  { nombre: 'Hotel St. Regis', zona: 'Reforma', tipo: '5 estrellas' },
+  { nombre: 'Hotel Presidente InterContinental', zona: 'Polanco', tipo: '5 estrellas' },
+  { nombre: 'Hacienda de los Morales', zona: 'Polanco', tipo: 'Hacienda S.XVI' },
+  { nombre: 'Casa Lamm', zona: 'Roma Norte', tipo: 'Casona histórica' },
+  { nombre: 'Antiguo Colegio de San Ildefonso', zona: 'Centro Histórico', tipo: 'Patrimonio' },
+  { nombre: 'Quinta Real Polanco', zona: 'Polanco', tipo: 'Hotel gran lujo' },
+  { nombre: 'Club de Industriales', zona: 'Polanco', tipo: 'Club privado' },
+  { nombre: 'Salón Aristos', zona: 'Roma', tipo: 'Salón de banquetes' },
+  { nombre: 'Jardín de las Lomas', zona: 'Lomas de Chapultepec', tipo: 'Jardín de eventos' },
+  { nombre: 'Hipódromo de las Américas', zona: 'Lomas', tipo: 'Recinto múltiple' }
+];
+
+// =============== Zonas CDMX donde montamos bodas ===============
+// Grupo 1: Zonas premium con página dedicada
+const zonasPremium = [
+  { nombre: 'Polanco', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/polanco', destacada: true },
+  { nombre: 'Santa Fe', alcaldia: 'Cuajimalpa', href: '/zonas-cdmx/santa-fe', destacada: true },
+  { nombre: 'Condesa', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/condesa', destacada: true },
+  { nombre: 'Roma Norte', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/roma-norte', destacada: true },
+  { nombre: 'Anzures', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/anzures' },
+  { nombre: 'Del Valle', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/del-valle' },
+  { nombre: 'Coyoacan', alcaldia: 'Coyoacan', href: '/zonas-cdmx/coyoacan' },
+  { nombre: 'Narvarte', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/narvarte' },
+  { nombre: 'Interlomas', alcaldia: 'Huixquilucan, EdoMex', href: '/zonas-cdmx/interlomas' }
+];
+
+// Grupo 2: Cobertura adicional sin página dedicada (pills decorativos)
+const zonasAdicionales = [
+  'Lomas de Chapultepec', 'Reforma', 'San Ángel', 'Pedregal',
+  'Bosques de las Lomas', 'Centro Histórico', 'Tlalpan', 'Satélite',
+  'Naucalpan', 'Huixquilucan', 'Tlalnepantla', 'Cuajimalpa',
+  'Magdalena Contreras', 'Iztapalapa', 'Iztacalco', 'Venustiano Carranza',
+  'Gustavo A. Madero', 'Azcapotzalco', 'Milpa Alta', 'Tláhuac', 'Xochimilco'
+];
+
+// Para schema.org areaServed
+const zonasBoda = [...zonasPremium.map(z => z.nombre), ...zonasAdicionales];
+
+// =============== Testimonios CDMX (Bodas) ===============
+const testimonios = [
+  {
+    name: 'Mariana y Eduardo',
+    initials: 'ME',
+    review: 'Nuestra boda en Hotel W Polanco fue impecable. MEDEDUL coordinó directo con el wedding planner y el coordinador del hotel. La mesa fue el rincón más fotografiado de la noche, todos los invitados pidieron foto. Surtido y montaje impecables.',
+    event: 'Boda Hotel W Polanco',
+    rating: 5
+  },
+  {
+    name: 'Sofía y Diego',
+    initials: 'SD',
+    review: 'Boda civil en Casa Lamm. Llegaron temprano, coordinaron sin problema con el chef del venue. La mesa hizo match perfecto con la decoración floral. El detalle de las etiquetas con nuestros nombres y la fecha hizo la diferencia.',
+    event: 'Boda Casa Lamm',
+    rating: 5
+  },
+  {
+    name: 'Regina y Pablo',
+    initials: 'RP',
+    review: 'Boda en Hacienda de los Morales. La paleta crema y dorado quedó exactamente como la imaginamos. Nuestros invitados todavía nos preguntan dónde conseguimos los macarons. 100% recomendados para boda CDMX.',
+    event: 'Boda Hacienda de los Morales',
+    rating: 5
+  }
+];
+
+// =============== FAQ Boda CDMX ===============
+const faqs = [
+  {
+    question: '¿Qué incluye el candy bar para boda en CDMX?',
+    answer: 'Incluye diseño nupcial alineado a tu paleta cromática, surtido premium curado (chocolates Lindt y Ferrero, macarons, mini-pasteles, trufas, gomitas gourmet, mexicanos tradicionales), cristalería y atrezzo dorado, montaje 2-3 h antes en el venue, coordinación con wedding planner y coordinador del hotel/hacienda, operación durante toda la recepción con reposición continua, etiquetas personalizadas con nombres de los novios, desmontaje al cierre y empaque de sobrantes en cajas o bolsas decorativas para tus invitados.'
+  },
+  {
+    question: '¿Trabajan en los hoteles y haciendas premium de CDMX?',
+    answer: 'Sí. Hemos montado candy bars de boda en los principales venues nupciales de Ciudad de México: Hotel W Polanco, Four Seasons Reforma, St. Regis, Presidente InterContinental, Hyatt Regency, Quinta Real Polanco, Hacienda de los Morales, Casa Lamm, Club de Industriales, Salón Aristos, Jardín de las Lomas, Antiguo Colegio de San Ildefonso, Hipódromo de las Américas y muchos más. Conocemos sus reglamentos, tiempos de acceso y coordinadores.'
+  },
+  {
+    question: '¿Coordinan directamente con mi wedding planner?',
+    answer: 'Absolutamente sí. En cada boda CDMX nos integramos al plan general del evento. Trabajamos con los wedding planners más reconocidos de la ciudad. Coordinamos paleta cromática, tiempos de montaje, posición en el salón, integración con la decoración floral del banquete y cualquier elemento que tu planner necesite. Recibimos briefing previo y entregamos guía operativa antes del evento.'
+  },
+  {
+    question: '¿Cuánto cuesta un candy bar para boda en CDMX?',
+    answer: 'Iniciamos en $8,500 MXN (Boda CDMX Esencial, 60-100 invitados) y llegamos a $22,000 MXN (Boda CDMX Luxury, 180+ invitados). El precio depende del número de invitados, surtido seleccionado, nivel de personalización, atrezzo (backdrop floral, iluminación, fuente de chocolate) y duración del servicio. Cotización gratuita en menos de 24 horas.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar para mi boda?',
+    answer: 'Para bodas CDMX en temporada alta (marzo-mayo y octubre-diciembre) recomendamos reservar con 2 a 3 meses de anticipación. Para fechas de menor demanda, 6-8 semanas suelen ser suficientes. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del evento. Una vez reservada la fecha, comenzamos la fase de diseño y planeación con calma.'
+  },
+  {
+    question: '¿Pueden personalizar la mesa con los nombres de los novios?',
+    answer: 'Sí. La personalización es parte central del servicio: etiquetas con nombres y fecha de la boda, monograma personalizado, frases o votos, atrezzo coordinado y elementos visuales únicos. En el paquete Premium y Luxury incluimos personalización extendida (backdrop con nombres, papel picado dorado a medida, mantel bordado opcional).'
+  },
+  {
+    question: '¿La mesa se puede integrar con mesa de postres o quesos?',
+    answer: 'Sí, y de hecho lo recomendamos para bodas grandes. Podemos sumar mesa de postres gourmet, mesa de quesos y embutidos artesanal o estaciones interactivas como fuente de chocolate belga, fuente de chamoy o candy wall. Esto eleva el valor percibido del banquete, da variedad gastronómica y crea múltiples puntos de interacción para tus invitados.'
+  },
+  {
+    question: '¿Tienen opciones para invitados con restricciones alimenticias?',
+    answer: 'Sí. Curamos opciones específicas para invitados con restricciones: dulces sin azúcar (para diabéticos), opciones sin gluten (celiacos), reposteria vegana, alternativas sin nueces (alérgicos) y opciones kosher si tu boda lo requiere. Pídenos la curaduría especial en el briefing inicial y la incluimos sin costo adicional en paquetes Premium y Luxury.'
+  },
+  {
+    question: '¿A qué hora llegan al venue?',
+    answer: 'Llegamos 2-3 horas antes del horario de inicio de la recepción para montaje completo. En venues con reglamentos especiales (hoteles 5 estrellas, haciendas con tiempos limitados, recintos patrimoniales como el Antiguo Colegio de San Ildefonso) nos adaptamos al horario que indique el coordinador del lugar. El tiempo de montaje está incluido en todos los paquetes Boda CDMX.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran al final de la boda?',
+    answer: 'Son tuyos. Al cierre de la recepción empacamos todos los sobrantes en bolsas o cajas decorativas alineadas a la estética de tu boda, listas para que tus invitados se las lleven como recuerdo. Este detalle hace que la mesa se mantenga viva incluso después del evento y se vuelve parte del recuerdo emocional de la boda.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/candy-bar-boda#service",
+      "name": "Candy Bar para Boda en CDMX",
+      "serviceType": "Mesa de Dulces Nupcial / Candy Bar de Boda",
+      "description": "Candy bar premium para bodas en Ciudad de México con diseño nupcial alineado a tu paleta, surtido curado, coordinación con wedding planner y operación desde nuestras sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal CDMX",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+          "addressLocality": "Anzures, Miguel Hidalgo",
+          "postalCode": "11590",
+          "addressRegion": "Ciudad de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "180",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": zonasBoda.map(z => ({ "@type": "Place", "name": z }))
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "8500",
+        "highPrice": "22000",
+        "offerCount": "3",
+        "offers": paquetesBoda.map(pkg => ({
+          "@type": "Offer",
+          "name": `Candy Bar Boda CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Novios planeando boda en Ciudad de México"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces" },
+        { "@type": "ListItem", "position": 5, "name": "Candy Bar para Boda", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/candy-bar-boda" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Candy Bar para Boda en CDMX | Diseño Nupcial Elegante | MEDEDUL"
+  description="Candy bar para boda en CDMX por MEDEDUL: diseño nupcial elegante, surtido premium, coordinación con wedding planner y operación desde sucursales Anzures y Condesa. Bodas en Hotel W, Four Seasons, Hacienda de los Morales. Desde $8,500 MXN. Cotiza gratis."
+  canonical="/sucursales/cdmx/mesa-de-dulces/candy-bar-boda"
+  ogImage="/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Candy Bar para Boda en CDMX"
+    highlight="Boda"
+    subtitle="Diseño nupcial elegante | Sucursal MEDEDUL CDMX (Anzures + Condesa)"
+    secondaryContent={`<p><strong>El candy bar para boda en Ciudad de México</strong> es mucho más que una mesa con dulces: es un componente clave de la experiencia que tus invitados van a recordar. En <strong>MEDEDUL</strong> diseñamos cada candy bar nupcial con enfoque editorial — paleta cromática alineada al estilo de tu boda, surtido premium curado para banquete (chocolates Lindt, Ferrero, macarons franceses, mini-pasteles, trufas artesanales, gomitas gourmet importadas y mexicanos tradicionales), cristalería pulida, soportes dorados, etiquetas personalizadas con vuestros nombres y un montaje que se vuelve el rincón más fotografiado de la recepción.</p><p>Operamos desde nuestras <strong>dos sucursales fijas en CDMX — Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong> — lo que nos permite llegar puntualmente a cualquier venue nupcial premium de la ciudad: Hotel W Polanco, Four Seasons Reforma, St. Regis, Quinta Real, Hacienda de los Morales, Casa Lamm, Club de Industriales, Salón Aristos, Jardín de las Lomas y muchos más. Con <strong>180+ bodas montadas en CDMX</strong> y 8 años de experiencia, conocemos los reglamentos, tiempos de acceso y coordinadores de los recintos más exigentes de la ciudad.</p><p>Coordinamos directamente con tu <strong>wedding planner, decorador y coordinador del venue</strong> para que la mesa se integre sin fricción al banquete. Llegamos 2-3 h antes del evento, montamos sin interferir con otros proveedores y operamos durante toda la recepción con reposición continua, atención a invitados y empaque de sobrantes para que cada invitado se lleve un recuerdo de vuestra boda.</p>`}
+  />
+
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="bcdmx-stats">
+    <div class="container">
+      <div class="bcdmx-stats__grid">
+        {stats.map(s => (
+          <div class="bcdmx-stat">
+            <span class="bcdmx-stat__num">{s.number}</span>
+            <span class="bcdmx-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro: Cómo trabaja MEDEDUL bodas CDMX ===================== -->
+  <section class="bcdmx-intro" id="intro-mededul-bodas-cdmx">
+    <div class="container">
+      <div class="bcdmx-intro__grid">
+        <div class="bcdmx-intro__copy">
+          <span class="bcdmx-intro__badge">Diseño nupcial profesional CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu candy bar de boda en Ciudad de México</h2>
+          <p>En MEDEDUL entendemos que <strong>la boda es el evento más importante de tu vida</strong>. Por eso cada candy bar nupcial que montamos en CDMX parte de un proceso profesional integral: levantamiento de brief, propuesta visual con render conceptual, curaduría de producto premium, coordinación con tu wedding planner, montaje editorial 2-3 h antes y operación impecable durante toda la recepción. Nada se improvisa: cada decisión tiene un por qué y cada detalle suma a la experiencia.</p>
+          <p><strong>Nuestro enfoque profesional</strong> está construido sobre 8 años de experiencia montando bodas en los venues más exigentes de Ciudad de México: hoteles 5 estrellas con reglamentos estrictos de acceso, haciendas patrimoniales con tiempos limitados, jardines de eventos en zonas premium y recintos privados de alto nivel. Hemos aprendido cómo se trabaja en cada espacio, cuáles son sus tiempos críticos y qué espera cada coordinador de banquetes. Eso se traduce en una <strong>operación sin fricción</strong> para ti, tu wedding planner y tu venue.</p>
+          <p>El candy bar para boda CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la paleta cromática de tu boda, el estilo de tu decoración floral, el perfil gastronómico de tu banquete y las expectativas de tus invitados. Trabajamos paletas clásicas (blanco y dorado), tendencias actuales (rosa palo y eucalipto, terracota, mostaza), bodas mexicanas elegantes con papel picado dorado y dulces tradicionales, bodas modernas minimalistas con cristalería pulida y opciones temáticas según tu venue.</p>
+          <p>Si planeas tu <strong>boda en CDMX</strong> y buscas un candy bar nupcial con estándar premium, ejecución confiable y un proveedor que entienda los venues de la ciudad, MEDEDUL es el aliado estratégico que necesitas. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Candy%20Bar%20para%20Boda%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa de dulces que va a coronar vuestra recepción.</p>
+        </div>
+        <div class="bcdmx-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/candy-bar-boda-rosa-dorado-elegante-peonias.avif', { w: 720, q: 82 })}
+            alt="Candy bar nupcial elegante MEDEDUL en boda CDMX con peonías rosadas y dorado"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes Boda CDMX ===================== -->
+  <PricingPackages
+    id="paquetes-boda-cdmx"
+    badge="Paquetes Boda CDMX"
+    title="Elige el formato para"
+    titleHighlight="Tu Boda en CDMX"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para boda CDMX</strong>, pensados para diferentes tamaños de banquete y niveles de sofisticación. El paquete <strong>Esencial</strong> está pensado para bodas íntimas (60-100 invitados); el <strong>Premium</strong> es el más solicitado para bodas medianas (100-180 invitados) y combina diseño nupcial completo con coordinación de wedding planner; el <strong>Luxury</strong> es nuestra propuesta de autor para bodas grandes (180+ invitados) e incluye fuente de chocolate belga, backdrop floral premium y concierge dedicado durante toda la recepción.</p><p>Todos los paquetes incluyen el <strong>mismo estándar profesional de diseño, montaje y operación</strong>. Lo que cambia es la escala del surtido, la complejidad del atrezzo y la duración del servicio. Si tu boda tiene necesidades específicas (venue con reglamentos especiales, paleta cromática inusual, restricciones alimenticias de invitados, integración con catering específico) partimos del paquete más cercano y lo ajustamos a tu evento.</p>`}
+    packages={paquetesBoda}
+    note="💡 <strong>Todos los paquetes Boda CDMX incluyen:</strong> diseño nupcial alineado a tu paleta, surtido premium curado, cristalería y soportes dorados, etiquetas personalizadas con vuestros nombres, montaje 2-3 h antes en el venue, operación durante la recepción, reposición continua, desmontaje y empaque de sobrantes."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-boda-cdmx"
+    badge="Diferenciadores Boda CDMX"
+    title="Por qué elegir nuestro Candy Bar para Boda en"
+    titleHighlight="CDMX"
+    descriptions={[
+      "Con <strong>180+ bodas montadas en CDMX</strong> en hoteles, haciendas, jardines y recintos patrimoniales, MEDEDUL es la opción de referencia para novios y wedding planners que buscan candy bar nupcial premium con ejecución profesional comprobada.",
+      "Cada candy bar nupcial parte del mismo método: brief, propuesta visual, coordinación con tu planner y montaje editorial. Lo que cambia es la <strong>paleta</strong>, el <strong>venue</strong> y la <strong>escala</strong>; el estándar profesional es siempre el mismo."
+    ]}
+    stats={[
+      { number: "180+", label: "Bodas CDMX" },
+      { number: "40+", label: "Venues trabajados" },
+      { number: "100%", label: "Diseño nupcial" },
+      { number: "5.0", label: "Calificación clientes" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería bodas CDMX ===================== -->
+  <section class="bcdmx-galeria" id="galeria-boda-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Candy Bars de boda reales montados en"
+        titleHighlight="CDMX"
+        subtitle="Selección curada de bodas MEDEDUL en hoteles, haciendas y jardines de Ciudad de México"
+        content={`<p>Cada candy bar de esta galería corresponde a una <strong>boda real</strong> que montamos en Ciudad de México. La paleta cromática, las flores, el atrezzo y el surtido fueron <strong>diseñados específicamente para cada pareja</strong> en función de su venue, su tema y su número de invitados. Si quieres ver más referencias por estilo (clásico, vintage, mexicano elegante, moderno, glamour dorado) o por venue específico, escríbenos por WhatsApp y te enviamos un portafolio dirigido.</p>`}
+      />
+
+      <div class="bcdmx-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="bcdmx-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="bcdmx-incluye">
+    <div class="container">
+      <div class="bcdmx-incluye__header">
+        <span class="bcdmx-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestro <span>Candy Bar para Boda CDMX</span>?</h2>
+        <p>Servicio integral nupcial: diseño, curaduría, mobiliario, coordinación, montaje, operación y desmontaje</p>
+      </div>
+
+      <div class="bcdmx-incluye__grid">
+        {incluye.map(item => (
+          <div class="bcdmx-incluye__card">
+            <span class="bcdmx-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso Boda CDMX ===================== -->
+  <ProcessSteps
+    id="proceso-boda-cdmx"
+    badge="Cómo trabajamos tu boda en CDMX"
+    title="4 pasos para tu"
+    titleHighlight="Candy Bar de Boda"
+    subtitle="Proceso profesional, sin estrés, coordinado con tu wedding planner"
+    content={`<p>Nuestro proceso está diseñado para que <strong>tu boda fluya sin estrés</strong>. Desde el primer brief hasta el desmontaje final, cada etapa tiene tiempos definidos, un responsable claro y entregables específicos. Te apoyamos en la decisión cromática, el surtido ideal según tu venue y la integración con tu wedding planner y decorador.</p><p>Conocemos los <strong>tiempos críticos de cada hotel y hacienda en CDMX</strong> — desde el horario en que abre la puerta de carga del Four Seasons hasta el protocolo de acceso de Hacienda de los Morales — lo que nos permite ajustar nuestros tiempos al ritmo del venue sin causar fricción con otros proveedores.</p>`}
+    steps={procesoBoda}
+  />
+
+  <!-- ===================== Venues nupciales donde hemos montado ===================== -->
+  <section class="bcdmx-venues" id="venues-boda-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Venues nupciales donde hemos montado en"
+        titleHighlight="CDMX"
+        subtitle="40+ venues premium con experiencia comprobada"
+        content={`<p>Cada venue nupcial tiene su <strong>reglamento propio</strong>, sus tiempos de acceso y sus coordinadores con criterios particulares. En MEDEDUL ya conocemos esos protocolos y montamos sin fricción en los espacios más exigentes de CDMX. Esta es una muestra de los recintos donde tenemos experiencia comprobada montando candy bars nupciales.</p>`}
+      />
+
+      <div class="bcdmx-venues__grid">
+        {venuesBodas.map(v => (
+          <div class="bcdmx-venue-card">
+            <span class="bcdmx-venue-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+              </svg>
+            </span>
+            <div class="bcdmx-venue-card__body">
+              <span class="bcdmx-venue-card__name">{v.nombre}</span>
+              <div class="bcdmx-venue-card__meta">
+                <span class="bcdmx-venue-card__zona">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {v.zona}
+                </span>
+                <span class="bcdmx-venue-card__tipo">{v.tipo}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="bcdmx-venues__nota">
+        ¿Tu venue no aparece en la lista? Trabajamos también en haciendas, jardines, terrazas, casas particulares y venues no tradicionales en toda CDMX. Probablemente ya conocemos uno similar. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20mi%20boda%20es%20en%20[nombre%20venue]%20%C2%BFTienen%20experiencia%20ahi%3F">Pregúntanos por tu venue específico</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Zonas CDMX donde montamos bodas ===================== -->
+  <section class="bcdmx-zonas" id="zonas-boda-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura completa en"
+        titleHighlight="CDMX"
+        subtitle="Montamos candy bars de boda en cualquier zona de Ciudad de México"
+        content={`<p>Desde nuestras sucursales de <strong>Anzures (Miguel Hidalgo)</strong> y <strong>Condesa (Cuauhtémoc)</strong> llegamos puntualmente a cualquier punto premium de CDMX y zona metropolitana en <strong>menos de 30 minutos</strong>. Operamos con 9 zonas que cuentan con página dedicada de cobertura nupcial y 21 zonas adicionales cubiertas sin restricciones.</p>`}
+      />
+
+      <!-- Grupo 1: zonas premium con página dedicada -->
+      <div class="bcdmx-zonas__subseccion">
+        <header class="bcdmx-zonas__subheader">
+          <span class="bcdmx-zonas__numero">01</span>
+          <div>
+            <h3>Zonas premium con página dedicada</h3>
+            <p>9 zonas con información detallada de cobertura, venues típicos y casos de boda.</p>
+          </div>
+        </header>
+
+        <div class="bcdmx-zonas__grid">
+          {zonasPremium.map(z => (
+            <a href={z.href} class:list={['bcdmx-zona-card', { 'bcdmx-zona-card--destacada': z.destacada }]}>
+              <span class="bcdmx-zona-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="bcdmx-zona-card__body">
+                <span class="bcdmx-zona-card__nombre">{z.nombre}</span>
+                <span class="bcdmx-zona-card__alcaldia">{z.alcaldia}</span>
+              </div>
+              {z.destacada && <span class="bcdmx-zona-card__badge">Top</span>}
+              <span class="bcdmx-zona-card__arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Grupo 2: cobertura adicional sin página dedicada -->
+      <div class="bcdmx-zonas__subseccion">
+        <header class="bcdmx-zonas__subheader">
+          <span class="bcdmx-zonas__numero">02</span>
+          <div>
+            <h3>Cobertura adicional CDMX y zona metropolitana</h3>
+            <p>21 zonas más que cubrimos sin restricciones. Mismo servicio, mismos paquetes, sin costos ocultos de traslado.</p>
+          </div>
+        </header>
+
+        <div class="bcdmx-zonas__pills">
+          {zonasAdicionales.map(z => (
+            <span class="bcdmx-zona-pill">{z}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="bcdmx-zonas__cta">
+        <p>¿No ves tu zona? <strong>Cubrimos las 16 alcaldías de CDMX y zona metropolitana premium</strong>.</p>
+        <a href="/zonas-cdmx" class="bcdmx-zonas__cta-btn">
+          Ver todas las zonas CDMX
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios bodas CDMX ===================== -->
+  <section class="bcdmx-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de bodas reales en"
+        titleHighlight="CDMX"
+        subtitle="Lo que dicen las parejas que ya celebraron con MEDEDUL"
+      />
+      <div class="bcdmx-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars CDMX (cross-link interno) ===================== -->
+  <section class="bcdmx-otros-eventos" id="otros-candy-bars-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Descubre nuestros otros Candy Bars en CDMX"
+        titleHighlight="CDMX"
+        subtitle="Otros 4 montajes especializados que operamos en Ciudad de México"
+        content={`<p>Además del <strong>candy bar nupcial</strong>, MEDEDUL opera montajes especializados en CDMX para <strong>XV Años, Baby Shower, Cumpleaños Infantil y eventos corporativos</strong>. Cada formato tiene su propio enfoque visual, surtido curado y paquetes específicos. Si tu evento combina con la boda — por ejemplo, baby shower previo o despedida de soltera — podemos cotizar ambos servicios con <strong>descuento por paquete combinado</strong>.</p>`}
+      />
+
+      <div class="bcdmx-otros-eventos__grid">
+        {eventos.map(ev => (
+          <ServiceCard
+            href={ev.href}
+            image={ev.img}
+            alt={`${ev.title} por MEDEDUL`}
+            title={ev.title}
+            excerpt={ev.excerpt}
+            badge={ev.badge}
+            cta={ev.cta}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     CDMX Candy Bar Boda — Subsección Mesa de Dulces
+     ========================================================== */
+
+  /* ---------- Stats ---------- */
+  .bcdmx-stats {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .bcdmx-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .bcdmx-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 14px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+
+  .bcdmx-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rosa-principal, #D1007A);
+    line-height: 1;
+  }
+
+  .bcdmx-stat__label {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    font-weight: 500;
+  }
+
+  /* ---------- Intro SEO ---------- */
+  .bcdmx-intro {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .bcdmx-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .bcdmx-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+
+  .bcdmx-intro__copy h2 {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 22px;
+  }
+
+  .bcdmx-intro__copy h2 span {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .bcdmx-intro__copy p {
+    font-size: 1.02rem;
+    color: var(--texto-light, #555);
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+
+  .bcdmx-intro__copy strong {
+    color: var(--texto-oscuro, #1a1a1a);
+  }
+
+  .bcdmx-intro__copy a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .bcdmx-intro__visual {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  }
+
+  .bcdmx-intro__visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Galería ---------- */
+  .bcdmx-galeria {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
+  }
+
+  .bcdmx-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 200px);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .bcdmx-galeria__item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .bcdmx-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .bcdmx-galeria__item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bcdmx-galeria__item:nth-child(5),
+  .bcdmx-galeria__item:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  /* ---------- Incluye ---------- */
+  .bcdmx-incluye {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .bcdmx-incluye__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+
+  .bcdmx-incluye__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .bcdmx-incluye__header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .bcdmx-incluye__header h2 span {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .bcdmx-incluye__header p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+  }
+
+  .bcdmx-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .bcdmx-incluye__card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .bcdmx-incluye__num {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .bcdmx-incluye__card h4 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .bcdmx-incluye__card p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- Venues ---------- */
+  .bcdmx-venues {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .bcdmx-venues__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .bcdmx-venue-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  }
+
+  .bcdmx-venue-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  .bcdmx-venue-card__body {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .bcdmx-venue-card__name {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 4px;
+  }
+
+  .bcdmx-venue-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--texto-light, #666);
+    flex-wrap: wrap;
+  }
+
+  .bcdmx-venue-card__zona {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .bcdmx-venue-card__tipo {
+    padding: 2px 10px;
+    background: #fff0f7;
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 50px;
+    font-weight: 600;
+  }
+
+  .bcdmx-venues__nota {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.95rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+  }
+
+  .bcdmx-venues__nota a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+  }
+
+  /* ==========================================================
+     Cobertura CDMX — homologado: SectionHeader del sitio +
+     subsecciones 01/02 estilo cdmx.astro
+     ========================================================== */
+  .bcdmx-zonas {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  /* Subsecciones (01 / 02) */
+  .bcdmx-zonas__subseccion { margin-bottom: 44px; }
+  .bcdmx-zonas__subseccion:first-of-type { margin-top: 12px; }
+  .bcdmx-zonas__subseccion:last-of-type { margin-bottom: 0; }
+
+  .bcdmx-zonas__subheader {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.12);
+  }
+
+  .bcdmx-zonas__numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.22);
+  }
+
+  .bcdmx-zonas__subheader h3 {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 4px;
+    font-weight: 700;
+  }
+
+  .bcdmx-zonas__subheader p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* Grid de zonas premium (cards) */
+  .bcdmx-zonas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .bcdmx-zona-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--texto-oscuro, #1a1a1a);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    position: relative;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+
+  .bcdmx-zona-card:hover {
+    border-color: var(--rosa-principal, #D1007A);
+    background: #fefcfd;
+  }
+
+  .bcdmx-zona-card--destacada {
+    border-color: rgba(233, 30, 140, 0.25);
+    background: linear-gradient(180deg, #fff 0%, #fef9fc 100%);
+  }
+
+  .bcdmx-zona-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.10), rgba(160, 0, 95, 0.06));
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .bcdmx-zona-card:hover .bcdmx-zona-card__icon {
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+  }
+
+  .bcdmx-zona-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bcdmx-zona-card__nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+  }
+
+  .bcdmx-zona-card__alcaldia {
+    font-size: 0.76rem;
+    color: var(--texto-light, #666);
+    line-height: 1.3;
+  }
+
+  .bcdmx-zona-card__badge {
+    position: absolute;
+    top: -7px;
+    right: 14px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(209, 0, 122, 0.28);
+  }
+
+  .bcdmx-zona-card__arrow {
+    color: #c5c5cf;
+    flex-shrink: 0;
+    transition: color .15s ease;
+  }
+
+  .bcdmx-zona-card:hover .bcdmx-zona-card__arrow {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  /* Pills cobertura adicional (decorativos) */
+  .bcdmx-zonas__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .bcdmx-zona-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 50px;
+    color: var(--texto-light, #555);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .bcdmx-zona-pill::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--rosa-principal, #D1007A);
+    border-radius: 50%;
+    opacity: .6;
+  }
+
+  /* CTA final */
+  .bcdmx-zonas__cta {
+    margin-top: 40px;
+    padding: 26px 30px;
+    background: #fff;
+    border: 1px dashed rgba(233, 30, 140, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .bcdmx-zonas__cta p {
+    font-size: 0.98rem;
+    color: var(--texto-light, #555);
+    margin: 0;
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .bcdmx-zonas__cta strong {
+    color: var(--texto-oscuro, #1a1a1a);
+  }
+
+  .bcdmx-zonas__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.25);
+    transition: box-shadow .15s ease, background-color .15s ease;
+  }
+
+  .bcdmx-zonas__cta-btn:hover {
+    box-shadow: 0 8px 24px rgba(209, 0, 122, 0.38);
+  }
+
+  /* ---------- Testimonios ---------- */
+  .bcdmx-testimonios {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .bcdmx-testimonios__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  /* ---------- Otros candy bars CDMX (cross-sell) ---------- */
+  .bcdmx-otros-eventos {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .bcdmx-otros-eventos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1024px) {
+    .bcdmx-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bcdmx-intro__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .bcdmx-galeria__bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .bcdmx-galeria__item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .bcdmx-galeria__item:nth-child(5),
+    .bcdmx-galeria__item:nth-child(6) {
+      grid-column: span 1;
+    }
+
+    .bcdmx-incluye__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bcdmx-venues__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bcdmx-zonas__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bcdmx-otros-eventos__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bcdmx-testimonios__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bcdmx-stats,
+    .bcdmx-intro,
+    .bcdmx-galeria,
+    .bcdmx-incluye,
+    .bcdmx-venues,
+    .bcdmx-zonas,
+    .bcdmx-otros-eventos,
+    .bcdmx-testimonios {
+      padding: 60px 0;
+    }
+
+    .bcdmx-otros-eventos__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bcdmx-intro__copy h2,
+    .bcdmx-incluye__header h2 {
+      font-size: 1.6rem;
+    }
+
+    .bcdmx-intro__copy p {
+      font-size: 0.95rem;
+    }
+
+    .bcdmx-incluye__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bcdmx-incluye__card {
+      padding: 26px 22px;
+    }
+
+    .bcdmx-venues__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bcdmx-zonas__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bcdmx-zonas__subheader {
+      gap: 12px;
+    }
+
+    .bcdmx-zonas__numero {
+      width: 38px;
+      height: 38px;
+      font-size: 0.85rem;
+    }
+
+    .bcdmx-zonas__subheader h3 { font-size: 1.05rem; }
+    .bcdmx-zonas__subheader p { font-size: 0.85rem; }
+
+    .bcdmx-zona-card { padding: 14px 16px; }
+    .bcdmx-zona-card__nombre { font-size: 0.9rem; }
+    .bcdmx-zona-card__alcaldia { font-size: 0.74rem; }
+
+    .bcdmx-zonas__cta {
+      padding: 22px 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .bcdmx-zonas__cta-btn { width: 100%; justify-content: center; }
+
+    .bcdmx-testimonios__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bcdmx-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .bcdmx-stat {
+      padding: 18px 12px;
+    }
+
+    .bcdmx-stat__num {
+      font-size: 1.5rem;
+    }
+
+    .bcdmx-stat__label {
+      font-size: 0.78rem;
+    }
+
+    .bcdmx-intro__copy h2 {
+      font-size: 1.4rem;
+    }
+
+    .bcdmx-zona-pill {
+      padding: 8px 16px;
+      font-size: 0.82rem;
+    }
+  }
+</style>

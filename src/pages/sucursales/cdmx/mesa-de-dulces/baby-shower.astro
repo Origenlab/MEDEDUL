@@ -1,0 +1,1255 @@
+---
+// Mesa para Baby Shower CDMX — Sucursal CDMX (L5)
+// SEO + GEO heavy: ternura pastel, gender reveal, domicilios y venues boutique
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'CDMX', url: '/sucursales/cdmx' },
+  { name: 'Mesa de Dulces', url: '/sucursales/cdmx/mesa-de-dulces' },
+  { name: 'Baby Shower', url: '/sucursales/cdmx/mesa-de-dulces/baby-shower' }
+];
+
+// =============== Trust Stats (Baby Shower CDMX) ===============
+const stats = [
+  { number: '95+', label: 'Baby showers CDMX' },
+  { number: '25+', label: 'Venues + domicilios' },
+  { number: '8+', label: 'Años de experiencia' },
+  { number: '< 24h', label: 'Cotización baby' }
+];
+
+// =============== Características (Diferenciadores Baby Shower CDMX) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Paleta pastel curada para baby shower',
+    desc: 'Diseñamos cada mesa con paletas suaves tierno: rosa bebé, azul cielo, eucalipto verde, blanco-crema, tonos neutros boho o paleta gender-neutral. Cada elemento alineado al tema (osito, nube, conejito, botánico, safari) para crear ambiente sweet y memorable.',
+    img: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido tierno aesthetic-friendly',
+    desc: 'Curaduría especial para mamá futura y sus invitadas: macarons franceses, galletas decoradas con motivos de bebé (biberones, pies, ositos), mini cupcakes, trufas pastel, mini-cheesecakes, gomitas suaves, paletas decoradas y opciones sin alcohol/sin café para embarazadas.',
+    img: '/img/galeria/candy-bar-baby-shower-rosa-macarons-fresas.avif'
+  },
+  {
+    num: 3,
+    title: 'Backdrop fotográfico tierno e instagramable',
+    desc: 'Pensado para que la mamá futura y sus invitadas tengan el rincón más fotografiado. Globos pastel, nubes decorativas, atrezzo botánico, letras con el nombre del bebé y arco floral. Perfecto para Instagram y para regalar fotos editoriales a la mamá.',
+    img: '/img/galeria/candy-bar-baby-shower-eucalipto-macarons-verde.avif'
+  },
+  {
+    num: 4,
+    title: 'Cobertura en domicilios CDMX + venues boutique',
+    desc: 'Baby shower CDMX se celebran tanto en casas particulares como en restaurantes boutique. Cubrimos ambos formatos: montamos en domicilios Polanco / Lomas / Pedregal / Coyoacán con discreción y en venues como Saks, Belmondo, Casa Lamm o hoteles boutique.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-elegante.avif'
+  }
+];
+
+// =============== Paquetes Baby Shower CDMX ===============
+const paquetesBaby = [
+  {
+    name: 'Baby Shower CDMX Esencial',
+    icon: '🍼',
+    price: '$4,500',
+    currency: 'MXN',
+    guests: '20-40 invitadas',
+    tagline: 'Ideal para baby shower íntimo',
+    features: [
+      'Mesa pastel tierna (8-10 variedades)',
+      'Paleta a tu temática (osito/nube/botánico)',
+      'Cristalería y soportes coordinados',
+      'Montaje 1-2 h antes del evento',
+      'Operación durante baby shower',
+      'Empaque de sobrantes en bolsitas decorativas',
+      'Cobertura domicilio en zonas centrales CDMX'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Baby%20Shower%20CDMX%20-%20Esencial'
+  },
+  {
+    name: 'Baby Shower CDMX Premium',
+    icon: '👶',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '40-80 invitadas',
+    tagline: 'El más solicitado en baby CDMX',
+    features: [
+      'Mesa tierna completa (12-15 variedades)',
+      'Macarons, mini cupcakes y galletas decoradas con motivos bebé',
+      'Backdrop pastel con nombre del bebé o frase',
+      'Globos coordinados y atrezzo botánico',
+      'Coordinación con planner de baby shower',
+      'Operador dedicado durante el evento',
+      'Cajas-recuerdo personalizadas para invitadas',
+      'Cobertura completa CDMX'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Baby%20Shower%20CDMX%20-%20Premium'
+  },
+  {
+    name: 'Baby Shower CDMX Luxury',
+    icon: '🌸',
+    price: '$11,500',
+    currency: 'MXN',
+    guests: '80+ invitadas',
+    tagline: 'Experiencia editorial sweet',
+    features: [
+      'Mesa de autor (18+ variedades curadas)',
+      'Reposteria fina + galletas pintadas a mano',
+      'Backdrop floral 360° con arco de globos',
+      'Estación complementaria (mini fuente chocolate o letras gigantes)',
+      'Concierge dedicado mamá + invitadas',
+      'Sesión fotográfica de la mesa incluida',
+      'Mini sets de recuerdo personalizados con foto del ultrasonido',
+      'Cobertura full CDMX + EdoMex zona poniente'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Baby%20Shower%20CDMX%20-%20Luxury'
+  }
+];
+
+// =============== Proceso Baby Shower CDMX ===============
+const procesoBaby = [
+  {
+    num: 1,
+    title: 'Brief mamá futura',
+    desc: 'Nos cuentas fecha del baby shower, lugar (domicilio en CDMX o venue boutique), número de invitadas, género del bebé o si será gender reveal, temática (osito, nube, botánico, safari, gender-neutral) y paleta. Te asignamos sucursal Anzures o Condesa según ubicación.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta pastel tierna',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual, paleta pastel sugerida, surtido aesthetic-friendly para fotos, opciones de backdrop con globos y atrezzo botánico, y cotización cerrada en 3 niveles. Si es gender reveal, integramos el elemento sorpresa.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con organizadora',
+    desc: 'Coordinamos directo con quien organiza el baby (hermana, mamá, mejor amiga o wedding planner). Confirmamos paleta final, posición de la mesa, tiempo de acceso al domicilio o venue, integración con catering y elementos sorpresa del gender reveal si aplica.'
+  },
+  {
+    num: 4,
+    title: 'Ejecución del baby shower',
+    desc: 'Llegamos 1-2 h antes con todo el equipo. Montamos sin interferir con preparativos, operamos durante el evento (incluyendo el momento del gender reveal coordinado) y desmontamos discretamente al cierre. Empacamos sobrantes en bolsitas decorativas para invitadas.'
+  }
+];
+
+// =============== Galería Baby Shower CDMX ===============
+const galeriaImages = [
+  { src: '/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar baby shower rosa pastel con flores tiernas CDMX' },
+  { src: '/img/galeria/candy-bar-baby-shower-eucalipto-macarons-verde.avif', alt: 'Candy bar baby shower eucalipto con macarons verde botánico CDMX' },
+  { src: '/img/galeria/candy-bar-baby-shower-azul-elefantes-nubes.avif', alt: 'Candy bar baby shower niño azul con elefantes y nubes CDMX' },
+  { src: '/img/galeria/candy-bar-baby-shower-celeste-galletas-biberon.avif', alt: 'Candy bar baby shower celeste con galletas biberón CDMX' },
+  { src: '/img/galeria/candy-bar-baby-shower-genero-neutro-natural.avif', alt: 'Candy bar baby shower género neutro natural CDMX' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-boho-eucalipto.avif', alt: 'Mesa de dulces baby shower boho eucalipto natural CDMX' }
+];
+
+// =============== Qué incluye (Baby Shower) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría tierna para mamá e invitadas', desc: 'Surtido de 8 a 18+ variedades pastel aesthetic-friendly: macarons franceses pastel, galletas decoradas con motivos de bebé (biberones, pies, ositos, conejitos), mini cupcakes, trufas, gomitas suaves, paletas decoradas y opciones especiales para mamá embarazada (sin café, sin alcohol) y para invitadas con restricciones (vegano, sin gluten, sin azúcar).' },
+  { num: '02', title: 'Diseño pastel a tu temática', desc: 'Cristalería pulida, soportes blancos o dorados rosa, bases tipo cake stand, manteles delicados y backdrop con globos pastel + atrezzo botánico (eucalipto, gypsophilia). Adaptado a temática: osito, nube, conejito, safari, jungla pastel, botánico boho o gender-neutral en beige-crema.' },
+  { num: '03', title: 'Personalización con nombre del bebé', desc: 'Etiquetas con el nombre del bebé (si ya se sabe), monograma personalizado, letras decorativas con su nombre, frases como "Welcome Baby" o "Sweet baby shower", atrezzo coordinado al concepto. Para gender reveal: elemento sorpresa azul/rosa integrado al diseño.' },
+  { num: '04', title: 'Servicio en domicilios + venues boutique CDMX', desc: 'Cubrimos baby shower tanto en casas particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa) como en venues boutique de CDMX: restaurantes como Saks, Belmondo, Casa Lamm; hoteles boutique; salones íntimos. Montaje discreto que respeta el ambiente del domicilio.' },
+  { num: '05', title: 'Operación durante el baby shower', desc: 'Operadora femenina asignada durante el evento (creamos ambiente íntimo y femenino). Reposición continua, atención cálida a la mamá futura y sus invitadas, y coordinación del momento gender reveal si aplica. Sin alcohol ni elementos contraindicados para embarazadas.' },
+  { num: '06', title: 'Empaque de recuerdos tiernos', desc: 'Al cierre del baby shower empacamos los dulces sobrantes en bolsitas o mini cajas decorativas pastel alineadas a la temática, listas para que las invitadas se las lleven como recuerdo del momento. En paquete Luxury: mini sets personalizados con foto del ultrasonido del bebé.' }
+];
+
+// =============== Eventos compatibles (cross-link CDMX) ===============
+const eventos = [
+  {
+    title: 'Candy Bar para Boda CDMX',
+    excerpt: 'Diseño nupcial elegante alineado a tu paleta. Trabajamos en hoteles y haciendas premium como Hotel W, Four Seasons y Hacienda de los Morales.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda',
+    badge: 'Más solicitado',
+    cta: 'Ver Boda CDMX'
+  },
+  {
+    title: 'Mesa para XV Años CDMX',
+    excerpt: 'Glamour y tendencia para celebraciones de quinceañera. Paleta alineada al vestido, backdrop instagramable y surtido aesthetic premium.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos',
+    badge: 'Top XV',
+    cta: 'Ver Mesa XV CDMX'
+  },
+  {
+    title: 'Cumpleaños Infantil CDMX',
+    excerpt: '30+ temáticas (Disney, Marvel, Pokemon, Frozen, Bluey). Control alergias sin nueces default y operador disfrazado opcional. Cobertura casas + salones infantiles CDMX desde $3,500 MXN.',
+    img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil',
+    badge: 'Temático CDMX',
+    cta: 'Ver Cumple CDMX'
+  },
+  {
+    title: 'Eventos Corporativos CDMX',
+    excerpt: 'Branding y elegancia para lanzamientos, posadas y convenciones B2B en Polanco, Santa Fe y Reforma.',
+    img: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos'
+  }
+];
+
+// =============== Venues iconicos CDMX para baby shower ===============
+const venuesBaby = [
+  { nombre: 'Restaurante Saks', zona: 'Polanco', tipo: 'Restaurante boutique' },
+  { nombre: 'Restaurante Belmondo', zona: 'Roma Norte', tipo: 'Restaurante eventos' },
+  { nombre: 'Casa Lamm', zona: 'Roma Norte', tipo: 'Casona histórica' },
+  { nombre: 'Hotel Hyatt Regency', zona: 'Polanco', tipo: 'Salón íntimo' },
+  { nombre: 'Domicilios particulares', zona: 'Polanco / Lomas / Pedregal', tipo: 'Casa cliente' },
+  { nombre: 'Restaurante Pétalo', zona: 'Polanco', tipo: 'Restaurante eventos' },
+  { nombre: 'Roof Terrace boutique', zona: 'Condesa', tipo: 'Terraza eventos' },
+  { nombre: 'Salones boutique', zona: 'Roma Norte', tipo: 'Salones íntimos' },
+  { nombre: 'Casa Bell', zona: 'Roma Norte', tipo: 'Casa eventos' },
+  { nombre: 'Jardines residenciales', zona: 'Pedregal / Lomas', tipo: 'Jardín privado' },
+  { nombre: 'Lounge boutique', zona: 'Polanco', tipo: 'Lounge eventos' },
+  { nombre: 'The Magnolia Hotel', zona: 'Roma Norte', tipo: 'Hotel boutique' }
+];
+
+// =============== Cobertura CDMX — Grupo 1 (zonas premium con página) ===============
+const zonasPremium = [
+  { nombre: 'Polanco', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/polanco', destacada: true },
+  { nombre: 'Santa Fe', alcaldia: 'Cuajimalpa', href: '/zonas-cdmx/santa-fe', destacada: true },
+  { nombre: 'Condesa', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/condesa', destacada: true },
+  { nombre: 'Roma Norte', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/roma-norte', destacada: true },
+  { nombre: 'Anzures', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/anzures' },
+  { nombre: 'Del Valle', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/del-valle' },
+  { nombre: 'Coyoacan', alcaldia: 'Coyoacan', href: '/zonas-cdmx/coyoacan' },
+  { nombre: 'Narvarte', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/narvarte' },
+  { nombre: 'Interlomas', alcaldia: 'Huixquilucan, EdoMex', href: '/zonas-cdmx/interlomas' }
+];
+
+// =============== Cobertura CDMX — Grupo 2 (zonas adicionales) ===============
+const zonasAdicionales = [
+  'Lomas de Chapultepec', 'Reforma', 'San Ángel', 'Pedregal',
+  'Bosques de las Lomas', 'Centro Histórico', 'Tlalpan', 'Satélite',
+  'Naucalpan', 'Huixquilucan', 'Tlalnepantla', 'Cuajimalpa',
+  'Magdalena Contreras', 'Iztapalapa', 'Iztacalco', 'Venustiano Carranza',
+  'Gustavo A. Madero', 'Azcapotzalco', 'Milpa Alta', 'Tláhuac', 'Xochimilco'
+];
+
+// Combinación para schema.org areaServed
+const zonasBaby = [...zonasPremium.map(z => z.nombre), ...zonasAdicionales];
+
+// =============== Testimonios CDMX (Baby Shower) ===============
+const testimonios = [
+  {
+    name: 'Andrea Salazar',
+    initials: 'AS',
+    review: 'Mi baby shower en Roma Norte fue exactamente como lo imaginé. Paleta pastel rosa con eucalipto, macarons preciosos, backdrop con globos y el nombre de mi bebé en letras doradas. Montaje delicado y dulces de muy buena calidad. Mis amigas no paraban de fotografiarse en la mesa.',
+    event: 'Baby Shower Roma Norte',
+    rating: 5
+  },
+  {
+    name: 'Familia Romero',
+    initials: 'FR',
+    review: 'Hicimos gender reveal en casa en Polanco. MEDEDUL coordinó perfectamente el elemento sorpresa azul integrado a la mesa pastel neutro previa al reveal. Fue mágico. Las galletas decoradas con pies de bebé y biberones quedaron de revista. 100% recomendados.',
+    event: 'Gender Reveal Polanco',
+    rating: 5
+  },
+  {
+    name: 'María Fernanda',
+    initials: 'MF',
+    review: 'Baby shower en Restaurante Saks. Coordinaron directo con el venue, llegaron antes para no interferir con el servicio del restaurante y la mesa quedó preciosa con paleta eucalipto botánica. Operadora súper amable con mis invitadas embarazadas y sin alcohol absolutamente todo.',
+    event: 'Baby Shower Saks Polanco',
+    rating: 5
+  }
+];
+
+// =============== FAQ Baby Shower CDMX ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para baby shower en CDMX?',
+    answer: 'Incluye diseño pastel alineado a tu temática (osito, nube, botánico, safari, gender-neutral), surtido tierno aesthetic-friendly para fotos (macarons pastel, galletas decoradas con motivos de bebé, mini cupcakes, trufas, gomitas suaves, paletas decoradas), cristalería pulida y soportes coordinados, backdrop con globos pastel y atrezzo botánico, montaje 1-2 h antes en el domicilio o venue, coordinación con la organizadora del baby, operación durante el evento con reposición continua, etiquetas personalizadas con el nombre del bebé, desmontaje al cierre y empaque de sobrantes en bolsitas decorativas para las invitadas.'
+  },
+  {
+    question: '¿Atienden baby shower en casa particular en CDMX?',
+    answer: 'Sí. De hecho la mayoría de baby shower CDMX se celebran en domicilios. Cubrimos casas particulares en Polanco, Lomas de Chapultepec, Pedregal, Coyoacán, Roma Norte, Condesa, Del Valle, Interlomas y zonas residenciales premium. Llegamos con tiempo, montamos sin interferir con preparativos del domicilio, operamos discretamente durante el evento y empacamos todo al cierre. También cubrimos venues boutique como Saks, Belmondo, Casa Lamm y hoteles con salones íntimos.'
+  },
+  {
+    question: '¿Hacen mesa para gender reveal CDMX?',
+    answer: 'Sí, y es uno de nuestros servicios más solicitados. Para gender reveal diseñamos la mesa en paleta neutra (beige/blanco/crema) e integramos un elemento sorpresa azul o rosa que se revela en el momento del reveal: pastel central, globo con confetti, caja sorpresa, dulces escondidos, o cualquier mecánica que tengas planeada. Coordinamos con la organizadora del baby para que el momento sea fluido y fotogénico. Incluye guía de timing para el reveal.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para baby shower en CDMX?',
+    answer: 'Iniciamos en $4,500 MXN (Baby Shower CDMX Esencial, 20-40 invitadas íntimo) y llegamos a $11,500 MXN (Baby Shower CDMX Luxury, 80+ invitadas con sesión fotográfica). El precio depende del número de invitadas, surtido seleccionado, nivel de personalización (backdrop floral, globos, letras decorativas), integración con gender reveal y duración del servicio. Cotización gratuita en menos de 24 horas.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar el baby shower?',
+    answer: 'Recomendamos reservar con 3 a 6 semanas de anticipación. Los baby showers en CDMX se concentran en fines de semana, así que las fechas se llenan rápido. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del evento. Una vez reservada la fecha, comenzamos la fase de diseño con calma para alinear paleta y temática.'
+  },
+  {
+    question: '¿Pueden personalizar la mesa con el nombre del bebé?',
+    answer: 'Sí, totalmente. Etiquetas con el nombre del bebé (si ya se sabe), monograma personalizado, letras decorativas con su nombre completo, frases como "Welcome Baby [Nombre]", atrezzo coordinado a la temática. Para gender reveal podemos personalizar de forma neutra y revelar el nombre al final. En paquete Luxury incluimos mini sets de recuerdo personalizados con foto del ultrasonido del bebé sin costo adicional.'
+  },
+  {
+    question: '¿Tienen opciones aptas para mamá embarazada?',
+    answer: 'Sí. Curamos surtido especial para mamá embarazada: sin café, sin alcohol, sin elementos contraindicados (queso azul, frutos secos no pasteurizados, etc.). Te enviamos una lista completa de opciones aptas para embarazo durante el briefing. Esto es importante porque la mamá futura debe poder disfrutar la mesa con tranquilidad. También cuidamos opciones para invitadas con restricciones (vegano, sin gluten, sin azúcar, alergias) sin costo adicional.'
+  },
+  {
+    question: '¿Pueden combinar con fuente de chocolate o estaciones?',
+    answer: 'Sí. En paquete Luxury incluimos una estación complementaria (mini fuente de chocolate con frutas, letras gigantes con el nombre del bebé, o candy wall pastel). En paquetes Esencial y Premium podemos sumar como add-on. Las estaciones funcionan muy bien en baby shower porque dan dinámica al evento y se vuelven punto fotográfico adicional.'
+  },
+  {
+    question: '¿A qué hora llegan al domicilio o venue del baby?',
+    answer: 'Llegamos 1-2 horas antes del horario de inicio del baby shower. Para domicilios coordinamos directamente con la dueña de la casa para no interferir con sus preparativos. Para venues boutique nos ajustamos a su horario de acceso. El tiempo de montaje está incluido en todos los paquetes y nos retiramos discretamente al cierre del evento.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran del baby shower?',
+    answer: 'Son tuyos y los empacamos en bolsitas o mini cajas decorativas alineadas a la estética pastel del baby shower, listas para que las invitadas se las lleven como recuerdo. En paquete Luxury entregamos mini sets personalizados con foto del ultrasonido o el nombre del bebé. Este detalle hace que la mesa se mantenga viva incluso después del evento y se convierte en parte del recuerdo emocional del baby shower.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/baby-shower#service",
+      "name": "Mesa de Dulces para Baby Shower en CDMX",
+      "serviceType": "Mesa de Dulces Pastel / Candy Bar Baby Shower / Gender Reveal",
+      "description": "Mesa de dulces tierna para baby shower y gender reveal en Ciudad de México con diseño pastel, surtido aesthetic-friendly, opciones aptas para mamá embarazada y cobertura en domicilios particulares y venues boutique. Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal CDMX",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+          "addressLocality": "Anzures, Miguel Hidalgo",
+          "postalCode": "11590",
+          "addressRegion": "Ciudad de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "95",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": zonasBaby.map(z => ({ "@type": "Place", "name": z }))
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4500",
+        "highPrice": "11500",
+        "offerCount": "3",
+        "offers": paquetesBaby.map(pkg => ({
+          "@type": "Offer",
+          "name": `Baby Shower CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Mamás futuras y familias preparando baby shower en Ciudad de México"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces" },
+        { "@type": "ListItem", "position": 5, "name": "Baby Shower", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/baby-shower" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa Baby Shower CDMX | Candy Bar Pastel y Gender Reveal | MEDEDUL"
+  description="Mesa de dulces para baby shower en CDMX por MEDEDUL: paleta pastel, surtido aesthetic-friendly, gender reveal y cobertura en domicilios y venues boutique. Sucursales Anzures y Condesa. Apto para mamá embarazada. Desde $4,500 MXN. Cotiza gratis."
+  canonical="/sucursales/cdmx/mesa-de-dulces/baby-shower"
+  ogImage="/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa para Baby Shower en CDMX"
+    highlight="Baby"
+    subtitle="Ternura y colores pastel · Sucursal MEDEDUL CDMX (Anzures + Condesa)"
+    secondaryContent={`<p>La <strong>mesa de dulces para baby shower en Ciudad de México</strong> es uno de los rincones más emocionales del evento y el escenario donde la mamá futura recibe el cariño de sus invitadas. En <strong>MEDEDUL</strong> diseñamos cada mesa con enfoque pastel sweet — paleta cromática alineada al género del bebé o gender-neutral, surtido aesthetic-friendly para fotos (macarons pastel, galletas decoradas con motivos de bebé como biberones, pies y ositos, mini cupcakes, trufas, gomitas suaves), cristalería delicada, soportes blancos o dorados rosa, backdrop con globos pastel y atrezzo botánico, letras decorativas con el nombre del bebé y opciones <strong>aptas para mamá embarazada</strong> (sin café, sin alcohol, sin elementos contraindicados).</p><p>Operamos desde nuestras <strong>dos sucursales fijas en CDMX — Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong> — lo que nos permite cubrir tanto <strong>domicilios particulares</strong> (Polanco, Lomas, Pedregal, Coyoacán, Roma) como <strong>venues boutique</strong> donde se celebran los baby showers premium de la ciudad: Restaurante Saks, Belmondo, Casa Lamm, Hyatt Regency, Casa Bell, The Magnolia Hotel y muchos más. Con <strong>95+ baby showers montados en CDMX</strong> y 8 años de experiencia, conocemos los tiempos del evento, el flujo de actividades (juegos, regalos, comida) y cómo coordinar discretamente con la dueña de casa o el venue.</p><p>Si vas a hacer <strong>gender reveal CDMX</strong>, somos especialistas: diseñamos la mesa en paleta neutra (beige-crema-blanco) e integramos un <strong>elemento sorpresa azul o rosa</strong> que se revela en el momento mágico, coordinado con la organizadora del baby. Cada baby shower que montamos respeta el ambiente íntimo y femenino del evento, con operadora dedicada y cuidado especial para que la mamá futura disfrute con tranquilidad.</p>`}
+  />
+
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="bbcdmx-stats">
+    <div class="container">
+      <div class="bbcdmx-stats__grid">
+        {stats.map(s => (
+          <div class="bbcdmx-stat">
+            <span class="bbcdmx-stat__num">{s.number}</span>
+            <span class="bbcdmx-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="bbcdmx-intro" id="intro-mededul-baby-cdmx">
+    <div class="container">
+      <div class="bbcdmx-intro__grid">
+        <div class="bbcdmx-intro__copy">
+          <span class="bbcdmx-intro__badge">Diseño pastel profesional CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu baby shower en Ciudad de México</h2>
+          <p>El baby shower es <strong>una celebración íntima y emocional</strong> donde cada detalle suma a la experiencia que la mamá futura va a recordar toda la vida. Por eso cada mesa de dulces para baby shower que montamos en CDMX parte de un proceso profesional integral: levantamiento de brief con la mamá o la organizadora, propuesta visual con render conceptual alineado a la temática y el género del bebé, curaduría de producto aesthetic-friendly para fotos editoriales, coordinación con quien dirige el evento, montaje 1-2 h antes y operación cálida durante toda la celebración.</p>
+          <p><strong>Nuestro enfoque de ternura editorial</strong> está construido sobre 8 años montando baby showers en los formatos más íntimos de Ciudad de México: <strong>casas particulares</strong> en zonas residenciales premium (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa), restaurantes boutique con salones privados, hoteles con espacios íntimos, terrazas de eventos y jardines residenciales. Sabemos que el baby shower NO es un evento grande tipo boda — es un encuentro femenino, cálido y emocional donde la mesa debe complementar el ambiente, no robarse la escena.</p>
+          <p>La mesa de dulces para baby shower CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la paleta cromática (rosa bebé / azul cielo / eucalipto verde / blanco-crema neutro / boho botánico), la temática elegida (osito, nube, conejito, safari pastel, jungla suave, gender-neutral) y las necesidades específicas de la mamá embarazada y sus invitadas. Trabajamos con cuidado especial en el <strong>surtido seguro</strong>: sin alcohol, sin café, sin elementos contraindicados durante embarazo, con opciones para invitadas con restricciones alimenticias.</p>
+          <p>Si planeas un <strong>baby shower en CDMX</strong> y buscas una mesa con estándar premium, surtido seguro para mamá futura, backdrop fotográfico tierno y un proveedor que entienda los domicilios y venues boutique de la ciudad, MEDEDUL es el aliado estratégico que necesitas. Si es <strong>gender reveal</strong>, somos especialistas en coordinar el elemento sorpresa con el momento del reveal. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Baby%20Shower%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a coronar el baby shower.</p>
+        </div>
+        <div class="bbcdmx-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/candy-bar-baby-shower-rosa-pastel-flores.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces baby shower pastel MEDEDUL en CDMX rosa con flores y macarons"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes Baby Shower CDMX ===================== -->
+  <PricingPackages
+    id="paquetes-baby-cdmx"
+    badge="Paquetes Baby Shower CDMX"
+    title="Elige el formato para"
+    titleHighlight="tu baby shower en CDMX"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para baby shower CDMX</strong>, pensados para diferentes tamaños y niveles de detalle. El paquete <strong>Esencial</strong> está pensado para baby showers íntimos en casa (20-40 invitadas); el <strong>Premium</strong> es el más solicitado para baby showers medianos (40-80) e incluye backdrop con el nombre del bebé, globos pastel y cajas-recuerdo personalizadas; el <strong>Luxury</strong> es nuestra propuesta editorial para baby showers grandes (80+) e incluye estación complementaria, backdrop floral 360°, sesión fotográfica de la mesa y mini sets con foto del ultrasonido.</p><p>Todos los paquetes incluyen el <strong>mismo estándar tierno de diseño, surtido seguro para mamá embarazada y operación cálida</strong>. Lo que cambia es la escala del surtido y la complejidad del backdrop. Si tu baby shower es <strong>gender reveal</strong>, el elemento sorpresa se integra en cualquiera de los 3 paquetes sin costo adicional — solo necesitamos saber la mecánica del reveal en el brief inicial.</p>`}
+    packages={paquetesBaby}
+    note="💡 <strong>Todos los paquetes Baby Shower CDMX incluyen:</strong> diseño pastel a tu temática, surtido aesthetic-friendly apto para mamá embarazada, cristalería y soportes coordinados, etiquetas con nombre del bebé, montaje 1-2 h antes en domicilio o venue, operación durante el baby, reposición continua y empaque de sobrantes en bolsitas decorativas."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-baby-cdmx"
+    badge="Diferenciadores Baby CDMX"
+    title="Por qué elegir nuestra Mesa de Baby Shower en"
+    titleHighlight="CDMX"
+    descriptions={[
+      "Con <strong>95+ baby showers montados en CDMX</strong> en casas particulares, restaurantes boutique, salones íntimos y jardines residenciales, MEDEDUL es la opción de referencia para mamás futuras y familias que buscan una mesa tierna con surtido seguro y ejecución profesional comprobada.",
+      "Cada mesa de baby shower parte del mismo método: brief con la mamá u organizadora, propuesta visual pastel con render, coordinación con el venue o la dueña de casa, montaje discreto y operación cálida. Lo que cambia es la <strong>paleta</strong>, la <strong>temática</strong> y si hay <strong>gender reveal</strong>; el estándar de cuidado para mamá embarazada es siempre el mismo."
+    ]}
+    stats={[
+      { number: "95+", label: "Baby Showers CDMX" },
+      { number: "25+", label: "Venues + domicilios" },
+      { number: "100%", label: "Apto embarazo" },
+      { number: "5.0", label: "Calificación mamás" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería Baby Shower CDMX ===================== -->
+  <section class="bbcdmx-galeria" id="galeria-baby-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de baby shower reales montadas en"
+        titleHighlight="CDMX"
+        subtitle="Selección curada de baby showers MEDEDUL en domicilios y venues boutique"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>baby shower real</strong> que montamos en Ciudad de México. La paleta, las flores, los globos y el surtido fueron <strong>diseñados específicamente para cada mamá futura</strong> en función de la temática, el género del bebé y el número de invitadas. Si quieres ver más referencias por estilo (rosa pastel niña, azul cielo niño, eucalipto botánico, gender-neutral beige) escríbenos por WhatsApp y te enviamos un portafolio dirigido.</p>`}
+      />
+
+      <div class="bbcdmx-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="bbcdmx-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="bbcdmx-incluye">
+    <div class="container">
+      <div class="bbcdmx-incluye__header">
+        <span class="bbcdmx-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa para Baby Shower CDMX</span>?</h2>
+        <p>Servicio integral tierno: diseño pastel, curaduría apta para embarazo, mobiliario, coordinación, montaje discreto, operación cálida y empaque</p>
+      </div>
+
+      <div class="bbcdmx-incluye__grid">
+        {incluye.map(item => (
+          <div class="bbcdmx-incluye__card">
+            <span class="bbcdmx-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso Baby Shower CDMX ===================== -->
+  <ProcessSteps
+    id="proceso-baby-cdmx"
+    badge="Cómo trabajamos los baby shower en CDMX"
+    title="4 pasos para tu"
+    titleHighlight="Mesa de Baby CDMX"
+    subtitle="Proceso profesional coordinado con la mamá futura y la organizadora"
+    content={`<p>Nuestro proceso está diseñado para que <strong>el baby shower fluya sin estrés</strong>. Desde el primer brief hasta el desmontaje final, cada etapa tiene tiempos definidos, un responsable claro y entregables específicos. La mamá futura no tiene que preocuparse por nada — solo disfrutar la celebración con sus invitadas.</p><p>Conocemos los <strong>tiempos críticos de cada tipo de venue baby</strong> — desde el acceso a un domicilio en Lomas hasta el protocolo de Restaurante Saks — lo que nos permite ajustar nuestros tiempos al ritmo del evento, los juegos, los regalos y la comida sin causar fricción.</p>`}
+    steps={procesoBaby}
+  />
+
+  <!-- ===================== Venues Baby donde hemos montado ===================== -->
+  <section class="bbcdmx-venues" id="venues-baby-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Venues y domicilios de baby shower donde hemos montado en"
+        titleHighlight="CDMX"
+        subtitle="25+ formatos con experiencia comprobada (casas, restaurantes, hoteles boutique)"
+        content={`<p>Cada baby shower CDMX se celebra en un formato distinto: muchas familias optan por <strong>domicilios particulares</strong> en zonas residenciales premium, otras eligen <strong>restaurantes boutique</strong> con salones privados, y algunas familias grandes reservan <strong>hoteles boutique</strong> con salones íntimos. En MEDEDUL trabajamos los 3 formatos con la misma calidad y discreción.</p>`}
+      />
+
+      <div class="bbcdmx-venues__grid">
+        {venuesBaby.map(v => (
+          <div class="bbcdmx-venue-card">
+            <span class="bbcdmx-venue-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+              </svg>
+            </span>
+            <div class="bbcdmx-venue-card__body">
+              <span class="bbcdmx-venue-card__name">{v.nombre}</span>
+              <div class="bbcdmx-venue-card__meta">
+                <span class="bbcdmx-venue-card__zona">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {v.zona}
+                </span>
+                <span class="bbcdmx-venue-card__tipo">{v.tipo}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="bbcdmx-venues__nota">
+        ¿Tu baby será en otro lugar? Trabajamos en cualquier domicilio, restaurante, jardín o venue boutique en CDMX. Probablemente ya conocemos uno similar. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20mi%20baby%20shower%20es%20en%20[lugar]%20%C2%BFTienen%20experiencia%20ahi%3F">Pregúntanos por tu lugar específico</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Cobertura CDMX (homologado SectionHeader) ===================== -->
+  <section class="bbcdmx-zonas" id="zonas-baby-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura completa en"
+        titleHighlight="CDMX"
+        subtitle="Montamos mesas de baby shower en cualquier zona de Ciudad de México"
+        content={`<p>Desde nuestras sucursales de <strong>Anzures (Miguel Hidalgo)</strong> y <strong>Condesa (Cuauhtémoc)</strong> llegamos puntualmente a cualquier domicilio o venue boutique de CDMX y zona metropolitana en <strong>menos de 30 minutos</strong>. Operamos con 9 zonas que cuentan con página dedicada de cobertura y 21 zonas adicionales cubiertas sin restricciones.</p>`}
+      />
+
+      <div class="bbcdmx-zonas__subseccion">
+        <header class="bbcdmx-zonas__subheader">
+          <span class="bbcdmx-zonas__numero">01</span>
+          <div>
+            <h3>Zonas premium con página dedicada</h3>
+            <p>9 zonas con información detallada de cobertura, domicilios típicos y casos reales de baby shower.</p>
+          </div>
+        </header>
+
+        <div class="bbcdmx-zonas__grid">
+          {zonasPremium.map(z => (
+            <a href={z.href} class:list={['bbcdmx-zona-card', { 'bbcdmx-zona-card--destacada': z.destacada }]}>
+              <span class="bbcdmx-zona-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="bbcdmx-zona-card__body">
+                <span class="bbcdmx-zona-card__nombre">{z.nombre}</span>
+                <span class="bbcdmx-zona-card__alcaldia">{z.alcaldia}</span>
+              </div>
+              {z.destacada && <span class="bbcdmx-zona-card__badge">Top</span>}
+              <span class="bbcdmx-zona-card__arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="bbcdmx-zonas__subseccion">
+        <header class="bbcdmx-zonas__subheader">
+          <span class="bbcdmx-zonas__numero">02</span>
+          <div>
+            <h3>Cobertura adicional CDMX y zona metropolitana</h3>
+            <p>21 zonas más cubiertas sin restricciones. Mismo servicio tierno, mismos paquetes, sin costos ocultos de traslado.</p>
+          </div>
+        </header>
+
+        <div class="bbcdmx-zonas__pills">
+          {zonasAdicionales.map(z => (
+            <span class="bbcdmx-zona-pill">{z}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="bbcdmx-zonas__cta">
+        <p>¿No ves tu zona? <strong>Cubrimos las 16 alcaldías de CDMX y zona metropolitana premium</strong>.</p>
+        <a href="/zonas-cdmx" class="bbcdmx-zonas__cta-btn">
+          Ver todas las zonas CDMX
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios Baby Shower CDMX ===================== -->
+  <section class="bbcdmx-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de baby shower reales en"
+        titleHighlight="CDMX"
+        subtitle="Lo que dicen las mamás y familias que ya celebraron con MEDEDUL"
+      />
+      <div class="bbcdmx-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars CDMX (cross-link) ===================== -->
+  <section class="bbcdmx-otros-eventos" id="otros-candy-bars-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Descubre nuestros otros Candy Bars en CDMX"
+        titleHighlight="CDMX"
+        subtitle="Otros 4 montajes especializados que operamos en Ciudad de México"
+        content={`<p>Además del <strong>baby shower</strong>, MEDEDUL opera montajes especializados en CDMX para <strong>boda, XV Años, cumpleaños infantil y eventos corporativos</strong>. Si después del baby shower también necesitas mesa para el <strong>primer cumpleaños del bebé</strong> o un bautizo, podemos cotizar con descuento por cliente recurrente.</p>`}
+      />
+
+      <div class="bbcdmx-otros-eventos__grid">
+        {eventos.map(ev => (
+          <ServiceCard
+            href={ev.href}
+            image={ev.img}
+            alt={`${ev.title} por MEDEDUL`}
+            title={ev.title}
+            excerpt={ev.excerpt}
+            badge={ev.badge}
+            cta={ev.cta}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Baby Shower CDMX — Subsección Mesa de Dulces L5
+     Prefijo: bbcdmx-
+     ========================================================== */
+
+  /* ---------- Stats ---------- */
+  .bbcdmx-stats {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+  .bbcdmx-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+  .bbcdmx-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 14px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+  .bbcdmx-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rosa-principal, #D1007A);
+    line-height: 1;
+  }
+  .bbcdmx-stat__label {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    font-weight: 500;
+  }
+
+  /* ---------- Intro SEO ---------- */
+  .bbcdmx-intro {
+    padding: 90px 0;
+    background: #fff;
+  }
+  .bbcdmx-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .bbcdmx-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+  .bbcdmx-intro__copy h2 {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 22px;
+  }
+  .bbcdmx-intro__copy h2 span { color: var(--rosa-principal, #D1007A); }
+  .bbcdmx-intro__copy p {
+    font-size: 1.02rem;
+    color: var(--texto-light, #555);
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+  .bbcdmx-intro__copy strong { color: var(--texto-oscuro, #1a1a1a); }
+  .bbcdmx-intro__copy a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .bbcdmx-intro__visual {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  }
+  .bbcdmx-intro__visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Galería ---------- */
+  .bbcdmx-galeria {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
+  }
+  .bbcdmx-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 200px);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .bbcdmx-galeria__item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+  .bbcdmx-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .bbcdmx-galeria__item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .bbcdmx-galeria__item:nth-child(5),
+  .bbcdmx-galeria__item:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  /* ---------- Incluye ---------- */
+  .bbcdmx-incluye {
+    padding: 90px 0;
+    background: #fff;
+  }
+  .bbcdmx-incluye__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+  .bbcdmx-incluye__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .bbcdmx-incluye__header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+  .bbcdmx-incluye__header h2 span { color: var(--rosa-principal, #D1007A); }
+  .bbcdmx-incluye__header p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+  }
+  .bbcdmx-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .bbcdmx-incluye__card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  }
+  .bbcdmx-incluye__num {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .bbcdmx-incluye__card h4 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+  .bbcdmx-incluye__card p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- Venues ---------- */
+  .bbcdmx-venues {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+  .bbcdmx-venues__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+  }
+  .bbcdmx-venue-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  }
+  .bbcdmx-venue-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+  }
+  .bbcdmx-venue-card__body {
+    flex-grow: 1;
+    min-width: 0;
+  }
+  .bbcdmx-venue-card__name {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 4px;
+  }
+  .bbcdmx-venue-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--texto-light, #666);
+    flex-wrap: wrap;
+  }
+  .bbcdmx-venue-card__zona {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bbcdmx-venue-card__tipo {
+    padding: 2px 10px;
+    background: #fff0f7;
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 50px;
+    font-weight: 600;
+  }
+  .bbcdmx-venues__nota {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.95rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+  }
+  .bbcdmx-venues__nota a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+  }
+
+  /* ---------- Cobertura CDMX ---------- */
+  .bbcdmx-zonas {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+  .bbcdmx-zonas__subseccion { margin-bottom: 44px; }
+  .bbcdmx-zonas__subseccion:first-of-type { margin-top: 12px; }
+  .bbcdmx-zonas__subseccion:last-of-type { margin-bottom: 0; }
+  .bbcdmx-zonas__subheader {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.12);
+  }
+  .bbcdmx-zonas__numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.22);
+  }
+  .bbcdmx-zonas__subheader h3 {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 4px;
+    font-weight: 700;
+  }
+  .bbcdmx-zonas__subheader p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .bbcdmx-zonas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .bbcdmx-zona-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--texto-oscuro, #1a1a1a);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    position: relative;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  .bbcdmx-zona-card:hover {
+    border-color: var(--rosa-principal, #D1007A);
+    background: #fefcfd;
+  }
+  .bbcdmx-zona-card--destacada {
+    border-color: rgba(233, 30, 140, 0.25);
+    background: linear-gradient(180deg, #fff 0%, #fef9fc 100%);
+  }
+  .bbcdmx-zona-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.10), rgba(160, 0, 95, 0.06));
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .bbcdmx-zona-card:hover .bbcdmx-zona-card__icon {
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+  }
+  .bbcdmx-zona-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .bbcdmx-zona-card__nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+  }
+  .bbcdmx-zona-card__alcaldia {
+    font-size: 0.76rem;
+    color: var(--texto-light, #666);
+    line-height: 1.3;
+  }
+  .bbcdmx-zona-card__badge {
+    position: absolute;
+    top: -7px;
+    right: 14px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(209, 0, 122, 0.28);
+  }
+  .bbcdmx-zona-card__arrow {
+    color: #c5c5cf;
+    flex-shrink: 0;
+    transition: color .15s ease;
+  }
+  .bbcdmx-zona-card:hover .bbcdmx-zona-card__arrow {
+    color: var(--rosa-principal, #D1007A);
+  }
+  .bbcdmx-zonas__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .bbcdmx-zona-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 50px;
+    color: var(--texto-light, #555);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .bbcdmx-zona-pill::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--rosa-principal, #D1007A);
+    border-radius: 50%;
+    opacity: .6;
+  }
+  .bbcdmx-zonas__cta {
+    margin-top: 40px;
+    padding: 26px 30px;
+    background: #fff;
+    border: 1px dashed rgba(233, 30, 140, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .bbcdmx-zonas__cta p {
+    font-size: 0.98rem;
+    color: var(--texto-light, #555);
+    margin: 0;
+    flex: 1;
+    min-width: 240px;
+  }
+  .bbcdmx-zonas__cta strong { color: var(--texto-oscuro, #1a1a1a); }
+  .bbcdmx-zonas__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.25);
+    transition: box-shadow .15s ease, background-color .15s ease;
+  }
+  .bbcdmx-zonas__cta-btn:hover {
+    box-shadow: 0 8px 24px rgba(209, 0, 122, 0.38);
+  }
+
+  /* ---------- Testimonios ---------- */
+  .bbcdmx-testimonios {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+  .bbcdmx-testimonios__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  /* ---------- Otros candy bars CDMX ---------- */
+  .bbcdmx-otros-eventos {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+  .bbcdmx-otros-eventos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  /* ==========================================================
+     Responsive
+     ========================================================== */
+  @media (max-width: 1024px) {
+    .bbcdmx-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbcdmx-intro__grid { grid-template-columns: 1fr; gap: 40px; }
+    .bbcdmx-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .bbcdmx-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .bbcdmx-galeria__item:nth-child(5),
+    .bbcdmx-galeria__item:nth-child(6) { grid-column: span 1; }
+    .bbcdmx-incluye__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbcdmx-venues__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbcdmx-zonas__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbcdmx-otros-eventos__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbcdmx-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .bbcdmx-stats,
+    .bbcdmx-intro,
+    .bbcdmx-galeria,
+    .bbcdmx-incluye,
+    .bbcdmx-venues,
+    .bbcdmx-zonas,
+    .bbcdmx-otros-eventos,
+    .bbcdmx-testimonios { padding: 60px 0; }
+    .bbcdmx-intro__copy h2,
+    .bbcdmx-incluye__header h2 { font-size: 1.6rem; }
+    .bbcdmx-intro__copy p { font-size: 0.95rem; }
+    .bbcdmx-incluye__grid { grid-template-columns: 1fr; }
+    .bbcdmx-incluye__card { padding: 26px 22px; }
+    .bbcdmx-venues__grid { grid-template-columns: 1fr; }
+    .bbcdmx-zonas__grid { grid-template-columns: 1fr; }
+    .bbcdmx-zonas__subheader { gap: 12px; }
+    .bbcdmx-zonas__numero { width: 38px; height: 38px; font-size: 0.85rem; }
+    .bbcdmx-zonas__subheader h3 { font-size: 1.05rem; }
+    .bbcdmx-zonas__subheader p { font-size: 0.85rem; }
+    .bbcdmx-zona-card { padding: 14px 16px; }
+    .bbcdmx-zona-card__nombre { font-size: 0.9rem; }
+    .bbcdmx-zona-card__alcaldia { font-size: 0.74rem; }
+    .bbcdmx-zonas__cta { padding: 22px 20px; flex-direction: column; align-items: flex-start; text-align: left; }
+    .bbcdmx-zonas__cta-btn { width: 100%; justify-content: center; }
+    .bbcdmx-otros-eventos__grid { grid-template-columns: 1fr; }
+    .bbcdmx-testimonios__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .bbcdmx-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .bbcdmx-stat { padding: 18px 12px; }
+    .bbcdmx-stat__num { font-size: 1.5rem; }
+    .bbcdmx-stat__label { font-size: 0.78rem; }
+    .bbcdmx-intro__copy h2 { font-size: 1.4rem; }
+  }
+</style>

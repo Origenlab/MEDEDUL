@@ -1,0 +1,1225 @@
+---
+// Mesa de Frutas - Sucursal CDMX
+// Página exclusiva de la sucursal CDMX para el servicio Mesa de Frutas (arreglos frutales premium)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'CDMX', url: '/sucursales/cdmx' },
+  { name: 'Mesa de Frutas', url: '/sucursales/cdmx/mesa-de-frutas' }
+];
+
+// =============== Sub-secciones Mesa de Frutas (estilos clave en CDMX) ===============
+const subsecciones = [
+  {
+    title: 'Brochetas Artesanales',
+    sublabel: 'Frutas frescas ensartadas',
+    excerpt: 'Brochetas individuales montadas el mismo día del evento con fresa, uva, kiwi, piña y melón. Listas para servir, perfectas para coffee breaks corporativos en Polanco/Reforma y bodas de día en haciendas CDMX. Higiene impecable y porción controlada por invitado.',
+    img: '/img/tipos-de-mesas/frutas/arreglo-frutas-naturales-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Más solicitado',
+    cta: 'Ver Brochetas CDMX'
+  },
+  {
+    title: 'Torres Decorativas',
+    sublabel: 'Presentación escultural',
+    excerpt: 'Estructuras multinivel con sandía tallada, piña esculpida y arreglos verticales que funcionan como centro de mesa fotogénico. Diseño editorial para bodas en Hotel W, Four Seasons y haciendas CDMX. Alturas de 80 cm a 1.5 m según evento.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-tropicales-fiestas.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Exclusivo CDMX',
+    cta: 'Ver Torres CDMX'
+  },
+  {
+    title: 'Con Chocolate Belga',
+    sublabel: 'La combinación perfecta',
+    excerpt: 'Mesa de frutas + fuente de chocolate belga premium. Fresas, plátano, piña y malvaviscos para sumergir directamente en cascada de chocolate fundido. La estación que siempre genera fila feliz en XV Años y bodas CDMX. Operador profesional incluido.',
+    img: '/img/blog/donas-gourmet-chocolate-frutas-01.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Combo Premium',
+    cta: 'Ver Combo Chocolate'
+  },
+  {
+    title: 'Cortes Tropicales',
+    sublabel: 'Mango, piña, papaya y más',
+    excerpt: 'Buffet tropical en bandejas talladas con mango ataulfo, piña miel, papaya, melón y sandía. Opciones con chamoy, chile y limón para XV Años y bodas mexicanas. Perfecto para eventos de día en jardines CDMX y EdoMex. Reposición continua todo el evento.',
+    img: '/img/blog/mesa-frutas-tropicales-mango-papaya-01.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Sabor Mexicano',
+    cta: 'Ver Tropicales CDMX'
+  }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '300+', label: 'Mesas de frutas CDMX' },
+  { number: '8+', label: 'Años operando en CDMX' },
+  { number: '2', label: 'Sucursales (Anzures + Condesa)' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== Características CDMX-Mesa de Frutas ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Fruta seleccionada en Central de Abasto CDMX',
+    desc: 'Surtimos en la Central de Abasto Iztapalapa la madrugada del evento. Solo fruta en su punto óptimo de madurez, color y textura. Cero piezas pasadas, cero compromisos.',
+    img: '/img/blog/frutas-frescas-fresas-higos-uvas-01.avif'
+  },
+  {
+    num: 2,
+    title: 'Montaje el mismo día para conservar frescura',
+    desc: 'Cortamos y montamos en venue 2-3 h antes del evento. Cadena de frío controlada desde Anzures/Condesa hasta tu hotel, hacienda o salón en CDMX. La fruta llega impecable.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif'
+  },
+  {
+    num: 3,
+    title: 'Presentación editorial e instagramable',
+    desc: 'Bandejas de cristal, tablas de madera, soportes multinivel, frutas talladas, pinchos decorativos y flores comestibles. Mesa de frutas que funciona como backdrop fotográfico.',
+    img: '/img/blog/mesa-frutas-exoticas-gourmet-01.avif'
+  },
+  {
+    num: 4,
+    title: 'Logística CDMX sin fricción',
+    desc: 'Salimos de Anzures o Condesa según tu venue, conservamos cadena de frío, montamos 2-3 h antes y desmontamos discretamente al cierre. Coordinación directa con planner y coordinador de hotel.',
+    img: '/img/tipos-de-mesas/frutas/renta-mesa-frutas-ciudad-mexico.avif'
+  }
+];
+
+// =============== Paquetes Mesa de Frutas CDMX ===============
+const paquetesMesaFrutasCdmx = [
+  {
+    name: 'CDMX Esencial',
+    icon: '🍓',
+    price: '$4,800',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para eventos íntimos CDMX',
+    features: [
+      'Bandeja amplia con 6-8 frutas frescas de temporada',
+      'Sandía, mango, kiwi, piña, fresas y uvas',
+      'Pinchos decorativos y cristalería elegante',
+      'Centro de mesa multinivel',
+      '4 horas de servicio',
+      'Operador de mesa incluido',
+      'Traslado en zonas centrales CDMX'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20de%20Frutas%20CDMX%20-%20Paquete%20Esencial'
+  },
+  {
+    name: 'CDMX Premium',
+    icon: '⭐',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opción más solicitada en CDMX',
+    features: [
+      '10-12 frutas premium y tropicales',
+      'Frutas talladas tipo escultura (sandía, piña, papaya)',
+      'Buffet multinivel con bandejas y soportes dorados',
+      'Brochetas artesanales individuales',
+      'Toppings: chamoy, chile, limón, miel',
+      '5 horas de servicio + reposición continua',
+      'Coordinación con tu venue y planner',
+      'Traslado incluido CDMX completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20de%20Frutas%20CDMX%20-%20Paquete%20Premium'
+  },
+  {
+    name: 'CDMX Luxury',
+    icon: '💎',
+    price: '$13,900',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia tropical alto nivel',
+    features: [
+      '15+ variedades incluyendo frutas exóticas',
+      'Maracuyá, lichis, rambutanes, pitaya y físalis',
+      'Estructuras escultóricas + arreglo floral comestible',
+      'Fuente de chocolate belga incluida',
+      'Servicio completo durante todo el evento',
+      'Operador dedicado de mesa de frutas',
+      'Backdrop floral / branding extendido',
+      'Foto profesional de tu mesa'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20de%20Frutas%20CDMX%20-%20Paquete%20Luxury'
+  }
+];
+
+// =============== Proceso CDMX ===============
+const procesoCdmx = [
+  {
+    num: 1,
+    title: 'Contáctanos',
+    desc: 'Escríbenos por WhatsApp o llena el formulario con tipo de evento, fecha, número de invitados y zona de CDMX. Te asignamos sucursal (Anzures o Condesa).'
+  },
+  {
+    num: 2,
+    title: 'Diseñamos',
+    desc: 'En menos de 24 h recibes propuesta visual: selección de frutas, paleta cromática, render conceptual y cotización cerrada. Cero sorpresas, cero costos ocultos.'
+  },
+  {
+    num: 3,
+    title: 'Confirmamos',
+    desc: 'Apartas tu fecha con anticipo del 50% y cerramos el surtido final. Surtimos en Central de Abasto la madrugada del evento. Coordinamos con tu venue y planner.'
+  },
+  {
+    num: 4,
+    title: 'Disfrutas',
+    desc: 'Llegamos 2-3 h antes, cortamos y montamos en sitio, operamos durante el evento con reposición continua y desmontamos discretamente al cierre. Tú solo celebras.'
+  }
+];
+
+// =============== Galería CDMX (Mesa de Frutas) ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif', alt: 'Mesa de frutas frescas para eventos elegantes en CDMX' },
+  { src: '/img/blog/mesa-frutas-premium-eventos-cdmx-01.avif', alt: 'Mesa de frutas premium para eventos en CDMX' },
+  { src: '/img/blog/mesa-frutas-tropicales-evento-elegante-01.avif', alt: 'Mesa de frutas tropicales para evento elegante CDMX' },
+  { src: '/img/blog/mesa-frutas-exoticas-gourmet-01.avif', alt: 'Mesa de frutas exóticas gourmet eventos CDMX' },
+  { src: '/img/tipos-de-mesas/frutas/mesa-frutas-variadas-cdmx.avif', alt: 'Mesa de frutas variadas CDMX' },
+  { src: '/img/blog/mesa-frutas-frescas-cristaleria-01.avif', alt: 'Mesa de frutas frescas con cristalería elegante CDMX' }
+];
+
+// =============== Qué incluye ===============
+const incluye = [
+  { num: '01', title: 'Frutas Frescas Premium', desc: 'De 6 a 15+ variedades según paquete: fresa, uva, kiwi, piña miel, sandía, mango ataulfo, papaya, melón, naranja, mandarina, manzana, durazno. En Luxury sumamos maracuyá, lichi, rambután, pitaya y físalis. Surtimos en Central de Abasto la madrugada del evento.' },
+  { num: '02', title: 'Presentación Editorial CDMX', desc: 'Bandejas de cristal, tablas de madera natural, soportes dorados multinivel, frutas talladas (sandía, piña, papaya), pinchos decorativos, flores comestibles y atrezzo coordinado a tu paleta. Estilo vintage, tropical, gourmet o instagramable según tu evento.' },
+  { num: '03', title: 'Mobiliario Profesional', desc: 'Estructura de mesa, cristalería completa, exhibidores acrílicos, bases tipo cake stand, bandejas decorativas, hieleras camufladas para conservar frescura e iluminación LED opcional para evento nocturno.' },
+  { num: '04', title: 'Cadena de Frío y Montaje CDMX', desc: 'Cadena de frío controlada desde nuestras sucursales Anzures y Condesa hasta tu venue. Llegamos 2-3 h antes, cortamos y montamos en sitio para conservar color, textura y frescura. Operación impecable durante todo el evento.' },
+  { num: '05', title: 'Toppings y Acompañantes', desc: 'Chamoy artesanal, chile en polvo, limón fresco, miel de abeja, granola, yogurt griego, crema chantilly y chocolate fundido (en Premium y Luxury). Personalizable según tipo de evento: dulce, mexicano o gourmet.' },
+  { num: '06', title: 'Asesoría Especializada CDMX', desc: 'Conocemos los venues, reglamentos sanitarios y tiempos de CDMX. Te guiamos en selección de frutas según temporada, presentación según tu hotel/hacienda/salón y porción según número de invitados.' }
+];
+
+// =============== Eventos compatibles (8) ===============
+const eventos = [
+  {
+    title: 'Mesa de Frutas para Bodas CDMX',
+    excerpt: 'Mesas frutales editoriales para bodas elegantes. Perfectas para brunches de boda, ceremonias de día y como contrapeso ligero al menú nupcial. Trabajamos en Hotel W, Four Seasons, Hacienda de los Morales y Casa Lamm.',
+    img: '/img/blog/mesa-frutas-tropicales-evento-elegante-02.avif',
+    badge: 'Favorito',
+    href: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda',
+    cta: 'Ver Bodas CDMX'
+  },
+  {
+    title: 'Mesa de Frutas XV Años CDMX',
+    excerpt: 'Frutas tropicales con chamoy y chile para la sed del baile. Brochetas individuales, sandía tallada y opciones aesthetic-friendly para Instagram. Ideal para XV con temática tropical, beach, mexicana o moderna en CDMX.',
+    img: '/img/blog/mesa-frutas-naturales-fiesta-01.avif',
+    badge: 'Popular',
+    href: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos',
+    cta: 'Ver XV Años CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Baby Shower CDMX',
+    excerpt: 'Opción saludable y refrescante apta para mamá embarazada. Frutas en cortes seguros, sin chamoy ni picante, con presentación pastel tierna. Cobertura en domicilios y venues boutique de Roma, Condesa, Polanco y Lomas.',
+    img: '/img/blog/mesa-frutas-frescas-eventos-01.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/baby-shower',
+    badge: 'Pastel CDMX',
+    cta: 'Ver Baby Shower CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Eventos Corporativos',
+    excerpt: 'Coffee breaks, lanzamientos y convenciones B2B en Polanco, Santa Fe y Reforma. Opción saludable, branding integrado y montaje sobrio. Coordinación con áreas de catering corporativo y RH.',
+    img: '/img/blog/mesa-frutas-premium-eventos-cdmx-02.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Bautizos y Comuniones',
+    excerpt: 'Presentación tierna y refrescante para celebración religiosa. Frutas en bandejas blancas con detalles dorados o azul-plata. Funciona perfecto en eventos de día tras la ceremonia en iglesias y salones CDMX.',
+    img: '/img/blog/mesa-frutas-variadas-evento-social-01.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver Bautizos CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Cumpleaños',
+    excerpt: 'Opción fresca y colorida para cumpleaños adulto e infantil. Brochetas individuales, frutas con chocolate y opciones con chamoy para fiestas en CDMX. Control de alergias y porción por invitado.',
+    img: '/img/blog/mesa-frutas-variadas-evento-social-02.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil',
+    cta: 'Ver Cumpleaños CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Brunch y Coffee Break',
+    excerpt: 'Para eventos de día: brunches de boda, juntas ejecutivas, reuniones VIP y desayunos corporativos. Combina perfecto con barra de jugos, café y pastelería fina. Cobertura completa CDMX.',
+    img: '/img/blog/servicio-mesa-frutas-profesional-01.avif',
+    href: '/candy-bar-eventos',
+    cta: 'Ver Brunches CDMX'
+  },
+  {
+    title: 'Mesa de Frutas Graduaciones',
+    excerpt: 'Celebra el logro académico con opción fresca y ligera. Paleta de tu universidad, frutas en bandejas elegantes y combinación con barra de snacks. CDMX zonas universitarias: UNAM, IPN, ITAM, Anáhuac, La Salle.',
+    img: '/img/blog/arreglo-frutas-naturales-eventos-01.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Graduaciones CDMX'
+  }
+];
+
+// =============== Testimonios CDMX (Mesa de Frutas) ===============
+const testimonios = [
+  {
+    name: 'Valentina y Rodrigo',
+    initials: 'VR',
+    review: 'La mesa de frutas en nuestro brunch de boda en Hotel Presidente fue espectacular. Frutas perfectamente frescas, presentación de revista y los invitados no paraban de fotografiarla.',
+    event: 'Brunch de Boda Hotel Presidente',
+    rating: 5
+  },
+  {
+    name: 'Laura Mendoza',
+    initials: 'LM',
+    review: 'Para los XV de mi hija en Hacienda Los Morales pedimos mesa de frutas tropicales con chamoy y fue el hit. Sandía tallada increíble, fruta súper fresca y operador muy profesional.',
+    event: 'XV Años Hacienda de los Morales',
+    rating: 5
+  },
+  {
+    name: 'Andrea Gutiérrez',
+    initials: 'AG',
+    review: 'Contraté la mesa de frutas para mi baby shower en Roma Norte. Sin chamoy por mi embarazo, presentación pastel tierna y fruta de excelente calidad. Servicio impecable.',
+    event: 'Baby Shower Roma Norte',
+    rating: 5
+  }
+];
+
+// =============== FAQ Mesa de Frutas CDMX ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de frutas en CDMX?',
+    answer: 'Surtido premium de frutas frescas seleccionadas en Central de Abasto la madrugada del evento (6 a 15+ variedades según paquete), mobiliario completo (bandejas de cristal, tablas de madera, soportes dorados multinivel), frutas talladas (sandía, piña, papaya), brochetas artesanales, toppings (chamoy, chile, limón, miel), montaje 2-3 h antes, operación durante el evento, reposición continua, desmontaje y empaque de sobrantes.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de frutas en CDMX?',
+    answer: 'Iniciamos en $4,800 MXN (CDMX Esencial, 30-60 invitados) y llegamos a $13,900 MXN (CDMX Luxury, 120+ invitados con frutas exóticas y fuente de chocolate belga). El precio depende de tipo de fruta, número de invitados, duración del servicio y nivel de personalización. Cotización gratuita en menos de 24 horas.'
+  },
+  {
+    question: '¿Qué frutas incluyen y son de temporada?',
+    answer: 'En Esencial: fresa, uva, kiwi, piña, sandía, melón y mango. En Premium sumamos papaya, mandarina, manzana, naranja, durazno y frutas talladas. En Luxury incluimos exóticas: maracuyá, lichi, rambután, pitaya, físalis y frutas importadas. Adaptamos la selección a temporada para garantizar frescura óptima y mejor precio.'
+  },
+  {
+    question: '¿La fruta se prepara el mismo día del evento?',
+    answer: 'Sí. Surtimos en Central de Abasto Iztapalapa la madrugada del evento, transportamos con cadena de frío desde nuestras sucursales Anzures/Condesa y cortamos directamente en el venue 2-3 h antes del inicio. Esto garantiza que cada pieza de fruta llegue a tus invitados en su punto óptimo de frescura, color y textura.'
+  },
+  {
+    question: '¿En qué zonas de CDMX dan servicio?',
+    answer: 'Cubrimos las 16 alcaldías de CDMX y zona metropolitana premium: Polanco, Santa Fe, Condesa, Roma Norte, Anzures, Del Valle, Coyoacán, Narvarte, Lomas, Pedregal, Interlomas, Satélite. Operamos desde nuestras dos sucursales fijas (Anzures + Condesa) para llegar en menos de 30 min con cadena de frío controlada.'
+  },
+  {
+    question: '¿Puedo combinar mesa de frutas con chamoy, chile o chocolate?',
+    answer: 'Por supuesto. En CDMX Premium incluimos toppings de chamoy artesanal, chile en polvo, limón fresco, miel y granola. En CDMX Luxury sumamos fuente de chocolate belga incluida para sumergir fresas, plátano, piña y malvaviscos. Ideal para XV Años, bodas mexicanas y eventos con identidad mexicana.'
+  },
+  {
+    question: '¿Es apta para mamá embarazada en baby shower?',
+    answer: 'Sí. Para baby shower armamos versión especial sin chamoy ni picante, con cortes seguros, frutas lavadas con extra precaución y opciones aptas para mamá embarazada. Lo coordinamos en la propuesta inicial según indicaciones médicas. Cobertura en domicilios y venues boutique de Roma, Condesa, Polanco y Lomas.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Para bodas y XV en temporada alta CDMX (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. Para eventos corporativos, baby showers y cumpleaños suelen ser suficientes 3-4 semanas. Trabajamos por orden de confirmación con anticipo del 50%.'
+  },
+  {
+    question: '¿Qué pasa con la fruta que sobra?',
+    answer: 'La fruta que sobra es tuya. Al finalizar tu evento empacamos los sobrantes en bandejas selladas con cadena de frío para que las disfrutes los días siguientes o las regales a tus invitados. Es parte del servicio en todos los paquetes Esencial, Premium y Luxury.'
+  },
+  {
+    question: '¿El traslado dentro de CDMX tiene costo adicional?',
+    answer: 'En CDMX Premium y CDMX Luxury el traslado a cualquier zona está incluido. En CDMX Esencial el traslado está incluido en zonas centrales (Polanco, Roma, Condesa, Del Valle, Coyoacán, Anzures); para zonas más alejadas (Pedregal, Tlalpan, Xochimilco, Interlomas, Satélite) se cotiza un costo simbólico de logística.'
+  }
+];
+
+// =============== Otras estaciones complementarias ===============
+const estaciones = [
+  {
+    title: 'Fuente de Chocolate',
+    desc: 'El complemento perfecto para tu mesa de frutas. Chocolate belga premium en cascada para sumergir fresas, plátano, piña y malvaviscos. Operador profesional incluido durante todo el evento.',
+    img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
+    badge: 'Combo Premium',
+    badgeColor: '#8B4513',
+    link: '/estaciones-interactivas/fuente-de-chocolate',
+    features: ['Chocolate belga premium', 'Frutas y acompañantes incluidos', 'Operador profesional CDMX']
+  },
+  {
+    title: 'Fuente de Chamoy',
+    desc: 'Auténtico sabor mexicano para potenciar tu mesa de frutas. Chamoy artesanal con gomitas, mango, pepino, jícama y duraznos. Personalizable en nivel de picante. Perfecta para XV Años, bodas mexicanas y fiestas CDMX.',
+    img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif',
+    badge: 'Sabor Mexicano',
+    badgeColor: '#FF6B35',
+    link: '/estaciones-interactivas/fuente-de-chamoy',
+    features: ['Chamoy artesanal premium', 'Operador durante todo el evento', 'Ideal para +50 invitados']
+  },
+  {
+    title: 'Mesa de Dulces Clásica',
+    desc: 'Combina tu mesa de frutas con candy bar clásico para cobertura total: dulces para los niños, frutas para los adultos. La fórmula que arrasa en bodas, XV y eventos corporativos CDMX.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    badge: 'Más Popular',
+    badgeColor: '#7A2BC2',
+    link: '/sucursales/cdmx/mesa-de-dulces',
+    features: ['+15 variedades de dulces premium', 'Mobiliario coordinado a frutas', 'Experiencia gastronómica completa']
+  },
+  {
+    title: 'Mesa de Postres Gourmet',
+    desc: 'Frutas + alta repostería boutique = banquete completo. Macarons franceses, tartaletas con frutos rojos y mini-pasteles. Combinación premium para bodas y XV editoriales CDMX.',
+    img: '/img/galeria/mesa-postres-gourmet-premium-elegante.avif',
+    badge: 'Boutique CDMX',
+    badgeColor: '#d4af37',
+    link: '/sucursales/cdmx/mesa-de-postres',
+    features: ['Chocolate Valrhona premium', 'Carta del chef firma', 'Protocolo hotel 5 estrellas']
+  },
+  {
+    title: 'Tabla Gourmet de Quesos',
+    desc: 'Contraste salado para tu mesa de frutas: quesos europeos D.O.P. (Brie, Manchego, Parmigiano) y charcutería reserva (Jamón Ibérico, Prosciutto di Parma). Maestro cortador en sitio.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    badge: 'Sofisticación EU',
+    badgeColor: '#a87a3c',
+    link: '/sucursales/cdmx/mesa-de-quesos-y-embutidos',
+    features: ['25+ productos D.O.P.', 'Maestro cortador profesional', 'Sommelier de quesos opcional']
+  }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+const stationWidths = [240, 320, 400, 560, 720];
+const stationSizes = '(max-width: 1024px) 100vw, 420px';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-frutas#service",
+      "name": "Mesa de Frutas en CDMX",
+      "serviceType": "Mesa de Frutas Premium para Eventos",
+      "description": "Mesa de frutas premium en Ciudad de México para bodas, XV años, baby shower, eventos corporativos y celebraciones sociales. Fruta surtida en Central de Abasto la madrugada del evento, cadena de frío controlada, presentación editorial. Operación desde sucursales Anzures y Condesa, cobertura completa CDMX.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal CDMX",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+          "addressLocality": "Anzures, Miguel Hidalgo",
+          "postalCode": "11590",
+          "addressRegion": "Ciudad de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4800",
+        "highPrice": "13900",
+        "offerCount": "3",
+        "offers": paquetesMesaFrutasCdmx.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa de Frutas CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Frutas", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-frutas" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa de Frutas CDMX | Arreglos Frutales Premium Sucursal Anzures y Condesa"
+  description="Mesa de frutas premium en CDMX por MEDEDUL. Fruta fresca seleccionada en Central de Abasto la madrugada del evento, cadena de frío, presentación editorial. Sucursales Anzures y Condesa, cobertura 16 alcaldías. Bodas, XV años, baby shower y corporativos. Desde $4,800 MXN."
+  canonical="/sucursales/cdmx/mesa-de-frutas"
+  ogImage="/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa de Frutas en CDMX"
+    highlight="Frutas"
+    subtitle="Arreglos frutales premium | Sucursal MEDEDUL CDMX (Anzures + Condesa)"
+    secondaryContent={`<p><strong>Frescura y color en cada bocado</strong>. Arreglos espectaculares con fruta de temporada que refrescan y deleitan a todos tus invitados. En MEDEDUL Sucursal CDMX diseñamos, montamos y operamos mesas de frutas premium para bodas, XV años, baby shower, eventos corporativos y celebraciones en los venues más exigentes de Ciudad de México: Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm, Club de Industriales y más.</p><p>Surtimos en la <strong>Central de Abasto la madrugada del evento</strong> y montamos en sitio con cadena de frío controlada para que cada pieza llegue en su punto óptimo. Operamos desde nuestras dos sucursales fijas en <strong>Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, llegando en menos de 30 minutos a cualquier zona premium de CDMX con bandejas talladas, brochetas artesanales, fuente de chocolate belga opcional y opciones tropicales con chamoy.</p>`}
+  />
+
+  <!-- ===================== Trust Stats Bar ===================== -->
+  <section class="cdmx-mf-stats">
+    <div class="container">
+      <div class="cdmx-mf-stats__grid">
+        {stats.map(s => (
+          <div class="cdmx-mf-stat">
+            <span class="cdmx-mf-stat__num">{s.number}</span>
+            <span class="cdmx-mf-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Subsecciones por estilo (4 cards) ===================== -->
+  <section class="cdmx-mf-subsecciones" id="subsecciones">
+    <div class="container">
+      <SectionHeader
+        title="Mesa de Frutas CDMX por"
+        titleHighlight="Estilo y Presentación"
+        subtitle="Cuatro enfoques especializados en arreglos frutales para tu evento"
+        content={`<p>La <strong>mesa de frutas premium CDMX</strong> se adapta al estilo y temática de cada celebración. Trabajamos cuatro enfoques especializados: brochetas artesanales individuales, torres decorativas escultóricas, combo con fuente de chocolate belga y cortes tropicales con chamoy. Cada propuesta parte del mismo estándar premium de MEDEDUL y se ajusta al venue, paleta y tipo de evento en Ciudad de México.</p>`}
+      />
+
+      <div class="cdmx-mf-subsecciones__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard
+            href={sub.href}
+            image={sub.img}
+            alt={`${sub.title} en CDMX por MEDEDUL`}
+            title={sub.title}
+            excerpt={sub.excerpt}
+            badge={sub.badge}
+            cta={sub.cta}
+          />
+        ))}
+      </div>
+
+      <div class="cdmx-mf-subsecciones__cta">
+        <p>¿Listo para diseñar tu mesa de frutas CDMX? <strong>Respuesta en menos de 24 horas</strong>.</p>
+        <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20Mesa%20de%20Frutas%20en%20CDMX" target="_blank" rel="noopener" class="cdmx-mf-btn cdmx-mf-btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Cotizar Mesa de Frutas CDMX
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes Mesa de Frutas CDMX ===================== -->
+  <PricingPackages
+    id="paquetes-mf-cdmx"
+    badge="Paquetes Mesa de Frutas CDMX"
+    title="Elige tu"
+    titleHighlight="Paquete CDMX"
+    subtitle="3 niveles claros, sin sorpresas. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete CDMX</strong> según el tamaño y estándar de tu evento. Todos incluyen el mismo nivel profesional de surtido, cadena de frío, montaje y operación; lo que cambia es la variedad de frutas, presencia de exóticas y sofisticación del montaje. Anticipo del 50% para reservar fecha, liquidación 48 h antes del evento.</p>`}
+    packages={paquetesMesaFrutasCdmx}
+    note="💡 <strong>Todos los paquetes CDMX incluyen:</strong> surtido en Central de Abasto la madrugada del evento, cadena de frío controlada, mobiliario completo, montaje 2-3 h antes, operación durante el evento, reposición continua, desmontaje y empaque de sobrantes."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-mf-cdmx"
+    badge="Diferenciadores Sucursal CDMX"
+    title="Por qué elegir nuestra Mesa de Frutas en"
+    titleHighlight="CDMX"
+    descriptions={[
+      "Con <strong>300+ mesas de frutas montadas en CDMX</strong> y 8 años de experiencia en bodas, XV años, baby showers y eventos corporativos en los venues más exigentes de la ciudad, somos la opción de referencia cuando necesitas <strong>fruta premium con presentación editorial y operación profesional</strong>.",
+      "Cada mesa de frutas parte del mismo estándar: surtido en Central de Abasto la madrugada del evento, cadena de frío controlada, presentación editorial, mobiliario exclusivo, coordinación con tu venue y operación impecable. Lo que cambia es la <strong>variedad y sofisticación</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "300+", label: "Mesas de frutas CDMX" },
+      { number: "100%", label: "Fresca del día" },
+      { number: "15+", label: "Variedades en Luxury" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería visual CDMX ===================== -->
+  <section class="cdmx-mf-galeria" id="galeria-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de Frutas reales montadas en"
+        titleHighlight="CDMX"
+        subtitle="Selección curada de arreglos frutales MEDEDUL en eventos de Ciudad de México"
+      />
+
+      <div class="cdmx-mf-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="cdmx-mf-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="cdmx-mf-incluye">
+    <div class="container">
+      <div class="cdmx-mf-incluye__header">
+        <span class="cdmx-mf-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa de Frutas CDMX</span>?</h2>
+        <p>Servicio completo: selección, cadena de frío, montaje, operación y desmontaje para tu evento en Ciudad de México</p>
+      </div>
+
+      <div class="cdmx-mf-incluye__grid">
+        {incluye.map(item => (
+          <div class="cdmx-mf-incluye__card">
+            <span class="cdmx-mf-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso CDMX ===================== -->
+  <ProcessSteps
+    id="proceso-mf-cdmx"
+    badge="Cómo trabajamos en CDMX"
+    title="4 pasos para tu"
+    titleHighlight="Mesa de Frutas CDMX"
+    subtitle="Proceso claro, sin estrés, con tiempos definidos"
+    steps={procesoCdmx}
+  />
+
+  <!-- ===================== Eventos compatibles (8) ===================== -->
+  <EventsGrid
+    badge="Versatilidad Total"
+    title="Tu Mesa de Frutas CDMX para"
+    titleHighlight="Cualquier Ocasión"
+    subtitle="Diseñamos mesa de frutas para cada tipo de celebración en Ciudad de México. Desde brunch de boda en Polanco hasta XV Años en Hacienda de los Morales, cada evento merece su propia mesa frutal."
+    events={eventos}
+  />
+
+  <!-- ===================== Estaciones complementarias ===================== -->
+  <section class="cdmx-mf-estaciones">
+    <div class="container">
+      <div class="cdmx-mf-estaciones__header">
+        <span class="cdmx-mf-estaciones__badge">Complementa tu Mesa</span>
+        <h2>Combina tu <span>Mesa de Frutas</span> con Más Estaciones</h2>
+        <p>Eleva la experiencia de tus invitados sumando estaciones complementarias. Ideales para bodas, XV Años y eventos corporativos en CDMX.</p>
+      </div>
+
+      <div class="cdmx-mf-estaciones__grid">
+        {estaciones.map(est => (
+          <div class="cdmx-mf-estacion-card">
+            <div class="cdmx-mf-estacion-card__image">
+              <img
+                src={getCdnUrl(est.img, { w: 420, q: 80 })}
+                srcset={getCdnSrcSet(est.img, stationWidths, { q: 80 })}
+                sizes={stationSizes}
+                alt={`${est.title} en CDMX por MEDEDUL`}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                width="640"
+                height="800"
+              />
+              <span class="cdmx-mf-estacion-card__badge" style={`background: linear-gradient(135deg, ${est.badgeColor} 0%, ${est.badgeColor}cc 100%)`}>{est.badge}</span>
+            </div>
+            <div class="cdmx-mf-estacion-card__content">
+              <h3>{est.title}</h3>
+              <p>{est.desc}</p>
+              <ul>
+                {est.features.map(f => (
+                  <li>
+                    <svg width="16" height="16" fill="var(--rosa-principal)" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                    </svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={est.link} class="cdmx-mf-estacion-card__link">
+                Ver {est.title}
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="cdmx-mf-estaciones__cta">
+        <p>¿Quieres combinar Mesa de Frutas con candy bar o fuentes interactivas? <strong>Pregunta por paquetes especiales CDMX</strong></p>
+        <a href="/estaciones-interactivas" class="cdmx-mf-btn cdmx-mf-btn--ghost">Ver Todas las Estaciones</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios CDMX ===================== -->
+  <section class="cdmx-mf-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Lo que dicen clientes de"
+        titleHighlight="Mesa de Frutas CDMX"
+        subtitle="Bodas, XV años y baby showers reales montados por MEDEDUL en CDMX"
+      />
+      <div class="cdmx-mf-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     CDMX Mesa de Frutas - Sucursal-specific styles
+     Reutiliza tokens globales (--rosa-principal, --texto-oscuro)
+     Patrón homologado a /sucursales/cdmx/mesa-de-dulces
+     ========================================================== */
+
+  /* ---------- Stats Trust Bar ---------- */
+  .cdmx-mf-stats {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .cdmx-mf-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .cdmx-mf-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 14px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+
+  .cdmx-mf-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rosa-principal, #D1007A);
+    line-height: 1;
+  }
+
+  .cdmx-mf-stat__label {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    font-weight: 500;
+  }
+
+  /* ---------- Subsecciones (4 cards de estilo) ---------- */
+  .cdmx-mf-subsecciones {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .cdmx-mf-subsecciones__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .cdmx-mf-subsecciones__cta {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff0f7 100%);
+    border-radius: 20px;
+    border: 1px dashed rgba(233, 30, 140, 0.2);
+  }
+
+  .cdmx-mf-subsecciones__cta p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    margin: 0 0 18px;
+  }
+
+  .cdmx-mf-subsecciones__cta strong {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  /* ---------- Buttons ---------- */
+  .cdmx-mf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .cdmx-mf-btn--primary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+  }
+
+  .cdmx-mf-btn--ghost {
+    background: #fff;
+    color: var(--rosa-principal, #D1007A);
+    border: 2px solid var(--rosa-principal, #D1007A);
+  }
+
+  /* ---------- Galería bento ---------- */
+  .cdmx-mf-galeria {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
+  }
+
+  .cdmx-mf-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 200px);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .cdmx-mf-galeria__item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .cdmx-mf-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cdmx-mf-galeria__item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .cdmx-mf-galeria__item:nth-child(5),
+  .cdmx-mf-galeria__item:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  /* ---------- Incluye ---------- */
+  .cdmx-mf-incluye {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .cdmx-mf-incluye__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+
+  .cdmx-mf-incluye__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .cdmx-mf-incluye__header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .cdmx-mf-incluye__header h2 span {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .cdmx-mf-incluye__header p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+  }
+
+  .cdmx-mf-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .cdmx-mf-incluye__card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .cdmx-mf-incluye__num {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .cdmx-mf-incluye__card h4 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .cdmx-mf-incluye__card p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- Estaciones complementarias ---------- */
+  .cdmx-mf-estaciones {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .cdmx-mf-estaciones__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+
+  .cdmx-mf-estaciones__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .cdmx-mf-estaciones__header h2 {
+    font-size: 2.1rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .cdmx-mf-estaciones__header h2 span {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .cdmx-mf-estaciones__header p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+  }
+
+  .cdmx-mf-estaciones__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .cdmx-mf-estacion-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cdmx-mf-estacion-card__image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .cdmx-mf-estacion-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cdmx-mf-estacion-card__badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cdmx-mf-estacion-card__content {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .cdmx-mf-estacion-card__content h3 {
+    font-size: 1.25rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .cdmx-mf-estacion-card__content > p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .cdmx-mf-estacion-card__content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px;
+    flex-grow: 1;
+  }
+
+  .cdmx-mf-estacion-card__content li {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cdmx-mf-estacion-card__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.92rem;
+    box-shadow: 0 4px 15px rgba(233, 30, 140, 0.25);
+  }
+
+  .cdmx-mf-estaciones__cta {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .cdmx-mf-estaciones__cta p {
+    font-size: 1rem;
+    color: var(--texto-light, #666);
+    margin-bottom: 20px;
+  }
+
+  .cdmx-mf-estaciones__cta strong {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  /* ---------- Testimonios ---------- */
+  .cdmx-mf-testimonios {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .cdmx-mf-testimonios__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1024px) {
+    .cdmx-mf-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-mf-subsecciones__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-mf-galeria__bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .cdmx-mf-galeria__item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .cdmx-mf-galeria__item:nth-child(5),
+    .cdmx-mf-galeria__item:nth-child(6) {
+      grid-column: span 1;
+    }
+
+    .cdmx-mf-incluye__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-mf-estaciones__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-mf-testimonios__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cdmx-mf-stats {
+      padding: 40px 0;
+    }
+
+    .cdmx-mf-stat__num {
+      font-size: 1.6rem;
+    }
+
+    .cdmx-mf-subsecciones,
+    .cdmx-mf-galeria,
+    .cdmx-mf-incluye,
+    .cdmx-mf-estaciones,
+    .cdmx-mf-testimonios {
+      padding: 60px 0;
+    }
+
+    .cdmx-mf-subsecciones__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-mf-incluye__header h2,
+    .cdmx-mf-estaciones__header h2 {
+      font-size: 1.6rem;
+    }
+
+    .cdmx-mf-incluye__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-mf-incluye__card {
+      padding: 26px 22px;
+    }
+
+    .cdmx-mf-estaciones__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-mf-estacion-card__image {
+      height: 180px;
+    }
+
+    .cdmx-mf-estacion-card__content {
+      padding: 22px;
+    }
+
+    .cdmx-mf-testimonios__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cdmx-mf-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .cdmx-mf-stat {
+      padding: 16px 10px;
+    }
+
+    .cdmx-mf-stat__num {
+      font-size: 1.4rem;
+    }
+
+    .cdmx-mf-stat__label {
+      font-size: 0.78rem;
+    }
+
+    .cdmx-mf-subsecciones__cta {
+      padding: 24px 18px;
+    }
+
+    .cdmx-mf-subsecciones__cta p {
+      font-size: 0.95rem;
+    }
+  }
+</style>

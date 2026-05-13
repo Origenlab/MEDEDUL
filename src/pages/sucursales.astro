@@ -199,15 +199,41 @@ const sucursalesSchema = {
                   Ver en Google Maps
                 </a>
                 {(s.id === 'anzures' || s.id === 'condesa') && (
-                  <a href={`/sucursales/cdmx#${s.id}`} class="sucursal-btn sucursal-btn--ghost">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M14 3h7v7"/>
-                      <path d="M10 14L21 3"/>
-                      <path d="M21 14v7h-7"/>
-                      <path d="M3 21l7-7"/>
-                    </svg>
-                    Detalle sucursal CDMX
-                  </a>
+                  <Fragment>
+                    <a href={`/sucursales/cdmx#${s.id}`} class="sucursal-btn sucursal-btn--ghost">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 3h7v7"/>
+                        <path d="M10 14L21 3"/>
+                        <path d="M21 14v7h-7"/>
+                        <path d="M3 21l7-7"/>
+                      </svg>
+                      Detalle sucursal CDMX
+                    </a>
+                    <a href="/sucursales/cdmx/mesa-de-dulces" class="sucursal-btn sucursal-btn--ghost">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v18M3 12h18"/>
+                      </svg>
+                      Mesa de Dulces CDMX
+                    </a>
+                    <a href="/sucursales/cdmx/mesa-de-frutas" class="sucursal-btn sucursal-btn--ghost">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v18M3 12h18"/>
+                      </svg>
+                      Mesa de Frutas CDMX
+                    </a>
+                    <a href="/sucursales/cdmx/mesa-de-postres" class="sucursal-btn sucursal-btn--ghost">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v18M3 12h18"/>
+                      </svg>
+                      Mesa de Postres CDMX
+                    </a>
+                    <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" class="sucursal-btn sucursal-btn--ghost">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v18M3 12h18"/>
+                      </svg>
+                      Tabla Gourmet CDMX
+                    </a>
+                  </Fragment>
                 )}
                 {s.id === 'toluca' && (
                   <a href="/sucursales/toluca" class="sucursal-btn sucursal-btn--ghost">

@@ -1,0 +1,1321 @@
+---
+// Mesa para XV Años CDMX — Sucursal CDMX (L5)
+// SEO + GEO heavy: glamour quinceañera, venues premium CDMX, paleta XV
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'CDMX', url: '/sucursales/cdmx' },
+  { name: 'Mesa de Dulces', url: '/sucursales/cdmx/mesa-de-dulces' },
+  { name: 'Mesa para XV Años', url: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos' }
+];
+
+// =============== Trust Stats (XV CDMX) ===============
+const stats = [
+  { number: '150+', label: 'XV en CDMX' },
+  { number: '35+', label: 'Venues quinceañera' },
+  { number: '8+', label: 'Años de experiencia' },
+  { number: '< 24h', label: 'Cotización XV' }
+];
+
+// =============== Características (Diferenciadores XV CDMX) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño glamour a la paleta de tu quinceañera',
+    desc: 'Trabajamos contigo y tu hija para que la mesa refleje exactamente la paleta cromática del XV: rosa-dorado, blanco-plata, morado-lila, terracota, paleta pastel o tendencias actuales como nude-champagne y glamour metálico.',
+    img: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido premium pensado en la generación',
+    desc: 'Curaduría especial para quinceañeras y sus invitadas: chocolates importados, macarons franceses, dulces aesthetic para foto, gomitas gourmet, paletas decoradas, mexicanos tradicionales y opciones aptas para fiestas largas.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif'
+  },
+  {
+    num: 3,
+    title: 'Backdrop fotográfico instagramable',
+    desc: 'Pensado para que la quinceañera y sus invitadas tengan el rincón fotográfico más espectacular de la noche. Iluminación LED, flores, letras decorativas con su nombre y atrezzo coordinado para fotos de Instagram y TikTok.',
+    img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Coordinación con vals, chambelanes y planner',
+    desc: 'Nos integramos al plan general del XV. Coordinamos con el coreógrafo del vals, el wedding planner, decorador y coordinador del salón en CDMX. Llegamos antes para que la mesa esté lista cuando entra la quinceañera.',
+    img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif'
+  }
+];
+
+// =============== Paquetes XV CDMX ===============
+const paquetesXV = [
+  {
+    name: 'XV CDMX Esencial',
+    icon: '👑',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '50-100 invitadas',
+    tagline: 'Ideal para XV íntimo en CDMX',
+    features: [
+      'Mesa de dulces glamour (10-12 variedades)',
+      'Diseño a paleta de la quinceañera',
+      'Cristalería y soportes dorados',
+      'Montaje 2 h antes del evento',
+      'Operación durante la recepción',
+      'Empaque de sobrantes en cajas decorativas',
+      'Traslado zonas centrales CDMX'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20para%20XV%20Años%20CDMX%20-%20Esencial'
+  },
+  {
+    name: 'XV CDMX Premium',
+    icon: '✨',
+    price: '$12,500',
+    currency: 'MXN',
+    guests: '100-200 invitadas',
+    tagline: 'El más solicitado para XV en CDMX',
+    features: [
+      'Mesa glamour completa (16-20 variedades)',
+      'Macarons, mini-pasteles y reposteria fina',
+      'Backdrop floral con nombre de la quinceañera',
+      'Iluminación LED y atrezzo coordinado',
+      'Coordinación con planner y coreógrafo del vals',
+      'Operador dedicado toda la recepción',
+      'Reposición continua del producto',
+      'Traslado completo CDMX incluido'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20XV%20Años%20CDMX%20-%20Premium'
+  },
+  {
+    name: 'XV CDMX Luxury',
+    icon: '💎',
+    price: '$18,500',
+    currency: 'MXN',
+    guests: '200+ invitadas',
+    tagline: 'Experiencia editorial alto nivel',
+    features: [
+      'Mesa de autor (22+ variedades exclusivas)',
+      'Chocolates importados premium',
+      'Fuente de chocolate o chamoy incluida',
+      'Backdrop floral 360° iluminado',
+      'Concierge dedicado quinceañera + invitadas',
+      'Coordinación full con planner / coreógrafo / decorador',
+      'Fotografía profesional de la mesa',
+      'Mesa de postres gourmet complementaria',
+      'Operación extendida hasta cierre del salón'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20XV%20Años%20CDMX%20-%20Luxury'
+  }
+];
+
+// =============== Proceso XV CDMX ===============
+const procesoXV = [
+  {
+    num: 1,
+    title: 'Brief de quinceañera',
+    desc: 'Nos cuentas la fecha del XV, salón en CDMX, número de invitadas, temática (princesa, glamour moderno, vintage, kpop, anime, mexicano elegante) y paleta cromática. Te asignamos sucursal Anzures o Condesa según ubicación del venue.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta visual glamour',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual, paleta XV alineada al vestido y la decoración, surtido sugerido aesthetic-friendly para fotos, opciones de backdrop y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con planner y coreógrafo',
+    desc: 'Coordinamos directo con tu wedding planner, decorador y el coreógrafo del vals para no interferir con tiempos de baile. Confirmamos paleta final, posición de la mesa, integración con backdrop principal y elementos temáticos.'
+  },
+  {
+    num: 4,
+    title: 'Ejecución del gran día',
+    desc: 'Llegamos 2-3 h antes del XV con todo el equipo. Montamos sin interferir con otros proveedores, operamos durante toda la recepción con reposición continua y desmontamos discretamente al cierre. Empacamos sobrantes en cajas decorativas para tus invitadas.'
+  }
+];
+
+// =============== Galería XV CDMX ===============
+const galeriaImages = [
+  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces XV años lujosa con cristalería rosa en CDMX' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif', alt: 'Mesa de dulces XV años rosa dorado con papel picado CDMX' },
+  { src: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', alt: 'Mesa de dulces XV años con fuente de chocolate elegante CDMX' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif', alt: 'Mesa de dulces XV años en morado lila elegante CDMX' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', alt: 'Mesa de dulces XV años rosa elegante con macarons CDMX' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-azul-plateado-elegante.avif', alt: 'Mesa de dulces XV años azul plateado elegante CDMX' }
+];
+
+// =============== Qué incluye (XV) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium glamour quinceañera', desc: 'Surtido de 10 a 22+ variedades aesthetic-friendly: chocolates Lindt y Ferrero, macarons franceses, mini-pasteles, trufas, gomitas gourmet, paletas decoradas, mexicanos tradicionales y opciones especiales para invitadas con restricciones (vegano, sin gluten, sin azúcar).' },
+  { num: '02', title: 'Diseño glamour a paleta del XV', desc: 'Cristalería, soportes dorados, bases tipo cake stand, bandejas decorativas, manteles de diseño y backdrop coordinado con la paleta del XV (rosa-dorado, blanco-plata, morado-lila, pastel). Alturas calculadas para foto Instagram y iluminación LED opcional.' },
+  { num: '03', title: 'Personalización con nombre y temática', desc: 'Etiquetas con el nombre de la quinceañera, monograma personalizado, papel picado dorado o plateado, letras decorativas y elementos temáticos según concepto (princesa Disney, glamour moderno, vintage, kpop, anime, mexicano elegante).' },
+  { num: '04', title: 'Coordinación CDMX completa', desc: 'Trabajamos con tu wedding planner, coreógrafo del vals y los coordinadores del salón. Conocemos los protocolos de los principales venues de XV en CDMX: Hacienda de los Morales, Salón Aristos, Club de Industriales, Salón La Vista, Quinta Real Polanco.' },
+  { num: '05', title: 'Operación durante recepción XV', desc: 'Operador profesional asignado durante toda la noche. Reposición continua especialmente durante el baile sorpresa y el vals, atención a invitadas y solución inmediata de cualquier eventualidad.' },
+  { num: '06', title: 'Empaque elegante de sobrantes', desc: 'Al cierre del XV empacamos los dulces sobrantes en cajas decorativas glamour alineadas a la estética del evento, listas para que las invitadas se las lleven como recuerdo. Este detalle hace que la mesa se mantenga viva incluso después del XV.' }
+];
+
+// =============== Eventos compatibles (cross-link CDMX) ===============
+const eventos = [
+  {
+    title: 'Candy Bar para Boda CDMX',
+    excerpt: 'Diseño nupcial elegante alineado a tu paleta. Trabajamos en hoteles, haciendas y jardines de CDMX como Hotel W, Four Seasons y Hacienda de los Morales.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda',
+    badge: 'Más solicitado',
+    cta: 'Ver Boda CDMX'
+  },
+  {
+    title: 'Baby Shower CDMX',
+    excerpt: 'Montajes tiernos pastel y gender reveal. Apto para mamá embarazada. Cobertura en domicilios y venues boutique de Roma, Condesa, Polanco, Lomas y Pedregal. Desde $4,500 MXN.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/baby-shower',
+    badge: 'Pastel CDMX',
+    cta: 'Ver Baby Shower CDMX'
+  },
+  {
+    title: 'Cumpleaños Infantil CDMX',
+    excerpt: '30+ temáticas (Disney, Marvel, Pokemon, Frozen, Bluey). Control alergias sin nueces default y operador disfrazado opcional. Cobertura casas + salones infantiles CDMX desde $3,500 MXN.',
+    img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
+    href: '/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil',
+    badge: 'Temático CDMX',
+    cta: 'Ver Cumple CDMX'
+  },
+  {
+    title: 'Eventos Corporativos CDMX',
+    excerpt: 'Branding y elegancia para lanzamientos, posadas y convenciones B2B en Polanco, Santa Fe y Reforma.',
+    img: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos'
+  }
+];
+
+// =============== Venues iconicos CDMX donde hemos montado XV ===============
+const venuesXV = [
+  { nombre: 'Hacienda de los Morales', zona: 'Polanco', tipo: 'Hacienda S.XVI' },
+  { nombre: 'Hipódromo de las Américas', zona: 'Lomas', tipo: 'Recinto múltiple' },
+  { nombre: 'Casa Lamm', zona: 'Roma Norte', tipo: 'Casona histórica' },
+  { nombre: 'Club de Industriales', zona: 'Polanco', tipo: 'Club privado' },
+  { nombre: 'Salón Aristos', zona: 'Roma', tipo: 'Salón banquetes' },
+  { nombre: 'Salón La Vista', zona: 'Interlomas', tipo: 'Salón eventos' },
+  { nombre: 'Jardín de las Lomas', zona: 'Lomas de Chapultepec', tipo: 'Jardín de eventos' },
+  { nombre: 'Quinta Real Polanco', zona: 'Polanco', tipo: 'Hotel gran lujo' },
+  { nombre: 'Hotel Presidente InterContinental', zona: 'Polanco', tipo: 'Hotel 5 estrellas' },
+  { nombre: 'Hotel Hyatt Regency', zona: 'Polanco', tipo: 'Hotel 5 estrellas' },
+  { nombre: 'Centro de Convenciones Tlatelolco', zona: 'Centro', tipo: 'Centro convenciones' },
+  { nombre: 'Salón Imperial', zona: 'Pedregal', tipo: 'Salón eventos' }
+];
+
+// =============== Cobertura CDMX — Grupo 1 (zonas premium con página) ===============
+const zonasPremium = [
+  { nombre: 'Polanco', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/polanco', destacada: true },
+  { nombre: 'Santa Fe', alcaldia: 'Cuajimalpa', href: '/zonas-cdmx/santa-fe', destacada: true },
+  { nombre: 'Condesa', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/condesa', destacada: true },
+  { nombre: 'Roma Norte', alcaldia: 'Cuauhtemoc', href: '/zonas-cdmx/roma-norte', destacada: true },
+  { nombre: 'Anzures', alcaldia: 'Miguel Hidalgo', href: '/zonas-cdmx/anzures' },
+  { nombre: 'Del Valle', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/del-valle' },
+  { nombre: 'Coyoacan', alcaldia: 'Coyoacan', href: '/zonas-cdmx/coyoacan' },
+  { nombre: 'Narvarte', alcaldia: 'Benito Juarez', href: '/zonas-cdmx/narvarte' },
+  { nombre: 'Interlomas', alcaldia: 'Huixquilucan, EdoMex', href: '/zonas-cdmx/interlomas' }
+];
+
+// =============== Cobertura CDMX — Grupo 2 (zonas adicionales) ===============
+const zonasAdicionales = [
+  'Lomas de Chapultepec', 'Reforma', 'San Ángel', 'Pedregal',
+  'Bosques de las Lomas', 'Centro Histórico', 'Tlalpan', 'Satélite',
+  'Naucalpan', 'Huixquilucan', 'Tlalnepantla', 'Cuajimalpa',
+  'Magdalena Contreras', 'Iztapalapa', 'Iztacalco', 'Venustiano Carranza',
+  'Gustavo A. Madero', 'Azcapotzalco', 'Milpa Alta', 'Tláhuac', 'Xochimilco'
+];
+
+// Combinación para schema.org areaServed
+const zonasXV = [...zonasPremium.map(z => z.nombre), ...zonasAdicionales];
+
+// =============== Testimonios CDMX (XV Años) ===============
+const testimonios = [
+  {
+    name: 'Patricia Olvera',
+    initials: 'PO',
+    review: 'Los XV de mi hija en Hacienda de los Morales quedaron de revista. El surtido, las alturas, el papel picado dorado y el backdrop floral con su nombre... todo perfecto. Mi hija se sintió como una verdadera princesa y las fotos quedaron espectaculares.',
+    event: 'XV Años Hacienda de los Morales',
+    rating: 5
+  },
+  {
+    name: 'Sofía Hernández',
+    initials: 'SH',
+    review: 'XV en Salón Aristos con mesa de dulces glamour rosa-dorado. Coordinaron directo con mi planner y el coreógrafo del vals. La mesa estaba lista exactamente cuando entró mi hija. Las invitadas no paraban de fotografiarse en el backdrop.',
+    event: 'XV Años Salón Aristos',
+    rating: 5
+  },
+  {
+    name: 'Familia Mendoza',
+    initials: 'FM',
+    review: 'Necesitábamos mesa de XV para 200+ invitadas en Club de Industriales. MEDEDUL escaló todo perfectamente: surtido abundante, reposición continua durante la noche, y al cierre empacaron todo en cajitas elegantes para que las invitadas se llevaran recuerdo.',
+    event: 'XV Años Club de Industriales',
+    rating: 5
+  }
+];
+
+// =============== FAQ XV CDMX ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para XV Años en CDMX?',
+    answer: 'Incluye diseño glamour alineado a la paleta de la quinceañera, surtido premium curado aesthetic-friendly para fotos (chocolates importados, macarons, mini-pasteles, trufas, gomitas gourmet, paletas decoradas, mexicanos tradicionales), cristalería y atrezzo dorado o plateado, backdrop coordinado con el concepto del XV, montaje 2-3 h antes en el salón, coordinación con wedding planner y coreógrafo del vals, operación durante toda la recepción con reposición continua, etiquetas personalizadas con el nombre de la quinceañera, desmontaje al cierre y empaque de sobrantes en cajas decorativas glamour.'
+  },
+  {
+    question: '¿Trabajan en los salones y haciendas de XV de CDMX?',
+    answer: 'Sí. Hemos montado mesas de dulces para XV en los principales venues de Ciudad de México: Hacienda de los Morales (Polanco), Hipódromo de las Américas, Casa Lamm (Roma Norte), Club de Industriales, Salón Aristos, Salón La Vista (Interlomas), Jardín de las Lomas, Quinta Real Polanco, Hotel Presidente InterContinental, Hotel Hyatt Regency, Centro de Convenciones Tlatelolco y muchos más. Conocemos sus reglamentos, tiempos de acceso y coordinadores de eventos.'
+  },
+  {
+    question: '¿Coordinan directamente con mi planner y el coreógrafo del vals?',
+    answer: 'Absolutamente sí. En cada XV CDMX nos integramos al plan general del evento. Trabajamos con los wedding planners y coreógrafos más reconocidos de la ciudad. Coordinamos paleta cromática, tiempos de montaje (que no interfieran con ensayos del vals), posición en el salón, integración con la decoración floral y cualquier elemento que tu planner necesite. Recibimos briefing previo y entregamos guía operativa antes del XV.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para XV en CDMX?',
+    answer: 'Iniciamos en $7,500 MXN (XV CDMX Esencial, 50-100 invitadas) y llegamos a $18,500 MXN (XV CDMX Luxury, 200+ invitadas). El precio depende del número de invitadas, surtido seleccionado, nivel de personalización (backdrop floral, iluminación LED, letras decorativas), integración con estaciones (fuente de chocolate o chamoy) y duración del servicio. Cotización gratuita en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar la mesa para XV?',
+    answer: 'Para XV CDMX en temporada alta (marzo-mayo y octubre-diciembre, especialmente sábados) recomendamos reservar con 2 a 3 meses de anticipación. Para fechas de menor demanda, 6-8 semanas suelen ser suficientes. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del XV. Una vez reservada la fecha, comenzamos la fase de diseño con calma para alinear paleta con vestido y decoración.'
+  },
+  {
+    question: '¿Pueden personalizar la mesa con el nombre y la temática del XV?',
+    answer: 'Sí. La personalización es parte central del servicio: etiquetas con el nombre de la quinceañera, monograma personalizado, papel picado dorado o plateado, letras decorativas con su nombre, backdrop floral con su nombre integrado, atrezzo coordinado al concepto (princesa Disney, glamour moderno, vintage hollywood, kpop, anime, mexicano elegante). En paquetes Premium y Luxury incluimos personalización extendida sin costo adicional.'
+  },
+  {
+    question: '¿La mesa se puede integrar con fuente de chocolate o chamoy?',
+    answer: 'Sí, y de hecho es muy popular en XV CDMX. Podemos sumar fuente de chocolate belga, fuente de chamoy artesanal (sabor mexicano vibrante) o candy wall personalizada. La fuente de chamoy es especialmente popular para XV mexicanos modernos. Estas estaciones elevan el valor percibido del evento y crean múltiples puntos de interacción para invitadas en TikTok e Instagram.'
+  },
+  {
+    question: '¿Tienen opciones para invitadas con restricciones alimenticias?',
+    answer: 'Sí. Curamos opciones específicas para invitadas con restricciones: dulces sin azúcar (para diabéticas), opciones sin gluten (celiacas), reposteria vegana, alternativas sin nueces (alérgicas) y opciones kosher si tu XV lo requiere. Esto es importante porque las XV concentran muchas invitadas adolescentes con dietas especiales. Pídenos la curaduría especial en el briefing inicial y la incluimos sin costo adicional en paquetes Premium y Luxury.'
+  },
+  {
+    question: '¿A qué hora llegan al salón el día del XV?',
+    answer: 'Llegamos 2-3 horas antes del horario de inicio de la recepción para montaje completo. En venues con reglamentos especiales (haciendas con tiempos limitados, hoteles 5 estrellas, recintos patrimoniales) nos adaptamos al horario que indique el coordinador del lugar y al ensayo del vals. El tiempo de montaje está incluido en todos los paquetes XV CDMX.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran al final del XV?',
+    answer: 'Son tuyos. Al cierre del XV empacamos todos los sobrantes en cajas o bolsas decorativas alineadas a la estética glamour del evento, listas para que tus invitadas se las lleven como recuerdo. Este detalle hace que la mesa se mantenga viva incluso después de la fiesta y se vuelve parte del recuerdo emocional del XV.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos#service",
+      "name": "Mesa de Dulces para XV Años en CDMX",
+      "serviceType": "Mesa de Dulces Glamour / Candy Bar Quinceañera",
+      "description": "Mesa de dulces glamour para XV años en Ciudad de México con diseño alineado a la paleta de la quinceañera, surtido aesthetic-friendly, backdrop fotográfico instagramable y coordinación con planner. Operación desde sucursales Anzures y Condesa, cobertura total CDMX.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal CDMX",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Ejercito Nacional Mexicano 216",
+          "addressLocality": "Anzures, Miguel Hidalgo",
+          "postalCode": "11590",
+          "addressRegion": "Ciudad de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "150",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": zonasXV.map(z => ({ "@type": "Place", "name": z }))
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "7500",
+        "highPrice": "18500",
+        "offerCount": "3",
+        "offers": paquetesXV.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa XV CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias planeando XV Años en Ciudad de México"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces" },
+        { "@type": "ListItem", "position": 5, "name": "Mesa para XV Años", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa para XV Años CDMX | Candy Bar Glamour Quinceañera | MEDEDUL"
+  description="Mesa de dulces para XV Años en CDMX por MEDEDUL: diseño glamour, backdrop instagramable, surtido aesthetic premium y coordinación con planner. Sucursales Anzures y Condesa. Hacienda Morales, Salón Aristos, Club Industriales. Desde $7,500 MXN. Cotiza gratis."
+  canonical="/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos"
+  ogImage="/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa para XV Años en CDMX"
+    highlight="XV"
+    subtitle="Glamour y tendencia · Sucursal MEDEDUL CDMX (Anzures + Condesa)"
+    secondaryContent={`<p>La <strong>mesa de dulces para XV Años en Ciudad de México</strong> es el rincón más fotografiado de la noche y uno de los recuerdos visuales más importantes del evento. En <strong>MEDEDUL</strong> diseñamos cada mesa con enfoque glamour editorial — paleta cromática alineada al vestido y decoración del XV, surtido premium aesthetic-friendly (chocolates importados, macarons franceses, mini-pasteles, trufas, gomitas gourmet, paletas decoradas y mexicanos tradicionales), cristalería pulida, soportes dorados o plateados, papel picado coordinado, etiquetas personalizadas con el nombre de la quinceañera y un backdrop floral fotográfico pensado para Instagram y TikTok.</p><p>Operamos desde nuestras <strong>dos sucursales fijas en CDMX — Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong> — lo que nos permite llegar puntualmente a cualquier salón de XV premium de la ciudad: Hacienda de los Morales, Salón Aristos, Club de Industriales, Salón La Vista, Jardín de las Lomas, Quinta Real Polanco, Hipódromo de las Américas y muchos más. Con <strong>150+ XV montados en CDMX</strong> y 8 años de experiencia, conocemos los reglamentos, tiempos de acceso, posición ideal de la mesa según el flujo del vals y coordinadores de cada venue.</p><p>Coordinamos directamente con tu <strong>wedding planner, decorador y coreógrafo del vals</strong> para que la mesa se integre sin fricción al evento. Llegamos 2-3 h antes del XV, montamos sin interferir con ensayos ni otros proveedores y operamos durante toda la recepción con reposición continua. Al cierre empacamos sobrantes en cajas decorativas glamour para que cada invitada se lleve un recuerdo del XV.</p>`}
+  />
+
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="xvcdmx-stats">
+    <div class="container">
+      <div class="xvcdmx-stats__grid">
+        {stats.map(s => (
+          <div class="xvcdmx-stat">
+            <span class="xvcdmx-stat__num">{s.number}</span>
+            <span class="xvcdmx-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="xvcdmx-intro" id="intro-mededul-xv-cdmx">
+    <div class="container">
+      <div class="xvcdmx-intro__grid">
+        <div class="xvcdmx-intro__copy">
+          <span class="xvcdmx-intro__badge">Diseño glamour profesional CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu mesa de XV Años en Ciudad de México</h2>
+          <p>Los XV son una noche única en la vida de tu hija. Por eso cada mesa de dulces para XV que montamos en CDMX parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con la quinceañera, propuesta visual con render conceptual alineado al vestido, curaduría de producto aesthetic-friendly para fotos, coordinación con tu planner y coreógrafo del vals, montaje editorial 2-3 h antes y operación impecable durante toda la recepción.</p>
+          <p><strong>Nuestro enfoque de glamour editorial</strong> está construido sobre 8 años montando XV en los salones más exigentes de Ciudad de México: haciendas patrimoniales con tiempos limitados, hoteles 5 estrellas con reglamentos estrictos, salones de eventos privados y centros de convenciones de gran escala. Hemos aprendido cómo se trabaja en cada espacio, cuáles son sus tiempos críticos durante el vals y qué espera cada coordinador. Eso se traduce en una <strong>operación sin fricción</strong> para ti, la quinceañera y tu planner.</p>
+          <p>La mesa de dulces para XV CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la paleta cromática del vestido, el concepto temático elegido (princesa Disney, glamour moderno, vintage hollywood, kpop, anime, mexicano elegante), el estilo del salón y las expectativas visuales de las invitadas en redes sociales. Trabajamos paletas clásicas (rosa-dorado, blanco-plata), tendencias actuales (nude-champagne, terracota-mostaza, morado-lila), XV mexicanos modernos con papel picado dorado y dulces tradicionales, y propuestas temáticas según concepto.</p>
+          <p>Si planeas un <strong>XV en CDMX</strong> y buscas una mesa con estándar premium, ejecución confiable, backdrop fotográfico instagramable y un proveedor que entienda los salones de la ciudad y los tiempos del vals, MEDEDUL es el aliado estratégico que necesitas. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20XV%20Años%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a coronar el XV de tu hija.</p>
+        </div>
+        <div class="xvcdmx-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces XV años glamour MEDEDUL en quinceañera CDMX rosa cristalería"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes XV CDMX ===================== -->
+  <PricingPackages
+    id="paquetes-xv-cdmx"
+    badge="Paquetes XV CDMX"
+    title="Elige el formato para"
+    titleHighlight="los XV de tu hija en CDMX"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para XV CDMX</strong>, pensados para diferentes tamaños de evento y niveles de sofisticación. El paquete <strong>Esencial</strong> está pensado para XV íntimos (50-100 invitadas); el <strong>Premium</strong> es el más solicitado para XV medianos (100-200 invitadas) e incluye backdrop floral con el nombre de la quinceañera y coordinación con coreógrafo del vals; el <strong>Luxury</strong> es nuestra propuesta editorial para XV grandes (200+) e incluye fuente de chocolate, backdrop floral 360°, concierge dedicado y mesa de postres gourmet complementaria.</p><p>Todos los paquetes incluyen el <strong>mismo estándar profesional de diseño glamour, montaje editorial y operación</strong>. Lo que cambia es la escala del surtido, la complejidad del backdrop y la duración del servicio. Si tu XV tiene necesidades específicas (temática particular como kpop o anime, restricciones alimenticias de invitadas, integración con catering específico) partimos del paquete más cercano y lo ajustamos.</p>`}
+    packages={paquetesXV}
+    note="💡 <strong>Todos los paquetes XV CDMX incluyen:</strong> diseño glamour a paleta de la quinceañera, surtido premium aesthetic-friendly, cristalería y soportes dorados/plateados, etiquetas personalizadas con su nombre, montaje 2-3 h antes en el salón, operación durante la recepción, reposición continua durante vals y baile sorpresa, desmontaje y empaque de sobrantes en cajas decorativas."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-xv-cdmx"
+    badge="Diferenciadores XV CDMX"
+    title="Por qué elegir nuestra Mesa de XV en"
+    titleHighlight="CDMX"
+    descriptions={[
+      "Con <strong>150+ XV montados en CDMX</strong> en haciendas, salones, clubes privados y centros de convenciones, MEDEDUL es la opción de referencia para familias y planners que buscan mesa glamour con ejecución profesional comprobada.",
+      "Cada mesa de XV parte del mismo método: brief con la quinceañera, propuesta visual con render, coordinación con tu planner y coreógrafo del vals, montaje editorial y operación impecable. Lo que cambia es la <strong>paleta</strong>, la <strong>temática</strong> y la <strong>escala</strong>; el estándar glamour es siempre el mismo."
+    ]}
+    stats={[
+      { number: "150+", label: "XV CDMX" },
+      { number: "35+", label: "Venues quinceañera" },
+      { number: "100%", label: "Diseño glamour" },
+      { number: "5.0", label: "Calificación familias" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería XV CDMX ===================== -->
+  <section class="xvcdmx-galeria" id="galeria-xv-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de XV reales montadas en"
+        titleHighlight="CDMX"
+        subtitle="Selección curada de quinceañeras MEDEDUL en haciendas, salones y centros de convenciones"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>XV real</strong> que montamos en Ciudad de México. La paleta cromática, las flores, el papel picado y el surtido fueron <strong>diseñados específicamente para cada quinceañera</strong> en función de su vestido, su temática y el número de invitadas. Si quieres ver más referencias por estilo (princesa, glamour moderno, vintage hollywood, kpop, mexicano elegante) o por salón específico, escríbenos por WhatsApp y te enviamos un portafolio dirigido.</p>`}
+      />
+
+      <div class="xvcdmx-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="xvcdmx-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="xvcdmx-incluye">
+    <div class="container">
+      <div class="xvcdmx-incluye__header">
+        <span class="xvcdmx-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa para XV Años CDMX</span>?</h2>
+        <p>Servicio integral glamour: diseño, curaduría aesthetic, mobiliario, coordinación con planner y coreógrafo, montaje, operación y desmontaje</p>
+      </div>
+
+      <div class="xvcdmx-incluye__grid">
+        {incluye.map(item => (
+          <div class="xvcdmx-incluye__card">
+            <span class="xvcdmx-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso XV CDMX ===================== -->
+  <ProcessSteps
+    id="proceso-xv-cdmx"
+    badge="Cómo trabajamos los XV en CDMX"
+    title="4 pasos para tu"
+    titleHighlight="Mesa de XV CDMX"
+    subtitle="Proceso profesional coordinado con tu planner y el coreógrafo del vals"
+    content={`<p>Nuestro proceso está diseñado para que <strong>el XV de tu hija fluya sin estrés</strong>. Desde el primer brief hasta el desmontaje final, cada etapa tiene tiempos definidos, un responsable claro y entregables específicos. Te apoyamos en la decisión cromática (paleta del vestido + decoración), el surtido ideal según el perfil de las invitadas y la integración con tu planner y coreógrafo.</p><p>Conocemos los <strong>tiempos críticos de cada salón de XV en CDMX</strong> — desde el horario de acceso de Hacienda de los Morales hasta el protocolo de carga del Club de Industriales — lo que nos permite ajustar nuestros tiempos al ritmo del venue, los ensayos del vals y el flujo del evento sin causar fricción con otros proveedores.</p>`}
+    steps={procesoXV}
+  />
+
+  <!-- ===================== Venues XV donde hemos montado ===================== -->
+  <section class="xvcdmx-venues" id="venues-xv-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Venues de XV donde hemos montado en"
+        titleHighlight="CDMX"
+        subtitle="35+ salones, haciendas y centros con experiencia comprobada"
+        content={`<p>Cada venue de XV tiene su <strong>reglamento propio</strong>, tiempos de acceso y coordinadores con criterios particulares. En MEDEDUL ya conocemos esos protocolos y montamos sin fricción en los salones más exigentes de CDMX. Esta es una muestra de los recintos donde tenemos experiencia comprobada montando mesas de quinceañera.</p>`}
+      />
+
+      <div class="xvcdmx-venues__grid">
+        {venuesXV.map(v => (
+          <div class="xvcdmx-venue-card">
+            <span class="xvcdmx-venue-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+              </svg>
+            </span>
+            <div class="xvcdmx-venue-card__body">
+              <span class="xvcdmx-venue-card__name">{v.nombre}</span>
+              <div class="xvcdmx-venue-card__meta">
+                <span class="xvcdmx-venue-card__zona">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {v.zona}
+                </span>
+                <span class="xvcdmx-venue-card__tipo">{v.tipo}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="xvcdmx-venues__nota">
+        ¿Tu salón no aparece en la lista? Trabajamos también en jardines, terrazas, casas particulares y venues no tradicionales en toda CDMX. Probablemente ya conocemos uno similar. <a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20mi%20XV%20es%20en%20[nombre%20salon]%20%C2%BFTienen%20experiencia%20ahi%3F">Pregúntanos por tu salón específico</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== Cobertura CDMX (homologado SectionHeader) ===================== -->
+  <section class="xvcdmx-zonas" id="zonas-xv-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura completa en"
+        titleHighlight="CDMX"
+        subtitle="Montamos mesas de XV en cualquier zona de Ciudad de México"
+        content={`<p>Desde nuestras sucursales de <strong>Anzures (Miguel Hidalgo)</strong> y <strong>Condesa (Cuauhtémoc)</strong> llegamos puntualmente a cualquier punto premium de CDMX y zona metropolitana en <strong>menos de 30 minutos</strong>. Operamos con 9 zonas que cuentan con página dedicada de cobertura y 21 zonas adicionales cubiertas sin restricciones.</p>`}
+      />
+
+      <div class="xvcdmx-zonas__subseccion">
+        <header class="xvcdmx-zonas__subheader">
+          <span class="xvcdmx-zonas__numero">01</span>
+          <div>
+            <h3>Zonas premium con página dedicada</h3>
+            <p>9 zonas con información detallada de cobertura, salones típicos y casos de XV.</p>
+          </div>
+        </header>
+
+        <div class="xvcdmx-zonas__grid">
+          {zonasPremium.map(z => (
+            <a href={z.href} class:list={['xvcdmx-zona-card', { 'xvcdmx-zona-card--destacada': z.destacada }]}>
+              <span class="xvcdmx-zona-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="xvcdmx-zona-card__body">
+                <span class="xvcdmx-zona-card__nombre">{z.nombre}</span>
+                <span class="xvcdmx-zona-card__alcaldia">{z.alcaldia}</span>
+              </div>
+              {z.destacada && <span class="xvcdmx-zona-card__badge">Top</span>}
+              <span class="xvcdmx-zona-card__arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="xvcdmx-zonas__subseccion">
+        <header class="xvcdmx-zonas__subheader">
+          <span class="xvcdmx-zonas__numero">02</span>
+          <div>
+            <h3>Cobertura adicional CDMX y zona metropolitana</h3>
+            <p>21 zonas más cubiertas sin restricciones. Mismo servicio glamour, mismos paquetes, sin costos ocultos de traslado.</p>
+          </div>
+        </header>
+
+        <div class="xvcdmx-zonas__pills">
+          {zonasAdicionales.map(z => (
+            <span class="xvcdmx-zona-pill">{z}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="xvcdmx-zonas__cta">
+        <p>¿No ves tu zona? <strong>Cubrimos las 16 alcaldías de CDMX y zona metropolitana premium</strong>.</p>
+        <a href="/zonas-cdmx" class="xvcdmx-zonas__cta-btn">
+          Ver todas las zonas CDMX
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios XV CDMX ===================== -->
+  <section class="xvcdmx-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios de XV reales en"
+        titleHighlight="CDMX"
+        subtitle="Lo que dicen las familias que ya celebraron con MEDEDUL"
+      />
+      <div class="xvcdmx-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars CDMX (cross-link) ===================== -->
+  <section class="xvcdmx-otros-eventos" id="otros-candy-bars-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="Descubre nuestros otros Candy Bars en CDMX"
+        titleHighlight="CDMX"
+        subtitle="Otros 4 montajes especializados que operamos en Ciudad de México"
+        content={`<p>Además de la <strong>mesa de XV Años</strong>, MEDEDUL opera montajes especializados en CDMX para <strong>boda, baby shower, cumpleaños infantil y eventos corporativos</strong>. Cada formato tiene su propio enfoque visual, surtido curado y paquetes específicos. Si tu evento combina con el XV (por ejemplo, fiesta de preparación previa o post-vals) podemos cotizar ambos servicios con <strong>descuento por paquete combinado</strong>.</p>`}
+      />
+
+      <div class="xvcdmx-otros-eventos__grid">
+        {eventos.map(ev => (
+          <ServiceCard
+            href={ev.href}
+            image={ev.img}
+            alt={`${ev.title} por MEDEDUL`}
+            title={ev.title}
+            excerpt={ev.excerpt}
+            badge={ev.badge}
+            cta={ev.cta}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     XV Años CDMX — Subsección Mesa de Dulces L5
+     Prefijo: xvcdmx-
+     ========================================================== */
+
+  /* ---------- Stats ---------- */
+  .xvcdmx-stats {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .xvcdmx-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .xvcdmx-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 14px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+
+  .xvcdmx-stat__num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rosa-principal, #D1007A);
+    line-height: 1;
+  }
+
+  .xvcdmx-stat__label {
+    font-size: 0.85rem;
+    color: var(--texto-light, #666);
+    font-weight: 500;
+  }
+
+  /* ---------- Intro SEO ---------- */
+  .xvcdmx-intro {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .xvcdmx-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .xvcdmx-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+
+  .xvcdmx-intro__copy h2 {
+    font-size: 2.2rem;
+    line-height: 1.25;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 22px;
+  }
+
+  .xvcdmx-intro__copy h2 span { color: var(--rosa-principal, #D1007A); }
+
+  .xvcdmx-intro__copy p {
+    font-size: 1.02rem;
+    color: var(--texto-light, #555);
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+
+  .xvcdmx-intro__copy strong { color: var(--texto-oscuro, #1a1a1a); }
+  .xvcdmx-intro__copy a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .xvcdmx-intro__visual {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  }
+
+  .xvcdmx-intro__visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Galería ---------- */
+  .xvcdmx-galeria {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff9fb 100%);
+  }
+
+  .xvcdmx-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 200px);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .xvcdmx-galeria__item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .xvcdmx-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .xvcdmx-galeria__item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .xvcdmx-galeria__item:nth-child(5),
+  .xvcdmx-galeria__item:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  /* ---------- Incluye ---------- */
+  .xvcdmx-incluye {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .xvcdmx-incluye__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+
+  .xvcdmx-incluye__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .xvcdmx-incluye__header h2 {
+    font-size: 2.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .xvcdmx-incluye__header h2 span { color: var(--rosa-principal, #D1007A); }
+
+  .xvcdmx-incluye__header p {
+    font-size: 1.05rem;
+    color: var(--texto-light, #666);
+    line-height: 1.6;
+  }
+
+  .xvcdmx-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .xvcdmx-incluye__card {
+    background: #fff;
+    border: 1px solid rgba(233, 30, 140, 0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .xvcdmx-incluye__num {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .xvcdmx-incluye__card h4 {
+    font-size: 1.15rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 12px;
+  }
+
+  .xvcdmx-incluye__card p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- Venues ---------- */
+  .xvcdmx-venues {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .xvcdmx-venues__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .xvcdmx-venue-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(233, 30, 140, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  }
+
+  .xvcdmx-venue-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  .xvcdmx-venue-card__body {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .xvcdmx-venue-card__name {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin-bottom: 4px;
+  }
+
+  .xvcdmx-venue-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--texto-light, #666);
+    flex-wrap: wrap;
+  }
+
+  .xvcdmx-venue-card__zona {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .xvcdmx-venue-card__tipo {
+    padding: 2px 10px;
+    background: #fff0f7;
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 50px;
+    font-weight: 600;
+  }
+
+  .xvcdmx-venues__nota {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 0.95rem;
+    color: var(--texto-light, #666);
+    line-height: 1.7;
+  }
+
+  .xvcdmx-venues__nota a {
+    color: var(--rosa-principal, #D1007A);
+    text-decoration: underline;
+  }
+
+  /* ---------- Cobertura CDMX ---------- */
+  .xvcdmx-zonas {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .xvcdmx-zonas__subseccion { margin-bottom: 44px; }
+  .xvcdmx-zonas__subseccion:first-of-type { margin-top: 12px; }
+  .xvcdmx-zonas__subseccion:last-of-type { margin-bottom: 0; }
+
+  .xvcdmx-zonas__subheader {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(233, 30, 140, 0.12);
+  }
+
+  .xvcdmx-zonas__numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.22);
+  }
+
+  .xvcdmx-zonas__subheader h3 {
+    font-size: 1.2rem;
+    color: var(--texto-oscuro, #1a1a1a);
+    margin: 0 0 4px;
+    font-weight: 700;
+  }
+
+  .xvcdmx-zonas__subheader p {
+    font-size: 0.92rem;
+    color: var(--texto-light, #666);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .xvcdmx-zonas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .xvcdmx-zona-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--texto-oscuro, #1a1a1a);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    position: relative;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+
+  .xvcdmx-zona-card:hover {
+    border-color: var(--rosa-principal, #D1007A);
+    background: #fefcfd;
+  }
+
+  .xvcdmx-zona-card--destacada {
+    border-color: rgba(233, 30, 140, 0.25);
+    background: linear-gradient(180deg, #fff 0%, #fef9fc 100%);
+  }
+
+  .xvcdmx-zona-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, rgba(209, 0, 122, 0.10), rgba(160, 0, 95, 0.06));
+    color: var(--rosa-principal, #D1007A);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .xvcdmx-zona-card:hover .xvcdmx-zona-card__icon {
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+  }
+
+  .xvcdmx-zona-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .xvcdmx-zona-card__nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.2;
+  }
+
+  .xvcdmx-zona-card__alcaldia {
+    font-size: 0.76rem;
+    color: var(--texto-light, #666);
+    line-height: 1.3;
+  }
+
+  .xvcdmx-zona-card__badge {
+    position: absolute;
+    top: -7px;
+    right: 14px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(209, 0, 122, 0.28);
+  }
+
+  .xvcdmx-zona-card__arrow {
+    color: #c5c5cf;
+    flex-shrink: 0;
+    transition: color .15s ease;
+  }
+
+  .xvcdmx-zona-card:hover .xvcdmx-zona-card__arrow {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .xvcdmx-zonas__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .xvcdmx-zona-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 30, 0.08);
+    border-radius: 50px;
+    color: var(--texto-light, #555);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .xvcdmx-zona-pill::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--rosa-principal, #D1007A);
+    border-radius: 50%;
+    opacity: .6;
+  }
+
+  .xvcdmx-zonas__cta {
+    margin-top: 40px;
+    padding: 26px 30px;
+    background: #fff;
+    border: 1px dashed rgba(233, 30, 140, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .xvcdmx-zonas__cta p {
+    font-size: 0.98rem;
+    color: var(--texto-light, #555);
+    margin: 0;
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .xvcdmx-zonas__cta strong { color: var(--texto-oscuro, #1a1a1a); }
+
+  .xvcdmx-zonas__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 18px rgba(209, 0, 122, 0.25);
+    transition: box-shadow .15s ease, background-color .15s ease;
+  }
+
+  .xvcdmx-zonas__cta-btn:hover {
+    box-shadow: 0 8px 24px rgba(209, 0, 122, 0.38);
+  }
+
+  /* ---------- Testimonios ---------- */
+  .xvcdmx-testimonios {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .xvcdmx-testimonios__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  /* ---------- Otros candy bars CDMX ---------- */
+  .xvcdmx-otros-eventos {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .xvcdmx-otros-eventos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+  }
+
+  /* ==========================================================
+     Responsive
+     ========================================================== */
+  @media (max-width: 1024px) {
+    .xvcdmx-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .xvcdmx-intro__grid { grid-template-columns: 1fr; gap: 40px; }
+    .xvcdmx-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .xvcdmx-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .xvcdmx-galeria__item:nth-child(5),
+    .xvcdmx-galeria__item:nth-child(6) { grid-column: span 1; }
+    .xvcdmx-incluye__grid { grid-template-columns: repeat(2, 1fr); }
+    .xvcdmx-venues__grid { grid-template-columns: repeat(2, 1fr); }
+    .xvcdmx-zonas__grid { grid-template-columns: repeat(2, 1fr); }
+    .xvcdmx-otros-eventos__grid { grid-template-columns: repeat(2, 1fr); }
+    .xvcdmx-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .xvcdmx-stats,
+    .xvcdmx-intro,
+    .xvcdmx-galeria,
+    .xvcdmx-incluye,
+    .xvcdmx-venues,
+    .xvcdmx-zonas,
+    .xvcdmx-otros-eventos,
+    .xvcdmx-testimonios { padding: 60px 0; }
+
+    .xvcdmx-intro__copy h2,
+    .xvcdmx-incluye__header h2 { font-size: 1.6rem; }
+    .xvcdmx-intro__copy p { font-size: 0.95rem; }
+    .xvcdmx-incluye__grid { grid-template-columns: 1fr; }
+    .xvcdmx-incluye__card { padding: 26px 22px; }
+    .xvcdmx-venues__grid { grid-template-columns: 1fr; }
+    .xvcdmx-zonas__grid { grid-template-columns: 1fr; }
+    .xvcdmx-zonas__subheader { gap: 12px; }
+    .xvcdmx-zonas__numero { width: 38px; height: 38px; font-size: 0.85rem; }
+    .xvcdmx-zonas__subheader h3 { font-size: 1.05rem; }
+    .xvcdmx-zonas__subheader p { font-size: 0.85rem; }
+    .xvcdmx-zona-card { padding: 14px 16px; }
+    .xvcdmx-zona-card__nombre { font-size: 0.9rem; }
+    .xvcdmx-zona-card__alcaldia { font-size: 0.74rem; }
+    .xvcdmx-zonas__cta { padding: 22px 20px; flex-direction: column; align-items: flex-start; text-align: left; }
+    .xvcdmx-zonas__cta-btn { width: 100%; justify-content: center; }
+    .xvcdmx-otros-eventos__grid { grid-template-columns: 1fr; }
+    .xvcdmx-testimonios__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .xvcdmx-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .xvcdmx-stat { padding: 18px 12px; }
+    .xvcdmx-stat__num { font-size: 1.5rem; }
+    .xvcdmx-stat__label { font-size: 0.78rem; }
+    .xvcdmx-intro__copy h2 { font-size: 1.4rem; }
+  }
+</style>

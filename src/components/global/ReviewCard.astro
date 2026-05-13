@@ -1,9 +1,11 @@
 ---
 /**
- * ReviewCard Component - Elegant Testimonial Design
- * ==================================================
- * Diseño elegante y moderno para reseñas de clientes.
- * Estilo editorial con enfoque en legibilidad y sofisticación.
+ * ReviewCard Component v6 — Luxury Editorial Card
+ * ================================================
+ * Diseño dramaticamente diferente: card con fondo cream, top strip
+ * gradient pink, quote en serif italic grande, avatar prominente
+ * con ring pink, footer minimalista. Visualmente memorable y
+ * profesional como tarjeta de prensa editorial.
  */
 
 interface Props {
@@ -29,299 +31,350 @@ const {
 } = Astro.props;
 ---
 
-<article class="testimonial">
-  <div class="testimonial__accent"></div>
+<article class="review-v6" itemscope itemtype="https://schema.org/Review">
+  <!-- Top accent strip -->
+  <div class="review-v6__strip" aria-hidden="true"></div>
 
-  <div class="testimonial__content">
-    <div class="testimonial__rating">
-      {[1,2,3,4,5].map((star) => (
-        <svg
-          class={`testimonial__star ${star <= rating ? 'testimonial__star--filled' : ''}`}
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-        </svg>
-      ))}
-    </div>
+  <div class="review-v6__body">
+    <!-- Opening quote glyph -->
+    <span class="review-v6__qmark" aria-hidden="true">"</span>
 
-    <blockquote class="testimonial__quote">
+    <!-- Quote serif italic -->
+    <blockquote class="review-v6__quote" itemprop="reviewBody">
       <p>{review}</p>
     </blockquote>
 
-    <footer class="testimonial__footer">
-      <div class="testimonial__avatar">
+    <!-- Footer: avatar + meta + rating -->
+    <footer class="review-v6__foot">
+      <div class="review-v6__avatar" itemprop="author" itemscope itemtype="https://schema.org/Person">
         {image ? (
           <img
             src={image}
             alt={name}
-            class="testimonial__image"
-            width="50"
-            height="50"
+            class="review-v6__avatar-img"
+            width="48"
+            height="48"
             loading="lazy"
+            itemprop="image"
           />
         ) : (
-          <span class="testimonial__initials">{initials}</span>
+          <span class="review-v6__initials" aria-hidden="true">{initials}</span>
         )}
-        {verified && (
-          <div class="testimonial__badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
-          </div>
-        )}
+        <meta itemprop="name" content={name} />
       </div>
-      <div class="testimonial__info">
-        <cite class="testimonial__name">
-          {link ? <a href={link} target="_blank" rel="noopener noreferrer" class="testimonial__name-link">{name}</a> : name}
-        </cite>
-        <span class="testimonial__event">{event}</span>
+
+      <div class="review-v6__meta">
+        <div class="review-v6__name-row">
+          <cite class="review-v6__name">
+            {link ? <a href={link} target="_blank" rel="noopener noreferrer" class="review-v6__name-link">{name}</a> : name}
+          </cite>
+          {verified && (
+            <svg class="review-v6__check" width="14" height="14" viewBox="0 0 24 24" aria-label="Verificado" role="img">
+              <path fill="#1d9bf0" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          )}
+        </div>
+        <span class="review-v6__event">{event}</span>
+      </div>
+
+      <div class="review-v6__rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+        <meta itemprop="ratingValue" content={String(rating)} />
+        <meta itemprop="bestRating" content="5" />
+        <div class="review-v6__stars" aria-label={`${rating} de 5 estrellas`}>
+          {[1,2,3,4,5].map((star) => (
+            <svg
+              class={`review-v6__star ${star <= rating ? 'review-v6__star--filled' : ''}`}
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          ))}
+        </div>
       </div>
     </footer>
   </div>
 </article>
 
-<style>.testimonial {
+<style>
+  /* =========================================================
+     REVIEW CARD v6 — Luxury Editorial Card
+     - Top strip gradient pink (visual signature)
+     - Cream background (#fdfbfa) — distinto a blanco puro
+     - Quote serif italic grande (Georgia)
+     - Opening quote mark gigante pink (decorativo dramático)
+     - Avatar con ring pink translúcido
+     - Footer compacto en una sola fila
+     ========================================================= */
+
+  .review-v6 {
     position: relative;
-    background: #ffffff;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(180deg, #fffefd 0%, #fdfbfa 100%);
+    border-radius: 18px;
     overflow: hidden;
     box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.05),
-      0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+      0 1px 2px rgba(15, 15, 30, 0.04),
+      0 6px 24px rgba(15, 15, 30, 0.06);
+    transition: box-shadow .25s ease;
   }
 
-  .testimonial__accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(180deg, #D1007A 0%, #A0005F 100%);
+  .review-v6:hover {
+    box-shadow:
+      0 2px 4px rgba(15, 15, 30, 0.05),
+      0 16px 40px rgba(209, 0, 122, 0.13);
   }
 
-  .testimonial__content {
-    padding: 28px 28px 28px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
+  /* ---------- Top strip (signature visual) ---------- */
+  .review-v6__strip {
+    height: 6px;
+    background: linear-gradient(90deg, #D1007A 0%, #A0005F 50%, #7A2BC2 100%);
+    flex-shrink: 0;
   }
 
-  .testimonial__rating {
-    display: flex;
-    gap: 4px;
-  }
-
-  .testimonial__star {
-    fill: #e0e0e0;
-  }
-
-  .testimonial__star--filled {
-    fill: #FFB800;
-  }
-
-  .testimonial__quote {
-    margin: 0;
+  /* ---------- Body ---------- */
+  .review-v6__body {
     position: relative;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 38px 38px 32px;
   }
 
-  .testimonial__quote::before {
-    content: '"';
+  /* ---------- Opening quote glyph (decorativo dramático) ---------- */
+  .review-v6__qmark {
     position: absolute;
-    top: -15px;
-    left: -8px;
-    font-family: Georgia, serif;
-    font-size: 4rem;
+    top: 18px;
+    right: 28px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 5rem;
     line-height: 1;
-    color: rgba(233, 30, 140, 0.08);
+    font-weight: 700;
+    color: rgba(209, 0, 122, 0.14);
     pointer-events: none;
+    user-select: none;
+    z-index: 0;
   }
 
-  .testimonial__quote p {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.75;
-    color: #374151;
-    font-weight: 400;
+  /* ---------- Quote serif italic ---------- */
+  .review-v6__quote {
+    margin: 0 0 30px;
+    flex: 1;
     position: relative;
     z-index: 1;
   }
 
-  .testimonial__footer {
-    display: flex;
-    align-items: center;
+  .review-v6__quote p {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #2c2c35;
+    font-weight: 400;
+  }
+
+  /* ---------- Footer ---------- */
+  .review-v6__foot {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 14px;
-    padding-top: 16px;
-    border-top: 1px solid #f3f4f6;
-    margin-top: auto;
+    align-items: center;
+    padding-top: 22px;
+    border-top: 1px solid rgba(209, 0, 122, 0.10);
   }
 
-  .testimonial__avatar {
-    position: relative;
+  /* Avatar con ring pink */
+  .review-v6__avatar {
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
+    padding: 2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
   }
 
-  .testimonial__initials {
+  .review-v6__initials {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
-    color: white;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(233, 30, 140, 0.25);
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    border: 2px solid #fdfbfa;
   }
 
-  .testimonial__image {
-    width: 50px;
-    height: 50px;
+  .review-v6__avatar-img {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 2px solid #fdfbfa;
   }
 
-  .testimonial__badge {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid white;
-    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
-  }
-
-  .testimonial__info {
+  .review-v6__meta {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 3px;
   }
 
-  .testimonial__name {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #1f2937;
-    letter-spacing: -0.01em;
+  .review-v6__name-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
   }
 
-  .testimonial__name-link {
-    color: #D1007A;
+  .review-v6__name {
+    font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0f0f1e;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .review-v6__name-link {
+    color: inherit;
     text-decoration: none;
   }
 
-  .testimonial__name-link:hover {
-    opacity: 0.75;
-    text-decoration: underline;
-  }
-
-  .testimonial__event {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
+  .review-v6__name-link:hover {
     color: #D1007A;
+  }
+
+  .review-v6__check {
+    flex-shrink: 0;
+  }
+
+  .review-v6__event {
+    font-size: 0.78rem;
+    color: #6b7280;
     font-weight: 500;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .testimonial__event::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #D1007A;
+  /* Rating */
+  .review-v6__rating {
+    flex-shrink: 0;
   }
 
-  /* Responsive */
+  .review-v6__stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .review-v6__star {
+    fill: #e5e7eb;
+  }
+
+  .review-v6__star--filled {
+    fill: #FFB800;
+  }
+
+  /* ==========================================================
+     Responsive
+     ========================================================== */
   @media (max-width: 768px) {
-    .testimonial__content {
-      padding: 24px 24px 24px 28px;
-      gap: 16px;
+    .review-v6__body {
+      padding: 32px 28px 26px;
     }
 
-    .testimonial__quote p {
-      font-size: 0.95rem;
+    .review-v6__qmark {
+      top: 14px;
+      right: 22px;
+      font-size: 4rem;
+    }
+
+    .review-v6__quote {
+      margin-bottom: 24px;
+    }
+
+    .review-v6__quote p {
+      font-size: 0.98rem;
       line-height: 1.7;
     }
 
-    .testimonial__quote::before {
-      font-size: 3rem;
-      top: -10px;
+    .review-v6__foot {
+      gap: 12px;
+      padding-top: 18px;
     }
 
-    .testimonial__initials,
-    .testimonial__image {
+    .review-v6__avatar {
       width: 44px;
       height: 44px;
-      font-size: 0.85rem;
     }
 
-    .testimonial__badge {
-      width: 18px;
-      height: 18px;
+    .review-v6__initials {
+      font-size: 0.82rem;
     }
 
-    .testimonial__badge svg {
-      width: 10px;
-      height: 10px;
-    }
-
-    .testimonial__name {
+    .review-v6__name {
       font-size: 0.9rem;
     }
 
-    .testimonial__event {
+    .review-v6__event {
       font-size: 0.75rem;
     }
 
-    .testimonial__star {
-      width: 16px;
-      height: 16px;
+    .review-v6__star {
+      width: 13px;
+      height: 13px;
     }
   }
 
   @media (max-width: 480px) {
-    .testimonial {
-      border-radius: 16px;
+    .review-v6__body {
+      padding: 28px 22px 24px;
     }
 
-    .testimonial__accent {
-      width: 4px;
+    .review-v6__qmark {
+      font-size: 3.5rem;
+      top: 12px;
+      right: 18px;
     }
 
-    .testimonial__content {
-      padding: 20px 20px 20px 24px;
-      gap: 14px;
+    .review-v6__foot {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      gap: 10px 12px;
     }
 
-    .testimonial__quote p {
-      font-size: 0.9rem;
+    .review-v6__avatar {
+      grid-column: 1;
+      grid-row: 1 / 3;
     }
 
-    .testimonial__footer {
-      gap: 12px;
-      padding-top: 14px;
+    .review-v6__meta {
+      grid-column: 2;
+      grid-row: 1;
     }
 
-    .testimonial__initials,
-    .testimonial__image {
-      width: 40px;
-      height: 40px;
-      font-size: 0.8rem;
+    .review-v6__rating {
+      grid-column: 2;
+      grid-row: 2;
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .review-v6 { transition: none; }
   }
 </style>
