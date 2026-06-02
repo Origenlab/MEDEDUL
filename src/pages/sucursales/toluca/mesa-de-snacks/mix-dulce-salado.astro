@@ -1,0 +1,968 @@
+---
+// L5 - Mix Dulce y Salado Toluca (EVOLVED)
+// Subsección dedicada: el equilibrio perfecto entre salados premium y dulces clásicos
+// Mejoras sobre L5 anterior: Filosofía Equilibrio + Combinaciones Firma + Trail Mix Builder + Proporción Ideal
+// Sucursal Toluca-Metepec, MEDEDUL
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Snacks', url: '/sucursales/toluca/mesa-de-snacks' },
+  { name: 'Mix Dulce y Salado', url: '/sucursales/toluca/mesa-de-snacks/mix-dulce-salado' }
+];
+
+// =============== 🆕 Filosofía del Equilibrio (4 principios) ===============
+const filosofia = [
+  {
+    icon: '⚖️',
+    titulo: 'Equilibrio Sensorial 60/40',
+    desc: 'La proporción perfecta para cubrir ambos antojos sin que ninguno aburra: 60% salado (la base que llena) + 40% dulce (el cierre que satisface). Probado en 60+ eventos Valle Toluca.'
+  },
+  {
+    icon: '🧠',
+    titulo: 'Ciencia del Antojo',
+    desc: 'Tras una hora dulce el paladar pide salado, y viceversa. Diseñamos la barra para que ambos perfiles convivan a 30-50 cm de distancia, permitiendo "rebote" natural entre estaciones.'
+  },
+  {
+    icon: '🎨',
+    titulo: 'Composición Cromática Dual',
+    desc: 'Salados en tonos tierra (madera, mimbre, papel kraft). Dulces en tonos paleta del evento (rosa nupcial, azul baby, dorado XV). Contraste visual editorial fotogénico para Instagram.'
+  },
+  {
+    icon: '⏱️',
+    titulo: 'Curva de Consumo Inteligente',
+    desc: 'Salados pesan más al inicio (cocktail-hour), dulces dominan al cierre (after-banquete). Reposición diferenciada según hora: 70% salado / 30% dulce primeras 3h, invierte después.'
+  }
+];
+
+// =============== Carta Dual: 6 SALADOS + 6 DULCES ===============
+const cartaSalados = [
+  { nombre: 'Papas Kettle Sea Salt', porte: 'Bandeja madera', perfil: 'Crujiente, sal Maldon', maridaje: 'Cerveza IPA' },
+  { nombre: 'Palomitas Trufa Negra', porte: 'Vasitos cono', perfil: 'Aroma trufa, mantequilla AOP', maridaje: 'Champagne' },
+  { nombre: 'Nachos Guacamole', porte: 'Estación cerámica', perfil: 'Crujiente con guac fresco', maridaje: 'Mezcal · Margarita' },
+  { nombre: 'Pretzels Alemanes', porte: 'Cesto mimbre', perfil: 'Suave fuera, sal kosher', maridaje: 'Cerveza weizen' },
+  { nombre: 'Cacahuates Japoneses', porte: 'Bandeja colorida', perfil: 'Crocante, ligero picante', maridaje: 'Cerveza · Mezcal' },
+  { nombre: 'Mix Frutos Secos Premium', porte: 'Bandeja dividida', perfil: 'Tostado natural balanceado', maridaje: 'Vino tinto · Whisky' }
+];
+
+const cartaDulces = [
+  { nombre: 'Chocolates Lindor Surtidos', porte: 'Pirámide cristal', perfil: 'Cremoso fundente', maridaje: 'Café · Coñac' },
+  { nombre: 'Gomitas Haribo Importadas', porte: 'Bowls coloridos', perfil: 'Frutal masticable', maridaje: 'Refrescos · Cocteles' },
+  { nombre: 'Mazapanes de la Rosa', porte: 'Cesto mimbre', perfil: 'Cremoso cacahuate, nostalgia', maridaje: 'Café de olla · Tequila' },
+  { nombre: 'Malvaviscos Gigantes', porte: 'Frascos cristal', perfil: 'Esponjoso pastel multicolor', maridaje: 'Chocolate caliente' },
+  { nombre: 'Galletas Decoradas', porte: 'Bandeja blanca', perfil: 'Mantequilla, royal icing personalizado', maridaje: 'Café · Té · Champagne' },
+  { nombre: 'M&M Coloridos', porte: 'Bowls cristal', perfil: 'Crocante color paleta evento', maridaje: 'Cocteles · Refrescos' }
+];
+
+// =============== 🆕 Combinaciones Firma (6 pairings curados) ===============
+const combinacionesFirma = [
+  {
+    salado: 'Palomitas Trufa Negra',
+    dulce: 'Chocolate Lindor Caramelo',
+    nombre: 'Pareja Boutique Parisina',
+    desc: 'La combinación que sorprende a paladares sofisticados: la trufa negra italiana con el cremoso fundente del Lindor caramelo. Funciona en bodas Hacienda La Magdalena Metepec.',
+    eventos: 'Bodas premium · Cenas VIP',
+    intensidad: 'Sofisticado'
+  },
+  {
+    salado: 'Papas Kettle Sea Salt',
+    dulce: 'Chocolate amargo 70%',
+    nombre: 'Combinación Sweet & Salty Clásica',
+    desc: 'El pairing universal: sal de mar Maldon + chocolate amargo 70% Valrhona. Crujiente + fundente, salado + dulce-amargo. Probado en bodas y corporativos.',
+    eventos: 'Universal · Corporativos',
+    intensidad: 'Equilibrado'
+  },
+  {
+    salado: 'Pretzels Alemanes',
+    dulce: 'Nutella en estación dip',
+    nombre: 'Combo Bávaro Dulce',
+    desc: 'Pretzel suave por dentro con sal kosher mojado en estación de Nutella. Experiencia interactiva que arrasa en cumpleaños infantiles y XV en Quinta Real Toluca.',
+    eventos: 'XV Años · Cumpleaños · Infantiles',
+    intensidad: 'Interactivo'
+  },
+  {
+    salado: 'Cacahuates Japoneses',
+    dulce: 'Mazapanes de la Rosa',
+    nombre: 'Nostalgia Mexicana 100%',
+    desc: 'La pareja icónica del paladar mexicano: la cubierta crocante con soya + el cremoso de cacahuate del mazapán. Identidad pura para bodas con espíritu mexicano.',
+    eventos: 'Bodas mexicanas · Posadas',
+    intensidad: 'Tradicional'
+  },
+  {
+    salado: 'Mix Frutos Secos Premium',
+    dulce: 'Arándanos secos + chocolate',
+    nombre: 'Trail Mix Gourmet',
+    desc: 'Almendras + nueces + pistaches + arándanos + chips de chocolate amargo. Mix integrado tipo trail-mix profesional. Perfecto para corporativos healthy en Lerma.',
+    eventos: 'Corporativos · Healthy · Eventos día',
+    intensidad: 'Saludable'
+  },
+  {
+    salado: 'Nachos con Guacamole',
+    dulce: 'Churros con cajeta',
+    nombre: 'Estación México Total',
+    desc: 'Combo mexicano-mexicano: nachos con guac + churros con cajeta de Celaya. Para bodas con identidad mexicana fuerte y after-party intenso. Estaciones interactivas en vivo.',
+    eventos: 'Bodas mexicanas · After-party',
+    intensidad: 'Intenso'
+  }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '12+', label: 'Snacks combinados curados' },
+  { number: '60/40', label: 'Equilibrio salado-dulce ideal' },
+  { number: '60+', label: 'Mix Valle Toluca' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== 🆕 Trail Mix Builder (3 estilos) ===============
+const trailMixBuilder = [
+  {
+    nombre: 'Trail Mix Clásico',
+    componentes: 'Almendras tostadas · Arándanos secos · Chips chocolate · Pretzels mini · Pasas',
+    proporcion: '40% salado / 40% dulce / 20% crocante',
+    eventos: 'Universal · Corporativos · Healthy',
+    color: '#e8851a'
+  },
+  {
+    nombre: 'Trail Mix Mexicano',
+    componentes: 'Cacahuates japoneses · Mazapanes mini · Maíz crujiente · Arándanos · Pepitas',
+    proporcion: '50% salado / 30% dulce / 20% crocante',
+    eventos: 'Bodas mexicanas · XV · Posadas',
+    color: '#d6740a'
+  },
+  {
+    nombre: 'Trail Mix Premium Boutique',
+    componentes: 'Pistache siciliano · Nuez Castilla · Lindor mini · Granadas secas · Chocolate amargo 70%',
+    proporcion: '45% salado / 35% dulce / 20% premium',
+    eventos: 'Bodas Hacienda · Cenas VIP · Lanzamientos',
+    color: '#a87a3c'
+  }
+];
+
+// =============== 🆕 Proporción Ideal por tipo de evento ===============
+const proporcionEventos = [
+  { tipo: 'Boda elegante', salado: 60, dulce: 40, motivo: 'Cocktail-hour pesa salados, after-banquete pide dulces. 60/40 cubre ambas fases.' },
+  { tipo: 'XV Años', salado: 45, dulce: 55, motivo: 'Quinceañeras y amigas prefieren dulces y mexicanos coloridos. Inversión natural.' },
+  { tipo: 'Cumpleaños infantil', salado: 30, dulce: 70, motivo: 'Niños demandan dulce. Salados ligeros (palomitas dulces, pretzels) sin nueces.' },
+  { tipo: 'Corporativo C-level', salado: 70, dulce: 30, motivo: 'Profesionales prefieren salado protocolo. Dulce solo cierra reunión.' },
+  { tipo: 'Baby Shower', salado: 40, dulce: 60, motivo: 'Mamá y amigas piden dulce reconfortante. Salados healthy para invitados conscientes.' },
+  { tipo: 'After-Party Boda', salado: 65, dulce: 35, motivo: 'Después del pastel ya hubo dulce. Salados crujientes para acompañar bebidas.' }
+];
+
+// =============== Subsecciones hermanas (3 cards) ===============
+const subsecciones = [
+  {
+    title: 'Snacks Gourmet Salados Toluca',
+    sublabel: 'Papas, palomitas, nachos premium',
+    excerpt: 'L5 dedicado: 12 snacks salados premium en 6 categorías. Papas kettle-cooked sea salt, papas trufa negra, 4 palomitas saborizadas (trufa, mantequilla AOP, parmesano, BBQ), nachos guacamole, pretzels alemanes, cacahuates japoneses, mix frutos secos, chicharrones gourmet, edamame healthy. Máquina palomitas en sitio. Si tu evento es 100% salado.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados',
+    badge: 'Más Popular',
+    cta: 'Ver Snacks Salados'
+  },
+  {
+    title: 'Barra Infantil Toluca',
+    sublabel: 'Snacks seguros para los más chicos',
+    excerpt: 'L5 evolved MAX con protocolo seguridad alimentaria infantil 6 pilares, 4 rangos edad recomendados, tabla alergenos completa, 6 temas decoración (princesas, dinos, unicornio), estaciones lúdicas (candy carrousel, algodón azúcar, photo wall), bolsitas/cajitas recuerdo personalizadas, operador con primeros auxilios. Si tu evento tiene niños invitados. Desde $2,800 MXN.',
+    img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/barra-infantil',
+    badge: 'Kid-Friendly',
+    cta: 'Ver Barra Infantil'
+  },
+  {
+    title: 'Hub Mesa de Snacks Toluca',
+    sublabel: 'Vista completa del servicio',
+    excerpt: 'Página principal Sucursal Toluca-Metepec con paquetes Esencial / Favorito / Luxury After-Party desde $3,400 MXN. 14 secciones con carta signature 12 snacks dark mode, 6 categorías premium, comparativa, hermanas, sucursal info. Para eventos en Hacienda La Magdalena Metepec, Quinta Real Toluca.',
+    img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks',
+    badge: 'Hub L4',
+    cta: 'Ver Hub Snacks Toluca'
+  }
+];
+
+// =============== Maridajes Mix ===============
+const maridajes = [
+  { bebida: 'Cerveza Artesanal Mexicana', icon: '🍺', detalle: 'IPA, lager o stout artesanal mexicana. Versátil con todo el mix: papas kettle, palomitas, mazapanes y chocolate. Bodas mexicanas Valle Toluca.', snacks: 'Papas · Palomitas · Mazapanes' },
+  { bebida: 'Champagne / Cava Brut', icon: '🥂', detalle: 'Burbuja universal que limpia paladar entre salado y dulce. Marida con palomitas trufa, papas trufa, Lindor y galletas decoradas.', snacks: 'Palomitas Trufa · Lindor · Galletas' },
+  { bebida: 'Mezcal Reposado', icon: '🥃', detalle: 'La pareja mexicana definitiva con cacahuates japoneses, chicharrones, mazapanes y chocolate amargo. Cierre nocturno con identidad.', snacks: 'Cacahuates · Chicharrones · Mazapanes' },
+  { bebida: 'Vino Tinto Tempranillo', icon: '🍷', detalle: 'Tinto de cuerpo medio. Maridaje protocolo para corporativos con frutos secos, chocolate amargo 70% y palomitas parmesano.', snacks: 'Frutos secos · Chocolate · Palomitas' },
+  { bebida: 'Cocteles Sweet & Salty', icon: '🍹', detalle: 'Cocteles de autor con borde de sal y dulce: salty dog, paloma, margarita con chamoy. Para after-party Hacienda La Magdalena Metepec.', snacks: 'Universal · Mix completo' },
+  { bebida: 'Café Especialidad', icon: '☕', detalle: 'Espresso de tueste medio o cold brew. Perfecto para cierre con galletas decoradas, Lindor, mazapanes y churros con cajeta.', snacks: 'Lindor · Galletas · Mazapanes · Churros' }
+];
+
+// =============== Características Mix Toluca ===============
+const caracteristicas = [
+  { num: 1, title: 'Curaduría 60/40 probada', desc: 'No improvisamos proporciones. Tras 60+ eventos Valle Toluca documentamos qué porcentaje salado vs dulce funciona por tipo de celebración. Boda elegante 60/40, XV 45/55, corporativo 70/30, baby shower 40/60, infantil 30/70.', img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif' },
+  { num: 2, title: 'Composición dual editorial', desc: 'Mesa dividida en 2 zonas claras: izquierda salados (madera, mimbre, papel kraft, tonos tierra) + derecha dulces (cristal, cerámica blanca, paleta cromática del evento). Contraste visual fotogénico Instagram.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' },
+  { num: 3, title: 'Combinaciones firma curadas', desc: '6 pairings probados que llevamos como sugerencia al cliente: palomitas trufa + Lindor caramelo, papas kettle + chocolate 70%, pretzels + Nutella dip, cacahuates + mazapanes (nostalgia mexicana). El 60% de clientes los elige.', img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif' },
+  { num: 4, title: 'Reposición diferenciada por hora', desc: 'Las primeras 3 horas reponemos 70% salados / 30% dulces (cocktail-hour pesa salado). Después del banquete invertimos a 30% salados / 70% dulces. Operador profesional opera ambas zonas con timing inteligente.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' }
+];
+
+// =============== Paquetes Mix Toluca ===============
+const paquetesMix = [
+  {
+    name: 'Toluca Mix 8',
+    icon: '⚖️',
+    price: '$3,800',
+    currency: 'MXN',
+    guests: '40-70 personas',
+    tagline: 'Equilibrio esencial 60/40',
+    features: [
+      '4 salados + 4 dulces curados',
+      'Salados: Papas kettle + Palomitas mantequilla + Pretzels + Cacahuates japoneses',
+      'Dulces: Lindor surtidos + Gomitas Haribo + Mazapanes + M&M coloridos',
+      'Composición dual 2 zonas (salado / dulce)',
+      'Mobiliario boutique completo',
+      'Etiquetería tipográfica básica',
+      '4 horas de servicio + reposición diferenciada',
+      'Operador de barra incluido',
+      'Traslado zonas centrales Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Mix 8',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Mix%20Dulce-Salado%20Toluca%20-%20Mix%208'
+  },
+  {
+    name: 'Toluca Mix 14',
+    icon: '⭐',
+    price: '$6,900',
+    currency: 'MXN',
+    guests: '70-130 personas',
+    tagline: 'El más solicitado para bodas Valle Toluca',
+    features: [
+      '7 salados + 7 dulces premium',
+      'Salados: + Papas trufa + Palomitas trufa + Nachos guacamole en vivo + Mix frutos secos premium',
+      'Dulces: + Galletas decoradas + Malvaviscos gigantes + Trail mix gourmet',
+      'Combinaciones firma curadas (6 pairings)',
+      'Estación nachos con guacamole hecho del día',
+      'Composición dual con backdrop floral coordinado',
+      'Etiquetería personalizada con paleta del evento',
+      'Reposición diferenciada por hora (70/30 → 30/70)',
+      '5-6 horas de servicio',
+      'Coordinación con wedding planner Valle Toluca',
+      'Traslado refrigerado Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Mix 14',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mix%20Dulce-Salado%20Toluca%20-%20Mix%2014'
+  },
+  {
+    name: 'Toluca Mix 20 Atelier',
+    icon: '💎',
+    price: '$11,200',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Carta completa + Trail Mix Builder + Estaciones',
+    features: [
+      '10 salados + 10 dulces premium D.O.P.',
+      'Carta completa: Trufas, Lindor variedades, Haribo premium, galletas personalizadas iniciales/logo',
+      'Trail Mix Builder en vivo (3 mezclas: clásico, mexicano, boutique)',
+      'Estación palomitas en máquina retro + Estación nachos',
+      'Estación churros con cajeta in situ',
+      'Sección healthy (frutos secos premium, edamame, popped quinoa)',
+      'Sommelier de mix sugiere combinaciones a invitados',
+      'Personalización paleta + branding boutique con iniciales/logo',
+      'Foto profesional editorial dual (zona salado + dulce)',
+      '6-8 horas de servicio + 2 operadores',
+      'Protocolo hacienda 5★ con uniforme corporativo',
+      'Hand-off a wedding planner sin fricción Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Mix 20',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mix%20Dulce-Salado%20Toluca%20-%20Mix%2020%20Atelier'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  { num: 1, title: 'Briefing & Análisis Equilibrio', desc: 'Sesión por WhatsApp Toluca (55 2177 5184), Zoom o presencial en Sucursal Metepec. Definimos tipo de evento, perfil invitados (edad, género dominante, preferencias), duración. Calculamos % salado/dulce ideal según tu caso.' },
+  { num: 2, title: 'Carta Dual Personalizada', desc: 'En menos de 24 h recibes carta dual con propuesta de 8/14/20 snacks balanceados, 6 combinaciones firma sugeridas, paleta cromática coordinada, render conceptual 2 zonas y cotización cerrada.' },
+  { num: 3, title: 'Sourcing & Trail Mix', desc: 'Apartas con anticipo 50%. Importamos productos premium (papas trufa, Lindor, palomitas trufa requieren 5-7 días). En Mix 20 Atelier preparamos 3 trail mixes signature pre-empacados con etiquetería boutique.' },
+  { num: 4, title: 'Montaje Dual + Operación Inteligente', desc: 'Llegamos 60 min antes. Montaje editorial 2 zonas (salado/dulce) con composición cromática dual. Operador opera reposición diferenciada según hora del evento (70/30 → 30/70). Estaciones en vivo (nachos, palomitas, churros) según paquete.' }
+];
+
+// =============== Galería ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif', alt: 'Barra Mix Dulce-Salado Valle Toluca' },
+  { src: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif', alt: 'Mesa equilibrio salado-dulce Hacienda La Magdalena Metepec' },
+  { src: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif', alt: 'Renta Mix Dulce-Salado Sucursal Metepec' },
+  { src: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', alt: 'Combinaciones firma snack pairing Quinta Real Toluca' },
+  { src: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', alt: 'Mix infantil dulce-salado cumpleaños Metepec' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Mix dulce-salado corporativo Lerma' }
+];
+
+// =============== Eventos compatibles ===============
+const eventos = [
+  { title: 'Mix para Bodas Toluca', excerpt: 'La barra mixta para after-party de boda. Salados premium para acompañar bebidas + dulces para los que no quieren más comida fuerte. Composición dual editorial fotogénica para Instagram. Bodas Hacienda La Magdalena Metepec, Quinta Real Toluca.', img: '/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif', badge: 'Favorito', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda', cta: 'Ver Bodas Toluca' },
+  { title: 'Mix XV Años Toluca', excerpt: 'Mix colorido para XV con paleta coordinada al vestido. Dulces dominan (55%) con M&M y Haribo de la paleta + salados ligeros (palomitas, papas suaves). Para mantener invitados toda la noche en Quinta Real Toluca, Salón Riviera Metepec.', img: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', badge: 'Popular', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos', cta: 'Ver XV Años Toluca' },
+  { title: 'Mix Cumpleaños Adulto', excerpt: 'Cumpleaños 30, 40, 50 con paleta sobria. Combinaciones firma boutique: palomitas trufa + Lindor caramelo, papas kettle + chocolate 70%. Maridaje cocteles. Residencias Las Marinas, San Carlos Metepec.', img: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', href: '/candy-bar-eventos', cta: 'Ver Cumpleaños' },
+  { title: 'Mix Corporativo Híbrido', excerpt: 'Lanzamientos en parques industriales Lerma/Toluca/Metepec. Mix 70% salado / 30% dulce con frutos secos premium, palomitas trufa + galletas branded. Branding integrado en bandejas y servilletería.', img: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', badge: 'Protocolo', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
+  { title: 'Mix Baby Shower Toluca', excerpt: 'Mix dulce-salado en tonos pastel. Sin alergenos cuando aplica, opción sin lactosa para mamá embarazada, snacks suaves apropiados. Combinaciones firma para complacer paladares mixtos. Residenciales boutique de Metepec.', img: '/img/blog/cupcakes-macarons-rosa-baby-shower-boda-02.avif', href: '/sucursales/toluca/mesa-de-dulces/baby-shower', cta: 'Ver Baby Shower Toluca' },
+  { title: 'Mix After-Party Bodas', excerpt: 'La opción premium para mantener fiesta hasta 4 AM. Mix renovado después del banquete con balance 65/35 (más salado que dulce porque ya hubo pastel). Estaciones en vivo (palomitas, nachos, churros). Hacienda La Magdalena, Real de Minas.', img: '/img/galeria/candy-bar-elegante-terraza-atardecer.avif', href: '/candy-bar-eventos', cta: 'Ver After-Party' }
+];
+
+// =============== Testimonios ===============
+const testimonios = [
+  { name: 'Renata y Tomás', initials: 'RT', review: 'El Mix 20 Atelier en nuestra boda en Hacienda La Magdalena Metepec fue genial. La composición dual con zona salada y zona dulce + las combinaciones firma (palomitas trufa + Lindor) que el sommelier sugería a los invitados fue conversación toda la noche. Las 8 horas no pararon de comer.', event: 'Boda Hacienda La Magdalena Metepec', rating: 5 },
+  { name: 'Daniela Ruiz', initials: 'DR', review: 'Para mi cumpleaños 40 en Las Marinas Metepec elegí Mix 14. La proporción 60/40 salado-dulce funcionó perfecto: nadie se cansó de un solo perfil. Las combinaciones firma (papas kettle + chocolate 70%) fueron una sorpresa elegante para mis invitados.', event: 'Cumpleaños Las Marinas Metepec', rating: 5 },
+  { name: 'Luis Aguilar', initials: 'LA', review: 'Contraté Mix 14 para el lanzamiento de marca en Parque Industrial Lerma. Pedí proporción 70/30 salado-dulce (corporativo C-level) y MEDEDUL ajustó perfecto. Los frutos secos premium + Lindor para cierre fue justo el balance que buscábamos para directivos.', event: 'Lanzamiento Lerma', rating: 5 }
+];
+
+// =============== FAQ ===============
+const faqs = [
+  { question: '¿Qué es la "filosofía 60/40" del Mix Dulce-Salado?', answer: 'Es nuestra proporción base probada en 60+ eventos Valle Toluca: 60% salado (la base que llena durante el cocktail-hour) + 40% dulce (el cierre que satisface después). Esta proporción cubre ambos antojos sin que ninguno aburra. Ajustamos la proporción según tipo de evento: bodas elegantes 60/40, XV 45/55 (más dulce para quinceañeras), cumpleaños infantil 30/70, corporativo C-level 70/30 (más salado protocolo).' },
+  { question: '¿Cuánto cuesta un Mix Dulce-Salado en Valle Toluca?', answer: 'Iniciamos en $3,800 MXN (Toluca Mix 8, 40-70 invitados, 4 salados + 4 dulces), $6,900 MXN (Toluca Mix 14, 70-130 invitados con combinaciones firma + estación nachos en vivo — el más solicitado para bodas), hasta $11,200 MXN (Toluca Mix 20 Atelier, 130+ invitados con Trail Mix Builder en vivo, 3 estaciones (palomitas, nachos, churros), sommelier de mix y branding boutique). Cotización gratuita en menos de 24 h vía WhatsApp 55 2177 5184.' },
+  { question: '¿Qué son las "combinaciones firma" curadas?', answer: 'Son 6 pairings probados que llevamos como sugerencia al cliente: (1) Palomitas Trufa Negra + Chocolate Lindor Caramelo (boutique parisina), (2) Papas Kettle Sea Salt + Chocolate Amargo 70% (sweet & salty universal), (3) Pretzels Alemanes + Nutella en estación dip (combo bávaro interactivo), (4) Cacahuates Japoneses + Mazapanes (nostalgia mexicana), (5) Mix Frutos Secos + Chocolate (trail mix gourmet healthy), (6) Nachos Guacamole + Churros con Cajeta (estación México total). El 60% de clientes elige al menos 2 de estos pairings.' },
+  { question: '¿Qué es el "Trail Mix Builder" del paquete Atelier?', answer: 'En Toluca Mix 20 Atelier preparamos 3 trail mixes signature en vivo durante el evento: (1) Trail Mix Clásico (almendras + arándanos + chips chocolate + pretzels mini), (2) Trail Mix Mexicano (cacahuates japoneses + mazapanes mini + maíz crujiente + pepitas), (3) Trail Mix Premium Boutique (pistache siciliano + nuez Castilla + Lindor mini + granadas secas). Cada invitado puede elegir su mix favorito y el operador lo sirve en vasitos cono individuales con etiqueta personalizada.' },
+  { question: '¿Cómo funciona la "reposición diferenciada por hora"?', answer: 'Las primeras 3 horas del evento (cocktail-hour, recepción) reponemos 70% salados / 30% dulces porque los invitados acaban de llegar y prefieren salado para acompañar bebidas. Después del banquete y baile invertimos a 30% salados / 70% dulces porque ya hubo comida fuerte y el paladar pide cierre dulce. Operador profesional opera ambas zonas con timing inteligente, sin que el cliente tenga que preocuparse.' },
+  { question: '¿Cuál es la diferencia entre los 3 paquetes Mix?', answer: 'Mix 8 (esencial, 40-70 inv): 4 salados + 4 dulces básicos, composición dual 2 zonas, 4h. Mix 14 (más solicitado, 70-130 inv): 7 salados + 7 dulces premium + estación nachos en vivo + combinaciones firma + etiquetería personalizada + 5-6h. Mix 20 Atelier (premium, 130+ inv): 10 salados + 10 dulces D.O.P. + Trail Mix Builder en vivo + 3 estaciones (palomitas/nachos/churros) + sommelier de mix + branding boutique + 6-8h + 2 operadores.' },
+  { question: '¿Manejan opciones sin alergenos para invitados sensibles?', answer: 'Sí. Diseñamos sección kids separada sin nueces (alergia más común), sin lactosa, sin gluten o sin colorantes artificiales según necesidad. Para Trail Mix personalizamos versión sin nueces. Para invitados veganos coordinamos selección con palomitas con aceite de oliva, frutos secos sin lácteos, gomitas veganas. Cero contaminación cruzada en bandejas separadas con etiquetería específica.' },
+  { question: '¿En qué zonas del Valle de Toluca dan servicio?', answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia), Toluca centro (Reforma, Sor Juana, Universidad), Zinacantepec, Lerma (centro y residenciales, parques industriales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).' },
+  { question: '¿Coordinan con wedding planner del Valle Toluca?', answer: 'Sí, en cada evento. Trabajamos frecuentemente con planners de Hacienda La Magdalena (Metepec), Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma, Salón Riviera Metepec y Casa Club Las Marinas. Conocemos protocolos sanitarios, requerimientos de cocción en sitio (palomitas, nachos, churros), tiempos de carga, posicionamiento óptimo de la barra dual según flujo del evento.' },
+  { question: '¿Personalizan branding y paleta cromática?', answer: 'Sí. En Mix 14 y Mix 20 Atelier coordinamos colores de gomitas Haribo, M&M, bowls y backdrop según paleta del evento. Etiquetería tipográfica con iniciales nupciales o logo corporativo en ambas zonas (salado y dulce). En Atelier sumamos servilletería personalizada, vasitos cono branded para palomitas y bandejas con etiqueta editorial. Ideal para bodas editoriales y lanzamientos en parques industriales Valle Toluca.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para bodas en temporada alta Valle Toluca (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. Algunos productos premium importados (Lindor surtido, palomitas trufa, papas trufa) requieren sourcing con 5-7 días. Para eventos corporativos y baby showers suelen ser suficientes 3-4 semanas. Trabajamos por orden de confirmación con anticipo del 50%.' }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/mix-dulce-salado#service",
+      "name": "Mix Dulce y Salado Premium en Valle de Toluca",
+      "serviceType": "Barra de Snacks Dual Salado-Dulce para Eventos",
+      "description": "Mix dulce-salado premium en Valle de Toluca con filosofía 60/40 probada en 60+ eventos. Composición dual editorial: zona salado (papas kettle, palomitas trufa, nachos, pretzels, frutos secos) + zona dulce (Lindor, Haribo, mazapanes, malvaviscos, galletas decoradas). 6 combinaciones firma curadas, Trail Mix Builder en vivo, reposición diferenciada por hora. Operación desde Sucursal Metepec con cobertura completa Valle de Toluca.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "62", "bestRating": "5" }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3800",
+        "highPrice": "11200",
+        "offerCount": "3",
+        "offers": paquetesMix.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mix Dulce-Salado Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Snacks", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks" },
+        { "@type": "ListItem", "position": 5, "name": "Mix Dulce y Salado", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/mix-dulce-salado" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mix Dulce y Salado Valle Toluca | Equilibrio 60/40 + Trail Mix Builder | MEDEDUL"
+  description="Barra Mix Dulce-Salado premium en Valle de Toluca por MEDEDUL. Filosofía 60/40 probada, composición dual editorial (zona salado + zona dulce), 6 combinaciones firma curadas, Trail Mix Builder en vivo, reposición diferenciada por hora. Sucursal Metepec. Bodas Hacienda La Magdalena, XV Quinta Real Toluca, corporativos Lerma. Desde $3,800 MXN. WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-snacks/mix-dulce-salado"
+  ogImage="/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mix Dulce y Salado Valle Toluca"
+    highlight="Mix"
+    subtitle="El equilibrio perfecto 60/40 | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>El equilibrio perfecto entre salado y dulce, probado en 60+ eventos Valle Toluca</strong>. La barra mixta MEDEDUL no es solo "salados + dulces": es <strong>composición dual editorial</strong> con filosofía 60/40 documentada, <strong>6 combinaciones firma curadas</strong> (palomitas trufa + Lindor caramelo, papas kettle + chocolate 70%, pretzels + Nutella dip, cacahuates japoneses + mazapanes), <strong>Trail Mix Builder en vivo</strong> con 3 estilos (clásico, mexicano, boutique) y <strong>reposición diferenciada por hora</strong> (70/30 al inicio → 30/70 al cierre).</p><p>Diseñamos cada Mix para tu tipo de evento Valle Toluca con proporción específica: <strong>bodas elegantes 60/40</strong>, <strong>XV Años 45/55</strong> (más dulce para quinceañeras), <strong>cumpleaños infantil 30/70</strong>, <strong>corporativo C-level 70/30</strong> (más salado protocolo), <strong>baby shower 40/60</strong>. Operamos desde Blvd. Toluca-Metepec 913 con composición editorial fotogénica para Instagram, mobiliario boutique multinivel y operador profesional con timing inteligente. Bodas Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas y corporativos parques industriales Lerma.</p>`}
+  />
+
+  <!-- ===================== Stats ===================== -->
+  <section class="tol-mix-stats">
+    <div class="container">
+      <div class="tol-mix-stats__grid">
+        {stats.map(s => (
+          <div class="tol-mix-stat">
+            <span class="tol-mix-stat__num">{s.number}</span>
+            <span class="tol-mix-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Filosofía del Equilibrio (4 principios) ===================== -->
+  <section class="tol-mix-filosofia">
+    <div class="container">
+      <div class="tol-mix-filosofia__header">
+        <span class="tol-mix-filosofia__badge">Filosofía MEDEDUL</span>
+        <h2>Los <span>4 Principios del Equilibrio</span></h2>
+        <p>No improvisamos proporciones ni mezclamos al azar. Cada Mix Dulce-Salado se diseña sobre 4 principios documentados tras 60+ eventos Valle Toluca. Esto es lo que cambia un "snack mix" cualquiera de una <strong>experiencia gastronómica curada</strong>.</p>
+      </div>
+
+      <div class="tol-mix-filosofia__grid">
+        {filosofia.map((f, i) => (
+          <div class="tol-mix-filosofia__card">
+            <span class="tol-mix-filosofia__num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="tol-mix-filosofia__icon">{f.icon}</span>
+            <h3>{f.titulo}</h3>
+            <p>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Carta Dual: Salados + Dulces ===================== -->
+  <section class="tol-mix-carta">
+    <div class="container">
+      <div class="tol-mix-carta__header">
+        <span class="tol-mix-carta__badge">Carta Dual del Chef</span>
+        <h2>12 Snacks <span>en 2 Zonas Equilibradas</span></h2>
+        <p>Composición dual editorial: zona salado (madera, mimbre, papel kraft) + zona dulce (cristal, cerámica, paleta del evento). Cada snack con su porte, perfil y maridaje.</p>
+      </div>
+
+      <div class="tol-mix-carta__dual">
+        <!-- Zona SALADO -->
+        <div class="tol-mix-zona tol-mix-zona--salado">
+          <header class="tol-mix-zona__head">
+            <span class="tol-mix-zona__icon">🍿</span>
+            <h3>Zona Salado <span class="tol-mix-zona__pct">60% base</span></h3>
+            <p>Crujientes premium para acompañar bebidas y mantener energía durante cocktail-hour</p>
+          </header>
+          <div class="tol-mix-zona__list">
+            {cartaSalados.map((s, i) => (
+              <article class="tol-mix-snack-card tol-mix-snack-card--salado">
+                <header class="tol-mix-snack-card__head">
+                  <span class="tol-mix-snack-card__num">{String(i + 1).padStart(2, '0')}</span>
+                  <h4>{s.nombre}</h4>
+                </header>
+                <dl class="tol-mix-snack-card__specs">
+                  <div><dt>Porte</dt><dd>{s.porte}</dd></div>
+                  <div><dt>Perfil</dt><dd>{s.perfil}</dd></div>
+                  <div><dt>Maridaje</dt><dd>{s.maridaje}</dd></div>
+                </dl>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <!-- Zona DULCE -->
+        <div class="tol-mix-zona tol-mix-zona--dulce">
+          <header class="tol-mix-zona__head">
+            <span class="tol-mix-zona__icon">🍬</span>
+            <h3>Zona Dulce <span class="tol-mix-zona__pct">40% cierre</span></h3>
+            <p>Clásicos importados y mexicanos para satisfacer antojos después del banquete</p>
+          </header>
+          <div class="tol-mix-zona__list">
+            {cartaDulces.map((s, i) => (
+              <article class="tol-mix-snack-card tol-mix-snack-card--dulce">
+                <header class="tol-mix-snack-card__head">
+                  <span class="tol-mix-snack-card__num">{String(i + 7).padStart(2, '0')}</span>
+                  <h4>{s.nombre}</h4>
+                </header>
+                <dl class="tol-mix-snack-card__specs">
+                  <div><dt>Porte</dt><dd>{s.porte}</dd></div>
+                  <div><dt>Perfil</dt><dd>{s.perfil}</dd></div>
+                  <div><dt>Maridaje</dt><dd>{s.maridaje}</dd></div>
+                </dl>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Combinaciones Firma (6 pairings) ===================== -->
+  <section class="tol-mix-combinaciones">
+    <div class="container">
+      <div class="tol-mix-combinaciones__header">
+        <span class="tol-mix-combinaciones__badge">6 Pairings Firma</span>
+        <h2>Combinaciones <span>Firma Curadas</span></h2>
+        <p>6 pairings probados que llevamos como sugerencia al cliente. El 60% de eventos Valle Toluca elige al menos 2 de estas combinaciones. Cada una optimizada para un tipo de evento.</p>
+      </div>
+
+      <div class="tol-mix-combinaciones__grid">
+        {combinacionesFirma.map((c, i) => (
+          <div class="tol-mix-combo-card">
+            <span class="tol-mix-combo-card__num">{String(i + 1).padStart(2, '0')}</span>
+            <div class="tol-mix-combo-card__pairing">
+              <span class="tol-mix-combo-card__item tol-mix-combo-card__item--salado">{c.salado}</span>
+              <span class="tol-mix-combo-card__plus">+</span>
+              <span class="tol-mix-combo-card__item tol-mix-combo-card__item--dulce">{c.dulce}</span>
+            </div>
+            <h3>{c.nombre}</h3>
+            <p>{c.desc}</p>
+            <footer>
+              <span class="tol-mix-combo-card__intensidad">{c.intensidad}</span>
+              <span class="tol-mix-combo-card__eventos">{c.eventos}</span>
+            </footer>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-mix-toluca"
+    badge="Paquetes Mix Dulce-Salado Toluca"
+    title="Elige tu"
+    titleHighlight="Mix Toluca"
+    subtitle="3 niveles claros: Mix 8 / Mix 14 / Mix 20 Atelier con Trail Mix Builder"
+    content={`<p>Diseñamos <strong>tres niveles de Mix Dulce-Salado Toluca</strong> según tamaño y duración del evento. Todos incluyen composición dual editorial 2 zonas, mobiliario boutique, etiquetería personalizada, operador profesional y reposición diferenciada por hora. Lo que escala es la <strong>cantidad de variedades, presencia de Trail Mix Builder en vivo, estaciones interactivas (palomitas/nachos/churros) y sommelier de mix</strong>. Anticipo del 50% para reservar fecha.</p>`}
+    packages={paquetesMix}
+    note="💡 <strong>Todos los paquetes Toluca incluyen:</strong> snacks salados + dulces premium, composición dual editorial 2 zonas, mobiliario boutique multinivel, etiquetería tipográfica personalizada, operador profesional con reposición diferenciada por hora (70/30 → 30/70), transporte desde Sucursal Metepec, atención a dietas especiales, desmontaje discreto al cierre."
+  />
+
+  <!-- ===================== 🆕 Trail Mix Builder (3 estilos) ===================== -->
+  <section class="tol-mix-builder">
+    <div class="container">
+      <div class="tol-mix-builder__header">
+        <span class="tol-mix-builder__badge">Solo en Mix 20 Atelier</span>
+        <h2>Trail Mix <span>Builder en Vivo</span></h2>
+        <p>En el paquete Atelier preparamos 3 trail mixes signature en estación dedicada durante el evento. Cada invitado elige su mix favorito y el operador lo sirve en vasitos cono individuales con etiqueta personalizada. Experiencia interactiva que sorprende.</p>
+      </div>
+
+      <div class="tol-mix-builder__grid">
+        {trailMixBuilder.map(t => (
+          <div class="tol-mix-builder__card" style={`border-top: 4px solid ${t.color};`}>
+            <h3 style={`color: ${t.color};`}>{t.nombre}</h3>
+            <p class="tol-mix-builder__componentes"><strong>Componentes:</strong> {t.componentes}</p>
+            <p class="tol-mix-builder__proporcion"><strong>Proporción:</strong> {t.proporcion}</p>
+            <p class="tol-mix-builder__eventos"><strong>Ideal para:</strong> {t.eventos}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Proporción Ideal por Tipo de Evento ===================== -->
+  <section class="tol-mix-proporcion">
+    <div class="container">
+      <div class="tol-mix-proporcion__header">
+        <span class="tol-mix-proporcion__badge">Datos del Chef</span>
+        <h2>Proporción <span>Ideal por Tipo de Evento</span></h2>
+        <p>Tras 60+ eventos Valle Toluca documentamos el % ideal de salado vs dulce según tipo de celebración. Estos son nuestros datos. Ajustamos a tu caso específico en el briefing.</p>
+      </div>
+
+      <div class="tol-mix-proporcion__list">
+        {proporcionEventos.map(e => (
+          <div class="tol-mix-prop-row">
+            <div class="tol-mix-prop-row__tipo">
+              <h4>{e.tipo}</h4>
+            </div>
+            <div class="tol-mix-prop-row__bar">
+              <div class="tol-mix-prop-row__bar-salado" style={`width: ${e.salado}%;`}>
+                <span>🍿 Salado {e.salado}%</span>
+              </div>
+              <div class="tol-mix-prop-row__bar-dulce" style={`width: ${e.dulce}%;`}>
+                <span>🍬 Dulce {e.dulce}%</span>
+              </div>
+            </div>
+            <p class="tol-mix-prop-row__motivo">{e.motivo}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Maridajes ===================== -->
+  <section class="tol-mix-maridajes">
+    <div class="container">
+      <div class="tol-mix-maridajes__header">
+        <span class="tol-mix-maridajes__badge">Pairings & Bebidas</span>
+        <h2>Maridajes <span>Universales</span></h2>
+        <p>Bebidas que funcionan con ambas zonas (salado + dulce). Sugerencias del sommelier de la casa para Valle Toluca.</p>
+      </div>
+      <div class="tol-mix-maridajes__grid">
+        {maridajes.map(m => (
+          <div class="tol-mix-maridaje-card">
+            <span class="tol-mix-maridaje-card__icon">{m.icon}</span>
+            <h3>{m.bebida}</h3>
+            <p>{m.detalle}</p>
+            <span class="tol-mix-maridaje-card__snacks">{m.snacks}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-mix-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestro Mix Dulce-Salado en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>60+ Mix Dulce-Salado montados en Valle Toluca</strong> y filosofía 60/40 documentada, somos la opción de referencia cuando lo que necesitas es <strong>barra mixta editorial con composición dual probada, combinaciones firma curadas y Trail Mix Builder en vivo</strong>. No improvisamos: cada proporción está documentada por tipo de evento.",
+      "Cada Mix parte del mismo estándar profesional: composición dual 2 zonas, 6 combinaciones firma sugeridas, reposición diferenciada por hora (70/30 → 30/70), mobiliario boutique multinivel y operador profesional con timing inteligente. Lo que cambia es la <strong>cantidad de variedades, estaciones en vivo y presencia de sommelier</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "60+", label: "Mix Valle Toluca" },
+      { number: "6", label: "Pairings firma" },
+      { number: "60/40", label: "Equilibrio probado" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="tol-mix-galeria" id="galeria-mix-toluca">
+    <div class="container">
+      <SectionHeader title="Mix Dulce-Salado reales en eventos" titleHighlight="Valle de Toluca" subtitle="Selección curada de barras mix MEDEDUL en bodas, corporativos y celebraciones del Valle" />
+      <div class="tol-mix-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-mix-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps id="proceso-mix-toluca" badge="Cómo trabajamos" title="4 fases para tu" titleHighlight="Mix Dulce-Salado Toluca" subtitle="Proceso con análisis de equilibrio personalizado y montaje dual editorial" steps={procesoToluca} />
+
+  <!-- ===================== Eventos compatibles ===================== -->
+  <EventsGrid badge="Versatilidad Total" title="Tu Mix Dulce-Salado Valle Toluca para" titleHighlight="Cualquier Ocasión" subtitle="Diseñamos Mix con proporción específica para cada tipo de evento. Desde boda 60/40 en Hacienda La Magdalena Metepec hasta corporativo 70/30 en Parque Industrial Lerma." events={eventos} />
+
+  <!-- ===================== Subsecciones hermanas ===================== -->
+  <section class="tol-mix-hermanas">
+    <div class="container">
+      <SectionHeader
+        title="Otras Subsecciones de"
+        titleHighlight="Mesa de Snacks Toluca"
+        subtitle="Si prefieres barra solo salada premium, barra infantil sin alergenos, o quieres la vista completa del hub L4"
+      />
+      <div class="tol-mix-hermanas__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard href={sub.href} image={sub.img} alt={`${sub.title} en Valle Toluca por MEDEDUL`} title={sub.title} excerpt={sub.excerpt} badge={sub.badge} cta={sub.cta} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="tol-mix-testimonios">
+    <div class="container">
+      <SectionHeader title="Lo que dicen clientes de" titleHighlight="Mix Dulce-Salado Valle Toluca" subtitle="Bodas, corporativos y celebraciones reales montadas por MEDEDUL en Valle de Toluca" />
+      <div class="tol-mix-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard name={t.name} initials={t.initials} review={t.review} event={t.event} rating={t.rating} verified={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20Mix%20Dulce-Salado" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Mix Dulce-Salado L5 EVOLVED - Sucursal Toluca-Metepec
+     Prefix: tol-mix-
+     Acento gradient: amarillo salado (#f5b800) → rosa dulce (#D1007A)
+     Mejoras vs L5 anterior: +4 secciones nuevas (Filosofía, Carta Dual, Combinaciones, Trail Mix, Proporción)
+     ========================================================== */
+
+  /* Stats con gradient gold-rosa */
+  .tol-mix-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fffaf5 100%); }
+  .tol-mix-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-mix-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(232, 133, 26, 0.15); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-mix-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .tol-mix-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* 🆕 Filosofía 4 principios (DARK gradient) */
+  .tol-mix-filosofia { padding: 100px 0; background: linear-gradient(180deg, #1c1410 0%, #2a1620 100%); color: #fff; position: relative; overflow: hidden; }
+  .tol-mix-filosofia::before { content: ''; position: absolute; top: -20%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(245, 184, 0, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-mix-filosofia::after { content: ''; position: absolute; bottom: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(208, 0, 122, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-mix-filosofia__header { text-align: center; max-width: 760px; margin: 0 auto 60px; position: relative; z-index: 1; }
+  .tol-mix-filosofia__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+  .tol-mix-filosofia__header h2 { font-size: 2.4rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+  .tol-mix-filosofia__header h2 span { background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-mix-filosofia__header p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.78); line-height: 1.7; }
+  .tol-mix-filosofia__header strong { color: #f5b800; }
+  .tol-mix-filosofia__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .tol-mix-filosofia__card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(245, 184, 0, 0.22); border-radius: 18px; padding: 32px 28px; backdrop-filter: blur(10px); position: relative; }
+  .tol-mix-filosofia__num { position: absolute; top: 22px; right: 28px; font-size: 2rem; font-weight: 800; color: rgba(245, 184, 0, 0.25); line-height: 1; font-family: 'Poppins', sans-serif; }
+  .tol-mix-filosofia__icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
+  .tol-mix-filosofia__card h3 { font-size: 1.25rem; color: #f5b800; margin: 0 0 12px; font-weight: 700; padding-right: 60px; }
+  .tol-mix-filosofia__card p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.78); line-height: 1.7; margin: 0; }
+
+  /* Carta Dual: Salados + Dulces */
+  .tol-mix-carta { padding: 100px 0; background: linear-gradient(180deg, #fffaf5 0%, #fff 100%); }
+  .tol-mix-carta__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-mix-carta__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-mix-carta__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-mix-carta__header h2 span { background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-mix-carta__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-mix-carta__dual { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .tol-mix-zona { padding: 36px 30px; border-radius: 24px; }
+  .tol-mix-zona--salado { background: linear-gradient(180deg, #fffaf0 0%, #fff5e6 100%); border: 2px solid rgba(245, 184, 0, 0.3); }
+  .tol-mix-zona--dulce { background: linear-gradient(180deg, #fff5f9 0%, #ffe9f3 100%); border: 2px solid rgba(208, 0, 122, 0.3); }
+  .tol-mix-zona__head { text-align: center; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 2px solid rgba(0, 0, 0, 0.06); }
+  .tol-mix-zona__icon { font-size: 2.6rem; display: block; margin-bottom: 8px; }
+  .tol-mix-zona--salado .tol-mix-zona__head h3 { color: #e8851a; }
+  .tol-mix-zona--dulce .tol-mix-zona__head h3 { color: #D1007A; }
+  .tol-mix-zona__head h3 { font-size: 1.5rem; margin: 0 0 6px; font-weight: 700; }
+  .tol-mix-zona__pct { display: inline-block; padding: 4px 12px; background: rgba(0, 0, 0, 0.08); color: #1a1a1a; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-left: 8px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.6px; }
+  .tol-mix-zona__head p { font-size: 0.9rem; color: #555; line-height: 1.6; margin: 0; }
+  .tol-mix-zona__list { display: flex; flex-direction: column; gap: 14px; }
+  .tol-mix-snack-card { background: #fff; border-radius: 14px; padding: 18px 20px; box-shadow: 0 3px 14px rgba(0, 0, 0, 0.04); }
+  .tol-mix-snack-card--salado { border-left: 4px solid #e8851a; }
+  .tol-mix-snack-card--dulce { border-left: 4px solid #D1007A; }
+  .tol-mix-snack-card__head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .tol-mix-snack-card__num { font-size: 0.78rem; color: #999; font-weight: 700; font-family: 'Poppins', sans-serif; }
+  .tol-mix-snack-card__head h4 { font-size: 1rem; color: #1a1a1a; margin: 0; font-weight: 700; }
+  .tol-mix-snack-card__specs { display: grid; grid-template-columns: 1fr; gap: 4px; margin: 0; font-size: 0.78rem; }
+  .tol-mix-snack-card__specs > div { display: grid; grid-template-columns: 65px 1fr; gap: 8px; }
+  .tol-mix-snack-card__specs dt { color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin: 0; font-size: 0.7rem; }
+  .tol-mix-snack-card__specs dd { color: #555; margin: 0; }
+
+  /* 🆕 Combinaciones Firma 6 pairings */
+  .tol-mix-combinaciones { padding: 100px 0; background: #fff; }
+  .tol-mix-combinaciones__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-mix-combinaciones__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-mix-combinaciones__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-mix-combinaciones__header h2 span { background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-mix-combinaciones__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-mix-combinaciones__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tol-mix-combo-card { background: linear-gradient(180deg, #fff 0%, #fffaf5 100%); border-radius: 20px; padding: 30px 26px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); border: 1px solid rgba(245, 184, 0, 0.18); position: relative; }
+  .tol-mix-combo-card__num { position: absolute; top: 22px; right: 26px; font-size: 1.6rem; font-weight: 800; color: rgba(208, 0, 122, 0.2); line-height: 1; font-family: 'Poppins', sans-serif; }
+  .tol-mix-combo-card__pairing { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tol-mix-combo-card__item { padding: 6px 12px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; }
+  .tol-mix-combo-card__item--salado { background: rgba(232, 133, 26, 0.15); color: #d6740a; }
+  .tol-mix-combo-card__item--dulce { background: rgba(208, 0, 122, 0.15); color: #D1007A; }
+  .tol-mix-combo-card__plus { font-size: 1.4rem; font-weight: 800; color: #999; }
+  .tol-mix-combo-card h3 { font-size: 1.2rem; color: #1a1a1a; margin: 0 0 12px; font-weight: 700; padding-right: 40px; }
+  .tol-mix-combo-card p { font-size: 0.9rem; color: #555; line-height: 1.7; margin: 0 0 16px; }
+  .tol-mix-combo-card footer { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid rgba(0, 0, 0, 0.06); flex-wrap: wrap; gap: 8px; }
+  .tol-mix-combo-card__intensidad { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; border-radius: 50px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+  .tol-mix-combo-card__eventos { font-size: 0.75rem; color: #999; font-weight: 500; }
+
+  /* 🆕 Trail Mix Builder */
+  .tol-mix-builder { padding: 100px 0; background: linear-gradient(180deg, #fffaf5 0%, #fff 100%); }
+  .tol-mix-builder__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-mix-builder__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-mix-builder__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-mix-builder__header h2 span { color: #D1007A; font-style: italic; }
+  .tol-mix-builder__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-mix-builder__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .tol-mix-builder__card { background: #fff; border-radius: 20px; padding: 32px 28px; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); }
+  .tol-mix-builder__card h3 { font-size: 1.3rem; margin: 0 0 18px; font-weight: 700; }
+  .tol-mix-builder__componentes, .tol-mix-builder__proporcion, .tol-mix-builder__eventos { font-size: 0.9rem; color: #555; line-height: 1.65; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+  .tol-mix-builder__eventos { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .tol-mix-builder__card strong { color: #1a1a1a; }
+
+  /* 🆕 Proporción por evento */
+  .tol-mix-proporcion { padding: 100px 0; background: #fff; }
+  .tol-mix-proporcion__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-mix-proporcion__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-mix-proporcion__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-mix-proporcion__header h2 span { background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-mix-proporcion__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-mix-proporcion__list { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+  .tol-mix-prop-row { padding: 24px 28px; background: #fff; border-radius: 16px; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.05); }
+  .tol-mix-prop-row__tipo h4 { font-size: 1.1rem; color: #1a1a1a; margin: 0 0 14px; font-weight: 700; }
+  .tol-mix-prop-row__bar { display: flex; height: 38px; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+  .tol-mix-prop-row__bar-salado { background: linear-gradient(135deg, #f5b800 0%, #e8851a 100%); display: flex; align-items: center; justify-content: center; transition: width 0.3s ease; }
+  .tol-mix-prop-row__bar-dulce { background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%); display: flex; align-items: center; justify-content: center; transition: width 0.3s ease; }
+  .tol-mix-prop-row__bar span { color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0 8px; white-space: nowrap; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+  .tol-mix-prop-row__motivo { font-size: 0.88rem; color: #666; line-height: 1.6; margin: 0; font-style: italic; }
+
+  /* Maridajes */
+  .tol-mix-maridajes { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #fffaf5 100%); }
+  .tol-mix-maridajes__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-mix-maridajes__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-mix-maridajes__header h2 { font-size: 2.1rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-mix-maridajes__header h2 span { background: linear-gradient(135deg, #f5b800 0%, #D1007A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-mix-maridajes__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-mix-maridajes__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tol-mix-maridaje-card { background: #fff; border: 1px solid rgba(245, 184, 0, 0.2); border-radius: 20px; padding: 30px 24px; text-align: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05); }
+  .tol-mix-maridaje-card__icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+  .tol-mix-maridaje-card h3 { font-size: 1.1rem; color: #1a1a1a; margin: 0 0 12px; font-weight: 700; }
+  .tol-mix-maridaje-card p { font-size: 0.88rem; color: #666; line-height: 1.7; margin: 0 0 16px; }
+  .tol-mix-maridaje-card__snacks { display: inline-block; font-size: 0.74rem; color: #D1007A; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-top: 1px solid rgba(208, 0, 122, 0.3); padding-top: 12px; }
+
+  /* Galería bento */
+  .tol-mix-galeria { padding: 90px 0; background: #fff; }
+  .tol-mix-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-mix-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-mix-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-mix-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-mix-galeria__item:nth-child(5), .tol-mix-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* Hermanas */
+  .tol-mix-hermanas { padding: 90px 0; background: linear-gradient(180deg, #fffaf5 0%, #fff 100%); }
+  .tol-mix-hermanas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+
+  /* Testimonios */
+  .tol-mix-testimonios { padding: 90px 0; background: #fff; }
+  .tol-mix-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* Sucursal Info Card */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .tol-mix-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mix-filosofia__grid { grid-template-columns: 1fr; }
+    .tol-mix-carta__dual { grid-template-columns: 1fr; }
+    .tol-mix-combinaciones__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mix-builder__grid { grid-template-columns: 1fr; }
+    .tol-mix-maridajes__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mix-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-mix-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-mix-galeria__item:nth-child(5), .tol-mix-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-mix-hermanas__grid { grid-template-columns: 1fr; }
+    .tol-mix-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-mix-stats { padding: 40px 0; }
+    .tol-mix-stat__num { font-size: 1.6rem; }
+    .tol-mix-filosofia, .tol-mix-carta, .tol-mix-combinaciones, .tol-mix-builder, .tol-mix-proporcion, .tol-mix-maridajes, .tol-mix-galeria, .tol-mix-hermanas, .tol-mix-testimonios { padding: 60px 0; }
+    .tol-mix-filosofia__header h2, .tol-mix-carta__header h2, .tol-mix-combinaciones__header h2, .tol-mix-builder__header h2, .tol-mix-proporcion__header h2 { font-size: 1.6rem; }
+    .tol-mix-filosofia__card { padding: 26px 22px; }
+    .tol-mix-zona { padding: 26px 20px; }
+    .tol-mix-zona__head h3 { font-size: 1.3rem; }
+    .tol-mix-combinaciones__grid { grid-template-columns: 1fr; }
+    .tol-mix-combo-card { padding: 26px 22px; }
+    .tol-mix-builder__card { padding: 26px 22px; }
+    .tol-mix-prop-row { padding: 20px 22px; }
+    .tol-mix-prop-row__bar { height: 32px; }
+    .tol-mix-prop-row__bar span { font-size: 0.72rem; }
+    .tol-mix-maridajes__grid { grid-template-columns: 1fr; }
+    .tol-mix-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-mix-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-mix-stat { padding: 16px 10px; }
+    .tol-mix-stat__num { font-size: 1.4rem; }
+    .tol-mix-stat__label { font-size: 0.78rem; }
+    .tol-mix-snack-card { padding: 14px 16px; }
+    .tol-mix-snack-card__head h4 { font-size: 0.92rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

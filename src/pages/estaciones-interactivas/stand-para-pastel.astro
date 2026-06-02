@@ -1,164 +1,356 @@
 ---
+// Stand para Pastel — L4 Pro+ Estación Interactiva (CDMX)
+// Tipos de stand, tamaños pastel, coordinación pastelero, foto del momento
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsCBBoda, subsCBXV, subsCBBabyShower, subsCBBautizo,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
   { name: 'Stand para Pastel', url: '/estaciones-interactivas/stand-para-pastel' }
 ];
 
+const stats = [
+  { number: '280+', label: 'Stands operados CDMX' },
+  { number: '6', label: 'Diseños temáticos' },
+  { number: '1-4 pisos', label: 'Tamaños soportados' },
+  { number: '< 24h', label: 'Cotización en línea' }
+];
+
+// 6 Tipos de stand (UNIQUE)
+const tipos = [
+  { tipo: 'Clásico elegante', icon: '🎂', desc: 'Marco simple con tela blanca, soporte pastel cristal o dorado, decoración mínima. Para bodas elegantes y bautizos sobrios.', popular: false },
+  { tipo: 'Arco de globos', icon: '🎈', desc: 'Arco completo de globos en paleta del evento (bodas, XV, baby shower, cumpleaños). El más viral en redes sociales 2026.', popular: true },
+  { tipo: 'Floral natural', icon: '🌸', desc: 'Marco con flores frescas o eternas premium. Paleta coordinada al ramo de novia o decoración. Para bodas y XV elegantes.', popular: false },
+  { tipo: 'Neón iluminado', icon: '💡', desc: 'Letras neón con frase o nombre del homenajeado. Marco oscuro de fondo. Tendencia 2026 para XV modernos y bodas contemporáneas.', popular: false },
+  { tipo: 'Iluminado LED', icon: '✨', desc: 'Marco con tira LED programable (color cambiante). Para eventos en interior con poca luz. Realza el pastel desde cualquier ángulo.', popular: false },
+  { tipo: 'Temático personalizado', icon: '🎨', desc: 'Cualquier concepto: princesa, casino, deportivo, corporativo. Producción a medida con moodboard previo. Backdrop integrado.', popular: false }
+];
+
+// 5 Tamaños de pastel soportados (UNIQUE)
+const tamanos = [
+  { tam: '1 piso', icon: '🔹', desc: 'Pastel pequeño 6-15 personas. Para bautizos íntimos, primer cumpleaños, baby shower familiar.', soporte: 'Soporte 25-30 cm' },
+  { tam: '2 pisos', icon: '🔸', desc: 'Pastel mediano 15-40 personas. Para cumpleaños familiares, baby shower mediano, bautizo extendido.', soporte: 'Soporte 35-40 cm' },
+  { tam: '3 pisos', icon: '🔶', desc: 'Pastel grande 40-100 personas. Para XV, bodas medianas, primera comunión grupal. El más solicitado.', soporte: 'Soporte 45-50 cm', popular: true },
+  { tam: '4 pisos', icon: '⭐', desc: 'Pastel extra grande 100-200 personas. Para bodas grandes, XV de alta convocatoria, eventos corporate. Statement piece.', soporte: 'Soporte 55-65 cm' },
+  { tam: '5+ pisos torre', icon: '🏆', desc: 'Pastel torre 200-400+ personas. Para bodas masivas, graduación de generación, evento corporativo grande.', soporte: 'Soporte 70+ cm reforzado' }
+];
+
+const caracteristicas = [
+  { num: 1, title: 'Marco decorativo profesional', desc: 'Estructura metálica resistente con marco decorativo (clásico, arco globos, floral, neón, LED, temático). Soporte pastel reforzado para 1 a 5+ pisos. Acabados premium.', img: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif' },
+  { num: 2, title: '6 diseños temáticos a elegir', desc: 'Clásico elegante, Arco de globos (tendencia viral 2026), Floral natural, Neón iluminado, Iluminado LED programable y Temático personalizado con moodboard previo.', img: '/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif' },
+  { num: 3, title: 'Coordinación con pastelero externo', desc: 'Coordinamos directo con tu pastelero (no hacemos pastel, pero te recomendamos pasteleros confiables). Confirmamos tamaño del pastel, peso, posición, hora de entrega para alineación perfecta con el stand.', img: '/img/estaciones-interactivas/stand-pastel/arco-globos-estacion-pastel.avif' },
+  { num: 4, title: 'Foto del momento del corte', desc: 'El stand es el escenario para LA foto más importante del evento: el corte del pastel. Coordinamos posición con fotógrafo, iluminación y backdrop para captura memorable.', img: '/img/estaciones-interactivas/stand-pastel/decoracion-con-globos-para-estacion-de-pastel.avif' }
+];
+
+const paquetes = [
+  { name: 'Esencial', icon: '🎂', price: '$2,800', currency: 'MXN', guests: '15-50 invitados', tagline: 'Stand íntimo elegante', features: ['Marco clásico o floral simple', 'Soporte pastel hasta 2 pisos', 'Mantel decorativo', 'Decoración base (flores artificiales o globos)', 'Montaje 1 h antes del corte', 'Coordinación con pastelero', 'Cobertura zonas centrales CDMX'], popular: false, ctaText: 'Cotizar Esencial', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Stand%20para%20Pastel%20CDMX%20-%20Esencial' },
+  { name: 'Premium', icon: '✨', price: '$4,800', currency: 'MXN', guests: '50-150 invitados', tagline: 'El más solicitado en CDMX', features: ['Diseño a elegir 6 opciones (incluye Arco Globos viral 2026)', 'Soporte pastel hasta 3 pisos reforzado', 'Iluminación LED opcional', 'Decoración premium con flores frescas', 'Backdrop coordinado al evento', 'Montaje y coordinación con fotógrafo', 'Cobertura amplia CDMX'], popular: true, ctaText: 'Cotizar Premium', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Stand%20Pastel%20CDMX%20-%20Premium' },
+  { name: 'Luxury', icon: '🏆', price: '$8,500', currency: 'MXN', guests: '150-400+ invitados', tagline: 'Statement piece máximo impacto', features: ['Diseño temático personalizado con moodboard previo', 'Soporte pastel 4-5+ pisos torre', 'Iluminación LED programable + neón con frase', 'Backdrop floral 360° con flores premium', 'Foto profesional del corte de pastel incluida', 'Coordinación full con pastelero, fotógrafo y planner', 'Operación extendida hasta el corte', 'Sucursal preferente Anzures + Condesa CDMX'], popular: false, ctaText: 'Cotizar Luxury', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Stand%20Pastel%20CDMX%20-%20Luxury' }
+];
+
+const proceso = [
+  { num: 1, title: 'Brief del evento', desc: 'Recibimos brief: tipo de evento, número de invitados, tamaño del pastel (1-5+ pisos), peso aproximado, hora del corte, diseño preferido (clásico, arco globos, floral, neón, LED, temático) y paleta del evento.' },
+  { num: 2, title: 'Propuesta visual', desc: 'En 24h enviamos propuesta con render conceptual del stand con tamaño de pastel a soportar, paleta coordinada al evento y cotización 3 niveles (Esencial, Premium, Luxury).' },
+  { num: 3, title: 'Coordinación con pastelero', desc: 'Coordinamos con tu pastelero (o te recomendamos pasteleros confiables): tamaño exacto del pastel, peso, hora de entrega, instrucciones especiales. Te enviamos guía operativa antes del evento.' },
+  { num: 4, title: 'Día del evento', desc: 'Llegamos 1-2h antes del corte. Montamos stand, decoramos con flores frescas/globos, instalamos iluminación. Recibimos pastel del pastelero, coordinamos con fotógrafo. Operamos durante el corte. Desmontaje al cierre.' }
+];
+
+const galeriaImages = [
+  { src: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif', alt: 'Stand para pastel decorado para eventos CDMX' },
+  { src: '/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif', alt: 'Decoración stand para pastel elegante CDMX' },
+  { src: '/img/estaciones-interactivas/stand-pastel/arco-globos-estacion-pastel.avif', alt: 'Arco de globos para estación pastel CDMX' },
+  { src: '/img/estaciones-interactivas/stand-pastel/decoracion-con-globos-para-estacion-de-pastel.avif', alt: 'Decoración con globos para estación de pastel CDMX' },
+  { src: '/img/estaciones-interactivas/stand-pastel/stand-pastel-globos-decorativo.avif', alt: 'Stand pastel globos decorativo CDMX' },
+  { src: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', alt: 'Stand pastel para boda CDMX' },
+  { src: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', alt: 'Stand pastel para XV Años CDMX' },
+  { src: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Stand pastel para baby shower CDMX' }
+];
+
+const incluye = [
+  { num: '01', title: 'Marco decorativo profesional', desc: 'Estructura metálica resistente con marco decorativo según diseño elegido (clásico, arco globos, floral, neón, LED, temático). Acabados premium con materiales de calidad.' },
+  { num: '02', title: 'Soporte pastel reforzado', desc: 'Soporte pastel desde 25 cm (1 piso, 6-15 personas) hasta 70+ cm reforzado (5+ pisos torre, 200-400+ personas). Probado para soportar peso máximo del pastel sin riesgo.' },
+  { num: '03', title: 'Decoración temática', desc: 'Decoración coordinada al diseño elegido: globos en arco, flores frescas o eternas, telas drapeadas, papel picado, neón, LED programable. Paleta alineada al evento.' },
+  { num: '04', title: 'Iluminación opcional', desc: 'Iluminación LED en Premium (color blanco cálido o frío), iluminación LED programable en Luxury (color cambiante). Realza el pastel desde cualquier ángulo, especialmente en interiores con poca luz.' },
+  { num: '05', title: 'Coordinación con pastelero externo', desc: 'No producimos pasteles pero coordinamos directo con tu pastelero. Confirmamos tamaño, peso, hora de entrega, instrucciones de manipulación. Si necesitas recomendación, te conectamos con pasteleros confiables CDMX.' },
+  { num: '06', title: 'Montaje 1-2h antes del corte', desc: 'Llegamos 1-2h antes de la hora del corte para montar stand, decorar, instalar iluminación. Recibimos pastel del pastelero. Coordinamos con fotógrafo posición y backdrop. Desmontaje al cierre.' }
+];
+
+const testimonios = [
+  { name: 'Andrea y Esposo (boda)', initials: 'AE', review: 'Stand floral natural con flores frescas blancas para nuestra boda en hacienda. Pastel de 4 pisos con flores encima. La foto del corte fue ÉPICA, la usamos para nuestros gracias. Mejor inversión del evento.', event: 'Boda · Hacienda · Stand Floral', rating: 5 },
+  { name: 'Familia Méndez (XV)', initials: 'FM', review: 'Stand arco globos rosa-dorado para XV de mi hija. Pastel de 3 pisos rosa con perlas. El arco quedó IDÉNTICO al backdrop principal del salón. Coordinaron con la pastelera Claudia perfecto.', event: 'XV Años · Stand Arco Globos', rating: 5 },
+  { name: 'Karla Domínguez (baby shower)', initials: 'KD', review: 'Stand temático personalizado para baby shower de mi hermana con tema boho-eucalipto. Marco con eucalipto natural y pastel de 2 pisos. Mi hermana lloró cuando lo vio. Perfecta coordinación.', event: 'Baby Shower · Boho · Temático', rating: 5 }
+];
+
 const faqs = [
-  { question: 'Que incluye el stand para pastel?', answer: 'Incluye concepto visual, estructura decorativa, montaje profesional y desmontaje al finalizar el evento.' },
-  { question: 'Se puede personalizar por tematica?', answer: 'Si. Ajustamos estilo, color, elementos decorativos y composicion al concepto de tu celebracion.' },
-  { question: 'Solo aplica para bodas?', answer: 'No. Tambien lo implementamos en XV anos, aniversarios, graduaciones y eventos corporativos.' },
-  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para asegurar agenda y planeacion de montaje.' },
-  { question: 'Se puede combinar con candy bar?', answer: 'Si. Es una combinacion ideal para elevar impacto visual y experiencia de invitados.' },
-  { question: 'Atienden en CDMX y area metropolitana?', answer: 'Si. Cubrimos diferentes tipos de venues en CDMX y zona metropolitana.' }
+  { question: '¿Qué incluye la renta de stand para pastel en CDMX?', answer: 'Incluye marco decorativo profesional según diseño elegido (clásico, arco globos, floral, neón, LED, temático personalizado), soporte pastel reforzado para 1 a 5+ pisos, decoración coordinada al evento (globos, flores frescas, telas, papel picado), iluminación opcional (LED en Premium, LED programable en Luxury), coordinación con pastelero externo, montaje 1-2 h antes del corte, recepción del pastel y operación durante el corte, desmontaje al cierre. NO producimos pasteles (solo el stand).' },
+  { question: '¿Cuánto cuesta rentar un stand para pastel en CDMX?', answer: 'En CDMX iniciamos en $2,800 MXN (Esencial, marco clásico/floral simple, hasta 2 pisos), $4,800 MXN (Premium, 6 diseños a elegir incluye Arco Globos viral, hasta 3 pisos con iluminación LED, el más solicitado) y $8,500 MXN (Luxury, diseño temático personalizado, 4-5+ pisos torre, LED programable + neón, foto profesional del corte incluida). El precio depende del diseño, tamaño del pastel, decoración floral y duración.' },
+  { question: '¿Producen pasteles o solo el stand?', answer: 'Solo producimos y rentamos el STAND (estructura, marco, decoración, soporte, iluminación). El PASTEL lo produce tu pastelero externo. Si no tienes pastelero, te conectamos con pasteleros confiables CDMX (boutique, premium, especializados en bodas o temáticos). Coordinamos directo con el pastelero seleccionado: tamaño, peso, hora de entrega, instrucciones de manipulación y recepción en el venue.' },
+  { question: '¿Qué tipos de stand manejan?', answer: 'Trabajamos 6 diseños: Clásico elegante (marco simple con tela blanca, ideal bodas sobrias y bautizos), Arco de globos (tendencia viral 2026 en redes sociales, paleta del evento), Floral natural (flores frescas o eternas premium, paleta coordinada al ramo), Neón iluminado (letras neón con frase o nombre, tendencia XV modernos), Iluminado LED (LED programable color cambiante, ideal interiores con poca luz) y Temático personalizado (cualquier concepto con moodboard previo: princesa, casino, deportivo, corporativo).' },
+  { question: '¿Qué tamaños de pastel soportan?', answer: 'Soportamos 5 tamaños: 1 piso (pastel pequeño 6-15 personas, soporte 25-30 cm), 2 pisos (mediano 15-40 personas, 35-40 cm), 3 pisos (grande 40-100 personas, 45-50 cm, el más solicitado para XV, bodas medianas, primera comunión grupal), 4 pisos (extra grande 100-200 personas, 55-65 cm, statement piece) y 5+ pisos torre (masivo 200-400+ personas, 70+ cm reforzado, para bodas grandes, graduaciones generación, eventos corporate).' },
+  { question: '¿Coordinan con el fotógrafo profesional?', answer: 'Sí. El stand para pastel es el escenario de LA foto más importante del evento (corte del pastel). Coordinamos posición con tu fotógrafo: ángulo de cámara, iluminación, backdrop, momento del corte (justo después de los novios, justo después de soplar las velitas, etc.). En paquete Luxury incluimos foto profesional del corte de pastel sin costo adicional.' },
+  { question: '¿Para qué tipos de evento se renta más?', answer: 'Las 4 aplicaciones más solicitadas: <a href="/candy-bar-eventos/mesa-dulces-boda">Bodas</a> (el escenario del sí, foto del corte de pastel nupcial), <a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a> (momento protagonista de la quinceañera con pastel multipisos), <a href="/candy-bar-eventos/mesa-dulces-baby-shower">Baby Shower</a> (el dulce anuncio, especialmente con pastel sorpresa para gender reveal), <a href="/candy-bar-eventos/mesa-dulces-bautizo">Bautizo</a> (celebración serena con simbología religiosa).' },
+  { question: '¿Pueden combinarlo con otras estaciones?', answer: 'Sí. La combinación más popular: <strong>trifecta interactiva</strong> = Stand para Pastel + <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> + <a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a>. También combina con <a href="/estaciones-interactivas/fuente-de-chamoy">Fuente de Chamoy</a> para eventos mexicanos modernos.' },
+  { question: '¿Atienden eventos en todo CDMX?', answer: 'Sí. Operamos desde sucursales fijas Anzures y Condesa con cobertura completa CDMX: Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite y todas las 16 alcaldías. Operamos en hoteles 5 estrellas, haciendas, edificios corporativos, salones boutique y domicilios. Visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces">página de sucursal CDMX</a>.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para diseños estándar (clásico, floral, arco globos) recomendamos 2-3 semanas. Para Neón con frase personalizada, LED programable o Temático personalizado con moodboard previo, sugerimos 4-6 semanas. Anticipo del 50% para apartar fecha y liquidación 48h antes del evento.' }
 ];
 
-const packages = [
-  {
-    name: 'Esencial',
-    icon: '🎂',
-    price: '$4,600',
-    currency: 'MXN',
-    guests: '30-60 personas',
-    tagline: 'Ideal para celebraciones intimas',
-    features: ['Stand para pastel base', 'Composicion decorativa inicial', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Esencial)'
-  },
-  {
-    name: 'Premium',
-    icon: '⭐',
-    price: '$7,900',
-    currency: 'MXN',
-    guests: '60-120 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por evento', 'Mayor nivel de detalle visual', 'Montaje y coordinacion en sitio', 'Integracion con narrativa del evento', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
-    popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Premium)'
-  },
-  {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$12,200',
-    currency: 'MXN',
-    guests: '120+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Produccion visual premium', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Acabado escenografico de alto nivel'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar stand para pastel (Luxury)'
-  }
-];
-
-const whyStats = [
-  { number: '140+', label: 'Montajes' },
-  { number: '100%', label: 'Personalizable' },
-  { number: '4 hrs', label: 'Ventana Operativa' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Punto Focal del Evento', desc: 'Convertimos el area del pastel en un espacio protagonista y fotografiable.', img: '/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif' },
-  { num: 2, title: 'Diseno Personalizado', desc: 'Alineamos estructura y decoracion al concepto de la celebracion.', img: '/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif' },
-  { num: 3, title: 'Montaje Seguro', desc: 'Implementacion profesional para una presentacion estetica y funcional.', img: '/img/estaciones-interactivas/stand-pastel/stand-pastel-globos-decorativo.avif' },
-  { num: 4, title: 'Integracion Escenografica', desc: 'Combinamos el stand con candy bar y ambientacion para coherencia visual.', img: '/img/estaciones-interactivas/stand-pastel/arco-globos-estacion-pastel.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief del Evento', desc: 'Levantamos tipo de celebracion, estilo y requerimientos del corte.' },
-  { num: 2, title: 'Propuesta Visual', desc: 'Definimos estructura, elementos decorativos y alcance operativo.' },
-  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos horarios, accesos y coordinacion con venue.' },
-  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos el stand con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Fuente de Chocolate', excerpt: 'Estacion interactiva premium para elevar experiencia de invitados.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif', href: '/estaciones-interactivas/fuente-de-chocolate', cta: 'Ver Fuente de Chocolate' },
-  { title: 'Fuente de Chamoy', excerpt: 'Formato diferencial con identidad y alta participacion.', img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif', href: '/estaciones-interactivas/fuente-de-chamoy', cta: 'Ver Fuente de Chamoy' },
-  { title: 'Pared de Dulces', excerpt: 'Candy wall escenografica para eventos de alto impacto visual.', img: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif', href: '/estaciones-interactivas/pared-de-dulces', cta: 'Ver Pared de Dulces' },
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Candy bar nupcial para recepciones elegantes.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' }
-];
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
 const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Stand para Pastel en CDMX',
-  description: 'Servicio de stand para pastel en Ciudad de Mexico con diseno personalizado y montaje profesional.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4600',
-    highPrice: '12200',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Stand para Pastel ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/stand-para-pastel#service", "name": "Renta de Stand para Pastel en CDMX", "serviceType": "Estación Interactiva / Stand Decorativo Pastel", "description": "Renta de stand para pastel en Ciudad de México con 6 diseños temáticos (clásico, arco globos, floral, neón, LED, temático personalizado). Soporte para pasteles de 1 a 5+ pisos. Coordinación con pastelero externo. Para bodas, XV, baby shower, bautizo. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "280", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "2800", "highPrice": "8500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Stand Pastel CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } },
+    { "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer.replace(/<[^>]+>/g, '') } })) },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Estaciones Interactivas", "item": "https://mesas-de-dulces.com/estaciones-interactivas" },
+      { "@type": "ListItem", "position": 3, "name": "Stand para Pastel", "item": "https://mesas-de-dulces.com/estaciones-interactivas/stand-para-pastel" }
+    ]}
+  ]
 };
 ---
 
 <BaseLayout
-  title="Stand para Pastel en CDMX | Mededul"
-  description="Stand para pastel en CDMX con diseno personalizado, montaje profesional e integracion escenografica para eventos."
+  title="Stand para Pastel CDMX | 6 Diseños · Arco Globos · 1-5 Pisos | MEDEDUL"
+  description="Renta de stand para pastel en CDMX con 6 diseños (clásico, arco globos viral 2026, floral, neón, LED, temático). Soporte pasteles 1-5+ pisos. Coordinación pastelero externo. 280+ stands operados. Bodas, XV, baby shower, bautizo. Desde $2,800 MXN."
   canonical="/estaciones-interactivas/stand-para-pastel"
   ogImage="/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <Hero
-    title="Stand para Pastel en CDMX"
-    highlight="Stand para Pastel"
-    subtitle="Estacion escenografica para convertir el corte de pastel en un momento protagonista"
-    secondaryContent={`<p><strong>Stand</strong> para pastel profesional transforma un momento tradicional en una escena memorable, coherente con el concepto visual de tu evento. En Mededul diseniamos cada montaje para elevar presencia, fotografia y narrativa del corte.</p><p><strong>Pastel</strong> presentado en una estructura bien ejecutada mejora el impacto estetico, ordena la experiencia de invitados y aporta valor percibido a toda la celebracion. Operamos con planeacion y montaje preciso para resultados premium.</p>`}
-  />
+  <Hero title="Stand para Pastel en CDMX" highlight="Stand para Pastel CDMX" subtitle="Tu pastel merece su propio escenario · 6 diseños temáticos · 280+ stands operados en CDMX" secondaryContent={`<p>Marcos decorados con globos, luces o flores que hacen protagonista a tu pastel. El <strong>stand para pastel</strong> es el escenario de la foto más importante de cualquier evento: el corte del pastel. En <strong>MEDEDUL</strong> trabajamos <strong>6 diseños temáticos</strong>: Clásico elegante (bodas sobrias y bautizos), Arco de globos (tendencia viral 2026 en redes), Floral natural (flores frescas premium), Neón iluminado (con frase o nombre), Iluminado LED (programable color cambiante) y Temático personalizado con moodboard previo. Soportamos pasteles de 1 piso (15 personas) hasta 5+ pisos torre (400+ personas).</p><p>NO producimos pasteles, pero <strong>coordinamos directo con tu pastelero</strong> (o te recomendamos pasteleros confiables CDMX): tamaño exacto, peso, hora de entrega, instrucciones de manipulación. Coordinamos con tu fotógrafo profesional para captar el momento del corte con backdrop premium e iluminación coordinada. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX. Cotización ejecutiva en 24 h.</p>`} />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el stand para pastel segun aforo, estilo y complejidad del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <section class="stand-stats">
+    <div class="container">
+      <div class="stand-stats__grid">
+        {stats.map(s => (<div class="stand-stat"><span class="stand-stat__num">{s.number}</span><span class="stand-stat__label">{s.label}</span></div>))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Stand para Pastel" descriptions={['Combinamos diseno escenografico y operacion para lograr un montaje impecable.', 'Integramos el stand con el resto del evento para mantener coherencia visual total.']} stats={whyStats} features={whyFeatures} />
+  <section class="stand-tipos section-padding" id="tipos-stand">
+    <div class="container">
+      <SectionHeader title="6 diseños de stand" titleHighlight="a elegir" subtitle="Cada diseño con marco decorativo profesional, soporte reforzado y estética optimizada para foto del corte" />
+      <div class="stand-tipos__grid">
+        {tipos.map(t => (
+          <div class:list={['stand-tipo', { 'stand-tipo--popular': t.popular }]}>
+            {t.popular && <span class="stand-tipo__badge">Viral 2026</span>}
+            <div class="stand-tipo__icon" aria-hidden="true">{t.icon}</div>
+            <h3 class="stand-tipo__name">{t.tipo}</h3>
+            <p class="stand-tipo__desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu stand para pastel sin errores." steps={processSteps} />
+  <section class="stand-tamanos section-padding" id="tamanos-pastel">
+    <div class="container">
+      <SectionHeader title="5 tamaños de pastel" titleHighlight="soportados" subtitle="Soporte reforzado desde 25 cm (1 piso) hasta 70+ cm reforzado (5+ pisos torre)" />
+      <div class="stand-tamanos__grid">
+        {tamanos.map(t => (
+          <div class:list={['stand-tamano', { 'stand-tamano--popular': t.popular }]}>
+            {t.popular && <span class="stand-tamano__badge">Más solicitado</span>}
+            <div class="stand-tamano__icon" aria-hidden="true">{t.icon}</div>
+            <h3 class="stand-tamano__tam">{t.tam}</h3>
+            <p class="stand-tamano__desc">{t.desc}</p>
+            <span class="stand-tamano__soporte">{t.soporte}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Estaciones Relacionadas" title="Complementa Tu Evento con" titleHighlight="Mas Experiencias" subtitle="Tambien implementamos otras estaciones interactivas y candy bar profesional." events={eventCards} />
+  <section class="stand-intro" id="intro-stand">
+    <div class="container">
+      <div class="stand-intro__grid">
+        <div class="stand-intro__copy">
+          <span class="stand-intro__badge">Especialistas en stand para pastel CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu stand para pastel en CDMX</h2>
+          <p>El stand para pastel es la <strong>estación con mayor relevancia simbólica</strong> de cualquier evento: es el escenario donde se toma LA foto que la familia va a guardar para siempre. El corte del pastel es uno de los momentos cumbre del evento (boda, XV, baby shower, bautizo, primer cumpleaños). Por eso cada stand que producimos en Ciudad de México parte de un proceso profesional integral.</p>
+          <p>El stand para pastel CDMX que producimos no es un servicio improvisado: usamos <strong>estructura metálica resistente con marco decorativo profesional</strong>, soporte reforzado calculado para el peso máximo del pastel, decoración coordinada al evento. Trabajamos 6 diseños temáticos a elegir y 5 tamaños de pastel soportados (1 a 5+ pisos torre).</p>
+          <p>NO producimos pasteles, pero <strong>coordinamos directo con tu pastelero externo</strong>: tamaño, peso, hora de entrega, instrucciones de manipulación. Si no tienes pastelero, te conectamos con pasteleros confiables CDMX. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong>. Visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a> para detalle.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20Stand%20para%20Pastel%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a>.</p>
+        </div>
+        <div class="stand-intro__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/stand-pastel/decoracion-stand-pastel-elegante.avif', { w: 720, q: 82 })} alt="Stand para pastel decorado MEDEDUL en CDMX" loading="lazy" width="720" height="480" />
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <PricingPackages id="paquetes-stand" badge="Paquetes Stand Pastel CDMX" title="Elige el formato para tu" titleHighlight="stand de pastel" subtitle="3 niveles claros con soporte reforzado profesional incluido" content={`<p><strong>Esencial</strong> marco clásico/floral simple hasta 2 pisos; <strong>Premium</strong> es el más solicitado con 6 diseños a elegir (incluye Arco Globos viral) hasta 3 pisos con LED; <strong>Luxury</strong> diseño temático personalizado, 4-5+ pisos torre con LED programable, neón y foto profesional del corte.</p>`} packages={paquetes} note="💡 <strong>Todos los paquetes Stand para Pastel CDMX incluyen:</strong> marco decorativo profesional, soporte pastel reforzado, decoración temática coordinada, mantel y elementos base, coordinación con pastelero externo, montaje 1-2h antes del corte y desmontaje al cierre. NO incluye pastel (solo stand)." />
+
+  <WhyChooseUs id="por-que-stand" badge="Diferenciadores Stand Pastel" title="Por qué elegir nuestro" titleHighlight="Stand para Pastel" descriptions={["Con <strong>280+ stands operados en CDMX</strong>, 6 diseños temáticos y soporte para pasteles 1-5+ pisos, MEDEDUL es la opción especializada para clientes que buscan escenario profesional para el corte del pastel.", "Cada stand parte del mismo método: brief con asesoría de tamaño, propuesta visual 24h, coordinación con pastelero externo, montaje 1-2h antes del corte y operación durante el momento. La diferencia: <strong>el stand es el escenario de LA foto del evento</strong>."]} stats={[{ number: "280+", label: "Stands operados" }, { number: "6", label: "Diseños temáticos" }, { number: "1-5+", label: "Pisos pastel" }, { number: "100%", label: "Soporte reforzado" }]} features={caracteristicas} />
+
+  <section class="stand-galeria" id="galeria-stand">
+    <div class="container">
+      <SectionHeader title="Stands para pastel operados en" titleHighlight="CDMX" subtitle="Selección curada de stands MEDEDUL en distintos eventos y diseños" />
+      <div class="stand-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="stand-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="stand-incluye section-padding" id="incluye-stand">
+    <div class="container">
+      <SectionHeader title="Qué incluye nuestro" titleHighlight="Stand para Pastel CDMX" subtitle="Servicio integral con marco profesional y coordinación con pastelero externo" />
+      <div class="stand-incluye__grid">
+        {incluye.map(item => (
+          <div class="stand-incluye__item">
+            <div class="stand-incluye__num">{item.num}</div>
+            <h3 class="stand-incluye__title">{item.title}</h3>
+            <p class="stand-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps id="proceso-stand" badge="Cómo trabajamos" title="Nuestro proceso para tu" titleHighlight="stand de pastel" subtitle="Cuatro pasos para que el corte de tu pastel tenga el escenario que merece" steps={proceso} />
+
+  <section class="stand-eventos section-padding" id="aplica-eventos">
+    <div class="container">
+      <SectionHeader title="Para tu tipo de" titleHighlight="evento" subtitle="Las 4 aplicaciones más solicitadas de stand para pastel en CDMX" />
+      <div class="service-grid">
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-boda" image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')} alt="Stand para pastel boda" title="Para Bodas" excerpt="El escenario del sí. Foto del corte de pastel nupcial enmarcada con flores frescas o arco globos." cta="Ver Mesa Boda" badge="Foto cumbre" subsections={subsCBBoda} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-xv-anos" image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')} alt="Stand para pastel XV" title="Para XV Años" excerpt="Momento protagonista de la quinceañera. Pastel multipisos con arco globos rosa-dorado o neón con su nombre." cta="Ver Mesa XV" badge="Top XV" subsections={subsCBXV} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-baby-shower" image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')} alt="Stand para pastel baby shower" title="Para Baby Shower" excerpt="El dulce anuncio. Especialmente popular para gender reveal con pastel sorpresa de relleno azul/rosa." cta="Ver Baby Shower" badge="Gender Reveal" subsections={subsCBBabyShower} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-bautizo" image={getCdnUrl('/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif')} alt="Stand para pastel bautizo" title="Para Bautizo" excerpt="Celebración serena con simbología religiosa. Marco floral elegante en blanco con cruz decorativa." cta="Ver Bautizo" badge="Sacramental" subsections={subsCBBautizo} />
+      </div>
+    </div>
+  </section>
+
+  <section class="stand-cdmx-cta section-padding" id="stand-cdmx">
+    <div class="container">
+      <div class="stand-cdmx-cta__card">
+        <div class="stand-cdmx-cta__body">
+          <span class="stand-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos stands para pastel desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL renta stands para pastel en toda Ciudad de México con cobertura en <strong>Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite</strong>. Operamos en hoteles 5 estrellas, haciendas patrimoniales, salones, jardines y domicilios.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="stand-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="stand-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/stand-pastel/arco-globos-estacion-pastel.avif', { w: 600, q: 82 })} alt="Stand pastel arco globos CDMX MEDEDUL" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stand-testimonios section-padding" id="testimonios-stand">
+    <div class="container">
+      <SectionHeader title="Testimonios reales de" titleHighlight="clientes CDMX" subtitle="Familias hablando de su experiencia con stand para pastel MEDEDUL" />
+      <div class="reviews-grid">
+        {testimonios.map(t => (<ReviewCard {...t} />))}
+      </div>
+    </div>
+  </section>
+
+  <section class="stand-otras section-padding" id="otras-estaciones">
+    <div class="container">
+      <SectionHeader title="Otras estaciones" titleHighlight="interactivas" subtitle="Combina el stand con otras estaciones para experiencia trifecta" />
+      <div class="service-grid">
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chocolate" image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')} alt="Fuente de chocolate" title="Fuente de Chocolate" excerpt="La estrella universal. Combo trifecta: stand pastel + fuente chocolate + pared dulces." cta="Ver Fuente Chocolate" subsections={subsFuenteChocolate} />
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chamoy" image={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')} alt="Fuente de chamoy" title="Fuente de Chamoy" excerpt="Identidad mexicana. Combo con stand para eventos mexicanos modernos." cta="Ver Fuente Chamoy" subsections={subsFuenteChamoy} />
+        <ServiceCard href="/estaciones-interactivas/pared-de-dulces" image={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')} alt="Pared de dulces" title="Pared de Dulces" excerpt="El muro más fotografiado. Backdrop perfecto del stand: pared atrás + stand al frente." cta="Ver Pared Dulces" subsections={subsParedDulces} />
+      </div>
+    </div>
+  </section>
 
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  .stand-stats { background: linear-gradient(135deg, #ec4899 0%, #d946ef 50%, #ec4899 100%); padding: 3rem 0; color: #fff; }
+  .stand-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .stand-stat__num { display: block; font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 0.5rem; }
+  .stand-stat__label { display: block; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+  @media (max-width: 768px) { .stand-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } .stand-stat__num { font-size: 2rem; } }
+
+  .stand-tipos { background: #fff; }
+  .stand-tipos__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .stand-tipo { background: #fdf2f8; border-radius: 0.75rem; padding: 2rem 1.5rem; text-align: center; border-top: 3px solid #ec4899; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .stand-tipo:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(236,72,153,0.18); }
+  .stand-tipo--popular { border-top-color: #d946ef; background: #fdf4ff; }
+  .stand-tipo__badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #d946ef; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stand-tipo__icon { font-size: 2.75rem; margin-bottom: 1rem; }
+  .stand-tipo__name { font-size: 1.15rem; color: #ec4899; margin-bottom: 0.75rem; font-weight: 700; }
+  .stand-tipo__desc { color: #555; line-height: 1.5; font-size: 0.9rem; }
+  @media (max-width: 900px) { .stand-tipos__grid { grid-template-columns: 1fr; } }
+
+  .stand-tamanos { background: linear-gradient(135deg, #fdf2f8 0%, #fff 100%); }
+  .stand-tamanos__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .stand-tamano { background: #fff; border-radius: 0.75rem; padding: 1.75rem 1.25rem; text-align: center; border-top: 3px solid #ec4899; position: relative; transition: transform 0.2s ease; }
+  .stand-tamano:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(236,72,153,0.15); }
+  .stand-tamano--popular { border-top-color: #d946ef; }
+  .stand-tamano__badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #d946ef; color: #fff; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+  .stand-tamano__icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .stand-tamano__tam { font-size: 1.2rem; color: #ec4899; margin-bottom: 0.5rem; font-weight: 800; }
+  .stand-tamano__desc { color: #555; line-height: 1.5; font-size: 0.85rem; margin-bottom: 0.75rem; }
+  .stand-tamano__soporte { display: inline-block; background: #fdf2f8; color: #ec4899; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  @media (max-width: 1100px) { .stand-tamanos__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .stand-tamanos__grid { grid-template-columns: 1fr; } }
+
+  .stand-intro { padding: 5rem 0; background: #fdf2f8; }
+  .stand-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .stand-intro__badge { display: inline-block; background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%); color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+  .stand-intro__copy h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 1.5rem; color: #1a1a1a; }
+  .stand-intro__copy h2 span { color: #ec4899; }
+  .stand-intro__copy p { color: #444; line-height: 1.7; margin-bottom: 1rem; font-size: 1rem; }
+  .stand-intro__copy a { color: #ec4899; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 600; }
+  .stand-intro__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 20px 50px rgba(236,72,153,0.25); }
+  @media (max-width: 900px) { .stand-intro__grid { grid-template-columns: 1fr; } }
+
+  .stand-galeria { padding: 5rem 0; background: #fff; }
+  .stand-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .stand-galeria__item { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4/3; }
+  .stand-galeria__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .stand-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .stand-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  .stand-incluye { background: #fdf2f8; }
+  .stand-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .stand-incluye__item { background: #fff; border-radius: 1rem; padding: 2rem 1.5rem; border: 1px solid #fce7f3; transition: transform 0.2s ease; }
+  .stand-incluye__item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(236,72,153,0.18); border-color: #ec4899; }
+  .stand-incluye__num { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%); color: #fff; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-weight: 700; margin-bottom: 1rem; }
+  .stand-incluye__title { font-size: 1.1rem; color: #ec4899; margin-bottom: 0.75rem; font-weight: 700; }
+  .stand-incluye__desc { color: #555; line-height: 1.6; font-size: 0.95rem; }
+  @media (max-width: 900px) { .stand-incluye__grid { grid-template-columns: 1fr; } }
+
+  .stand-cdmx-cta { background: #fff; }
+  .stand-cdmx-cta__card { background: linear-gradient(135deg, #ec4899 0%, #d946ef 50%, #fbbf24 100%); border-radius: 1.5rem; padding: 3rem; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(236,72,153,0.3); }
+  .stand-cdmx-cta__badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; backdrop-filter: blur(8px); }
+  .stand-cdmx-cta__body h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1rem; color: #fff; }
+  .stand-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .stand-cdmx-cta__body p { line-height: 1.65; color: rgba(255,255,255,0.95); margin-bottom: 1.5rem; }
+  .stand-cdmx-cta__body p strong { color: #fff; }
+  .stand-cdmx-cta__link { display: inline-block; background: #fff; color: #ec4899; padding: 1rem 2rem; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .stand-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .stand-cdmx-cta__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+  @media (max-width: 900px) { .stand-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; } .stand-cdmx-cta__body h2 { font-size: 1.5rem; } }
+
+  .stand-testimonios { background: #fdf2f8; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .stand-otras { background: #fff; }
+</style>

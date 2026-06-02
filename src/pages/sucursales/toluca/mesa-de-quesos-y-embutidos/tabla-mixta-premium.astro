@@ -1,0 +1,733 @@
+---
+// L5 - Tabla Mixta Premium Toluca
+// Subsección dedicada: combinación editorial quesos D.O.P. + jamones reserva + acompañamientos boutique
+// Sucursal Toluca-Metepec, MEDEDUL — La pieza signature de la casa
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Quesos y Embutidos', url: '/sucursales/toluca/mesa-de-quesos-y-embutidos' },
+  { name: 'Tabla Mixta Premium', url: '/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium' }
+];
+
+// =============== Composición de la Tabla Mixta (4 zonas) ===============
+const composicion = [
+  {
+    zona: 'Zona Quesos Europeos',
+    icon: '🧀',
+    productos: 'Brie · Camembert · Manchego · Parmigiano · Gouda añejo · Roquefort',
+    cantidad: '5-12 quesos',
+    detalle: 'Selección curada del affineur con denominación de origen protegida (D.O.P./AOP). Atemperado 45 min antes del servicio para liberar aromas. Cuchillería profesional por tipo de queso (pala, alambre, doble mango, queseros).'
+  },
+  {
+    zona: 'Zona Charcutería Reserva',
+    icon: '🥓',
+    productos: 'Ibérico Bellota · Serrano · Prosciutto Parma · Bresaola · Salame · Coppa',
+    cantidad: '3-8 charcuterías',
+    detalle: 'Curaduría con jamones D.O.P./IGP. Maestro cortador certificado en sitio para corte a cuchillo de jamón ibérico. Lonjas finas con técnica española tradicional, jamonero giratorio profesional.'
+  },
+  {
+    zona: 'Zona Acompañamientos',
+    icon: '🍯',
+    productos: 'Mermeladas · Mieles · Frutos secos · Aceitunas · Encurtidos',
+    cantidad: '8-12 productos',
+    detalle: 'Membrillo artesanal, higos al oporto, miel de trufa, miel de castaño, nuez de Castilla, almendras, pistache siciliano, aceitunas Kalamata, manzanilla, alcaparras y cornichons franceses.'
+  },
+  {
+    zona: 'Zona Panes & Frutas',
+    icon: '🥖',
+    productos: 'Baguette · Focaccia · Grissini · Uvas · Higos · Peras',
+    cantidad: '6-10 elementos',
+    detalle: 'Panes artesanales horneados en panaderías boutique de Metepec/Toluca. Frutas frescas seleccionadas en Mercado de Abastos de Toluca la madrugada del evento: uvas, higos en temporada, peras, fresas y granadas.'
+  }
+];
+
+// =============== Estructura editorial del montaje ===============
+const estructuraMontaje = [
+  { nivel: 1, altura: 'Base (mesa)', material: 'Mantel de lino blanco o color paleta', desc: 'Punto de partida cromático. Telas naturales con caída elegante, tipografía discreta opcional con iniciales nupciales o logo corporativo.' },
+  { nivel: 2, altura: 'Plano principal', material: 'Tablas de olivo + mármol Carrara + pizarra negra', desc: 'Mix de superficies por tipo de producto. Quesos sobre mármol (frío natural), charcutería sobre olivo (calidez visual), elementos pequeños sobre pizarra (contraste).' },
+  { nivel: 3, altura: 'Altura media (15-25 cm)', material: 'Soportes multinivel + bandejas de plata', desc: 'Vajilla con acompañamientos: mermeladas en cuencos de cristal, mieles en cazos individuales, frutos secos en bandejas pequeñas. Da movimiento visual.' },
+  { nivel: 4, altura: 'Altura superior (30-50 cm)', material: 'Jamonero giratorio + soportes altos + flores', desc: 'Pieza completa de Jamón Ibérico Bellota 5J en jamonero (pieza estrella visual). Soportes altos con quesos en lascas. Flores comestibles y hojas plata como acabado editorial.' }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '20+', label: 'Productos D.O.P. en carta' },
+  { number: '4', label: 'Zonas editoriales' },
+  { number: '70+', label: 'Tablas Valle Toluca' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== Subsecciones hermanas (3 cards) ===============
+const subsecciones = [
+  {
+    title: 'Quesos Europeos Toluca',
+    sublabel: 'Brie, gouda, manchego y más',
+    excerpt: 'L5 dedicado: 12 quesos europeos D.O.P. de 6 países. Brie de Meaux AOP, Camembert, Roquefort, Comté 18m, Manchego DOP, Idiazábal, Parmigiano 24m, Pecorino, Gorgonzola, Gouda añejo 4a, Gruyère AOP, Stilton. Si quieres tabla solo de quesos sin jamones, esta es tu opción. Desde $5,800 MXN.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos',
+    badge: 'D.O.P.',
+    cta: 'Ver Quesos Europeos'
+  },
+  {
+    title: 'Jamones Curados Toluca',
+    sublabel: 'Serrano, prosciutto, ibérico',
+    excerpt: 'L5 dedicado: 12 charcuterías D.O.P./IGP de 4 países. Jamón Ibérico Bellota 5J 36m, Serrano Reserva, Prosciutto Parma DOP, San Daniele, Bresaola, Salame Milano, Coppa, Mortadella Bologna, Speck Alto Adige IGP, Chorizo Pamplona, Lomo Embuchado, Cecina León. Si quieres solo jamones con maestro cortador. Desde $6,200 MXN.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/jamones-curados',
+    badge: 'Reserva',
+    cta: 'Ver Jamones Curados'
+  },
+  {
+    title: 'Hub Quesos y Embutidos Toluca',
+    sublabel: 'Vista completa del servicio',
+    excerpt: 'Página principal de tabla gourmet Sucursal Toluca-Metepec con paquetes Toluca Tabla / Signature / Atelier desde $6,600 MXN, 16 secciones con affineur dark mode, mapa de orígenes, orden de degustación, maridajes y más. Para eventos en Hacienda La Magdalena Metepec, Quinta Real Toluca.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos',
+    badge: 'Hub L4',
+    cta: 'Ver Hub Quesos Toluca'
+  }
+];
+
+// =============== Maridajes balanceados Tabla Mixta ===============
+const maridajes = [
+  { bebida: 'Champagne Brut Premium', icon: '🥂', detalle: 'La pareja universal de la tabla mixta. Limpia paladar entre quesos cremosos y charcutería grasa. Perfecto en bodas Hacienda La Magdalena Metepec.', productos: 'Brie · Prosciutto · Coppa · Camembert' },
+  { bebida: 'Rioja Reserva', icon: '🍷', detalle: 'Tinto español con crianza en barrica. El comodín perfecto: marida con quesos curados, jamones y embutidos picantes. La elección segura para Valle Toluca.', productos: 'Manchego · Serrano · Chorizo · Cecina' },
+  { bebida: 'Lambrusco Frizzante', icon: '🍇', detalle: 'Tinto burbujeante italiano. Maridaje emiliano clásico con Prosciutto di Parma, Coppa y Mortadella. Refresca y limpia paladar.', productos: 'Prosciutto Parma · Coppa · Mortadella · Parmigiano' },
+  { bebida: 'Pedro Ximénez', icon: '🍷', detalle: 'Vino dulce andaluz. La pareja sublime para cerrar con Jamón Ibérico Bellota 5J y queso Roquefort. Caramelo, higos secos, melaza.', productos: 'Ibérico 5J · Roquefort · Stilton' },
+  { bebida: 'Vinos Valle de Guadalupe', icon: '🇲🇽', detalle: 'Tintos premium de Baja California (Monte Xanic, Casa Madero, Adobe Guadalupe). Identidad mexicana para corporativos en parques industriales Lerma/Toluca.', productos: 'Manchego · Brie · Chorizo · Cecina' },
+  { bebida: 'Cerveza Stout Artesanal', icon: '🍺', detalle: 'Notas tostadas de café y chocolate. Maridaje moderno con Gouda añejo 4 años, Stilton y Speck Alto Adige. Perfecta para cocktail informal.', productos: 'Gouda 4a · Stilton · Speck · Cheddar' }
+];
+
+// =============== Características Tabla Mixta Toluca ===============
+const caracteristicas = [
+  { num: 1, title: 'Composición editorial 4 zonas', desc: 'Cada tabla mixta se diseña como still-life fotográfico con 4 zonas claras: quesos europeos sobre mármol, charcutería sobre olivo, acompañamientos en bandejas plata, panes y frutas en cestos. Alturas y vacíos pensados para la cámara y para el paladar.', img: '/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif' },
+  { num: 2, title: 'Maestro cortador + atemperado dual', desc: 'Combinamos protocolos: quesos atemperados 45 min antes (16-18°C), charcutería atemperada 30 min antes (12-14°C). Maestro cortador certificado durante todo el evento atendiendo al jamonero giratorio profesional.', img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif' },
+  { num: 3, title: 'Carta menú orden de degustación', desc: 'Carta menú impresa boutique con orden de degustación recomendado por el sommelier: empezar con suaves (Brie + Prosciutto), pasar a media intensidad (Manchego + Serrano), continuar con intensos (Parmigiano + Ibérico), cerrar con potentes (Roquefort + Pedro Ximénez).', img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif' },
+  { num: 4, title: 'Sommelier opcional en sitio', desc: 'En Mixta Atelier el sommelier de quesos está presente durante todo el evento. Sugiere maridajes en vivo, explica origen y D.O.P. de cada producto, recomienda combinaciones queso-jamón-vino. Educación gastronómica protocolo restaurante boutique.', img: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif' }
+];
+
+// =============== Paquetes Tabla Mixta Premium Toluca ===============
+const paquetesTablaMixta = [
+  {
+    name: 'Toluca Mixta 8',
+    icon: '🧀',
+    price: '$11,500',
+    currency: 'MXN',
+    guests: '50-80 personas',
+    tagline: 'La tabla mixta esencial Valle Toluca',
+    features: [
+      '5 quesos europeos D.O.P. (Brie, Manchego, Parmigiano, Gouda, Roquefort)',
+      '3 charcuterías reserva (Serrano 18m, Prosciutto Parma, Salame Milano)',
+      'Mermeladas (membrillo, higo) + miel especiada',
+      'Pan artesanal Metepec, focaccia, grissini',
+      'Frutos secos premium + uvas frescas Valle',
+      'Aceitunas Kalamata + encurtidos',
+      'Composición editorial 4 zonas',
+      'Tabla de olivo + cuchillería profesional',
+      '4 horas de servicio + cadena de frío',
+      'Atemperado dual (quesos 45m + charcutería 30m)',
+      'Carta menú impresa con orden de degustación',
+      'Traslado refrigerado zonas centrales Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Mixta 8',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Tabla%20Mixta%20Premium%20Toluca%20-%20Mixta%208'
+  },
+  {
+    name: 'Toluca Mixta 14',
+    icon: '⭐',
+    price: '$16,800',
+    currency: 'MXN',
+    guests: '80-130 personas',
+    tagline: 'El más solicitado para bodas Valle Toluca',
+    features: [
+      '8 quesos europeos D.O.P. (5 países: FR, ES, IT, NL, CH)',
+      '6 charcuterías reserva (3 países: ES, IT, FR)',
+      'Maestro cortador en sitio (1 hora)',
+      'Mermeladas premium + 3 mieles especiadas',
+      'Panes franceses, focaccia romero, grissini italiano',
+      'Frutos secos selectos (Castilla, almendra, pistache)',
+      'Aceitunas marinadas + encurtidos boutique',
+      'Frutas frescas (uvas, higos, peras) Mercado Toluca',
+      'Composición editorial 4 zonas + multinivel',
+      'Tablas múltiples: olivo + mármol Carrara + pizarra',
+      'Cuchillería profesional + soportes plata',
+      'Carta menú impresa con orden y maridajes',
+      '5 horas de servicio + reposición continua',
+      'Coordinación con wedding planner Valle Toluca',
+      'Traslado refrigerado Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Mixta 14',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Tabla%20Mixta%20Premium%20Toluca%20-%20Mixta%2014'
+  },
+  {
+    name: 'Toluca Mixta Atelier 20',
+    icon: '💎',
+    price: '$25,400',
+    currency: 'MXN',
+    guests: '130+ personas',
+    tagline: 'Carta completa + Ibérico 5J + Sommelier',
+    features: [
+      '12 quesos europeos D.O.P. (carta completa, 6 países)',
+      '8 charcuterías D.O.P./IGP (4 países, carta completa)',
+      'Pieza completa Jamón Ibérico Bellota 5J 36m en jamonero',
+      'Maestro cortador presente durante todo el evento',
+      'Sommelier de quesos + charcutería en sitio',
+      'Maridaje incluido: 1 botella Pedro Ximénez + 1 botella Rioja Reserva',
+      'Estación de degustación guiada por orden de intensidad',
+      'Composición editorial premium con flores y hojas plata',
+      'Tabla mixta sobre composición geométrica multinivel',
+      'Carta menú impresa personalizada con orígenes y D.O.P.',
+      'Acabados con flores comestibles y oro 23K',
+      'Foto profesional editorial de la pieza ibérica',
+      'Protocolo hacienda 5★ con uniforme corporativo',
+      'Hand-off al wedding planner sin fricción',
+      'Empaque sobrantes para cliente al cierre'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Atelier 20',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Tabla%20Mixta%20Premium%20Toluca%20-%20Atelier%2020'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  { num: 1, title: 'Briefing & Curaduría Total', desc: 'Sesión por WhatsApp Toluca (55 2177 5184), Zoom o presencial en Sucursal Metepec. Definimos tipo de evento, número de invitados, balance preferido (más quesos / más jamones / equilibrado), maridaje deseado y restricciones dietéticas.' },
+  { num: 2, title: 'Carta del Affineur + Cortador', desc: 'En menos de 24 h recibes carta personalizada combinando 5/8/12 quesos D.O.P. + 3/6/8 charcuterías reserva, opción Ibérico Bellota 5J, propuesta de maridaje balanceado, render conceptual del montaje editorial 4 zonas y cotización cerrada.' },
+  { num: 3, title: 'Sourcing & Maduración Dual', desc: 'Apartas con anticipo 50%. Importamos productos boutique con tiempo (Ibérico requiere 7-14 días, quesos D.O.P. 5-10 días). Maduración final en cuarto frío Sucursal Metepec, atemperado planificado para protocolo dual.' },
+  { num: 4, title: 'Montaje Editorial + Servicio', desc: 'Llegamos 90 min antes con transporte refrigerado. Montaje editorial 4 zonas, instalación de jamonero giratorio, atemperado dual (quesos 45m + charcutería 30m), maestro cortador profesional + sommelier opcional durante todo el evento Valle Toluca.' }
+];
+
+// =============== Galería ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif', alt: 'Tabla mixta premium quesos y jamones para evento Valle Toluca' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif', alt: 'Tabla mixta editorial Hacienda La Magdalena Metepec' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif', alt: 'Tabla mixta quesos jamones boda Quinta Real Toluca' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif', alt: 'Renta tabla mixta Sucursal Metepec' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Tabla mixta corporativo Parque Industrial Lerma' },
+  { src: '/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif', alt: 'Cliente disfrutando tabla mixta UAEMex Toluca' }
+];
+
+// =============== Eventos compatibles ===============
+const eventos = [
+  { title: 'Tabla Mixta para Bodas Toluca', excerpt: 'La pieza estrella del cocktail-hour nupcial. Tabla mixta editorial con 12 quesos + 8 charcuterías + pieza completa Ibérico Bellota 5J en jamonero giratorio. Maestro cortador y sommelier en sitio. Bodas Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma.', img: '/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif', badge: 'Favorito', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda', cta: 'Ver Bodas Toluca' },
+  { title: 'Eventos Corporativos C-level Lerma', excerpt: 'Lanzamientos en parques industriales Lerma/Toluca/Metepec, posadas C-level y convenciones B2B internacionales. Tabla mixta con maridaje Rioja Reserva o Valle de Guadalupe. Branding tipográfico en etiquetería de cada producto.', img: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', badge: 'Protocolo', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
+  { title: 'Cena Privada VIP', excerpt: 'Cenas íntimas 30-60 invitados en residencias del Valle Toluca con vista al Nevado. Tabla mixta Atelier 20 con sommelier en sitio. Educación gastronómica nivel restaurante boutique parisino-italiano-español.', img: '/img/galeria/candy-bar-elegante-terraza-atardecer.avif', href: '/candy-bar-eventos', cta: 'Ver Cenas VIP' },
+  { title: 'XV Años Estilo Mediterráneo', excerpt: 'Para quinceañeras con paleta sobria y temática europea (París, Italia, España). Tabla mixta como cocktail-hour previo a la cena formal en Quinta Real Toluca o Salón Riviera Metepec. Composición editorial fotogénica.', img: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos', cta: 'Ver XV Años Toluca' },
+  { title: 'Aniversarios & Bodas de Plata/Oro', excerpt: 'Celebración íntima 25-60 invitados en residencia del Valle. Tabla mixta con champagne, Brie, Comté, Ibérico Bellota y Pedro Ximénez. Maridaje guiado por sommelier. Perfecto para 25, 30, 50 aniversarios.', img: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', href: '/candy-bar-eventos', cta: 'Ver Aniversarios' },
+  { title: 'Posgrado UAEMex y Tec Toluca', excerpt: 'Celebración de maestrías, doctorados y MBAs Toluca. Para graduados de UAEMex, Tec de Monterrey Campus Toluca, Anáhuac, Politécnico Toluca. Tabla mixta europea-española elegante formato cocktail.', img: '/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones Toluca' }
+];
+
+// =============== Testimonios ===============
+const testimonios = [
+  { name: 'Daniela y Eduardo', initials: 'DE', review: 'La Mixta Atelier 20 en nuestra boda en Hacienda La Magdalena Metepec fue inolvidable. La pieza completa de Ibérico Bellota 5J + 12 quesos + 8 charcuterías + sommelier explicando cada maridaje a los invitados. Cero comida sin probar al final. Vale 100% la inversión.', event: 'Boda Hacienda La Magdalena Metepec', rating: 5 },
+  { name: 'Juan Pablo Ortiz', initials: 'JO', review: 'Contratamos Mixta 14 para nuestro lanzamiento corporativo en Parque Industrial Lerma. La composición editorial 4 zonas se viralizó en LinkedIn de los directivos. El maestro cortador fue el detalle que marcó diferencia. 10/10.', event: 'Lanzamiento Corporativo Lerma', rating: 5 },
+  { name: 'Verónica Aguirre', initials: 'VA', review: 'Para mi cumpleaños 60 en La Providencia Metepec pedí Mixta 8. Balance perfecto: 5 quesos europeos + 3 jamones italianos. El Brie de Meaux + Prosciutto + champagne fue la combinación que todos repetían. Sommelier guió a mis invitados. Profesional impecable.', event: 'Cumpleaños La Providencia Metepec', rating: 5 }
+];
+
+// =============== FAQ Tabla Mixta Premium Toluca ===============
+const faqs = [
+  { question: '¿Qué incluye la Tabla Mixta Premium en Valle de Toluca?', answer: 'La tabla mixta es la pieza signature de la casa: combinación editorial de quesos europeos D.O.P. (5-12 piezas) + charcutería reserva D.O.P./IGP (3-8 piezas) + acompañamientos boutique (8-12 productos: mermeladas, mieles, frutos secos, aceitunas, encurtidos) + panes artesanales y frutas frescas del Valle. Composición editorial en 4 zonas (quesos sobre mármol, charcutería sobre olivo, acompañamientos en plata, panes en cestos). Atemperado dual (45 min quesos / 30 min charcutería), maestro cortador en sitio y carta menú impresa con orden de degustación.' },
+  { question: '¿Cuánto cuesta una Tabla Mixta Premium en Valle Toluca?', answer: 'Iniciamos en $11,500 MXN (Mixta 8, 50-80 invitados, 5 quesos + 3 jamones), $16,800 MXN (Mixta 14, 80-130 invitados con maestro cortador 1h — el más solicitado para bodas), hasta $25,400 MXN (Mixta Atelier 20, 130+ invitados con pieza completa Ibérico Bellota 5J + carta completa 12 quesos + 8 charcuterías + sommelier todo el evento + 1 botella Pedro Ximénez + 1 botella Rioja Reserva). Cotización gratuita en menos de 24 h vía WhatsApp 55 2177 5184.' },
+  { question: '¿Por qué elegir Tabla Mixta vs solo Quesos o solo Jamones?', answer: 'La Tabla Mixta es la opción más versátil: cubre paladares que prefieren quesos cremosos (Brie, Camembert), quesos curados (Manchego, Parmigiano), quesos azules (Roquefort), jamones suaves (Prosciutto, Serrano), jamones intensos (Ibérico Bellota), embutidos italianos (Salame, Coppa) y embutidos picantes (Chorizo). Es la decisión segura para grupos heterogéneos. Si tu evento es 100% temático francés/italiano, considera solo Quesos Europeos. Si es 100% español, considera solo Jamones Curados.' },
+  { question: '¿Cuál es la diferencia entre los 3 paquetes Mixta?', answer: 'Mixta 8 (esencial, 50-80 inv): 5 quesos D.O.P. de 3 países + 3 jamones reserva, sin maestro cortador, atemperado dual incluido. Mixta 14 (más solicitado, 80-130 inv): 8 quesos de 5 países + 6 jamones de 3 países, maestro cortador 1h, mobiliario boutique multinivel. Mixta Atelier 20 (premium total, 130+ inv): carta completa 12 quesos + 8 charcuterías + pieza completa Ibérico Bellota 5J + maestro cortador todo el evento + sommelier en sitio + 2 botellas vino reserva incluidas + acabados con flores y oro 23K.' },
+  { question: '¿La pieza de Ibérico Bellota 5J está incluida?', answer: 'Solo en el paquete Toluca Mixta Atelier 20. La pieza completa de Jamón Ibérico de Bellota 5J 36 meses (peso 7-9 kg) se monta en jamonero giratorio profesional como pieza estrella visual del evento. Maestro cortador certificado profesional corta lonjas finas a cuchillo durante todo el evento. En Mixta 14 podemos sumar pieza Ibérica Bellota como add-on; en Mixta 8 ofrecemos lonjas pre-cortadas de Ibérico como upgrade.' },
+  { question: '¿Cómo funciona el atemperado dual?', answer: 'Quesos y charcutería requieren temperaturas distintas para servirse en su punto óptimo. Llegamos 90 min antes a tu venue Valle Toluca con transporte refrigerado desde Sucursal Metepec. Sacamos los quesos del refrigerador 45 min antes del servicio (necesitan 16-18°C para liberar aromas). La charcutería sale del refrigerador 30 min antes (necesita 12-14°C para que la grasa intramuscular se atempere sin perder textura). Protocolo dual = paladar perfecto.' },
+  { question: '¿Qué incluye la carta menú impresa?', answer: 'En Mixta 14 y Mixta Atelier 20 imprimimos carta menú boutique personalizada con: nombre de cada queso/jamón, país y región de origen, denominación de origen (D.O.P./AOP/IGP), tiempo de curación, perfil de sabor, intensidad (1-5 dots), maridaje sugerido por el sommelier y orden de degustación recomendado. Personalización con iniciales nupciales, logo corporativo o paleta cromática del evento. Las cartas son recuerdo de los invitados.' },
+  { question: '¿En qué zonas del Valle de Toluca dan servicio?', answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia), Toluca centro (Reforma, Sor Juana, Universidad), Zinacantepec, Lerma (centro y residenciales, parques industriales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec) con transporte refrigerado profesional.' },
+  { question: '¿Manejan dietas especiales (sin lactosa, sin gluten, vegetarianas)?', answer: 'Sí. Para invitados con intolerancia a la lactosa los quesos curados largos (Parmigiano 24m, Manchego 12m, Gouda 4 años) son naturalmente bajos en lactosa. Para sin gluten ofrecemos panes y crackers gluten-free. Para vegetarianos diseñamos zona separada solo con quesos + acompañamientos + frutas (sin charcutería). Coordinamos protocolo anti-contaminación cruzada en el briefing inicial.' },
+  { question: '¿Coordinan con wedding planner del Valle Toluca?', answer: 'Sí, en cada evento. Trabajamos frecuentemente con planners y coordinadores de Hacienda La Magdalena (Metepec), Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma, Salón Riviera Metepec y Casa Club Las Marinas. Conocemos protocolos sanitarios, requerimientos de cadena de frío dual, tiempos de carga del jamonero giratorio y posicionamiento óptimo según flujo del evento.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para bodas en temporada alta Valle Toluca (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. La pieza Ibérico Bellota 5J requiere importación con 7-14 días de anticipación. Para eventos corporativos en parques industriales (Lerma) y cenas privadas suelen ser suficientes 4-6 semanas. Trabajamos por orden de confirmación con anticipo del 50%.' }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium#service",
+      "name": "Tabla Mixta Premium en Valle de Toluca",
+      "serviceType": "Tabla Editorial Mixta Quesos y Charcutería para Eventos",
+      "description": "Tabla mixta premium editorial en Valle de Toluca: combinación de 5-12 quesos europeos D.O.P. (Brie, Manchego, Parmigiano, Roquefort, Gouda) + 3-8 charcuterías reserva D.O.P./IGP (Ibérico Bellota 5J, Serrano, Prosciutto Parma, Bresaola, Salame) + acompañamientos boutique (mermeladas, mieles, frutos secos, aceitunas) + panes artesanales y frutas frescas. Composición editorial 4 zonas, atemperado dual, maestro cortador certificado, sommelier opcional. Operación desde Sucursal Metepec con transporte refrigerado.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "54", "bestRating": "5" }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "11500",
+        "highPrice": "25400",
+        "offerCount": "3",
+        "offers": paquetesTablaMixta.map(pkg => ({
+          "@type": "Offer",
+          "name": `Tabla Mixta Premium Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Quesos y Embutidos", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos" },
+        { "@type": "ListItem", "position": 5, "name": "Tabla Mixta Premium", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Tabla Mixta Premium Valle Toluca | Quesos D.O.P. + Jamones Reserva + Sommelier | MEDEDUL"
+  description="Tabla mixta premium editorial en Valle de Toluca por MEDEDUL. Combinación 5-12 quesos europeos D.O.P. (Brie, Manchego, Parmigiano, Roquefort) + 3-8 charcuterías reserva (Ibérico Bellota 5J, Prosciutto Parma, Serrano) + acompañamientos boutique. Composición editorial 4 zonas, atemperado dual, maestro cortador, sommelier opcional. Sucursal Metepec. Bodas, corporativos, cenas VIP. Desde $11,500 MXN. WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium"
+  ogImage="/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Tabla Mixta Premium Valle Toluca"
+    highlight="Mixta"
+    subtitle="Quesos D.O.P. + Jamones Reserva + Sommelier | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>La pieza signature de la casa</strong>. Combinación editorial perfecta de <strong>quesos europeos D.O.P.</strong> (Brie de Meaux AOP, Manchego DOP 12 meses, Parmigiano Reggiano 24m, Roquefort, Gouda añejo 4 años, Comté) + <strong>charcutería reserva D.O.P./IGP</strong> (Jamón Ibérico de Bellota 5J 36 meses, Serrano Reserva, Prosciutto di Parma DOP, Bresaola della Valtellina IGP, Salame Milano, Coppa di Parma) + <strong>acompañamientos boutique</strong> (mermeladas artesanales, mieles, frutos secos premium, aceitunas Kalamata, panes artesanales de Metepec/Toluca, frutas frescas del Valle).</p><p>Cada tabla mixta se diseña como <strong>composición editorial en 4 zonas</strong>: quesos sobre mármol Carrara, charcutería sobre tabla de olivo, acompañamientos en bandejas de plata, panes y frutas en cestos rústicos. <strong>Atemperado dual</strong> (45 min para quesos a 16-18°C, 30 min para charcutería a 12-14°C), <strong>maestro cortador certificado</strong> en técnica española durante el evento, jamonero giratorio profesional y <strong>sommelier opcional</strong> que sugiere maridajes en vivo. Para bodas en Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma, Salón Riviera Metepec y Casa Club Las Marinas.</p>`}
+  />
+
+  <!-- ===================== Stats ===================== -->
+  <section class="tol-tm-stats">
+    <div class="container">
+      <div class="tol-tm-stats__grid">
+        {stats.map(s => (
+          <div class="tol-tm-stat">
+            <span class="tol-tm-stat__num">{s.number}</span>
+            <span class="tol-tm-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Composición 4 zonas (DARK) ===================== -->
+  <section class="tol-tm-composicion">
+    <div class="container">
+      <div class="tol-tm-composicion__header">
+        <span class="tol-tm-composicion__badge">Composición Editorial</span>
+        <h2>Las <span>4 Zonas</span> de tu Tabla Mixta Premium</h2>
+        <p>Cada tabla mixta se diseña como un still-life fotográfico con cuatro zonas claras y balanceadas. Cada zona tiene su superficie, temperatura, cuchillería y propósito en el recorrido gastronómico de tus invitados.</p>
+      </div>
+
+      <div class="tol-tm-composicion__grid">
+        {composicion.map((c, i) => (
+          <div class="tol-tm-zona-card">
+            <span class="tol-tm-zona-card__num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="tol-tm-zona-card__icon">{c.icon}</span>
+            <h3>{c.zona}</h3>
+            <p class="tol-tm-zona-card__cantidad">{c.cantidad}</p>
+            <p class="tol-tm-zona-card__productos">{c.productos}</p>
+            <p class="tol-tm-zona-card__detalle">{c.detalle}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Estructura de Montaje (4 niveles) ===================== -->
+  <section class="tol-tm-estructura">
+    <div class="container">
+      <div class="tol-tm-estructura__header">
+        <span class="tol-tm-estructura__badge">Anatomía del Montaje</span>
+        <h2>Estructura <span>Multinivel Editorial</span></h2>
+        <p>El mobiliario y los soportes se ordenan en 4 niveles de altura para crear movimiento visual y permitir composición fotográfica desde cualquier ángulo. Cada nivel tiene su material y propósito.</p>
+      </div>
+
+      <div class="tol-tm-estructura__list">
+        {estructuraMontaje.map(e => (
+          <div class="tol-tm-nivel">
+            <div class="tol-tm-nivel__num">
+              <span>Nivel {e.nivel}</span>
+            </div>
+            <div class="tol-tm-nivel__body">
+              <h4>{e.altura}</h4>
+              <p class="tol-tm-nivel__material"><strong>Material:</strong> {e.material}</p>
+              <p class="tol-tm-nivel__desc">{e.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-tm-toluca"
+    badge="Paquetes Tabla Mixta Premium Toluca"
+    title="Elige tu"
+    titleHighlight="Mixta Toluca"
+    subtitle="3 niveles claros: Mixta 8 / Mixta 14 / Mixta Atelier 20 con Ibérico 5J"
+    content={`<p>Diseñamos <strong>tres niveles de Tabla Mixta Premium Toluca</strong> según el tamaño y profundidad gastronómica de tu evento. Todos incluyen composición editorial 4 zonas, mobiliario boutique sobre olivo + mármol + pizarra, atemperado dual y carta menú impresa con orden de degustación. Lo que escala es la <strong>cantidad de quesos + jamones, presencia del maestro cortador, sommelier en sitio y la pieza Ibérica Bellota 5J completa</strong>. Anticipo del 50% para reservar fecha.</p>`}
+    packages={paquetesTablaMixta}
+    note="💡 <strong>Todos los paquetes Toluca incluyen:</strong> productos D.O.P./IGP con certificación de origen, mobiliario boutique 4 zonas (madera olivo, mármol Carrara, pizarra, plata), cuchillería profesional dual (quesos + jamones), acompañamientos premium (mermeladas, mieles, frutos secos, aceitunas, encurtidos), panes artesanales Metepec/Toluca, frutas frescas Valle, transporte refrigerado desde Sucursal Metepec, atemperado dual (45m quesos + 30m charcutería), operador uniforme protocolo, reposición continua."
+  />
+
+  <!-- ===================== Maridajes ===================== -->
+  <section class="tol-tm-maridajes">
+    <div class="container">
+      <div class="tol-tm-maridajes__header">
+        <span class="tol-tm-maridajes__badge">Pairings & Vinos</span>
+        <h2>Maridajes <span>Balanceados</span></h2>
+        <p>La tabla mixta exige maridaje versátil que funcione con quesos cremosos, quesos curados, jamones suaves y embutidos picantes. Sugerencias del sommelier de la casa.</p>
+      </div>
+      <div class="tol-tm-maridajes__grid">
+        {maridajes.map(m => (
+          <div class="tol-tm-maridaje-card">
+            <span class="tol-tm-maridaje-card__icon">{m.icon}</span>
+            <h3>{m.bebida}</h3>
+            <p>{m.detalle}</p>
+            <span class="tol-tm-maridaje-card__productos">{m.productos}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-tm-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestra Tabla Mixta Premium en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>70+ tablas gourmet montadas en Valle Toluca</strong> y 8 años de experiencia MEDEDUL combinando quesos europeos D.O.P. y charcutería reserva en bodas, corporativos C-level y cenas privadas en los venues más exigentes del Valle, somos la opción de referencia cuando lo que necesitas es <strong>tabla mixta editorial con composición 4 zonas, atemperado dual y maestro cortador certificado</strong>.",
+      "Cada tabla mixta parte del mismo estándar: importación con certificación D.O.P./IGP, atemperado dual diferenciado (45m quesos / 30m charcutería), composición editorial 4 zonas, mobiliario multinivel, jamonero giratorio profesional y carta menú impresa con orden de degustación. Lo que cambia es la <strong>cantidad de productos, presencia del sommelier y la pieza Ibérica Bellota 5J completa</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "20+", label: "Productos D.O.P." },
+      { number: "4", label: "Zonas editoriales" },
+      { number: "100%", label: "Certificación origen" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="tol-tm-galeria" id="galeria-tm-toluca">
+    <div class="container">
+      <SectionHeader title="Tablas Mixtas Premium reales en eventos" titleHighlight="Valle de Toluca" subtitle="Selección curada de tablas mixtas MEDEDUL en bodas, corporativos y cenas privadas del Valle" />
+      <div class="tol-tm-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-tm-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps id="proceso-tm-toluca" badge="Cómo trabajamos" title="4 fases para tu" titleHighlight="Tabla Mixta Premium" subtitle="Proceso boutique con sourcing dual (quesos + charcutería) y composición editorial" steps={procesoToluca} />
+
+  <!-- ===================== Eventos compatibles ===================== -->
+  <EventsGrid badge="Versatilidad Total" title="Tu Tabla Mixta Premium Valle Toluca para" titleHighlight="Cualquier Ocasión" subtitle="Diseñamos tablas mixtas editoriales para cada tipo de celebración premium en Valle de Toluca. Desde boda en Hacienda La Magdalena Metepec con pieza completa Ibérico 5J hasta cocktail corporativo en Parque Industrial Lerma con maridaje Valle de Guadalupe." events={eventos} />
+
+  <!-- ===================== Subsecciones hermanas ===================== -->
+  <section class="tol-tm-hermanas">
+    <div class="container">
+      <SectionHeader
+        title="Otras Subsecciones de"
+        titleHighlight="Quesos y Embutidos Toluca"
+        subtitle="Si prefieres tabla solo de quesos o solo de jamones, o quieres la vista completa del hub"
+      />
+      <div class="tol-tm-hermanas__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard href={sub.href} image={sub.img} alt={`${sub.title} en Valle Toluca por MEDEDUL`} title={sub.title} excerpt={sub.excerpt} badge={sub.badge} cta={sub.cta} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="tol-tm-testimonios">
+    <div class="container">
+      <SectionHeader title="Lo que dicen clientes de" titleHighlight="Tabla Mixta Premium Valle Toluca" subtitle="Bodas, corporativos y cenas privadas reales montadas por MEDEDUL en Valle de Toluca" />
+      <div class="tol-tm-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard name={t.name} initials={t.initials} review={t.review} event={t.event} rating={t.rating} verified={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="tol-tm-cdmx-cta">
+    <div class="container">
+      <div class="tol-tm-cdmx-cta__card">
+        <div class="tol-tm-cdmx-cta__body">
+          <span class="tol-tm-cdmx-cta__badge">📍 ¿Evento en Ciudad de México?</span>
+          <h2>Conoce nuestra <span>Sucursal CDMX</span></h2>
+          <p>Si tu evento es en Ciudad de México, MEDEDUL también tiene tabla mixta premium con cobertura completa CDMX (Polanco, Lomas, Santa Fe, Coyoacán, Roma, Pedregal, Interlomas) y <strong>180+ tablas montadas</strong> en St. Regis, Four Seasons, Hotel W, Hacienda de los Morales y Casa Lamm. Operación desde sucursales <strong>Anzures + Condesa</strong>. Mismos quesos D.O.P., mismas charcuterías reserva, mismo affineur.</p>
+          <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" class="tol-tm-cdmx-cta__link">Ver Tabla Gourmet CDMX →</a>
+        </div>
+        <div class="tol-tm-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif', { w: 600, q: 82 })} alt="Tabla Mixta CDMX MEDEDUL sucursal hermana" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20Tabla%20Mixta%20Premium" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Tabla Mixta Premium L5 - Sucursal Toluca-Metepec
+     Prefix: tol-tm-
+     Acento gradient dorado vintage (#a87a3c) + vino reserva (#7d2438)
+     "Mixta" = combinación visual de ambas paletas
+     ========================================================== */
+
+  /* Stats */
+  .tol-tm-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fdf8f3 100%); }
+  .tol-tm-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-tm-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(168, 122, 60, 0.12); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-tm-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #a87a3c 0%, #7d2438 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .tol-tm-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* Composición 4 zonas (DARK) */
+  .tol-tm-composicion { padding: 100px 0; background: linear-gradient(180deg, #1a1410 0%, #2a1c14 100%); color: #fff; position: relative; overflow: hidden; }
+  .tol-tm-composicion::before { content: ''; position: absolute; top: -20%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(168, 122, 60, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-tm-composicion::after { content: ''; position: absolute; bottom: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(125, 36, 56, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-tm-composicion__header { text-align: center; max-width: 760px; margin: 0 auto 60px; position: relative; z-index: 1; }
+  .tol-tm-composicion__badge { display: inline-block; background: linear-gradient(135deg, #a87a3c 0%, #7d2438 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+  .tol-tm-composicion__header h2 { font-size: 2.4rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+  .tol-tm-composicion__header h2 span { color: #d4a766; font-style: italic; }
+  .tol-tm-composicion__header p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.75); line-height: 1.7; }
+  .tol-tm-composicion__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .tol-tm-zona-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 167, 102, 0.22); border-radius: 18px; padding: 32px 28px; backdrop-filter: blur(10px); position: relative; }
+  .tol-tm-zona-card__num { position: absolute; top: 24px; right: 28px; font-size: 2rem; font-weight: 800; color: rgba(212, 167, 102, 0.25); line-height: 1; font-family: 'Poppins', sans-serif; }
+  .tol-tm-zona-card__icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
+  .tol-tm-zona-card h3 { font-size: 1.25rem; color: #d4a766; margin: 0 0 8px; font-weight: 700; padding-right: 60px; }
+  .tol-tm-zona-card__cantidad { font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); margin: 0 0 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .tol-tm-zona-card__productos { font-size: 0.92rem; color: #fff; margin: 0 0 14px; font-weight: 500; padding-bottom: 12px; border-bottom: 1px solid rgba(212, 167, 102, 0.18); }
+  .tol-tm-zona-card__detalle { font-size: 0.86rem; color: rgba(255, 255, 255, 0.78); line-height: 1.7; margin: 0; }
+
+  /* Estructura Multinivel */
+  .tol-tm-estructura { padding: 90px 0; background: linear-gradient(180deg, #fdf8f3 0%, #fff 100%); }
+  .tol-tm-estructura__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-tm-estructura__badge { display: inline-block; background: linear-gradient(135deg, #7d2438 0%, #a87a3c 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-tm-estructura__header h2 { font-size: 2.1rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-tm-estructura__header h2 span { color: #7d2438; font-style: italic; }
+  .tol-tm-estructura__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.7; }
+  .tol-tm-estructura__list { display: flex; flex-direction: column; gap: 20px; max-width: 920px; margin: 0 auto; }
+  .tol-tm-nivel { display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: start; padding: 26px 28px; background: #fff; border: 1px solid rgba(168, 122, 60, 0.18); border-radius: 16px; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); border-left: 5px solid #a87a3c; }
+  .tol-tm-nivel:nth-child(2) { border-left-color: #b88c4e; }
+  .tol-tm-nivel:nth-child(3) { border-left-color: #9c5a4a; }
+  .tol-tm-nivel:nth-child(4) { border-left-color: #7d2438; }
+  .tol-tm-nivel__num { display: flex; align-items: center; justify-content: center; padding: 10px 16px; background: linear-gradient(135deg, #a87a3c 0%, #7d2438 100%); color: #fff; border-radius: 12px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .tol-tm-nivel__body h4 { font-size: 1.15rem; color: var(--texto-oscuro, #1a1a1a); margin: 0 0 8px; font-weight: 700; }
+  .tol-tm-nivel__material { font-size: 0.88rem; color: var(--texto-light, #666); margin: 0 0 8px; }
+  .tol-tm-nivel__material strong { color: #7d2438; }
+  .tol-tm-nivel__desc { font-size: 0.92rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0; }
+
+  /* Maridajes */
+  .tol-tm-maridajes { padding: 90px 0; background: #fff; }
+  .tol-tm-maridajes__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-tm-maridajes__badge { display: inline-block; background: linear-gradient(135deg, #a87a3c 0%, #7d2438 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-tm-maridajes__header h2 { font-size: 2.1rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-tm-maridajes__header h2 span { color: #a87a3c; font-style: italic; }
+  .tol-tm-maridajes__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.7; }
+  .tol-tm-maridajes__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tol-tm-maridaje-card { background: linear-gradient(180deg, #fdf8f3 0%, #fff 100%); border: 1px solid rgba(168, 122, 60, 0.2); border-radius: 20px; padding: 30px 24px; text-align: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05); }
+  .tol-tm-maridaje-card__icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+  .tol-tm-maridaje-card h3 { font-size: 1.1rem; color: var(--texto-oscuro, #1a1a1a); margin: 0 0 12px; font-weight: 700; }
+  .tol-tm-maridaje-card p { font-size: 0.88rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0 0 16px; }
+  .tol-tm-maridaje-card__productos { display: inline-block; font-size: 0.74rem; color: #7d2438; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-top: 1px solid rgba(125, 36, 56, 0.3); padding-top: 12px; }
+
+  /* Galería bento */
+  .tol-tm-galeria { padding: 90px 0; background: linear-gradient(180deg, #fdf8f3 0%, #fff 100%); }
+  .tol-tm-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-tm-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-tm-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-tm-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-tm-galeria__item:nth-child(5), .tol-tm-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* Hermanas */
+  .tol-tm-hermanas { padding: 90px 0; background: linear-gradient(180deg, #fdf8f3 0%, #fff 100%); }
+  .tol-tm-hermanas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+
+  /* Testimonios */
+  .tol-tm-testimonios { padding: 90px 0; background: #fff; }
+  .tol-tm-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* CDMX cross-link */
+  .tol-tm-cdmx-cta { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #fdf8f3 100%); }
+  .tol-tm-cdmx-cta__card { background: linear-gradient(135deg, #a87a3c 0%, #7d2438 60%, #D1007A 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(168, 122, 60, 0.25); }
+  .tol-tm-cdmx-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .tol-tm-cdmx-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .tol-tm-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .tol-tm-cdmx-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 24px; }
+  .tol-tm-cdmx-cta__body p strong { color: #fff; }
+  .tol-tm-cdmx-cta__link { display: inline-block; background: #fff; color: #7d2438; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .tol-tm-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .tol-tm-cdmx-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+
+  /* Sucursal Info Card */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .tol-tm-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-tm-composicion__grid { grid-template-columns: 1fr; }
+    .tol-tm-maridajes__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-tm-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-tm-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-tm-galeria__item:nth-child(5), .tol-tm-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-tm-hermanas__grid { grid-template-columns: 1fr; }
+    .tol-tm-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-tm-cdmx-cta__card { grid-template-columns: 1fr; padding: 32px; }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-tm-stats { padding: 40px 0; }
+    .tol-tm-stat__num { font-size: 1.6rem; }
+    .tol-tm-composicion, .tol-tm-estructura, .tol-tm-maridajes, .tol-tm-galeria, .tol-tm-hermanas, .tol-tm-testimonios, .tol-tm-cdmx-cta { padding: 60px 0; }
+    .tol-tm-composicion__header h2 { font-size: 1.7rem; }
+    .tol-tm-zona-card { padding: 26px 22px; }
+    .tol-tm-zona-card__num { font-size: 1.6rem; }
+    .tol-tm-zona-card h3 { font-size: 1.1rem; padding-right: 50px; }
+    .tol-tm-estructura__header h2, .tol-tm-maridajes__header h2 { font-size: 1.6rem; }
+    .tol-tm-nivel { grid-template-columns: 1fr; padding: 22px 20px; gap: 12px; }
+    .tol-tm-nivel__num { justify-self: start; }
+    .tol-tm-maridajes__grid { grid-template-columns: 1fr; }
+    .tol-tm-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-tm-cdmx-cta__body h2 { font-size: 1.5rem; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-tm-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-tm-stat { padding: 16px 10px; }
+    .tol-tm-stat__num { font-size: 1.4rem; }
+    .tol-tm-stat__label { font-size: 0.78rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

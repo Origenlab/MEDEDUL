@@ -1,0 +1,944 @@
+---
+// Mesa de Frutas - Sucursal Toluca-Metepec
+// Página exclusiva de la sucursal Toluca para el servicio Mesa de Frutas (arreglos frutales premium)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Frutas', url: '/sucursales/toluca/mesa-de-frutas' }
+];
+
+// =============== Sub-secciones Mesa de Frutas (estilos clave en Toluca) ===============
+const subsecciones = [
+  {
+    title: 'Brochetas Artesanales Toluca',
+    sublabel: 'Frutas frescas ensartadas',
+    excerpt: 'Brochetas individuales montadas el mismo día del evento con fresa, uva, kiwi, piña y melón. Listas para servir, perfectas para coffee breaks corporativos en parques industriales de Lerma/Toluca y bodas de día en haciendas del Valle (La Magdalena, San Antonio Lerma). Higiene impecable y porción controlada por invitado.',
+    img: '/img/tipos-de-mesas/frutas/arreglo-frutas-naturales-eventos.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Más solicitado',
+    cta: 'Ver Brochetas Toluca'
+  },
+  {
+    title: 'Torres Decorativas Toluca',
+    sublabel: 'Presentación escultural',
+    excerpt: 'Estructuras multinivel con sandía tallada, piña esculpida y arreglos verticales que funcionan como centro de mesa fotogénico. Diseño editorial para bodas en Hacienda La Magdalena, Quinta Real Toluca y haciendas coloniales del Valle. Alturas de 80 cm a 1.5 m según evento.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-tropicales-fiestas.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Exclusivo Toluca',
+    cta: 'Ver Torres Toluca'
+  },
+  {
+    title: 'Con Chocolate Belga',
+    sublabel: 'La combinación perfecta',
+    excerpt: 'Mesa de frutas + fuente de chocolate belga premium. Fresas, plátano, piña y malvaviscos para sumergir directamente en cascada de chocolate fundido. La estación que siempre genera fila feliz en XV Años y bodas Valle Toluca. Operador profesional incluido desde Sucursal Metepec.',
+    img: '/img/blog/donas-gourmet-chocolate-frutas-01.avif',
+    href: '/estaciones-interactivas/fuente-de-chocolate',
+    badge: 'Combo Premium',
+    cta: 'Ver Combo Chocolate'
+  },
+  {
+    title: 'Cortes Tropicales Toluca',
+    sublabel: 'Mango, piña, papaya y más',
+    excerpt: 'Buffet tropical en bandejas talladas con mango ataulfo, piña miel, papaya, melón y sandía. Opciones con chamoy, chile y limón para XV Años y bodas mexicanas en Valle Toluca. Perfecto para eventos de día en jardines de Metepec, Lerma y Calimaya. Reposición continua todo el evento.',
+    img: '/img/blog/mesa-frutas-tropicales-mango-papaya-01.avif',
+    href: '/tipos-de-mesas-de-dulces/mesa-de-frutas',
+    badge: 'Sabor Mexicano',
+    cta: 'Ver Tropicales Toluca'
+  }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '120+', label: 'Mesas de frutas Valle Toluca' },
+  { number: '8+', label: 'Años operando MEDEDUL' },
+  { number: '1', label: 'Sucursal Toluca-Metepec' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== Características Toluca-Mesa de Frutas ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Fruta seleccionada en Mercado de Toluca',
+    desc: 'Surtimos en el Mercado de Abastos de Toluca y Central de Abasto Toluca la madrugada del evento. Solo fruta en su punto óptimo de madurez, color y textura. Cero piezas pasadas, cero compromisos. Frescura local del Valle.',
+    img: '/img/blog/frutas-frescas-fresas-higos-uvas-01.avif'
+  },
+  {
+    num: 2,
+    title: 'Montaje el mismo día para conservar frescura',
+    desc: 'Cortamos y montamos en venue 2-3 h antes del evento. Cadena de frío controlada desde Blvd. Toluca-Metepec 913 hasta tu hacienda, hotel o salón en Valle de Toluca. La fruta llega impecable.',
+    img: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif'
+  },
+  {
+    num: 3,
+    title: 'Presentación editorial e instagramable',
+    desc: 'Bandejas de cristal, tablas de madera, soportes multinivel, frutas talladas, pinchos decorativos y flores comestibles. Mesa de frutas que funciona como backdrop fotográfico para tu boda en Hacienda La Magdalena o XV en Quinta Real Toluca.',
+    img: '/img/blog/mesa-frutas-exoticas-gourmet-01.avif'
+  },
+  {
+    num: 4,
+    title: 'Logística Valle Toluca sin fricción',
+    desc: 'Salimos desde Sucursal Metepec con cadena de frío activa, montamos 2-3 h antes y desmontamos discretamente al cierre. Coordinación directa con planner y coordinador de hacienda/hotel/salón en Toluca, Metepec, Zinacantepec, Lerma.',
+    img: '/img/tipos-de-mesas/frutas/renta-mesa-frutas-ciudad-mexico.avif'
+  }
+];
+
+// =============== Paquetes Mesa de Frutas Toluca ===============
+const paquetesMesaFrutasToluca = [
+  {
+    name: 'Toluca Esencial',
+    icon: '🍓',
+    price: '$4,200',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Ideal para eventos íntimos en Valle de Toluca',
+    features: [
+      'Bandeja amplia con 6-8 frutas frescas de temporada',
+      'Sandía, mango, kiwi, piña, fresas y uvas',
+      'Pinchos decorativos y cristalería elegante',
+      'Centro de mesa multinivel',
+      '4 horas de servicio',
+      'Operador de mesa incluido',
+      'Traslado en zonas centrales (Metepec, Toluca, Zinacantepec)'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Mesa%20de%20Frutas%20Toluca%20-%20Paquete%20Esencial'
+  },
+  {
+    name: 'Toluca Premium',
+    icon: '⭐',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '60-120 personas',
+    tagline: 'La opción más solicitada en Valle de Toluca',
+    features: [
+      '10-12 frutas premium y tropicales',
+      'Frutas talladas tipo escultura (sandía, piña, papaya)',
+      'Buffet multinivel con bandejas y soportes dorados',
+      'Brochetas artesanales individuales',
+      'Toppings: chamoy, chile, limón, miel',
+      '5 horas de servicio + reposición continua',
+      'Coordinación con tu venue y planner',
+      'Traslado incluido Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mesa%20de%20Frutas%20Toluca%20-%20Paquete%20Premium'
+  },
+  {
+    name: 'Toluca Luxury',
+    icon: '💎',
+    price: '$11,800',
+    currency: 'MXN',
+    guests: '120+ personas',
+    tagline: 'Experiencia tropical alto nivel para Valle',
+    features: [
+      '15+ variedades incluyendo frutas exóticas',
+      'Maracuyá, lichis, rambutanes, pitaya y físalis',
+      'Estructuras escultóricas + arreglo floral comestible',
+      'Fuente de chocolate belga incluida',
+      'Servicio completo durante todo el evento',
+      'Operador dedicado de mesa de frutas',
+      'Backdrop floral / branding extendido',
+      'Foto profesional de tu mesa'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mesa%20de%20Frutas%20Toluca%20-%20Paquete%20Luxury'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  {
+    num: 1,
+    title: 'Contáctanos',
+    desc: 'Escríbenos por WhatsApp Toluca (55 2177 5184) o llena el formulario con tipo de evento, fecha, número de invitados y zona del Valle de Toluca (Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, Calimaya).'
+  },
+  {
+    num: 2,
+    title: 'Diseñamos',
+    desc: 'En menos de 24 h recibes propuesta visual: selección de frutas, paleta cromática, render conceptual y cotización cerrada. Cero sorpresas, cero costos ocultos. Mismo estándar premium que Sucursal CDMX.'
+  },
+  {
+    num: 3,
+    title: 'Confirmamos',
+    desc: 'Apartas tu fecha con anticipo del 50% y cerramos el surtido final. Surtimos en Mercado de Abastos de Toluca la madrugada del evento. Coordinamos con tu venue (hacienda, salón, jardín) y planner.'
+  },
+  {
+    num: 4,
+    title: 'Disfrutas',
+    desc: 'Llegamos 2-3 h antes desde Sucursal Metepec, cortamos y montamos en sitio, operamos durante el evento con reposición continua y desmontamos discretamente al cierre. Tú solo celebras.'
+  }
+];
+
+// =============== Galería Toluca (Mesa de Frutas) ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif', alt: 'Mesa de frutas frescas para eventos elegantes en Valle Toluca' },
+  { src: '/img/blog/mesa-frutas-premium-eventos-cdmx-01.avif', alt: 'Mesa de frutas premium para eventos en Toluca-Metepec' },
+  { src: '/img/blog/mesa-frutas-tropicales-evento-elegante-01.avif', alt: 'Mesa de frutas tropicales para evento elegante Valle Toluca' },
+  { src: '/img/blog/mesa-frutas-exoticas-gourmet-01.avif', alt: 'Mesa de frutas exóticas gourmet eventos Toluca' },
+  { src: '/img/tipos-de-mesas/frutas/mesa-frutas-variadas-cdmx.avif', alt: 'Mesa de frutas variadas Valle Toluca' },
+  { src: '/img/blog/mesa-frutas-frescas-cristaleria-01.avif', alt: 'Mesa de frutas frescas con cristalería elegante Metepec' }
+];
+
+// =============== Qué incluye ===============
+const incluye = [
+  { num: '01', title: 'Frutas Frescas Premium', desc: 'De 6 a 15+ variedades según paquete: fresa, uva, kiwi, piña miel, sandía, mango ataulfo, papaya, melón, naranja, mandarina, manzana, durazno. En Luxury sumamos maracuyá, lichi, rambután, pitaya y físalis. Surtimos en Mercado de Abastos de Toluca la madrugada del evento.' },
+  { num: '02', title: 'Presentación Editorial Toluca', desc: 'Bandejas de cristal, tablas de madera natural, soportes dorados multinivel, frutas talladas (sandía, piña, papaya), pinchos decorativos, flores comestibles y atrezzo coordinado a tu paleta. Estilo vintage, tropical, gourmet o instagramable según tu evento en Valle Toluca.' },
+  { num: '03', title: 'Mobiliario Profesional', desc: 'Estructura de mesa, cristalería completa, exhibidores acrílicos, bases tipo cake stand, bandejas decorativas, hieleras camufladas para conservar frescura e iluminación LED opcional para evento nocturno.' },
+  { num: '04', title: 'Cadena de Frío y Montaje Toluca', desc: 'Cadena de frío controlada desde nuestra Sucursal Metepec hasta tu venue en Valle Toluca. Llegamos 2-3 h antes, cortamos y montamos en sitio para conservar color, textura y frescura. Operación impecable durante todo el evento.' },
+  { num: '05', title: 'Toppings y Acompañantes', desc: 'Chamoy artesanal, chile en polvo, limón fresco, miel de abeja, granola, yogurt griego, crema chantilly y chocolate fundido (en Premium y Luxury). Personalizable según tipo de evento: dulce, mexicano o gourmet.' },
+  { num: '06', title: 'Asesoría Especializada Valle Toluca', desc: 'Conocemos los venues, reglamentos sanitarios y tiempos del Valle Toluca. Te guiamos en selección de frutas según temporada (especialmente productos locales del Estado de México), presentación según tu hacienda/hotel/salón y porción según número de invitados.' }
+];
+
+// =============== Eventos compatibles (8) ===============
+const eventos = [
+  {
+    title: 'Mesa de Frutas para Bodas Toluca',
+    excerpt: 'Mesas frutales editoriales para bodas elegantes. Perfectas para brunches de boda, ceremonias de día y como contrapeso ligero al menú nupcial. Trabajamos en Hacienda La Magdalena, Quinta Real Toluca, Real de Minas y Hacienda San Antonio Lerma.',
+    img: '/img/blog/mesa-frutas-tropicales-evento-elegante-02.avif',
+    badge: 'Favorito',
+    href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda',
+    cta: 'Ver Bodas Toluca'
+  },
+  {
+    title: 'Mesa de Frutas XV Años Toluca',
+    excerpt: 'Frutas tropicales con chamoy y chile para la sed del baile. Brochetas individuales, sandía tallada y opciones aesthetic-friendly para Instagram. Ideal para XV con temática tropical, beach, mexicana o moderna en Valle Toluca.',
+    img: '/img/blog/mesa-frutas-naturales-fiesta-01.avif',
+    badge: 'Popular',
+    href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos',
+    cta: 'Ver XV Años Toluca'
+  },
+  {
+    title: 'Mesa de Frutas Baby Shower Toluca',
+    excerpt: 'Opción saludable y refrescante apta para mamá embarazada. Frutas en cortes seguros, sin chamoy ni picante, con presentación pastel tierna. Cobertura en domicilios y venues boutique de Metepec, Toluca y residenciales del Valle.',
+    img: '/img/blog/mesa-frutas-frescas-eventos-01.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/baby-shower',
+    badge: 'Pastel Toluca',
+    cta: 'Ver Baby Shower Toluca'
+  },
+  {
+    title: 'Mesa de Frutas Eventos Corporativos',
+    excerpt: 'Coffee breaks, lanzamientos y convenciones B2B en parques industriales de Lerma, Toluca y Metepec. Opción saludable, branding integrado y montaje sobrio. Coordinación con áreas de catering corporativo y RH.',
+    img: '/img/blog/mesa-frutas-premium-eventos-cdmx-02.avif',
+    href: '/candy-bar-eventos/mesa-dulces-corporativos',
+    cta: 'Ver Corporativos'
+  },
+  {
+    title: 'Mesa de Frutas Bautizos y Comuniones',
+    excerpt: 'Presentación tierna y refrescante para celebración religiosa. Frutas en bandejas blancas con detalles dorados o azul-plata. Funciona perfecto en eventos de día tras la ceremonia en parroquias y salones del Valle.',
+    img: '/img/blog/mesa-frutas-variadas-evento-social-01.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver Bautizos'
+  },
+  {
+    title: 'Mesa de Frutas Cumpleaños',
+    excerpt: 'Opción fresca y colorida para cumpleaños adulto e infantil. Brochetas individuales, frutas con chocolate y opciones con chamoy para fiestas en Valle Toluca. Control de alergias y porción por invitado.',
+    img: '/img/blog/mesa-frutas-variadas-evento-social-02.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil',
+    cta: 'Ver Cumpleaños Toluca'
+  },
+  {
+    title: 'Mesa de Frutas Brunch y Coffee Break',
+    excerpt: 'Para eventos de día: brunches de boda, juntas ejecutivas, reuniones VIP y desayunos corporativos. Combina perfecto con barra de jugos, café y pastelería fina. Cobertura completa Valle de Toluca.',
+    img: '/img/blog/servicio-mesa-frutas-profesional-01.avif',
+    href: '/candy-bar-eventos',
+    cta: 'Ver Brunches Toluca'
+  },
+  {
+    title: 'Mesa de Frutas Graduaciones',
+    excerpt: 'Celebra el logro académico con opción fresca y ligera. Paleta de tu universidad, frutas en bandejas elegantes y combinación con barra de snacks. Cobertura UAEMex, Tec de Monterrey Toluca, Anáhuac, Politécnico Toluca.',
+    img: '/img/blog/arreglo-frutas-naturales-eventos-01.avif',
+    href: '/candy-bar-eventos/mesa-dulces-graduacion',
+    cta: 'Ver Graduaciones'
+  }
+];
+
+// =============== Testimonios Toluca (Mesa de Frutas) ===============
+const testimonios = [
+  {
+    name: 'Valentina y Rodrigo',
+    initials: 'VR',
+    review: 'La mesa de frutas en nuestro brunch de boda en Quinta Real Toluca fue espectacular. Frutas perfectamente frescas, presentación de revista y los invitados no paraban de fotografiarla. Llegaron desde Metepec con cadena de frío impecable.',
+    event: 'Brunch de Boda Quinta Real Toluca',
+    rating: 5
+  },
+  {
+    name: 'Laura Mendoza',
+    initials: 'LM',
+    review: 'Para los XV de mi hija en Hacienda La Magdalena Metepec pedimos mesa de frutas tropicales con chamoy y fue el hit. Sandía tallada increíble, fruta súper fresca del Mercado de Toluca y operador muy profesional.',
+    event: 'XV Años Hacienda La Magdalena Metepec',
+    rating: 5
+  },
+  {
+    name: 'Andrea Gutiérrez',
+    initials: 'AG',
+    review: 'Contraté la mesa de frutas para mi baby shower en residencial Las Marinas Metepec. Sin chamoy por mi embarazo, presentación pastel tierna y fruta de excelente calidad. Servicio impecable de Sucursal Metepec.',
+    event: 'Baby Shower Las Marinas Metepec',
+    rating: 5
+  }
+];
+
+// =============== FAQ Mesa de Frutas Toluca ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de frutas en Valle de Toluca?',
+    answer: 'Surtido premium de frutas frescas seleccionadas en el Mercado de Abastos de Toluca la madrugada del evento (6 a 15+ variedades según paquete), mobiliario completo (bandejas de cristal, tablas de madera, soportes dorados multinivel), frutas talladas (sandía, piña, papaya), brochetas artesanales, toppings (chamoy, chile, limón, miel), montaje 2-3 h antes desde Sucursal Metepec, operación durante el evento, reposición continua, desmontaje y empaque de sobrantes.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de frutas en Valle de Toluca?',
+    answer: 'Iniciamos en $4,200 MXN (Toluca Esencial, 30-60 invitados) y llegamos a $11,800 MXN (Toluca Luxury, 120+ invitados con frutas exóticas y fuente de chocolate belga). El precio depende de tipo de fruta, número de invitados, duración del servicio y nivel de personalización. Cotización gratuita en menos de 24 horas vía WhatsApp 55 2177 5184.'
+  },
+  {
+    question: '¿Qué frutas incluyen y son de temporada?',
+    answer: 'En Esencial: fresa, uva, kiwi, piña, sandía, melón y mango. En Premium sumamos papaya, mandarina, manzana, naranja, durazno y frutas talladas. En Luxury incluimos exóticas: maracuyá, lichi, rambután, pitaya, físalis y frutas importadas. Adaptamos la selección a temporada para garantizar frescura óptima y mejor precio (especialmente productos locales del Estado de México).'
+  },
+  {
+    question: '¿La fruta se prepara el mismo día del evento?',
+    answer: 'Sí. Surtimos en el Mercado de Abastos de Toluca la madrugada del evento, transportamos con cadena de frío desde nuestra Sucursal Metepec (Blvd. Toluca-Metepec 913) y cortamos directamente en el venue 2-3 h antes del inicio. Esto garantiza que cada pieza de fruta llegue a tus invitados en su punto óptimo de frescura, color y textura.'
+  },
+  {
+    question: '¿En qué zonas del Valle de Toluca dan servicio?',
+    answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia), Toluca centro (Reforma, Sor Juana, Universidad, Santiago Tlaxomulco), Zinacantepec, Lerma (centro y residenciales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde nuestra sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).'
+  },
+  {
+    question: '¿Puedo combinar mesa de frutas con chamoy, chile o chocolate?',
+    answer: 'Por supuesto. En Toluca Premium incluimos toppings de chamoy artesanal, chile en polvo, limón fresco, miel y granola. En Toluca Luxury sumamos fuente de chocolate belga incluida para sumergir fresas, plátano, piña y malvaviscos. Ideal para XV Años, bodas mexicanas y eventos con identidad mexicana en Valle Toluca.'
+  },
+  {
+    question: '¿Es apta para mamá embarazada en baby shower?',
+    answer: 'Sí. Para baby shower armamos versión especial sin chamoy ni picante, con cortes seguros, frutas lavadas con extra precaución y opciones aptas para mamá embarazada. Lo coordinamos en la propuesta inicial según indicaciones médicas. Cobertura en domicilios y venues boutique de Metepec, Toluca centro y residenciales del Valle.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Para bodas y XV en temporada alta Valle Toluca (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. Para eventos corporativos en parques industriales (Lerma, Toluca), baby showers y cumpleaños suelen ser suficientes 3-4 semanas. Trabajamos por orden de confirmación con anticipo del 50%.'
+  },
+  {
+    question: '¿Qué pasa con la fruta que sobra?',
+    answer: 'La fruta que sobra es tuya. Al finalizar tu evento empacamos los sobrantes en bandejas selladas con cadena de frío para que las disfrutes los días siguientes o las regales a tus invitados. Es parte del servicio en todos los paquetes Esencial, Premium y Luxury.'
+  },
+  {
+    question: '¿El traslado dentro del Valle de Toluca tiene costo adicional?',
+    answer: 'En Toluca Premium y Toluca Luxury el traslado a cualquier zona del Valle está incluido (Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya). En Toluca Esencial el traslado está incluido en zonas centrales (Metepec, Toluca centro, Zinacantepec); para zonas más alejadas (Calimaya, Tianguistenco) se cotiza un costo simbólico de logística.'
+  }
+];
+
+// =============== Otras estaciones complementarias ===============
+const estaciones = [
+  {
+    title: 'Fuente de Chocolate',
+    desc: 'El complemento perfecto para tu mesa de frutas. Chocolate belga premium en cascada para sumergir fresas, plátano, piña y malvaviscos. Operador profesional incluido durante todo el evento. Disponible en Valle de Toluca.',
+    img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif',
+    badge: 'Combo Premium',
+    badgeColor: '#8B4513',
+    link: '/estaciones-interactivas/fuente-de-chocolate',
+    features: ['Chocolate belga premium', 'Frutas y acompañantes incluidos', 'Operador profesional Toluca']
+  },
+  {
+    title: 'Fuente de Chamoy',
+    desc: 'Auténtico sabor mexicano para potenciar tu mesa de frutas. Chamoy artesanal con gomitas, mango, pepino, jícama y duraznos. Personalizable en nivel de picante. Perfecta para XV Años, bodas mexicanas y graduaciones UAEMex en Valle de Toluca.',
+    img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif',
+    badge: 'Sabor Mexicano',
+    badgeColor: '#FF6B35',
+    link: '/estaciones-interactivas/fuente-de-chamoy',
+    features: ['Chamoy artesanal premium', 'Operador durante todo el evento', 'Ideal para +50 invitados']
+  },
+  {
+    title: 'Mesa de Dulces Toluca',
+    desc: 'Combina tu mesa de frutas con candy bar clásico para cobertura total: dulces para los niños, frutas para los adultos. La fórmula que arrasa en bodas, XV y eventos corporativos del Valle Toluca.',
+    img: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif',
+    badge: 'Más Popular',
+    badgeColor: '#7A2BC2',
+    link: '/sucursales/toluca/mesa-de-dulces',
+    features: ['+15 variedades de dulces premium', 'Mobiliario coordinado a frutas', 'Sucursal Metepec']
+  },
+  {
+    title: 'Mesa de Postres Toluca',
+    desc: 'Alta repostería boutique Sucursal Metepec: macarons franceses, éclairs, tartaletas y mini-pasteles entremets con chocolate Valrhona y vainilla Madagascar. Cocina propia, cadena de frío Valle Toluca. El complemento perfecto a tu mesa de frutas para bodas Hacienda La Magdalena, XV Quinta Real Toluca.',
+    img: '/img/galeria/mesa-postres-gourmet-premium-elegante.avif',
+    badge: 'Sucursal Toluca',
+    badgeColor: '#d4af37',
+    link: '/sucursales/toluca/mesa-de-postres',
+    features: ['Macarons + éclairs + entremets', 'Chocolate Valrhona + AOP', 'Desde $7,800 MXN']
+  },
+  {
+    title: 'Tabla Quesos y Embutidos Toluca',
+    desc: 'Tabla gourmet Sucursal Metepec con 3 subsecciones L5: Quesos Europeos D.O.P. (Brie, Manchego, Parmigiano), Jamones Curados (Ibérico Bellota 5J, Prosciutto Parma) y Tabla Mixta Premium. Maestro cortador en sitio + sommelier opcional. Sofisticación europea para tu evento Valle Toluca.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    badge: 'Sofisticación EU',
+    badgeColor: '#a87a3c',
+    link: '/sucursales/toluca/mesa-de-quesos-y-embutidos',
+    features: ['12 quesos D.O.P. + 12 charcuterías', 'Maestro cortador certificado', 'Desde $5,800 MXN']
+  },
+  {
+    title: 'Mesa de Snacks Toluca',
+    desc: 'Barra gourmet after-party Sucursal Metepec: salados premium, dulces importados, sabores mexicanos y opciones healthy. Complemento perfecto a tu mesa de frutas para fiestas largas en Valle Toluca. Reposición continua hasta la madrugada.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif',
+    badge: 'Sucursal Toluca',
+    badgeColor: '#e8851a',
+    link: '/sucursales/toluca/mesa-de-snacks',
+    features: ['30+ variedades curadas', 'After-party 6-8h', 'Desde $3,400 MXN']
+  }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+const stationWidths = [240, 320, 400, 560, 720];
+const stationSizes = '(max-width: 1024px) 100vw, 420px';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-frutas#service",
+      "name": "Mesa de Frutas en Valle de Toluca",
+      "serviceType": "Mesa de Frutas Premium para Eventos",
+      "description": "Mesa de frutas premium en Valle de Toluca para bodas, XV años, baby shower, eventos corporativos y celebraciones sociales. Fruta surtida en Mercado de Abastos de Toluca la madrugada del evento, cadena de frío controlada, presentación editorial. Operación desde Sucursal Metepec, cobertura completa Valle de Toluca: Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "78",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4200",
+        "highPrice": "11800",
+        "offerCount": "3",
+        "offers": paquetesMesaFrutasToluca.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa de Frutas Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Frutas", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-frutas" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa de Frutas Valle Toluca | Frescura del Mercado de Abastos | MEDEDUL"
+  description="Mesa de frutas premium en Valle de Toluca por MEDEDUL. Sucursal Blvd. Toluca-Metepec 913, fruta del Mercado de Abastos de Toluca, cadena de frío controlada. Brochetas, torres talladas, tropicales con chamoy. Hacienda La Magdalena, Quinta Real, Salón Riviera Metepec. Desde $4,200 MXN. Cotiza gratis WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-frutas"
+  ogImage="/img/tipos-de-mesas/frutas/mesa-frutas-frescas-eventos.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa de Frutas en Valle de Toluca"
+    highlight="Frutas"
+    subtitle="Frescura del Mercado de Abastos | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>Frescura y color en cada bocado</strong>. Arreglos espectaculares con fruta de temporada que refrescan y deleitan a todos tus invitados en Valle de Toluca. En MEDEDUL Sucursal Toluca-Metepec diseñamos, montamos y operamos mesas de frutas premium para bodas, XV años, baby shower y eventos corporativos en los venues más exigentes del Valle: Hacienda La Magdalena (Metepec), Quinta Real Toluca, Real de Minas, Salón Riviera Metepec, Casa Club Las Marinas, Hacienda San Antonio Lerma y centros de convenciones del Valle.</p><p>Operamos desde nuestra <strong>sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong>, surtiendo fruta en el Mercado de Abastos de Toluca la madrugada del evento. Cadena de frío controlada hasta tu venue, montaje 2-3 h antes y presentación editorial con bandejas talladas, soportes multinivel y atrezzo coordinado a tu paleta. La fruta que llega a tus invitados está en su punto óptimo de frescura, color y textura.</p>`}
+  />
+
+  <!-- ===================== Trust Stats Bar ===================== -->
+  <section class="tol-mf-stats">
+    <div class="container">
+      <div class="tol-mf-stats__grid">
+        {stats.map(s => (
+          <div class="tol-mf-stat">
+            <span class="tol-mf-stat__num">{s.number}</span>
+            <span class="tol-mf-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Subsecciones por estilo (4 cards) ===================== -->
+  <section class="tol-mf-subsecciones" id="subsecciones">
+    <div class="container">
+      <SectionHeader
+        title="Mesa de Frutas Toluca por"
+        titleHighlight="Estilo"
+        subtitle="Cada evento merece su propio estilo: 4 enfoques especializados"
+        content={`<p>La <strong>mesa de frutas Valle Toluca</strong> se adapta al lenguaje visual de cada celebración. Trabajamos cuatro estilos especializados: brochetas artesanales para porción controlada, torres decorativas para wow visual, combo con chocolate belga para experiencia interactiva y cortes tropicales con sabor mexicano. Cada propuesta parte del mismo estándar premium MEDEDUL y se ajusta a la paleta, surtido y venue de tu evento en el Valle.</p>`}
+      />
+
+      <div class="tol-mf-subsecciones__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard
+            href={sub.href}
+            image={sub.img}
+            alt={`${sub.title} en Valle Toluca por MEDEDUL`}
+            title={sub.title}
+            excerpt={sub.excerpt}
+            badge={sub.badge}
+            cta={sub.cta}
+          />
+        ))}
+      </div>
+
+      <div class="tol-mf-subsecciones__cta">
+        <p>¿Listo para diseñar tu mesa de frutas Valle Toluca? <strong>Respuesta en menos de 24 horas</strong>.</p>
+        <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20Mesa%20de%20Frutas%20en%20Valle%20Toluca" target="_blank" rel="noopener" class="tol-mf-btn tol-mf-btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Cotizar Mesa de Frutas Toluca
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes Mesa de Frutas Toluca ===================== -->
+  <PricingPackages
+    id="paquetes-mf-toluca"
+    badge="Paquetes Mesa de Frutas Toluca"
+    title="Elige tu"
+    titleHighlight="Paquete Toluca"
+    subtitle="3 niveles claros, sin sorpresas. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete Toluca</strong> según el tamaño y estándar de tu evento. Todos incluyen el mismo nivel profesional de cadena de frío, montaje y operación; lo que cambia es la variedad de frutas, presencia de exóticas y duración del servicio. Anticipo del 50% para reservar fecha, liquidación 48 h antes del evento.</p>`}
+    packages={paquetesMesaFrutasToluca}
+    note="💡 <strong>Todos los paquetes Toluca incluyen:</strong> fruta del Mercado de Abastos de Toluca surtida la madrugada del evento, cadena de frío controlada desde Sucursal Metepec, mobiliario completo, montaje 2-3 h antes, operación durante el evento, reposición continua, desmontaje y empaque de sobrantes."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-mf-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestra Mesa de Frutas en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>120+ mesas de frutas montadas en Valle de Toluca</strong> y 8 años de experiencia MEDEDUL, somos la opción de referencia cuando lo que necesitas es <strong>frescura premium con cadena de frío profesional</strong> y presentación editorial para bodas, XV, baby shower, brunches y corporativos en haciendas y salones del Valle.",
+      "Cada mesa que diseñamos parte del mismo estándar premium MEDEDUL: surtimos en Mercado de Abastos de Toluca, cortamos y montamos en sitio, operación impecable durante todo el evento. Lo que cambia es la <strong>escala</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "120+", label: "Mesas Frutas Valle Toluca" },
+      { number: "100%", label: "Frescura del día" },
+      { number: "15+", label: "Variedades en Luxury" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería visual Toluca ===================== -->
+  <section class="tol-mf-galeria" id="galeria-toluca-frutas">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de Frutas reales montadas en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Selección curada de mesas de frutas MEDEDUL en eventos del Valle de Toluca"
+      />
+
+      <div class="tol-mf-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-mf-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="tol-mf-incluye">
+    <div class="container">
+      <div class="tol-mf-incluye__header">
+        <span class="tol-mf-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa de Frutas Valle Toluca</span>?</h2>
+        <p>Servicio completo: frutas premium, mobiliario, cadena de frío, montaje, operación y desmontaje para tu evento en Valle Toluca</p>
+      </div>
+
+      <div class="tol-mf-incluye__grid">
+        {incluye.map(item => (
+          <div class="tol-mf-incluye__card">
+            <span class="tol-mf-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso Toluca ===================== -->
+  <ProcessSteps
+    id="proceso-mf-toluca"
+    badge="Cómo trabajamos en Toluca"
+    title="4 pasos para tu"
+    titleHighlight="Mesa de Frutas Valle Toluca"
+    subtitle="Proceso claro, sin estrés, con tiempos definidos"
+    steps={procesoToluca}
+  />
+
+  <!-- ===================== Eventos compatibles (8) ===================== -->
+  <EventsGrid
+    badge="Versatilidad Total"
+    title="Tu Mesa de Frutas Valle Toluca para"
+    titleHighlight="Cualquier Ocasión"
+    subtitle="Diseñamos mesas de frutas para cada tipo de celebración en Valle de Toluca. Desde brunch nupcial en Hacienda La Magdalena hasta coffee break corporativo en parque industrial Lerma, cada evento merece su propia mesa."
+    events={eventos}
+  />
+
+  <!-- ===================== Estaciones complementarias ===================== -->
+  <section class="tol-mf-estaciones">
+    <div class="container">
+      <div class="tol-mf-estaciones__header">
+        <span class="tol-mf-estaciones__badge">Complementa tu Mesa de Frutas</span>
+        <h2>Agrega <span>Estaciones y Mesas</span> a tu Mesa de Frutas</h2>
+        <p>Eleva la experiencia de tus invitados con estaciones complementarias. Ideales para bodas, XV Años y eventos corporativos en Valle de Toluca.</p>
+      </div>
+
+      <div class="tol-mf-estaciones__grid">
+        {estaciones.map(est => (
+          <div class="tol-mf-estacion-card">
+            <div class="tol-mf-estacion-card__image">
+              <img
+                src={getCdnUrl(est.img, { w: 420, q: 80 })}
+                srcset={getCdnSrcSet(est.img, stationWidths, { q: 80 })}
+                sizes={stationSizes}
+                alt={`${est.title} en Valle de Toluca por MEDEDUL`}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                width="640"
+                height="800"
+              />
+              <span class="tol-mf-estacion-card__badge" style={`background: linear-gradient(135deg, ${est.badgeColor} 0%, ${est.badgeColor}cc 100%)`}>{est.badge}</span>
+            </div>
+            <div class="tol-mf-estacion-card__content">
+              <h3>{est.title}</h3>
+              <p>{est.desc}</p>
+              <ul>
+                {est.features.map(f => (
+                  <li>
+                    <svg width="16" height="16" fill="var(--rosa-principal)" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                    </svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={est.link} class="tol-mf-estacion-card__link">
+                Ver {est.title}
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="tol-mf-estaciones__cta">
+        <p>¿Quieres combinar Mesa de Frutas con estaciones interactivas? <strong>Pregunta por paquetes especiales Toluca</strong></p>
+        <a href="/estaciones-interactivas" class="tol-mf-btn tol-mf-btn--ghost">Ver Todas las Estaciones</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios Toluca ===================== -->
+  <section class="tol-mf-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Lo que dicen clientes de"
+        titleHighlight="Mesa de Frutas Valle Toluca"
+        subtitle="Bodas, XV años y baby showers reales montados por MEDEDUL en Valle de Toluca"
+      />
+      <div class="tol-mf-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX (sucursal hermana) ===================== -->
+  <section class="tol-mf-cdmx-cta">
+    <div class="container">
+      <div class="tol-mf-cdmx-cta__card">
+        <div class="tol-mf-cdmx-cta__body">
+          <span class="tol-mf-cdmx-cta__badge">📍 ¿Evento en Ciudad de México?</span>
+          <h2>Conoce nuestra <span>Sucursal CDMX</span></h2>
+          <p>Si tu evento es en Ciudad de México, MEDEDUL también tiene página exclusiva de Mesa de Frutas con cobertura completa CDMX (Polanco, Lomas, Santa Fe, Coyoacán, Roma, Pedregal, Interlomas) y <strong>300+ mesas de frutas montadas</strong> en Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm. Operación desde sucursales <strong>Anzures + Condesa</strong>. Mismo estándar premium MEDEDUL.</p>
+          <a href="/sucursales/cdmx/mesa-de-frutas" class="tol-mf-cdmx-cta__link">Ver Mesa de Frutas CDMX →</a>
+        </div>
+        <div class="tol-mf-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/blog/mesa-frutas-tropicales-evento-elegante-01.avif', { w: 600, q: 82 })} alt="Mesa de frutas CDMX MEDEDUL sucursal hermana" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card (homologado 6 páginas Toluca) ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Mesa de Frutas - Sucursal-specific styles
+     Prefix: tol-mf-
+     Acento naranja-tropical para frutas
+     ========================================================== */
+
+  /* ---------- Stats Trust Bar ---------- */
+  .tol-mf-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fff8f0 100%); }
+  .tol-mf-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-mf-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(255, 107, 53, 0.12); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-mf-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #FF6B35; line-height: 1; }
+  .tol-mf-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* ---------- Subsecciones ---------- */
+  .tol-mf-subsecciones { padding: 80px 0; background: #fff; }
+  .tol-mf-subsecciones__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+  .tol-mf-subsecciones__cta { text-align: center; margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #fff8f0 0%, #fff5f9 100%); border-radius: 20px; border: 1px dashed rgba(255, 107, 53, 0.3); }
+  .tol-mf-subsecciones__cta p { font-size: 1.05rem; color: var(--texto-light, #666); margin: 0 0 18px; }
+  .tol-mf-subsecciones__cta strong { color: #FF6B35; }
+
+  /* ---------- Buttons ---------- */
+  .tol-mf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .tol-mf-btn--primary { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
+  .tol-mf-btn--ghost { background: #fff; color: #FF6B35; border: 2px solid #FF6B35; }
+
+  /* ---------- Galería bento ---------- */
+  .tol-mf-galeria { padding: 90px 0; background: linear-gradient(180deg, #fff8f0 0%, #fff9fb 100%); }
+  .tol-mf-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-mf-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-mf-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-mf-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-mf-galeria__item:nth-child(5), .tol-mf-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* ---------- Incluye ---------- */
+  .tol-mf-incluye { padding: 90px 0; background: #fff; }
+  .tol-mf-incluye__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-mf-incluye__badge { display: inline-block; background: linear-gradient(135deg, #FF6B35 0%, #d4541f 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-mf-incluye__header h2 { font-size: 2.2rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-mf-incluye__header h2 span { color: #FF6B35; }
+  .tol-mf-incluye__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.6; }
+  .tol-mf-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tol-mf-incluye__card { background: #fff; border: 1px solid rgba(255, 107, 53, 0.12); border-radius: 20px; padding: 32px 28px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); }
+  .tol-mf-incluye__num { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, #FF6B35 0%, #d4541f 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 18px; }
+  .tol-mf-incluye__card h4 { font-size: 1.15rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-mf-incluye__card p { font-size: 0.92rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0; }
+
+  /* ---------- Estaciones complementarias ---------- */
+  .tol-mf-estaciones { padding: 90px 0; background: linear-gradient(180deg, #fff8f0 0%, #fff 100%); }
+  .tol-mf-estaciones__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-mf-estaciones__badge { display: inline-block; background: linear-gradient(135deg, #FF6B35 0%, #d4541f 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-mf-estaciones__header h2 { font-size: 2.1rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-mf-estaciones__header h2 span { color: #FF6B35; }
+  .tol-mf-estaciones__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.7; }
+  .tol-mf-estaciones__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-mf-estacion-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); border: 1px solid rgba(255, 107, 53, 0.1); display: flex; flex-direction: column; }
+  .tol-mf-estacion-card__image { position: relative; height: 200px; overflow: hidden; }
+  .tol-mf-estacion-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-mf-estacion-card__badge { position: absolute; top: 14px; left: 14px; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tol-mf-estacion-card__content { padding: 28px; display: flex; flex-direction: column; flex-grow: 1; }
+  .tol-mf-estacion-card__content h3 { font-size: 1.25rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-mf-estacion-card__content > p { font-size: 0.92rem; color: var(--texto-light, #666); line-height: 1.7; margin-bottom: 18px; }
+  .tol-mf-estacion-card__content ul { list-style: none; padding: 0; margin: 0 0 22px; flex-grow: 1; }
+  .tol-mf-estacion-card__content li { font-size: 0.85rem; color: var(--texto-light, #666); padding: 6px 0; display: flex; align-items: center; gap: 8px; }
+  .tol-mf-estacion-card__link { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #FF6B35 0%, #d4541f 100%); color: #fff; padding: 13px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 0.92rem; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.25); }
+  .tol-mf-estaciones__cta { text-align: center; margin-top: 50px; }
+  .tol-mf-estaciones__cta p { font-size: 1rem; color: var(--texto-light, #666); margin-bottom: 20px; }
+  .tol-mf-estaciones__cta strong { color: #FF6B35; }
+
+  /* ---------- Testimonios ---------- */
+  .tol-mf-testimonios { padding: 90px 0; background: #fff; }
+  .tol-mf-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* ---------- CDMX cross-link CTA ---------- */
+  .tol-mf-cdmx-cta { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #fff8f0 100%); }
+  .tol-mf-cdmx-cta__card { background: linear-gradient(135deg, #FF6B35 0%, #D1007A 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(255, 107, 53, 0.25); }
+  .tol-mf-cdmx-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .tol-mf-cdmx-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .tol-mf-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .tol-mf-cdmx-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 24px; }
+  .tol-mf-cdmx-cta__body p strong { color: #fff; }
+  .tol-mf-cdmx-cta__link { display: inline-block; background: #fff; color: #FF6B35; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .tol-mf-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .tol-mf-cdmx-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+
+  /* ==========================================================
+     Sucursal Info Card (homologado Toluca)
+     ========================================================== */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1024px) {
+    .tol-mf-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mf-subsecciones__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mf-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-mf-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-mf-galeria__item:nth-child(5), .tol-mf-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-mf-incluye__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mf-estaciones__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mf-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-mf-cdmx-cta__card { grid-template-columns: 1fr; padding: 32px; }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-mf-stats { padding: 40px 0; }
+    .tol-mf-stat__num { font-size: 1.6rem; }
+    .tol-mf-subsecciones, .tol-mf-galeria, .tol-mf-incluye, .tol-mf-estaciones, .tol-mf-testimonios, .tol-mf-cdmx-cta { padding: 60px 0; }
+    .tol-mf-subsecciones__grid { grid-template-columns: 1fr; }
+    .tol-mf-incluye__header h2, .tol-mf-estaciones__header h2 { font-size: 1.6rem; }
+    .tol-mf-incluye__grid { grid-template-columns: 1fr; }
+    .tol-mf-incluye__card { padding: 26px 22px; }
+    .tol-mf-estaciones__grid { grid-template-columns: 1fr; }
+    .tol-mf-estacion-card__image { height: 180px; }
+    .tol-mf-estacion-card__content { padding: 22px; }
+    .tol-mf-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-mf-cdmx-cta__body h2 { font-size: 1.5rem; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-mf-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-mf-stat { padding: 16px 10px; }
+    .tol-mf-stat__num { font-size: 1.4rem; }
+    .tol-mf-stat__label { font-size: 0.78rem; }
+    .tol-mf-subsecciones__cta { padding: 24px 18px; }
+    .tol-mf-subsecciones__cta p { font-size: 0.95rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

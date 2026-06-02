@@ -1,0 +1,702 @@
+---
+// L5 - Quesos Europeos Toluca
+// Subsección dedicada: Brie, Gouda, Manchego, Roquefort, Parmigiano y más quesos D.O.P.
+// Sucursal Toluca-Metepec, MEDEDUL
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Quesos y Embutidos', url: '/sucursales/toluca/mesa-de-quesos-y-embutidos' },
+  { name: 'Quesos Europeos', url: '/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos' }
+];
+
+// =============== Carta Quesos Europeos D.O.P. (12 piezas) ===============
+const cartaQuesos = [
+  { nombre: 'Brie de Meaux AOP', pais: 'Francia', flag: '🇫🇷', region: 'Île-de-France', leche: 'Vaca cruda', curacion: '4-8 semanas', textura: 'Pasta blanda, corteza florida', perfil: 'Avellanado, suave, ligeramente herbal', maridaje: 'Champagne Brut · Sidra normanda', descripcion: 'El rey de los quesos blandos franceses. Corteza florida con interior cremoso y dulzor avellanado natural. Servir a temperatura ambiente con uvas frescas y nueces.', intensidad: 2 },
+  { nombre: 'Camembert de Normandía AOP', pais: 'Francia', flag: '🇫🇷', region: 'Normandía', leche: 'Vaca cruda', curacion: '21 días', textura: 'Pasta blanda, corteza florida', perfil: 'Mantequilla, hongos, intensidad creciente', maridaje: 'Sidra · Calvados · Pinot Noir', descripcion: 'Hermano carácter del Brie con perfil más rústico y notas a hongos del bosque. Maduración rápida, brillante con sidra normanda.', intensidad: 3 },
+  { nombre: 'Roquefort AOP', pais: 'Francia', flag: '🇫🇷', region: 'Aveyron', leche: 'Oveja cruda', curacion: '5 meses cueva', textura: 'Pasta azul, semiblanda', perfil: 'Salino intenso, picante, mineral', maridaje: 'Sauternes · Oporto · Mezcal', descripcion: 'Pasta azul madurada en cuevas naturales del Mont Combalou. Intensidad máxima, salinidad sublime. Pareja icónica con vino dulce.', intensidad: 5 },
+  { nombre: 'Comté AOP 18 meses', pais: 'Francia', flag: '🇫🇷', region: 'Franco Condado', leche: 'Vaca Montbéliarde', curacion: '18 meses', textura: 'Pasta dura prensada cocida', perfil: 'Caramelo, avellana, frutas secas', maridaje: 'Vin jaune · Champagne · Riesling', descripcion: 'Queso alpino madurado lentamente. Cristales crujientes de tirosina y dulzor a caramelo. Indispensable en tabla francesa premium.', intensidad: 4 },
+  { nombre: 'Manchego DOP 12 meses', pais: 'España', flag: '🇪🇸', region: 'La Mancha', leche: 'Oveja Manchega', curacion: '12 meses', textura: 'Pasta firme prensada', perfil: 'Mantecoso, picante final, lanolina', maridaje: 'Rioja Reserva · Tempranillo', descripcion: 'El queso español por excelencia. Pasta de oveja con esparto característico y final picante elegante. Maridaje icónico con membrillo y jamón ibérico.', intensidad: 3 },
+  { nombre: 'Idiazábal DOP', pais: 'España', flag: '🇪🇸', region: 'País Vasco', leche: 'Oveja Latxa cruda', curacion: '8 meses', textura: 'Pasta dura', perfil: 'Ahumado natural, intenso', maridaje: 'Txakoli · Sidra natural', descripcion: 'Queso vasco-navarro con ahumado natural en madera de haya. Intenso, untuoso, perfecto para bodas con identidad ibérica.', intensidad: 4 },
+  { nombre: 'Parmigiano Reggiano DOP 24m', pais: 'Italia', flag: '🇮🇹', region: 'Emilia-Romaña', leche: 'Vaca cruda', curacion: '24 meses', textura: 'Pasta dura granulada', perfil: 'Umami, cristales tirosina, frutas secas', maridaje: 'Lambrusco · Champagne · Prosecco', descripcion: 'El rey de los quesos. 24 meses de maduración con cristales crujientes de tirosina. Servido en lascas con miel de castaño y nueces.', intensidad: 4 },
+  { nombre: 'Pecorino Romano DOP', pais: 'Italia', flag: '🇮🇹', region: 'Lazio', leche: 'Oveja', curacion: '8 meses', textura: 'Pasta dura granulada', perfil: 'Salino, picante, amaderado', maridaje: 'Frascati · Chianti · Cerveza ale', descripcion: 'Queso romano de larga tradición. Salinidad marina natural, perfecto rallado o en lascas con peras maduras.', intensidad: 3 },
+  { nombre: 'Gorgonzola Dolce DOP', pais: 'Italia', flag: '🇮🇹', region: 'Lombardía', leche: 'Vaca', curacion: '60 días', textura: 'Pasta azul cremosa', perfil: 'Cremoso, dulzón, vetas azules suaves', maridaje: "Moscato d'Asti · Vendimia tardía", descripcion: 'Versión dulce y cremosa del clásico azul italiano. Más accesible que el Roquefort, ideal para introducir paladares al mundo de los azules.', intensidad: 3 },
+  { nombre: 'Gouda Añejo Holandés 4 años', pais: 'Holanda', flag: '🇳🇱', region: 'Holanda Septentrional', leche: 'Vaca', curacion: '48 meses', textura: 'Pasta dura caramelizada', perfil: 'Butterscotch, cristales crujientes', maridaje: 'Stout · Cerveza añeja · Whisky', descripcion: 'Gouda madurado 4 años con caramelo profundo y cristales crujientes. La estrella oculta de cualquier tabla premium.', intensidad: 4 },
+  { nombre: 'Gruyère AOP', pais: 'Suiza', flag: '🇨🇭', region: 'Friburgo', leche: 'Vaca cruda', curacion: '10 meses', textura: 'Pasta dura prensada cocida', perfil: 'Floral, frutos secos, herbal alpino', maridaje: 'Riesling · Vino blanco seco', descripcion: 'Queso alpino suizo con sabor herbal y floral. Versátil: tabla, fondue, gratinado. Indispensable en tabla europea seria.', intensidad: 3 },
+  { nombre: 'Stilton DOP', pais: 'Reino Unido', flag: '🇬🇧', region: 'Derbyshire', leche: 'Vaca pasteurizada', curacion: '9-12 semanas', textura: 'Pasta azul firme', perfil: 'Picante mineral, salado, complejo', maridaje: 'Oporto Tawny · Sauternes', descripcion: 'El rey azul inglés. Pasta firme con vetas azules elegantes. Pareja británica clásica con oporto tawny añejo.', intensidad: 4 }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '12+', label: 'Quesos D.O.P. en carta' },
+  { number: '6', label: 'Países productores' },
+  { number: '70+', label: 'Tablas Valle Toluca' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== Subsecciones hermanas (3 cards) ===============
+const subsecciones = [
+  {
+    title: 'Jamones Curados Toluca',
+    sublabel: 'Serrano, prosciutto, ibérico',
+    excerpt: 'L5 dedicado: 12 charcuterías D.O.P./IGP. Jamón Ibérico Bellota 5J 36m, Serrano Reserva, Prosciutto di Parma DOP, San Daniele, Bresaola, Salame Milano, Coppa, Mortadella Bologna, Speck Alto Adige, Chorizo Pamplona, Lomo Embuchado, Cecina León. Maestro cortador en sitio + jamonero giratorio. Maridaje perfecto con tu tabla de quesos para bodas Hacienda La Magdalena Metepec.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/jamones-curados',
+    badge: 'Reserva',
+    cta: 'Ver Jamones Curados'
+  },
+  {
+    title: 'Tabla Mixta Premium Toluca',
+    sublabel: 'La experiencia completa',
+    excerpt: 'L5 dedicado: la pieza signature. Combinación editorial 5-12 quesos D.O.P. + 3-8 charcuterías reserva + acompañamientos boutique. Composición 4 zonas, atemperado dual, maestro cortador + sommelier opcional. Pieza Ibérico Bellota 5J en paquete top. Si quieres balance perfecto quesos + jamones, esta es tu opción. Desde $11,500 MXN.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium',
+    badge: 'Signature',
+    cta: 'Ver Tabla Mixta'
+  },
+  {
+    title: 'Hub Quesos y Embutidos Toluca',
+    sublabel: 'Vista completa del servicio',
+    excerpt: 'Página principal de tabla gourmet Sucursal Toluca-Metepec: paquetes Toluca Tabla / Signature / Atelier desde $6,600 MXN, 16 secciones con affineur dark mode, mapa de orígenes, orden de degustación, maridajes y más. Para eventos en Hacienda La Magdalena Metepec, Quinta Real Toluca.',
+    img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif',
+    href: '/sucursales/toluca/mesa-de-quesos-y-embutidos',
+    badge: 'Hub L4',
+    cta: 'Ver Hub Quesos Toluca'
+  }
+];
+
+// =============== Maridajes Quesos Europeos ===============
+const maridajes = [
+  { bebida: 'Champagne Brut', icon: '🥂', detalle: 'Burbuja fina que limpia paladar entre quesos cremosos. Pareja perfecta con Brie, Camembert y Comté.', quesos: 'Brie · Camembert · Comté' },
+  { bebida: 'Rioja Reserva', icon: '🍷', detalle: 'Tinto español con crianza en barrica. Marida con Manchego, Idiazábal y Pecorino. Bodas Hacienda La Magdalena Metepec.', quesos: 'Manchego · Idiazábal · Pecorino' },
+  { bebida: 'Sauternes', icon: '🍯', detalle: 'Vino dulce francés. La pareja clásica con Roquefort y Stilton. Eleva el paladar a otro nivel.', quesos: 'Roquefort · Stilton · Gorgonzola' },
+  { bebida: 'Stout / Cerveza Añeja', icon: '🍺', detalle: 'Notas tostadas que combinan con quesos añejos holandeses. Brillante con Gouda 4 años caramelizado.', quesos: 'Gouda 4a · Stilton · Cheddar' },
+  { bebida: 'Vinos Valle de Guadalupe', icon: '🇲🇽', detalle: 'Tintos premium de Baja California (Monte Xanic, Casa Madero). Perfecto en eventos corporativos parques industriales Lerma/Toluca.', quesos: 'Manchego · Brie · Comté' },
+  { bebida: 'Riesling Alemán', icon: '🍇', detalle: 'Blanco aromático con dulzor residual. Excelente con Gruyère, Comté y quesos alpinos. Refresca paladar en bodas de día.', quesos: 'Gruyère · Comté · Brie' }
+];
+
+// =============== Características Toluca-Quesos Europeos ===============
+const caracteristicas = [
+  { num: 1, title: 'Importación boutique con D.O.P.', desc: 'Trabajamos con importadores especializados en queserías D.O.P. europeas. Cada queso llega con certificación de origen, fecha de elaboración y maduración correcta. No hay imitaciones ni quesos genéricos en nuestras tablas Valle Toluca.', img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif' },
+  { num: 2, title: 'Atemperado profesional 45 min', desc: 'Los quesos liberan aromas y sabores a temperatura ambiente. Llegamos 90 min antes a tu venue Valle Toluca, sacamos los quesos del refrigerador 45 min antes del servicio para que tus invitados los prueben en su punto óptimo.', img: '/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif' },
+  { num: 3, title: 'Cuchillería profesional por tipo', desc: 'Cada queso tiene su cuchillo: pala para Brie y Camembert, alambre para azules, queseros para duros, cuchillo de doble mango para Parmigiano. Mobiliario boutique sobre tabla de olivo, mármol Carrara y pizarra negra.', img: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif' },
+  { num: 4, title: 'Carta menú con orígenes y D.O.P.', desc: 'En Signature y Atelier imprimimos carta menú boutique para que tus invitados conozcan origen, leche, curación, perfil y maridaje sugerido de cada queso. Educa el paladar y eleva la experiencia gastronómica.', img: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif' }
+];
+
+// =============== Paquetes Quesos Europeos Toluca ===============
+const paquetesQuesosEuropeos = [
+  {
+    name: 'Toluca Affineur 6',
+    icon: '🧀',
+    price: '$5,800',
+    currency: 'MXN',
+    guests: '30-60 personas',
+    tagline: 'Selección 6 quesos europeos D.O.P.',
+    features: [
+      '6 quesos europeos curados (3 países)',
+      'Brie + Manchego + Parmigiano + Gouda + Roquefort + Pecorino',
+      'Mermeladas (membrillo, higo) y mieles',
+      'Pan artesanal Metepec y grissini',
+      'Frutos secos premium y uvas frescas',
+      'Tabla de madera de olivo + cuchillería',
+      '4 horas de servicio + cadena de frío',
+      'Atemperado 45 min en sitio',
+      'Carta menú impresa con D.O.P.',
+      'Traslado refrigerado zonas centrales Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Affineur 6',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Quesos%20Europeos%20Toluca%20-%20Affineur%206'
+  },
+  {
+    name: 'Toluca Affineur 9',
+    icon: '⭐',
+    price: '$9,200',
+    currency: 'MXN',
+    guests: '60-100 personas',
+    tagline: 'El más solicitado para bodas Valle Toluca',
+    features: [
+      '9 quesos europeos D.O.P. (5 países)',
+      'Brie + Camembert + Manchego + Idiazábal + Parmigiano + Pecorino + Gouda 4a + Roquefort + Comté',
+      'Mermeladas artesanales + 3 mieles especiadas',
+      'Panes franceses, focaccia, grissini italiano',
+      'Frutos secos selectos (nuez Castilla, almendra, pistache)',
+      'Aceitunas Kalamata, manzanilla, encurtidos',
+      'Tablas múltiples sobre olivo + mármol + pizarra',
+      'Cuchillería profesional por tipo de queso',
+      'Carta menú con orígenes y guía degustación',
+      '5 horas de servicio + reposición continua',
+      'Coordinación con wedding planner Valle Toluca',
+      'Traslado refrigerado Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Affineur 9',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Quesos%20Europeos%20Toluca%20-%20Affineur%209'
+  },
+  {
+    name: 'Toluca Affineur 12',
+    icon: '💎',
+    price: '$15,400',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Carta completa 12 quesos + maridaje',
+    features: [
+      '12 quesos europeos D.O.P. (6 países)',
+      'Carta completa: Brie · Camembert · Roquefort · Comté · Manchego · Idiazábal · Parmigiano · Pecorino · Gorgonzola · Gouda 4a · Gruyère · Stilton',
+      'Sommelier de quesos en sitio durante el evento',
+      'Maridaje incluido: 1 botella Rioja Reserva o Valle Guadalupe',
+      'Estación de degustación guiada (orden intensidad)',
+      'Tabla mixta editorial sobre composición geométrica',
+      'Carta menú impresa personalizada con orígenes y D.O.P.',
+      'Acabados con flores comestibles y hojas plata',
+      'Foto profesional editorial de la tabla',
+      'Protocolo hacienda 5★ con uniforme corporativo',
+      'Hand-off al wedding planner sin fricción'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Affineur 12',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Quesos%20Europeos%20Toluca%20-%20Affineur%2012'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  { num: 1, title: 'Briefing & Curaduría', desc: 'Sesión por WhatsApp Toluca (55 2177 5184), Zoom o presencial en Sucursal Metepec. Definimos tipo de evento, número de invitados, preferencias de queso (suaves/intensos/azules) y maridaje deseado.' },
+  { num: 2, title: 'Carta del Affineur', desc: 'En menos de 24 h recibes carta personalizada con 6/9/12 quesos europeos D.O.P., propuesta de maridaje, render conceptual del montaje y cotización cerrada. Iteramos hasta tu OK final.' },
+  { num: 3, title: 'Sourcing & Maduración', desc: 'Apartas con anticipo 50%. Importamos quesos boutique con tiempo (algunos requieren 7-10 días). Maduración final controlada en cuarto frío Sucursal Metepec, atemperado planificado.' },
+  { num: 4, title: 'Montaje & Atemperado', desc: 'Llegamos 90 min antes con transporte refrigerado. Montaje editorial sobre madera/mármol, atemperado de quesos 45 min antes y operación protocolo durante todo el evento Valle Toluca.' }
+];
+
+// =============== Galería Toluca ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif', alt: 'Tabla de quesos europeos D.O.P. premium en Valle Toluca' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif', alt: 'Servicio mesa de quesos europeos profesional Sucursal Metepec' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif', alt: 'Renta de mesa de quesos europeos Hacienda La Magdalena Metepec' },
+  { src: '/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif', alt: 'Tabla quesos europeos para evento Quinta Real Toluca' },
+  { src: '/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif', alt: 'Cliente disfrutando quesos europeos en evento UAEMex Toluca' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Tabla quesos europeos eventos corporativos Lerma' }
+];
+
+// =============== Eventos compatibles ===============
+const eventos = [
+  { title: 'Quesos Europeos para Bodas Toluca', excerpt: 'Tabla francesa-italiana-española en bodas Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas. Brie + Manchego + Parmigiano + Roquefort con maridaje champagne y Rioja Reserva. Cocktail-hour estrella.', img: '/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif', badge: 'Favorito', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda', cta: 'Ver Bodas Toluca' },
+  { title: 'Cocktail Corporativo Valle Toluca', excerpt: 'Lanzamientos en parques industriales Lerma/Toluca/Metepec, posadas C-level y convenciones B2B. Tabla francesa con maridaje Valle de Guadalupe. Branding tipográfico en etiquetería de cada queso.', img: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', badge: 'Protocolo', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
+  { title: 'Cena Privada VIP', excerpt: 'Cenas íntimas 20-50 invitados en residencias del Valle Toluca con vista al Nevado. Tabla 12 quesos con sommelier en sitio. Educación gastronómica nivel restaurante boutique parisino.', img: '/img/galeria/candy-bar-elegante-terraza-atardecer.avif', href: '/candy-bar-eventos', cta: 'Ver Cenas VIP' },
+  { title: 'XV Años Estilo Europeo', excerpt: 'Para quinceañeras con paleta sobria temática europea (París, Italia, España). Tabla mixta como cocktail-hour previo a la cena formal en Quinta Real Toluca o Salón Riviera Metepec.', img: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos', cta: 'Ver XV Años Toluca' },
+  { title: 'Aniversario Pareja', excerpt: 'Celebración íntima 10-30 personas en residencia del Valle. Tabla francesa con champagne, Brie, Comté y Roquefort. Maridaje guiado por sommelier. Perfecto para 25, 30, 50 aniversarios.', img: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', href: '/candy-bar-eventos', cta: 'Ver Aniversarios' },
+  { title: 'Posgrado UAEMex', excerpt: 'Celebración de maestrías, doctorados y MBAs Toluca. Para graduados de UAEMex, Tec Monterrey Campus Toluca, Anáhuac, Politécnico Toluca. Tabla europea elegante formato cocktail.', img: '/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones Toluca' }
+];
+
+// =============== Testimonios ===============
+const testimonios = [
+  { name: 'Beatriz y Joaquín', initials: 'BJ', review: 'La tabla Affineur 12 en nuestra boda en Hacienda La Magdalena Metepec fue increíble. El sommelier explicó cada queso a los invitados, el Roquefort con Sauternes fue revelador. Servicio impecable desde Sucursal Metepec.', event: 'Boda Hacienda La Magdalena Metepec', rating: 5 },
+  { name: 'Federico Núñez', initials: 'FN', review: 'Contratamos Affineur 9 para el lanzamiento de marca en Parque Industrial Lerma. La carta menú impresa con orígenes y D.O.P. impresionó a los directivos extranjeros. Maridaje con Valle de Guadalupe fue acertado.', event: 'Lanzamiento Lerma', rating: 5 },
+  { name: 'Lorena Castellanos', initials: 'LC', review: 'Pedí Affineur 6 para mi cena íntima de aniversario en Las Marinas Metepec. El Brie de Meaux y el Manchego DOP fueron perfectos. Atemperado correcto, mobiliario boutique. Nivel restaurante.', event: 'Aniversario Las Marinas Metepec', rating: 5 }
+];
+
+// =============== FAQ Quesos Europeos Toluca ===============
+const faqs = [
+  { question: '¿Qué quesos europeos D.O.P. ofrecen en Valle de Toluca?', answer: 'Trabajamos con 12 quesos europeos D.O.P. de 6 países: Francia (Brie de Meaux AOP, Camembert de Normandía, Roquefort, Comté 18m), España (Manchego DOP 12m, Idiazábal), Italia (Parmigiano Reggiano 24m, Pecorino Romano, Gorgonzola Dolce), Holanda (Gouda añejo 4 años), Suiza (Gruyère AOP) y Reino Unido (Stilton DOP). En Affineur 6 incluimos los 6 más solicitados, en Affineur 9 sumamos 3 más, en Affineur 12 carta completa.' },
+  { question: '¿Cuánto cuesta una tabla de quesos europeos en Valle Toluca?', answer: 'Iniciamos en $5,800 MXN (Toluca Affineur 6, 30-60 invitados, 6 quesos D.O.P.), $9,200 MXN (Toluca Affineur 9, 60-100 invitados — el más solicitado para bodas), hasta $15,400 MXN (Toluca Affineur 12, 100+ invitados con sommelier en sitio y 1 botella Rioja Reserva o vino Valle Guadalupe). Cotización gratuita en menos de 24 h vía WhatsApp 55 2177 5184.' },
+  { question: '¿Por qué los quesos D.O.P. son más caros?', answer: 'D.O.P. (Denominación de Origen Protegida) garantiza que el queso fue elaborado en una región específica con técnicas tradicionales y leche local certificada. El Parmigiano Reggiano 24 meses solo puede producirse en Emilia-Romaña, el Brie de Meaux solo en Île-de-France. Estos quesos requieren importación con sourcing especializado, maduración correcta y cadena de frío continua. El precio refleja autenticidad, sin imitaciones.' },
+  { question: '¿Cómo eligen los quesos para mi evento?', answer: 'En el briefing inicial preguntamos por preferencias (suaves/intensos/azules), tipo de evento (boda elegante, corporativo C-level, cena íntima), maridaje deseado y restricciones (lactosa, alergias). Nuestro affineur diseña una carta balanceada por orden de intensidad: empieza con Brie (suave) y termina con Roquefort (intenso) para que el paladar progrese correctamente.' },
+  { question: '¿Atemperan los quesos en sitio?', answer: 'Sí. Los quesos liberan aromas y sabores a temperatura ambiente (16-18°C). Llegamos 90 min antes a tu venue Valle Toluca con transporte refrigerado desde Sucursal Metepec. Sacamos los quesos del refrigerador 45 min antes del servicio. Tus invitados los degustan en su punto óptimo de aromas y textura.' },
+  { question: '¿En qué zonas del Valle de Toluca dan servicio?', answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia), Toluca centro (Reforma, Sor Juana, Universidad), Zinacantepec, Lerma (centro y residenciales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).' },
+  { question: '¿Qué incluye el servicio de sommelier?', answer: 'En Toluca Affineur 12 el sommelier de quesos está presente durante el evento. Sugiere maridajes en vivo a los invitados, explica perfil de cada queso (origen, leche, curación), recomienda orden de degustación y atiende preguntas sobre técnicas. Es educación gastronómica protocolo nivel restaurante boutique parisino.' },
+  { question: '¿Manejan opciones sin lactosa o vegetarianas?', answer: 'Sí. Para invitados con intolerancia a la lactosa los quesos curados largos (Parmigiano 24m, Manchego 12m, Gouda 4 años) son naturalmente bajos en lactosa por la fermentación prolongada. Coordinamos la selección. Las tablas de quesos son naturalmente vegetarianas (no contienen carne); las acompañamos con verduras encurtidas y panes vegetarianos.' },
+  { question: '¿Coordinan con wedding planner del Valle Toluca?', answer: 'Sí, en cada evento. Trabajamos frecuentemente con planners y coordinadores de Hacienda La Magdalena (Metepec), Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma, Salón Riviera Metepec y Casa Club Las Marinas. Conocemos protocolos sanitarios, requerimientos de cadena de frío y tiempos de carga.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para bodas en temporada alta Valle Toluca (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. Algunos quesos D.O.P. requieren importación con 7-14 días de anticipación. Para eventos corporativos y cenas privadas suelen ser suficientes 3-4 semanas. Trabajamos por orden de confirmación con anticipo del 50%.' },
+  { question: '¿Puedo personalizar la carta menú con mi marca?', answer: 'Sí. En Affineur 9 y Affineur 12 personalizamos carta menú impresa para que tus invitados conozcan cada queso (origen, D.O.P., curación, maridaje) con tu identidad: iniciales nupciales, logo corporativo o paleta cromática del evento. Ideal para branding en lanzamientos y bodas editoriales Valle Toluca.' }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos#service",
+      "name": "Quesos Europeos D.O.P. en Valle de Toluca",
+      "serviceType": "Tabla de Quesos Europeos Premium para Eventos",
+      "description": "Selección curada de 12 quesos europeos con denominación de origen protegida (D.O.P.) en Valle de Toluca: Brie de Meaux, Camembert, Roquefort, Comté, Manchego, Idiazábal, Parmigiano Reggiano 24m, Pecorino, Gorgonzola, Gouda añejo 4 años, Gruyère AOP y Stilton. Maridaje con Champagne, Rioja Reserva y vinos del Valle de Guadalupe. Operación desde Sucursal Metepec con transporte refrigerado, cobertura completa Valle de Toluca.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "54", "bestRating": "5" }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "5800",
+        "highPrice": "15400",
+        "offerCount": "3",
+        "offers": paquetesQuesosEuropeos.map(pkg => ({
+          "@type": "Offer",
+          "name": `Quesos Europeos Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Quesos y Embutidos", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos" },
+        { "@type": "ListItem", "position": 5, "name": "Quesos Europeos", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Quesos Europeos D.O.P. Valle Toluca | Brie, Manchego, Gouda, Roquefort | MEDEDUL"
+  description="Tabla de quesos europeos D.O.P. en Valle de Toluca por MEDEDUL. 12 quesos curados de 6 países: Brie de Meaux, Manchego, Parmigiano Reggiano 24m, Roquefort, Gouda añejo, Comté, Gruyère, Stilton. Sucursal Metepec, maestro affineur, sommelier opcional, maridaje Rioja y Valle Guadalupe. Bodas, corporativos. Desde $5,800 MXN. WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos"
+  ogImage="/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Quesos Europeos D.O.P. Valle Toluca"
+    highlight="Quesos"
+    subtitle="Brie, Gouda, Manchego y más | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>Sofisticación europea en tu evento Valle Toluca</strong>. Selección curada de 12 quesos europeos con <strong>denominación de origen protegida (D.O.P.)</strong> de 6 países productores: Francia, España, Italia, Holanda, Suiza y Reino Unido. Brie de Meaux AOP, Camembert de Normandía, Roquefort, Comté 18 meses, Manchego DOP 12 meses, Idiazábal vasco, Parmigiano Reggiano 24 meses, Pecorino Romano, Gorgonzola Dolce, Gouda añejo holandés 4 años, Gruyère suizo y Stilton inglés.</p><p>Cada queso llega con <strong>certificación de origen, fecha de elaboración y maduración correcta</strong> a través de importadores boutique especializados. Operamos desde nuestra Sucursal en Blvd. Toluca-Metepec 913 con transporte refrigerado, atemperamos 45 min antes en tu venue (Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma) y montamos sobre tabla de olivo, mármol Carrara y pizarra negra con cuchillería profesional por tipo de queso.</p>`}
+  />
+
+  <!-- ===================== Stats ===================== -->
+  <section class="tol-qe-stats">
+    <div class="container">
+      <div class="tol-qe-stats__grid">
+        {stats.map(s => (
+          <div class="tol-qe-stat">
+            <span class="tol-qe-stat__num">{s.number}</span>
+            <span class="tol-qe-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Carta Quesos Europeos (12 piezas) ===================== -->
+  <section class="tol-qe-carta">
+    <div class="container">
+      <div class="tol-qe-carta__header">
+        <span class="tol-qe-carta__badge">Carta del Affineur</span>
+        <h2>Los <span>12 Quesos Europeos D.O.P.</span> de la Casa</h2>
+        <p>Cada pieza con su origen, leche, tiempo de curación, perfil de sabor y maridaje sugerido. La carta completa que servimos en eventos del Valle de Toluca.</p>
+      </div>
+
+      <div class="tol-qe-carta__grid">
+        {cartaQuesos.map((q, i) => (
+          <article class="tol-qe-queso-card">
+            <header class="tol-qe-queso-card__head">
+              <span class="tol-qe-queso-card__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="tol-qe-queso-card__flag" aria-hidden="true">{q.flag}</span>
+              <div class="tol-qe-queso-card__title">
+                <h3>{q.nombre}</h3>
+                <p class="tol-qe-queso-card__pais">{q.pais} · {q.region}</p>
+              </div>
+            </header>
+
+            <p class="tol-qe-queso-card__desc">{q.descripcion}</p>
+
+            <dl class="tol-qe-queso-card__specs">
+              <div><dt>Leche</dt><dd>{q.leche}</dd></div>
+              <div><dt>Curación</dt><dd>{q.curacion}</dd></div>
+              <div><dt>Textura</dt><dd>{q.textura}</dd></div>
+              <div><dt>Perfil</dt><dd>{q.perfil}</dd></div>
+              <div><dt>Maridaje</dt><dd>{q.maridaje}</dd></div>
+            </dl>
+
+            <footer class="tol-qe-queso-card__foot">
+              <span class="tol-qe-queso-card__intensidad-lbl">Intensidad</span>
+              <span class="tol-qe-queso-card__dots">
+                {[1,2,3,4,5].map(n => (
+                  <span class={`tol-qe-dot ${n <= q.intensidad ? 'tol-qe-dot--active' : ''}`}></span>
+                ))}
+              </span>
+            </footer>
+          </article>
+        ))}
+      </div>
+
+      <div class="tol-qe-carta__cta">
+        <p>¿Quieres carta menú impresa con esta selección personalizada para tu evento? <strong>Cotizamos en menos de 24 horas</strong>.</p>
+        <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Quesos%20Europeos%20D.O.P.%20Valle%20Toluca" target="_blank" rel="noopener" class="tol-qe-btn tol-qe-btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Cotizar Quesos Europeos Toluca
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-qe-toluca"
+    badge="Paquetes Quesos Europeos Toluca"
+    title="Elige tu"
+    titleHighlight="Affineur Toluca"
+    subtitle="3 niveles claros: 6, 9 o 12 quesos europeos D.O.P."
+    content={`<p>Diseñamos <strong>tres niveles de paquete Toluca</strong> según el tamaño y profundidad gastronómica de tu evento. Todos incluyen cuchillería profesional, mobiliario boutique sobre olivo/mármol, atemperado controlado y carta menú impresa con orígenes y D.O.P. Lo que escala es la <strong>cantidad de quesos, profundidad de carta y presencia del sommelier</strong>. Anticipo del 50% para reservar fecha.</p>`}
+    packages={paquetesQuesosEuropeos}
+    note="💡 <strong>Todos los paquetes Toluca incluyen:</strong> quesos europeos D.O.P. con certificación de origen, mobiliario boutique (madera olivo, mármol Carrara, pizarra), cuchillería profesional por tipo de queso, mermeladas artesanales, mieles, panes, frutos secos, carta menú impresa con orígenes, transporte refrigerado desde Sucursal Metepec, atemperado 45 min, operador uniforme protocolo, reposición continua."
+  />
+
+  <!-- ===================== Maridajes ===================== -->
+  <section class="tol-qe-maridajes">
+    <div class="container">
+      <div class="tol-qe-maridajes__header">
+        <span class="tol-qe-maridajes__badge">Pairings & Vinos</span>
+        <h2>Maridajes <span>Recomendados</span></h2>
+        <p>Cada queso europeo tiene su pareja perfecta. Sugerencias del sommelier de la casa con vinos boutique importados y opciones mexicanas premium del Valle de Guadalupe.</p>
+      </div>
+      <div class="tol-qe-maridajes__grid">
+        {maridajes.map(m => (
+          <div class="tol-qe-maridaje-card">
+            <span class="tol-qe-maridaje-card__icon">{m.icon}</span>
+            <h3>{m.bebida}</h3>
+            <p>{m.detalle}</p>
+            <span class="tol-qe-maridaje-card__quesos">{m.quesos}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-qe-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestros Quesos Europeos en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>70+ tablas gourmet montadas en Valle Toluca</strong> y 8 años de experiencia MEDEDUL importando quesos europeos D.O.P. para bodas, corporativos C-level y cenas privadas en los venues más exigentes del Valle, somos la opción de referencia cuando lo que necesitas es <strong>queso boutique con certificación de origen y atemperado profesional</strong>.",
+      "Cada tabla parte del mismo estándar: importación con certificación D.O.P., atemperado 45 min en sitio, cuchillería profesional por tipo de queso, mobiliario editorial sobre olivo y mármol, carta menú impresa con orígenes. Lo que cambia es la <strong>cantidad de piezas y profundidad sommelier</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "12+", label: "Quesos D.O.P." },
+      { number: "6", label: "Países productores" },
+      { number: "100%", label: "Certificación origen" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="tol-qe-galeria" id="galeria-qe-toluca">
+    <div class="container">
+      <SectionHeader title="Quesos Europeos reales en eventos" titleHighlight="Valle de Toluca" subtitle="Selección curada de tablas europeas MEDEDUL en bodas, corporativos y cenas privadas del Valle" />
+      <div class="tol-qe-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-qe-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps id="proceso-qe-toluca" badge="Cómo trabajamos" title="4 fases para tu" titleHighlight="Tabla de Quesos Europeos" subtitle="Proceso boutique con sourcing internacional y maduración controlada" steps={procesoToluca} />
+
+  <!-- ===================== Eventos compatibles ===================== -->
+  <EventsGrid badge="Versatilidad Total" title="Tus Quesos Europeos Valle Toluca para" titleHighlight="Cualquier Ocasión" subtitle="Diseñamos tablas europeas D.O.P. para cada tipo de celebración premium en Valle de Toluca. Desde boda en Hacienda La Magdalena Metepec hasta cocktail corporativo en Parque Industrial Lerma con maridaje Valle de Guadalupe." events={eventos} />
+
+  <!-- ===================== Subsecciones hermanas (3 cards) ===================== -->
+  <section class="tol-qe-hermanas">
+    <div class="container">
+      <SectionHeader
+        title="Otras Subsecciones de"
+        titleHighlight="Quesos y Embutidos Toluca"
+        subtitle="Complementa tu tabla europea con jamones curados, tabla mixta premium o vuelve al hub completo"
+      />
+      <div class="tol-qe-hermanas__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard href={sub.href} image={sub.img} alt={`${sub.title} en Valle Toluca por MEDEDUL`} title={sub.title} excerpt={sub.excerpt} badge={sub.badge} cta={sub.cta} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="tol-qe-testimonios">
+    <div class="container">
+      <SectionHeader title="Lo que dicen clientes de" titleHighlight="Quesos Europeos Valle Toluca" subtitle="Bodas, corporativos y cenas privadas reales montadas por MEDEDUL en Valle de Toluca" />
+      <div class="tol-qe-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard name={t.name} initials={t.initials} review={t.review} event={t.event} rating={t.rating} verified={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="tol-qe-cdmx-cta">
+    <div class="container">
+      <div class="tol-qe-cdmx-cta__card">
+        <div class="tol-qe-cdmx-cta__body">
+          <span class="tol-qe-cdmx-cta__badge">📍 ¿Evento en Ciudad de México?</span>
+          <h2>Conoce nuestra <span>Sucursal CDMX</span></h2>
+          <p>Si tu evento es en Ciudad de México, MEDEDUL también tiene tabla gourmet con cobertura completa CDMX (Polanco, Lomas, Santa Fe, Coyoacán, Roma, Pedregal, Interlomas) y <strong>180+ tablas montadas</strong> en St. Regis, Four Seasons, Hotel W, Hacienda de los Morales y Casa Lamm. Operación desde sucursales <strong>Anzures + Condesa</strong>. Mismos quesos D.O.P., mismo affineur.</p>
+          <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" class="tol-qe-cdmx-cta__link">Ver Tabla Gourmet CDMX →</a>
+        </div>
+        <div class="tol-qe-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-embutidos-gourmet.avif', { w: 600, q: 82 })} alt="Tabla Gourmet CDMX MEDEDUL sucursal hermana" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20Quesos%20Europeos" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Quesos Europeos L5 - Sucursal Toluca-Metepec
+     Prefix: tol-qe-
+     Acento dorado vintage (#a87a3c) + crema (#fefbf6)
+     ========================================================== */
+
+  /* Stats */
+  .tol-qe-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fefbf6 100%); }
+  .tol-qe-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-qe-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(168, 122, 60, 0.12); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-qe-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #a87a3c; line-height: 1; }
+  .tol-qe-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* Buttons */
+  .tol-qe-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .tol-qe-btn--primary { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
+
+  /* Carta Quesos (12 cards) */
+  .tol-qe-carta { padding: 100px 0; background: linear-gradient(180deg, #1c1814 0%, #2a2018 100%); color: #fff; position: relative; overflow: hidden; }
+  .tol-qe-carta::before { content: ''; position: absolute; top: -20%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(168, 122, 60, 0.15) 0%, transparent 70%); pointer-events: none; }
+  .tol-qe-carta__header { text-align: center; max-width: 760px; margin: 0 auto 60px; position: relative; z-index: 1; }
+  .tol-qe-carta__badge { display: inline-block; background: linear-gradient(135deg, #a87a3c 0%, #d4a766 100%); color: #1c1814; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+  .tol-qe-carta__header h2 { font-size: 2.4rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+  .tol-qe-carta__header h2 span { color: #d4a766; font-style: italic; }
+  .tol-qe-carta__header p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.75); line-height: 1.7; }
+
+  .tol-qe-carta__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .tol-qe-queso-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(212, 167, 102, 0.22); border-radius: 16px; padding: 28px 24px; backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 14px; }
+  .tol-qe-queso-card__head { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(212, 167, 102, 0.18); }
+  .tol-qe-queso-card__num { font-size: 0.8rem; color: rgba(212, 167, 102, 0.6); font-weight: 800; line-height: 1.2; }
+  .tol-qe-queso-card__flag { font-size: 1.6rem; line-height: 1; }
+  .tol-qe-queso-card__title { flex: 1; }
+  .tol-qe-queso-card__title h3 { font-size: 1.1rem; color: #d4a766; margin: 0 0 4px; font-weight: 700; line-height: 1.3; }
+  .tol-qe-queso-card__pais { font-size: 0.74rem; color: rgba(255, 255, 255, 0.55); margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tol-qe-queso-card__desc { font-size: 0.86rem; color: rgba(255, 255, 255, 0.78); line-height: 1.65; margin: 0; }
+  .tol-qe-queso-card__specs { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 0; }
+  .tol-qe-queso-card__specs > div { display: grid; grid-template-columns: 80px 1fr; gap: 8px; font-size: 0.78rem; }
+  .tol-qe-queso-card__specs dt { color: #d4a766; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; margin: 0; }
+  .tol-qe-queso-card__specs dd { color: rgba(255, 255, 255, 0.78); margin: 0; }
+  .tol-qe-queso-card__foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(212, 167, 102, 0.18); margin-top: auto; }
+  .tol-qe-queso-card__intensidad-lbl { font-size: 0.72rem; color: rgba(255, 255, 255, 0.55); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .tol-qe-queso-card__dots { display: flex; gap: 5px; }
+  .tol-qe-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(212, 167, 102, 0.2); }
+  .tol-qe-dot--active { background: #d4a766; }
+
+  .tol-qe-carta__cta { text-align: center; margin-top: 60px; padding: 32px; background: rgba(212, 167, 102, 0.08); border-radius: 20px; border: 1px dashed rgba(212, 167, 102, 0.4); position: relative; z-index: 1; }
+  .tol-qe-carta__cta p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.85); margin: 0 0 18px; }
+  .tol-qe-carta__cta strong { color: #d4a766; }
+
+  /* Maridajes */
+  .tol-qe-maridajes { padding: 90px 0; background: #fff; }
+  .tol-qe-maridajes__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-qe-maridajes__badge { display: inline-block; background: linear-gradient(135deg, #a87a3c 0%, #d4a766 100%); color: #1c1814; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-qe-maridajes__header h2 { font-size: 2.1rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .tol-qe-maridajes__header h2 span { color: #a87a3c; font-style: italic; }
+  .tol-qe-maridajes__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.7; }
+  .tol-qe-maridajes__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tol-qe-maridaje-card { background: linear-gradient(180deg, #fefbf6 0%, #fff 100%); border: 1px solid rgba(168, 122, 60, 0.2); border-radius: 20px; padding: 30px 24px; text-align: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05); }
+  .tol-qe-maridaje-card__icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+  .tol-qe-maridaje-card h3 { font-size: 1.1rem; color: var(--texto-oscuro, #1a1a1a); margin: 0 0 12px; font-weight: 700; }
+  .tol-qe-maridaje-card p { font-size: 0.88rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0 0 16px; }
+  .tol-qe-maridaje-card__quesos { display: inline-block; font-size: 0.74rem; color: #a87a3c; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-top: 1px solid rgba(168, 122, 60, 0.3); padding-top: 12px; }
+
+  /* Galería bento */
+  .tol-qe-galeria { padding: 90px 0; background: linear-gradient(180deg, #fefbf6 0%, #fff 100%); }
+  .tol-qe-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-qe-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-qe-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-qe-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-qe-galeria__item:nth-child(5), .tol-qe-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* Hermanas */
+  .tol-qe-hermanas { padding: 90px 0; background: linear-gradient(180deg, #fefbf6 0%, #fff 100%); }
+  .tol-qe-hermanas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+
+  /* Testimonios */
+  .tol-qe-testimonios { padding: 90px 0; background: #fff; }
+  .tol-qe-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* CDMX cross-link */
+  .tol-qe-cdmx-cta { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #fefbf6 100%); }
+  .tol-qe-cdmx-cta__card { background: linear-gradient(135deg, #a87a3c 0%, #D1007A 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(168, 122, 60, 0.25); }
+  .tol-qe-cdmx-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .tol-qe-cdmx-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .tol-qe-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .tol-qe-cdmx-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 24px; }
+  .tol-qe-cdmx-cta__body p strong { color: #fff; }
+  .tol-qe-cdmx-cta__link { display: inline-block; background: #fff; color: #a87a3c; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .tol-qe-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .tol-qe-cdmx-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+
+  /* Sucursal Info Card */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .tol-qe-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-qe-carta__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-qe-maridajes__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-qe-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-qe-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-qe-galeria__item:nth-child(5), .tol-qe-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-qe-hermanas__grid { grid-template-columns: 1fr; }
+    .tol-qe-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-qe-cdmx-cta__card { grid-template-columns: 1fr; padding: 32px; }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-qe-stats { padding: 40px 0; }
+    .tol-qe-stat__num { font-size: 1.6rem; }
+    .tol-qe-carta, .tol-qe-maridajes, .tol-qe-galeria, .tol-qe-hermanas, .tol-qe-testimonios, .tol-qe-cdmx-cta { padding: 60px 0; }
+    .tol-qe-carta__grid { grid-template-columns: 1fr; }
+    .tol-qe-carta__header h2 { font-size: 1.7rem; }
+    .tol-qe-maridajes__grid { grid-template-columns: 1fr; }
+    .tol-qe-maridajes__header h2 { font-size: 1.6rem; }
+    .tol-qe-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-qe-cdmx-cta__body h2 { font-size: 1.5rem; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-qe-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-qe-stat { padding: 16px 10px; }
+    .tol-qe-stat__num { font-size: 1.4rem; }
+    .tol-qe-stat__label { font-size: 0.78rem; }
+    .tol-qe-queso-card { padding: 22px 18px; }
+    .tol-qe-queso-card__title h3 { font-size: 1rem; }
+    .tol-qe-carta__cta { padding: 24px 18px; }
+    .tol-qe-carta__cta p { font-size: 0.95rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

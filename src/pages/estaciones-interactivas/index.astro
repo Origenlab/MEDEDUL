@@ -428,5 +428,79 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- ===================== Comparison Table 4 Estaciones (homologación) ===================== -->
+  <section class="hub-est-comparativa section-padding" id="comparativa-estaciones">
+    <div class="container">
+      <SectionHeader
+        title="Compara las"
+        titleHighlight="4 estaciones"
+        subtitle="Precio referencial, capacidad, eventos populares y diferenciador clave"
+        content={`<p>Cada estación tiene su propio perfil técnico, escala y aplicación ideal. Esta tabla te ayuda a <strong>decidir cuál estación interactiva es la indicada</strong> para tu evento. Todos los precios son referenciales desde paquete Esencial.</p>`}
+      />
+      <div class="hub-est-comparativa__wrap">
+        <table class="hub-est-comparativa__table">
+          <thead>
+            <tr>
+              <th>Estación</th>
+              <th>Rango precio</th>
+              <th>Capacidad</th>
+              <th>Eventos populares</th>
+              <th>Diferenciador</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hub-est-comparativa__name">Fuente de Chocolate</td>
+              <td>$3,500 - $9,500</td>
+              <td>5kg-50kg · 20-400+ inv</td>
+              <td>Bodas · XV · Infantil · Corporativo</td>
+              <td>5 tipos chocolate belga · 8 productos · Show universal</td>
+              <td><a href="/estaciones-interactivas/fuente-de-chocolate" class="hub-est-comparativa__link">Ver →</a></td>
+            </tr>
+            <tr>
+              <td class="hub-est-comparativa__name">Fuente de Chamoy</td>
+              <td>$3,200 - $8,800</td>
+              <td>5kg-30kg · 20-400+ inv</td>
+              <td>XV · Cumpleaños · Bodas · Graduación</td>
+              <td>4 niveles picor · Identidad mexicana auténtica</td>
+              <td><a href="/estaciones-interactivas/fuente-de-chamoy" class="hub-est-comparativa__link">Ver →</a></td>
+            </tr>
+            <tr>
+              <td class="hub-est-comparativa__name">Pared de Dulces</td>
+              <td>$4,500 - $13,500</td>
+              <td>50-200+ dispensadores · 40-600+ inv</td>
+              <td>Baby Shower · XV · Bodas · Corporativo</td>
+              <td>6 diseños · Spot Instagram/TikTok · Autoservicio</td>
+              <td><a href="/estaciones-interactivas/pared-de-dulces" class="hub-est-comparativa__link">Ver →</a></td>
+            </tr>
+            <tr>
+              <td class="hub-est-comparativa__name">Stand para Pastel</td>
+              <td>$2,800 - $8,500</td>
+              <td>1-5+ pisos · 15-400+ inv</td>
+              <td>Bodas · XV · Baby Shower · Bautizo</td>
+              <td>6 diseños · Foto del corte · Coordinación pastelero</td>
+              <td><a href="/estaciones-interactivas/stand-para-pastel" class="hub-est-comparativa__link">Ver →</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <FAQContactModule faqItems={faqItems} />
 </BaseLayout>
+
+<style>
+  .hub-est-comparativa { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .hub-est-comparativa__wrap { overflow-x: auto; margin-top: 2rem; border-radius: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .hub-est-comparativa__table { width: 100%; border-collapse: collapse; background: #fff; min-width: 900px; }
+  .hub-est-comparativa__table thead { background: linear-gradient(135deg, #7A2BC2 0%, #ec4899 100%); color: #fff; }
+  .hub-est-comparativa__table th, .hub-est-comparativa__table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid #f0f0f4; }
+  .hub-est-comparativa__table th { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .hub-est-comparativa__table td { color: #444; font-size: 0.9rem; line-height: 1.5; }
+  .hub-est-comparativa__name { font-weight: 700; color: #7A2BC2; }
+  .hub-est-comparativa__link { display: inline-block; background: #7A2BC2; color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-weight: 700; font-size: 0.8rem; text-decoration: none; white-space: nowrap; transition: transform 0.2s ease, background 0.2s ease; }
+  .hub-est-comparativa__link:hover { transform: translateY(-2px); background: #5b1f96; }
+  .hub-est-comparativa__table tbody tr:hover { background: #fafafa; }
+</style>

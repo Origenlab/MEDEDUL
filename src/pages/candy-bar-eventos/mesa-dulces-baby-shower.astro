@@ -1,164 +1,1342 @@
 ---
+// Mesa de Dulces para Baby Shower — L4 Pro+++ con SEO/Marketing CDMX
+// Tipos baby shower, gender reveal, dulces aptos mamá embarazada, mommy-to-be care
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsDonas, subsFrutas, subsStandPastel,
+  subsCBBautizo, subsCBCumple, subsCBComunion, subsCBBoda,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Baby Shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower' }
+  { name: 'Mesa de Dulces para Baby Shower', url: '/candy-bar-eventos/mesa-dulces-baby-shower' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para baby shower?', answer: 'Incluye diseno tematico, seleccion de dulces y postres, montaje profesional, decoracion coordinada y desmontaje al finalizar.' },
-  { question: 'Pueden personalizar por nino, nina o revelacion?', answer: 'Si. Ajustamos paleta de color, grafica y surtido para baby shower de nino, nina o gender reveal.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Recomendamos reservar con 2 a 4 semanas para asegurar agenda, produccion y personalizacion.' },
-  { question: 'Atienden eventos en casa y salon?', answer: 'Si. Cubrimos domicilios, jardines, salones y venues en CDMX y area metropolitana. Si tu baby shower es en CDMX, visita nuestra pagina exclusiva Baby Shower CDMX (https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/baby-shower) con paquetes desde $4,500 MXN, especialistas en gender reveal, opciones aptas para mama embarazada, cobertura en domicilios particulares Polanco/Lomas/Pedregal y venues boutique como Saks, Belmondo, Casa Lamm y The Magnolia Hotel.' },
-  { question: 'Pueden combinar con fuente de chocolate?', answer: 'Si. Podemos integrar estaciones interactivas para elevar experiencia y participacion.' },
-  { question: 'La cotizacion es por paquete o personalizada?', answer: 'Los paquetes son referenciales. Cerramos propuesta final segun invitados, sede y nivel de diseno.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '160+', label: 'Baby showers CDMX' },
+  { number: '100%', label: 'Apto mamá embarazada' },
+  { number: '12+', label: 'Temáticas tiernas' },
+  { number: '< 24h', label: 'Cotización en línea' }
 ];
 
-const packages = [
+// =============== 8 Tipos de baby shower (UNIQUE) ===============
+const tiposBaby = [
+  { tipo: 'Baby Shower Tradicional', icon: '🎀', desc: 'Reunión solo de mujeres en domicilio o salón. Juegos, regalos, mesa central tierna. Paleta alineada al género conocido del bebé. Lo más solicitado en CDMX.' },
+  { tipo: 'Gender Reveal', icon: '🎉', desc: 'Revelación de género del bebé con sorpresa. Pastel con relleno azul/rosa, globo con confeti, smoke bomb o dip dye. Mesa híbrida rosa-azul hasta el momento del reveal.' },
+  { tipo: 'Co-ed (mixto)', icon: '👫', desc: 'Tendencia moderna: papás y mamás invitados. Más casual, menos juegos, foco en networking entre parejas. Mesa con paleta neutral o sage.' },
+  { tipo: 'Diaper Party', icon: '🧷', desc: 'Solo papás, regalos prácticos (pañales, bebidas). Mesa más informal con dulces "for-the-dad" (chocolates oscuros, frutos secos), tabla de embutidos opcional.' },
+  { tipo: 'Sip & See', icon: '👶', desc: 'Post-nacimiento (1-2 semanas después). Familia y amigos cercanos visitan al bebé recién nacido. Mesa íntima delicada, dulces suaves.' },
+  { tipo: 'Sprinkle (segundo bebé)', icon: '🌧️', desc: 'Para mamás que ya tienen hijos: celebración más íntima, regalos más pequeños. Mesa elegante con paleta sage o boho, no se repite la grandeza del primer baby shower.' },
+  { tipo: 'Drive-by Baby Shower', icon: '🚗', desc: 'Post-pandemia, todavía popular. Caravana de invitados que pasan a saludar a la mamá frente a su casa. Mesa exterior con bolos sorpresa to-go decorados.' },
+  { tipo: 'Virtual Baby Shower', icon: '💻', desc: 'Para mamás con familia en otra ciudad/país. Coordinamos envío de cajitas decoradas a casa de invitados remotos + mesa central para los presenciales.' }
+];
+
+// =============== 12 Temáticas baby (UNIQUE catalog) ===============
+const tematicas = [
+  { nombre: 'Animalitos del bosque', icon: '🦊', desc: 'Zorros, conejos, búhos, mapaches. Paleta verde sage con beige y mostaza. Tendencia top 2026.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-boho-eucalipto.avif', color: '#7d9b69' },
+  { nombre: 'Nube y arcoíris', icon: '🌈', desc: 'Nubes de algodón, arcoíris en backdrop, paleta pastel multi-color. Para baby showers alegres y soñadores.', img: '/img/galeria/mesa-dulces-baby-shower-celeste-nubes-globos.avif', color: '#FFB6D9' },
+  { nombre: 'Twinkle Twinkle Little Star', icon: '⭐', desc: 'Estrellas y lunas, paleta dorado con azul medianoche o blanco-plata. Clásico atemporal para niños y niñas.', img: '/img/galeria/mesa-dulces-baby-shower-nino-globos-estrellas.avif', color: '#FFC857' },
+  { nombre: 'Boho-Eucalipto', icon: '🌿', desc: 'Eucalipto seco, pampas, terracota, beige. Paleta natural elegante. Para baby showers con foto profesional.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-boho-eucalipto.avif', color: '#A0A878' },
+  { nombre: 'Ositos & Animalitos', icon: '🧸', desc: 'Osito de peluche, jirafita, elefante. Paleta beige-marrón con detalles dorados. Tradicional y tierno.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif', color: '#C8A586' },
+  { nombre: 'Princesa rosa-dorado', icon: '👑', desc: 'Para niña: rosa fucsia con dorado, corona, varita mágica, alas de hada. Glamour bebé.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', color: '#E91E63' },
+  { nombre: 'Astronauta espacial', icon: '🚀', desc: 'Cohete, planetas, astronauta. Paleta azul marino con dorado. Tendencia para niños 2026.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-azul.avif', color: '#1e3a8a' },
+  { nombre: 'Mariposas y flores', icon: '🦋', desc: 'Mariposas en backdrop, flores secas, paleta lila-rosa-blanco. Romántico para niña.', img: '/img/galeria/mesa-dulces-baby-shower-nina-tierno-rosa.avif', color: '#B5179E' },
+  { nombre: 'Tropical & Hawaiian', icon: '🌺', desc: 'Hojas de palma, hibiscus, paleta tropical verde-coral. Para baby showers de verano o destination.', img: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif', color: '#FB5607' },
+  { nombre: 'Sirena bebé', icon: '🧜‍♀️', desc: 'Conchas, perlas, paleta turquesa-coral. Para baby showers acuáticos o playa.', img: '/img/galeria/mesa-dulces-baby-shower-nina-rosa-dorado-elegante.avif', color: '#06D6A0' },
+  { nombre: 'Boy Scout / Aventura', icon: '🏕️', desc: 'Mapas, brújulas, paleta verde caqui-mostaza. Para niños con espíritu aventurero.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino.avif', color: '#7B7B3F' },
+  { nombre: 'Neutro minimalista', icon: '⚪', desc: 'Blanco-beige-marfil, sin género específico. Tendencia para baby showers sorpresa o gender reveal previo.', img: '/img/galeria/mesa-dulces-baby-shower-neutro-beige.avif', color: '#c8b99c' }
+];
+
+// =============== Por sexo del bebé (UNIQUE diferenciación) ===============
+const porSexo = [
+  {
+    sexo: 'Niña',
+    icon: '👧',
+    color: '#ffe4ed',
+    accentColor: '#E91E63',
+    paleta: 'Rosa pastel · Rosa-dorado · Lavanda · Fucsia-dorado · Coral suave',
+    elementos: 'Lazos, corona, varita, alas, flores, princesas, sirena, mariposas, lágrimas de unicornio',
+    surtido: 'Macarons rosa, galletas con flores, mini cupcakes con corona, bombones rosa-blanco, paletas en forma de bebé niña'
+  },
+  {
+    sexo: 'Niño',
+    icon: '👦',
+    color: '#e0f4ff',
+    accentColor: '#1e3a8a',
+    paleta: 'Azul cielo · Azul marino-dorado · Celeste-blanco · Verde sage · Astronauta',
+    elementos: 'Ositos, autos, aviones, dinosaurios, astronautas, mapas, cohetes, estrellas',
+    surtido: 'Macarons azul, galletas con biberón, mini cupcakes con osito, bombones azul-blanco, paletas en forma de bebé niño'
+  },
+  {
+    sexo: 'Sorpresa (Gender Reveal)',
+    icon: '🎉',
+    color: '#fff5e6',
+    accentColor: '#FFC857',
+    paleta: 'Híbrida rosa-azul hasta el momento del reveal · Neutro al inicio',
+    elementos: 'Pastel sorpresa con relleno azul/rosa, globos He/She, smoke bomb, dip dye, confetti cannon',
+    surtido: 'Mitad rosa / mitad azul, ambas opciones presentes, mecánica de reveal coordinada con pastel'
+  }
+];
+
+// =============== Dulces aptos mamá embarazada (UNIQUE - diferenciador salud) ===============
+const aptoMama = [
+  { icon: '🍫', title: 'Chocolates suaves sin cafeína excesiva', desc: 'Chocolate con leche y blanco premium (sin café/cocoa oscuro en exceso). Niveles seguros de cafeína para mamá embarazada en T2 y T3.' },
+  { icon: '🍓', title: 'Frutas frescas lavadas', desc: 'Frutas seleccionadas y lavadas con cloro de grado alimentario para eliminar cualquier riesgo bacterial (toxoplasmosis). Especialmente fresas, frambuesas, uvas.' },
+  { icon: '🚫🍷', title: 'Cero alcohol declarado', desc: 'Ningún dulce con licor (sin trufas con whisky, sin bombones con licor). Si paquete general tiene licorosos, se separa SECCIÓN MAMÁ visiblemente etiquetada.' },
+  { icon: '🐟', title: 'Sin pescado crudo / sushi', desc: 'En mesa híbrida con tabla de embutidos, NO incluimos sushi, ceviche, salmón ahumado o carnes crudas. Riesgo de listeria y mercurio para feto en desarrollo.' },
+  { icon: '🥜', title: 'Etiquetado de alérgenos visible', desc: 'Cada presentación etiquetada con ingredientes principales y alérgenos. Si la mamá tiene alergia (común desarrollar nuevas en embarazo), evita confusión.' },
+  { icon: '👩‍🍼', title: 'Estación mamá VIP separada', desc: 'En paquetes Premium y Luxury, área dedicada SOLO para la mamá con bebidas sin azúcar (limonada, té frutal sin cafeína), dulces seleccionados aptos y silla cómoda.' }
+];
+
+// =============== Mommy-to-be Care (UNIQUE - emocional) ===============
+const mommyCare = [
+  { icon: '🪑', title: 'Silla cómoda para mamá', desc: 'Coordinamos con organizadora para reservar silla acolchonada con cojín, idealmente reclinable o con respaldo alto. Mamá embarazada en T3 necesita espalda con soporte.' },
+  { icon: '💧', title: 'Hidratación premium', desc: 'Estación de bebidas sin alcohol cerca de la mesa principal: agua mineral con menta, limonada natural, té de manzanilla frío. Mamá embarazada se deshidrata más rápido.' },
+  { icon: '📸', title: 'Foto de la barriguita', desc: 'Coordinamos con fotógrafo o family member el mejor ángulo para foto de la mamá frente a la mesa de dulces. La mesa enmarca la barriguita y queda foto memorable.' },
+  { icon: '🎁', title: 'Coordinación con regalos', desc: 'Si la mesa se monta donde habrá regalos, coordinamos posición para no interferir con el momento de "abrir regalos" — uno de los más fotografiados.' }
+];
+
+// =============== Mecánicas Gender Reveal (UNIQUE) ===============
+const mecanicasReveal = [
+  { icon: '🎂', title: 'Pastel sorpresa con relleno', desc: 'Pastel exterior blanco/neutro. Al cortar, revela relleno rosa o azul. Coordinamos con pastelero para asegurar timing perfecto.' },
+  { icon: '🎈', title: 'Globo gigante con confeti', desc: 'Globo de 1m+ con confeti rosa o azul adentro. Mamá y papá lo explotan juntos frente a la mesa para foto épica.' },
+  { icon: '💨', title: 'Smoke bomb fotográfica', desc: 'Bomba de humo color rosa o azul. Para foto exterior con resultado dramático y muy fotogénico para Instagram/TikTok.' },
+  { icon: '🌊', title: 'Dip dye / spray reveal', desc: 'Mamá y papá visten ropa blanca y son rociados con pintura comestible rosa o azul. Tendencia 2026.' },
+  { icon: '🎊', title: 'Confetti cannon', desc: 'Cañones de confetti rosa o azul disparados al unísono por mamá y papá. Ideal para baby shower exterior.' },
+  { icon: '🎁', title: 'Caja sorpresa de globos', desc: 'Caja grande blanca cerrada. Al abrirla salen globos rosa o azul flotando. Mecánica clásica y siempre efectiva.' }
+];
+
+// =============== Características (Diferenciadores Baby Shower) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño tierno por sexo del bebé',
+    desc: 'Cada mesa se diseña al sexo del bebé: niña (paletas rosa-dorado, lavanda, coral, princesas, mariposas), niño (azul-cielo, azul-marino, ositos, astronauta, dinosaurios) o sorpresa para gender reveal (híbrida rosa-azul con mecánica de revelación coordinada). 12 temáticas tiernas trabajadas.',
+    img: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa.avif'
+  },
+  {
+    num: 2,
+    title: '100% apto para mamá embarazada',
+    desc: 'Diferenciador único: TODO el surtido base es seguro para mamá embarazada. Sin alcohol declarado, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo en tablas, etiquetado de alérgenos visible y estación mamá VIP separada en Premium/Luxury.',
+    img: '/img/eventos/baby-shower/candy-bar-baby-shower-celeste-macarons-osito.avif'
+  },
+  {
+    num: 3,
+    title: 'Mommy-to-be care integral',
+    desc: 'Coordinamos silla cómoda con cojín para mamá embarazada T3, estación de hidratación con bebidas sin alcohol y sin cafeína cerca de la mesa, mejor ángulo para foto de la barriguita frente al backdrop, integración con momento de regalos. Cuidado de la futura mamá como prioridad.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Mecánicas Gender Reveal coordinadas',
+    desc: 'Para baby shower con revelación de género: pastel sorpresa con relleno, globo gigante con confeti, smoke bomb fotográfica, dip dye coordinado, cañón de confetti o caja sorpresa de globos. Coordinamos timing perfecto con pastelero/decorador para foto épica del momento.',
+    img: '/img/eventos/baby-shower/mesa-dulces-revelacion-genero.avif'
+  }
+];
+
+// =============== Paquetes Baby Shower CDMX ===============
+const paquetesBaby = [
   {
     name: 'Esencial',
-    icon: '🍼',
-    price: '$4,900',
+    icon: '🎀',
+    price: '$4,500',
     currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para celebracion intima',
-    features: ['Mesa principal tematizada', 'Surtido base de dulces y postres', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '20-40 invitadas',
+    tagline: 'Baby shower íntimo en domicilio',
+    features: [
+      'Mesa baby base (10-12 variedades)',
+      'Paleta alineada al sexo del bebé',
+      'Atrezzo tierno (ositos, lazos, mini biberón)',
+      'Etiquetas con nombre del bebé',
+      '100% apto mamá embarazada',
+      'Bolos sorpresa coordinados',
+      'Cobertura zonas centrales CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para baby shower (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20Baby%20Shower%20CDMX%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$8,200',
+    icon: '👶',
+    price: '$7,200',
     currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por tematica', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Personalizacion grafica', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '40-80 invitadas',
+    tagline: 'El más solicitado por mamás CDMX',
+    features: [
+      'Mesa baby completa (14-18 variedades)',
+      'Backdrop tierno con nombre del bebé',
+      'Atrezzo profesional 12 temáticas a elegir',
+      'Macarons franceses con inicial',
+      'Estación mamá VIP separada',
+      'Mecánica gender reveal incluida (si aplica)',
+      'Coordinación con organizadora del baby',
+      'Cobertura amplia CDMX (Polanco, Lomas, Coyoacán, Roma)'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para baby shower (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Baby%20Shower%20CDMX%20-%20Premium'
   },
   {
     name: 'Luxury',
     icon: '💎',
-    price: '$12,900',
+    price: '$11,800',
     currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    guests: '80+ invitadas',
+    tagline: 'Baby shower memorable de alto nivel',
+    features: [
+      'Mesa de autor (20+ variedades temáticas)',
+      'Backdrop floral 360° con nombre y temática',
+      'Stand para pastel baby shower incluido',
+      'Mesa de frutas o donas complementaria',
+      'Estación mamá VIP premium con bebidas',
+      'Mecánica gender reveal premium (smoke + globo)',
+      'Foto profesional mamá con barriguita y mesa',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Anzures + Condesa CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para baby shower (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Baby%20Shower%20CDMX%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '150+', label: 'Baby Showers' },
-  { number: '100%', label: 'Personalizable' },
-  { number: '35+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Diseno Tematico', desc: 'Composicion visual alineada al concepto de bienvenida del bebe.', img: '/img/eventos/baby-shower/decoracion-mesa-baby-shower.avif' },
-  { num: 2, title: 'Surtido Curado', desc: 'Seleccion de dulces y postres que equilibra sabor, color y presentacion.', img: '/img/eventos/baby-shower/dulces-personalizados-baby-shower.avif' },
-  { num: 3, title: 'Montaje Profesional', desc: 'Implementacion ordenada para cuidar estetica y flujo de invitados.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif' },
-  { num: 4, title: 'Formato Flexible', desc: 'Adaptamos escala y estilo para casa, salon o jardin.', img: '/img/eventos/baby-shower/mesa-dulces-revelacion-genero.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief del Baby Shower', desc: 'Definimos fecha, sede, invitados y estilo del evento.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Presentamos configuracion de diseno, surtido y alcance operativo.' },
-  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos logistica, horarios y requerimientos del venue.' },
-  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos, operamos y cerramos el servicio con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Bautizo', excerpt: 'Montajes elegantes y familiares para ceremonias religiosas.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
-  { title: 'Mesa de Dulces para Primera Comunion', excerpt: 'Diseno sobrio y armonico para celebraciones de comunion.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Comunion' },
-  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar divertido y tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Propuestas elegantes para celebraciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Baby Shower en CDMX',
-  description: 'Servicio de candy bar para baby shower en Ciudad de Mexico con diseno personalizado, montaje profesional y surtido premium.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso Baby Shower ===============
+const procesoBaby = [
+  {
+    num: 1,
+    title: 'Brief con la organizadora',
+    desc: 'Recibimos brief de la organizadora (hermana, mamá, mejor amiga de la mamá embarazada): fecha, sede (domicilio, salón boutique, jardín), número de invitadas, sexo del bebé conocido o sorpresa, temática preferida (boho, animalitos, princesa, astronauta, etc.), trimestre de embarazo de la mamá y restricciones alimenticias específicas.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4900',
-    highPrice: '12900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Baby Shower ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta tierna',
+    desc: 'En menos de 24 h enviamos propuesta con render conceptual de la temática elegida, paleta alineada al sexo del bebé o híbrida (gender reveal), surtido apto para mamá embarazada, estación mamá VIP, mecánica de gender reveal si aplica y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con organizadora',
+    desc: 'Coordinamos con la organizadora del baby: timing del evento (apertura, juegos, regalos, gender reveal si aplica, despedida), posición de la mesa, integración con decoración general del baby, coordinación con pastelero para mecánica de reveal y mejor ángulo para foto de la mamá con la barriguita.'
+  },
+  {
+    num: 4,
+    title: 'Día del baby shower',
+    desc: 'Llegamos 1-2 h antes a la sede. Montamos sin interferir con la organizadora ni decorador, operamos durante todo el baby con reposición continua, reservamos silla cómoda y bebidas para la mamá, coordinamos foto del momento gender reveal y entregamos bolos sorpresa al cierre.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería baby shower (8 imágenes reales) ===============
+const galeriaImages = [
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', alt: 'Mesa de dulces baby shower niña rosa con cupcakes CDMX' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif', alt: 'Mesa de dulces baby shower niño ositos azul CDMX' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-boho-eucalipto.avif', alt: 'Mesa de dulces baby shower boho con eucalipto CDMX' },
+  { src: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar baby shower rosa pastel con flores CDMX' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-revelacion-genero.avif', alt: 'Mesa de dulces revelación de género gender reveal CDMX' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-celeste-nubes-globos.avif', alt: 'Mesa de dulces baby shower celeste nubes y globos CDMX' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-nino-globos-estrellas.avif', alt: 'Mesa de dulces baby shower niño globos y estrellas CDMX' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-neutro-beige.avif', alt: 'Mesa de dulces baby shower neutro beige minimalista CDMX' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría 100% apta mamá embarazada', desc: 'Surtido de 10 a 20+ variedades seguras: chocolates suaves sin cafeína excesiva (Lindt leche/blanco), macarons franceses, mini cupcakes tiernos, galletas con motivos del bebé, frutas lavadas con cloro alimentario, dulces sin alcohol declarado y opciones para mamás con restricciones (sin gluten, sin lactosa, sin azúcar para diabetes gestacional).' },
+  { num: '02', title: 'Diseño tierno por sexo del bebé', desc: 'Cristalería en colores tiernos (rosa pastel para niña, azul cielo para niño, neutro para sorpresa), atrezzo coordinado a la temática (ositos, lazos, biberón mini, princesas, astronauta, animalitos del bosque, twinkle twinkle, boho-eucalipto, etc.), backdrop con nombre del bebé y mensaje de bienvenida.' },
+  { num: '03', title: 'Estación mamá VIP separada', desc: 'En paquetes Premium y Luxury: área dedicada SOLO para la mamá embarazada con silla cómoda con cojín, bebidas sin alcohol y sin cafeína (limonada natural, té de manzanilla frío, agua mineral con menta), dulces seleccionados aptos en presentación premium y respaldo del fotógrafo para foto de barriguita.' },
+  { num: '04', title: 'Mecánica Gender Reveal coordinada', desc: 'Para baby shower con revelación: pastel sorpresa con relleno azul/rosa, globo gigante con confeti, smoke bomb fotográfica, dip dye, confetti cannon o caja sorpresa de globos. Coordinamos timing perfecto con pastelero, decorador y fotógrafo para foto épica del momento.' },
+  { num: '05', title: 'Bolos sorpresa para invitadas', desc: 'Cajitas o bolsas decoradas con la temática del baby (osito, princesa, animalitos, etc.), con dulces aptos para todas las invitadas y mensaje de "gracias por celebrar con nosotras". En Luxury sumamos mini-detalle adicional (pulsera de hilo, vela aromática mini).' },
+  { num: '06', title: 'Coordinación con organizadora CDMX', desc: 'Trabajamos directamente con la organizadora del baby (hermana, mamá, mejor amiga). Coordinamos timing del evento (apertura, juegos, regalos, gender reveal, despedida), posición de mesa, integración con decoración, mecánica de fotos. Todo para que la organizadora disfrute el día y no esté operando.' }
+];
+
+// =============== Testimonios baby shower CDMX ===============
+const testimonios = [
+  {
+    name: 'Karla Domínguez (organizó para su hermana)',
+    initials: 'KD',
+    review: 'Organicé el baby shower de mi hermana en Polanco. Mesa boho-eucalipto preciosa con surtido apto para ella (tiene diabetes gestacional, MEDEDUL incluyó opciones sin azúcar sin que yo lo pidiera, lo notaron en el brief). La estación mamá VIP fue genial: silla cómoda y bebidas sin cafeína. Mi hermana lloró de emoción.',
+    event: 'Baby Shower · Polanco · Niña',
+    rating: 5
+  },
+  {
+    name: 'Isabela Rojas (gender reveal)',
+    initials: 'IR',
+    review: 'Gender reveal en Coyoacán para mi primer bebé. Mesa híbrida rosa-azul preciosa, pastel sorpresa con relleno azul que cortamos con mi esposo. Coordinaron con el pastelero y fotógrafo. La foto del momento es épica. Será NUESTRO proveedor para baby showers de toda la familia.',
+    event: 'Gender Reveal · Coyoacán · Niño sorpresa',
+    rating: 5
+  },
+  {
+    name: 'Familia Velázquez (sprinkle)',
+    initials: 'FV',
+    review: 'Sprinkle baby shower de mi segundo bebé en Lomas. Mesa elegante neutro-beige minimalista preciosa, no tan grande como el primer baby pero igual de cuidada. La organizadora (mi mejor amiga) coordinó todo con MEDEDUL y yo solo disfruté.',
+    event: 'Sprinkle · Lomas · Sorpresa',
+    rating: 5
+  }
+];
+
+// =============== FAQ Baby Shower (12 preguntas SEO-optimizadas) ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para baby shower en CDMX?',
+    answer: 'Incluye diseño tierno por sexo del bebé (niña, niño o sorpresa para gender reveal), surtido 100% apto para mamá embarazada (sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo, etiquetado de alérgenos visible), 12 temáticas tiernas a elegir (boho-eucalipto, animalitos del bosque, twinkle twinkle, princesa rosa-dorado, astronauta, ositos, etc.), cristalería en colores tiernos, backdrop con nombre del bebé, estación mamá VIP separada (Premium/Luxury), mecánica de gender reveal coordinada si aplica, bolos sorpresa para invitadas, montaje 1-2 h antes y coordinación con la organizadora del baby.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para baby shower en CDMX?',
+    answer: 'En CDMX iniciamos en $4,500 MXN (Esencial, 20-40 invitadas) y llegamos a $11,800 MXN (Luxury, 80+ invitadas). El precio depende del número de invitadas, surtido seleccionado, temática elegida, mecánica de gender reveal incluida, estación mamá VIP, servicios complementarios (stand para pastel, mesa de frutas, mesa de donas y cupcakes). Cotización gratuita en menos de 24 horas hábiles desde nuestras sucursales Anzures y Condesa.'
+  },
+  {
+    question: '¿El surtido es realmente apto para una mamá embarazada?',
+    answer: 'Sí, es uno de nuestros diferenciadores únicos. TODO el surtido base es seguro para mamá embarazada: chocolates con leche y blanco premium (sin niveles altos de cafeína de chocolate oscuro), frutas lavadas con cloro de grado alimentario (elimina riesgo toxoplasmosis), CERO dulces con alcohol (sin trufas con licor, sin bombones con whisky), sin pescado crudo en tablas (sin sushi, sin salmón ahumado), etiquetado de alérgenos visible y estación mamá VIP separada en Premium/Luxury. Si la mamá tiene diabetes gestacional, ajustamos sin costo.'
+  },
+  {
+    question: '¿Manejan baby shower de niña, de niño y gender reveal sorpresa?',
+    answer: 'Sí, las 3 modalidades. Para niña: paletas rosa-dorado, lavanda, fucsia, coral con elementos de princesa, mariposas, sirena. Para niño: azul-cielo, azul-marino, sage con ositos, autos, astronauta, dinosaurios. Para sorpresa (gender reveal): mesa híbrida rosa-azul hasta el momento de la revelación con mecánica coordinada (pastel sorpresa con relleno, globo gigante con confeti, smoke bomb, dip dye, confetti cannon o caja sorpresa de globos).'
+  },
+  {
+    question: '¿Qué temáticas baby shower manejan?',
+    answer: 'Trabajamos 12 temáticas baby tiernas: Animalitos del bosque (zorros, conejos, búhos), Nube y arcoíris (paleta pastel multi-color), Twinkle Twinkle Little Star (estrellas y lunas), Boho-Eucalipto (terracota y pampas), Ositos & Animalitos (peluches), Princesa rosa-dorado, Astronauta espacial, Mariposas y flores, Tropical & Hawaiian, Sirena bebé, Boy Scout / Aventura y Neutro minimalista (sin género). Cada temática tiene paleta, atrezzo y surtido coordinados.'
+  },
+  {
+    question: '¿Tienen mommy-to-be care para la futura mamá?',
+    answer: 'Sí, es parte central del servicio. Coordinamos silla cómoda con cojín para mamá embarazada T3 (pueden ser largas las horas), estación de hidratación con bebidas sin alcohol y sin cafeína cerca de la mesa principal, mejor ángulo para foto de la barriguita con la mamá frente al backdrop e integración con el momento de "abrir regalos" (uno de los más fotografiados del baby shower).'
+  },
+  {
+    question: '¿Cómo coordinan la mecánica de Gender Reveal?',
+    answer: 'Trabajamos 6 mecánicas coordinadas: pastel sorpresa con relleno azul/rosa (cortamos con pastelero), globo gigante con confeti dentro (mamá y papá lo explotan juntos), smoke bomb fotográfica para foto exterior dramática, dip dye coordinado (papás vestidos de blanco, rociados con pintura comestible), confetti cannon disparados al unísono o caja sorpresa con globos flotantes. Coordinamos timing con pastelero, decorador y fotógrafo para foto épica del momento.'
+  },
+  {
+    question: '¿Qué tipos de baby shower atienden?',
+    answer: 'Atendemos 8 tipos de baby shower: Tradicional (solo mujeres en domicilio o salón), Gender Reveal (con sorpresa coordinada), Co-ed/Mixto (parejas invitadas, tendencia moderna), Diaper Party (solo papás, regalos prácticos), Sip & See (post-nacimiento con familia visitando al bebé), Sprinkle (segundo bebé, más íntimo), Drive-by (caravana de invitados frente a casa, post-pandemia) y Virtual (con envío de cajitas a invitados remotos + mesa para presenciales).'
+  },
+  {
+    question: '¿Pueden combinar la mesa con stand para pastel, frutas, donas o mesa de dulces clásica?',
+    answer: 'Sí, son las combinaciones más solicitadas para baby shower. Sumamos <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (el momento más dulce del baby, ideal para pastel del bebé), <a href="/tipos-de-mesas-de-dulces/mesa-de-frutas">Mesa de Frutas</a> (frescura y color para mamá embarazada), <a href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes">Donas y Cupcakes</a> (diseños adorables del bebé), o la <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> clásica con tonos tiernos personalizados.'
+  },
+  {
+    question: '¿Atienden baby shower en domicilios y salones boutique de CDMX?',
+    answer: 'Sí. Cubrimos domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas, Satélite) y salones boutique para celebraciones íntimas femeninas (Casa Lamm, Belmondo, The Magnolia Hotel, Saks, Hotel St. Regis). Para baby showers grandes coordinamos en jardines de hoteles 5 estrellas. La mayoría son en domicilio con grupo cerrado de mujeres.'
+  },
+  {
+    question: '¿Pueden organizar baby shower con muy poco tiempo de aviso?',
+    answer: 'Sí, somos flexibles. Para baby showers regulares recomendamos 2-3 semanas de anticipación, pero podemos atender con 5-7 días de aviso si la fecha está disponible (cargo de urgencia 15%). Para baby showers grandes (50+ invitadas) o con mecánica de gender reveal coordinada con pastelero externo, sugerimos 3-4 semanas mínimo. Reservamos fecha con anticipo del 50%.'
+  },
+  {
+    question: '¿Pueden coordinar baby shower con cumpleaños del primer bebé o bautizo posterior?',
+    answer: 'Sí. Si la familia ya está planeando el primer cumpleaños del bebé al cumplir el año o el bautizo posterior, mantenemos consistencia visual entre los eventos (paleta, temática, simbología). También trabajamos <a href="/candy-bar-eventos/mesa-dulces-bautizo">Mesas para Bautizo</a> con simbología bautismal específica y <a href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil">Mesas para Cumpleaños Infantil</a> con temáticas de personajes para el primer cumpleaños.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-baby-shower#service",
+      "name": "Mesa de Dulces para Baby Shower en CDMX",
+      "serviceType": "Mesa de Dulces Baby Shower / Candy Bar Gender Reveal",
+      "description": "Mesa de dulces para baby shower en Ciudad de México con 12 temáticas tiernas (boho-eucalipto, animalitos del bosque, princesa, astronauta, twinkle twinkle), 100% apto mamá embarazada (sin alcohol, sin cafeína excesiva, frutas lavadas), mecánicas de Gender Reveal coordinadas, mommy-to-be care con silla cómoda y bebidas sin cafeína. Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de Mexico",
+          "addressRegion": "CDMX",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "160",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": [
+          { "@type": "Place", "name": "Polanco" },
+          { "@type": "Place", "name": "Lomas de Chapultepec" },
+          { "@type": "Place", "name": "Pedregal" },
+          { "@type": "Place", "name": "Coyoacan" },
+          { "@type": "Place", "name": "Roma Norte" },
+          { "@type": "Place", "name": "Condesa" },
+          { "@type": "Place", "name": "Interlomas" },
+          { "@type": "Place", "name": "Satelite" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4500",
+        "highPrice": "11800",
+        "offerCount": "3",
+        "offers": paquetesBaby.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Baby Shower CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias y organizadoras planeando baby shower o gender reveal en CDMX"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer.replace(/<[^>]+>/g, '')
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Baby Shower", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-baby-shower" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Baby Shower en CDMX | Mededul"
-  description="Mesa de dulces para baby shower en CDMX con diseno personalizado, montaje profesional y opciones para nino, nina o gender reveal."
+  title="Mesa de Dulces Baby Shower CDMX | Apto Mamá · Gender Reveal · 12 Temáticas | MEDEDUL"
+  description="Mesa de dulces para baby shower en CDMX 100% apto para mamá embarazada (sin alcohol, sin cafeína), 12 temáticas tiernas (boho, animalitos, princesa, astronauta), mecánicas de Gender Reveal coordinadas, estación mamá VIP. 160+ baby showers · Polanco, Lomas, Coyoacán. Desde $4,500 MXN."
   canonical="/candy-bar-eventos/mesa-dulces-baby-shower"
-  ogImage="/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif"
+  ogImage="/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
     title="Mesa de Dulces para Baby Shower en CDMX"
-    highlight="Baby Shower"
-    subtitle="Propuesta tematizada para celebrar la llegada de tu bebe con una experiencia visual y dulce impecable"
-    secondaryContent={`<p><strong>Baby shower</strong> profesional requiere una mesa de dulces que combine ternura, orden visual y funcionalidad para que la celebracion fluya sin improvisaciones. En Mededul disparamos la experiencia del evento con una propuesta personalizada por estilo, paleta y aforo.</p><p><strong>Dulces</strong> seleccionados con criterio estetico y operativo elevan la percepcion de calidad, mejoran el recuerdo fotografico y generan una experiencia mas completa para tus invitadas. Ejecutamos montaje y servicio integral en CDMX para que disfrutes el evento con total tranquilidad.</p>`}
+    highlight="Baby Shower CDMX"
+    subtitle="La espera más dulce del mundo · 100% apto mamá embarazada · 12 temáticas tiernas · Gender Reveal coordinado"
+    secondaryContent={`<p>Mesas adorables para niño, niña o la emoción de una <strong>revelación de género inolvidable</strong>. La <strong>mesa de dulces para baby shower en Ciudad de México</strong> es el centro emocional de la celebración: la foto que la mamá va a guardar para siempre y el detalle que las invitadas van a recordar como símbolo del amor con el que recibieron al bebé. En <strong>MEDEDUL</strong> diseñamos cada mesa de baby shower con respeto por la mamá embarazada: 12 temáticas tiernas a elegir (boho-eucalipto, animalitos del bosque, twinkle twinkle little star, princesa rosa-dorado, astronauta, ositos, mariposas, tropical, sirena bebé, neutro minimalista), surtido <strong>100% apto para mamá embarazada</strong> (sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo, etiquetado de alérgenos visible) y diferenciador único: <strong>estación mamá VIP separada</strong> con silla cómoda, bebidas sin alcohol y sin cafeína, y respaldo del fotógrafo para foto de la barriguita con la mesa.</p><p>Para <strong>Gender Reveal</strong> coordinamos 6 mecánicas: pastel sorpresa con relleno azul/rosa (con pastelero), globo gigante con confeti, smoke bomb fotográfica, dip dye, confetti cannon o caja sorpresa de globos. Trabajamos timing perfecto con decorador y fotógrafo para foto épica del momento. Atendemos los <strong>8 tipos de baby shower</strong>: tradicional, gender reveal, co-ed (mixto), diaper party, sip & see, sprinkle (segundo bebé), drive-by y virtual. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX (Polanco, Lomas, Coyoacán, Roma, Condesa, Pedregal, Interlomas, Satélite).</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta al tamano y estilo de tu baby shower." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="baby-stats">
+    <div class="container">
+      <div class="baby-stats__grid">
+        {stats.map(s => (
+          <div class="baby-stat">
+            <span class="baby-stat__num">{s.number}</span>
+            <span class="baby-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Baby Shower" descriptions={['Disenamos candy bars con enfoque estetico y operativo para una experiencia consistente.', 'Integramos personalizacion, montaje y servicio para que el evento se vea impecable.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== 8 Tipos de baby shower (UNIQUE) ===================== -->
+  <section class="baby-tipos section-padding" id="tipos-baby">
+    <div class="container">
+      <SectionHeader
+        title="8 tipos de baby shower"
+        titleHighlight="que atendemos"
+        subtitle="Desde el tradicional íntimo hasta gender reveal viral, drive-by post-pandemia y virtual con familia remota"
+        content={`<p>Cada tipo de baby shower tiene <strong>requerimientos distintos de paleta, escala y mecánica</strong>. Estos son los 8 formatos que atendemos con metodología específica para cada uno.</p>`}
+      />
+      <div class="baby-tipos__grid">
+        {tiposBaby.map(t => (
+          <div class="baby-tipo">
+            <span class="baby-tipo__icon" aria-hidden="true">{t.icon}</span>
+            <h3 class="baby-tipo__name">{t.tipo}</h3>
+            <p class="baby-tipo__desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de baby shower sin fricciones." steps={processSteps} />
+  <!-- ===================== 12 Temáticas baby (UNIQUE catalog) ===================== -->
+  <section class="baby-tematicas section-padding" id="tematicas-baby">
+    <div class="container">
+      <SectionHeader
+        title="12 temáticas baby"
+        titleHighlight="tiernas"
+        subtitle="Catálogo visual de las temáticas más solicitadas en CDMX. Cada una con paleta, atrezzo y surtido coordinados"
+      />
+      <div class="baby-tematicas__grid">
+        {tematicas.map(t => (
+          <div class="baby-tematica" style={`--tema-color: ${t.color}`}>
+            <div class="baby-tematica__img">
+              <img
+                src={getCdnUrl(t.img, { w: 400, q: 80 })}
+                alt={`Mesa de dulces baby shower temática ${t.nombre}`}
+                loading="lazy"
+                width="400"
+                height="300"
+              />
+            </div>
+            <div class="baby-tematica__body">
+              <span class="baby-tematica__icon" aria-hidden="true">{t.icon}</span>
+              <h3 class="baby-tematica__title">{t.nombre}</h3>
+              <p class="baby-tematica__desc">{t.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para otras celebraciones." events={eventCards} />
+  <!-- ===================== Por sexo del bebé (UNIQUE) ===================== -->
+  <section class="baby-sexo section-padding" id="por-sexo">
+    <div class="container">
+      <SectionHeader
+        title="Diseñamos para"
+        titleHighlight="niña, niño o sorpresa"
+        subtitle="Cada bebé merece una propuesta visual y simbólica específica"
+      />
+      <div class="baby-sexo__grid">
+        {porSexo.map(s => (
+          <div class="baby-sexo__card" style={`--sexo-color: ${s.accentColor}; background: ${s.color};`}>
+            <div class="baby-sexo__icon" aria-hidden="true">{s.icon}</div>
+            <h3 class="baby-sexo__title">Baby Shower {s.sexo}</h3>
+            <div class="baby-sexo__field">
+              <strong>Paletas:</strong>
+              <p>{s.paleta}</p>
+            </div>
+            <div class="baby-sexo__field">
+              <strong>Elementos visuales:</strong>
+              <p>{s.elementos}</p>
+            </div>
+            <div class="baby-sexo__field">
+              <strong>Surtido sugerido:</strong>
+              <p>{s.surtido}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Apto mamá embarazada (UNIQUE - diferenciador salud) ===================== -->
+  <section class="baby-apto section-padding" id="apto-mama">
+    <div class="container">
+      <SectionHeader
+        title="100% apto para"
+        titleHighlight="mamá embarazada"
+        subtitle="Diferenciador único MEDEDUL: el único proveedor que diseña con seguridad alimenticia para embarazo"
+        content={`<p>Las mamás embarazadas tienen <strong>restricciones alimenticias específicas</strong> durante el embarazo. La mayoría de proveedores no las contempla y la mamá termina sin poder comer su propia mesa de dulces. MEDEDUL diseña con <strong>seguridad alimenticia para embarazo</strong> desde el primer día.</p>`}
+      />
+      <div class="baby-apto__grid">
+        {aptoMama.map(a => (
+          <div class="baby-apto__item">
+            <div class="baby-apto__icon" aria-hidden="true">{a.icon}</div>
+            <h3 class="baby-apto__title">{a.title}</h3>
+            <p class="baby-apto__desc">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="baby-apto__note">
+        <strong>👩‍🍼 Importante:</strong> En el brief del baby shower menciona el trimestre de embarazo, restricciones específicas (diabetes gestacional, alergias desarrolladas, anemia) y preferencias alimenticias de la mamá. Sin costo adicional ajustamos el surtido y la estación VIP.
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Mommy-to-be Care (UNIQUE - emocional) ===================== -->
+  <section class="baby-mommy section-padding" id="mommy-care">
+    <div class="container">
+      <SectionHeader
+        title="Mommy-to-be Care"
+        titleHighlight="integral"
+        subtitle="4 cuidados específicos para que la futura mamá disfrute SU día sin estrés"
+      />
+      <div class="baby-mommy__grid">
+        {mommyCare.map(m => (
+          <div class="baby-mommy__item">
+            <div class="baby-mommy__icon" aria-hidden="true">{m.icon}</div>
+            <h3 class="baby-mommy__title">{m.title}</h3>
+            <p class="baby-mommy__desc">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Gender Reveal mecánicas (UNIQUE) ===================== -->
+  <section class="baby-reveal section-padding" id="gender-reveal">
+    <div class="container">
+      <SectionHeader
+        title="6 mecánicas"
+        titleHighlight="Gender Reveal"
+        subtitle="Coordinamos cualquier mecánica de revelación con pastelero, decorador y fotógrafo para foto épica del momento"
+      />
+      <div class="baby-reveal__grid">
+        {mecanicasReveal.map(m => (
+          <div class="baby-reveal__item">
+            <div class="baby-reveal__icon" aria-hidden="true">{m.icon}</div>
+            <h3 class="baby-reveal__title">{m.title}</h3>
+            <p class="baby-reveal__desc">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="baby-intro" id="intro-baby">
+    <div class="container">
+      <div class="baby-intro__grid">
+        <div class="baby-intro__copy">
+          <span class="baby-intro__badge">Especialistas en baby shower CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> el baby shower de la futura mamá en CDMX</h2>
+          <p>El baby shower es uno de los momentos más emocionales en la vida de la futura mamá: la celebración del amor con el que la familia y amigas le dan la bienvenida al bebé que viene en camino. Por eso cada mesa de dulces para baby shower que montamos en Ciudad de México parte de un <strong>proceso profesional integral con enfoque en la mamá</strong>: brief con la organizadora del baby (hermana, mamá, mejor amiga), propuesta visual de la temática elegida, alineación con la decoración general del baby, coordinación con pastelero/decorador/fotógrafo y operación impecable durante todo el evento.</p>
+          <p>La mesa de dulces para baby shower CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida con seguridad alimenticia para embarazo</strong> que respeta la condición de la futura mamá (100% apto para mamá embarazada: sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo), integra 12 temáticas tiernas (boho-eucalipto, animalitos del bosque, twinkle twinkle, princesa, astronauta, ositos, etc.) y considera el sexo del bebé (niña, niño o sorpresa para gender reveal).</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas en Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, lo que nos permite llegar puntualmente a cualquier domicilio o salón boutique en Ciudad de México: Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas, Satélite. Si quieres conocer más detalle sobre cobertura CDMX, visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a>. Para conceptos integrales con producción de props impresos a medida y direccón de arte completa conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Baby%20Shower%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a celebrar a la futura mamá y al bebé que viene en camino.</p>
+        </div>
+        <div class="baby-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/baby-shower/candy-bar-baby-shower-celeste-macarons-osito.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces baby shower MEDEDUL en CDMX celeste con macarons y ositos"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-baby"
+    badge="Paquetes Baby Shower CDMX"
+    title="Elige el formato para el"
+    titleHighlight="baby shower"
+    subtitle="3 niveles claros con 100% apto mamá embarazada incluido"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para baby shower en CDMX</strong>. <strong>Esencial</strong> para baby íntimo en domicilio (20-40 invitadas); <strong>Premium</strong> es el más solicitado (40-80 invitadas) e incluye backdrop con nombre del bebé, atrezzo profesional de las 12 temáticas, estación mamá VIP separada y mecánica de gender reveal incluida si aplica; <strong>Luxury</strong> es la propuesta de alto nivel (80+ invitadas) con backdrop floral 360°, stand para pastel incluido, mesa de frutas o donas complementaria, foto profesional de mamá con barriguita y operación extendida.</p><p>Todos los paquetes incluyen <strong>surtido 100% apto mamá embarazada</strong>, bolos sorpresa para invitadas y coordinación con la organizadora del baby.</p>`}
+    packages={paquetesBaby}
+    note="💡 <strong>Todos los paquetes Baby Shower CDMX incluyen:</strong> surtido 100% apto mamá embarazada, atrezzo tierno de la temática elegida, etiquetas con nombre del bebé, bolos sorpresa, coordinación con organizadora del baby, montaje 1-2 h antes en domicilio o salón y desmontaje al cierre."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-baby"
+    badge="Diferenciadores Baby Shower"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa Baby Shower"
+    descriptions={[
+      "Con <strong>160+ baby showers montados en CDMX</strong>, <strong>12 temáticas tiernas trabajadas</strong> y <strong>100% apto para mamá embarazada</strong>, MEDEDUL es la opción especializada para organizadoras que buscan mesa segura, tierna y memorable.",
+      "Cada mesa parte del mismo método con <strong>protagonismo de la mamá</strong>: brief con la organizadora, propuesta visual tierna, coordinación con pastelero/decorador, mommy-to-be care (silla cómoda, bebidas sin cafeína), y mecánica gender reveal coordinada si aplica. La diferencia: <strong>la futura mamá es el centro de todo el diseño</strong>."
+    ]}
+    stats={[
+      { number: "160+", label: "Baby showers CDMX" },
+      { number: "12+", label: "Temáticas tiernas" },
+      { number: "100%", label: "Apto mamá" },
+      { number: "5.0", label: "Calificación organizadoras" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="baby-galeria" id="galeria-baby">
+    <div class="container">
+      <SectionHeader
+        title="Baby showers reales en CDMX"
+        titleHighlight="montados"
+        subtitle="Selección curada de baby showers MEDEDUL en distintas temáticas, paletas y modalidades"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>baby shower real en CDMX</strong>. La paleta cromática, la temática, el atrezzo y el surtido fueron <strong>diseñados específicamente para cada futura mamá</strong> según el sexo del bebé, la temática elegida y el número de invitadas.</p>`}
+      />
+      <div class="baby-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="baby-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="baby-incluye section-padding" id="incluye-baby">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa Baby Shower CDMX"
+        subtitle="Servicio integral tierno con seguridad alimenticia para embarazo"
+        content={`<p>Todos los paquetes Baby Shower CDMX incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad del backdrop. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="baby-incluye__grid">
+        {incluye.map(item => (
+          <div class="baby-incluye__item">
+            <div class="baby-incluye__num">{item.num}</div>
+            <h3 class="baby-incluye__title">{item.title}</h3>
+            <p class="baby-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-baby"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para el"
+    titleHighlight="baby shower"
+    subtitle="Cuatro pasos con la organizadora para que la futura mamá disfrute SU día"
+    steps={procesoBaby}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="baby-complementos section-padding" id="complementos-baby">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas en baby showers CDMX"
+        content={`<p>Una mesa de dulces tierna es <strong>el corazón visual del baby shower</strong>, pero las organizadoras top combinan <strong>1-2 estaciones complementarias</strong> que elevan la celebración: stand para pastel del bebé como momento más dulce, mesa de frutas frescas para mamá embarazada, donas y cupcakes adorables y mesa de dulces clásica con tonos tiernos.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif')}
+          alt="Mesa de dulces tonos tiernos personalizados para baby shower"
+          title="Mesa de Dulces"
+          excerpt="Tonos tiernos personalizados. El candy bar clásico con surtido apto para mamá y temática del bebé."
+          cta="Ver Mesa de Dulces"
+          badge="Base baby"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
+          image={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif')}
+          alt="Mesa de donas y cupcakes diseños adorables para baby shower"
+          title="Donas y Cupcakes"
+          excerpt="Diseños adorables. Donas glaseadas con biberón, cupcakes con osito o estrella, mini pasteles con nombre del bebé."
+          cta="Ver Donas y Cupcakes"
+          badge="Adorable"
+          subsections={subsDonas}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
+          image={getCdnUrl('/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif')}
+          alt="Mesa de frutas frescura y color apto mamá embarazada"
+          title="Mesa de Frutas"
+          excerpt="Frescura y color. Apto 100% para mamá embarazada. Frutas lavadas con cloro alimentario, hidratante y nutritivo."
+          cta="Ver Mesa de Frutas"
+          badge="Apto mamá"
+          subsections={subsFrutas}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/stand-para-pastel"
+          image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')}
+          alt="Stand para pastel el momento más dulce del baby shower"
+          title="Stand para Pastel"
+          excerpt="El momento más dulce. Stand decorativo con flores y backdrop tierno para el pastel del bebé y la foto familiar."
+          cta="Ver Stand para Pastel"
+          badge="Central"
+          subsections={subsStandPastel}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="baby-cdmx-cta section-padding" id="baby-cdmx">
+    <div class="container">
+      <div class="baby-cdmx-cta__card">
+        <div class="baby-cdmx-cta__body">
+          <span class="baby-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos baby showers desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL atiende baby showers en toda la Ciudad de México con cobertura especializada en domicilios particulares y salones boutique de <strong>Polanco, Lomas de Chapultepec, Pedregal, Coyoacán, Roma Norte, Condesa, Anzures, Interlomas y Satélite</strong>. Conocemos los mejores venues para baby shower (Casa Lamm, Belmondo, The Magnolia Hotel, Saks, jardines de hoteles 5 estrellas). Visita nuestra <strong>página de sucursal CDMX</strong> con todos los servicios disponibles.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/baby-shower" class="baby-cdmx-cta__link">Ver Baby Shower CDMX completo →</a>
+        </div>
+        <div class="baby-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/baby-shower/servicio-baby-shower-cdmx.avif', { w: 600, q: 82 })}
+            alt="Servicio mesa de dulces baby shower CDMX MEDEDUL"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="baby-testimonios section-padding" id="testimonios-baby">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="organizadoras y mamás"
+        subtitle="Hermanas, mejores amigas y futuras mamás hablando de su experiencia con MEDEDUL"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars (Ciclo familiar ascendente) ===================== -->
+  <section class="baby-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Ciclo familiar"
+        titleHighlight="del bebé"
+        subtitle="Si la familia tiene otros eventos próximos del bebé o de hermanos mayores"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-bautizo"
+          image={getCdnUrl('/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif')}
+          alt="Mesa de dulces para bautizo del bebé"
+          title="Bautizo"
+          excerpt="Sigue el ciclo. Cuando nazca el bebé, mesa con simbología bautismal y paleta consistente con el baby shower."
+          cta="Ver Bautizo"
+          badge="Próximo evento"
+          subsections={subsCBBautizo}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+          image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')}
+          alt="Mesa de dulces para primer cumpleaños del bebé"
+          title="Primer cumpleaños"
+          excerpt="Cuando cumpla el año. Smash cake, paleta pastel y temáticas tiernas para el primer cumple del bebé."
+          cta="Ver Cumple Infantil"
+          subsections={subsCBCumple}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-primera-comunion"
+          image={getCdnUrl('/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif')}
+          alt="Mesa de dulces para primera comunión hermanos mayores"
+          title="Primera Comunión"
+          excerpt="Para hermanos mayores. Mesa eucarística con simbología sacramental para hermanos en edad de catequesis."
+          cta="Ver Primera Comunión"
+          subsections={subsCBComunion}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces para boda eventos familiares"
+          title="Mesa para Boda"
+          excerpt="Para tu boda o la de un familiar. Mesa nupcial elegante con el mismo estándar profesional."
+          cta="Ver Mesa Boda"
+          subsections={subsCBBoda}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Baby stats (paleta tierna pastel rosa-celeste) ===== */
+  .baby-stats {
+    background: linear-gradient(135deg, #ffe4ed 0%, #fff 50%, #e0f4ff 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(233, 30, 99, 0.15);
+    border-bottom: 1px solid rgba(233, 30, 99, 0.15);
+  }
+  .baby-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .baby-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #E91E63 0%, #1e3a8a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .baby-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .baby-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .baby-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Tipos baby shower (8) ===== */
+  .baby-tipos { background: #fff; }
+  .baby-tipos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .baby-tipo {
+    background: #fff5f9;
+    border-radius: 0.75rem;
+    padding: 1.5rem 1.25rem;
+    border-top: 3px solid #E91E63;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .baby-tipo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.15);
+    border-top-color: #1e3a8a;
+  }
+  .baby-tipo__icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .baby-tipo__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  .baby-tipo__desc {
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.85rem;
+  }
+  @media (max-width: 1100px) { .baby-tipos__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .baby-tipos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Temáticas (12) ===== */
+  .baby-tematicas { background: linear-gradient(135deg, #fff5f9 0%, #fff 100%); }
+  .baby-tematicas__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-tematica {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 2px solid var(--tema-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .baby-tematica:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+  .baby-tematica__img {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  .baby-tematica__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .baby-tematica:hover .baby-tematica__img img { transform: scale(1.08); }
+  .baby-tematica__body {
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .baby-tematica__icon {
+    display: inline-block;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .baby-tematica__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  .baby-tematica__desc {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  @media (max-width: 1100px) { .baby-tematicas__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .baby-tematicas__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } }
+
+  /* ===== Por sexo del bebé ===== */
+  .baby-sexo { background: #fff; }
+  .baby-sexo__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-sexo__card {
+    border-radius: 1.25rem;
+    padding: 2rem 1.75rem;
+    border-top: 6px solid var(--sexo-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .baby-sexo__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .baby-sexo__title {
+    font-size: 1.4rem;
+    color: var(--sexo-color);
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+  }
+  .baby-sexo__field {
+    margin-bottom: 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  .baby-sexo__field strong {
+    display: block;
+    color: var(--sexo-color);
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .baby-sexo__field p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .baby-sexo__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Apto mamá embarazada ===== */
+  .baby-apto { background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); }
+  .baby-apto__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-apto__item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border-left: 4px solid #E91E63;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .baby-apto__item:hover { transform: translateY(-4px); }
+  .baby-apto__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .baby-apto__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .baby-apto__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  .baby-apto__note {
+    margin-top: 2.5rem;
+    background: #ffe4ed;
+    border: 2px dashed #E91E63;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  .baby-apto__note strong { color: #E91E63; }
+  @media (max-width: 900px) { .baby-apto__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Mommy Care ===== */
+  .baby-mommy { background: #fff; }
+  .baby-mommy__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-mommy__item {
+    background: #fff5f9;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(233, 30, 99, 0.15);
+    transition: transform 0.2s ease;
+  }
+  .baby-mommy__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.15);
+  }
+  .baby-mommy__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .baby-mommy__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .baby-mommy__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .baby-mommy__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .baby-mommy__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Gender Reveal mecánicas ===== */
+  .baby-reveal { background: linear-gradient(135deg, #ffe4ed 0%, #e0f4ff 100%); }
+  .baby-reveal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-reveal__item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 4px solid #FFC857;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .baby-reveal__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  }
+  .baby-reveal__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .baby-reveal__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .baby-reveal__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .baby-reveal__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .baby-intro { padding: 5rem 0; background: #fff; }
+  .baby-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .baby-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #E91E63 0%, #1e3a8a 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .baby-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .baby-intro__copy h2 span { color: #E91E63; }
+  .baby-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .baby-intro__copy a {
+    color: #E91E63;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .baby-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(233, 30, 99, 0.2);
+  }
+  @media (max-width: 900px) {
+    .baby-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería ===== */
+  .baby-galeria { padding: 5rem 0; background: #fff5f9; }
+  .baby-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .baby-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .baby-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .baby-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .baby-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .baby-incluye { background: #fff; }
+  .baby-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .baby-incluye__item {
+    background: #fff5f9;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(233, 30, 99, 0.15);
+    transition: transform 0.2s ease;
+  }
+  .baby-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.18);
+  }
+  .baby-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #E91E63 0%, #1e3a8a 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .baby-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .baby-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .baby-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link ===== */
+  .baby-cdmx-cta { background: #fff; }
+  .baby-cdmx-cta__card {
+    background: linear-gradient(135deg, #E91E63 0%, #B5179E 50%, #1e3a8a 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(233, 30, 99, 0.25);
+  }
+  .baby-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .baby-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .baby-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .baby-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .baby-cdmx-cta__body p strong { color: #fff; }
+  .baby-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #E91E63;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .baby-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .baby-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .baby-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .baby-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .baby-testimonios { background: #fff5f9; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .baby-otros { background: #fff; }
+</style>

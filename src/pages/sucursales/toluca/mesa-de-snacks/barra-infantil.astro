@@ -1,0 +1,1085 @@
+---
+// L5 - Barra Infantil Toluca (EVOLVED MAX)
+// Subsección dedicada: snacks kid-friendly con protocolo de seguridad alimentaria infantil
+// Mejoras vs L5 anterior (Mix): +7 secciones nuevas (Protocolo Seguridad, Edades, Tabla Alergenos,
+//                                Decoración Temática, Estaciones Lúdicas, Pack Recuerdos)
+// Sucursal Toluca-Metepec, MEDEDUL — La página más sofisticada para mamás del Valle Toluca
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Snacks', url: '/sucursales/toluca/mesa-de-snacks' },
+  { name: 'Barra Infantil', url: '/sucursales/toluca/mesa-de-snacks/barra-infantil' }
+];
+
+// =============== 🆕 Protocolo Seguridad Alimentaria Infantil (6 puntos) ===============
+const protocoloSeguridad = [
+  {
+    icon: '🚫',
+    titulo: 'Sin Nueces ni Frutos Secos',
+    desc: 'Eliminamos todos los frutos secos (cacahuates, almendras, nueces, pistaches) del menú base. La alergia al cacahuate es la más común en niños mexicanos. Bandejas dedicadas con etiquetas "FREE NUTS" en zona infantil.',
+    color: '#FF6B9D'
+  },
+  {
+    icon: '🌱',
+    titulo: 'Sin Colorantes Artificiales',
+    desc: 'Solo usamos dulces con colorantes naturales (betabel, espirulina, cúrcuma, jugo de zanahoria). Zero rojo 40, amarillo 5 ni azul 1 que se relacionan con hiperactividad infantil. Marca premium kid-friendly.',
+    color: '#FFD93D'
+  },
+  {
+    icon: '🍃',
+    titulo: 'Bajo Contenido de Azúcar',
+    desc: 'Selección de snacks con 30% menos azúcar que productos comerciales. Galletas con miel de abeja, gomitas con jugo de fruta natural, palomitas suaves sin caramelo industrial. Para mamás conscientes Valle Toluca.',
+    color: '#88E1A8'
+  },
+  {
+    icon: '👶',
+    titulo: 'Tamaño Apropiado por Edad',
+    desc: 'Snacks pre-cortados en porciones pequeñas adecuadas según edad del cumpleañero (3-5 años: bocados pequeños / 6-12 años: porción regular). Sin riesgo de atragantamiento, sin malvaviscos enteros para menores de 4.',
+    color: '#74C0FC'
+  },
+  {
+    icon: '🤝',
+    titulo: 'Supervisión Operador Capacitado',
+    desc: 'Operador con capacitación en primeros auxilios infantiles y manejo de emergencias por alergias. Atiende la barra durante todo el evento, supervisa tomas y reposiciones. Tranquilidad total para padres.',
+    color: '#C77DFF'
+  },
+  {
+    icon: '🧼',
+    titulo: 'Higiene Hospitalaria',
+    desc: 'Cuchillería desechable, guantes de látex, cambio de utensilios cada 30 min. Bandejas con tapas anti-polvo para protección extra. Protocolo HACCP adaptado a eventos infantiles. Nuestra prioridad #1 es la salud de los pequeños.',
+    color: '#FF8C42'
+  }
+];
+
+// =============== 🆕 Edades Recomendadas (4 rangos) ===============
+const edadesRecomendadas = [
+  {
+    rango: '3-5 años',
+    titulo: 'Mini Bocados Seguros',
+    snacks: 'Galletas blandas mini, gelatinas en cubos, palomitas dulces suaves, plátano deshidratado, malvaviscos pequeños supervisados',
+    altura: 'Bandejas a 60-80 cm',
+    consejo: 'Niños pre-escolares necesitan supervisión constante. Snacks pre-cortados, sin elementos duros ni redondos enteros (riesgo atragantamiento).',
+    icon: '🍼',
+    color: '#FF6B9D'
+  },
+  {
+    rango: '6-8 años',
+    titulo: 'Exploradores del Sabor',
+    snacks: 'Gomitas frutales naturales, galletas decoradas, palomitas mantequilla, mazapanes mini, fresas con chocolate, brochetas frutales',
+    altura: 'Bandejas a 80-100 cm',
+    consejo: 'Edad de exploración. Permite mayor variedad pero sin picante. Las galletas decoradas con royal icing personalizado son el hit. Supervisión moderada.',
+    icon: '🎈',
+    color: '#FFD93D'
+  },
+  {
+    rango: '9-12 años',
+    titulo: 'Antojos Premium Mini',
+    snacks: 'Lindor mini, M&M coloridos, gomitas Haribo Goldbears, palomitas saborizadas (mantequilla, BBQ ligero), galletas tipo cookie, brownies bite-size',
+    altura: 'Bandejas estándar (100-110 cm)',
+    consejo: 'Ya pueden con sabores más complejos pero sin alcohol ni cafeína. Permitir auto-servicio, ellos eligen. Pico de consumo en barra.',
+    icon: '⭐',
+    color: '#74C0FC'
+  },
+  {
+    rango: '13+ adolescentes',
+    titulo: 'Mix con Toques Adultos',
+    snacks: 'Combina con snacks salados moderados (pretzels, papas suaves), gomitas premium, chocolates importados, galletas gourmet, opcional café/té',
+    altura: 'Bandejas estándar adultos',
+    consejo: 'Adolescentes consumen el doble que niños pequeños. Considerar barra con mix dulce-salado. Sin alcohol obviamente.',
+    icon: '🎮',
+    color: '#C77DFF'
+  }
+];
+
+// =============== Carta Infantil 12 snacks ===============
+const cartaInfantil = [
+  { nombre: 'Gomitas Naturales sin Colorantes', categoria: 'Dulce Healthy', edad: '4+ años', porte: 'Bowls cristal coloridos', perfil: 'Frutal natural, masticable suave', alergenos: 'Ninguno', popular: 'Top 3' },
+  { nombre: 'Galletas Decoradas Personalizadas', categoria: 'Dulce Boutique', edad: '5+ años', porte: 'Bandeja blanca elegante', perfil: 'Mantequilla, royal icing pastel', alergenos: 'Trigo, huevo, leche', popular: 'Star' },
+  { nombre: 'Palomitas Dulces Caramelo Suave', categoria: 'Salado-Dulce', edad: '4+ años', porte: 'Vasitos cono coloridos', perfil: 'Caramelo suave, sin frutos secos', alergenos: 'Ninguno', popular: 'Top 3' },
+  { nombre: 'Mazapanes de la Rosa', categoria: 'Dulce Mexicano', edad: '5+ años', porte: 'Cesto mimbre tradicional', perfil: 'Cremoso cacahuate (opcional sin nuez)', alergenos: 'Cacahuate (versión sin)', popular: 'Clásico' },
+  { nombre: 'Malvaviscos Mini Pastel', categoria: 'Dulce Suave', edad: '4+ años', porte: 'Frascos cristal apilados', perfil: 'Esponjoso multicolor pastel', alergenos: 'Ninguno', popular: 'Top 3' },
+  { nombre: 'Plátano Deshidratado Crocante', categoria: 'Healthy Mexicano', edad: '3+ años', porte: 'Bandeja madera', perfil: 'Crocante natural, dulzor de fruta', alergenos: 'Ninguno', popular: 'Para mamás' },
+  { nombre: 'Gelatinas Cubos Multicolor', categoria: 'Dulce Suave', edad: '3+ años', porte: 'Vasitos individuales', perfil: 'Frutal suave, fácil de comer', alergenos: 'Ninguno', popular: 'Pequeños' },
+  { nombre: 'Galletas Mini Animales', categoria: 'Dulce Clásico', edad: '4+ años', porte: 'Cesto mimbre rustico', perfil: 'Mantequilla, formas divertidas', alergenos: 'Trigo, huevo, leche', popular: 'Clásico' },
+  { nombre: 'Brochetas Frutales con Chocolate', categoria: 'Saludable Premium', edad: '6+ años', porte: 'Soportes verticales', perfil: 'Fresa, plátano, uva, mango bañados', alergenos: 'Leche (chocolate)', popular: 'Mamás' },
+  { nombre: 'Lindor Mini Variedades', categoria: 'Dulce Premium', edad: '8+ años', porte: 'Pirámide cristal', perfil: 'Cremoso fundente importado', alergenos: 'Leche, soya', popular: 'Top 3' },
+  { nombre: 'Brownies Bite-Size', categoria: 'Boutique Mini', edad: '7+ años', porte: 'Bandeja blanca elegante', perfil: 'Cremoso de chocolate, sin nueces', alergenos: 'Trigo, huevo, leche', popular: 'Mayores' },
+  { nombre: 'Fresas Frescas con Chocolate', categoria: 'Saludable Premium', edad: '6+ años', porte: 'Bandeja cristal con tapa', perfil: 'Fresa fresca, chocolate amargo o blanco', alergenos: 'Leche', popular: 'Star' }
+];
+
+// =============== 🆕 Tabla Alergenos Comunes (matriz) ===============
+const tablaAlergenos = [
+  { snack: 'Gomitas naturales', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: true },
+  { snack: 'Palomitas dulces', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: true },
+  { snack: 'Galletas decoradas', sinNuez: true, sinLactosa: false, sinGluten: false, sinHuevo: false, vegano: false },
+  { snack: 'Mazapanes (sin nuez)', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: true },
+  { snack: 'Malvaviscos pastel', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: false },
+  { snack: 'Plátano deshidratado', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: true },
+  { snack: 'Gelatinas multicolor', sinNuez: true, sinLactosa: true, sinGluten: true, sinHuevo: true, vegano: false },
+  { snack: 'Galletas animales', sinNuez: true, sinLactosa: false, sinGluten: false, sinHuevo: false, vegano: false },
+  { snack: 'Brochetas frutales', sinNuez: true, sinLactosa: false, sinGluten: true, sinHuevo: true, vegano: false },
+  { snack: 'Lindor mini', sinNuez: false, sinLactosa: false, sinGluten: true, sinHuevo: true, vegano: false },
+  { snack: 'Brownies bite-size', sinNuez: true, sinLactosa: false, sinGluten: false, sinHuevo: false, vegano: false },
+  { snack: 'Fresas con chocolate', sinNuez: true, sinLactosa: false, sinGluten: true, sinHuevo: true, vegano: false }
+];
+
+// =============== 🆕 Decoración Temática 6 temas populares ===============
+const temasDecoracion = [
+  {
+    nombre: 'Princesas Disney',
+    paleta: '#FFB3D9 / #FFD9F0 / #FFFFFF',
+    elementos: 'Tiaras decorativas, varitas mágicas comestibles, manteles satin rosa, vajilla con coronas, photo backdrop castillo',
+    edad: 'Niñas 3-8 años',
+    eventos: 'Cumpleaños niñas, fiestas temáticas',
+    icon: '👑'
+  },
+  {
+    nombre: 'Dinosaurios & Aventura',
+    paleta: '#88E1A8 / #4D9F3D / #FFD93D',
+    elementos: 'Figuras dinosaurios, hojas tropicales, manteles verde selva, dispensadores forma huevo, photo wall jurásico',
+    edad: 'Niños 4-10 años',
+    eventos: 'Cumpleaños niños, fiestas temáticas',
+    icon: '🦕'
+  },
+  {
+    nombre: 'Unicornio & Arcoíris',
+    paleta: '#FF6B9D / #C77DFF / #74C0FC / #FFD93D',
+    elementos: 'Cuernos unicornio comestibles, nubes algodón, manteles arcoíris, dispensadores estrella, photo backdrop nube + arcoíris',
+    edad: 'Niñas y niños 4-9 años',
+    eventos: 'Cumpleaños mixtos, baby shower niña',
+    icon: '🦄'
+  },
+  {
+    nombre: 'Superhéroes Marvel/DC',
+    paleta: '#FF0000 / #003F7F / #FFD93D',
+    elementos: 'Logos superhéroes, capas decorativas, manteles rojo-azul, máscaras comestibles, photo wall ciudad',
+    edad: 'Niños 5-11 años',
+    eventos: 'Cumpleaños niños, fiestas temáticas',
+    icon: '🦸'
+  },
+  {
+    nombre: 'Frozen / Mundo Mágico',
+    paleta: '#74C0FC / #FFFFFF / #C0E5FF',
+    elementos: 'Cristales hielo decorativos, copos de nieve, manteles azul-blanco con escarcha, dispensadores forma cristal, photo wall castillo hielo',
+    edad: 'Niñas 4-9 años',
+    eventos: 'Cumpleaños invierno, niñas',
+    icon: '❄️'
+  },
+  {
+    nombre: 'Selva Tropical Safari',
+    paleta: '#88E1A8 / #FFD93D / #FF8C42',
+    elementos: 'Animales selva (jirafas, leones, monos), hojas palmera, manteles verde tierra, jaulas decorativas, photo wall safari',
+    edad: 'Niños y niñas 3-7 años',
+    eventos: 'Baby shower, cumpleaños 1-3 años',
+    icon: '🦁'
+  }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '12+', label: 'Snacks kid-friendly seguros' },
+  { number: '0', label: 'Colorantes artificiales' },
+  { number: '6', label: 'Temas decoración populares' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== 🆕 Estaciones Lúdicas Interactivas (4) ===============
+const estacionesLudicas = [
+  {
+    icon: '🎡',
+    nombre: 'Candy Carrousel Giratorio',
+    desc: 'Estación giratoria con 6 dispensadores de gomitas y dulces. Los niños giran la rueda y eligen su mix favorito. Pieza visual estrella, ideal para photo opportunity.',
+    edad: '4+ años',
+    incluye: 'Operador supervisor, vasitos cono individuales, dispensadores reabastecibles'
+  },
+  {
+    icon: '🍦',
+    nombre: 'Estación Decorar Galletas',
+    desc: 'Mini estación donde los niños decoran sus propias galletas con royal icing en 5 colores, sprinkles y dulcecitos. Educativo + divertido + se llevan su creación.',
+    edad: '6+ años',
+    incluye: 'Galletas base, 5 mangas con icing, sprinkles surtidos, mantel mesa, supervisión'
+  },
+  {
+    icon: '📸',
+    nombre: 'Photo Wall Temático',
+    desc: 'Backdrop fotográfico decorado según tema elegido (princesas, dinosaurios, unicornio, etc.). Marco props divertidos. Foto recuerdo para mamás y niños.',
+    edad: 'Todas',
+    incluye: 'Backdrop 2.5m x 2m, props decorativos (sombreros, máscaras, gafas), iluminación LED'
+  },
+  {
+    icon: '🎪',
+    nombre: 'Máquina Algodón de Azúcar',
+    desc: 'Algodón de azúcar hecho en sitio en 4 colores (rosa, azul, amarillo, verde) sin colorantes artificiales. Operador profesional, espectáculo visual, sabor pure azúcar.',
+    edad: '3+ años',
+    incluye: 'Máquina retro, palitos de bambú, 4 colores naturales, operador todo el evento'
+  }
+];
+
+// =============== 🆕 Pack Recuerdos para llevar (3 opciones) ===============
+const packRecuerdos = [
+  {
+    nombre: 'Bolsita Básica',
+    contenido: 'Gomitas + galleta decorada + 1 dulce sorpresa',
+    presentacion: 'Bolsa de papel kraft con etiqueta personalizada nombre cumpleañero',
+    incluido: 'Mini Party 6',
+    color: '#FFD93D'
+  },
+  {
+    nombre: 'Cajita Premium',
+    contenido: '3 gomitas + 2 galletas + 1 chocolate + 1 figura juguete pequeño',
+    presentacion: 'Cajita cartón decorado con tema del evento + listón',
+    incluido: 'Kids Party 10',
+    color: '#FF6B9D'
+  },
+  {
+    nombre: 'Caja Star Boutique',
+    contenido: '5 dulces premium + galleta personalizada + figura coleccionable + tarjeta agradecimiento',
+    presentacion: 'Caja boutique tipo joyero con foam interior + envoltura personalizada paleta evento',
+    incluido: 'Star Party 15',
+    color: '#C77DFF'
+  }
+];
+
+// =============== Subsecciones hermanas (3 cards) ===============
+const subsecciones = [
+  {
+    title: 'Snacks Gourmet Salados Toluca',
+    sublabel: 'Papas, palomitas, nachos premium',
+    excerpt: 'L5 dedicado: 12 snacks salados premium para adultos. Si tu evento es para adultos jóvenes con paladar sofisticado o corporativo Lerma. Papas trufa, palomitas saborizadas, frutos secos premium. Desde $3,200 MXN.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados',
+    badge: 'Para Adultos',
+    cta: 'Ver Salados Adultos'
+  },
+  {
+    title: 'Mix Dulce-Salado Toluca',
+    sublabel: 'Equilibrio 60/40 perfecto',
+    excerpt: 'L5 evolved con filosofía 60/40, composición dual, 6 combinaciones firma curadas, Trail Mix Builder en vivo, reposición diferenciada por hora. Perfecto si tu evento tiene mix de niños + adultos. Desde $3,800 MXN.',
+    img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/mix-dulce-salado',
+    badge: 'Equilibrio',
+    cta: 'Ver Mix Dulce-Salado'
+  },
+  {
+    title: 'Hub Mesa de Snacks Toluca',
+    sublabel: 'Vista completa del servicio',
+    excerpt: 'Página principal Sucursal Toluca-Metepec con 14 secciones, comparativa, hermanas, sucursal info. Para conocer toda la oferta de barras de snacks Valle Toluca. Esencial / Favorito / Luxury After-Party desde $3,400 MXN.',
+    img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif',
+    href: '/sucursales/toluca/mesa-de-snacks',
+    badge: 'Hub L4',
+    cta: 'Ver Hub Snacks Toluca'
+  }
+];
+
+// =============== Características Barra Infantil ===============
+const caracteristicas = [
+  { num: 1, title: 'Protocolo seguridad alimentaria infantil', desc: 'Eliminamos frutos secos del menú base (alergia más común en niños), usamos solo colorantes naturales (betabel, espirulina, cúrcuma), reducimos azúcar 30% vs comercial, snacks pre-cortados según edad. Bandejas con tapas anti-polvo y guantes desechables. Tranquilidad total para padres.', img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif' },
+  { num: 2, title: 'Decoración temática 6 temas populares', desc: 'Princesas Disney, Dinosaurios, Unicornio Arcoíris, Superhéroes, Frozen, Safari Tropical. Coordinamos paleta cromática, manteles, dispensadores temáticos, props decorativos y photo backdrop según el tema favorito del cumpleañero/a. Decoración inmersiva.', img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif' },
+  { num: 3, title: 'Estaciones lúdicas interactivas', desc: 'Candy Carrousel giratorio con 6 dispensadores, estación decorar galletas con royal icing, máquina de algodón de azúcar en 4 colores naturales, photo wall temático con props. No solo es snacks: es experiencia interactiva memorable.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' },
+  { num: 4, title: 'Operador con primeros auxilios infantiles', desc: 'Operador profesional con capacitación en primeros auxilios infantiles, manejo de emergencias por alergias y supervisión de niños. Atiende la barra durante todo el evento, evita atragantamientos, controla acceso de los más chicos. Mamás pueden disfrutar tranquilas.', img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif' }
+];
+
+// =============== Paquetes Barra Infantil ===============
+const paquetesInfantil = [
+  {
+    name: 'Toluca Mini Party 6',
+    icon: '🎈',
+    price: '$2,800',
+    currency: 'MXN',
+    guests: '15-30 niños',
+    tagline: 'Fiesta íntima primaria',
+    features: [
+      '6 snacks kid-friendly base',
+      'Gomitas + galletas decoradas + palomitas dulces + mazapanes + malvaviscos + plátano deshidratado',
+      'Colorantes naturales únicamente',
+      'Sin frutos secos en menú base',
+      'Bandejas a altura accesible niños',
+      'Bolsita recuerdo básica para cada niño',
+      '4 horas de servicio',
+      'Operador supervisor con primeros auxilios',
+      'Traslado zonas centrales Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Mini Party',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Barra%20Infantil%20Toluca%20-%20Mini%20Party%206'
+  },
+  {
+    name: 'Toluca Kids Party 10',
+    icon: '🎂',
+    price: '$4,900',
+    currency: 'MXN',
+    guests: '30-60 niños',
+    tagline: 'El más solicitado en Valle Toluca',
+    features: [
+      '10 snacks variados kid-friendly',
+      'Gomitas + galletas personalizadas con nombre + 3 sabores palomitas + mazapanes + malvaviscos + plátano + Lindor mini + brownies bite + fresas chocolate + galletas animales',
+      'Decoración temática (1 tema a elegir): princesas / dinos / unicornio / superhéroes / Frozen / safari',
+      'Manteles, dispensadores y props del tema',
+      'Cajita premium recuerdo para cada niño (10 piezas)',
+      'Estación decorar galletas con royal icing',
+      'Photo wall temático básico (2m x 1.5m)',
+      '5 horas de servicio',
+      'Operador con primeros auxilios infantiles',
+      'Coordinación con organizador del evento',
+      'Traslado refrigerado Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Kids Party',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Barra%20Infantil%20Toluca%20-%20Kids%20Party%2010'
+  },
+  {
+    name: 'Toluca Star Party 15',
+    icon: '⭐',
+    price: '$7,800',
+    currency: 'MXN',
+    guests: '60+ niños',
+    tagline: 'La fiesta inolvidable',
+    features: [
+      '15 snacks premium kid-friendly + sección healthy',
+      'Carta completa: gomitas naturales + galletas decoradas personalizadas + 4 sabores palomitas + mazapanes + malvaviscos + plátano + gelatinas + galletas animales + brochetas frutales + Lindor mini + brownies + fresas chocolate + Hershey mini + Sour Patch Kids',
+      'Decoración temática completa con backdrop floral',
+      'Candy Carrousel giratorio con 6 dispensadores',
+      'Máquina algodón azúcar en 4 colores naturales en vivo',
+      'Estación decorar galletas profesional',
+      'Photo wall temático grande (2.5m x 2m) + props decorativos',
+      'Caja Star boutique recuerdo para cada niño con figura coleccionable',
+      'Galletas con foto del cumpleañero personalizada',
+      '6 horas de servicio',
+      '2 operadores con primeros auxilios + 1 animador',
+      'Foto profesional de la barra y candy carrousel',
+      'Hand-off al organizador sin fricción'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Star Party',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Barra%20Infantil%20Toluca%20-%20Star%20Party%2015'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  { num: 1, title: 'Briefing Mamá-Friendly', desc: 'Sesión por WhatsApp Toluca (55 2177 5184), Zoom o presencial en Sucursal Metepec. Definimos edad cumpleañero/a, tema favorito (princesas, dinos, unicornio), número de niños, alergias específicas (frutos secos, lactosa, gluten), restricciones dietéticas mamás.' },
+  { num: 2, title: 'Diseño Temático Completo', desc: 'En menos de 24 h recibes propuesta visual completa: render del montaje con tema elegido, paleta cromática, lista de 6/10/15 snacks balanceados según edades, decoración, estaciones lúdicas y cotización cerrada. Iteramos hasta tu OK final.' },
+  { num: 3, title: 'Producción Personalizada', desc: 'Apartas con anticipo 50%. Producimos galletas decoradas con nombre del cumpleañero, ordenamos producto sin alergenos confirmados, preparamos bolsitas/cajitas recuerdo personalizadas y coordinamos decoración temática completa.' },
+  { num: 4, title: 'Montaje Mágico + Operación', desc: 'Llegamos 60 min antes a tu venue Valle Toluca. Montaje editorial temático con backdrop, dispensadores, photo wall, candy carrousel y máquina algodón azúcar (Star Party). Operador con primeros auxilios opera durante todo el evento, supervisa niños y reposición.' }
+];
+
+// =============== Galería ===============
+const galeriaImages = [
+  { src: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', alt: 'Barra infantil arcoíris colorida cumpleaños niño Valle Toluca' },
+  { src: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif', alt: 'Renta barra infantil temática Metepec' },
+  { src: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif', alt: 'Mesa snacks niños Las Marinas Metepec' },
+  { src: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', alt: 'Galletas decoradas personalizadas cumpleaños Toluca' },
+  { src: '/img/galeria/mesa-dulces-elegante-clasica-cristaleria.avif', alt: 'Photo wall temático barra infantil' },
+  { src: '/img/blog/cupcakes-macarons-rosa-baby-shower-boda-02.avif', alt: 'Cupcakes y galletas baby shower niña Metepec' }
+];
+
+// =============== Eventos compatibles ===============
+const eventos = [
+  { title: 'Barra Infantil Cumpleaños Niño/a', excerpt: 'La estrella del cumpleaños. Decoración temática (dinos, princesas, unicornio, superhéroes), candy carrousel giratorio, estación decorar galletas, máquina algodón azúcar, photo wall y bolsitas/cajitas recuerdo personalizadas. Residenciales Las Marinas, San Carlos, La Providencia Metepec.', img: '/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif', badge: 'Estrella', href: '/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil', cta: 'Ver Cumpleaños Infantil' },
+  { title: 'Barra Infantil Baby Shower', excerpt: 'Para baby showers donde hay niños sobrinos/primos. Sección kids paralela a la barra adultos con snacks suaves sin alergenos, decoración pastel coordinada al baby shower (rosa niña / azul niño / amarillo neutro). Tranquilidad total para mamá invitadas.', img: '/img/blog/cupcakes-macarons-rosa-baby-shower-boda-02.avif', href: '/sucursales/toluca/mesa-de-dulces/baby-shower', badge: 'Sin Alergenos', cta: 'Ver Baby Shower' },
+  { title: 'Barra Infantil Bodas con Niños', excerpt: 'Para bodas Hacienda La Magdalena Metepec con muchos sobrinitos invitados. Sección kids separada de la barra adultos con snacks apropiados, photo wall infantil y operador supervisor. Niños felices = padres tranquilos = boda exitosa.', img: '/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda', cta: 'Ver Bodas Toluca' },
+  { title: 'Barra Infantil Posadas y Navidad', excerpt: 'Posadas con piñata y muchos niños. Decoración navideña kid-friendly, bastones de caramelo, galletas Santa Claus, palomitas con caramelo natural. Ambiente festivo seguro para todos los pequeños invitados Valle Toluca.', img: '/img/galeria/candy-bar-navidad-elegante-galletas-decoradas.avif', href: '/candy-bar-eventos', cta: 'Ver Posadas' },
+  { title: 'Barra Infantil Primera Comunión', excerpt: 'Para celebración de Primera Comunión con primos y compañeros. Decoración blanca con detalles dorados, galletas con cruces decoradas, palomitas dulces y snacks suaves apropiados. Sin colorantes artificiales para evento religioso elegante.', img: '/img/eventos/bautizo/candy-bar-bautizo-celeste-cruz-macarons.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Primera Comunión' },
+  { title: 'Barra Infantil Eventos Familiares', excerpt: 'Reuniones familiares grandes (cumple abuelita, aniversario padres, navidad) con muchos niños primos. Sección kids dedicada para que los pequeños tengan su propio "candy heaven" sin invadir la barra adultos. Cobertura Valle Toluca completo.', img: '/img/galeria/candy-bar-elegante-terraza-atardecer.avif', href: '/candy-bar-eventos', cta: 'Ver Reuniones' }
+];
+
+// =============== Testimonios (mamás reales) ===============
+const testimonios = [
+  { name: 'Fernanda Castro (mamá Sofía 6 años)', initials: 'FC', review: 'La Star Party 15 en el cumpleaños de mi hija en Las Marinas Metepec fue perfecta. La decoración unicornio era increíble, el candy carrousel se volvió la sensación, y todas las mamás invitadas me agradecieron por la sección sin nueces (mi sobrino tiene alergia severa). Operador súper atento.', event: 'Cumpleaños Sofía 6 años Las Marinas Metepec', rating: 5 },
+  { name: 'Adriana Pérez (mamá Mateo 4 años)', initials: 'AP', review: 'Contraté Kids Party 10 con tema dinosaurios para Mateo en San Carlos Metepec. Las galletas decoradas con su nombre, el photo wall jurásico, y la estación de decorar galletas fueron el hit. Sin colorantes artificiales y bajo en azúcar, justo lo que buscaba. 100% recomendado.', event: 'Cumpleaños Mateo 4 años San Carlos Metepec', rating: 5 },
+  { name: 'Patricia Ruiz (mamá Camila 8 años)', initials: 'PR', review: 'Para los XV de mi hija en Quinta Real Toluca, mi prima trajo a sus 4 niños chiquitos. La sección Mini Party 6 paralela los mantuvo entretenidos toda la noche. Los padres tranquilos = boda relajada. Excelente atención del operador con primeros auxilios infantiles.', event: 'Sección kids XV Quinta Real Toluca', rating: 5 }
+];
+
+// =============== FAQ ===============
+const faqs = [
+  { question: '¿Qué es el "protocolo de seguridad alimentaria infantil"?', answer: 'Son 6 medidas que diseñamos específicamente para proteger a los niños: (1) Sin nueces ni frutos secos en menú base (alergia más común), (2) Sin colorantes artificiales (solo betabel, espirulina, cúrcuma, jugo de zanahoria), (3) Bajo contenido de azúcar (30% menos que comercial), (4) Tamaño apropiado por edad (snacks pre-cortados, sin atragantamiento), (5) Operador con primeros auxilios infantiles, (6) Higiene hospitalaria (cuchillería desechable, guantes, bandejas con tapas). Tranquilidad total para mamás del Valle Toluca.' },
+  { question: '¿Cuánto cuesta una Barra Infantil en Valle Toluca?', answer: 'Iniciamos en $2,800 MXN (Toluca Mini Party 6, 15-30 niños, 4h, fiesta íntima), $4,900 MXN (Toluca Kids Party 10, 30-60 niños, decoración temática + estación galletas + photo wall + cajitas recuerdo — el más solicitado), hasta $7,800 MXN (Toluca Star Party 15, 60+ niños con candy carrousel + máquina algodón azúcar + photo wall grande + caja boutique recuerdo + 2 operadores + 1 animador). Cotización gratuita en menos de 24 h vía WhatsApp 55 2177 5184.' },
+  { question: '¿Manejan barra sin alergenos para niño con alergia?', answer: 'Absolutamente sí, es nuestra especialidad. En el briefing inicial documentamos alergias específicas (frutos secos, lactosa, gluten, huevo, soya). Diseñamos zona dedicada con bandejas separadas con etiquetas grandes "FREE NUTS / SIN GLUTEN / SIN LACTOSA" y protocolo anti-contaminación cruzada. Operador supervisa que el niño con alergia coma solo de su zona. Para mamás de niños alérgicos, esto es invaluable.' },
+  { question: '¿Qué temas de decoración manejan?', answer: 'Manejamos 6 temas más populares para niños Valle Toluca: (1) Princesas Disney (rosa-blanco), (2) Dinosaurios & Aventura (verde-amarillo), (3) Unicornio & Arcoíris (multicolor pastel), (4) Superhéroes Marvel/DC (rojo-azul), (5) Frozen/Mundo Mágico (azul-blanco con escarcha), (6) Selva Tropical Safari (verde-amarillo). Coordinamos manteles, dispensadores temáticos, props decorativos, photo backdrop y galletas decoradas con motivo del tema. Si tienes un tema único, lo desarrollamos.' },
+  { question: '¿Qué son las "estaciones lúdicas interactivas"?', answer: 'En Kids Party 10 incluimos estación de decorar galletas con royal icing en 5 colores. En Star Party 15 sumamos: (1) Candy Carrousel giratorio con 6 dispensadores que los niños giran y eligen su mix, (2) Máquina algodón de azúcar en sitio en 4 colores naturales (rosa, azul, amarillo, verde), (3) Photo wall temático grande con props decorativos (sombreros, máscaras, gafas), (4) Estación decorar galletas profesional. No solo es comer snacks: es experiencia interactiva memorable.' },
+  { question: '¿Las galletas se pueden personalizar con el nombre?', answer: 'Sí, en Kids Party 10 y Star Party 15 incluimos galletas decoradas con nombre del cumpleañero/a en royal icing comestible. En Star Party también producimos galletas con foto del cumpleañero (impresa con tinta comestible) como regalo recuerdo personalizado. Para baby shower personalizamos con frase tipo "Welcome Baby Sofia" o iniciales del bebé. Branding completo.' },
+  { question: '¿Qué incluye la bolsita/cajita recuerdo?', answer: 'En Mini Party 6: bolsita papel kraft con gomitas + galleta decorada + 1 dulce sorpresa, etiqueta nombre cumpleañero. En Kids Party 10: cajita cartón decorado con tema del evento con 3 gomitas + 2 galletas + 1 chocolate + 1 figura juguete pequeño. En Star Party 15: caja boutique tipo joyero con 5 dulces premium + galleta personalizada + figura coleccionable + tarjeta agradecimiento. Cada niño se lleva su recuerdo a casa.' },
+  { question: '¿En qué zonas del Valle de Toluca dan servicio?', answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia, residenciales kid-friendly), Toluca centro (Reforma, Sor Juana, Universidad), Zinacantepec, Lerma (centro y residenciales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).' },
+  { question: '¿El operador tiene capacitación en primeros auxilios infantiles?', answer: 'Sí. Nuestros operadores tienen capacitación específica en primeros auxilios infantiles, incluyendo maniobra de Heimlich pediátrica, manejo de reacciones alérgicas (administración de epinefrina si la familia lleva EpiPen), prevención de atragantamiento y supervisión de niños. Atienden la barra durante todo el evento, no se ausentan ni un minuto. Mamás pueden disfrutar tranquilas.' },
+  { question: '¿Cuánto consumen los niños vs adultos?', answer: 'Calculamos 80-120 g de snacks por niño en Mini Party 6 (4 horas), 150-200 g en Kids Party 10 (5 horas) y 200-280 g en Star Party 15 (6 horas con candy carrousel y algodón azúcar). Adolescentes 13+ consumen el doble (ajustar a barra adulto). Niños pequeños (3-5 años) menos cantidad pero más visitas a la barra. Cero "barras vacías" en horas pico.' },
+  { question: '¿Coordinan con organizador del evento o decorador?', answer: 'Sí, en cada evento. Trabajamos con organizadores de cumpleaños infantiles del Valle Toluca, decoradores de fiestas temáticas y coordinadores de salones eventos kids-friendly (Salón Riviera Metepec, Casa Club Las Marinas, residenciales boutique). Coordinamos paleta cromática, ubicación de la barra y el photo wall, timing del candy carrousel y máquina algodón azúcar. Cero fricción.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para cumpleaños infantiles en temporada alta Valle Toluca (mayo, junio, noviembre, diciembre) recomendamos reservar 4-6 semanas antes. Las galletas personalizadas con nombre/foto requieren 7 días de producción. Para fiestas más íntimas o eventos en temporada baja suelen ser suficientes 2-3 semanas. Trabajamos por orden de confirmación con anticipo del 50%.' }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/barra-infantil#service",
+      "name": "Barra Infantil Premium en Valle de Toluca",
+      "serviceType": "Barra de Snacks Kid-Friendly para Eventos Infantiles",
+      "description": "Barra infantil premium en Valle de Toluca con protocolo de seguridad alimentaria infantil: 12 snacks kid-friendly sin frutos secos ni colorantes artificiales, decoración temática (princesas, dinosaurios, unicornio, superhéroes, Frozen, safari), estaciones lúdicas interactivas (candy carrousel, decorar galletas, algodón azúcar, photo wall), bolsitas/cajitas recuerdo personalizadas y operador con primeros auxilios infantiles. Operación desde Sucursal Metepec.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "82", "bestRating": "5" }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "2800",
+        "highPrice": "7800",
+        "offerCount": "3",
+        "offers": paquetesInfantil.map(pkg => ({
+          "@type": "Offer",
+          "name": `Barra Infantil Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Snacks", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks" },
+        { "@type": "ListItem", "position": 5, "name": "Barra Infantil", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/barra-infantil" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Barra Infantil Premium Valle Toluca | Sin Alergenos, Decoración Temática, Candy Carrousel | MEDEDUL"
+  description="Barra infantil premium en Valle de Toluca por MEDEDUL. Protocolo seguridad alimentaria infantil (sin nueces, sin colorantes artificiales), 6 temas decoración (princesas, dinos, unicornio, superhéroes, Frozen, safari), candy carrousel giratorio, máquina algodón azúcar, photo wall, bolsitas recuerdo personalizadas. Operador con primeros auxilios. Sucursal Metepec. Cumpleaños infantiles, baby shower, primera comunión. Desde $2,800 MXN. WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-snacks/barra-infantil"
+  ogImage="/img/galeria/candy-bar-fiesta-ninos-arcoiris-dulces.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Barra Infantil Premium Valle Toluca"
+    highlight="Infantil"
+    subtitle="Snacks seguros para los más chicos | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>La barra infantil más segura y mágica del Valle Toluca</strong>. Diseñada con <strong>protocolo de seguridad alimentaria infantil</strong> para que las mamás disfruten tranquilas mientras los niños viven su fiesta soñada. Sin frutos secos en menú base (alergia más común), sin colorantes artificiales (solo naturales: betabel, espirulina, cúrcuma), bajo en azúcar 30% vs comercial, snacks pre-cortados según edad, operador con <strong>capacitación en primeros auxilios infantiles</strong> y bandejas a altura accesible.</p><p>Más allá de los snacks, ofrecemos <strong>experiencia inmersiva completa</strong>: 6 temas de decoración populares (Princesas Disney, Dinosaurios, Unicornio Arcoíris, Superhéroes, Frozen, Safari Tropical), <strong>estaciones lúdicas interactivas</strong> (Candy Carrousel giratorio, máquina algodón de azúcar en 4 colores naturales, estación decorar galletas, photo wall temático), <strong>galletas decoradas personalizadas</strong> con nombre del cumpleañero y <strong>bolsitas/cajitas recuerdo</strong> que cada niño se lleva a casa. Para cumpleaños infantiles en residenciales Las Marinas, San Carlos, La Providencia Metepec y secciones kids paralelas en bodas Hacienda La Magdalena Metepec.</p>`}
+  />
+
+  <!-- ===================== Stats ===================== -->
+  <section class="tol-bi-stats">
+    <div class="container">
+      <div class="tol-bi-stats__grid">
+        {stats.map(s => (
+          <div class="tol-bi-stat">
+            <span class="tol-bi-stat__num">{s.number}</span>
+            <span class="tol-bi-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Protocolo Seguridad Alimentaria (DARK pastel) ===================== -->
+  <section class="tol-bi-protocolo">
+    <div class="container">
+      <div class="tol-bi-protocolo__header">
+        <span class="tol-bi-protocolo__badge">🛡️ Protocolo MEDEDUL Kids</span>
+        <h2>Los <span>6 Pilares de Seguridad Alimentaria Infantil</span></h2>
+        <p>No improvisamos cuando se trata de niños. Cada Barra Infantil sigue un protocolo documentado de 6 pilares para proteger a los pequeños y dar tranquilidad total a las mamás del Valle Toluca. Esto es lo que nos diferencia.</p>
+      </div>
+
+      <div class="tol-bi-protocolo__grid">
+        {protocoloSeguridad.map(p => (
+          <div class="tol-bi-protocolo__card" style={`border-top: 4px solid ${p.color};`}>
+            <span class="tol-bi-protocolo__icon" style={`background: ${p.color}33;`}>{p.icon}</span>
+            <h3 style={`color: ${p.color};`}>{p.titulo}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Edades Recomendadas (4 rangos visuales) ===================== -->
+  <section class="tol-bi-edades">
+    <div class="container">
+      <div class="tol-bi-edades__header">
+        <span class="tol-bi-edades__badge">Curaduría por Edad</span>
+        <h2>Snacks por <span>Rango de Edad</span></h2>
+        <p>No todos los snacks son apropiados para todas las edades. Curamos selecciones específicas según rango etario, ajustando textura, tamaño, sabor y altura de bandejas. Mejor experiencia para cada niño.</p>
+      </div>
+
+      <div class="tol-bi-edades__grid">
+        {edadesRecomendadas.map(e => (
+          <div class="tol-bi-edad-card" style={`border-left: 5px solid ${e.color};`}>
+            <header>
+              <span class="tol-bi-edad-card__icon" style={`background: ${e.color}22; color: ${e.color};`}>{e.icon}</span>
+              <div>
+                <span class="tol-bi-edad-card__rango" style={`color: ${e.color};`}>{e.rango}</span>
+                <h3>{e.titulo}</h3>
+              </div>
+            </header>
+            <p class="tol-bi-edad-card__snacks"><strong>Snacks ideales:</strong> {e.snacks}</p>
+            <p class="tol-bi-edad-card__altura"><strong>Altura barra:</strong> {e.altura}</p>
+            <p class="tol-bi-edad-card__consejo">{e.consejo}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Carta Infantil 12 snacks ===================== -->
+  <section class="tol-bi-carta">
+    <div class="container">
+      <div class="tol-bi-carta__header">
+        <span class="tol-bi-carta__badge">Carta Kid-Friendly</span>
+        <h2>Los <span>12 Snacks Estrella Infantiles</span></h2>
+        <p>Selección curada por nuestro chef con asesoría nutricional pediátrica. Cada snack con edad recomendada, alergenos y nivel de popularidad probado en eventos del Valle Toluca.</p>
+      </div>
+
+      <div class="tol-bi-carta__grid">
+        {cartaInfantil.map((s, i) => (
+          <article class="tol-bi-snack-card">
+            <header class="tol-bi-snack-card__head">
+              <span class="tol-bi-snack-card__num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="tol-bi-snack-card__title">
+                <h3>{s.nombre}</h3>
+                <p class="tol-bi-snack-card__cat">{s.categoria}</p>
+              </div>
+              <span class="tol-bi-snack-card__popular">{s.popular}</span>
+            </header>
+            <dl class="tol-bi-snack-card__specs">
+              <div><dt>Edad</dt><dd>{s.edad}</dd></div>
+              <div><dt>Porte</dt><dd>{s.porte}</dd></div>
+              <div><dt>Perfil</dt><dd>{s.perfil}</dd></div>
+              <div><dt>Alergenos</dt><dd>{s.alergenos}</dd></div>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Tabla Alergenos (matriz visual) ===================== -->
+  <section class="tol-bi-alergenos">
+    <div class="container">
+      <div class="tol-bi-alergenos__header">
+        <span class="tol-bi-alergenos__badge">Tranquilidad para Mamás</span>
+        <h2>Tabla de <span>Alergenos por Snack</span></h2>
+        <p>Transparencia total sobre alergenos. Identifica visualmente qué snack es seguro para tu hijo según sus restricciones específicas. ✓ = Seguro · ✗ = Contiene</p>
+      </div>
+
+      <div class="tol-bi-alergenos__wrap">
+        <table class="tol-bi-alergenos__table">
+          <thead>
+            <tr>
+              <th>Snack</th>
+              <th>Sin Nuez</th>
+              <th>Sin Lactosa</th>
+              <th>Sin Gluten</th>
+              <th>Sin Huevo</th>
+              <th>Vegano</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tablaAlergenos.map(t => (
+              <tr>
+                <td><strong>{t.snack}</strong></td>
+                <td><span class={t.sinNuez ? 'tol-bi-check' : 'tol-bi-x'}>{t.sinNuez ? '✓' : '✗'}</span></td>
+                <td><span class={t.sinLactosa ? 'tol-bi-check' : 'tol-bi-x'}>{t.sinLactosa ? '✓' : '✗'}</span></td>
+                <td><span class={t.sinGluten ? 'tol-bi-check' : 'tol-bi-x'}>{t.sinGluten ? '✓' : '✗'}</span></td>
+                <td><span class={t.sinHuevo ? 'tol-bi-check' : 'tol-bi-x'}>{t.sinHuevo ? '✓' : '✗'}</span></td>
+                <td><span class={t.vegano ? 'tol-bi-check' : 'tol-bi-x'}>{t.vegano ? '✓' : '✗'}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="tol-bi-alergenos__note">💡 <strong>Para niños con alergia severa</strong> diseñamos zona dedicada con bandejas separadas con etiquetas grandes "FREE NUTS / SIN GLUTEN / SIN LACTOSA" y protocolo anti-contaminación cruzada. Operador supervisa que el niño con alergia coma solo de su zona.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Decoración Temática 6 temas ===================== -->
+  <section class="tol-bi-temas">
+    <div class="container">
+      <div class="tol-bi-temas__header">
+        <span class="tol-bi-temas__badge">Experiencia Inmersiva</span>
+        <h2>6 <span>Temas de Decoración</span> Más Populares</h2>
+        <p>Coordinamos paleta cromática, manteles, dispensadores temáticos, props decorativos y photo backdrop según el tema favorito del cumpleañero/a. Decoración inmersiva que vive en las fotos del recuerdo.</p>
+      </div>
+
+      <div class="tol-bi-temas__grid">
+        {temasDecoracion.map(t => (
+          <div class="tol-bi-tema-card">
+            <header class="tol-bi-tema-card__head">
+              <span class="tol-bi-tema-card__icon">{t.icon}</span>
+              <h3>{t.nombre}</h3>
+            </header>
+            <div class="tol-bi-tema-card__paleta">
+              {t.paleta.split(' / ').map(c => (
+                <span class="tol-bi-tema-card__color" style={`background: ${c};`}></span>
+              ))}
+              <span class="tol-bi-tema-card__paleta-text">{t.paleta}</span>
+            </div>
+            <p class="tol-bi-tema-card__elementos"><strong>Elementos:</strong> {t.elementos}</p>
+            <footer class="tol-bi-tema-card__foot">
+              <span><strong>Edad:</strong> {t.edad}</span>
+              <span><strong>Eventos:</strong> {t.eventos}</span>
+            </footer>
+          </div>
+        ))}
+      </div>
+
+      <p class="tol-bi-temas__cta">¿Tienes un tema único en mente? <strong>Lo desarrollamos a medida.</strong> Cotización personalizada en menos de 24 h.</p>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-bi-toluca"
+    badge="Paquetes Barra Infantil Toluca"
+    title="Elige tu"
+    titleHighlight="Party Toluca"
+    subtitle="3 niveles claros: Mini Party 6 / Kids Party 10 / Star Party 15"
+    content={`<p>Diseñamos <strong>tres niveles de paquete Toluca</strong> según tamaño de la fiesta y nivel de experiencia. Todos incluyen protocolo seguridad alimentaria infantil, snacks kid-friendly sin alergenos base, mobiliario boutique a altura accesible, etiquetería personalizada y operador con primeros auxilios infantiles. Lo que escala es la <strong>cantidad de variedades, decoración temática completa, estaciones lúdicas (candy carrousel, algodón azúcar, photo wall) y bolsitas/cajitas recuerdo</strong>. Anticipo del 50% para reservar fecha.</p>`}
+    packages={paquetesInfantil}
+    note="🛡️ <strong>Todos los paquetes Toluca incluyen:</strong> protocolo seguridad alimentaria infantil, snacks sin frutos secos en menú base, sin colorantes artificiales, bajo en azúcar, mobiliario a altura accesible para niños, bolsitas/cajitas recuerdo personalizadas, operador con capacitación en primeros auxilios infantiles, transporte desde Sucursal Metepec, atención a alergias específicas, desmontaje discreto al cierre."
+  />
+
+  <!-- ===================== 🆕 Estaciones Lúdicas Interactivas ===================== -->
+  <section class="tol-bi-estaciones">
+    <div class="container">
+      <div class="tol-bi-estaciones__header">
+        <span class="tol-bi-estaciones__badge">Solo en Kids Party 10 y Star Party 15</span>
+        <h2>Estaciones <span>Lúdicas Interactivas</span></h2>
+        <p>No solo es comer snacks: es experiencia interactiva memorable. 4 estaciones lúdicas que convierten tu barra en el centro de atención de la fiesta. Los niños las recuerdan toda la vida.</p>
+      </div>
+
+      <div class="tol-bi-estaciones__grid">
+        {estacionesLudicas.map(e => (
+          <div class="tol-bi-estacion-card">
+            <span class="tol-bi-estacion-card__icon">{e.icon}</span>
+            <h3>{e.nombre}</h3>
+            <p class="tol-bi-estacion-card__desc">{e.desc}</p>
+            <div class="tol-bi-estacion-card__meta">
+              <span><strong>Edad:</strong> {e.edad}</span>
+            </div>
+            <p class="tol-bi-estacion-card__incluye"><strong>Incluye:</strong> {e.incluye}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 🆕 Pack Recuerdos para llevar ===================== -->
+  <section class="tol-bi-recuerdos">
+    <div class="container">
+      <div class="tol-bi-recuerdos__header">
+        <span class="tol-bi-recuerdos__badge">Para Llevar a Casa</span>
+        <h2>Pack <span>Recuerdo Personalizado</span></h2>
+        <p>Cada niño se lleva su recuerdo del evento a casa. 3 niveles de pack según paquete. Los detalles que las mamás invitadas agradecen y comparten en grupo de WhatsApp.</p>
+      </div>
+
+      <div class="tol-bi-recuerdos__grid">
+        {packRecuerdos.map(p => (
+          <div class="tol-bi-recuerdo-card" style={`border-top: 5px solid ${p.color};`}>
+            <h3 style={`color: ${p.color};`}>{p.nombre}</h3>
+            <p class="tol-bi-recuerdo-card__contenido"><strong>Contenido:</strong> {p.contenido}</p>
+            <p class="tol-bi-recuerdo-card__presentacion"><strong>Presentación:</strong> {p.presentacion}</p>
+            <span class="tol-bi-recuerdo-card__incluido" style={`background: ${p.color}22; color: ${p.color};`}>Incluido en {p.incluido}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-bi-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestra Barra Infantil en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>80+ barras infantiles montadas en Valle Toluca</strong> y filosofía mamá-friendly, somos la opción de referencia cuando lo que necesitas es <strong>barra segura para niños con alergias, decoración temática inmersiva, estaciones lúdicas interactivas y operador con primeros auxilios infantiles</strong>. No es solo una barra de dulces: es experiencia mágica que las mamás recomiendan.",
+      "Cada barra parte del mismo estándar: protocolo seguridad alimentaria infantil documentado en 6 pilares, snacks kid-friendly sin alergenos base, decoración temática (6 temas populares), estaciones lúdicas (candy carrousel, algodón azúcar, photo wall, decorar galletas), bolsitas/cajitas recuerdo personalizadas. Lo que cambia es la <strong>escala y profundidad de la experiencia</strong>, no la calidad ni la seguridad."
+    ]}
+    stats={[
+      { number: "80+", label: "Barras infantiles Valle" },
+      { number: "0", label: "Colorantes artificiales" },
+      { number: "6", label: "Temas decoración" },
+      { number: "100%", label: "Mamás satisfechas" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="tol-bi-galeria" id="galeria-bi-toluca">
+    <div class="container">
+      <SectionHeader title="Barras Infantiles reales en eventos" titleHighlight="Valle de Toluca" subtitle="Selección curada de barras kid-friendly MEDEDUL en cumpleaños, baby showers y secciones kids del Valle" />
+      <div class="tol-bi-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-bi-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps id="proceso-bi-toluca" badge="Cómo trabajamos" title="4 fases para tu" titleHighlight="Barra Infantil Mágica" subtitle="Proceso mamá-friendly con diseño temático personalizado y producción galletas con nombre" steps={procesoToluca} />
+
+  <!-- ===================== Eventos compatibles ===================== -->
+  <EventsGrid badge="Versatilidad Total" title="Tu Barra Infantil Valle Toluca para" titleHighlight="Cualquier Ocasión" subtitle="Diseñamos barras infantiles temáticas para cada celebración con niños en Valle de Toluca. Desde cumpleaños princesas en Las Marinas Metepec hasta sección kids paralela en boda Hacienda La Magdalena Metepec." events={eventos} />
+
+  <!-- ===================== Subsecciones hermanas ===================== -->
+  <section class="tol-bi-hermanas">
+    <div class="container">
+      <SectionHeader
+        title="Otras Subsecciones de"
+        titleHighlight="Mesa de Snacks Toluca"
+        subtitle="Si tu evento es para adultos, mixto o quieres la vista completa del hub L4"
+      />
+      <div class="tol-bi-hermanas__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard href={sub.href} image={sub.img} alt={`${sub.title} en Valle Toluca por MEDEDUL`} title={sub.title} excerpt={sub.excerpt} badge={sub.badge} cta={sub.cta} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios mamás ===================== -->
+  <section class="tol-bi-testimonios">
+    <div class="container">
+      <SectionHeader title="Lo que dicen las" titleHighlight="Mamás del Valle Toluca" subtitle="Cumpleaños infantiles, baby showers y secciones kids reales montadas por MEDEDUL" />
+      <div class="tol-bi-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard name={t.name} initials={t.initials} review={t.review} event={t.event} rating={t.rating} verified={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20Barra%20Infantil" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Barra Infantil L5 EVOLVED MAX - Sucursal Toluca-Metepec
+     Prefix: tol-bi-
+     Paleta multi-colorida unicornio infantil:
+     #FF6B9D rosa · #FFD93D amarillo · #74C0FC azul · #88E1A8 verde · #C77DFF morado · #FF8C42 naranja
+     +7 secciones nuevas vs L5 anterior (Mix)
+     ========================================================== */
+
+  /* Stats con gradient rainbow */
+  .tol-bi-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fff5fa 100%); }
+  .tol-bi-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-bi-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(255, 107, 157, 0.18); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-bi-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #FF6B9D 0%, #C77DFF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .tol-bi-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* 🆕 Protocolo Seguridad (DARK pastel) */
+  .tol-bi-protocolo { padding: 100px 0; background: linear-gradient(180deg, #1a1228 0%, #261438 100%); color: #fff; position: relative; overflow: hidden; }
+  .tol-bi-protocolo::before { content: ''; position: absolute; top: -10%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255, 107, 157, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-bi-protocolo::after { content: ''; position: absolute; bottom: -10%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(116, 192, 252, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-bi-protocolo__header { text-align: center; max-width: 760px; margin: 0 auto 60px; position: relative; z-index: 1; }
+  .tol-bi-protocolo__badge { display: inline-block; background: linear-gradient(135deg, #FF6B9D 0%, #C77DFF 100%); color: #fff; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 18px; }
+  .tol-bi-protocolo__header h2 { font-size: 2.4rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+  .tol-bi-protocolo__header h2 span { background: linear-gradient(135deg, #FFD93D 0%, #FF6B9D 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-protocolo__header p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.78); line-height: 1.7; }
+  .tol-bi-protocolo__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .tol-bi-protocolo__card { background: rgba(255, 255, 255, 0.05); border-radius: 18px; padding: 32px 28px; backdrop-filter: blur(10px); transition: transform 0.25s ease; }
+  .tol-bi-protocolo__card:hover { transform: translateY(-4px); }
+  .tol-bi-protocolo__icon { font-size: 2rem; display: inline-block; padding: 14px; border-radius: 16px; margin-bottom: 16px; }
+  .tol-bi-protocolo__card h3 { font-size: 1.2rem; margin: 0 0 12px; font-weight: 700; }
+  .tol-bi-protocolo__card p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.78); line-height: 1.7; margin: 0; }
+
+  /* 🆕 Edades Recomendadas */
+  .tol-bi-edades { padding: 100px 0; background: linear-gradient(180deg, #fff5fa 0%, #fff 100%); }
+  .tol-bi-edades__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-edades__badge { display: inline-block; background: linear-gradient(135deg, #FFD93D 0%, #FF8C42 100%); color: #1a1228; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-edades__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-edades__header h2 span { background: linear-gradient(135deg, #FFD93D 0%, #FF8C42 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-edades__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-edades__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .tol-bi-edad-card { background: #fff; border-radius: 18px; padding: 28px 26px; box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06); }
+  .tol-bi-edad-card header { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+  .tol-bi-edad-card__icon { font-size: 1.8rem; padding: 14px; border-radius: 14px; line-height: 1; }
+  .tol-bi-edad-card__rango { display: block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .tol-bi-edad-card header h3 { font-size: 1.2rem; color: #1a1a1a; margin: 0; font-weight: 700; }
+  .tol-bi-edad-card__snacks, .tol-bi-edad-card__altura, .tol-bi-edad-card__consejo { font-size: 0.9rem; color: #555; line-height: 1.65; margin: 0 0 10px; }
+  .tol-bi-edad-card__consejo { font-style: italic; padding-top: 10px; border-top: 1px solid rgba(0, 0, 0, 0.05); margin-top: 12px; margin-bottom: 0; }
+  .tol-bi-edad-card strong { color: #1a1a1a; }
+
+  /* Carta Infantil 12 snacks */
+  .tol-bi-carta { padding: 100px 0; background: #fff; }
+  .tol-bi-carta__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-carta__badge { display: inline-block; background: linear-gradient(135deg, #88E1A8 0%, #74C0FC 100%); color: #fff; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-carta__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-carta__header h2 span { background: linear-gradient(135deg, #88E1A8 0%, #74C0FC 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-carta__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-carta__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tol-bi-snack-card { background: #fff; border-radius: 16px; padding: 24px 22px; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05); border: 2px solid transparent; transition: border-color 0.2s ease; }
+  .tol-bi-snack-card:hover { border-color: rgba(255, 107, 157, 0.4); }
+  .tol-bi-snack-card__head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+  .tol-bi-snack-card__num { font-size: 0.9rem; color: #FF6B9D; font-weight: 800; line-height: 1.3; }
+  .tol-bi-snack-card__title { flex: 1; }
+  .tol-bi-snack-card__title h3 { font-size: 1rem; color: #1a1a1a; margin: 0 0 4px; font-weight: 700; line-height: 1.3; }
+  .tol-bi-snack-card__cat { font-size: 0.74rem; color: #999; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tol-bi-snack-card__popular { font-size: 0.7rem; padding: 4px 10px; background: linear-gradient(135deg, #FFD93D 0%, #FF8C42 100%); color: #fff; border-radius: 50px; font-weight: 700; white-space: nowrap; }
+  .tol-bi-snack-card__specs { display: grid; grid-template-columns: 1fr; gap: 5px; margin: 0; }
+  .tol-bi-snack-card__specs > div { display: grid; grid-template-columns: 70px 1fr; gap: 8px; font-size: 0.78rem; }
+  .tol-bi-snack-card__specs dt { color: #999; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin: 0; font-size: 0.7rem; }
+  .tol-bi-snack-card__specs dd { color: #555; margin: 0; }
+
+  /* 🆕 Tabla Alergenos */
+  .tol-bi-alergenos { padding: 100px 0; background: linear-gradient(180deg, #fff5fa 0%, #fff 100%); }
+  .tol-bi-alergenos__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-alergenos__badge { display: inline-block; background: linear-gradient(135deg, #74C0FC 0%, #88E1A8 100%); color: #fff; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-alergenos__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-alergenos__header h2 span { color: #74C0FC; font-style: italic; }
+  .tol-bi-alergenos__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-alergenos__wrap { overflow-x: auto; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); margin-bottom: 24px; }
+  .tol-bi-alergenos__table { width: 100%; min-width: 720px; border-collapse: collapse; background: #fff; }
+  .tol-bi-alergenos__table th { background: linear-gradient(135deg, #1a1228 0%, #261438 100%); color: #FFD93D; padding: 18px 16px; text-align: center; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; border-bottom: 3px solid #FF6B9D; }
+  .tol-bi-alergenos__table th:first-child { text-align: left; }
+  .tol-bi-alergenos__table td { padding: 14px 16px; font-size: 0.9rem; color: #1a1a1a; border-bottom: 1px solid rgba(0, 0, 0, 0.06); text-align: center; }
+  .tol-bi-alergenos__table td:first-child { text-align: left; }
+  .tol-bi-alergenos__table tr:nth-child(even) td { background: #fffafd; }
+  .tol-bi-check { display: inline-block; width: 28px; height: 28px; line-height: 28px; background: linear-gradient(135deg, #88E1A8 0%, #4D9F3D 100%); color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.95rem; }
+  .tol-bi-x { display: inline-block; width: 28px; height: 28px; line-height: 28px; background: linear-gradient(135deg, #FF8C42 0%, #FF4D4D 100%); color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.95rem; }
+  .tol-bi-alergenos__note { text-align: center; max-width: 880px; margin: 0 auto; padding: 22px 28px; background: linear-gradient(135deg, #fffafd 0%, #fff5fa 100%); border-radius: 16px; border: 1px dashed rgba(255, 107, 157, 0.4); font-size: 0.95rem; color: #555; line-height: 1.7; }
+  .tol-bi-alergenos__note strong { color: #FF6B9D; }
+
+  /* 🆕 Decoración Temática */
+  .tol-bi-temas { padding: 100px 0; background: #fff; }
+  .tol-bi-temas__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-temas__badge { display: inline-block; background: linear-gradient(135deg, #C77DFF 0%, #FF6B9D 100%); color: #fff; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-temas__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-temas__header h2 span { background: linear-gradient(135deg, #C77DFF 0%, #FF6B9D 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-temas__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-temas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .tol-bi-tema-card { background: linear-gradient(180deg, #fff 0%, #fff5fa 100%); border-radius: 20px; padding: 28px 24px; box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06); border: 1px solid rgba(199, 125, 255, 0.18); }
+  .tol-bi-tema-card__head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+  .tol-bi-tema-card__icon { font-size: 2.4rem; line-height: 1; }
+  .tol-bi-tema-card__head h3 { font-size: 1.2rem; color: #1a1a1a; margin: 0; font-weight: 700; }
+  .tol-bi-tema-card__paleta { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tol-bi-tema-card__color { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
+  .tol-bi-tema-card__paleta-text { font-size: 0.7rem; color: #999; font-family: monospace; margin-left: 6px; }
+  .tol-bi-tema-card__elementos { font-size: 0.88rem; color: #555; line-height: 1.6; margin: 0 0 14px; }
+  .tol-bi-tema-card__elementos strong { color: #C77DFF; }
+  .tol-bi-tema-card__foot { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; border-top: 1px solid rgba(0, 0, 0, 0.06); font-size: 0.78rem; color: #666; }
+  .tol-bi-tema-card__foot strong { color: #1a1a1a; }
+  .tol-bi-temas__cta { text-align: center; max-width: 720px; margin: 36px auto 0; padding: 18px 24px; background: linear-gradient(135deg, #fffafd 0%, #fff5fa 100%); border-radius: 14px; border: 1px dashed rgba(199, 125, 255, 0.4); font-size: 0.95rem; color: #666; }
+  .tol-bi-temas__cta strong { color: #C77DFF; }
+
+  /* 🆕 Estaciones Lúdicas */
+  .tol-bi-estaciones { padding: 100px 0; background: linear-gradient(180deg, #fff5fa 0%, #fff 100%); }
+  .tol-bi-estaciones__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-estaciones__badge { display: inline-block; background: linear-gradient(135deg, #FF8C42 0%, #FFD93D 100%); color: #1a1228; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-estaciones__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-estaciones__header h2 span { background: linear-gradient(135deg, #FF8C42 0%, #FFD93D 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-estaciones__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-estaciones__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .tol-bi-estacion-card { background: #fff; border-radius: 20px; padding: 32px 28px; box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06); border: 1px solid rgba(255, 140, 66, 0.15); }
+  .tol-bi-estacion-card__icon { font-size: 2.6rem; display: block; margin-bottom: 14px; }
+  .tol-bi-estacion-card h3 { font-size: 1.3rem; color: #1a1a1a; margin: 0 0 14px; font-weight: 700; }
+  .tol-bi-estacion-card__desc { font-size: 0.95rem; color: #555; line-height: 1.7; margin: 0 0 16px; }
+  .tol-bi-estacion-card__meta { padding: 10px 14px; background: linear-gradient(135deg, #FFD93D22 0%, #FF8C4222 100%); border-radius: 10px; margin-bottom: 14px; font-size: 0.85rem; color: #1a1a1a; }
+  .tol-bi-estacion-card__meta strong { color: #FF8C42; }
+  .tol-bi-estacion-card__incluye { font-size: 0.88rem; color: #666; line-height: 1.65; margin: 0; padding-top: 14px; border-top: 1px solid rgba(0, 0, 0, 0.05); }
+  .tol-bi-estacion-card__incluye strong { color: #1a1a1a; }
+
+  /* 🆕 Pack Recuerdos */
+  .tol-bi-recuerdos { padding: 100px 0; background: #fff; }
+  .tol-bi-recuerdos__header { text-align: center; max-width: 760px; margin: 0 auto 50px; }
+  .tol-bi-recuerdos__badge { display: inline-block; background: linear-gradient(135deg, #88E1A8 0%, #FFD93D 100%); color: #1a1228; padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  .tol-bi-recuerdos__header h2 { font-size: 2.2rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-bi-recuerdos__header h2 span { background: linear-gradient(135deg, #88E1A8 0%, #FFD93D 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+  .tol-bi-recuerdos__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-bi-recuerdos__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .tol-bi-recuerdo-card { background: #fff; border-radius: 20px; padding: 32px 28px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+  .tol-bi-recuerdo-card h3 { font-size: 1.3rem; margin: 0 0 18px; font-weight: 700; }
+  .tol-bi-recuerdo-card__contenido, .tol-bi-recuerdo-card__presentacion { font-size: 0.9rem; color: #555; line-height: 1.7; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+  .tol-bi-recuerdo-card strong { color: #1a1a1a; }
+  .tol-bi-recuerdo-card__incluido { display: inline-block; padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 4px; }
+
+  /* Galería bento */
+  .tol-bi-galeria { padding: 90px 0; background: linear-gradient(180deg, #fff5fa 0%, #fff 100%); }
+  .tol-bi-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-bi-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-bi-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-bi-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-bi-galeria__item:nth-child(5), .tol-bi-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* Hermanas */
+  .tol-bi-hermanas { padding: 90px 0; background: #fff; }
+  .tol-bi-hermanas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+
+  /* Testimonios */
+  .tol-bi-testimonios { padding: 90px 0; background: linear-gradient(180deg, #fff5fa 0%, #fff 100%); }
+  .tol-bi-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* Sucursal Info Card */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .tol-bi-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-bi-protocolo__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-bi-edades__grid { grid-template-columns: 1fr; }
+    .tol-bi-carta__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-bi-temas__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-bi-estaciones__grid { grid-template-columns: 1fr; }
+    .tol-bi-recuerdos__grid { grid-template-columns: 1fr; }
+    .tol-bi-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-bi-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-bi-galeria__item:nth-child(5), .tol-bi-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-bi-hermanas__grid { grid-template-columns: 1fr; }
+    .tol-bi-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-bi-stats { padding: 40px 0; }
+    .tol-bi-stat__num { font-size: 1.6rem; }
+    .tol-bi-protocolo, .tol-bi-edades, .tol-bi-carta, .tol-bi-alergenos, .tol-bi-temas, .tol-bi-estaciones, .tol-bi-recuerdos, .tol-bi-galeria, .tol-bi-hermanas, .tol-bi-testimonios { padding: 60px 0; }
+    .tol-bi-protocolo__header h2, .tol-bi-edades__header h2, .tol-bi-carta__header h2, .tol-bi-alergenos__header h2, .tol-bi-temas__header h2, .tol-bi-estaciones__header h2, .tol-bi-recuerdos__header h2 { font-size: 1.6rem; }
+    .tol-bi-protocolo__grid { grid-template-columns: 1fr; }
+    .tol-bi-protocolo__card { padding: 26px 22px; }
+    .tol-bi-edad-card { padding: 24px 22px; }
+    .tol-bi-carta__grid { grid-template-columns: 1fr; }
+    .tol-bi-temas__grid { grid-template-columns: 1fr; }
+    .tol-bi-tema-card { padding: 24px 22px; }
+    .tol-bi-estacion-card { padding: 26px 22px; }
+    .tol-bi-recuerdo-card { padding: 26px 22px; }
+    .tol-bi-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-bi-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-bi-stat { padding: 16px 10px; }
+    .tol-bi-stat__num { font-size: 1.4rem; }
+    .tol-bi-stat__label { font-size: 0.78rem; }
+    .tol-bi-snack-card { padding: 20px 18px; }
+    .tol-bi-snack-card__title h3 { font-size: 0.95rem; }
+    .tol-bi-snack-card__popular { font-size: 0.65rem; padding: 3px 8px; }
+    .tol-bi-alergenos__note { padding: 18px 22px; font-size: 0.9rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

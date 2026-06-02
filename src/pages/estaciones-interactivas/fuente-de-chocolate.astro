@@ -1,164 +1,433 @@
 ---
+// Fuente de Chocolate — L4 Pro+ Estación Interactiva (CDMX)
+// Chocolate belga, productos para bañar, capacidades técnicas, eventos hermanos
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsCBBoda, subsCBXV, subsCBCumple, subsCBCorporativo,
+  subsFuenteChamoy, subsParedDulces, subsStandPastel,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
   { name: 'Fuente de Chocolate', url: '/estaciones-interactivas/fuente-de-chocolate' }
 ];
 
+// =============== Trust Stats ===============
+const stats = [
+  { number: '350+', label: 'Fuentes operadas CDMX' },
+  { number: '5kg-50kg', label: 'Capacidad por fuente' },
+  { number: '100%', label: 'Chocolate belga premium' },
+  { number: '< 24h', label: 'Cotización ejecutiva' }
+];
+
+// =============== 5 Tipos de chocolate (UNIQUE técnico) ===============
+const tiposChocolate = [
+  { tipo: 'Belga con leche', icon: '🍫', desc: 'El clásico universal. Cremoso, dulce-balanceado, color caramelo. La opción más solicitada para todo tipo de evento. Aprobado por niños y adultos.', popular: true },
+  { tipo: 'Belga blanco', icon: '🤍', desc: 'Dulce y suave. Sin cacao oscuro. Combina con frutos rojos, fresas, frutas tropicales. Ideal para bodas elegantes y baby showers.' },
+  { tipo: 'Belga oscuro 70%', icon: '🍫', desc: 'Cacao premium, menos dulce, sabor profundo. Para perfil gourmet, post-cena de boda o evento corporativo de alto nivel.' },
+  { tipo: 'Ruby chocolate', icon: '💗', desc: 'Tendencia 2026: chocolate rosa natural (sin colorantes), sabor frutal con notas ácidas. Ideal para XV Años glamour y bodas modernas.' },
+  { tipo: 'Mixto / Combinado', icon: '🎨', desc: 'Dos fuentes simultáneas: una con leche para niños, una con oscuro para adultos. Permite que cada invitado elija su perfil.' }
+];
+
+// =============== Productos para bañar (UNIQUE 8 categorías) ===============
+const productos = [
+  { icon: '🍓', nombre: 'Fresas frescas', desc: 'Lavadas con cloro alimentario, frescas del día. La opción más solicitada y fotogénica.' },
+  { icon: '🍌', nombre: 'Plátano y frutas', desc: 'Plátano, piña, melón, uvas, mango. Frutas de temporada cortadas y presentadas con brochetas.' },
+  { icon: '☁️', nombre: 'Malvaviscos', desc: 'Malvaviscos blancos y de colores en brochetas. Favorito infantil. Combinan con todos los chocolates.' },
+  { icon: '🥨', nombre: 'Pretzels y galletas', desc: 'Pretzels salados (contraste con dulce), galletas Oreo, mini-cookies. Para perfil gourmet adulto.' },
+  { icon: '🍩', nombre: 'Mini donas', desc: 'Donas mini de azúcar, glaseadas o naturales. Combinan especialmente con chocolate con leche.' },
+  { icon: '🥖', nombre: 'Churros mini', desc: 'Churros artesanales pequeños, recién hechos. Combinación clásica mexicana. Muy popular en CDMX.' },
+  { icon: '🍇', nombre: 'Brochetas mixtas', desc: 'Brochetas combinadas (fruta + malvavisco + pretzel). Ideal para grupos grandes, autoservicio rápido.' },
+  { icon: '🍪', nombre: 'Galletas de mantequilla', desc: 'Galletas de mantequilla artesanales, tipo shortbread. Para perfil premium y bodas elegantes.' }
+];
+
+// =============== Capacidades técnicas (UNIQUE) ===============
+const capacidades = [
+  { capacidad: '5 kg', icon: '🔹', invitados: '20-40 invitados', niveles: '2-3 niveles', altura: '60 cm', uso: 'Eventos íntimos: baby shower, cumpleaños familiar, reuniones boutique. Cabe en mesa estándar.' },
+  { capacidad: '15 kg', icon: '🔸', invitados: '50-100 invitados', niveles: '3-4 niveles', altura: '80 cm', uso: 'Eventos medianos: XV íntimo, boda boutique, evento corporativo small. Estándar más solicitado.' },
+  { capacidad: '30 kg', icon: '🔶', invitados: '100-200 invitados', niveles: '4-5 niveles', altura: '110 cm', uso: 'Eventos grandes: boda completa, XV de gran convocatoria, convención corporativa. Show visual.' },
+  { capacidad: '50 kg', icon: '⭐', invitados: '200-400+ invitados', niveles: '5-6 niveles', altura: '140 cm', uso: 'Eventos masivos: graduación de generación, convención corporativa grande, evento de marca multinacional.' }
+];
+
+// =============== Características (Diferenciadores) ===============
+const caracteristicas = [
+  { num: 1, title: 'Chocolate belga premium 100% (no compound)', desc: 'Usamos exclusivamente chocolate belga premium con manteca de cacao real (no chocolate compound con grasa vegetal). La diferencia se nota: brillo, textura, sabor profundo y mejor experiencia para bañar productos.', img: '/img/estaciones-interactivas/fuente-chocolate/renta-fuente-chocolate-profesional.avif' },
+  { num: 2, title: 'Capacidad escalable según invitados', desc: 'Fuentes de 5 kg, 15 kg, 30 kg y 50 kg según número de invitados. Cada capacidad implica diferente altura, niveles y volumen de chocolate fluido. Sin sobreconsumo ni desperdicio.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif' },
+  { num: 3, title: '8 categorías de productos para bañar', desc: 'Fresas frescas, frutas variadas (plátano, piña, melón, uvas, mango), malvaviscos, pretzels, mini donas, churros artesanales, brochetas mixtas y galletas de mantequilla. Combinable según evento.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-fiestas.avif' },
+  { num: 4, title: 'Operador profesional y reposición continua', desc: 'Operador dedicado uniformado durante toda la operación: reposición de chocolate, reposición de productos, control de temperatura, limpieza continua de salpicaduras, atención a invitados.', img: '/img/estaciones-interactivas/fuente-chocolate/alquiler-fuente-chocolate-cdmx.avif' }
+];
+
+// =============== Paquetes Fuente de Chocolate CDMX ===============
+const paquetes = [
+  { name: 'Esencial', icon: '🔹', price: '$3,500', currency: 'MXN', guests: '20-40 invitados', tagline: 'Fuente íntima con productos clásicos', features: ['Fuente de 5 kg chocolate belga con leche', '3-4 productos para bañar (fresas, malvaviscos, plátano, brochetas)', 'Operador 2 horas', 'Montaje 1 h antes', 'Mantel decorativo', 'Brochetas y servilletas incluidas', 'Cobertura zonas centrales CDMX'], popular: false, ctaText: 'Cotizar Esencial', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Fuente%20de%20Chocolate%20CDMX%20-%20Esencial' },
+  { name: 'Premium', icon: '🔶', price: '$5,800', currency: 'MXN', guests: '50-150 invitados', tagline: 'El más solicitado en CDMX', features: ['Fuente 15 kg chocolate belga (a elegir: leche, blanco u oscuro)', '5-6 productos para bañar (incluye churros artesanales)', 'Operador 4 horas', 'Montaje y decoración con flores', 'Iluminación LED opcional', 'Reposición continua incluida', 'Cobertura amplia CDMX (Polanco, Lomas, Coyoacán, Roma)'], popular: true, ctaText: 'Cotizar Premium', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Fuente%20de%20Chocolate%20CDMX%20-%20Premium' },
+  { name: 'Luxury', icon: '⭐', price: '$9,500', currency: 'MXN', guests: '150-400+ invitados', tagline: 'Show gastronómico de gran escala', features: ['Fuente 30-50 kg chocolate belga premium', '8 productos para bañar (todas las categorías)', 'Operador 6 horas + ayudante', 'Backdrop iluminado con foco LED', 'Mantel y cristalería premium', 'Estación de brochetas pre-armadas', 'Reposición continua extendida', 'Sucursal preferente Anzures + Condesa CDMX'], popular: false, ctaText: 'Cotizar Luxury', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Fuente%20de%20Chocolate%20CDMX%20-%20Luxury' }
+];
+
+// =============== Proceso ===============
+const proceso = [
+  { num: 1, title: 'Brief del evento', desc: 'Recibimos brief: tipo de evento (boda, XV, infantil, corporativo), número de invitados, tipo de chocolate preferido, productos para bañar deseados, sede y horarios. Te recomendamos capacidad ideal.' },
+  { num: 2, title: 'Cotización ejecutiva', desc: 'En menos de 24 h enviamos cotización cerrada en 3 niveles (Esencial 5kg, Premium 15kg, Luxury 30-50kg) con detalle de productos, duración y add-ons opcionales (iluminación LED, backdrop).' },
+  { num: 3, title: 'Coordinación logística', desc: 'Coordinamos posición de la fuente en el venue, acceso eléctrico (la fuente requiere conexión 110V), tiempo de montaje, integración con mesa de dulces o pastel.' },
+  { num: 4, title: 'Día del evento', desc: 'Llegamos 1-2 h antes. Calentamos el chocolate al punto óptimo (45°C), instalamos la fuente, presentamos productos para bañar. Operamos durante toda la duración con reposición continua. Desmontaje al cierre.' }
+];
+
+// =============== Galería (8 imágenes) ===============
+const galeriaImages = [
+  { src: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif', alt: 'Fuente de chocolate belga para eventos en CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chocolate/renta-fuente-chocolate-profesional.avif', alt: 'Renta fuente de chocolate profesional CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-fiestas.avif', alt: 'Fuente de chocolate para fiestas CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chocolate/alquiler-fuente-chocolate-cdmx.avif', alt: 'Alquiler fuente de chocolate CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif', alt: 'Fuente de chocolate para eventos premium CDMX' },
+  { src: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', alt: 'Fuente de chocolate para XV Años elegante CDMX' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Fuente de chocolate para evento corporativo lujo CDMX' },
+  { src: '/img/eventos/bodas/candy-bar-boda-romantico.avif', alt: 'Fuente de chocolate para boda romántica CDMX' }
+];
+
+// =============== Qué incluye ===============
+const incluye = [
+  { num: '01', title: 'Chocolate belga premium 100%', desc: 'Chocolate belga premium con manteca de cacao real, no compound. Sin grasas vegetales ni aceites añadidos. Disponible en leche, blanco, oscuro 70% o ruby. Cantidad calculada según número de invitados con margen de seguridad.' },
+  { num: '02', title: 'Fuente profesional según capacidad', desc: 'Fuente de acero inoxidable grado alimentario, con motor de torre y sistema de calefacción controlada. Capacidades: 5 kg (60 cm altura), 15 kg (80 cm), 30 kg (110 cm), 50 kg (140 cm). 2-6 niveles según modelo.' },
+  { num: '03', title: '3-8 productos para bañar', desc: 'Según paquete: Esencial 3-4 productos (fresas, malvaviscos, plátano, brochetas), Premium 5-6 productos (suma churros y pretzels), Luxury 8 productos (todas las categorías). Producto fresco lavado con cloro alimentario.' },
+  { num: '04', title: 'Mobiliario y decoración', desc: 'Mesa de soporte con mantel decorativo, base estable para la fuente, bandejas para productos, brochetas y servilletas. En Premium y Luxury sumamos decoración floral, iluminación LED y backdrop opcional.' },
+  { num: '05', title: 'Operador profesional uniformado', desc: 'Operador dedicado uniformado (camisa blanca, mandil, gorra) durante toda la operación. Reposición continua de chocolate y productos, control de temperatura del chocolate fluido, limpieza de salpicaduras, atención al detalle.' },
+  { num: '06', title: 'Montaje y desmontaje incluidos', desc: 'Llegamos 1-2 h antes del evento para montaje completo (calentamiento del chocolate al punto óptimo 45°C, instalación, prueba de fluido). Desmontaje discreto al cierre con limpieza completa del área.' }
+];
+
+// =============== Testimonios ===============
+const testimonios = [
+  { name: 'Mariana López (boda)', initials: 'ML', review: 'Fuente de 30 kg para nuestra boda en Hotel Camino Real Polanco con 200 invitados. Chocolate belga oscuro 70% con fresas, churros y galletas. La estrella de la noche, todos se fotografiaron con la fuente. Operador súper profesional.', event: 'Boda · Hotel Camino Real Polanco', rating: 5 },
+  { name: 'Familia Hernández (XV)', initials: 'FH', review: 'XV de mi hija en Hacienda de los Morales con 150 invitadas. Fuente de chocolate ruby (rosa) coordinada con la paleta del XV. Las amigas no paraban de subir fotos a Instagram con la fuente rosa. Perfecto.', event: 'XV Años · Hacienda de los Morales', rating: 5 },
+  { name: 'Marketing Lead (corporativo)', initials: 'ML', review: 'Lanzamiento de producto en Reforma 222 con 250 invitados. Fuente de chocolate mixta (leche + oscuro) como estación de cocktail networking. Show visual impresionante para la foto de PR. Factura A timbrada inmediata.', event: 'Lanzamiento corporativo · Reforma 222', rating: 5 }
+];
+
+// =============== FAQ ===============
 const faqs = [
-  { question: 'Que chocolate utilizan en la fuente?', answer: 'Trabajamos con chocolate premium apto para fuente en diferentes perfiles de sabor segun tipo de evento.' },
-  { question: 'Que acompanamientos incluye?', answer: 'Incluye fruta fresca y complementos seleccionados para mejorar experiencia de consumo e interaccion.' },
-  { question: 'Incluye operador durante el evento?', answer: 'Si. Incluimos operacion en sitio para asegurar flujo continuo y presentacion impecable.' },
-  { question: 'Cuanto dura el servicio?', answer: 'El tiempo de servicio se define en la propuesta segun formato del evento y volumen de invitados.' },
-  { question: 'Se puede combinar con candy bar?', answer: 'Si. Es una combinacion muy efectiva para aumentar participacion y valor percibido.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con montaje profesional y desmontaje al finalizar.' }
+  { question: '¿Qué incluye la renta de fuente de chocolate en CDMX?', answer: 'Incluye fuente profesional de acero inoxidable según capacidad (5, 15, 30 o 50 kg), chocolate belga premium 100% (sin compound) en tipo a elegir (leche, blanco, oscuro 70%, ruby o mixto), 3 a 8 productos para bañar según paquete (fresas frescas, frutas variadas, malvaviscos, pretzels, mini donas, churros artesanales, brochetas, galletas), mesa de soporte con mantel, brochetas y servilletas, operador profesional uniformado durante 2-6 horas según paquete, montaje 1-2 h antes con calentamiento al punto óptimo (45°C) y desmontaje al cierre.' },
+  { question: '¿Cuánto cuesta rentar una fuente de chocolate en CDMX?', answer: 'En CDMX iniciamos en $3,500 MXN (Esencial, fuente 5 kg, 20-40 invitados), $5,800 MXN (Premium, fuente 15 kg, 50-150 invitados, el más solicitado) y $9,500 MXN (Luxury, fuente 30-50 kg, 150-400+ invitados con backdrop iluminado). El precio depende del número de invitados, tipo de chocolate (oscuro premium sale más alto), número de productos para bañar y duración del servicio.' },
+  { question: '¿Qué tipos de chocolate manejan?', answer: 'Trabajamos 5 tipos de chocolate belga premium 100% (sin compound): Belga con leche (el clásico universal), Belga blanco (con frutos rojos), Belga oscuro 70% (perfil gourmet), Ruby chocolate (tendencia 2026, chocolate rosa natural sin colorantes con notas frutales-ácidas) y Mixto (dos fuentes simultáneas: leche para niños + oscuro para adultos).' },
+  { question: '¿Qué productos para bañar incluyen?', answer: 'Trabajamos 8 categorías: fresas frescas lavadas con cloro alimentario, frutas variadas (plátano, piña, melón, uvas, mango), malvaviscos blancos y de colores, pretzels salados, mini donas glaseadas, churros mini artesanales recién hechos, brochetas mixtas pre-armadas y galletas de mantequilla premium tipo shortbread. Según paquete: Esencial 3-4, Premium 5-6, Luxury 8 categorías.' },
+  { question: '¿Qué capacidad de fuente necesito para mi evento?', answer: 'La capacidad depende del número de invitados: 5 kg para 20-40 invitados (eventos íntimos), 15 kg para 50-150 invitados (el más solicitado, ideal para XV, boda boutique, evento corporativo small), 30 kg para 100-200 invitados (boda completa, XV de gran convocatoria) y 50 kg para 200-400+ invitados (graduación de generación, convención corporativa, evento de marca multinacional). Te asesoramos según tu evento.' },
+  { question: '¿La fuente requiere conexión eléctrica especial?', answer: 'Sí, requiere conexión 110V estándar (toma de corriente convencional). En venues corporativos o salones grandes confirmamos disponibilidad de toma cercana. Si el venue no tiene toma accesible o si la fuente quedará en jardín exterior, podemos traer cable de extensión profesional y/o multicontacto con protección.' },
+  { question: '¿Para qué tipos de evento se renta más esta fuente?', answer: 'Las 4 aplicaciones más solicitadas: <a href="/candy-bar-eventos/mesa-dulces-boda">Bodas</a> (estación estrella nupcial), <a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a> (la más solicitada, ruby chocolate tendencia 2026), <a href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil">Fiestas Infantiles</a> (los niños la adoran), <a href="/candy-bar-eventos/mesa-dulces-corporativos">Eventos Corporativos</a> (show gastronómico premium para lanzamientos, posadas y convenciones).' },
+  { question: '¿Pueden combinarla con otras estaciones interactivas?', answer: 'Sí, las combinaciones más solicitadas: <a href="/estaciones-interactivas/fuente-de-chamoy">Fuente de Chamoy</a> (combo dulce + picosito mexicano, muy popular en XV mexicanos modernos), <a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a> (autoservicio + show interactivo de la fuente), <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (el centro de la celebración + experiencia gastronómica) o con cualquiera de nuestras mesas de dulces.' },
+  { question: '¿Atienden eventos en todo CDMX y zona metropolitana?', answer: 'Sí. Operamos desde nuestras sucursales fijas Anzures y Condesa con cobertura completa CDMX: Polanco, Lomas de Chapultepec, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite y todas las 16 alcaldías. Para detalle visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces">página de sucursal CDMX</a>.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para eventos regulares recomendamos 2-3 semanas de anticipación. Para temporadas altas (mayo-junio para XV/graduaciones, octubre-diciembre para bodas/corporativos/posadas) sugerimos 4-6 semanas. Trabajamos con anticipo del 50% para apartar fecha y liquidación 48 h antes del evento.' }
 ];
 
-const packages = [
-  {
-    name: 'Esencial',
-    icon: '🍫',
-    price: '$4,800',
-    currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para una estacion principal',
-    features: ['Fuente de chocolate profesional', 'Acompanamientos base incluidos', 'Montaje profesional', 'Operacion en sitio', 'Desmontaje al finalizar'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chocolate - Paquete Esencial'
-  },
-  {
-    name: 'Premium',
-    icon: '⭐',
-    price: '$8,200',
-    currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Mayor volumen de insumos', 'Curaduria premium de acompanamientos', 'Diseno de presentacion personalizado', 'Montaje y operacion extendida', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
-    popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chocolate - Paquete Premium'
-  },
-  {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$12,400',
-    currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia de alto impacto',
-    features: ['Configuracion para eventos grandes', 'Operacion en sitio extendida', 'Direccion estetica completa', 'Acompanamientos premium ampliados', 'Acompanamiento operativo integral', 'Mayor capacidad de servicio'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chocolate - Paquete Luxury'
-  }
-];
-
-const whyStats = [
-  { number: '100%', label: 'Interaccion del Invitado' },
-  { number: '3+', label: 'Perfiles de Sabor' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Impacto Sensorial', desc: 'Estacion visual y aromatica que incrementa participacion en el evento.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif' },
-  { num: 2, title: 'Operacion Estable', desc: 'Control profesional de flujo y temperatura para servicio continuo.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif' },
-  { num: 3, title: 'Acompanamientos Curados', desc: 'Seleccion de complementos para elevar experiencia y variedad.', img: '/img/estaciones-interactivas/fuente-chocolate/alquiler-fuente-chocolate-cdmx.avif' },
-  { num: 4, title: 'Montaje Premium', desc: 'Presentacion limpia y funcional alineada al concepto del evento.', img: '/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-fiestas.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance de la estacion.' },
-  { num: 2, title: 'Disenamos', desc: 'Definimos configuracion, insumos y estilo de presentacion.' },
-  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica, montaje y operacion en sitio.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la fuente con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Chocolate para Bodas', excerpt: 'Estacion premium para recepciones nupciales con alta participacion.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Chocolate para XV Anos', excerpt: 'Experiencia interactiva para celebraciones sociales de alto impacto.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Chocolate para Corporativos', excerpt: 'Formato diferencial para hospitalidad y activaciones de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
-  { title: 'Chocolate para Cumpleanos', excerpt: 'Estacion divertida y memorable para eventos familiares.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' }
-];
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
 const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Fuente de Chocolate para Eventos en CDMX',
-  description: 'Servicio de fuente de chocolate para eventos sociales y corporativos en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4800',
-    highPrice: '12400',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Fuente de Chocolate ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chocolate#service",
+      "name": "Renta de Fuente de Chocolate en CDMX",
+      "serviceType": "Estación Interactiva / Fuente de Chocolate Profesional",
+      "description": "Renta de fuente de chocolate belga premium en Ciudad de México con capacidades 5kg, 15kg, 30kg y 50kg. 5 tipos de chocolate (belga con leche, blanco, oscuro 70%, ruby, mixto), 8 productos para bañar (fresas, frutas, malvaviscos, churros, galletas), operador profesional uniformado. Ideal para bodas, XV años, fiestas infantiles y eventos corporativos. Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "350", "bestRating": "5" }
+      },
+      "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3500",
+        "highPrice": "9500",
+        "offerCount": "3",
+        "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chocolate CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" }))
+      }
+    },
+    { "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer.replace(/<[^>]+>/g, '') } })) },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Estaciones Interactivas", "item": "https://mesas-de-dulces.com/estaciones-interactivas" },
+      { "@type": "ListItem", "position": 3, "name": "Fuente de Chocolate", "item": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chocolate" }
+    ]}
+  ]
 };
 ---
 
 <BaseLayout
-  title="Fuente de Chocolate para Eventos en CDMX | Mededul"
-  description="Renta de fuente de chocolate en CDMX con montaje profesional, operacion en sitio y experiencia interactiva para eventos."
+  title="Fuente de Chocolate CDMX | Belga Premium · 5kg-50kg · 8 Productos | MEDEDUL"
+  description="Renta de fuente de chocolate belga premium en CDMX con capacidades 5kg, 15kg, 30kg y 50kg. 5 tipos (leche, blanco, oscuro 70%, ruby), 8 productos para bañar. 350+ fuentes operadas. Bodas, XV, infantiles, corporativos. Desde $3,500 MXN."
   canonical="/estaciones-interactivas/fuente-de-chocolate"
-  ogImage="/img/estaciones-interactivas/fuente-chocolate/fuente-de-chocolate-para-eventos.avif"
+  ogImage="/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Fuente de Chocolate para Eventos en CDMX"
-    highlight="Fuente de Chocolate"
-    subtitle="Experiencia interactiva premium para elevar participacion, recordacion y valor del evento"
-    secondaryContent={`<p><strong>Chocolate</strong> en formato de fuente crea un punto de atraccion natural que incrementa participacion de invitados y mejora dinamica social del evento. En Mededul operamos esta estacion con criterios profesionales para mantener flujo y calidad constantes.</p><p><strong>Interactiva</strong> y visualmente potente, la fuente de chocolate aporta experiencia sensorial y valor fotografico en bodas, sociales y corporativos. Adaptamos configuracion, montaje y operacion para resultados consistentes en CDMX.</p>`}
+    title="Fuente de Chocolate en CDMX"
+    highlight="Fuente de Chocolate CDMX"
+    subtitle="La estrella de cualquier fiesta · Chocolate belga premium 100% · 350+ fuentes operadas en CDMX"
+    secondaryContent={`<p>Chocolate belga cayendo en cascada mientras tus invitados bañan fresas y churros. La <strong>fuente de chocolate</strong> es la estación interactiva más solicitada y memorable de cualquier evento en Ciudad de México: el rincón fotográfico que tus invitados van a recordar, el show gastronómico que genera "wow" inmediato y la experiencia que combina entretenimiento con sabor premium. En <strong>MEDEDUL</strong> trabajamos exclusivamente <strong>chocolate belga premium 100%</strong> (con manteca de cacao real, no compound con grasa vegetal) en 5 tipos a elegir: belga con leche (clásico universal), belga blanco (con frutos rojos), belga oscuro 70% (perfil gourmet), <strong>ruby chocolate</strong> (tendencia 2026 sin colorantes con notas frutales) y mixto (dos fuentes simultáneas para niños + adultos).</p><p>Manejamos <strong>4 capacidades técnicas</strong> escalables: 5 kg (eventos íntimos 20-40 personas), 15 kg (medianos 50-150, el más solicitado), 30 kg (grandes 100-200) y 50 kg (masivos 200-400+ con altura 140 cm como statement piece). Cada paquete incluye 3-8 productos para bañar: fresas, plátano, piña, melón, uvas, mango, malvaviscos, pretzels, mini donas, churros artesanales, brochetas mixtas y galletas de mantequilla premium. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX. Cotización ejecutiva en 24 h.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de fuente de chocolate a tu aforo y nivel de servicio." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <section class="choco-stats">
+    <div class="container">
+      <div class="choco-stats__grid">
+        {stats.map(s => (<div class="choco-stat"><span class="choco-stat__num">{s.number}</span><span class="choco-stat__label">{s.label}</span></div>))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Fuente de Chocolate" descriptions={['Fuente de chocolate operada con criterios tecnicos para garantizar continuidad de servicio.', 'Integramos montaje, insumos y operacion para entregar una experiencia premium y consistente.']} stats={whyStats} features={whyFeatures} />
+  <section class="choco-tipos section-padding" id="tipos-chocolate">
+    <div class="container">
+      <SectionHeader title="5 tipos de chocolate" titleHighlight="belga premium" subtitle="Chocolate 100% belga con manteca de cacao real, no compound. Elige según perfil de invitados y temática del evento" />
+      <div class="choco-tipos__grid">
+        {tiposChocolate.map(t => (
+          <div class:list={['choco-tipo', { 'choco-tipo--popular': t.popular }]}>
+            {t.popular && <span class="choco-tipo__badge">Más solicitado</span>}
+            <div class="choco-tipo__icon" aria-hidden="true">{t.icon}</div>
+            <h3 class="choco-tipo__name">{t.tipo}</h3>
+            <p class="choco-tipo__desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu fuente de chocolate sin fricciones." steps={processSteps} />
+  <section class="choco-productos section-padding" id="productos-banar">
+    <div class="container">
+      <SectionHeader title="8 productos" titleHighlight="para bañar" subtitle="Catálogo completo de productos para complementar tu fuente. Combinables según paquete y perfil de invitados" content={`<p>Cada paquete incluye una selección distinta: <strong>Esencial</strong> 3-4 productos básicos, <strong>Premium</strong> 5-6 productos (suma churros y pretzels), <strong>Luxury</strong> las 8 categorías completas. Producto fresco lavado con cloro alimentario.</p>`} />
+      <div class="choco-productos__grid">
+        {productos.map(p => (
+          <div class="choco-producto">
+            <span class="choco-producto__icon" aria-hidden="true">{p.icon}</span>
+            <h3 class="choco-producto__name">{p.nombre}</h3>
+            <p class="choco-producto__desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Fuente de Chocolate para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion e insumos segun la naturaleza de cada celebracion." events={eventCards} />
+  <section class="choco-capacidades section-padding" id="capacidades-tecnicas">
+    <div class="container">
+      <SectionHeader title="4 capacidades técnicas" titleHighlight="escalables" subtitle="Te asesoramos según número de invitados, tipo de evento y dimensiones del venue" />
+      <div class="choco-capacidades__grid">
+        {capacidades.map(c => (
+          <div class="choco-capacidad">
+            <div class="choco-capacidad__icon" aria-hidden="true">{c.icon}</div>
+            <h3 class="choco-capacidad__cap">{c.capacidad}</h3>
+            <span class="choco-capacidad__inv">{c.invitados}</span>
+            <div class="choco-capacidad__specs">
+              <div><strong>Niveles:</strong> {c.niveles}</div>
+              <div><strong>Altura:</strong> {c.altura}</div>
+            </div>
+            <p class="choco-capacidad__uso">{c.uso}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <section class="choco-intro" id="intro-choco">
+    <div class="container">
+      <div class="choco-intro__grid">
+        <div class="choco-intro__copy">
+          <span class="choco-intro__badge">Especialistas en fuente de chocolate CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu fuente de chocolate en CDMX</h2>
+          <p>La fuente de chocolate es la <strong>estación interactiva con mayor retorno emocional</strong> de cualquier evento: combina show visual, experiencia sensorial, interacción y fotografía. Por eso cada renta de fuente que operamos en Ciudad de México parte de un proceso profesional integral.</p>
+          <p>La fuente de chocolate CDMX que operamos no es un servicio improvisado: usamos <strong>exclusivamente chocolate belga premium 100%</strong> (con manteca de cacao real, no compound). Trabajamos 5 tipos a elegir, 4 capacidades técnicas y 8 productos para bañar. Operador profesional uniformado durante toda la operación.</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong>, llegando puntualmente a cualquier venue: hoteles 5 estrellas, haciendas patrimoniales, edificios corporativos, salones boutique y domicilios. Para detalle de cobertura visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Fuente%20de%20Chocolate%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a planear el show gastronómico de tu evento.</p>
+        </div>
+        <div class="choco-intro__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif', { w: 720, q: 82 })} alt="Fuente de chocolate belga premium MEDEDUL en CDMX" loading="lazy" width="720" height="480" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages id="paquetes-choco" badge="Paquetes Fuente Chocolate CDMX" title="Elige el formato para tu" titleHighlight="fuente de chocolate" subtitle="3 niveles claros con chocolate belga premium incluido" content={`<p>Diseñamos <strong>tres niveles según capacidad y duración</strong>. <strong>Esencial</strong> fuente 5kg para eventos íntimos; <strong>Premium</strong> es el más solicitado fuente 15kg con 5-6 productos y operador 4h; <strong>Luxury</strong> fuente 30-50kg para gran escala con backdrop iluminado, 8 productos y operador extendido.</p>`} packages={paquetes} note="💡 <strong>Todos los paquetes Fuente de Chocolate CDMX incluyen:</strong> chocolate belga premium 100%, fuente profesional según capacidad, productos para bañar lavados con cloro alimentario, mesa de soporte con mantel, brochetas y servilletas, operador uniformado, montaje 1-2h antes con calentamiento al punto óptimo (45°C) y desmontaje al cierre." />
+
+  <WhyChooseUs id="por-que-choco" badge="Diferenciadores Fuente Chocolate" title="Por qué elegir nuestra" titleHighlight="Fuente de Chocolate" descriptions={["Con <strong>350+ fuentes operadas en CDMX</strong>, 5 tipos de chocolate belga premium y 8 productos para bañar, MEDEDUL es la opción especializada para clientes que buscan show gastronómico con chocolate premium real (no compound).", "Cada fuente parte del mismo método: brief con asesoría de capacidad, cotización 24h, coordinación logística (acceso eléctrico, posición), montaje 1-2h con calentamiento al punto óptimo y operación con reposición continua. La diferencia: <strong>chocolate belga premium 100% real</strong>."]} stats={[{ number: "350+", label: "Fuentes operadas" }, { number: "5", label: "Tipos chocolate" }, { number: "8", label: "Productos bañar" }, { number: "100%", label: "Belga real" }]} features={caracteristicas} />
+
+  <section class="choco-galeria" id="galeria-choco">
+    <div class="container">
+      <SectionHeader title="Fuentes operadas reales en" titleHighlight="CDMX" subtitle="Selección curada de fuentes MEDEDUL en distintos eventos, capacidades y venues" />
+      <div class="choco-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="choco-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="choco-incluye section-padding" id="incluye-choco">
+    <div class="container">
+      <SectionHeader title="Qué incluye nuestra" titleHighlight="Fuente Chocolate CDMX" subtitle="Servicio integral con chocolate belga premium y operador profesional" />
+      <div class="choco-incluye__grid">
+        {incluye.map(item => (
+          <div class="choco-incluye__item">
+            <div class="choco-incluye__num">{item.num}</div>
+            <h3 class="choco-incluye__title">{item.title}</h3>
+            <p class="choco-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps id="proceso-choco" badge="Cómo trabajamos" title="Nuestro proceso para tu" titleHighlight="fuente de chocolate" subtitle="Cuatro pasos para que tu fuente sea la estrella del evento" steps={proceso} />
+
+  <section class="choco-eventos section-padding" id="aplica-eventos">
+    <div class="container">
+      <SectionHeader title="Para tu tipo de" titleHighlight="evento" subtitle="Las 4 aplicaciones más solicitadas de fuente de chocolate en CDMX" />
+      <div class="service-grid">
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-boda" image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')} alt="Fuente de chocolate para boda" title="Para Bodas" excerpt="Estación estrella nupcial. La fuente es uno de los detalles más recordados del banquete. Combina con mesa de postres." cta="Ver Mesa Boda" badge="Estrella nupcial" subsections={subsCBBoda} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-xv-anos" image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')} alt="Fuente de chocolate para XV Años" title="Para XV Años" excerpt="La más solicitada por quinceañeras. Ruby chocolate (rosa) es tendencia 2026, combina con paleta XV glamour." cta="Ver Mesa XV" badge="Top XV" subsections={subsCBXV} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil" image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')} alt="Fuente de chocolate para fiestas infantiles" title="Para Fiestas Infantiles" excerpt="Los niños la adoran. Chocolate con leche, malvaviscos y plátano. Operador con experiencia en niños." cta="Ver Cumple Infantil" badge="Favorita niños" subsections={subsCBCumple} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-corporativos" image={getCdnUrl('/img/eventos/corporativos/candy-bar-empresarial.avif')} alt="Fuente de chocolate para corporativos" title="Para Corporativos" excerpt="Show gastronómico premium. Para lanzamientos, posadas, convenciones. Branding integral disponible." cta="Ver Corporativos" badge="Show premium" subsections={subsCBCorporativo} />
+      </div>
+    </div>
+  </section>
+
+  <section class="choco-cdmx-cta section-padding" id="choco-cdmx">
+    <div class="container">
+      <div class="choco-cdmx-cta__card">
+        <div class="choco-cdmx-cta__body">
+          <span class="choco-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos fuentes de chocolate desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL renta fuentes de chocolate en toda la Ciudad de México con cobertura en <strong>Polanco, Lomas de Chapultepec, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite</strong> y todas las 16 alcaldías. Operamos en hoteles 5 estrellas, haciendas patrimoniales, edificios corporativos, salones boutique y domicilios.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="choco-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="choco-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/alquiler-fuente-chocolate-cdmx.avif', { w: 600, q: 82 })} alt="Alquiler fuente de chocolate CDMX MEDEDUL" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="choco-testimonios section-padding" id="testimonios-choco">
+    <div class="container">
+      <SectionHeader title="Testimonios reales de" titleHighlight="clientes CDMX" subtitle="Familias y empresas hablando de su experiencia con fuente de chocolate MEDEDUL" />
+      <div class="reviews-grid">
+        {testimonios.map(t => (<ReviewCard {...t} />))}
+      </div>
+    </div>
+  </section>
+
+  <section class="choco-otras section-padding" id="otras-estaciones">
+    <div class="container">
+      <SectionHeader title="Otras estaciones" titleHighlight="interactivas" subtitle="Combina la fuente de chocolate con otras estaciones para elevar tu evento" />
+      <div class="service-grid">
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chamoy" image={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')} alt="Fuente de chamoy mexicano" title="Fuente de Chamoy" excerpt="El picosito que México ama. Combo perfecto: dulce + picosito." cta="Ver Fuente Chamoy" subsections={subsFuenteChamoy} />
+        <ServiceCard href="/estaciones-interactivas/pared-de-dulces" image={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')} alt="Pared de dulces candy wall" title="Pared de Dulces" excerpt="El muro más fotografiado de tu fiesta. Autoservicio + show de la fuente." cta="Ver Pared Dulces" subsections={subsParedDulces} />
+        <ServiceCard href="/estaciones-interactivas/stand-para-pastel" image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')} alt="Stand para pastel decorado" title="Stand para Pastel" excerpt="Tu pastel merece su propio escenario. Marco decorado para foto del corte." cta="Ver Stand Pastel" subsections={subsStandPastel} />
+      </div>
+    </div>
+  </section>
 
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  .choco-stats { background: linear-gradient(135deg, #3a2418 0%, #6b4423 50%, #3a2418 100%); padding: 3rem 0; color: #fff; }
+  .choco-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .choco-stat__num { display: block; font-size: 2.5rem; font-weight: 800; color: #d4a574; line-height: 1; margin-bottom: 0.5rem; }
+  .choco-stat__label { display: block; font-size: 0.95rem; color: rgba(255,255,255,0.85); font-weight: 500; }
+  @media (max-width: 768px) { .choco-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } .choco-stat__num { font-size: 2rem; } }
+
+  .choco-tipos { background: #fff; }
+  .choco-tipos__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .choco-tipo { background: #faf6f0; border-radius: 0.75rem; padding: 1.75rem 1.25rem; text-align: center; border-top: 3px solid #6b4423; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .choco-tipo:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(107,68,35,0.18); }
+  .choco-tipo--popular { border-top-color: #d4a574; background: #fff8ee; }
+  .choco-tipo__badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #d4a574; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .choco-tipo__icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .choco-tipo__name { font-size: 1.05rem; color: #3a2418; margin-bottom: 0.5rem; font-weight: 700; }
+  .choco-tipo__desc { color: #555; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 1100px) { .choco-tipos__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .choco-tipos__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .choco-productos { background: linear-gradient(135deg, #faf6f0 0%, #fff 100%); }
+  .choco-productos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .choco-producto { background: #fff; border-radius: 0.75rem; padding: 1.5rem 1.25rem; text-align: center; border: 1px solid #e8d9c0; transition: transform 0.2s ease; }
+  .choco-producto:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(107,68,35,0.12); border-color: #d4a574; }
+  .choco-producto__icon { display: inline-block; font-size: 2.25rem; margin-bottom: 0.5rem; }
+  .choco-producto__name { font-size: 1rem; color: #3a2418; margin-bottom: 0.5rem; font-weight: 700; }
+  .choco-producto__desc { color: #555; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .choco-productos__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .choco-capacidades { background: #fff; }
+  .choco-capacidades__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .choco-capacidad { background: #faf6f0; border-radius: 1rem; padding: 2rem 1.5rem; text-align: center; border-top: 4px solid #6b4423; transition: transform 0.2s ease; }
+  .choco-capacidad:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(107,68,35,0.15); border-top-color: #d4a574; }
+  .choco-capacidad__icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .choco-capacidad__cap { font-size: 2rem; color: #3a2418; margin-bottom: 0.25rem; font-weight: 800; }
+  .choco-capacidad__inv { display: inline-block; background: #6b4423; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem; }
+  .choco-capacidad__specs { background: #fff; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 1rem; font-size: 0.85rem; color: #555; }
+  .choco-capacidad__specs strong { color: #6b4423; }
+  .choco-capacidad__specs > div { margin-bottom: 0.25rem; }
+  .choco-capacidad__uso { color: #666; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .choco-capacidades__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .choco-intro { padding: 5rem 0; background: #faf6f0; }
+  .choco-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .choco-intro__badge { display: inline-block; background: linear-gradient(135deg, #3a2418 0%, #d4a574 100%); color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+  .choco-intro__copy h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 1.5rem; color: #1a1a1a; }
+  .choco-intro__copy h2 span { color: #6b4423; }
+  .choco-intro__copy p { color: #444; line-height: 1.7; margin-bottom: 1rem; font-size: 1rem; }
+  .choco-intro__copy a { color: #6b4423; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 600; }
+  .choco-intro__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 20px 50px rgba(107,68,35,0.25); }
+  @media (max-width: 900px) { .choco-intro__grid { grid-template-columns: 1fr; } }
+
+  .choco-galeria { padding: 5rem 0; background: #fff; }
+  .choco-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .choco-galeria__item { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4/3; }
+  .choco-galeria__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .choco-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .choco-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  .choco-incluye { background: #faf6f0; }
+  .choco-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .choco-incluye__item { background: #fff; border-radius: 1rem; padding: 2rem 1.5rem; border: 1px solid #e8d9c0; transition: transform 0.2s ease; }
+  .choco-incluye__item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(107,68,35,0.18); border-color: #d4a574; }
+  .choco-incluye__num { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3a2418 0%, #6b4423 100%); color: #d4a574; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-weight: 700; margin-bottom: 1rem; }
+  .choco-incluye__title { font-size: 1.1rem; color: #3a2418; margin-bottom: 0.75rem; font-weight: 700; }
+  .choco-incluye__desc { color: #555; line-height: 1.6; font-size: 0.95rem; }
+  @media (max-width: 900px) { .choco-incluye__grid { grid-template-columns: 1fr; } }
+
+  .choco-cdmx-cta { background: #fff; }
+  .choco-cdmx-cta__card { background: linear-gradient(135deg, #3a2418 0%, #6b4423 50%, #d4a574 100%); border-radius: 1.5rem; padding: 3rem; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(107,68,35,0.3); }
+  .choco-cdmx-cta__badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; backdrop-filter: blur(8px); }
+  .choco-cdmx-cta__body h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1rem; color: #fff; }
+  .choco-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .choco-cdmx-cta__body p { line-height: 1.65; color: rgba(255,255,255,0.95); margin-bottom: 1.5rem; }
+  .choco-cdmx-cta__body p strong { color: #fff; }
+  .choco-cdmx-cta__link { display: inline-block; background: #fff; color: #6b4423; padding: 1rem 2rem; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .choco-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .choco-cdmx-cta__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+  @media (max-width: 900px) { .choco-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; } .choco-cdmx-cta__body h2 { font-size: 1.5rem; } }
+
+  .choco-testimonios { background: #faf6f0; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .choco-otras { background: #fff; }
+</style>

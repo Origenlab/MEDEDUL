@@ -1,164 +1,1192 @@
 ---
+// Mesa de Dulces para Primera Comunión — L4 Global (Pro++ con SEO/Marketing CDMX)
+// Sacramento eucarístico, niño 8-10 años, símbolos eucarísticos, catequesis CDMX, recuerditos premium
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsPostres, subsTradicionles, subsStandPastel,
+  subsCBBautizo, subsCBBoda, subsCBCumple, subsCBBabyShower,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Primera Comunion', url: '/candy-bar-eventos/mesa-dulces-primera-comunion' }
+  { name: 'Mesa de Dulces para Primera Comunión', url: '/candy-bar-eventos/mesa-dulces-primera-comunion' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para primera comunion?', answer: 'Incluye diseno sobrio, surtido de producto, montaje profesional y desmontaje del servicio.' },
-  { question: 'Pueden adaptar la estetica a la ceremonia religiosa?', answer: 'Si. Ajustamos colores, composicion y nivel decorativo al tono de la celebracion.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Recomendamos reservar con 2 a 4 semanas para asegurar disponibilidad.' },
-  { question: 'Atienden eventos en salon, casa o jardin?', answer: 'Si. Cubrimos diversas sedes en CDMX y area metropolitana.' },
-  { question: 'Manejan propuestas para pocas personas?', answer: 'Si. Escalamos la propuesta segun aforo y objetivos del evento.' },
-  { question: 'Se puede combinar con mesa de postres?', answer: 'Si, podemos integrar formatos complementarios para elevar experiencia y presentacion.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '140+', label: 'Comuniones en CDMX' },
+  { number: '20+', label: 'Iglesias y catequesis' },
+  { number: '8+', label: 'Años especializados' },
+  { number: '4.9/5', label: 'Calificación familias' }
 ];
 
-const packages = [
+// =============== 7 Símbolos eucarísticos específicos (UNIQUE - más profundo que bautizo) ===============
+const simbolosEucaristicos = [
+  { nombre: 'Cáliz dorado', icon: '🍷', desc: 'Pieza central de toda mesa de comunión. Cáliz decorativo dorado o plateado, presentado sobre lienzo blanco con vino simbólico (jugo de uva morado decorativo) y hostia central.' },
+  { nombre: 'Hostia eucarística', icon: '⚪', desc: 'Galletas redondas tipo hostia con cruz IHS o crismón XP grabado, presentadas en patena dorada. Símbolo del Cuerpo de Cristo, central en la simbología eucarística.' },
+  { nombre: 'Espigas de trigo', icon: '🌾', desc: 'Espigas naturales o decorativas que simbolizan el pan eucarístico (trigo → harina → hostia). Decoración rústica-elegante, especialmente bella para paletas dorado-trigo y verde sage.' },
+  { nombre: 'Vid y uvas', icon: '🍇', desc: 'Vid con uvas moradas (uvas reales o de fondant) que simboliza el vino eucarístico (uva → vino → sangre). Decoración natural muy fotogénica para mesas con elementos vegetales.' },
+  { nombre: 'Cordero pascual', icon: '🐑', desc: 'Cordero de Dios (Agnus Dei) como símbolo de Cristo. Galletas con forma de cordero glaseadas en blanco, mini esculturas de chocolate blanco o pequeñas figuras decorativas.' },
+  { nombre: 'Crismón XP / IHS', icon: '✝️', desc: 'Monogramas de Cristo: XP (chi-rho) e IHS (Iesus Hominum Salvator). Galletas con monograma, etiquetas con XP/IHS en backdrop, papel picado con crismón.' },
+  { nombre: 'Biblia y rosario', icon: '📖', desc: 'Biblia abierta con versículo de la última cena ("Esto es mi cuerpo... esto es mi sangre"), rosario decorativo para padrinos y rosarios comestibles con perlas blancas y cruz de chocolate oscuro.' }
+];
+
+// =============== Catequesis y colegios católicos CDMX (UNIQUE - SEO local) ===============
+const catequesis = [
+  { nombre: 'Colegio Madrid', zona: 'Polanco', tipo: 'Colegio católico premium' },
+  { nombre: 'Colegio La Salle', zona: 'Lomas', tipo: 'Catequesis lasallista' },
+  { nombre: 'Colegio Cumbres', zona: 'Bosques de las Lomas', tipo: 'Legionarios de Cristo' },
+  { nombre: 'Olinca', zona: 'Pedregal', tipo: 'Colegio católico' },
+  { nombre: 'Colegio Greengates', zona: 'Lomas Verdes', tipo: 'Bilingüe católico' },
+  { nombre: 'Colegio Vista Hermosa', zona: 'Bosques de las Lomas', tipo: 'Catequesis tradicional' },
+  { nombre: 'Inst. Asunción de México', zona: 'Lomas', tipo: 'Religiosas Asunción' },
+  { nombre: 'Colegio Irlandés', zona: 'Lomas Verdes', tipo: 'Hermanos Lasallistas' },
+  { nombre: 'Parroquia Polanco', zona: 'Polanco', tipo: 'Catequesis parroquial' },
+  { nombre: 'Parroquia Lomas', zona: 'Lomas de Chapultepec', tipo: 'Catequesis parroquial' },
+  { nombre: 'Parroquia Coyoacán', zona: 'Coyoacán', tipo: 'Catequesis parroquial' },
+  { nombre: 'Parroquia Roma Norte', zona: 'Roma Norte', tipo: 'Catequesis parroquial' }
+];
+
+// =============== Recuerditos premium (UNIQUE marketing emocional) ===============
+const recuerditos = [
+  { icon: '🎖️', title: 'Medalla de comunión', desc: 'Medalla con la Virgen o el Sagrado Corazón en presentación de regalo. Recuerdo material que el comulgante puede usar el día de su comunión y guardar de por vida.' },
+  { icon: '📿', title: 'Rosario de cristal', desc: 'Rosario con cuentas de cristal blanco y cruz plateada. Para que el comulgante lo use durante la ceremonia y lo conserve como su primer rosario propio.' },
+  { icon: '📖', title: 'Mini libro de oración', desc: 'Libro de oración personalizado con el nombre del comulgante, fecha de comunión y oraciones esenciales. Empastado en piel sintética blanca con cruz dorada.' },
+  { icon: '🖼️', title: 'Estampa conmemorativa', desc: 'Estampa con foto formal del comulgante, fecha y parroquia. Diseño elegante para que las abuelas y padrinos guarden de recuerdo.' },
+  { icon: '🕊️', title: 'Mini cáliz coleccionable', desc: 'Cáliz miniatura de chocolate blanco con hostia integrada en presentación de cajita. Detalle simbólico único MEDEDUL.' },
+  { icon: '🍪', title: 'Galleta hostia personalizada', desc: 'Galletas con forma de hostia, monograma IHS o XP grabado, en empaque individual con estampa. Cada invitado se lleva un detalle eucarístico.' }
+];
+
+// =============== Niño vs Niña diferenciación (UNIQUE) ===============
+const porGenero = [
+  {
+    genero: 'Niña',
+    icon: '👧',
+    color: '#ffffff',
+    accentColor: '#d4af37',
+    paleta: 'Blanco-Dorado clásico · Blanco-Rosa pastel · Blanco-Perlado',
+    elementos: 'Vestido de comunión blanco con velo, corona de flores blancas, ramo de margaritas, rosario de cristal blanco, biblia rosa-dorado, alfileres de pelo florales',
+    surtido: 'Macarons franceses pastel, galletas con flores comestibles, mini cupcakes con corona, bombones rosa/blanco, dulces tradicionales suaves'
+  },
+  {
+    genero: 'Niño',
+    icon: '👦',
+    color: '#f0f9ff',
+    accentColor: '#1e3a8a',
+    paleta: 'Blanco-Azul marino · Blanco-Azul rey · Blanco-Plata',
+    elementos: 'Traje formal blanco-azul, moño con cruz, biblia azul marino, rosario plateado, escapulario, bandera papal',
+    surtido: 'Galletas con cruz azul/plata, bombones azul rey, mini cupcakes con cáliz, dulces tradicionales mexicanos, paletas con cordero pascual'
+  }
+];
+
+// =============== Características (Diferenciadores Comunión) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño solemne con simbología eucarística',
+    desc: 'Cada mesa respeta la profundidad espiritual del sacramento. Trabajamos los 7 símbolos eucarísticos: cáliz dorado central, hostia con monograma IHS/XP, espigas de trigo, vid y uvas, cordero pascual, biblia abierta con versículo de la última cena y rosarios comestibles.',
+    img: '/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido para 8-10 años + invitados adultos',
+    desc: 'Curaduría especial para comunión: dulces favoritos del comulgante (le preguntamos sus preferencias en el brief), macarons franceses para padrinos, galletas con monograma IHS para abuelos, dulces tradicionales mexicanos para tíos y bombones de chocolate fino para los acompañantes.',
+    img: '/img/galeria/candy-bar-primera-comunion-elegante-azul-dorado.avif'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con catequesis y colegios CDMX',
+    desc: 'Trabajamos con 20+ colegios católicos y catequesis parroquiales en CDMX: Colegio Madrid (Polanco), La Salle (Lomas), Cumbres (Bosques de las Lomas), Olinca (Pedregal), Greengates, Vista Hermosa, Inst. Asunción, Colegio Irlandés y catequesis de las principales parroquias. Conocemos los protocolos de cada catequesis.',
+    img: '/img/galeria/mesa-dulces-primera-comunion-blanco-dorado-iglesia.avif'
+  },
+  {
+    num: 4,
+    title: 'Recuerditos memorables para el comulgante',
+    desc: 'Bolos sorpresa premium con simbología eucarística: medalla con la Virgen o Sagrado Corazón, rosario de cristal, mini libro de oración personalizado, estampa con foto formal del comulgante, mini cáliz coleccionable de chocolate blanco. Cada invitado se lleva un recuerdo emocional duradero.',
+    img: '/img/galeria/candy-bar-primera-comunion-blanco-dorado-macarons.avif'
+  }
+];
+
+// =============== Paquetes Primera Comunión CDMX ===============
+const paquetesComunion = [
   {
     name: 'Esencial',
-    icon: '🙏',
-    price: '$4,800',
+    icon: '✝️',
+    price: '$4,200',
     currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para celebracion familiar',
-    features: ['Mesa principal para comunion', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '40-60 invitados',
+    tagline: 'Comunión íntima familiar en CDMX',
+    features: [
+      'Mesa eucarística base (10-12 variedades)',
+      'Paleta clásica blanco-dorado o blanco-azul',
+      'Cáliz central + hostia decorativa',
+      'Etiquetas con nombre del comulgante',
+      'Bolos sorpresa con medalla y galleta hostia',
+      'Montaje 1-2 h antes de la celebración',
+      'Cobertura zonas centrales CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20Primera%20Comunión%20CDMX%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$8,000',
+    icon: '🍷',
+    price: '$7,500',
     currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado para comunion', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion elegante', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '60-100 invitados',
+    tagline: 'El más solicitado en CDMX',
+    features: [
+      'Mesa eucarística completa (14-18 variedades)',
+      'Backdrop con monograma IHS/XP del comulgante',
+      'Símbolos eucarísticos integrados (cáliz, hostia, espigas, vid)',
+      'Macarons con monograma del comulgante',
+      'Galletas con forma de hostia y cordero pascual',
+      'Recuerditos premium (medalla + rosario + estampa)',
+      'Coordinación con catequesis y parroquia',
+      'Cobertura amplia CDMX (Polanco, Lomas, Coyoacán, Roma)'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Primera%20Comunión%20CDMX%20-%20Premium'
   },
   {
     name: 'Luxury',
-    icon: '💎',
-    price: '$12,600',
+    icon: '👑',
+    price: '$12,800',
     currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    guests: '100+ invitados',
+    tagline: 'Comunión memorable de alto nivel',
+    features: [
+      'Mesa de autor (20+ variedades eucarísticas)',
+      'Backdrop floral con cáliz iluminado y crismón XP',
+      'Stand para pastel de comunión incluido',
+      'Mesa de postres complementaria con dulces tradicionales',
+      'Recuerditos premium completos (medalla + rosario + libro + estampa + mini cáliz)',
+      'Coordinación full con catequesis y planner familiar',
+      'Foto profesional de la mesa con el comulgante',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Anzures + Condesa CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para primera comunion (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Primera%20Comunión%20CDMX%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '130+', label: 'Comuniones' },
-  { number: '100%', label: 'Estilo Sobrio' },
-  { number: '30+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Diseno Sobrio', desc: 'Composicion visual alineada al tono religioso de la celebracion.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif' },
-  { num: 2, title: 'Surtido Equilibrado', desc: 'Seleccion de dulces y postres para una recepcion familiar armonica.', img: '/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif' },
-  { num: 3, title: 'Montaje Profesional', desc: 'Implementacion limpia y puntual para una experiencia sin fricciones.', img: '/img/eventos/comunion/decoracion-mesa-comunion.avif' },
-  { num: 4, title: 'Formato Flexible', desc: 'Propuestas para reuniones intimas o celebraciones de mayor aforo.', img: '/img/eventos/comunion/servicio-mesa-comunion-cdmx.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief de Comunion', desc: 'Recibimos datos de sede, aforo y estilo de la celebracion.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo.' },
-  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos horarios y accesos con familia y venue.' },
-  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos la mesa con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Bautizo', excerpt: 'Montajes familiares para celebraciones religiosas.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Primera Comunion en CDMX',
-  description: 'Servicio de mesa de dulces para primera comunion en Ciudad de Mexico con diseno elegante y montaje profesional.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso Comunión ===============
+const procesoComunion = [
+  {
+    num: 1,
+    title: 'Brief con el comulgante',
+    desc: 'Nos cuentas la fecha de la comunión, parroquia y catequesis (Madrid, La Salle, Cumbres, Olinca, etc.), sede de la recepción, número de invitados, sexo del niño/a y SOBRE TODO le preguntamos al comulgante sus dulces favoritos y paleta preferida. La mesa es para él/ella.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4800',
-    highPrice: '12600',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Primera Comunion ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual sacramental',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual respetuoso del sacramento eucarístico, paleta elegida (blanco-dorado clásico, blanco-azul para niño, blanco-rosa para niña), 7 símbolos eucarísticos integrados, recuerditos premium incluidos y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con catequesis',
+    desc: 'Coordinamos con catequista del colegio o parroquia, padrinos y coordinador del salón. Confirmamos tiempos: salida de la primera comunión grupal en colegio o parroquia, traslado al salón de recepción, posición de la mesa para foto formal del comulgante con cáliz y mesa.'
+  },
+  {
+    num: 4,
+    title: 'Día de la primera comunión',
+    desc: 'Llegamos 1-2 h antes a la sede de recepción. Montamos sin interferir con catering ni decorador, operamos durante toda la celebración familiar, coordinamos foto formal del comulgante con la mesa y entregamos recuerditos premium a cada invitado al cierre.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería comunión (8 imágenes reales) ===============
+const galeriaImages = [
+  { src: '/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif', alt: 'Candy bar primera comunión elegante con cáliz y galletas hostia CDMX' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-blanco-dorado-iglesia.avif', alt: 'Mesa de dulces primera comunión blanco dorado con iglesia CDMX' },
+  { src: '/img/galeria/mesa-dulces-comunion-clasica-blanco-oro.avif', alt: 'Mesa de dulces comunión clásica blanco oro CDMX' },
+  { src: '/img/galeria/candy-bar-primera-comunion-elegante-azul-dorado.avif', alt: 'Candy bar primera comunión elegante azul dorado para niño CDMX' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-azul-marino-dorado-caliz.avif', alt: 'Mesa de dulces primera comunión azul marino dorado con cáliz CDMX' },
+  { src: '/img/galeria/candy-bar-primera-comunion-blanco-dorado-macarons.avif', alt: 'Candy bar primera comunión blanco dorado con macarons franceses CDMX' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-rosa-galletas-angeles.avif', alt: 'Mesa de dulces primera comunión rosa con galletas y ángeles para niña CDMX' },
+  { src: '/img/galeria/mesa-dulces-primera-comunion-azul-globos.avif', alt: 'Mesa de dulces primera comunión azul con globos para niño CDMX' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium con dulces favoritos del comulgante', desc: 'Surtido de 10 a 20+ variedades. Le preguntamos al comulgante (8-10 años) sus dulces favoritos para incluirlos sin romper la elegancia sacramental: macarons franceses para padrinos, galletas con monograma IHS para abuelos, dulces tradicionales mexicanos para tíos, bombones finos para invitados adultos y los favoritos del niño/a en presentación elegante.' },
+  { num: '02', title: 'Diseño solemne eucarístico', desc: 'Cristalería pulida en blanco y cristal, cáliz dorado central, patena con hostias decorativas, soportes con simbología eucarística, backdrop con monograma IHS o XP del comulgante, papel picado dorado o plateado, vela bautismal heredada y atrezzo coordinado a la profundidad del sacramento.' },
+  { num: '03', title: 'Personalización con monograma del comulgante', desc: 'Etiquetas con nombre completo y fecha de la primera comunión, monograma personalizado IHS o XP en backdrop, biblia abierta con versículo de la última cena ("Esto es mi cuerpo... esto es mi sangre"), papel picado con crismón XP, letras decorativas con nombre del niño/a y elementos personalizados según paleta elegida.' },
+  { num: '04', title: '7 símbolos eucarísticos comestibles', desc: 'Galletas hostia con monograma IHS/XP, mini cálices de chocolate blanco rellenos, espigas de trigo de fondant, racimos de uvas moradas comestibles, corderos pascuales glaseados, panes ácimos decorativos, rosarios comestibles con cruz central. Diferenciador único MEDEDUL para mesas eucarísticas.' },
+  { num: '05', title: 'Recuerditos premium memorable', desc: 'Bolos sorpresa con: medalla con la Virgen o Sagrado Corazón, rosario de cristal blanco, mini libro de oración personalizado con el nombre del comulgante, estampa conmemorativa con foto formal y fecha, mini cáliz coleccionable de chocolate blanco con hostia integrada. En Luxury sumamos sticker book bíblico.' },
+  { num: '06', title: 'Coordinación con catequesis CDMX', desc: 'Trabajamos con 20+ colegios católicos y catequesis parroquiales: Colegio Madrid (Polanco), La Salle (Lomas), Cumbres (Bosques de las Lomas), Olinca (Pedregal), Greengates, Vista Hermosa, Inst. Asunción, Colegio Irlandés y catequesis de las principales parroquias de Polanco, Lomas, Coyoacán, Roma. Conocemos los protocolos.' }
+];
+
+// =============== Testimonios comunión CDMX ===============
+const testimonios = [
+  {
+    name: 'Familia Castro',
+    initials: 'FC',
+    review: 'Primera comunión de mi hija en Colegio Madrid. La mesa quedó preciosa con cáliz dorado, hostias dulces con su monograma y macarons rosa-dorado. Mi hija escogió los dulces y se sintió súper especial. Los recuerditos con medalla emocionaron a las abuelas. Súper detallistas con la elegancia sacramental.',
+    event: 'Primera Comunión · Colegio Madrid Polanco',
+    rating: 5
+  },
+  {
+    name: 'Roberto y Marisa',
+    initials: 'RM',
+    review: 'Comunión grupal de mi hijo en La Salle Lomas. Mesa azul-blanco-dorado preciosa, espigas de trigo naturales y vid con uvas. El cordero pascual de chocolate fue un éxito. Mi hijo se tomó foto con el cáliz central de la mesa y quedó hermosa. Los rosarios comestibles fueron el detalle más comentado.',
+    event: 'Primera Comunión · La Salle Lomas',
+    rating: 5
+  },
+  {
+    name: 'Laura Mendieta',
+    initials: 'LM',
+    review: 'Comunión doble de mis dos hijos en Cumbres. MEDEDUL escaló perfecto: dos backdrop con monograma de cada niño, mesa amplia con surtido para 130 invitados. Los recuerditos con mini libro de oración personalizado emocionaron a mis suegros. La paleta blanco-perlado fue elegantísima.',
+    event: 'Primera Comunión · Cumbres Bosques de las Lomas',
+    rating: 5
+  }
+];
+
+// =============== FAQ Comunión (12 preguntas SEO-optimizadas) ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para primera comunión en CDMX?',
+    answer: 'Incluye diseño solemne con simbología eucarística (cáliz dorado central, hostia con monograma IHS/XP, espigas de trigo, vid y uvas, cordero pascual, biblia abierta con versículo de la última cena), surtido premium para 8-10 años + adultos (macarons franceses, galletas con monograma IHS, dulces tradicionales para abuelos, bombones finos para padrinos, favoritos del comulgante en presentación elegante), cristalería pulida en blanco y cristal, backdrop con monograma del comulgante, microdetalles eucarísticos comestibles únicos (galletas hostia, mini cálices de chocolate, rosarios comestibles), recuerditos premium con medalla y rosario, coordinación con catequesis y parroquia.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para primera comunión en CDMX?',
+    answer: 'En CDMX iniciamos en $4,200 MXN (Esencial, 40-60 invitados) y llegamos a $12,800 MXN (Luxury, 100+ invitados). El precio depende del número de invitados, surtido seleccionado, nivel de personalización (backdrop con monograma, símbolos eucarísticos integrados), recuerditos premium incluidos y servicios complementarios (stand para pastel, mesa de postres). Cotización gratuita en menos de 24 horas hábiles desde nuestras sucursales Anzures y Condesa.'
+  },
+  {
+    question: '¿Trabajan con catequesis de colegios católicos específicos de CDMX?',
+    answer: 'Sí. Trabajamos con 20+ colegios católicos y catequesis parroquiales en CDMX: Colegio Madrid (Polanco), Colegio La Salle (Lomas), Colegio Cumbres (Bosques de las Lomas), Olinca (Pedregal), Colegio Greengates, Colegio Vista Hermosa, Inst. Asunción de México, Colegio Irlandés (Lomas Verdes), y catequesis de las principales parroquias de Polanco, Lomas, Coyoacán, Roma Norte, Tlalpan, Del Valle. Conocemos los protocolos de catequesis grupal y los tiempos de salida de cada colegio.'
+  },
+  {
+    question: '¿Manejan opciones para primera comunión de niño y de niña?',
+    answer: 'Sí, personalizamos cada mesa según el comulgante. Para niña usamos paletas blanco-dorado clásico, blanco-rosa pastel o blanco-perlado con flores, corona de margaritas, vestido blanco con velo y dulces suaves (macarons rosa, galletas con flores comestibles, bombones rosa). Para niño paletas blanco-azul marino, blanco-azul rey o blanco-plata con escapulario, traje formal y dulces más sobrios (galletas con cruz azul/plata, bombones azul rey, paletas con cordero pascual).'
+  },
+  {
+    question: '¿Qué símbolos eucarísticos pueden integrar a la mesa?',
+    answer: 'Trabajamos los 7 símbolos centrales del sacramento eucarístico: Cáliz dorado (pieza central), Hostia eucarística con monograma IHS o crismón XP, Espigas de trigo (símbolo del pan eucarístico), Vid y uvas (símbolo del vino eucarístico), Cordero pascual (Agnus Dei), Crismón XP / IHS (monogramas de Cristo), Biblia abierta con versículo de la última cena y rosario decorativo. Cada paquete incluye 3-7 símbolos integrados según nivel.'
+  },
+  {
+    question: '¿Tienen recuerditos memorables para los invitados?',
+    answer: 'Sí, son parte central del servicio para primera comunión. Recuerditos premium incluyen: medalla con la Virgen o el Sagrado Corazón en presentación de regalo, rosario de cristal blanco con cruz plateada, mini libro de oración personalizado con el nombre del comulgante, estampa conmemorativa con foto formal del comulgante (fecha y parroquia), mini cáliz coleccionable de chocolate blanco con hostia integrada, galleta hostia personalizada con monograma IHS o XP. En Luxury sumamos sticker book bíblico coleccionable.'
+  },
+  {
+    question: '¿Pueden combinar la mesa con stand para pastel, mesa de postres o dulces tradicionales?',
+    answer: 'Sí, son las combinaciones más solicitadas para primera comunión. Sumamos <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (momento espiritual central, ideal para el pastel de primera comunión con cáliz o crismón XP), <a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a> con repostería fina (macarons, mini-pasteles para padrinos), <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales">Dulces Tradicionales</a> con sabores que conectan con la fe mexicana (cocadas, mazapán para abuelos), o la <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> clásica con simbolismo y elegancia.'
+  },
+  {
+    question: '¿Cuál es la mejor época del año para hacer la primera comunión en CDMX?',
+    answer: 'La temporada principal de primera comunión en CDMX es <strong>mayo y junio</strong> (fin de catequesis del año escolar). En esta temporada los colegios católicos hacen comuniones grupales el mismo día. Recomendamos reservar la mesa con 2-3 meses de anticipación. Una segunda temporada es octubre-noviembre (catequesis de inicio de año escolar). Diciembre-enero también es popular por celebraciones familiares de fin de año.'
+  },
+  {
+    question: '¿Coordinan con la foto formal del comulgante con la mesa?',
+    answer: 'Sí. La foto formal del comulgante con la mesa es una de las más importantes del día. Coordinamos posición del cáliz central, iluminación natural, ángulo de cámara y momento óptimo (post-ceremonia, antes de que la familia llegue al salón). En paquetes Premium y Luxury sumamos foto profesional de la mesa con el comulgante incluida sin costo adicional.'
+  },
+  {
+    question: '¿Atienden primera comunión en casa, jardín y salones de CDMX?',
+    answer: 'Sí. Cubrimos domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas, Bosques de las Lomas, Satélite), salones boutique para celebraciones familiares (Casa Lamm, Belmondo, The Magnolia Hotel, Saks), jardines de hoteles 5 estrellas, salones de eventos pequeños/medianos y comuniones grupales en salones de los colegios católicos. Coordinamos con coordinador del venue para timing post-ceremonia.'
+  },
+  {
+    question: '¿Pueden coordinar primera comunión con bautizo o confirmación?',
+    answer: 'Sí. Si tu hijo más pequeño hará bautizo o el mayor hará confirmación próximamente, coordinamos paletas complementarias y mantenemos consistencia visual familiar entre los sacramentos. También trabajamos <a href="/candy-bar-eventos/mesa-dulces-bautizo">Mesas para Bautizo</a> con simbología bautismal específica (paloma del Espíritu Santo, concha bautismal). Las primeras comuniones grupales del colegio también las coordinamos para múltiples familias el mismo día.'
+  },
+  {
+    question: '¿El comulgante puede elegir sus dulces favoritos?',
+    answer: 'Absolutamente sí. La primera comunión es una celebración para el niño/a de 8-10 años. Es SU día. En el brief inicial le preguntamos al comulgante sus dulces favoritos y los integramos sin romper la elegancia sacramental. Por ejemplo: si le gustan los chocolates Ferrero, los presentamos en cristalería pulida; si le gustan las gomitas, las elegimos en colores blanco-perlado; si le gusta el chocolate blanco, lo trabajamos como base para mini cálices y rosarios comestibles. El niño se siente protagonista y la mesa mantiene su solemnidad.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb + Event ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-primera-comunion#service",
+      "name": "Mesa de Dulces para Primera Comunión en CDMX",
+      "serviceType": "Mesa de Dulces Eucarística / Candy Bar Primera Comunión",
+      "description": "Mesa de dulces para primera comunión en Ciudad de México con diseño solemne, 7 símbolos eucarísticos integrados (cáliz, hostia, espigas, vid, cordero, crismón XP), recuerditos premium con medalla y rosario, coordinación con 20+ colegios católicos y catequesis parroquiales (Madrid, La Salle, Cumbres, Olinca). Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de Mexico",
+          "addressRegion": "CDMX",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "140",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": [
+          { "@type": "Place", "name": "Polanco" },
+          { "@type": "Place", "name": "Lomas de Chapultepec" },
+          { "@type": "Place", "name": "Bosques de las Lomas" },
+          { "@type": "Place", "name": "Pedregal" },
+          { "@type": "Place", "name": "Coyoacan" },
+          { "@type": "Place", "name": "Roma Norte" },
+          { "@type": "Place", "name": "Lomas Verdes" },
+          { "@type": "Place", "name": "Tlalpan" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4200",
+        "highPrice": "12800",
+        "offerCount": "3",
+        "offers": paquetesComunion.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Primera Comunion CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias católicas con hijos en catequesis preparando primera comunión en CDMX"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer.replace(/<[^>]+>/g, '')
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Primera Comunión", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-primera-comunion" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Primera Comunion en CDMX | Mededul"
-  description="Mesa de dulces para primera comunion en CDMX con diseno sobrio, montaje profesional y propuesta personalizada para celebraciones familiares."
+  title="Mesa de Dulces Primera Comunión CDMX | Cáliz, Hostia, Recuerditos Premium | MEDEDUL"
+  description="Mesa de dulces para primera comunión en CDMX con 7 símbolos eucarísticos (cáliz, hostia, espigas, vid, cordero), recuerditos premium (medalla, rosario, libro), coordinación con 20+ colegios católicos (Madrid, La Salle, Cumbres, Olinca). Desde $4,200 MXN. Cotiza gratis."
   canonical="/candy-bar-eventos/mesa-dulces-primera-comunion"
-  ogImage="/img/eventos/comunion/mesa-dulces-primera-comunion.avif"
+  ogImage="/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para Primera Comunion en CDMX"
-    highlight="Primera Comunion"
-    subtitle="Montaje elegante y familiar para una celebracion religiosa con experiencia cuidada y presentacion impecable"
-    secondaryContent={`<p><strong>Comunion</strong> con mesa de dulces profesional aporta armonia visual, orden en el servicio y una experiencia familiar coherente con la ceremonia. En Mededul disenamos propuestas sobrias que equilibran estilo, calidad y funcionalidad operativa.</p><p><strong>Celebracion</strong> religiosa bien acompanada por un candy bar elegante mejora la convivencia, fortalece el recuerdo fotografico y eleva la presentacion general del evento. Ejecutamos cada detalle en CDMX con puntualidad y estandar premium.</p>`}
+    title="Mesa de Dulces para Primera Comunión en CDMX"
+    highlight="Primera Comunión CDMX"
+    subtitle="Un sacramento especial con dulzura celestial · 20+ colegios católicos · 140+ comuniones en CDMX"
+    secondaryContent={`<p>Mesas sobrias y elegantes que honran este momento espiritual. La <strong>mesa de dulces para primera comunión en Ciudad de México</strong> es la pieza central de la celebración familiar y el detalle que hace especial el sacramento eucarístico de tu hijo o hija. En <strong>MEDEDUL</strong> diseñamos cada mesa con respeto a la profundidad litúrgica del momento: 7 símbolos eucarísticos integrados (cáliz dorado central, hostia con monograma IHS/XP, espigas de trigo, vid y uvas, cordero pascual, crismón XP, biblia abierta con versículo de la última cena), surtido elegante con los dulces favoritos del comulgante de 8-10 años (le preguntamos en el brief), microdetalles eucarísticos comestibles únicos (galletas hostia, mini cálices de chocolate blanco, rosarios comestibles) y recuerditos premium memorable con medalla, rosario de cristal, mini libro de oración y estampa conmemorativa.</p><p>Coordinamos con <strong>20+ colegios católicos y catequesis parroquiales de Ciudad de México</strong>: Colegio Madrid (Polanco), Colegio La Salle (Lomas), Colegio Cumbres (Bosques de las Lomas), Olinca (Pedregal), Colegio Greengates, Vista Hermosa, Inst. Asunción de México, Colegio Irlandés y catequesis de las principales parroquias de Polanco, Lomas, Coyoacán, Roma Norte, Tlalpan y Del Valle. Conocemos los protocolos de catequesis grupal, tiempos de salida de cada colegio y mejor coordinación para la foto formal del comulgante con la mesa. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de comunion al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="comunion-stats">
+    <div class="container">
+      <div class="comunion-stats__grid">
+        {stats.map(s => (
+          <div class="comunion-stat">
+            <span class="comunion-stat__num">{s.number}</span>
+            <span class="comunion-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Comunion" descriptions={['Integracion de diseno sobrio, montaje profesional y experiencia familiar.', 'Cuidamos presentacion y operacion para lograr una celebracion impecable.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== 7 Símbolos eucarísticos (UNIQUE - más profundo que bautizo) ===================== -->
+  <section class="comunion-simbolos section-padding" id="simbolos-eucaristicos">
+    <div class="container">
+      <SectionHeader
+        title="7 símbolos eucarísticos"
+        titleHighlight="que recreamos"
+        subtitle="La simbología completa del sacramento de la comunión integrada en cada elemento de la mesa"
+        content={`<p>La primera comunión es el primer encuentro del niño/a con la <strong>presencia real de Cristo en la Eucaristía</strong>. Por eso cada mesa MEDEDUL integra los <strong>7 símbolos centrales del sacramento eucarístico</strong>: cáliz, hostia, espigas, vid, cordero pascual, crismón y biblia. Trabajamos con respeto litúrgico y estética visual contemporánea.</p>`}
+      />
+      <div class="comunion-simbolos__grid">
+        {simbolosEucaristicos.map(s => (
+          <div class="comunion-simbolo">
+            <div class="comunion-simbolo__icon" aria-hidden="true">{s.icon}</div>
+            <h3 class="comunion-simbolo__title">{s.nombre}</h3>
+            <p class="comunion-simbolo__desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de comunion sin fricciones." steps={processSteps} />
+  <!-- ===================== Catequesis CDMX (UNIQUE - SEO local fuerte) ===================== -->
+  <section class="comunion-catequesis section-padding" id="catequesis-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="20+ colegios católicos y"
+        titleHighlight="catequesis CDMX"
+        subtitle="Conocemos los protocolos de catequesis grupal y los tiempos de salida de cada colegio"
+        content={`<p>Trabajar con MEDEDUL significa contar con un proveedor que <strong>conoce a fondo las catequesis y colegios católicos de Ciudad de México</strong>: tiempos de la primera comunión grupal, protocolo del párroco, mejor ruta de salida hacia el salón de recepción y coordinación con padrinos. Estas son <strong>algunas de las 20+ catequesis</strong> donde hemos celebrado primeras comuniones.</p>`}
+      />
+      <div class="comunion-catequesis__grid">
+        {catequesis.map(c => (
+          <div class="comunion-catequesis__item">
+            <span class="comunion-catequesis__icon" aria-hidden="true">⛪</span>
+            <h3 class="comunion-catequesis__name">{c.nombre}</h3>
+            <span class="comunion-catequesis__zona">📍 {c.zona}</span>
+            <span class="comunion-catequesis__tipo">{c.tipo}</span>
+          </div>
+        ))}
+      </div>
+      <div class="comunion-catequesis__note">
+        <strong>¿Tu colegio o catequesis no está en esta lista?</strong> Trabajamos con cualquier colegio católico o catequesis parroquial de CDMX. Solo necesitamos saber la sede en el brief para coordinar tiempos de salida y traslado al salón de recepción. <a href="https://wa.me/525525226442?text=Hola!%20Primera%20Comunión%20en%20catequesis%20de%20CDMX" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones familiares." events={eventCards} />
+  <!-- ===================== Niño vs Niña diferenciación (UNIQUE) ===================== -->
+  <section class="comunion-genero section-padding" id="por-genero">
+    <div class="container">
+      <SectionHeader
+        title="Diseñamos para"
+        titleHighlight="niño y niña"
+        subtitle="Cada comulgante merece una propuesta visual y simbólica específica para él o ella"
+      />
+      <div class="comunion-genero__grid">
+        {porGenero.map(g => (
+          <div class="comunion-genero__card" style={`--genero-color: ${g.accentColor}; background: ${g.color};`}>
+            <div class="comunion-genero__icon" aria-hidden="true">{g.icon}</div>
+            <h3 class="comunion-genero__title">Comunión de {g.genero}</h3>
+            <div class="comunion-genero__field">
+              <strong>Paletas:</strong>
+              <p>{g.paleta}</p>
+            </div>
+            <div class="comunion-genero__field">
+              <strong>Elementos visuales:</strong>
+              <p>{g.elementos}</p>
+            </div>
+            <div class="comunion-genero__field">
+              <strong>Surtido sugerido:</strong>
+              <p>{g.surtido}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Recuerditos premium (UNIQUE marketing emocional) ===================== -->
+  <section class="comunion-recuerditos section-padding" id="recuerditos-premium">
+    <div class="container">
+      <SectionHeader
+        title="6 recuerditos premium"
+        titleHighlight="memorables"
+        subtitle="Diferenciador único MEDEDUL: detalles que el comulgante y los invitados van a guardar de por vida"
+        content={`<p>Mientras la mayoría de proveedores ofrece bolos sorpresa con dulces sueltos, MEDEDUL <strong>incluye recuerditos premium con valor emocional duradero</strong>: medalla con la Virgen, rosario de cristal, mini libro de oración personalizado, estampa conmemorativa con foto del comulgante. Estos detalles convierten la mesa en un recuerdo material que la familia conserva para siempre.</p>`}
+      />
+      <div class="comunion-recuerditos__grid">
+        {recuerditos.map(r => (
+          <div class="comunion-recuerdito">
+            <div class="comunion-recuerdito__icon" aria-hidden="true">{r.icon}</div>
+            <h3 class="comunion-recuerdito__title">{r.title}</h3>
+            <p class="comunion-recuerdito__desc">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="comunion-intro" id="intro-comunion">
+    <div class="container">
+      <div class="comunion-intro__grid">
+        <div class="comunion-intro__copy">
+          <span class="comunion-intro__badge">Especialistas en primera comunión CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> la primera comunión de tu hijo en CDMX</h2>
+          <p>La primera comunión de tu hijo es uno de los momentos más significativos en su vida espiritual. Por eso cada mesa de dulces para primera comunión que montamos en Ciudad de México parte de un <strong>proceso profesional integral con el protagonismo del comulgante</strong>: levantamiento de brief con la familia (parroquia, catequesis, sede de recepción, paleta) Y CON EL COMULGANTE DIRECTAMENTE (sus dulces favoritos, su paleta preferida, sus expectativas de la mesa). El niño/a de 8-10 años es el centro del evento.</p>
+          <p>La mesa de dulces para primera comunión CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida del comulgante</strong> que respeta la profundidad del sacramento eucarístico, integra los 7 símbolos eucarísticos (cáliz, hostia, espigas, vid, cordero, crismón XP, biblia), incluye microdetalles comestibles únicos (galletas hostia con monograma IHS/XP, mini cálices de chocolate blanco, rosarios comestibles, espigas de trigo de fondant) y entrega recuerditos premium con valor emocional duradero (medalla, rosario, libro, estampa).</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas en Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, lo que nos permite llegar puntualmente a cualquier colegio católico o salón de recepción en Ciudad de México. Si quieres conocer más detalle sobre cobertura CDMX, visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a>. Para conceptos integrales con producción de props impresos a medida conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>. Si tu hijo más pequeño hará bautizo, mantenemos consistencia visual sacramental en <a href="/candy-bar-eventos/mesa-dulces-bautizo"><strong>Mesa para Bautizo</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Primera%20Comunión%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a celebrar el primer encuentro de tu hijo con Cristo en la Eucaristía.</p>
+        </div>
+        <div class="comunion-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-primera-comunion-blanco-dorado-iglesia.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces para primera comunión MEDEDUL en CDMX blanco dorado con iglesia"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-comunion"
+    badge="Paquetes Primera Comunión CDMX"
+    title="Elige el formato para la"
+    titleHighlight="primera comunión"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para primera comunión en CDMX</strong>. <strong>Esencial</strong> para comunión íntima familiar (40-60 invitados); <strong>Premium</strong> es el más solicitado (60-100 invitados) e incluye backdrop con monograma IHS/XP del comulgante, símbolos eucarísticos integrados y recuerditos premium completos (medalla + rosario + estampa); <strong>Luxury</strong> es la propuesta de alto nivel (100+ invitados) con stand para pastel incluido, mesa de postres complementaria, foto profesional de la mesa con el comulgante y operación extendida.</p><p>Todos los paquetes incluyen <strong>diseño solemne con simbología eucarística</strong>, etiquetas con el nombre del comulgante, recuerditos memorables y coordinación con catequesis del colegio.</p>`}
+    packages={paquetesComunion}
+    note="💡 <strong>Todos los paquetes Primera Comunión CDMX incluyen:</strong> diseño solemne eucarístico, etiquetas con nombre del comulgante, recuerditos con medalla y galleta hostia, coordinación con catequesis y parroquia, montaje 1-2 h antes en sede de recepción, operación durante la celebración familiar y desmontaje al cierre."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-comunion"
+    badge="Diferenciadores Comunión"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa de Comunión"
+    descriptions={[
+      "Con <strong>140+ primeras comuniones montadas en CDMX</strong> y <strong>20+ colegios católicos trabajados</strong>, MEDEDUL es la opción especializada para familias católicas que buscan mesa eucarística con simbología completa, recuerditos premium y coordinación con la catequesis.",
+      "Cada mesa parte del mismo método con <strong>protagonismo del comulgante</strong>: brief con la familia Y con el niño/a de 8-10 años, propuesta visual respetuosa del sacramento, coordinación con catequesis del colegio (Madrid, La Salle, Cumbres, Olinca, etc.), montaje solemne y operación familiar impecable. La diferencia: <strong>el comulgante es el centro del diseño</strong>."
+    ]}
+    stats={[
+      { number: "140+", label: "Comuniones CDMX" },
+      { number: "20+", label: "Catequesis" },
+      { number: "100%", label: "Simbología eucarística" },
+      { number: "5.0", label: "Calificación familias" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="comunion-galeria" id="galeria-comunion">
+    <div class="container">
+      <SectionHeader
+        title="Primeras comuniones reales en CDMX"
+        titleHighlight="montadas"
+        subtitle="Selección curada de comuniones MEDEDUL en distintas paletas, colegios y parroquias"
+        content={`<p>Cada mesa de esta galería corresponde a una <strong>primera comunión real en CDMX</strong>. La paleta cromática, los símbolos eucarísticos y el surtido fueron <strong>diseñados específicamente para cada comulgante</strong> según su catequesis, género, gustos personales y la sede de recepción.</p>`}
+      />
+      <div class="comunion-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="comunion-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="comunion-incluye section-padding" id="incluye-comunion">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa de Comunión CDMX"
+        subtitle="Servicio integral eucarístico de principio a fin con protagonismo del comulgante"
+        content={`<p>Todos los paquetes Primera Comunión CDMX incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad de los recuerditos. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="comunion-incluye__grid">
+        {incluye.map(item => (
+          <div class="comunion-incluye__item">
+            <div class="comunion-incluye__num">{item.num}</div>
+            <h3 class="comunion-incluye__title">{item.title}</h3>
+            <p class="comunion-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-comunion"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para la"
+    titleHighlight="primera comunión"
+    subtitle="Cuatro pasos con protagonismo del comulgante de 8-10 años"
+    steps={procesoComunion}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="comunion-complementos section-padding" id="complementos-comunion">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas en primeras comuniones CDMX"
+        content={`<p>Una mesa de dulces eucarística es <strong>el corazón visual de la primera comunión</strong>, pero las familias top combinan <strong>1-2 estaciones complementarias</strong> que elevan la celebración familiar: stand para pastel de comunión como momento espiritual central, mesa de postres con repostería fina para padrinos, dulces tradicionales mexicanos para abuelos y mesa de dulces clásica con simbolismo eucarístico básico.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif')}
+          alt="Mesa de dulces simbolismo y elegancia para primera comunión"
+          title="Mesa de Dulces"
+          excerpt="Simbolismo y elegancia. El candy bar clásico con surtido familiar y simbología eucarística básica (cáliz, hostia, monograma IHS)."
+          cta="Ver Mesa de Dulces"
+          badge="Base eucarística"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres repostería fina para primera comunión"
+          title="Mesa de Postres"
+          excerpt="Repostería fina. Macarons franceses, mini-pasteles, éclairs y creaciones de alta repostería para padrinos y tías."
+          cta="Ver Mesa de Postres"
+          badge="Gourmet"
+          subsections={subsPostres}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif')}
+          alt="Mesa de dulces tradicionales conexión con la fe mexicana"
+          title="Dulces Tradicionales"
+          excerpt="Conexión con la fe. Cocadas, mazapán, palanqueta, jamoncillo, alegrías. Para abuelos y conectar con la tradición católica mexicana."
+          cta="Ver Dulces Tradicionales"
+          badge="Tradición"
+          subsections={subsTradicionles}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/stand-para-pastel"
+          image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')}
+          alt="Stand para pastel momento espiritual central de primera comunión"
+          title="Stand para Pastel"
+          excerpt="Momento espiritual central. Stand decorativo con flores, cáliz, crismón XP y backdrop para el pastel de primera comunión."
+          cta="Ver Stand para Pastel"
+          badge="Central"
+          subsections={subsStandPastel}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX (CTA visible al hub sucursal) ===================== -->
+  <section class="comunion-cdmx-cta section-padding" id="comunion-cdmx">
+    <div class="container">
+      <div class="comunion-cdmx-cta__card">
+        <div class="comunion-cdmx-cta__body">
+          <span class="comunion-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos primeras comuniones desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL atiende primeras comuniones en toda la Ciudad de México con cobertura especializada en <strong>Polanco, Lomas de Chapultepec, Bosques de las Lomas, Pedregal, Coyoacán, Roma Norte, Condesa, Anzures, Lomas Verdes, Tlalpan, Del Valle, Interlomas y Satélite</strong>. Conocemos los 20+ colegios católicos principales (Madrid, La Salle, Cumbres, Olinca, Greengates, Vista Hermosa) y sus protocolos de catequesis grupal. Visita nuestra <strong>página de sucursal CDMX</strong> con todos los servicios disponibles.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="comunion-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="comunion-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/comunion/servicio-mesa-comunion-cdmx.avif', { w: 600, q: 82 })}
+            alt="Mesa de dulces primera comunión CDMX MEDEDUL servicio"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="comunion-testimonios section-padding" id="testimonios-comunion">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="familias MEDEDUL"
+        subtitle="Familias católicas hablando de la primera comunión de sus hijos en CDMX"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars (Ciclo sacramental ascendente) ===================== -->
+  <section class="comunion-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Ciclo sacramental"
+        titleHighlight="continuidad familiar"
+        subtitle="Si tu familia tiene otros sacramentos próximos o pasados, mantenemos consistencia visual entre las celebraciones"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-bautizo"
+          image={getCdnUrl('/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif')}
+          alt="Mesa de dulces para bautizo continuidad sacramental"
+          title="Bautizo"
+          excerpt="El primer sacramento. Si tu hermano menor hará bautizo, mantenemos paleta y simbología consistente con la primera comunión."
+          cta="Ver Bautizo"
+          badge="Sacramento previo"
+          subsections={subsCBBautizo}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+          image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')}
+          alt="Mesa de dulces cumpleaños infantil para hermanos menores"
+          title="Cumpleaños Infantil"
+          excerpt="Para hermanos menores. Mesas temáticas con personajes para fiestas de cumpleaños de niños 3-12 años."
+          cta="Ver Cumple Infantil"
+          subsections={subsCBCumple}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces baby shower para hermanos menores"
+          title="Baby Shower"
+          excerpt="Si esperas otro bebé. Mesas tiernas pastel para celebrar la dulce espera del próximo miembro de la familia."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces boda religiosa sacramento del matrimonio"
+          title="Mesa para Boda"
+          excerpt="Sacramento del matrimonio. Si planeas tu boda religiosa o la de un familiar, mesa nupcial con simbología cristiana opcional."
+          cta="Ver Mesa Boda"
+          subsections={subsCBBoda}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Comunión stats (paleta dorado-azul marino sacramental) ===== */
+  .comunion-stats {
+    background: linear-gradient(135deg, #fffaf0 0%, #fff 50%, #f0f4ff 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  }
+  .comunion-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .comunion-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #d4af37 0%, #1e3a8a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .comunion-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .comunion-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .comunion-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Símbolos eucarísticos (7 grid) ===== */
+  .comunion-simbolos { background: #fffaf0; }
+  .comunion-simbolos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .comunion-simbolo {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .comunion-simbolo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .comunion-simbolo__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .comunion-simbolo__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .comunion-simbolo__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 1100px) { .comunion-simbolos__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .comunion-simbolos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Catequesis CDMX (SEO local) ===== */
+  .comunion-catequesis { background: #fff; }
+  .comunion-catequesis__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .comunion-catequesis__item {
+    background: #fffaf0;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .comunion-catequesis__item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+  }
+  .comunion-catequesis__icon {
+    display: inline-block;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .comunion-catequesis__name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .comunion-catequesis__zona {
+    display: block;
+    font-size: 0.8rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .comunion-catequesis__tipo {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+  }
+  .comunion-catequesis__note {
+    margin-top: 2rem;
+    background: #f0f4ff;
+    border: 2px dashed #1e3a8a;
+    border-radius: 1rem;
+    padding: 1.25rem 1.75rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .comunion-catequesis__note a {
+    color: #d4af37;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  @media (max-width: 1100px) { .comunion-catequesis__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .comunion-catequesis__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Niño vs Niña ===== */
+  .comunion-genero { background: #fffaf0; }
+  .comunion-genero__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .comunion-genero__card {
+    border-radius: 1.25rem;
+    padding: 2.5rem 2rem;
+    border-top: 6px solid var(--genero-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .comunion-genero__icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  .comunion-genero__title {
+    font-size: 1.5rem;
+    color: var(--genero-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  .comunion-genero__field {
+    margin-bottom: 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  .comunion-genero__field strong {
+    display: block;
+    color: var(--genero-color);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .comunion-genero__field p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 768px) { .comunion-genero__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Recuerditos premium ===== */
+  .comunion-recuerditos { background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); }
+  .comunion-recuerditos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .comunion-recuerdito {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 4px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .comunion-recuerdito:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .comunion-recuerdito__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .comunion-recuerdito__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .comunion-recuerdito__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .comunion-recuerditos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .comunion-intro { padding: 5rem 0; background: #fff; }
+  .comunion-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .comunion-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37 0%, #1e3a8a 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .comunion-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .comunion-intro__copy h2 span { color: #d4af37; }
+  .comunion-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .comunion-intro__copy a {
+    color: #d4af37;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .comunion-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+  }
+  @media (max-width: 900px) {
+    .comunion-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería ===== */
+  .comunion-galeria { padding: 5rem 0; background: #fffaf0; }
+  .comunion-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .comunion-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .comunion-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .comunion-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .comunion-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .comunion-incluye { background: #fff; }
+  .comunion-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .comunion-incluye__item {
+    background: #fffaf0;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: transform 0.2s ease;
+  }
+  .comunion-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .comunion-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #d4af37 0%, #1e3a8a 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .comunion-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .comunion-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .comunion-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link ===== */
+  .comunion-cdmx-cta { background: #fff; }
+  .comunion-cdmx-cta__card {
+    background: linear-gradient(135deg, #d4af37 0%, #1e3a8a 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.25);
+  }
+  .comunion-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .comunion-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .comunion-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .comunion-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .comunion-cdmx-cta__body p strong { color: #fff; }
+  .comunion-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #d4af37;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .comunion-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .comunion-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .comunion-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .comunion-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .comunion-testimonios { background: #fffaf0; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .comunion-otros { background: #fff; }
+</style>

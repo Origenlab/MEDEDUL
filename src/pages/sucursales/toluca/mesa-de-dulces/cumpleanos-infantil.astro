@@ -1,0 +1,895 @@
+---
+// Mesa de Dulces para Cumpleaños Infantil - Sucursal Toluca-Metepec
+// SEO + GEO heavy: Valle de Toluca, personajes, sin nueces, operador disfrazado
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Dulces', url: '/sucursales/toluca/mesa-de-dulces' },
+  { name: 'Cumpleaños Infantil', url: '/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil' }
+];
+
+// =============== Trust Stats (Cumpleaños Infantil Valle Toluca) ===============
+const stats = [
+  { number: '80+', label: 'Cumples infantiles Valle Toluca' },
+  { number: '30+', label: 'Personajes y temáticas' },
+  { number: '100%', label: 'Control de alergias (sin nueces)' },
+  { number: '< 24h', label: 'Cotización en línea' }
+];
+
+// =============== Características (Diferenciadores Cumpleaños Infantil Toluca) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño temático por personaje favorito',
+    desc: 'Trabajamos 30+ personajes y temáticas en Valle de Toluca: Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, dinosaurios, sirenas, princesas, superhéroes, Cars, Barbie, Encanto. Si tu hijo tiene un personaje específico, lo recreamos para su fiesta en Metepec, Toluca o Lerma.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido aprobado por niños + sin nueces 100%',
+    desc: 'Diferenciador único: TODO el surtido base es libre de nueces (alergia infantil más común y peligrosa). Curaduría especial: gomitas favoritas, chocolates suaves, dulces icónicos por temática, paletas decoradas, mini cupcakes y bolos sorpresa. Adaptamos sin gluten, sin lactosa, sin azúcar para niños diabéticos.',
+    img: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif'
+  },
+  {
+    num: 3,
+    title: 'Operador disfrazado opcional',
+    desc: 'Diferenciador único en Valle de Toluca: en paquetes Premium y Luxury podemos asignar operador profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, Elsa, etc.). Genera momento mágico para el cumpleañero y sus amigos en la fiesta.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-paw-patrol-colorido-nino.avif'
+  },
+  {
+    num: 4,
+    title: 'Coordinación con animadores y salones infantiles',
+    desc: 'Operamos en paralelo con animadores, magos, payasos, inflables y salones infantiles del Valle de Toluca (Diviértete Metepec, Chuck E. Cheese Galerías, Castillos Inflables Metepec, Salón Burbujas Toluca). Llegamos antes para no interferir y nos integramos al timing de la fiesta.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif'
+  }
+];
+
+// =============== Paquetes Cumpleaños Infantil Toluca ===============
+const paquetesKid = [
+  {
+    name: 'Cumple Toluca Esencial',
+    icon: '🎈',
+    price: '$3,200',
+    currency: 'MXN',
+    guests: '15-30 niños',
+    tagline: 'Ideal para fiesta íntima en casa Valle Toluca',
+    features: [
+      'Mesa temática base (8-10 variedades)',
+      'Paleta y atrezzo del personaje elegido',
+      'Cristalería y soportes coordinados',
+      'Control de alergias incluido (sin nueces)',
+      'Bolos sorpresa coordinados',
+      'Montaje 1-2 h antes',
+      'Cobertura zonas centrales (Metepec, Toluca, Zinacantepec)'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Cumpleaños%20Infantil%20Toluca%20-%20Esencial'
+  },
+  {
+    name: 'Cumple Toluca Premium',
+    icon: '🎉',
+    price: '$5,500',
+    currency: 'MXN',
+    guests: '30-60 niños',
+    tagline: 'El más solicitado por mamás Valle Toluca',
+    features: [
+      'Mesa temática completa (12-15 variedades)',
+      'Backdrop con nombre y edad del cumpleañero',
+      'Atrezzo profesional del personaje',
+      'Operador disfrazado opcional (sin costo)',
+      'Control estricto de alergias (sin nueces, sin gluten opcional)',
+      'Coordinación con animador / inflables',
+      'Bolos sorpresa premium personalizados',
+      'Cobertura amplia Valle Toluca'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Cumpleaños%20Infantil%20Toluca%20-%20Premium'
+  },
+  {
+    name: 'Cumple Toluca Luxury',
+    icon: '🏰',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '60+ niños',
+    tagline: 'Experiencia mágica completa para Valle Toluca',
+    features: [
+      'Mesa de autor (18+ variedades temáticas)',
+      'Backdrop 360° con escenografía',
+      'Operador disfrazado + photobooth integrado',
+      'Fuente de chocolate o pared de dulces incluida',
+      'Pastel temático y mini cupcakes coordinados',
+      'Bolos sorpresa premium con sticker book',
+      'Coordinación full con animadores y planner',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Metepec'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Cumpleaños%20Infantil%20Toluca%20-%20Luxury'
+  }
+];
+
+// =============== Proceso Cumpleaños Infantil Toluca ===============
+const procesoKid = [
+  {
+    num: 1,
+    title: 'Brief del cumpleaños',
+    desc: 'Nos cuentas la fecha, lugar (casa en residencial Las Marinas/San Carlos/La Providencia, salón infantil en Metepec o Toluca, jardín de eventos), edad del cumpleañero, número de niños, personaje o temática favorita y alergias o restricciones alimenticias específicas. Sucursal Metepec coordina.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta visual mágica',
+    desc: 'En menos de 24 h recibes render conceptual con la temática del personaje, paleta cromática, surtido sugerido apto para niños (sin nueces 100%), opciones de backdrop y atrezzo, y cotización cerrada en 3 niveles. Si hay alergias específicas, ajustamos surtido sin costo adicional.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con animadores',
+    desc: 'Coordinamos directo con tu animador, mago, payaso, salón infantil del Valle (Diviértete Metepec, Chuck E. Cheese Galerías, Salón Burbujas Toluca) o coordinador del venue. Confirmamos timing de la fiesta, posición de la mesa y momento del corte de pastel.'
+  },
+  {
+    num: 4,
+    title: 'Día del cumpleaños',
+    desc: 'Llegamos 1-2 h antes desde Sucursal Metepec, montamos sin interferir con animador o inflables, operamos durante toda la fiesta con reposición continua y entregamos bolos sorpresa al final. El cumpleañero queda feliz y los papás sin estrés.'
+  }
+];
+
+// =============== Galería Cumpleaños Valle Toluca ===============
+const galeriaImages = [
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif', alt: 'Mesa de dulces Superman superhéroes para cumpleaños infantil Valle Toluca' },
+  { src: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif', alt: 'Candy bar infantil colorido para fiesta cumpleaños Metepec' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif', alt: 'Mesa de dulces Bluey azul para cumpleaños infantil Valle Toluca' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-paw-patrol-colorido-nino.avif', alt: 'Mesa de dulces Paw Patrol colorida para niño Metepec' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-unicornio-arcoiris-cumpleanos-nina.avif', alt: 'Mesa de dulces unicornio arcoíris para niña Toluca' },
+  { src: '/img/eventos/cumpleanos/infantiles/candy-bar-dinosaurios-cumpleanos-nino.avif', alt: 'Candy bar dinosaurios para cumpleaños niño Valle Toluca' }
+];
+
+// =============== Qué incluye (Cumpleaños Infantil Toluca) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría aprobada por niños', desc: 'Surtido de 8 a 18+ variedades favoritas de niños: gomitas, chocolates suaves, paletas decoradas, mini cupcakes temáticos, galletas con motivos del personaje, dulces icónicos según temática y bolos sorpresa coordinados. Todo con control estricto de alergias (sin nueces por defecto, opciones sin gluten, sin lactosa, sin azúcar para diabéticos).' },
+  { num: '02', title: 'Diseño temático del personaje', desc: 'Cristalería, soportes, bandejas, manteles y backdrop coordinados al personaje del cumpleaños (Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, etc.). Atrezzo profesional, letras decorativas con el nombre del cumpleañero, edad en grande y elementos icónicos del personaje.' },
+  { num: '03', title: 'Operador disfrazado opcional', desc: 'En paquetes Premium y Luxury asignamos operador profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, Elsa, etc.). Genera momento mágico para el cumpleañero, sus amigos y fotos memorables para los papás.' },
+  { num: '04', title: 'Seguridad infantil prioritaria', desc: 'Sin nueces por defecto en todo el surtido. Verificamos alergias específicas en el brief y ajustamos sin costo: sin gluten, sin lactosa, sin azúcar, sin colorantes. Mobiliario sin esquinas peligrosas, exhibidores estables a altura segura para niños.' },
+  { num: '05', title: 'Operación durante la fiesta', desc: 'Operador profesional asignado durante toda la fiesta. Reposición continua, atención a niños y a papás, foto coordinada del cumpleañero con la mesa, integración con el momento del corte de pastel y soporte a animadores en el Valle.' },
+  { num: '06', title: 'Bolos sorpresa premium', desc: 'Empaque final en bolos sorpresa decorados al personaje (cajitas, bolsas, totebags). Cada niño se lleva su recuerdo y los papás no tienen que preocuparse por preparar dulceros. En Luxury incluimos sticker book coleccionable adicional.' }
+];
+
+// =============== Eventos compatibles (cross-link a otras L5 Toluca) ===============
+const eventos = [
+  {
+    title: 'Candy Bar para Boda Toluca',
+    excerpt: 'Diseños nupciales elegantes para bodas en haciendas del Valle de Toluca. Hacienda La Magdalena, Quinta Real, Real de Minas. Coordinación con wedding planner. Desde $7,500 MXN.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda',
+    badge: 'Top Bodas',
+    cta: 'Ver Candy Bar Boda Toluca'
+  },
+  {
+    title: 'Mesa para XV Años Toluca',
+    excerpt: 'Diseños glamour para quinceañera en haciendas y salones de Valle de Toluca. Paleta alineada al vestido, backdrop instagramable y surtido aesthetic-friendly. Desde $6,500 MXN.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos',
+    badge: 'Top XV Toluca',
+    cta: 'Ver Mesa XV Toluca'
+  },
+  {
+    title: 'Baby Shower Toluca',
+    excerpt: 'Montajes tiernos pastel y gender reveal. Apto para mamá embarazada. Cobertura en domicilios y venues boutique de Metepec, Toluca y residenciales del Valle. Desde $4,000 MXN.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/baby-shower',
+    badge: 'Pastel Toluca',
+    cta: 'Ver Baby Shower Toluca'
+  },
+  {
+    title: 'Mesa para Bautizo',
+    excerpt: 'Bautizos íntimos en parroquias del Valle Toluca. Paletas suaves blanco-celeste/rosa, símbolos religiosos integrados, recuerditos memorables.',
+    img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver Bautizo'
+  }
+];
+
+// =============== Salones infantiles Valle Toluca trabajados (12+) ===============
+const salones = [
+  { nombre: 'Diviértete Metepec', zona: 'Metepec', tipo: 'Salón infantil con juegos' },
+  { nombre: 'Chuck E. Cheese Galerías', zona: 'Metepec', tipo: 'Salón infantil cadena' },
+  { nombre: 'Salón Burbujas Toluca', zona: 'Toluca', tipo: 'Salón infantil temático' },
+  { nombre: 'Castillos Inflables Metepec', zona: 'Metepec', tipo: 'Inflables y juegos' },
+  { nombre: 'Diversiones Las Vegas Toluca', zona: 'Toluca', tipo: 'Salón con maquinitas' },
+  { nombre: 'Casa Club Las Marinas', zona: 'Metepec', tipo: 'Casa club residencial' },
+  { nombre: 'Domicilios Las Marinas', zona: 'Metepec', tipo: 'Residencial premium' },
+  { nombre: 'Domicilios San Carlos', zona: 'Metepec', tipo: 'Residencial premium' },
+  { nombre: 'Domicilios La Providencia', zona: 'Metepec', tipo: 'Residencial premium' },
+  { nombre: 'Salón Margarita Metepec', zona: 'Metepec', tipo: 'Salón eventos infantil' },
+  { nombre: 'Galerías Metepec (área eventos)', zona: 'Metepec', tipo: 'Centro comercial' },
+  { nombre: 'Salón La Pradera', zona: 'Zinacantepec', tipo: 'Jardín fiestas infantiles' }
+];
+
+// =============== Zonas Valle Toluca ===============
+const zonasPremium = [
+  { nombre: 'Metepec', alcaldia: 'Estado de México', href: '/mesas-de-dulces-metepec', destacada: true },
+  { nombre: 'Toluca centro', alcaldia: 'Estado de México', href: '/mesas-de-dulces-toluca', destacada: true },
+  { nombre: 'Zinacantepec', alcaldia: 'Estado de México', href: '/mesas-de-dulces-zinacantepec', destacada: true },
+  { nombre: 'Lerma', alcaldia: 'Estado de México', href: '/mesas-de-dulces-lerma', destacada: true },
+  { nombre: 'Las Marinas', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'San Carlos', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'La Providencia', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'Pilares', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'Universidad Toluca', alcaldia: 'Toluca, EdoMex', href: '#', destacada: false }
+];
+
+const zonasAdicionales = [
+  'Ocoyoacac', 'San Mateo Atenco', 'Calimaya', 'Tianguistenco',
+  'Almoloya de Juárez', 'Capultitlán', 'Tenango del Valle', 'Mexicalcingo',
+  'Atizapán de Zaragoza', 'Xonacatlán', 'Otzolotepec', 'Temoaya',
+  'Sor Juana', 'Reforma Toluca', 'Santiago Tlaxomulco', 'Centro Toluca',
+  'Reforma 9 Sur', 'Belén Sucursal', 'Galerías Toluca', 'San Mateo Otzacatipan'
+];
+
+const zonasKid = [...zonasPremium.map(z => z.nombre), ...zonasAdicionales];
+
+// =============== Testimonios Cumpleaños Infantil Valle Toluca ===============
+const testimonios = [
+  {
+    name: 'Mariana López',
+    initials: 'ML',
+    review: 'El cumple Bluey de mi hija de 4 años en Diviértete Metepec fue mágico. La mesa quedó idéntica a la serie, el operador llegó disfrazado de Bluey y los niños alucinaron. Súper detallistas con la alergia al gluten de mi hija. Repetiremos sin duda.',
+    event: 'Cumple 4 años · Bluey · Diviértete Metepec',
+    rating: 5
+  },
+  {
+    name: 'Carlos Méndez',
+    initials: 'CM',
+    review: 'Cumple Pokemon de mi hijo en Salón Burbujas Toluca. Coordinaron con el animador y los inflables sin problema. El operador llegó disfrazado de entrenador Pokemon y mi hijo no lo podía creer. Surtido sin nueces respetando alergia de uno de los invitados.',
+    event: 'Cumple 7 años · Pokemon · Salón Burbujas Toluca',
+    rating: 5
+  },
+  {
+    name: 'Laura Pérez',
+    initials: 'LP',
+    review: 'Primer cumpleaños de mi bebé en domicilio La Providencia Metepec. Mesa pastel-suave preciosa, smash cake coordinado, foto familiar épica. Llegaron antes y dejaron todo limpio. Bolos sorpresa para los invitados quedaron divinos. Recomendados al 100%.',
+    event: 'Primer cumpleaños · Pastel-suave · La Providencia Metepec',
+    rating: 5
+  }
+];
+
+// =============== FAQ Cumpleaños Infantil Toluca ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para cumpleaños infantil en Valle de Toluca?',
+    answer: 'Incluye diseño temático según el personaje favorito del niño (Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, etc.), surtido de 8 a 18+ variedades aprobado por niños (gomitas, chocolates suaves, paletas, mini cupcakes, galletas decoradas, bolos sorpresa), cristalería y soportes coordinados al personaje, backdrop con nombre y edad del cumpleañero, atrezzo temático profesional, control estricto de alergias (sin nueces por defecto), montaje 1-2 h antes desde Sucursal Metepec en domicilio o salón, coordinación con animadores e inflables locales del Valle, operación durante la fiesta y empaque en bolos sorpresa.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para cumpleaños infantil en Valle de Toluca?',
+    answer: 'En Valle de Toluca iniciamos en $3,200 MXN (Esencial, 15-30 niños), $5,500 MXN (Premium, 30-60 niños, el más solicitado) y $8,500 MXN (Luxury, 60+ niños). El precio depende del número de niños, surtido seleccionado, nivel de personalización (backdrop, escenografía, photobooth), operador disfrazado y estación interactiva (fuente de chocolate o pared de dulces). Cotización gratuita en menos de 24 horas hábiles vía WhatsApp 55 2177 5184.'
+  },
+  {
+    question: '¿Qué temáticas o personajes pueden montar?',
+    answer: 'Trabajamos 30+ temáticas y personajes: Princesas Disney (Ariel, Rapunzel, Moana, Tiana), Marvel y DC (Spider-Man, Iron Man, Hulk, Batman), Frozen, Pokemon, Bluey, Paw Patrol, Sirenita, Unicornios, Dinosaurios, Safari, Cars, Hot Wheels, Barbie, Encanto, Minecraft, Roblox, Sonic, Mario Bros, Peppa Pig, Bob Esponja, anime/K-pop, gaming. Si tu hijo tiene un personaje específico no listado, lo conceptualizamos.'
+  },
+  {
+    question: '¿Tienen control de alergias y opciones especiales?',
+    answer: 'Sí, es uno de nuestros diferenciadores clave. TODO el surtido base es libre de nueces (alergia infantil más común y peligrosa). Adaptamos sin costo adicional para: sin gluten (celiacos), sin lactosa, sin azúcar (diabéticos tipo 1), sin colorantes artificiales (hipersensibles) y opciones kosher si aplica. Pídenos la curaduría especial en el brief inicial mencionando todas las alergias de los invitados.'
+  },
+  {
+    question: '¿El operador puede llegar disfrazado del personaje?',
+    answer: 'Sí. En paquetes Premium y Luxury podemos asignar operador profesional disfrazado del personaje del cumpleaños: entrenador Pokemon, princesa Disney, superhéroe Marvel, Bluey, Elsa, Ariel, etc. Es un diferenciador único en Valle de Toluca que genera momento mágico para el cumpleañero y sus amigos, además de fotos memorables para los papás. Especificar en el brief para confirmar disponibilidad.'
+  },
+  {
+    question: '¿Atienden cumpleaños en residenciales y salones infantiles del Valle?',
+    answer: 'Sí. Cubrimos domicilios particulares en residenciales premium (Las Marinas, San Carlos, La Providencia, Pilares en Metepec; Universidad y centro en Toluca) y los principales salones infantiles del Valle: Diviértete Metepec, Chuck E. Cheese Galerías Metepec, Salón Burbujas Toluca, Castillos Inflables Metepec, Diversiones Las Vegas Toluca, Salón Margarita, Salón La Pradera Zinacantepec, Casa Club Las Marinas y áreas de Galerías Metepec.'
+  },
+  {
+    question: '¿Coordinan con animadores, magos, payasos e inflables del Valle?',
+    answer: 'Sí. Trabajamos en paralelo con animadores, magos, payasos, baby DJ, inflables y operadores de salones infantiles del Valle de Toluca. Llegamos antes para no interferir con su montaje y operamos en sintonía con el timing de la fiesta. Coordinamos directamente con ellos antes del evento si nos compartes su contacto.'
+  },
+  {
+    question: '¿Pueden combinar la mesa con fuente de chocolate, pared de dulces o donas?',
+    answer: 'Sí, y es muy popular para fiestas infantiles en Valle Toluca. Sumamos Fuente de Chocolate belga (la favorita de los niños), Pared de Dulces con dispensadores divertidos, Mesa de Donas y Cupcakes decorados con arte temático, o la Mesa de Dulces clásica. Estas estaciones generan momentos interactivos memorables para los niños.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Recomendamos reservar con 2 a 4 semanas de anticipación para fiestas regulares. Para temporadas altas (mayo-junio, octubre-diciembre, fines de año escolar) sugerimos 4-6 semanas. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del cumpleaños. Cobertura todo el Valle de Toluca.'
+  },
+  {
+    question: '¿Atienden todo el Valle de Toluca?',
+    answer: 'Sí. Operamos desde nuestra sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec) y cubrimos Metepec (Las Marinas, San Carlos, La Providencia, Pilares, centro), Toluca (centro, Universidad, Sor Juana, Reforma, Santiago Tlaxomulco), Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya y municipios cercanos del Estado de México.'
+  }
+];
+
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil#service",
+      "name": "Mesa de Dulces para Cumpleaños Infantil en Valle de Toluca",
+      "serviceType": "Mesa de Dulces Temática Infantil / Candy Bar Cumpleaños Niños",
+      "description": "Mesa de dulces temática para cumpleaños infantil en Valle de Toluca con 30+ personajes, control estricto de alergias (sin nueces por defecto), operador disfrazado opcional, coordinación con animadores e inflables y bolos sorpresa premium. Operación desde sucursal Metepec.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "80",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": zonasKid.map(z => ({ "@type": "Place", "name": z }))
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3200",
+        "highPrice": "8500",
+        "offerCount": "3",
+        "offers": paquetesKid.map(pkg => ({
+          "@type": "Offer",
+          "name": `Cumpleaños Infantil Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias con hijos planeando cumpleaños en Valle de Toluca"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces" },
+        { "@type": "ListItem", "position": 5, "name": "Cumpleaños Infantil", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Cumpleaños Infantil Valle Toluca | 30+ Personajes · Sin Nueces · Operador Disfrazado | MEDEDUL"
+  description="Mesa de dulces para cumpleaños infantil en Valle de Toluca: 30+ personajes (Bluey, Pokemon, Princesas, Marvel, Paw Patrol). Sin nueces por defecto, opciones sin gluten/lactosa/azúcar, operador disfrazado opcional. Sucursal Metepec. Diviértete Metepec, Chuck E. Cheese Galerías, Salón Burbujas Toluca. Desde $3,200 MXN."
+  canonical="/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil"
+  ogImage="/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Cumpleaños Infantil en Valle de Toluca"
+    highlight="Cumpleaños Infantil"
+    subtitle="Personajes y colores · Sucursal MEDEDUL Toluca-Metepec · Sin nueces 100%"
+    secondaryContent={`<p>Los ojos de los niños brillan con nuestra mesa. Personajes favoritos, colores explosivos y todos los dulces que sueñan los niños del Valle de Toluca. La <strong>mesa de dulces temática para cumpleaños infantil en Valle de Toluca</strong> es el momento más esperado de la fiesta y la foto que los papás van a guardar para siempre. En <strong>MEDEDUL Sucursal Toluca-Metepec</strong> diseñamos cada mesa alrededor del personaje favorito del cumpleañero (Bluey, Pokemon, Princesas Disney, Marvel, Frozen, Paw Patrol, dinosaurios, sirenas, unicornios, Cars, Barbie, Encanto y 30+ temáticas más), con surtido aprobado por niños y <strong>control estricto de alergias: sin nueces por defecto</strong>, opciones sin gluten, sin lactosa y sin azúcar para niños diabéticos.</p><p>Nuestro diferenciador único en Valle de Toluca es el <strong>operador disfrazado opcional</strong>: en paquetes Premium y Luxury asignamos personal profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, Elsa, etc.) que opera la mesa, atiende a los niños y genera el momento mágico que tu hijo va a recordar para siempre. Coordinamos directamente con animadores, magos, payasos, inflables y operadores de salones infantiles del Valle (Diviértete Metepec, Chuck E. Cheese Galerías, Salón Burbujas Toluca, Castillos Inflables Metepec). Operamos desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong>.</p>`}
+  />
+
+  <section class="kidtol-stats">
+    <div class="container">
+      <div class="kidtol-stats__grid">
+        {stats.map(s => (
+          <div class="kidtol-stat">
+            <span class="kidtol-stat__num">{s.number}</span>
+            <span class="kidtol-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="kidtol-intro" id="intro-mededul-cumple-toluca">
+    <div class="container">
+      <div class="kidtol-intro__grid">
+        <div class="kidtol-intro__copy">
+          <span class="kidtol-intro__badge">Especialistas en cumpleaños infantil Valle Toluca</span>
+          <h2>Así trabaja <span>MEDEDUL</span> el cumpleaños de tu hijo en Valle de Toluca</h2>
+          <p>El cumpleaños de tu hijo es uno de esos días que va a recordar para siempre. Por eso cada mesa de dulces infantil que montamos en Valle de Toluca parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con los papás (edad, personaje favorito, alergias, número de niños, sede en Las Marinas/San Carlos/La Providencia o salón infantil), propuesta visual con render conceptual del personaje, curaduría de producto aprobado por niños, coordinación con animadores y operadores del salón, montaje 1-2 h antes y operación impecable durante toda la fiesta.</p>
+          <p>La mesa de dulces infantil que diseñamos no es un servicio genérico: es una <strong>experiencia mágica a medida</strong> que respeta el universo del personaje favorito (Disney, Marvel, Pokemon, Bluey, Paw Patrol, Frozen, etc.), la edad y los gustos del cumpleañero, las restricciones alimenticias de los invitados y las expectativas visuales de los papás para fotos. Diferenciador único MEDEDUL: <strong>sin nueces por defecto en TODO el surtido base</strong> (alergia infantil más común y peligrosa).</p>
+          <p>Operamos desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong>, lo que nos permite llegar puntualmente a cualquier domicilio o salón infantil en Valle de Toluca. Si quieres conocer más detalle sobre cobertura visita nuestra <a href="/sucursales/toluca/mesa-de-dulces"><strong>página de Mesa de Dulces Toluca</strong></a>.</p>
+          <p><a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Cumpleaños%20Infantil%20Valle%20Toluca" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a hacer brillar los ojos de tu hijo.</p>
+        </div>
+        <div class="kidtol-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces para cumpleaños infantil Valle Toluca temática superhéroes"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-kid-toluca"
+    badge="Paquetes Cumpleaños Infantil Valle Toluca"
+    title="Elige el formato para el"
+    titleHighlight="cumple de tu hijo"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para cumpleaños infantil Valle Toluca</strong>. <strong>Esencial</strong> para fiesta íntima en casa (15-30 niños); <strong>Premium</strong> es el más solicitado por mamás (30-60 niños) e incluye operador disfrazado opcional sin costo y backdrop con nombre del cumpleañero; <strong>Luxury</strong> es la experiencia mágica completa (60+ niños) con escenografía 360°, photobooth integrado, fuente de chocolate o pared de dulces incluida y pastel temático coordinado.</p><p>Pricing Toluca 9% más accesible que CDMX manteniendo la misma calidad premium MEDEDUL.</p>`}
+    packages={paquetesKid}
+    note="💡 <strong>Todos los paquetes Cumpleaños Infantil Valle Toluca incluyen:</strong> control de alergias (sin nueces por defecto), bolos sorpresa coordinados al personaje, coordinación con animador, montaje 1-2 h antes desde Sucursal Metepec en domicilio o salón, operación durante la fiesta y empaque de sobrantes para el cumpleañero."
+  />
+
+  <WhyChooseUs
+    id="por-que-kid-toluca"
+    badge="Diferenciadores Cumpleaños Infantil Valle Toluca"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa Infantil Valle Toluca"
+    descriptions={[
+      "Con <strong>80+ cumpleaños infantiles montados en Valle de Toluca</strong> y <strong>30+ temáticas trabajadas</strong>, MEDEDUL es la opción de referencia para mamás y papás que buscan mesa temática con control de alergias y operador disfrazado en Metepec, Toluca y Lerma.",
+      "Cada mesa parte del mismo método: brief con los papás (edad, personaje, alergias), propuesta visual del personaje, coordinación con animador o salón infantil del Valle, montaje y operación con operador disfrazado opcional. La <strong>seguridad infantil</strong> es nuestra prioridad: sin nueces por defecto, sin colorantes y mobiliario seguro."
+    ]}
+    stats={[
+      { number: "80+", label: "Cumples Valle Toluca" },
+      { number: "30+", label: "Personajes" },
+      { number: "100%", label: "Sin nueces default" },
+      { number: "5.0", label: "Calificación mamás" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <section class="kidtol-galeria" id="galeria-kid-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Cumpleaños reales montados en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Selección curada de fiestas infantiles MEDEDUL en distintas temáticas y salones del Valle"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>cumpleaños real en Valle de Toluca</strong>. La paleta cromática, los props, el atrezzo y el surtido fueron <strong>diseñados específicamente para cada cumpleañero</strong> en función de su personaje favorito, edad y número de invitados en residenciales premium del Valle.</p>`}
+      />
+
+      <div class="kidtol-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="kidtol-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="kidtol-incluye">
+    <div class="container">
+      <div class="kidtol-incluye__header">
+        <span class="kidtol-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa Infantil Valle Toluca</span>?</h2>
+        <p>Servicio integral mágico de principio a fin con sin nueces 100% y operador disfrazado opcional</p>
+      </div>
+
+      <div class="kidtol-incluye__grid">
+        {incluye.map(item => (
+          <div class="kidtol-incluye__card">
+            <span class="kidtol-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps
+    id="proceso-kid-toluca"
+    badge="Cómo trabajamos el cumple en Valle Toluca"
+    title="4 pasos para el"
+    titleHighlight="cumple de tu hijo"
+    subtitle="Cuatro pasos para que tu hijo tenga la mesa que va a recordar para siempre"
+    steps={procesoKid}
+  />
+
+  <section class="kidtol-venues" id="salones-infantiles-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Salones infantiles donde hemos montado en"
+        titleHighlight="Valle de Toluca"
+        subtitle="12+ salones infantiles y residenciales con experiencia comprobada"
+        content={`<p>El cumpleaños infantil típico en Valle de Toluca se monta en <strong>domicilios particulares de residenciales premium</strong> (Las Marinas, San Carlos, La Providencia, Pilares en Metepec) o en <strong>salones infantiles temáticos</strong>. En MEDEDUL ya conocemos estos espacios y montamos sin fricción coordinando con animadores e inflables.</p>`}
+      />
+
+      <div class="kidtol-venues__grid">
+        {salones.map(v => (
+          <div class="kidtol-venue-card">
+            <span class="kidtol-venue-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+              </svg>
+            </span>
+            <div class="kidtol-venue-card__body">
+              <span class="kidtol-venue-card__name">{v.nombre}</span>
+              <div class="kidtol-venue-card__meta">
+                <span class="kidtol-venue-card__zona">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {v.zona}
+                </span>
+                <span class="kidtol-venue-card__tipo">{v.tipo}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="kidtol-venues__nota">
+        ¿Tu salón no aparece en la lista? Trabajamos en cualquier domicilio, salón infantil, parque o jardín del Valle de Toluca. <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20mi%20cumple%20es%20en%20[nombre%20venue]%20Valle%20Toluca">Pregúntanos por tu venue específico</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="kidtol-zonas" id="zonas-kid-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura Cumpleaños Infantil en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Montamos cumples en cualquier domicilio o salón del Valle"
+        content={`<p>Desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong> llegamos puntualmente a cualquier punto del Valle de Toluca para fiestas infantiles.</p>`}
+      />
+
+      <div class="kidtol-zonas__subseccion">
+        <header class="kidtol-zonas__subheader">
+          <span class="kidtol-zonas__numero">01</span>
+          <div>
+            <h3>Municipios principales con página dedicada</h3>
+            <p>4 municipios con información detallada de cobertura, salones infantiles y casos en Valle Toluca.</p>
+          </div>
+        </header>
+
+        <div class="kidtol-zonas__grid">
+          {zonasPremium.map(z => (
+            <a href={z.href} class:list={['kidtol-zona-card', { 'kidtol-zona-card--destacada': z.destacada }]}>
+              <span class="kidtol-zona-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="kidtol-zona-card__body">
+                <span class="kidtol-zona-card__nombre">{z.nombre}</span>
+                <span class="kidtol-zona-card__alcaldia">{z.alcaldia}</span>
+              </div>
+              {z.destacada && <span class="kidtol-zona-card__badge">Top</span>}
+              <span class="kidtol-zona-card__arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="kidtol-zonas__subseccion">
+        <header class="kidtol-zonas__subheader">
+          <span class="kidtol-zonas__numero">02</span>
+          <div>
+            <h3>Cobertura adicional Valle Toluca</h3>
+            <p>20 zonas más que cubrimos sin restricciones para cumpleaños infantiles.</p>
+          </div>
+        </header>
+
+        <div class="kidtol-zonas__pills">
+          {zonasAdicionales.map(z => (
+            <span class="kidtol-zona-pill">{z}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="kidtol-zonas__cta">
+        <p>¿No ves tu zona? <strong>Cubrimos todo el Valle de Toluca y municipios cercanos del Estado de México</strong>.</p>
+        <a href="/sucursales/toluca" class="kidtol-zonas__cta-btn">
+          Ver Sucursal Toluca-Metepec completa
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="kidtol-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de cumpleaños en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Familias que ya celebraron con MEDEDUL en el Valle"
+      />
+      <div class="kidtol-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="kidtol-otros-eventos" id="otros-candy-bars-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Descubre nuestros otros Candy Bars en"
+        titleHighlight="Valle Toluca"
+        subtitle="Otros 4 montajes especializados que operamos en Valle de Toluca"
+      />
+
+      <div class="kidtol-otros-eventos__grid">
+        {eventos.map(ev => (
+          <ServiceCard
+            href={ev.href}
+            image={ev.img}
+            alt={`${ev.title} por MEDEDUL`}
+            title={ev.title}
+            excerpt={ev.excerpt}
+            badge={ev.badge}
+            cta={ev.cta}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="kidtol-cdmx-cta">
+    <div class="container">
+      <div class="kidtol-cdmx-cta__card">
+        <div class="kidtol-cdmx-cta__body">
+          <span class="kidtol-cdmx-cta__badge">📍 ¿Cumple en Ciudad de México?</span>
+          <h2>Conoce nuestra <span>Sucursal CDMX</span></h2>
+          <p>Si el cumple es en Ciudad de México, MEDEDUL también tiene página exclusiva con cobertura en domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa) y los principales salones infantiles de CDMX (KidZania Santa Fe, Salón Fiesta Land Polanco, Sandías Castillo Lomas, The Fun Factory Interlomas). Paquetes desde <strong>$3,500 MXN</strong>, operador disfrazado y operación desde Anzures + Condesa.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil" class="kidtol-cdmx-cta__link">Ver Cumpleaños Infantil CDMX →</a>
+        </div>
+        <div class="kidtol-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif', { w: 600, q: 82 })} alt="Cumpleaños infantil CDMX MEDEDUL sucursal hermana" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card (homologado 5 páginas Toluca) ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Cumpleaños Infantil — Subsección Mesa de Dulces
+     Prefix: kidtol- (kid-toluca)
+     ========================================================== */
+
+  .kidtol-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .kidtol-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .kidtol-stat { display: flex; flex-direction: column; gap: 6px; padding: 22px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(125, 155, 105, 0.12); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .kidtol-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: var(--rosa-principal, #D1007A); line-height: 1; }
+  .kidtol-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  .kidtol-intro { padding: 90px 0; background: #fff; }
+  .kidtol-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; }
+  .kidtol-intro__badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+  .kidtol-intro__copy h2 { font-size: 2.2rem; line-height: 1.25; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 22px; }
+  .kidtol-intro__copy h2 span { color: var(--rosa-principal, #D1007A); }
+  .kidtol-intro__copy p { font-size: 1.02rem; color: var(--texto-light, #555); line-height: 1.75; margin: 0 0 16px; }
+  .kidtol-intro__copy strong { color: var(--texto-oscuro, #1a1a1a); }
+  .kidtol-intro__copy a { color: var(--rosa-principal, #D1007A); text-decoration: underline; text-underline-offset: 2px; }
+  .kidtol-intro__visual { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12); }
+  .kidtol-intro__visual img { width: 100%; height: auto; display: block; }
+
+  .kidtol-galeria { padding: 90px 0; background: linear-gradient(180deg, #f8fbf6 0%, #fff9fb 100%); }
+  .kidtol-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .kidtol-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .kidtol-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .kidtol-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .kidtol-galeria__item:nth-child(5), .kidtol-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  .kidtol-incluye { padding: 90px 0; background: #fff; }
+  .kidtol-incluye__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .kidtol-incluye__badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .kidtol-incluye__header h2 { font-size: 2.2rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .kidtol-incluye__header h2 span { color: var(--rosa-principal, #D1007A); }
+  .kidtol-incluye__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.6; }
+  .kidtol-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .kidtol-incluye__card { background: #fff; border: 1px solid rgba(125, 155, 105, 0.15); border-radius: 20px; padding: 32px 28px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); }
+  .kidtol-incluye__num { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 18px; }
+  .kidtol-incluye__card h4 { font-size: 1.15rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .kidtol-incluye__card p { font-size: 0.92rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0; }
+
+  .kidtol-venues { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .kidtol-venues__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .kidtol-venue-card { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #fff; border-radius: 14px; border: 1px solid rgba(125, 155, 105, 0.12); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); }
+  .kidtol-venue-card__icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; border-radius: 10px; }
+  .kidtol-venue-card__body { flex-grow: 1; min-width: 0; }
+  .kidtol-venue-card__name { display: block; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 4px; }
+  .kidtol-venue-card__meta { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; color: var(--texto-light, #666); flex-wrap: wrap; }
+  .kidtol-venue-card__zona { display: inline-flex; align-items: center; gap: 4px; }
+  .kidtol-venue-card__tipo { padding: 2px 8px; background: rgba(125, 155, 105, 0.12); border-radius: 6px; font-weight: 600; }
+  .kidtol-venues__nota { margin-top: 40px; text-align: center; font-size: 0.95rem; color: var(--texto-light, #666); padding: 22px 30px; background: #fff; border-radius: 14px; border: 1px dashed rgba(125, 155, 105, 0.3); }
+  .kidtol-venues__nota a { color: var(--rosa-principal, #D1007A); font-weight: 600; text-decoration: underline; }
+
+  .kidtol-zonas { padding: 90px 0; background: #fff; }
+  .kidtol-zonas__subseccion { margin-top: 40px; }
+  .kidtol-zonas__subheader { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 2px solid rgba(125, 155, 105, 0.15); }
+  .kidtol-zonas__numero { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; border-radius: 12px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+  .kidtol-zonas__subheader h3 { font-size: 1.4rem; color: var(--texto-oscuro, #1a1a1a); margin: 0 0 4px; }
+  .kidtol-zonas__subheader p { font-size: 0.92rem; color: var(--texto-light, #666); margin: 0; }
+  .kidtol-zonas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .kidtol-zona-card { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: #fff; border-radius: 12px; border: 1px solid rgba(125, 155, 105, 0.12); text-decoration: none; transition: all 0.2s ease; position: relative; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03); }
+  .kidtol-zona-card:hover { border-color: var(--rosa-principal, #D1007A); box-shadow: 0 8px 22px rgba(208, 0, 122, 0.1); transform: translateY(-2px); }
+  .kidtol-zona-card--destacada { background: linear-gradient(135deg, #f8fbf6 0%, #fff5f9 100%); border-color: rgba(125, 155, 105, 0.25); }
+  .kidtol-zona-card__icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(125, 155, 105, 0.15); color: #7d9b69; border-radius: 8px; flex-shrink: 0; }
+  .kidtol-zona-card__body { flex-grow: 1; min-width: 0; }
+  .kidtol-zona-card__nombre { display: block; font-size: 0.92rem; font-weight: 600; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 2px; }
+  .kidtol-zona-card__alcaldia { display: block; font-size: 0.78rem; color: var(--texto-light, #888); }
+  .kidtol-zona-card__badge { padding: 2px 8px; background: var(--rosa-principal, #D1007A); color: #fff; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kidtol-zona-card__arrow { color: var(--rosa-principal, #D1007A); opacity: 0.5; flex-shrink: 0; }
+  .kidtol-zona-card:hover .kidtol-zona-card__arrow { opacity: 1; transform: translateX(2px); }
+  .kidtol-zonas__pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .kidtol-zona-pill { padding: 8px 16px; background: #fff; border: 1px solid rgba(125, 155, 105, 0.15); border-radius: 50px; font-size: 0.85rem; color: var(--texto-light, #555); }
+  .kidtol-zonas__cta { margin-top: 50px; text-align: center; padding: 28px; background: linear-gradient(135deg, #f8fbf6 0%, #fff5f9 100%); border-radius: 18px; border: 1px dashed rgba(125, 155, 105, 0.3); }
+  .kidtol-zonas__cta p { font-size: 0.98rem; color: var(--texto-light, #666); margin: 0 0 16px; }
+  .kidtol-zonas__cta strong { color: var(--rosa-principal, #D1007A); }
+  .kidtol-zonas__cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; border-radius: 50px; font-weight: 600; font-size: 0.92rem; text-decoration: none; box-shadow: 0 6px 20px rgba(208, 0, 122, 0.25); }
+
+  .kidtol-testimonios { padding: 90px 0; background: linear-gradient(180deg, #f8fbf6 0%, #fff 100%); }
+  .kidtol-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  .kidtol-otros-eventos { padding: 90px 0; background: #fff; }
+  .kidtol-otros-eventos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+
+  .kidtol-cdmx-cta { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .kidtol-cdmx-cta__card { background: linear-gradient(135deg, #D1007A 0%, #FB5607 50%, #7d9b69 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(208, 0, 122, 0.25); }
+  .kidtol-cdmx-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .kidtol-cdmx-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .kidtol-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .kidtol-cdmx-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 24px; }
+  .kidtol-cdmx-cta__body p strong { color: #fff; }
+  .kidtol-cdmx-cta__link { display: inline-block; background: #fff; color: #D1007A; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .kidtol-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .kidtol-cdmx-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+
+  @media (max-width: 1024px) {
+    .kidtol-stats__grid, .kidtol-incluye__grid, .kidtol-venues__grid, .kidtol-zonas__grid, .kidtol-testimonios__grid, .kidtol-otros-eventos__grid { grid-template-columns: repeat(2, 1fr); }
+    .kidtol-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .kidtol-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .kidtol-galeria__item:nth-child(5), .kidtol-galeria__item:nth-child(6) { grid-column: span 1; }
+    .kidtol-intro__grid { grid-template-columns: 1fr; }
+    .kidtol-cdmx-cta__card { grid-template-columns: 1fr; padding: 32px; }
+  }
+
+  @media (max-width: 768px) {
+    .kidtol-stats { padding: 40px 0; }
+    .kidtol-stat__num { font-size: 1.6rem; }
+    .kidtol-intro, .kidtol-galeria, .kidtol-incluye, .kidtol-venues, .kidtol-zonas, .kidtol-testimonios, .kidtol-otros-eventos, .kidtol-cdmx-cta { padding: 60px 0; }
+    .kidtol-intro__copy h2, .kidtol-incluye__header h2 { font-size: 1.7rem; }
+    .kidtol-incluye__grid, .kidtol-venues__grid, .kidtol-zonas__grid, .kidtol-testimonios__grid, .kidtol-otros-eventos__grid { grid-template-columns: 1fr; }
+    .kidtol-incluye__card { padding: 26px 22px; }
+    .kidtol-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .kidtol-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .kidtol-stat { padding: 16px 10px; }
+    .kidtol-stat__num { font-size: 1.4rem; }
+    .kidtol-stat__label { font-size: 0.78rem; }
+  }
+
+  /* ==========================================================
+     Sucursal Info Card (homologado 5 páginas Toluca)
+     ========================================================== */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+  @media (max-width: 1024px) { .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .tol-suc-info { padding: 60px 0; } .tol-suc-info__card { padding: 36px 26px; } .tol-suc-info__header h2 { font-size: 1.4rem; } }
+  @media (max-width: 480px) { .tol-suc-info__grid { grid-template-columns: 1fr; } }
+</style>

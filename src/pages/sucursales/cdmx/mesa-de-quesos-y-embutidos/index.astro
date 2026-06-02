@@ -1076,6 +1076,29 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- ===================== Cross-link Sucursal Toluca (incoming SEO) ===================== -->
+  <section class="cdmx-mq-toluca-cta">
+    <div class="container">
+      <div class="cdmx-mq-toluca-cta__card">
+        <div class="cdmx-mq-toluca-cta__body">
+          <span class="cdmx-mq-toluca-cta__badge">🏞️ ¿Evento en Valle de Toluca?</span>
+          <h2>Conoce nuestra <span>Sucursal Toluca-Metepec</span></h2>
+          <p>Si tu evento es en el <strong>Valle de Toluca</strong>, MEDEDUL también opera una página exclusiva de Tabla Gourmet con <strong>cobertura completa</strong> (Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya) y <strong>70+ tablas montadas</strong> en Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma y Salón Riviera Metepec. Operación desde Sucursal Blvd. Toluca-Metepec 913 con mismo estándar premium MEDEDUL.</p>
+          <p style="margin-top: 14px;"><strong style="color: #fff;">Subsecciones especializadas:</strong></p>
+          <div class="cdmx-mq-toluca-cta__chips">
+            <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos">Hub Quesos Toluca</a>
+            <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos">🧀 Quesos Europeos D.O.P.</a>
+            <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/jamones-curados">🥓 Jamones Curados</a>
+            <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium">⭐ Tabla Mixta Premium</a>
+          </div>
+        </div>
+        <div class="cdmx-mq-toluca-cta__visual">
+          <img src={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/servicio-mesa-quesos-cdmx.avif', { w: 600, q: 82 })} alt="Sucursal MEDEDUL Toluca-Metepec - Tabla Gourmet" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
@@ -2118,4 +2141,19 @@ const serviceSchema = {
       font-size: 2.5rem;
     }
   }
+
+  /* ---------- Cross-link Sucursal Toluca CTA ---------- */
+  .cdmx-mq-toluca-cta { padding: 90px 0; background: linear-gradient(180deg, #fefbf6 0%, #fff 100%); }
+  .cdmx-mq-toluca-cta__card { background: linear-gradient(135deg, #7d2438 0%, #a87a3c 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(125, 36, 56, 0.25); }
+  .cdmx-mq-toluca-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .cdmx-mq-toluca-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .cdmx-mq-toluca-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .cdmx-mq-toluca-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin: 0 0 14px; }
+  .cdmx-mq-toluca-cta__body p strong { color: #fff; }
+  .cdmx-mq-toluca-cta__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .cdmx-mq-toluca-cta__chips a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #fff; color: #7d2438; border-radius: 50px; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: transform 0.2s ease; }
+  .cdmx-mq-toluca-cta__chips a:hover { transform: translateY(-2px); }
+  .cdmx-mq-toluca-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+  @media (max-width: 1024px) { .cdmx-mq-toluca-cta__card { grid-template-columns: 1fr; padding: 32px; } }
+  @media (max-width: 768px) { .cdmx-mq-toluca-cta { padding: 60px 0; } .cdmx-mq-toluca-cta__body h2 { font-size: 1.5rem; } }
 </style>

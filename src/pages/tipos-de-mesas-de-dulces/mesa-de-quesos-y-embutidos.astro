@@ -235,18 +235,64 @@ const faqSchema = {
     secondaryContent={`<p><strong>Quesos de alta calidad</strong> como manchego espanol, brie frances, queso de cabra, chihuahua y monterrey mexicano transforman cualquier fiesta en una experiencia rica y memorable. En Mededul armamos tablas de quesos con ingredientes frescos que sorprenden a amigos y familiares en Ciudad de Mexico.</p><p><strong>Carnes frias</strong> como jamon serrano de Espana, chorizo de pamplona y salami italiano, acompanados de fresas, higos, baguette y galletas. Creamos la botana perfecta para acompanar con vino tinto o blanco en reuniones familiares, bodas y celebraciones sociales. Facil de disfrutar y descubrir nuevos sabores.</p>`}
   />
 
-  <!-- ===================== CTA Banner: ver sucursal CDMX boutique ===================== -->
-  <section style="padding: 30px 0; background: linear-gradient(135deg, #fefbf6 0%, #fff5e6 100%);">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 24px 28px; background: #fff; border-radius: 20px; border: 1px dashed rgba(168, 122, 60, 0.4); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);">
-      <div style="flex: 1; min-width: 260px;">
-        <strong style="display: block; color: #a87a3c; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">Evento boutique en CDMX?</strong>
-        <h3 style="margin: 0 0 6px; font-size: 1.25rem; color: #1a1a1a;">Visita nuestra pagina exclusiva <span style="color: #D1007A;">Tabla Gourmet CDMX</span></h3>
-        <p style="margin: 0; color: #666; font-size: 0.95rem;">Quesos europeos D.O.P. (Brie Meaux, Manchego, Parmigiano 24m, Roquefort) + charcuteria reserva (Iberico Bellota 5J 36m, Prosciutto Parma DOP). Maestro cortador en sitio, sommelier de quesos y maridaje con Rioja Reserva o vinos del Valle de Guadalupe. Desde $7,500 MXN.</p>
+  <!-- ===================== Selector Sucursal: CDMX + Toluca ===================== -->
+  <section style="padding: 50px 0; background: linear-gradient(135deg, #fefbf6 0%, #fff5e6 100%);">
+    <div class="container">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto 36px;">
+        <span style="display: inline-block; background: linear-gradient(135deg, #a87a3c 0%, #d4a766 100%); color: #1c1814; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;">Elige tu Sucursal MEDEDUL</span>
+        <h2 style="font-size: 2rem; color: #1a1a1a; margin-bottom: 10px;">Tabla Gourmet por <span style="color: #a87a3c; font-style: italic;">Sucursal Especializada</span></h2>
+        <p style="font-size: 1rem; color: #666; line-height: 1.7;">MEDEDUL opera dos sucursales boutique con páginas exclusivas para Tabla Gourmet de Quesos D.O.P. y Charcutería Reserva. Cada una con cobertura local, maestro cortador certificado y carta de affineur personalizada.</p>
       </div>
-      <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; background: linear-gradient(135deg, #a87a3c 0%, #8b6230 100%); color: #fff; border-radius: 50px; font-weight: 600; text-decoration: none; box-shadow: 0 6px 20px rgba(168, 122, 60, 0.35); white-space: nowrap;">
-        Ver Tabla Gourmet CDMX
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-      </a>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+        <!-- Card Sucursal CDMX -->
+        <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" style="display: block; padding: 32px 28px; background: #fff; border-radius: 20px; border: 2px solid #a87a3c; box-shadow: 0 10px 40px rgba(168, 122, 60, 0.15); text-decoration: none; color: inherit; transition: transform 0.25s ease, box-shadow 0.25s ease;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <span style="font-size: 2rem;">🏙️</span>
+            <strong style="color: #a87a3c; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;">Sucursales Anzures + Condesa</strong>
+          </div>
+          <h3 style="margin: 0 0 12px; font-size: 1.4rem; color: #1a1a1a;">Tabla Gourmet <span style="color: #D1007A;">CDMX</span></h3>
+          <p style="margin: 0 0 16px; color: #555; font-size: 0.95rem; line-height: 1.65;">12 quesos europeos D.O.P. (Brie Meaux, Manchego, Parmigiano 24m, Roquefort, Gouda añejo 4a, Comté, Gruyère, Stilton) + 12 charcuterías reserva (Ibérico Bellota 5J 36m, Prosciutto Parma DOP, Bresaola, Speck Alto Adige). Cobertura 16 alcaldías CDMX: Polanco, Lomas, Santa Fe, Roma, Coyoacán, Pedregal.</p>
+          <ul style="list-style: none; padding: 0; margin: 0 0 18px; font-size: 0.88rem; color: #555;">
+            <li style="padding: 4px 0;">✓ <strong>180+</strong> tablas montadas en CDMX</li>
+            <li style="padding: 4px 0;">✓ Hotel W, St. Regis, Four Seasons, Hacienda Morales</li>
+            <li style="padding: 4px 0;">✓ Desde <strong>$7,500 MXN</strong> · Atelier $22,500</li>
+          </ul>
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #a87a3c 0%, #8b6230 100%); color: #fff; border-radius: 50px; font-weight: 600; font-size: 0.95rem;">
+            Ver Tabla Gourmet CDMX
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </span>
+        </a>
+
+        <!-- Card Sucursal Toluca -->
+        <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos" style="display: block; padding: 32px 28px; background: #fff; border-radius: 20px; border: 2px solid #7d2438; box-shadow: 0 10px 40px rgba(125, 36, 56, 0.15); text-decoration: none; color: inherit; transition: transform 0.25s ease, box-shadow 0.25s ease;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <span style="font-size: 2rem;">🏞️</span>
+            <strong style="color: #7d2438; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;">Sucursal Toluca-Metepec</strong>
+          </div>
+          <h3 style="margin: 0 0 12px; font-size: 1.4rem; color: #1a1a1a;">Tabla Gourmet <span style="color: #D1007A;">Valle Toluca</span></h3>
+          <p style="margin: 0 0 16px; color: #555; font-size: 0.95rem; line-height: 1.65;">Hub L4 + 3 L5 dedicadas: Quesos Europeos D.O.P. (Affineur 6/9/12), Jamones Curados (Cortador 6/9/Ibérico 5J), Tabla Mixta Premium (Mixta 8/14/Atelier 20). Cobertura completa Valle Toluca: Metepec, Toluca, Zinacantepec, Lerma, Ocoyoacac, San Mateo, Calimaya.</p>
+          <ul style="list-style: none; padding: 0; margin: 0 0 18px; font-size: 0.88rem; color: #555;">
+            <li style="padding: 4px 0;">✓ <strong>70+</strong> tablas montadas Valle Toluca</li>
+            <li style="padding: 4px 0;">✓ Hacienda La Magdalena, Quinta Real Toluca, Real de Minas</li>
+            <li style="padding: 4px 0;">✓ Desde <strong>$5,800 MXN</strong> · Atelier $25,400</li>
+          </ul>
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #7d2438 0%, #5d1a2a 100%); color: #fff; border-radius: 50px; font-weight: 600; font-size: 0.95rem;">
+            Ver Tabla Gourmet Toluca
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Sub-cards L5 Toluca (deep links SEO) -->
+      <div style="margin-top: 32px; padding: 24px 28px; background: #fff; border-radius: 16px; border: 1px solid rgba(168, 122, 60, 0.18);">
+        <p style="margin: 0 0 14px; font-size: 0.92rem; color: #666; text-align: center;"><strong style="color: #7d2438;">¿Buscas una especialidad concreta?</strong> Subsecciones dedicadas Sucursal Toluca:</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+          <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: #fefbf6; color: #a87a3c; border: 1px solid rgba(168, 122, 60, 0.3); border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">🧀 Quesos Europeos D.O.P. Toluca</a>
+          <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/jamones-curados" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: #fdf6f7; color: #7d2438; border: 1px solid rgba(125, 36, 56, 0.3); border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">🥓 Jamones Curados Toluca</a>
+          <a href="/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: linear-gradient(135deg, #fefbf6 0%, #fdf6f7 100%); color: #1a1a1a; border: 1px solid rgba(168, 122, 60, 0.3); border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">⭐ Tabla Mixta Premium Toluca</a>
+        </div>
+      </div>
     </div>
   </section>
 

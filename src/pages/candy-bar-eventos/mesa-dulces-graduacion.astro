@@ -1,164 +1,1387 @@
 ---
+// Mesa de Dulces para Graduación — L4 Master CDMX
+// Niveles académicos, universidades CDMX, carreras, símbolos graduación, generación
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsDonas, subsBotanas, subsFuenteChamoy,
+  subsCBXV, subsCBBoda, subsCBCorporativo, subsCBCumple,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Graduacion', url: '/candy-bar-eventos/mesa-dulces-graduacion' }
+  { name: 'Mesa de Dulces para Graduación', url: '/candy-bar-eventos/mesa-dulces-graduacion' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para graduacion?', answer: 'Incluye diseno tematico academico, surtido de producto, montaje profesional y desmontaje.' },
-  { question: 'Pueden personalizar por escuela o carrera?', answer: 'Si. Ajustamos paleta, detalles y estilo segun institucion, facultad o generacion.' },
-  { question: 'Atienden graduaciones escolares y universitarias?', answer: 'Si. Operamos graduaciones de colegios, preparatorias, universidades y posgrados.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para asegurar disponibilidad y produccion.' },
-  { question: 'Cubren salones y recintos de graduacion?', answer: 'Si. Atendemos venues en CDMX y area metropolitana con logistica profesional.' },
-  { question: 'Manejan opciones para grupos grandes?', answer: 'Si. Escalamos la propuesta segun aforo, tiempos y formato del evento.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '200+', label: 'Graduaciones CDMX' },
+  { number: '15+', label: 'Universidades trabajadas' },
+  { number: '6', label: 'Niveles académicos' },
+  { number: '< 24h', label: 'Cotización ejecutiva' }
 ];
 
-const packages = [
+// =============== 6 Niveles académicos (UNIQUE) ===============
+const niveles = [
+  {
+    nivel: 'Preescolar / Kínder',
+    icon: '🧸',
+    edad: '5-6 años',
+    desc: 'Primera "graduación" del peque. Mesa colorida con birrete pequeño, dulces aprobados por niños y temática del personaje favorito. Sin nueces por defecto.',
+    surtido: 'Gomitas favoritas, paletas decoradas, mini cupcakes, galletas con birrete, bolos sorpresa con personaje',
+    paleta: 'Colorida pastel + colores del kínder'
+  },
+  {
+    nivel: 'Primaria',
+    icon: '📚',
+    edad: '11-12 años',
+    desc: 'Cierre de etapa con compañeros que se separan al pasar a secundaria. Mesa con paleta de la escuela, fotos de generación, surtido para niños y papás.',
+    surtido: 'Chocolates suaves, gomitas premium, mini-pasteles, galletas con escudo escolar, paletas con escudo',
+    paleta: 'Colores oficiales de la escuela'
+  },
+  {
+    nivel: 'Secundaria',
+    icon: '🎓',
+    edad: '14-15 años',
+    desc: 'Adolescentes celebrando autonomía. Mesa más sofisticada, paleta de la escuela, integración con fotos generación y mensajes de despedida entre amigos.',
+    surtido: 'Chocolates Lindt/Ferrero, gomitas gourmet, paletas decoradas, mini cupcakes con birrete, galletas con escudo',
+    paleta: 'Colores de secundaria + paleta moderna'
+  },
+  {
+    nivel: 'Preparatoria',
+    icon: '🏆',
+    edad: '17-18 años',
+    desc: 'Hito importante: cierre del ciclo escolar previo a universidad. Mesa elegante con foto formal de generación, lema de promo y mensaje al futuro.',
+    surtido: 'Chocolates premium, macarons, mini cupcakes ejecutivos, dulces "favoritos" del grupo, paletas con escudo prep',
+    paleta: 'Colores oficiales prep (Anáhuac, Cumbres, Madrid, Greengates, etc.)'
+  },
+  {
+    nivel: 'Universitaria',
+    icon: '👨‍🎓',
+    edad: '22-25 años',
+    desc: 'Culminación de años de esfuerzo y costo familiar significativo. Mesa elegante con escudo de la universidad, anillo de graduación, foto de generación, networking con compañeros que se vuelven colegas profesionales.',
+    surtido: 'Chocolates importados, macarons franceses, trufas premium, mini cupcakes ejecutivos, dulces tradicionales para abuelos, opciones para after-party',
+    paleta: 'Colores institucionales (UNAM dorado, IPN guinda, Tec azul, ITAM verde, Anáhuac, Ibero, etc.)'
+  },
+  {
+    nivel: 'Posgrado (MBA, Maestría, Doctorado)',
+    icon: '🎓',
+    edad: '28+ años',
+    desc: 'Logro académico de alto nivel. Mesa premium ejecutiva con escudo institucional, dulces gourmet para perfil profesional adulto, integración con cocktail de networking.',
+    surtido: 'Chocolates importados premium, macarons, mini-bites, frutos secos cubiertos, opciones sin azúcar, integración tabla de quesos opcional',
+    paleta: 'Colores institucionales premium + tonos sobrios'
+  }
+];
+
+// =============== 15+ Universidades CDMX trabajadas (UNIQUE - SEO local universitario) ===============
+const universidades = [
+  { nombre: 'UNAM (CU)', zona: 'Coyoacán', tipo: 'Pública nacional', colores: 'Azul + dorado' },
+  { nombre: 'IPN', zona: 'Zacatenco / Tlatelolco', tipo: 'Pública nacional', colores: 'Guinda + blanco' },
+  { nombre: 'ITAM', zona: 'San Ángel', tipo: 'Privada premium', colores: 'Verde + blanco' },
+  { nombre: 'Tec de Monterrey CCM', zona: 'Tlalpan', tipo: 'Privada premium', colores: 'Azul Tec + blanco' },
+  { nombre: 'Tec de Monterrey Sta Fe', zona: 'Santa Fe', tipo: 'Privada premium', colores: 'Azul Tec + blanco' },
+  { nombre: 'Anáhuac México Norte', zona: 'Huixquilucan', tipo: 'Privada premium', colores: 'Guinda + blanco' },
+  { nombre: 'Anáhuac México Sur', zona: 'Tlalpan', tipo: 'Privada premium', colores: 'Guinda + blanco' },
+  { nombre: 'Iberoamericana (Ibero)', zona: 'Santa Fe', tipo: 'Privada premium', colores: 'Verde + blanco' },
+  { nombre: 'Universidad Panamericana', zona: 'Mixcoac', tipo: 'Privada premium', colores: 'Azul marino + dorado' },
+  { nombre: 'La Salle', zona: 'Cuauhtémoc', tipo: 'Privada lasallista', colores: 'Verde + blanco' },
+  { nombre: 'Universidad del Valle de México (UVM)', zona: 'Múltiples campus', tipo: 'Privada nacional', colores: 'Azul + naranja' },
+  { nombre: 'Westhill University', zona: 'Cuajimalpa', tipo: 'Privada bilingüe', colores: 'Azul + dorado' },
+  { nombre: 'UCC (CCH)', zona: 'Múltiples', tipo: 'Pública UNAM', colores: 'Azul + dorado UNAM' },
+  { nombre: 'Universidad del Pedregal', zona: 'Pedregal', tipo: 'Privada', colores: 'Verde + blanco' },
+  { nombre: 'EBC (Escuela Bancaria)', zona: 'Centro / Polanco', tipo: 'Privada negocios', colores: 'Azul + dorado' },
+  { nombre: 'ITESM Campus Móvil', zona: 'CDMX y EdoMex', tipo: 'Privada premium', colores: 'Azul Tec' }
+];
+
+// =============== 8 Carreras populares con paletas (UNIQUE) ===============
+const carreras = [
+  { carrera: 'Medicina', icon: '⚕️', paleta: 'Blanco + verde médico', simbolos: 'Caduceo, estetoscopio, juramento hipocrático, bata blanca' },
+  { carrera: 'Derecho', icon: '⚖️', paleta: 'Negro + dorado', simbolos: 'Balanza, mazo, Themis, libro de leyes, toga' },
+  { carrera: 'Arquitectura', icon: '📐', paleta: 'Blanco + negro + colores primarios', simbolos: 'Planos, escuadra, regla T, maqueta, rapidógrafos' },
+  { carrera: 'Ingeniería', icon: '⚙️', paleta: 'Naranja + gris industrial', simbolos: 'Engranajes, casco, planos técnicos, herramientas' },
+  { carrera: 'Negocios / MBA', icon: '💼', paleta: 'Azul corporativo + dorado', simbolos: 'Maletín, Wall Street, gráficos, anillos MBA' },
+  { carrera: 'Diseño / Comunicación', icon: '🎨', paleta: 'Multicolor creativo', simbolos: 'Pinceles, paleta colores, cámara, lápices, tablet gráfica' },
+  { carrera: 'Gastronomía', icon: '🍳', paleta: 'Blanco + tonos cocina', simbolos: 'Toque, cuchillo chef, batidor, sartén, hojas mediterráneas' },
+  { carrera: 'Psicología', icon: '🧠', paleta: 'Lila + blanco terapéutico', simbolos: 'Cerebro, símbolo psi (ψ), libros, sillón terapéutico' }
+];
+
+// =============== 6 Símbolos de graduación (UNIQUE) ===============
+const simbolos = [
+  { icon: '🎓', title: 'Birrete y borla', desc: 'El símbolo universal de graduación. Birrete decorativo central, mini-birretes en cupcakes, galletas con birrete glaseado, paletas con birrete. Borla en color de la facultad/carrera.' },
+  { icon: '📜', title: 'Diploma enrollado', desc: 'Diploma decorativo enrollado con listón. Galletas con forma de diploma, mini-pergaminos comestibles con mensaje "Graduado/a", presentación tipo título oficial.' },
+  { icon: '💍', title: 'Anillo de graduación', desc: 'Anillo de graduación universitaria como pieza simbólica. Galletas con forma de anillo, joya simbólica para foto del momento de imposición del anillo (universidades como Tec).' },
+  { icon: '🎀', title: 'Listón de generación', desc: 'Listón con año de generación (ej. "Generación 2026"), nombre de promo o lema. Etiquetas con listón en cada bolo sorpresa. Centro de mesa con listón institucional.' },
+  { icon: '🏛️', title: 'Escudo institucional', desc: 'Escudo de la universidad, escuela o facultad como pieza central. Galletas con escudo glaseado, paletas con escudo institucional, etiquetas con escudo en bolos sorpresa.' },
+  { icon: '📚', title: 'Libros y diploma', desc: 'Pila de libros decorativos, libro abierto con frase memorable, libreta con notas. Símbolo del conocimiento adquirido durante años. Combinable con elementos de la carrera específica.' }
+];
+
+// =============== Generación / Promo destacado (UNIQUE - emocional) ===============
+const generacion = [
+  { icon: '🗓️', title: 'Año destacado en backdrop', desc: 'Año de la generación (ej. "2026") en gran formato como elemento central del backdrop. Foto formal de los graduados frente al año.' },
+  { icon: '✨', title: 'Lema de generación', desc: 'Frase representativa de la promo en backdrop o atrezzo. Mensaje interno entre compañeros o lema oficial de la institución.' },
+  { icon: '👥', title: 'Lista de compañeros', desc: 'Lista de nombres de la generación impresa en panel decorativo. Cada graduado se busca y se toma foto con su nombre.' },
+  { icon: '📸', title: 'Pared de fotos generación', desc: 'Backdrop fotográfico con fotos individuales o de grupo de la generación. Cada graduado tiene su lugar reconocido.' }
+];
+
+// =============== Coordinación foto formal (UNIQUE) ===============
+const fotoFormal = [
+  { icon: '🎓', title: 'Foto con birrete y diploma', desc: 'Coordinamos posición de la mesa para foto formal del graduado con birrete y diploma. Backdrop institucional al fondo, mesa de dulces enmarcando.' },
+  { icon: '👨‍👩‍👧', title: 'Foto con familia', desc: 'Posición optimizada para foto familiar con padres y abuelos celebrando el logro. Mesa accesible para que todos quepan en la foto.' },
+  { icon: '💼', title: 'Foto con compañeros', desc: 'Setup que permite foto grupal de generación frente a la mesa. Backdrop con escudo institucional para foto memorable de los amigos.' },
+  { icon: '🎬', title: 'Video corto evento', desc: 'En paquete Luxury, videograbación corta del momento de corte de pastel y foto familiar. Material para redes sociales y recuerdo de la generación.' }
+];
+
+// =============== Características (Diferenciadores Graduación) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño con colores institucionales',
+    desc: 'Cada mesa se diseña con los colores oficiales de la universidad o escuela: UNAM dorado, IPN guinda, Tec de Monterrey azul, ITAM verde, Anáhuac guinda, Iberoamericana verde, Panamericana azul-dorado, La Salle verde. Paleta institucional en cristalería, atrezzo y backdrop.',
+    img: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif'
+  },
+  {
+    num: 2,
+    title: 'Símbolos de graduación integrados',
+    desc: 'Birrete decorativo central, diploma enrollado con listón, anillo de graduación (Tec), listón con año de generación, escudo institucional en gran formato, libros y elementos académicos. 6 símbolos centrales que marcan el logro alcanzado.',
+    img: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif'
+  },
+  {
+    num: 3,
+    title: 'Año y lema de generación destacado',
+    desc: 'Año de generación en gran formato como elemento central del backdrop, lema de la promo, lista de nombres de compañeros, pared de fotos individuales o grupales. Diferenciador único para que la generación se sienta protagonista.',
+    img: '/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Coordinación con foto formal de graduación',
+    desc: 'Coordinamos posición de la mesa con fotógrafo profesional y videógrafo para foto formal del graduado con birrete y diploma, foto familiar con padres y abuelos, foto grupal de generación con backdrop institucional. La mesa enmarca el momento.',
+    img: '/img/eventos/graduaciones/mesa-dulces-fiesta-graduacion.avif'
+  }
+];
+
+// =============== Paquetes Graduación CDMX ===============
+const paquetesGrad = [
   {
     name: 'Esencial',
     icon: '🎓',
-    price: '$5,100',
+    price: '$5,200',
     currency: 'MXN',
-    guests: '40-70 personas',
-    tagline: 'Ideal para celebracion academica',
-    features: ['Mesa de graduacion base', 'Surtido inicial de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '50-100 invitados',
+    tagline: 'Graduación íntima familiar',
+    features: [
+      'Mesa graduación base (10-12 variedades)',
+      'Paleta colores institucionales',
+      'Birrete decorativo central + diploma',
+      'Listón con año de generación',
+      'Etiquetas con nombre del graduado',
+      'Bolos sorpresa con birrete mini',
+      'Cobertura zonas centrales CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20Graduación%20CDMX%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$8,900',
+    icon: '🏆',
+    price: '$9,500',
     currency: 'MXN',
-    guests: '70-140 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por generacion', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '100-200 invitados',
+    tagline: 'El más solicitado para universitarios',
+    features: [
+      'Mesa graduación completa (15-18 variedades)',
+      'Backdrop con escudo institucional + año generación',
+      'Símbolos integrados (birrete, diploma, anillo, escudo)',
+      'Macarons con escudo de la universidad',
+      'Galletas con birrete y diploma glaseadas',
+      'Coordinación con fotógrafo formal',
+      'Estación foto generación con compañeros',
+      'Cobertura CDMX (UNAM, Tec, ITAM, Anáhuac, Ibero)'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Graduación%20CDMX%20-%20Premium'
   },
   {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$13,900',
+    name: 'Master',
+    icon: '👑',
+    price: '$16,500',
     currency: 'MXN',
-    guests: '140+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos masivos', 'Acompanamiento operativo total'],
+    guests: '200-400+ invitados',
+    tagline: 'Graduación universitaria de gran escala',
+    features: [
+      'Mesa de autor (20+ variedades premium)',
+      'Backdrop floral 360° con año + escudo + lema',
+      'Estación interactiva incluida (fuente chamoy o donas)',
+      'Mesa de botanas para after-party',
+      'Pared de fotos de la generación incluida',
+      'Coordinación full con fotógrafo + videógrafo',
+      'Foto profesional graduado/familia/generación',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Anzures + Condesa CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para graduacion (Luxury)'
+    ctaText: 'Cotizar Master',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Graduación%20CDMX%20-%20Master'
   }
 ];
 
-const whyStats = [
-  { number: '140+', label: 'Graduaciones' },
-  { number: '100%', label: 'Personalizable' },
-  { number: '35+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Concepto Academico', desc: 'Montajes alineados a identidad de escuela, carrera o generacion.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif' },
-  { num: 2, title: 'Surtido de Alto Impacto', desc: 'Producto seleccionado para mantener experiencia y rotacion del servicio.', img: '/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif' },
-  { num: 3, title: 'Montaje en Recinto', desc: 'Implementacion precisa para operar en salones y venues academicos.', img: '/img/eventos/graduaciones/mesa-dulces-fiesta-graduacion.avif' },
-  { num: 4, title: 'Escala Flexible', desc: 'Propuestas para grupos pequenos o graduaciones de gran aforo.', img: '/img/eventos/graduaciones/servicio-mesa-graduacion.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief de Graduacion', desc: 'Levantamos sede, aforo, timing y necesidades del evento.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, volumen de producto y alcance operativo.' },
-  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos accesos y horarios con organizadores y venue.' },
-  { num: 4, title: 'Ejecucion en Sitio', desc: 'Montamos y operamos la mesa con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Corporativos', excerpt: 'Candy bar para eventos empresariales y activaciones.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Diseno elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Graduacion en CDMX',
-  description: 'Servicio de mesa de dulces para graduacion en Ciudad de Mexico con diseno personalizado y montaje profesional.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso Graduación ===============
+const procesoGrad = [
+  {
+    num: 1,
+    title: 'Brief con el graduado o la familia',
+    desc: 'Recibimos brief del graduado o la familia: nivel académico (preescolar, primaria, secundaria, prepa, universidad, posgrado), institución/universidad (UNAM, IPN, Tec, ITAM, Anáhuac, Ibero, Panamericana, La Salle, etc.), carrera específica (medicina, derecho, ingeniería, etc.), año de generación, lema de promo, sede de la celebración, número de invitados.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '5100',
-    highPrice: '13900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Graduacion ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual institucional',
+    desc: 'En menos de 24 h enviamos propuesta con render conceptual: paleta de colores oficiales de la institución, escudo institucional integrado, símbolos de graduación coordinados (birrete, diploma, anillo, listón), año de generación destacado en backdrop y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con fotógrafo y compañeros',
+    desc: 'Coordinamos con fotógrafo formal/videógrafo para mejor posición de la mesa para foto del graduado con birrete y diploma, foto familiar y foto grupal de generación. Si hay compañeros co-organizando, coordinamos con ellos para alineación de timing.'
+  },
+  {
+    num: 4,
+    title: 'Día de la graduación',
+    desc: 'Llegamos 2-3 h antes a la sede. Montamos sin interferir con catering o coordinador del salón, operamos durante toda la celebración con reposición continua, coordinamos foto formal del graduado y foto generación al final, y entregamos bolos sorpresa con escudo institucional.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería graduación (8 imágenes reales) ===============
+const galeriaImages = [
+  { src: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', alt: 'Mesa de dulces para graduación universidad CDMX' },
+  { src: '/img/galeria/mesa-dulces-graduacion-negro-dorado.avif', alt: 'Mesa de dulces graduación negro dorado elegante CDMX' },
+  { src: '/img/galeria/candy-bar-graduacion-birrete-elegante.avif', alt: 'Candy bar graduación con birrete elegante CDMX' },
+  { src: '/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif', alt: 'Candy bar graduación elegante con escudo institucional CDMX' },
+  { src: '/img/eventos/graduaciones/mesa-dulces-fiesta-graduacion.avif', alt: 'Mesa de dulces fiesta de graduación universitaria CDMX' },
+  { src: '/img/eventos/graduaciones/servicio-mesa-graduacion.avif', alt: 'Servicio mesa de dulces graduación profesional CDMX' },
+  { src: '/img/eventos/graduaciones/mesa-de-dulces-para-fiesta-de-compromiso.avif', alt: 'Mesa de dulces para fiesta de graduación elegante' },
+  { src: '/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif', alt: 'Cliente con mesa de quesos para graduación CDMX' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium académica', desc: 'Surtido de 10 a 20+ variedades adaptado al nivel académico: para preescolar/primaria dulces aprobados por niños sin nueces; para secundaria/prepa surtido moderno con dulces aesthetic; para universidad/posgrado curaduría premium ejecutiva (chocolates importados Lindt/Ferrero, macarons franceses, trufas premium, opciones para invitados con restricciones).' },
+  { num: '02', title: 'Diseño con colores institucionales', desc: 'Cristalería en colores oficiales de la institución (UNAM dorado, IPN guinda, Tec azul, ITAM verde, Anáhuac, Ibero), atrezzo coordinado al escudo, manteles institucionales, backdrop con escudo en gran formato, papel picado con elementos académicos y atrezzo coordinado al lema de la promo.' },
+  { num: '03', title: '6 símbolos de graduación integrados', desc: 'Birrete decorativo central con borla del color de la facultad, diploma enrollado con listón, anillo de graduación (universidades como Tec), listón con año de generación, escudo institucional en gran formato, libros y elementos de la carrera específica (caduceo medicina, balanza derecho, planos arquitectura, etc.).' },
+  { num: '04', title: 'Año y lema de generación destacado', desc: 'Año de generación (ej. "2026") en gran formato como elemento central del backdrop, lema de la promo impreso, lista de nombres de compañeros en panel decorativo, pared de fotos individuales o grupales de la generación. La promo se siente protagonista del momento.' },
+  { num: '05', title: 'Coordinación con foto formal', desc: 'Coordinamos posición de la mesa con fotógrafo y videógrafo para foto formal del graduado con birrete y diploma, foto familiar con padres y abuelos, foto grupal de generación con backdrop institucional. En Master incluimos video corto del momento.' },
+  { num: '06', title: 'Cobertura universidades CDMX', desc: 'Trabajamos con 15+ universidades CDMX: UNAM (CU), IPN, ITAM (San Ángel), Tec de Monterrey (CCM y Santa Fe), Anáhuac México Norte/Sur, Iberoamericana (Santa Fe), Panamericana (Mixcoac), La Salle, UVM, Westhill, Universidad del Pedregal, EBC. Conocemos protocolos de cada institución.' }
+];
+
+// =============== Testimonios graduación CDMX ===============
+const testimonios = [
+  {
+    name: 'Familia Castillo (graduación UNAM)',
+    initials: 'FC',
+    review: 'Graduación de mi hija de Medicina UNAM. Mesa con paleta dorado-azul UNAM, caduceo y bata blanca como elementos centrales, foto generación con sus compañeros médicos. La mesa enmarcó perfecto la foto formal con birrete y diploma. Mis padres de Hermosillo no paraban de tomar fotos.',
+    event: 'Graduación · Medicina UNAM',
+    rating: 5
+  },
+  {
+    name: 'Andrea y Roberto (graduación Tec)',
+    initials: 'AR',
+    review: 'Graduación de mi hijo de MBA en Tec de Monterrey CCM. Mesa premium azul Tec con anillos de graduación como pieza central, backdrop con año 2026 y escudo del Tec. 200 invitados, surtido premium ejecutivo. Coordinación impecable con la fotógrafa profesional.',
+    event: 'Graduación · MBA Tec CCM',
+    rating: 5
+  },
+  {
+    name: 'Generación Anáhuac Negocios',
+    initials: 'GA',
+    review: 'Co-organizamos la fiesta de graduación de nuestra generación de Anáhuac Negocios. MEDEDUL coordinó con los 8 representantes de generación, escudo institucional en backdrop, pared con fotos de los 120 graduados. Mesa de botanas para after-party hasta las 3am. Todo perfecto.',
+    event: 'Graduación · Generación Anáhuac',
+    rating: 5
+  }
+];
+
+// =============== FAQ Graduación (12 preguntas SEO-optimizadas) ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para graduación en CDMX?',
+    answer: 'Incluye diseño con colores institucionales de la universidad/escuela (UNAM, IPN, Tec, ITAM, Anáhuac, Ibero, etc.), surtido premium adaptado al nivel académico (preescolar/primaria niños, secundaria/prepa moderno, universidad/posgrado ejecutivo), 6 símbolos de graduación integrados (birrete, diploma, anillo, listón, escudo, libros), año de generación destacado en backdrop, coordinación con fotógrafo formal para foto del graduado con birrete y diploma, bolos sorpresa con escudo institucional, montaje 2-3 h antes en sede de la celebración y operación durante toda la fiesta.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para graduación en CDMX?',
+    answer: 'En CDMX iniciamos en $5,200 MXN (Esencial, 50-100 invitados) y llegamos a $16,500 MXN (Master, 200-400+ invitados). El precio depende del número de invitados, nivel académico (universitario sale más alto que primaria por escala), surtido seleccionado, nivel de personalización (backdrop con escudo + año, pared de fotos generación), servicios complementarios (mesa de botanas para after-party, fuente de chamoy, mesa de donas). Cotización ejecutiva en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Trabajan con universidades específicas de CDMX?',
+    answer: 'Sí. Trabajamos con 15+ universidades CDMX y zona metropolitana: UNAM (Ciudad Universitaria, Coyoacán), IPN (Zacatenco, Tlatelolco), ITAM (San Ángel), Tec de Monterrey CCM (Tlalpan) y Santa Fe, Anáhuac México Norte (Huixquilucan) y Sur (Tlalpan), Iberoamericana (Santa Fe), Universidad Panamericana (Mixcoac), La Salle (Cuauhtémoc), UVM (múltiples campus), Westhill University (Cuajimalpa), Universidad del Pedregal, EBC (Centro/Polanco). Conocemos los colores oficiales y escudos de cada institución.'
+  },
+  {
+    question: '¿Manejan los colores oficiales de cada universidad?',
+    answer: 'Sí. Cada mesa se diseña con la paleta institucional exacta: UNAM (azul + dorado), IPN (guinda + blanco), Tec de Monterrey (azul Tec + blanco), ITAM (verde + blanco), Anáhuac (guinda + blanco), Iberoamericana (verde + blanco), Panamericana (azul marino + dorado), La Salle (verde + blanco), UVM (azul + naranja), Westhill (azul + dorado). Si tu universidad no está, trabajamos con tu manual de identidad institucional.'
+  },
+  {
+    question: '¿Qué nivel académico atienden? ¿Solo universidad?',
+    answer: 'Atendemos los 6 niveles académicos: Preescolar/Kínder (5-6 años, mesa colorida con birrete pequeño), Primaria (11-12 años, paleta de la escuela), Secundaria (14-15 años, sofisticada moderna), Preparatoria (17-18 años, elegante con foto generación), Universidad (22-25 años, escudo institucional, anillo, networking) y Posgrado/MBA/Maestría/Doctorado (28+ años, premium ejecutiva con cocktail networking).'
+  },
+  {
+    question: '¿Pueden integrar elementos de la carrera específica?',
+    answer: 'Sí. Cada carrera tiene símbolos identificables que integramos: Medicina (caduceo, estetoscopio, bata blanca, juramento hipocrático), Derecho (balanza, mazo, Themis, libro de leyes, toga negra), Arquitectura (planos, escuadra, regla T, maqueta), Ingeniería (engranajes, casco, planos técnicos), Negocios/MBA (maletín, gráficos, anillos), Diseño (pinceles, paleta colores, cámara), Gastronomía (toque, cuchillo chef), Psicología (cerebro, símbolo psi).'
+  },
+  {
+    question: '¿Pueden personalizar con año de generación, lema y nombres?',
+    answer: 'Sí, es uno de nuestros diferenciadores únicos. Año de generación en gran formato (ej. "Generación 2026") como elemento central del backdrop, lema de la promo impreso en panel decorativo, lista de nombres de compañeros para que cada graduado se busque y se tome foto, pared de fotos individuales o grupales de la generación. La promo se siente protagonista.'
+  },
+  {
+    question: '¿Coordinan con el fotógrafo formal de graduación?',
+    answer: 'Sí, es parte central del servicio. Coordinamos posición de la mesa con fotógrafo profesional para: foto formal del graduado con birrete y diploma, foto familiar con padres y abuelos, foto grupal de generación con backdrop institucional, foto con compañeros, foto del momento de imposición del anillo (universidades como Tec). En paquete Master incluimos video corto del momento de corte de pastel y foto familiar.'
+  },
+  {
+    question: '¿Pueden combinar la mesa con donas, fuente de chamoy, botanas o mesa de dulces clásica?',
+    answer: 'Sí, son las combinaciones más solicitadas para graduación. Sumamos <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> con colores de tu escuela (base clásica), <a href="/estaciones-interactivas/fuente-de-chamoy">Fuente de Chamoy</a> (el sabor de la victoria, ideal para graduados mexicanos), <a href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes">Donas y Cupcakes</a> (celebra con estilo, decorados con birrete y escudo), <a href="/tipos-de-mesas-de-dulces/mesa-de-botanas">Mesa de Botanas</a> (para la fiesta larga, after-party hasta tarde con botanas premium).'
+  },
+  {
+    question: '¿Atienden graduaciones grandes (200+ invitados) y de generación completa?',
+    answer: 'Sí. Trabajamos graduaciones de generación completa con 200-400+ invitados (típico universidades grandes como UNAM, IPN, Tec). En estos casos coordinamos con representantes de generación o comité organizador, mesa amplia con surtido escalado, backdrop con todos los nombres, pared de fotos de los graduados, mesa de botanas para after-party prolongado y operación extendida hasta cierre del venue. Disponible desde paquete Master.'
+  },
+  {
+    question: '¿Cuál es la mejor época del año para graduaciones en CDMX?',
+    answer: 'Las temporadas principales de graduación en CDMX son: <strong>Junio-Julio</strong> (cierre de ciclo escolar de prepa, secundaria, primaria), <strong>Diciembre</strong> (semestre fall de universidades privadas como Tec, Anáhuac, Ibero), <strong>Mayo-Junio</strong> (semestre spring universidades), <strong>Agosto</strong> (graduaciones intermedias), <strong>Septiembre-Octubre</strong> (graduaciones de algunas maestrías y MBAs). Recomendamos reservar con 2-3 meses de anticipación para las fechas pico.'
+  },
+  {
+    question: '¿Atienden graduaciones en domicilios, salones y venues universitarios?',
+    answer: 'Sí. Cubrimos: domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas), salones boutique (Casa Lamm, Belmondo, Saks, The Magnolia Hotel), salones de eventos medianos/grandes para graduación de generación, jardines de hoteles 5 estrellas (W Polanco, Camino Real, Hyatt Regency), venues universitarios (auditorios y salones del Tec, Anáhuac, Ibero, etc.) y centros de convenciones para graduaciones masivas (WTC, Centro Citibanamex).'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-graduacion#service",
+      "name": "Mesa de Dulces para Graduación en CDMX",
+      "serviceType": "Mesa de Dulces Graduación / Candy Bar Universitario",
+      "description": "Mesa de dulces para graduación en Ciudad de México con colores institucionales (UNAM, IPN, Tec, ITAM, Anáhuac, Ibero, Panamericana), 6 símbolos de graduación (birrete, diploma, anillo, listón, escudo, libros), año de generación destacado, coordinación con foto formal del graduado, cobertura para 6 niveles académicos (preescolar a posgrado). Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de Mexico",
+          "addressRegion": "CDMX",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "200",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": [
+          { "@type": "Place", "name": "Coyoacan" },
+          { "@type": "Place", "name": "Tlalpan" },
+          { "@type": "Place", "name": "Santa Fe" },
+          { "@type": "Place", "name": "San Angel" },
+          { "@type": "Place", "name": "Huixquilucan" },
+          { "@type": "Place", "name": "Mixcoac" },
+          { "@type": "Place", "name": "Polanco" },
+          { "@type": "Place", "name": "Cuauhtemoc" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "5200",
+        "highPrice": "16500",
+        "offerCount": "3",
+        "offers": paquetesGrad.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Graduacion CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "EducationalAudience",
+        "audienceType": "Graduados, generaciones académicas y familias celebrando graduación en CDMX"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer.replace(/<[^>]+>/g, '')
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Graduación", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-graduacion" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Graduacion en CDMX | Mededul"
-  description="Mesa de dulces para graduacion en CDMX con diseno academico, montaje profesional y propuesta personalizada por institucion."
+  title="Mesa de Dulces Graduación CDMX | UNAM · Tec · ITAM · Anáhuac · Ibero | MEDEDUL"
+  description="Mesa de dulces para graduación en CDMX con colores institucionales (UNAM, IPN, Tec de Monterrey, ITAM, Anáhuac, Ibero, Panamericana), 6 símbolos (birrete, diploma, anillo, escudo), año de generación destacado, coordinación con foto formal. 200+ graduaciones · 15+ universidades. Desde $5,200 MXN."
   canonical="/candy-bar-eventos/mesa-dulces-graduacion"
-  ogImage="/img/eventos/graduaciones/mesa-dulces-graduacion.avif"
+  ogImage="/img/galeria/mesa-dulces-graduacion-negro-dorado.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para Graduacion en CDMX"
-    highlight="Graduacion"
-    subtitle="Candy bar profesional para celebrar logros academicos con una propuesta visual elegante y bien ejecutada"
-    secondaryContent={`<p><strong>Graduacion</strong> con mesa de dulces profesional convierte el cierre academico en una experiencia mas memorable para estudiantes, familias e invitados. En Mededul creamos montajes que combinan identidad institucional, calidad de producto y operacion eficiente.</p><p><strong>Ceremonia</strong> de graduacion bien acompanada por un candy bar premium mejora la presentacion general del evento, optimiza servicio y aporta un punto fotografico de alto valor. Ejecutamos cada detalle en CDMX con puntualidad y estandar profesional.</p>`}
+    title="Mesa de Dulces para Graduación en CDMX"
+    highlight="Graduación CDMX"
+    subtitle="Años de esfuerzo merecen una fiesta épica · 200+ graduaciones · 15+ universidades CDMX trabajadas · Colores institucionales"
+    secondaryContent={`<p>Mesas con los colores de tu escuela y el orgullo del logro alcanzado. La <strong>mesa de dulces para graduación en Ciudad de México</strong> es la pieza central de la celebración del logro académico: el momento que coron años de esfuerzo del graduado y de la familia que lo acompañó. En <strong>MEDEDUL</strong> diseñamos cada mesa de graduación con respeto al hito alcanzado: paleta de colores institucionales exacta de tu universidad o escuela (UNAM dorado, IPN guinda, Tec de Monterrey azul, ITAM verde, Anáhuac, Ibero, Panamericana, La Salle), 6 símbolos de graduación integrados (birrete decorativo central con borla del color de la facultad, diploma enrollado con listón, anillo de graduación, listón con año de generación, escudo institucional en gran formato, libros y elementos de la carrera específica), año de generación destacado en backdrop como elemento central, lema de la promo impreso y pared de fotos de los compañeros de generación.</p><p>Coordinamos directamente con <strong>15+ universidades CDMX</strong>: UNAM (Ciudad Universitaria), IPN (Zacatenco, Tlatelolco), ITAM (San Ángel), Tec de Monterrey CCM (Tlalpan) y Santa Fe, Anáhuac México Norte (Huixquilucan) y Sur (Tlalpan), Iberoamericana (Santa Fe), Universidad Panamericana (Mixcoac), La Salle, UVM, Westhill University, Universidad del Pedregal, EBC y más. Conocemos los protocolos de cada institución, sus colores oficiales y los escudos. Atendemos los <strong>6 niveles académicos</strong>: preescolar, primaria, secundaria, preparatoria, universidad y posgrado (MBA, Maestría, Doctorado). Coordinamos con el <strong>fotógrafo formal</strong> para foto del graduado con birrete y diploma, foto familiar y foto grupal de generación. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong>.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de graduacion segun aforo y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu graduacion." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="grad-stats">
+    <div class="container">
+      <div class="grad-stats__grid">
+        {stats.map(s => (
+          <div class="grad-stat">
+            <span class="grad-stat__num">{s.number}</span>
+            <span class="grad-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Graduacion" descriptions={['Disenamos candy bars academicos con equilibrio entre impacto visual y operacion.', 'Integramos montaje profesional para garantizar una ejecucion impecable en cada sede.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== 6 Niveles académicos (UNIQUE) ===================== -->
+  <section class="grad-niveles section-padding" id="niveles-academicos">
+    <div class="container">
+      <SectionHeader
+        title="6 niveles académicos"
+        titleHighlight="que atendemos"
+        subtitle="Desde preescolar hasta posgrado: cada graduación tiene tono, surtido y simbología específicos"
+        content={`<p>Cada graduación tiene <strong>diferente carga emocional, perfil de invitados y nivel de sofisticación</strong>. Estos son los 6 niveles que atendemos con metodología específica para cada uno.</p>`}
+      />
+      <div class="grad-niveles__grid">
+        {niveles.map(n => (
+          <div class="grad-nivel">
+            <div class="grad-nivel__icon" aria-hidden="true">{n.icon}</div>
+            <span class="grad-nivel__edad">{n.edad}</span>
+            <h3 class="grad-nivel__title">{n.nivel}</h3>
+            <p class="grad-nivel__desc">{n.desc}</p>
+            <div class="grad-nivel__field">
+              <strong>Surtido:</strong> {n.surtido}
+            </div>
+            <div class="grad-nivel__field">
+              <strong>Paleta:</strong> {n.paleta}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de graduacion sin errores." steps={processSteps} />
+  <!-- ===================== 15+ Universidades CDMX (UNIQUE - SEO local universitario) ===================== -->
+  <section class="grad-universidades section-padding" id="universidades-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="15+ universidades CDMX"
+        titleHighlight="trabajadas"
+        subtitle="Conocemos los colores oficiales, escudos y protocolos de las principales universidades de Ciudad de México"
+        content={`<p>Trabajar con MEDEDUL significa contar con un proveedor que <strong>conoce a fondo las universidades de Ciudad de México</strong>: colores institucionales exactos, escudos oficiales, símbolos de graduación específicos (anillo del Tec, dorado UNAM, guinda IPN/Anáhuac) y protocolos de graduación. Estas son las 15+ universidades donde hemos celebrado graduaciones.</p>`}
+      />
+      <div class="grad-universidades__grid">
+        {universidades.map(u => (
+          <div class="grad-uni">
+            <span class="grad-uni__icon" aria-hidden="true">🎓</span>
+            <h3 class="grad-uni__name">{u.nombre}</h3>
+            <span class="grad-uni__zona">📍 {u.zona}</span>
+            <span class="grad-uni__tipo">{u.tipo}</span>
+            <span class="grad-uni__colores">🎨 {u.colores}</span>
+          </div>
+        ))}
+      </div>
+      <div class="grad-universidades__note">
+        <strong>¿Tu universidad o escuela no está en esta lista?</strong> Trabajamos con cualquier institución educativa de CDMX (preescolar, primaria, secundaria, preparatoria, universidad, posgrado). Solo necesitamos saber el escudo y colores oficiales en el brief para diseñar la mesa con identidad institucional. <a href="https://wa.me/525525226442?text=Hola!%20Graduación%20en%20universidad%20CDMX" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y corporativas." events={eventCards} />
+  <!-- ===================== 8 Carreras populares (UNIQUE) ===================== -->
+  <section class="grad-carreras section-padding" id="carreras">
+    <div class="container">
+      <SectionHeader
+        title="8 carreras populares"
+        titleHighlight="con paleta y símbolos"
+        subtitle="Cada carrera tiene símbolos identificables que integramos a la mesa para personalización profesional"
+      />
+      <div class="grad-carreras__grid">
+        {carreras.map(c => (
+          <div class="grad-carrera">
+            <div class="grad-carrera__icon" aria-hidden="true">{c.icon}</div>
+            <h3 class="grad-carrera__name">{c.carrera}</h3>
+            <div class="grad-carrera__field">
+              <strong>Paleta:</strong> {c.paleta}
+            </div>
+            <div class="grad-carrera__field">
+              <strong>Símbolos:</strong> {c.simbolos}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== 6 Símbolos graduación (UNIQUE) ===================== -->
+  <section class="grad-simbolos section-padding" id="simbolos-graduacion">
+    <div class="container">
+      <SectionHeader
+        title="6 símbolos de graduación"
+        titleHighlight="que recreamos"
+        subtitle="La simbología completa del logro académico integrada en la mesa"
+      />
+      <div class="grad-simbolos__grid">
+        {simbolos.map(s => (
+          <div class="grad-simbolo">
+            <div class="grad-simbolo__icon" aria-hidden="true">{s.icon}</div>
+            <h3 class="grad-simbolo__title">{s.title}</h3>
+            <p class="grad-simbolo__desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Generación destacada (UNIQUE - emocional) ===================== -->
+  <section class="grad-generacion section-padding" id="generacion">
+    <div class="container">
+      <SectionHeader
+        title="Año y generación"
+        titleHighlight="protagonistas"
+        subtitle="4 elementos para que tu generación se sienta el centro del momento"
+        content={`<p>La graduación no es solo del estudiante: es de <strong>una generación completa que vivió el ciclo juntos</strong>. Por eso destacamos el año, el lema y los nombres de los compañeros como elementos centrales de la mesa.</p>`}
+      />
+      <div class="grad-generacion__grid">
+        {generacion.map(g => (
+          <div class="grad-generacion__item">
+            <div class="grad-generacion__icon" aria-hidden="true">{g.icon}</div>
+            <h3 class="grad-generacion__title">{g.title}</h3>
+            <p class="grad-generacion__desc">{g.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Coordinación foto formal (UNIQUE) ===================== -->
+  <section class="grad-foto section-padding" id="foto-formal">
+    <div class="container">
+      <SectionHeader
+        title="Coordinación con"
+        titleHighlight="foto formal"
+        subtitle="Coordinamos con fotógrafo y videógrafo para que la mesa enmarque cada momento clave"
+      />
+      <div class="grad-foto__grid">
+        {fotoFormal.map(f => (
+          <div class="grad-foto__item">
+            <div class="grad-foto__icon" aria-hidden="true">{f.icon}</div>
+            <h3 class="grad-foto__title">{f.title}</h3>
+            <p class="grad-foto__desc">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="grad-intro" id="intro-grad">
+    <div class="container">
+      <div class="grad-intro__grid">
+        <div class="grad-intro__copy">
+          <span class="grad-intro__badge">Especialistas en graduaciones CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu graduación en CDMX</h2>
+          <p>La graduación culmina años de esfuerzo del estudiante y de la familia que lo acompañó. Por eso cada mesa de dulces para graduación que montamos en Ciudad de México parte de un <strong>proceso profesional integral con respeto al logro alcanzado</strong>: brief con el graduado o la familia (institución, carrera, año de generación, lema de promo, nivel académico), propuesta visual con render conceptual alineado a los colores institucionales y símbolos académicos, coordinación con fotógrafo formal y operación impecable durante toda la celebración.</p>
+          <p>La mesa de dulces para graduación CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta los colores oficiales de la institución (UNAM dorado, IPN guinda, Tec azul, ITAM verde, Anáhuac, Ibero, Panamericana), integra los 6 símbolos centrales de graduación (birrete, diploma, anillo, listón, escudo, libros), considera la carrera específica (caduceo medicina, balanza derecho, planos arquitectura) y destaca el año de generación con backdrop personalizado.</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas en Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, lo que nos permite llegar puntualmente a cualquier sede de celebración: domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma), salones boutique (Casa Lamm, Belmondo), salones grandes para graduación de generación, jardines de hoteles 5 estrellas (W Polanco, Camino Real, Hyatt) y venues universitarios (auditorios y salones del Tec, Anáhuac, Ibero). Si quieres conocer más detalle sobre cobertura CDMX, visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a>. Para conceptos integrales con producción de props impresos a medida conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Graduación%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a coronar años de esfuerzo del graduado y de la familia.</p>
+        </div>
+        <div class="grad-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/graduaciones/candy-bar-graduacion-elegante.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces graduación elegante MEDEDUL en CDMX con escudo institucional"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-grad"
+    badge="Paquetes Graduación CDMX"
+    title="Elige el formato para tu"
+    titleHighlight="graduación"
+    subtitle="3 niveles claros con colores institucionales y símbolos académicos"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para graduación en CDMX</strong>. <strong>Esencial</strong> para graduación íntima familiar (50-100 invitados); <strong>Premium</strong> es el más solicitado para universitarios (100-200 invitados) e incluye backdrop con escudo institucional y año de generación, símbolos integrados (birrete, diploma, anillo) y coordinación con fotógrafo formal; <strong>Master</strong> es la propuesta de gran escala (200-400+ invitados) para graduaciones de generación completa con pared de fotos, mesa de botanas para after-party y operación extendida.</p><p>Todos los paquetes incluyen <strong>colores institucionales exactos, símbolos de graduación y bolos sorpresa con escudo</strong>.</p>`}
+    packages={paquetesGrad}
+    note="💡 <strong>Todos los paquetes Graduación CDMX incluyen:</strong> diseño con colores institucionales exactos, birrete decorativo central + diploma, listón con año de generación, etiquetas con nombre del graduado, bolos sorpresa con birrete mini, coordinación con fotógrafo y desmontaje al cierre."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-grad"
+    badge="Diferenciadores Graduación"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa de Graduación"
+    descriptions={[
+      "Con <strong>200+ graduaciones montadas en CDMX</strong> y <strong>15+ universidades trabajadas</strong> (UNAM, IPN, Tec, ITAM, Anáhuac, Ibero, Panamericana), MEDEDUL es la opción especializada para celebrar el logro académico con identidad institucional.",
+      "Cada mesa parte del mismo método: brief con el graduado/familia, propuesta visual con colores institucionales exactos, integración de 6 símbolos académicos, coordinación con fotógrafo formal y operación durante toda la celebración. La diferencia: <strong>la generación es el centro del diseño</strong>, no solo el graduado individual."
+    ]}
+    stats={[
+      { number: "200+", label: "Graduaciones CDMX" },
+      { number: "15+", label: "Universidades" },
+      { number: "100%", label: "Colores institucionales" },
+      { number: "5.0", label: "Calificación graduados" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="grad-galeria" id="galeria-grad">
+    <div class="container">
+      <SectionHeader
+        title="Graduaciones reales en CDMX"
+        titleHighlight="montadas"
+        subtitle="Selección curada de graduaciones MEDEDUL en distintas universidades, niveles y modalidades"
+        content={`<p>Cada mesa de esta galería corresponde a una <strong>graduación real en CDMX</strong>. La paleta cromática institucional, los símbolos académicos y el surtido fueron <strong>diseñados específicamente para cada generación</strong> según la universidad, carrera y nivel académico.</p>`}
+      />
+      <div class="grad-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="grad-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="grad-incluye section-padding" id="incluye-grad">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa de Graduación CDMX"
+        subtitle="Servicio integral académico con identidad institucional y simbología completa"
+        content={`<p>Todos los paquetes Graduación CDMX incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y el nivel de personalización institucional. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="grad-incluye__grid">
+        {incluye.map(item => (
+          <div class="grad-incluye__item">
+            <div class="grad-incluye__num">{item.num}</div>
+            <h3 class="grad-incluye__title">{item.title}</h3>
+            <p class="grad-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-grad"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para tu"
+    titleHighlight="graduación"
+    subtitle="Cuatro pasos para que tu graduación tenga la mesa que merece tu logro académico"
+    steps={procesoGrad}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="grad-complementos section-padding" id="complementos-grad">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas en graduaciones CDMX para fiesta épica completa"
+        content={`<p>Una mesa de dulces de graduación es <strong>el centro emocional de la celebración</strong>, pero las generaciones top combinan <strong>1-2 estaciones complementarias</strong> que elevan la fiesta a otro nivel: mesa de dulces clásica con colores de la escuela, fuente de chamoy como sabor de la victoria mexicana, donas y cupcakes decorados con birrete y mesa de botanas para sostener la fiesta larga del after-party.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/eventos/graduaciones/mesa-dulces-graduacion.avif')}
+          alt="Mesa de dulces con colores de tu escuela para graduación"
+          title="Mesa de Dulces"
+          excerpt="Con colores de tu escuela. El candy bar clásico con paleta institucional exacta y simbología académica básica."
+          cta="Ver Mesa de Dulces"
+          badge="Base graduación"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chamoy"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')}
+          alt="Fuente de chamoy el sabor de la victoria para graduación"
+          title="Fuente de Chamoy"
+          excerpt="El sabor de la victoria. Chamoy mexicano artesanal en cascada como activación interactiva. Tendencia en graduaciones universitarias mexicanas."
+          cta="Ver Fuente de Chamoy"
+          badge="Mexicana"
+          subsections={subsFuenteChamoy}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
+          image={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif')}
+          alt="Mesa de donas y cupcakes celebra con estilo graduación"
+          title="Donas y Cupcakes"
+          excerpt="Celebra con estilo. Donas glaseadas con birrete, cupcakes con escudo institucional, mini pasteles con año de generación."
+          cta="Ver Donas y Cupcakes"
+          badge="Decorados"
+          subsections={subsDonas}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-botanas"
+          image={getCdnUrl('/img/tipos-de-mesas/botanas/servicio-mesa-botanas-cdmx.avif')}
+          alt="Mesa de botanas para la fiesta larga after-party graduación"
+          title="Mesa de Botanas"
+          excerpt="Para la fiesta larga. Botanas premium para sostener el after-party de graduación hasta tarde con energía."
+          cta="Ver Mesa de Botanas"
+          badge="After-party"
+          subsections={subsBotanas}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="grad-cdmx-cta section-padding" id="grad-cdmx">
+    <div class="container">
+      <div class="grad-cdmx-cta__card">
+        <div class="grad-cdmx-cta__body">
+          <span class="grad-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos graduaciones desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL atiende graduaciones en toda la Ciudad de México con cobertura especializada en zonas universitarias: <strong>Coyoacán (UNAM CU), Tlalpan (Tec CCM, Anáhuac Sur), San Ángel (ITAM), Santa Fe (Tec, Ibero), Huixquilucan (Anáhuac Norte), Mixcoac (Panamericana), Cuauhtémoc (La Salle), Polanco (EBC)</strong>. Conocemos los 15+ campus universitarios principales y sus protocolos. Visita nuestra <strong>página de sucursal CDMX</strong> con todos los servicios disponibles.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="grad-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="grad-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/graduaciones/servicio-mesa-graduacion.avif', { w: 600, q: 82 })}
+            alt="Servicio mesa de dulces graduación CDMX MEDEDUL"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="grad-testimonios section-padding" id="testimonios-grad">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="graduados y familias"
+        subtitle="Familias y generaciones hablando de su experiencia con MEDEDUL en graduaciones CDMX"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars ===================== -->
+  <section class="grad-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="Si tienes otros eventos próximos en tu vida o de familiares"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-xv-anos"
+          image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')}
+          alt="Mesa de dulces para XV Años hermana menor"
+          title="Mesa para XV Años"
+          excerpt="Para hermanas menores. Mesa glamour con backdrop instagrameable para quinceañeras."
+          cta="Ver XV Años"
+          subsections={subsCBXV}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces para boda próximo paso de vida"
+          title="Mesa para Boda"
+          excerpt="Próximo paso de vida. Después de graduarte, tu boda. Mesa nupcial elegante con el mismo estándar profesional."
+          cta="Ver Mesa Boda"
+          subsections={subsCBBoda}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-corporativos"
+          image={getCdnUrl('/img/eventos/corporativos/candy-bar-empresarial.avif')}
+          alt="Mesa de dulces eventos corporativos primer trabajo"
+          title="Eventos Corporativos"
+          excerpt="Primer trabajo profesional. Si tu nuevo empleo organiza posada o lanzamiento, recomienda MEDEDUL para branding integral B2B."
+          cta="Ver Corporativos"
+          subsections={subsCBCorporativo}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+          image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')}
+          alt="Mesa de dulces para cumpleaños infantil hermanos menores"
+          title="Cumpleaños Infantil"
+          excerpt="Para hermanos pequeños. Mesa temática con personajes para fiestas de niños 3-12 años con control de alergias."
+          cta="Ver Cumple Infantil"
+          subsections={subsCBCumple}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Grad stats (paleta académica negro-dorado-azul) ===== */
+  .grad-stats {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 50%, #1e3a8a 100%);
+    padding: 3rem 0;
+    color: #fff;
+  }
+  .grad-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .grad-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #d4af37;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .grad-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .grad-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .grad-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Niveles académicos (6 cards extensas) ===== */
+  .grad-niveles { background: #fff; }
+  .grad-niveles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .grad-nivel {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border-top: 4px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .grad-nivel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .grad-nivel__icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .grad-nivel__edad {
+    display: inline-block;
+    background: #d4af37;
+    color: #1a1a1a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .grad-nivel__title {
+    font-size: 1.2rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-nivel__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .grad-nivel__field {
+    color: #444;
+    line-height: 1.5;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #f0f0f4;
+  }
+  .grad-nivel__field strong {
+    color: #d4af37;
+    font-weight: 700;
+  }
+  @media (max-width: 900px) { .grad-niveles__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Universidades CDMX (15+ grid) ===== */
+  .grad-universidades { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .grad-universidades__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .grad-uni {
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .grad-uni:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+  }
+  .grad-uni__icon {
+    display: inline-block;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .grad-uni__name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .grad-uni__zona {
+    display: block;
+    font-size: 0.75rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .grad-uni__tipo {
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 0.4rem;
+  }
+  .grad-uni__colores {
+    display: block;
+    font-size: 0.75rem;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+  .grad-universidades__note {
+    margin-top: 2rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: 2px dashed #d4af37;
+    border-radius: 1rem;
+    padding: 1.25rem 1.75rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .grad-universidades__note strong { color: #d4af37; }
+  .grad-universidades__note a {
+    color: #d4af37;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  @media (max-width: 1100px) { .grad-universidades__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .grad-universidades__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Carreras (8 cards) ===== */
+  .grad-carreras { background: #fff; }
+  .grad-carreras__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .grad-carrera {
+    background: #f8f9fa;
+    border-radius: 0.75rem;
+    padding: 1.5rem 1.25rem;
+    border-left: 4px solid #1e3a8a;
+    transition: transform 0.2s ease;
+  }
+  .grad-carrera:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15);
+    border-left-color: #d4af37;
+  }
+  .grad-carrera__icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .grad-carrera__name {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-carrera__field {
+    margin-bottom: 0.5rem;
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.85rem;
+  }
+  .grad-carrera__field strong {
+    color: #d4af37;
+    font-weight: 700;
+  }
+  @media (max-width: 1100px) { .grad-carreras__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grad-carreras__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Símbolos graduación (6) ===== */
+  .grad-simbolos { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .grad-simbolos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .grad-simbolo {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 4px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .grad-simbolo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .grad-simbolo__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .grad-simbolo__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-simbolo__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .grad-simbolos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Generación destacada ===== */
+  .grad-generacion { background: #fff; }
+  .grad-generacion__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .grad-generacion__item {
+    background: linear-gradient(135deg, #1a1a1a 0%, #1e3a8a 100%);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: #fff;
+    border-top: 4px solid #d4af37;
+    transition: transform 0.2s ease;
+  }
+  .grad-generacion__item:hover { transform: translateY(-4px); }
+  .grad-generacion__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .grad-generacion__title {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-generacion__desc {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .grad-generacion__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grad-generacion__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Foto formal coordinación ===== */
+  .grad-foto { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .grad-foto__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .grad-foto__item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+  }
+  .grad-foto__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-color: #d4af37;
+  }
+  .grad-foto__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .grad-foto__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-foto__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .grad-foto__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grad-foto__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .grad-intro { padding: 5rem 0; background: #fff; }
+  .grad-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .grad-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a1a1a 0%, #d4af37 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .grad-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .grad-intro__copy h2 span { color: #d4af37; }
+  .grad-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .grad-intro__copy a {
+    color: #d4af37;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+  .grad-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 900px) {
+    .grad-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería ===== */
+  .grad-galeria { padding: 5rem 0; background: #f8f9fa; }
+  .grad-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .grad-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .grad-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .grad-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .grad-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .grad-incluye { background: #fff; }
+  .grad-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .grad-incluye__item {
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+  }
+  .grad-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+    border-color: #d4af37;
+  }
+  .grad-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #1e3a8a 100%);
+    color: #d4af37;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .grad-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .grad-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .grad-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link ===== */
+  .grad-cdmx-cta { background: #fff; }
+  .grad-cdmx-cta__card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #1e3a8a 50%, #d4af37 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  }
+  .grad-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .grad-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .grad-cdmx-cta__body h2 span { color: #d4af37; font-weight: 800; }
+  .grad-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .grad-cdmx-cta__body p strong { color: #d4af37; }
+  .grad-cdmx-cta__link {
+    display: inline-block;
+    background: #d4af37;
+    color: #1a1a1a;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .grad-cdmx-cta__link:hover { transform: translateY(-2px); background: #fff; }
+  .grad-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+  @media (max-width: 900px) {
+    .grad-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .grad-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .grad-testimonios { background: #f8f9fa; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .grad-otros { background: #fff; }
+</style>

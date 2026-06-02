@@ -1,0 +1,663 @@
+---
+// L5 - Snacks Gourmet Salados Toluca
+// Subsección dedicada: papas kettle, palomitas trufa, nachos, pretzels, frutos secos premium
+// Sucursal Toluca-Metepec, MEDEDUL
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Snacks', url: '/sucursales/toluca/mesa-de-snacks' },
+  { name: 'Snacks Gourmet Salados', url: '/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados' }
+];
+
+// =============== Carta 12 Snacks Salados Premium ===============
+const cartaSalados = [
+  { nombre: 'Papas Kettle-Cooked Sea Salt', categoria: 'Papas Premium', origen: 'USA artesanal', porte: 'Bandeja madera 35 cm', perfil: 'Crujiente máximo, sal Maldon', maridaje: 'Cerveza IPA · Mezcal joven', descripcion: 'Papas en cocción lenta tipo kettle, cortadas gruesas con sal de mar Maldon. Crujiente icónico que no se rinde durante 8 horas de evento.', intensidad: 3 },
+  { nombre: 'Papas Trufa Negra', categoria: 'Papas Boutique', origen: 'Italia importadas', porte: 'Bandeja cerámica 30 cm', perfil: 'Trufa intensa, oliva extra virgen, sal Himalaya', maridaje: 'Champagne · Vino blanco seco', descripcion: 'Papas artesanales saborizadas con aceite de trufa negra italiana y polvo de trufa deshidratada. Lujo crujiente para corporativos C-level.', intensidad: 4 },
+  { nombre: 'Nachos con Guacamole Fresco', categoria: 'Salado Mexicano', origen: 'México artesanal', porte: 'Estación triple cerámica', perfil: 'Crujiente con guacamole, jalapeños, queso fundido', maridaje: 'Cerveza Pacífico · Margarita · Mezcal', descripcion: 'Totopos artesanales horneados con guacamole hecho del día (aguacate Hass de Michoacán), pico de gallo, queso fundido y jalapeños frescos. La estación más solicitada en bodas mexicanas.', intensidad: 3 },
+  { nombre: 'Palomitas Trufa Negra', categoria: 'Palomitas Boutique', origen: 'Italia + USA', porte: 'Bandejas vidrio apiladas', perfil: 'Aroma trufa negra, mantequilla AOP', maridaje: 'Champagne · Vino blanco · Cerveza pilsner', descripcion: 'Palomitas recién hechas con aceite de trufa negra italiana y polvo de trufa deshidratada. La opción más sofisticada de la barra.', intensidad: 4 },
+  { nombre: 'Palomitas Mantequilla Francesa AOP', categoria: 'Palomitas Premium', origen: 'Francia mantequilla', porte: 'Cesto mimbre rústico', perfil: 'Cremoso, mantecoso, sal de mar', maridaje: 'Cerveza weizen · Champagne', descripcion: 'Palomitas con mantequilla francesa AOP de Charentes-Poitou, sal de mar y un toque de pimienta blanca. Clásico cinema-style elevado.', intensidad: 3 },
+  { nombre: 'Palomitas Parmesano y Hierbas', categoria: 'Palomitas Italiana', origen: 'Italia parmesano', porte: 'Bowls cerámicos', perfil: 'Umami parmesano, romero, ajo', maridaje: 'Lambrusco · Chianti · Cerveza ale', descripcion: 'Palomitas con Parmigiano Reggiano 24 meses rallado, romero seco, ajo en polvo y aceite de oliva extra virgen. Perfil mediterráneo premium.', intensidad: 3 },
+  { nombre: 'Palomitas BBQ Ahumado', categoria: 'Palomitas Texana', origen: 'USA receta sureña', porte: 'Cesto mimbre con cuchara', perfil: 'Ahumado intenso, dulce-picante, paprika', maridaje: 'Cerveza stout · Bourbon · Whisky', descripcion: 'Palomitas con BBQ rub texano: paprika ahumada, azúcar mascabado, ajo, cebolla, mostaza y cayena. Opción atrevida para after-party.', intensidad: 4 },
+  { nombre: 'Pretzels Bávaros con Sal Kosher', categoria: 'Pretzels Alemán', origen: 'Alemania receta tradicional', porte: 'Cesto mimbre con sal gruesa', perfil: 'Suave por dentro, crujiente fuera, sal kosher', maridaje: 'Cerveza weizen alemana · Riesling', descripcion: 'Pretzels horneados estilo bávaro con sal gruesa kosher. Suaves por dentro, crujientes por fuera. Perfectos para acompañar cerveza artesanal.', intensidad: 2 },
+  { nombre: 'Cacahuates Japoneses', categoria: 'Salado Mexicano Clásico', origen: 'México industrial premium', porte: 'Bandeja cerámica colorida', perfil: 'Cubierta crocante de soya, ligero picante', maridaje: 'Cerveza · Mezcal · Tequila reposado', descripcion: 'Clásico mexicano con cubierta crocante de soya y trigo. La opción nostálgica que une generaciones en cualquier evento Valle Toluca.', intensidad: 3 },
+  { nombre: 'Mix Frutos Secos Premium', categoria: 'Healthy Premium', origen: 'Importados varios', porte: 'Bandeja madera dividida', perfil: 'Equilibrio dulce-salado, tostado natural', maridaje: 'Vino tinto · Whisky · Coñac', descripcion: 'Mix de almendras tostadas, nueces de Castilla, pistaches sicilianos, anacardos premium, arándanos secos y orejones de albaricoque. La opción protocolo para corporativos C-level.', intensidad: 2 },
+  { nombre: 'Chicharrones Gourmet', categoria: 'Salado Mexicano Premium', origen: 'México artesanal', porte: 'Cesto mimbre rústico', perfil: 'Crujiente intenso, salado, opcional limón-chile', maridaje: 'Cerveza Pacífico · Mezcal · Tequila', descripcion: 'Chicharrones de cerdo cocidos lentamente, súper crujientes, con sal y opción de limón con tajín. Identidad mexicana auténtica para bodas Valle Toluca.', intensidad: 4 },
+  { nombre: 'Edamame Salado', categoria: 'Healthy Asiático', origen: 'Japón / orgánico', porte: 'Bowls cerámicos individuales', perfil: 'Crujiente vegetal, sal de mar, ligero', maridaje: 'Sake · Cerveza ligera · Sauvignon Blanc', descripcion: 'Vainas de edamame cocidas al vapor con sal de mar gruesa. Opción healthy y vegana, alta en proteína vegetal. Para invitados conscientes y dietas plant-based.', intensidad: 2 }
+];
+
+// =============== Stats / Trust ===============
+const stats = [
+  { number: '12+', label: 'Snacks salados premium' },
+  { number: '6', label: 'Categorías especializadas' },
+  { number: '60+', label: 'Barras Valle Toluca' },
+  { number: '< 24h', label: 'Cotización' }
+];
+
+// =============== Subsecciones hermanas (3 cards) ===============
+const subsecciones = [
+  {
+    title: 'Mix Dulce y Salado Toluca',
+    sublabel: 'El equilibrio perfecto 60/40',
+    excerpt: 'L5 evolved con filosofía 60/40, composición dual editorial 2 zonas, 6 combinaciones firma (palomitas trufa + Lindor, papas kettle + chocolate 70%, pretzels + Nutella dip), Trail Mix Builder en vivo (3 estilos), reposición diferenciada por hora. Para paladares mixtos en bodas Hacienda La Magdalena Metepec. Desde $3,800 MXN.',
+    img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/mix-dulce-salado',
+    badge: 'Equilibrio',
+    cta: 'Ver Mix Dulce-Salado'
+  },
+  {
+    title: 'Barra Infantil Toluca',
+    sublabel: 'Snacks seguros para los más chicos',
+    excerpt: 'L5 evolved MAX con protocolo seguridad alimentaria infantil 6 pilares, 4 rangos edad recomendados, tabla alergenos completa, 6 temas decoración (princesas, dinos, unicornio), estaciones lúdicas (candy carrousel, algodón azúcar), bolsitas recuerdo personalizadas, operador con primeros auxilios infantiles. Para cumpleaños niños y baby shower. Desde $2,800 MXN.',
+    img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif',
+    href: '/sucursales/toluca/mesa-de-snacks/barra-infantil',
+    badge: 'Kid-Friendly',
+    cta: 'Ver Barra Infantil'
+  },
+  {
+    title: 'Hub Mesa de Snacks Toluca',
+    sublabel: 'Vista completa del servicio',
+    excerpt: 'Página principal Sucursal Toluca-Metepec: Esencial / Favorito / Luxury After-Party desde $3,400 MXN. 14 secciones con carta signature 12 snacks dark mode, 6 categorías premium, comparativa, hermanas, sucursal info. Para eventos en Hacienda La Magdalena Metepec, Quinta Real Toluca, Real de Minas.',
+    img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif',
+    href: '/sucursales/toluca/mesa-de-snacks',
+    badge: 'Hub L4',
+    cta: 'Ver Hub Snacks Toluca'
+  }
+];
+
+// =============== Maridajes Salados Premium ===============
+const maridajes = [
+  { bebida: 'Cerveza Artesanal IPA', icon: '🍺', detalle: 'IPA artesanal mexicana o americana. Lúpulo intenso que limpia paladar entre snacks salados grasos. Perfecta con papas kettle y palomitas BBQ.', snacks: 'Papas kettle · Palomitas BBQ · Nachos' },
+  { bebida: 'Champagne Brut', icon: '🥂', detalle: 'Burbuja fina universal que limpia paladar entre snacks. Marida elegantemente con palomitas trufa, papas trufa, frutos secos premium. Bodas Quinta Real Toluca.', snacks: 'Palomitas Trufa · Papas Trufa · Frutos Secos' },
+  { bebida: 'Mezcal Joven Artesanal', icon: '🥃', detalle: 'Mezcal de agave espadín o cuishe, ahumado natural. La pareja mexicana definitiva con cacahuates japoneses, chicharrones y nachos. Identidad Valle Toluca.', snacks: 'Cacahuates japoneses · Chicharrones · Nachos' },
+  { bebida: 'Vino Tinto Tempranillo', icon: '🍷', detalle: 'Tinto español de cuerpo medio. Maridaje protocolo para corporativos con frutos secos premium, palomitas parmesano y chicharrones gourmet.', snacks: 'Frutos secos · Palomitas Parmesano · Chicharrones' },
+  { bebida: 'Vino Blanco Sauvignon Blanc', icon: '🥂', detalle: 'Blanco aromático y refrescante. Excelente con edamame salado, palomitas mantequilla y pretzels alemanes. Para eventos de día y brunches Valle Toluca.', snacks: 'Edamame · Palomitas mantequilla · Pretzels' },
+  { bebida: 'Cerveza Stout', icon: '🍺', detalle: 'Stout artesanal con notas tostadas de café y chocolate. Maridaje moderno con palomitas BBQ ahumadas, chicharrones gourmet y mix frutos secos.', snacks: 'Palomitas BBQ · Chicharrones · Frutos Secos' }
+];
+
+// =============== Características Salados Toluca ===============
+const caracteristicas = [
+  { num: 1, title: 'Curaduría premium importada', desc: 'Trabajamos con importadores especializados: papas kettle USA artesanales, mantequilla francesa AOP para palomitas, Parmigiano Reggiano 24m italiano, sal Maldon UK, aceite de trufa negra italiana. Cada producto con trazabilidad de origen.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' },
+  { num: 2, title: 'Palomitas hechas en sitio', desc: 'En Salados 9 y Salados 12 las palomitas se popean en sitio con máquina profesional retro estilo cinema. El aroma a palomitas recién hechas se vuelve parte de la experiencia sensorial del evento Valle Toluca.', img: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif' },
+  { num: 3, title: 'Reposición continua para fiestas largas', desc: 'Las fiestas Valle Toluca duran 6-10 horas (boda Hacienda La Magdalena Metepec, XV Quinta Real Toluca). Operador profesional repone bandejas cada 30-45 min. Las papas kettle y pretzels nunca se quedan sin presencia.', img: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif' },
+  { num: 4, title: 'Bandejas y mobiliario boutique', desc: 'Bandejas de madera natural, cestos de mimbre rústicos, bowls de cerámica blanca, vasitos cono para palomitas individuales, mantel de lino y atrezzo coordinado. Composición editorial fotogénica para Instagram.', img: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif' }
+];
+
+// =============== Paquetes Salados Toluca ===============
+const paquetesSalados = [
+  {
+    name: 'Toluca Salados 6',
+    icon: '🍿',
+    price: '$3,200',
+    currency: 'MXN',
+    guests: '30-50 personas',
+    tagline: 'Selección 6 snacks salados premium',
+    features: [
+      '6 snacks salados curados',
+      'Papas kettle + Palomitas mantequilla + Nachos + Pretzels + Cacahuates japoneses + Mix frutos secos',
+      'Bandejas decorativas de madera y cerámica',
+      'Mobiliario completo + servilletería',
+      'Etiquetería tipográfica básica',
+      '4 horas de servicio + reposición continua',
+      'Operador de barra incluido',
+      'Traslado zonas centrales Valle Toluca'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Salados 6',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Snacks%20Salados%20Toluca%20-%20Salados%206'
+  },
+  {
+    name: 'Toluca Salados 9',
+    icon: '⭐',
+    price: '$5,400',
+    currency: 'MXN',
+    guests: '50-100 personas',
+    tagline: 'El más solicitado en bodas Valle Toluca',
+    features: [
+      '9 snacks salados premium',
+      'Papas kettle + Papas trufa + 3 sabores palomitas (mantequilla francesa AOP, parmesano, BBQ) + Pretzels alemanes + Nachos guacamole + Cacahuates japoneses + Mix frutos secos premium',
+      'Máquina profesional palomitas en sitio',
+      'Estación nachos con guacamole hecho del día',
+      'Bandejas múltiples sobre madera + cerámica + cesto mimbre',
+      'Etiquetería tipográfica personalizada',
+      'Vasitos cono individuales palomitas',
+      '5-6 horas de servicio + reposición continua',
+      'Coordinación con wedding planner Valle Toluca',
+      'Traslado refrigerado Valle Toluca completo'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Salados 9',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Snacks%20Salados%20Toluca%20-%20Salados%209'
+  },
+  {
+    name: 'Toluca Salados 12 Atelier',
+    icon: '💎',
+    price: '$7,800',
+    currency: 'MXN',
+    guests: '100+ personas',
+    tagline: 'Carta completa 12 snacks salados premium',
+    features: [
+      '12 snacks salados D.O.P. y premium',
+      'Carta completa: Papas kettle · Papas trufa · Nachos guacamole · Palomitas (trufa, mantequilla AOP, parmesano, BBQ) · Pretzels alemanes · Cacahuates japoneses · Mix frutos secos · Chicharrones gourmet · Edamame healthy',
+      'Máquina profesional palomitas + estación nachos en sitio',
+      'Chef-asistente coordinando estaciones en vivo',
+      'Sección healthy con edamame, almendras tostadas, popped quinoa',
+      'Personalización con paleta cromática del evento',
+      'Etiquetería boutique con iniciales nupciales o logo',
+      'Foto profesional editorial de la barra',
+      '6-8 horas de servicio + 2 operadores',
+      'Protocolo hacienda 5★ con uniforme corporativo',
+      'Hand-off a wedding planner sin fricción'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Salados 12',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Snacks%20Salados%20Toluca%20-%20Salados%2012%20Atelier'
+  }
+];
+
+// =============== Proceso Toluca ===============
+const procesoToluca = [
+  { num: 1, title: 'Briefing & Diagnóstico', desc: 'Sesión por WhatsApp Toluca (55 2177 5184), Zoom o presencial en Sucursal Metepec. Definimos tipo de evento, número de invitados, balance preferido (más papas / más palomitas / equilibrado), maridaje y restricciones (sin gluten, vegano, healthy).' },
+  { num: 2, title: 'Carta Personalizada', desc: 'En menos de 24 h recibes carta personalizada con 6/9/12 snacks salados premium, propuesta de maridaje, render conceptual del montaje editorial y cotización cerrada. Iteramos hasta tu OK final.' },
+  { num: 3, title: 'Sourcing & Logística', desc: 'Apartas con anticipo 50%. Importamos productos premium con tiempo (papas kettle USA y palomitas trufa requieren 5-7 días). Pre-empacamos bandejas en Sucursal Metepec con etiquetería personalizada lista.' },
+  { num: 4, title: 'Montaje + Estaciones en Vivo', desc: 'Llegamos 60 min antes a tu venue Valle Toluca. Montaje editorial multinivel, instalación de máquina palomitas + estación nachos (en Salados 9/12), operación durante todo el evento con reposición cada 30-45 min.' }
+];
+
+// =============== Galería ===============
+const galeriaImages = [
+  { src: '/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif', alt: 'Barra snacks salados premium en Valle Toluca' },
+  { src: '/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif', alt: 'Snacks salados corporativos Parque Industrial Lerma' },
+  { src: '/img/tipos-de-mesas/snacks/renta-barra-snacks-fiestas.avif', alt: 'Renta barra snacks salados Hacienda La Magdalena Metepec' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Snacks gourmet salados corporativos premium Valle Toluca' },
+  { src: '/img/galeria/mesa-dulces-saludables-eventos.avif', alt: 'Snacks healthy edamame frutos secos Valle Toluca' },
+  { src: '/img/galeria/candy-bar-elegante-terraza-atardecer.avif', alt: 'Salados after-party boda Quinta Real Toluca' }
+];
+
+// =============== Eventos compatibles ===============
+const eventos = [
+  { title: 'Salados para Bodas Toluca', excerpt: 'Barra de snacks salados premium para after-party de boda. Palomitas trufa + papas kettle + nachos guacamole + frutos secos premium para mantener energía después del baile y pastel. Bodas Hacienda La Magdalena Metepec, Quinta Real Toluca.', img: '/img/galeria/candy-bar-boda-lujoso-cristal-flores.avif', badge: 'Favorito', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda', cta: 'Ver Bodas Toluca' },
+  { title: 'Salados Cocktail Corporativo', excerpt: 'Lanzamientos en parques industriales Lerma/Toluca/Metepec, posadas C-level y convenciones B2B. Mix curado con palomitas trufa, papas trufa, frutos secos premium y opciones healthy (edamame). Branding integrado en bandejas.', img: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', badge: 'Protocolo', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' },
+  { title: 'Salados XV Años Toluca', excerpt: 'Barra colorida de snacks salados para XV Años. Palomitas en variedades coloridas (mantequilla, BBQ, parmesano), nachos con guacamole, papas kettle. Para mantener invitados toda la noche bailando en Quinta Real Toluca.', img: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', badge: 'Popular', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos', cta: 'Ver XV Años Toluca' },
+  { title: 'Salados Cumpleaños Adulto', excerpt: 'Cumpleaños 30, 40, 50 con paleta sobria. Palomitas trufa + frutos secos premium + papas trufa + chicharrones gourmet con maridaje vino tinto o whisky. Residencias Las Marinas, San Carlos Metepec.', img: '/img/galeria/candy-bar-bodas-plata-elegante-cupcakes-plateado.avif', href: '/candy-bar-eventos', cta: 'Ver Cumpleaños' },
+  { title: 'Salados Lanzamientos Lerma', excerpt: 'Activaciones de marca en parques industriales del Valle Toluca y showrooms boutique. Branding integrado en etiquetería, paleta cromática alineada al CI corporativo. Estación palomitas en vivo como atractivo visual.', img: '/img/galeria/candy-bar-lanzamiento-producto-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Lanzamientos' },
+  { title: 'Salados Posadas Diciembre', excerpt: 'Posadas corporativas de fin de año en parques industriales Lerma/Toluca/Metepec. Snacks navideños temáticos, palomitas saborizadas, frutos secos premium. Servicio rápido y elegante para empresas Valle Toluca.', img: '/img/galeria/candy-bar-navidad-elegante-galletas-decoradas.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Posadas Toluca' }
+];
+
+// =============== Testimonios ===============
+const testimonios = [
+  { name: 'Carla y Esteban', initials: 'CE', review: 'La barra Salados 12 Atelier en nuestra boda en Hacienda La Magdalena Metepec fue perfecta para el after-party. Las palomitas trufa y las papas kettle se acabaron primero, y la máquina de palomitas en vivo fue un hit visual. 8 horas de reposición sin parar.', event: 'Boda Hacienda La Magdalena Metepec', rating: 5 },
+  { name: 'Rodrigo Espinoza', initials: 'RE', review: 'Contraté Salados 9 para el lanzamiento de marca en Parque Industrial Lerma. Las papas trufa y los frutos secos premium fueron la conversación de los directivos europeos. La sección healthy con edamame mostró que pensamos en todos los paladares.', event: 'Lanzamiento Lerma', rating: 5 },
+  { name: 'Mariana Gómez', initials: 'MG', review: 'Pedí Salados 6 para mi cumpleaños 35 en La Providencia Metepec. Combo perfecto: palomitas mantequilla + papas kettle + nachos con guacamole + frutos secos. Los invitados pidieron repetir. Profesional desde Sucursal Metepec.', event: 'Cumpleaños La Providencia Metepec', rating: 5 }
+];
+
+// =============== FAQ ===============
+const faqs = [
+  { question: '¿Qué snacks salados premium ofrecen en Valle de Toluca?', answer: 'Trabajamos con 12 snacks salados premium de 6 categorías: papas (kettle-cooked sea salt, trufa negra), palomitas saborizadas (trufa, mantequilla francesa AOP, parmesano italiano, BBQ ahumado), nachos con guacamole fresco, pretzels alemanes con sal kosher, frutos secos premium (almendras, pistaches sicilianos, mix gourmet), cacahuates japoneses, chicharrones gourmet y opciones healthy (edamame). En Salados 6 incluimos los más solicitados, en Salados 9 sumamos 3, en Salados 12 carta completa.' },
+  { question: '¿Cuánto cuesta una barra de snacks salados en Valle Toluca?', answer: 'Iniciamos en $3,200 MXN (Toluca Salados 6, 30-50 invitados, 6 snacks), $5,400 MXN (Toluca Salados 9, 50-100 invitados con máquina palomitas y estación nachos en vivo — el más solicitado para bodas), hasta $7,800 MXN (Toluca Salados 12 Atelier, 100+ invitados con carta completa, chef-asistente, sección healthy y branding personalizado). Cotización gratuita en menos de 24 h vía WhatsApp 55 2177 5184.' },
+  { question: '¿Las palomitas se hacen en sitio?', answer: 'Sí, en los paquetes Salados 9 y Salados 12 Atelier las palomitas se popean en sitio con máquina profesional retro estilo cinema. El aroma a palomitas recién hechas se vuelve parte de la experiencia sensorial del evento. Servimos en vasitos cono individuales para los invitados o en bandejas grandes con cuchara. En Salados 6 las palomitas vienen pre-hechas en bandejas.' },
+  { question: '¿Manejan opciones sin gluten o veganas?', answer: 'Sí. Las papas kettle, palomitas (sin mantequilla) y cacahuates japoneses son naturalmente sin gluten. El edamame es vegano y sin gluten. Para invitados con celiaquía coordinamos sección separada con bandejas dedicadas y protocolo anti-contaminación cruzada. Para veganos ofrecemos palomitas con aceite de oliva, papas kettle, edamame y frutos secos sin lácteos.' },
+  { question: '¿Por qué incluir snacks salados en mi evento?', answer: 'Las fiestas Valle Toluca duran 6-10 horas. Después del banquete los invitados necesitan algo "para picar" mientras siguen socializando y bailando. Los snacks salados mantienen energía sin saturar (a diferencia de dulces que hartan), evitan que invitados se vayan temprano por hambre y se vuelven punto de reunión social. ROI muy alto en duración y experiencia.' },
+  { question: '¿En qué zonas del Valle de Toluca dan servicio?', answer: 'Cubrimos todo el Valle de Toluca: Metepec (centro, Las Marinas, San Carlos, La Providencia), Toluca centro (Reforma, Sor Juana, Universidad), Zinacantepec, Lerma (centro y residenciales, parques industriales), Ocoyoacac, San Mateo Atenco, Calimaya y Tianguistenco. Operamos desde Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).' },
+  { question: '¿Cuál es la diferencia entre los 3 paquetes Salados?', answer: 'Salados 6 (esencial, 30-50 inv): 6 snacks pre-hechos, mobiliario decorativo. Salados 9 (más solicitado, 50-100 inv): 9 snacks + máquina palomitas en sitio + estación nachos guacamole en vivo + etiquetería personalizada + 5-6 horas. Salados 12 Atelier (premium, 100+ inv): carta completa 12 snacks + chef-asistente + sección healthy + branding boutique con iniciales/logo + 6-8 horas + 2 operadores + foto editorial.' },
+  { question: '¿Personalizan branding para corporativos?', answer: 'Sí. En Salados 9 y Salados 12 personalizamos etiquetería tipográfica con logo corporativo, paleta cromática alineada al CI, vasitos cono branded para palomitas, servilletería con marca y bandejas con etiqueta editorial. Ideal para lanzamientos de empresas en parques industriales Lerma, posadas C-level y convenciones B2B Valle Toluca.' },
+  { question: '¿Coordinan con wedding planner del Valle Toluca?', answer: 'Sí, en cada evento. Trabajamos frecuentemente con planners de Hacienda La Magdalena (Metepec), Quinta Real Toluca, Real de Minas, Hacienda San Antonio Lerma, Salón Riviera Metepec y Casa Club Las Marinas. Conocemos protocolos sanitarios, requerimientos de cocción en sitio (palomitas, nachos), tiempos de carga y posicionamiento óptimo de la barra según flujo del evento.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para bodas en temporada alta Valle Toluca (marzo-mayo y octubre-diciembre) recomendamos reservar 2-3 meses antes. Algunos productos premium importados (papas trufa, palomitas trufa) requieren sourcing con 5-7 días. Para eventos corporativos en parques industriales (Lerma) y cumpleaños suelen ser suficientes 3-4 semanas. Trabajamos por orden de confirmación con anticipo del 50%.' },
+  { question: '¿Cuánta cantidad calculan por invitado?', answer: 'Calculamos 150-200 g de snacks salados por invitado en Salados 6 (4 horas), 250-350 g en Salados 9 (5-6 horas) y 400-550 g en Salados 12 Atelier (6-8 horas con reposición continua). Si la barra de salados se complementa con candy bar dulce o mesa de quesos, ajustamos hacia abajo. Cero "barras vacías" en horas pico.' }
+];
+
+// =============== Image responsive widths ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados#service",
+      "name": "Snacks Gourmet Salados Premium en Valle de Toluca",
+      "serviceType": "Barra de Snacks Salados Premium para Eventos",
+      "description": "Selección curada de 12 snacks salados premium en Valle de Toluca: papas kettle-cooked sea salt, papas trufa negra, palomitas saborizadas (trufa, mantequilla francesa AOP, parmesano, BBQ), nachos con guacamole fresco, pretzels alemanes con sal kosher, cacahuates japoneses, mix de frutos secos premium, chicharrones gourmet y edamame healthy. Máquina profesional palomitas en sitio, estación nachos en vivo, operación desde Sucursal Metepec con cobertura completa Valle de Toluca.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "62", "bestRating": "5" }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": [
+          { "@type": "Place", "name": "Metepec" },
+          { "@type": "Place", "name": "Toluca" },
+          { "@type": "Place", "name": "Zinacantepec" },
+          { "@type": "Place", "name": "Lerma" },
+          { "@type": "Place", "name": "Ocoyoacac" },
+          { "@type": "Place", "name": "San Mateo Atenco" },
+          { "@type": "Place", "name": "Calimaya" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3200",
+        "highPrice": "7800",
+        "offerCount": "3",
+        "offers": paquetesSalados.map(pkg => ({
+          "@type": "Offer",
+          "name": `Snacks Salados Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Snacks", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks" },
+        { "@type": "ListItem", "position": 5, "name": "Snacks Gourmet Salados", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Snacks Gourmet Salados Valle Toluca | Papas Kettle, Palomitas Trufa, Nachos | MEDEDUL"
+  description="Barra de snacks salados premium en Valle de Toluca por MEDEDUL. 12 snacks de 6 categorías: papas kettle-cooked, palomitas trufa, palomitas mantequilla francesa AOP, nachos guacamole, pretzels alemanes, cacahuates japoneses, mix frutos secos premium, chicharrones, edamame healthy. Máquina palomitas en sitio. Sucursal Metepec. Bodas, corporativos. Desde $3,200 MXN. WhatsApp 55 2177 5184."
+  canonical="/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados"
+  ogImage="/img/tipos-de-mesas/snacks/barra-de-snacks-para-eventos.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Snacks Gourmet Salados Valle Toluca"
+    highlight="Salados"
+    subtitle="Papas, palomitas, nachos artesanales | Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p><strong>La barra de salados premium que arrasa en after-party</strong>. Selección curada de 12 snacks salados gourmet en 6 categorías especializadas: papas (kettle-cooked sea salt, trufa negra italiana), palomitas saborizadas (trufa, mantequilla francesa AOP, Parmigiano italiano, BBQ ahumado texano), nachos con guacamole fresco hecho del día, pretzels alemanes con sal kosher, cacahuates japoneses mexicanos, mix de frutos secos premium importados, chicharrones gourmet y edamame healthy.</p><p>En MEDEDUL Sucursal Toluca-Metepec elevamos la barra de salados a estándar boutique para bodas en Hacienda La Magdalena Metepec, XV en Quinta Real Toluca, baby showers en Las Marinas Metepec, cumpleaños adultos premium y eventos corporativos C-level en parques industriales Lerma/Toluca. <strong>Máquina profesional de palomitas en vivo</strong> (estilo retro cinema), <strong>estación de nachos con guacamole hecho del día</strong>, mobiliario boutique multinivel y reposición continua durante 6-8 horas. Operamos desde Blvd. Toluca-Metepec 913 con cobertura completa Valle Toluca.</p>`}
+  />
+
+  <!-- ===================== Stats ===================== -->
+  <section class="tol-ss-stats">
+    <div class="container">
+      <div class="tol-ss-stats__grid">
+        {stats.map(s => (
+          <div class="tol-ss-stat">
+            <span class="tol-ss-stat__num">{s.number}</span>
+            <span class="tol-ss-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Carta 12 Salados (DARK) ===================== -->
+  <section class="tol-ss-carta">
+    <div class="container">
+      <div class="tol-ss-carta__header">
+        <span class="tol-ss-carta__badge">Carta del Chef de Barras</span>
+        <h2>Los <span>12 Snacks Salados Premium</span> de la Casa</h2>
+        <p>Cada snack con su categoría, origen, perfil de sabor y maridaje sugerido. La carta completa que servimos en eventos del Valle de Toluca.</p>
+      </div>
+
+      <div class="tol-ss-carta__grid">
+        {cartaSalados.map((s, i) => (
+          <article class="tol-ss-snack-card">
+            <header class="tol-ss-snack-card__head">
+              <span class="tol-ss-snack-card__num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="tol-ss-snack-card__title">
+                <h3>{s.nombre}</h3>
+                <p class="tol-ss-snack-card__cat">{s.categoria} · {s.origen}</p>
+              </div>
+            </header>
+
+            <p class="tol-ss-snack-card__desc">{s.descripcion}</p>
+
+            <dl class="tol-ss-snack-card__specs">
+              <div><dt>Porte</dt><dd>{s.porte}</dd></div>
+              <div><dt>Perfil</dt><dd>{s.perfil}</dd></div>
+              <div><dt>Maridaje</dt><dd>{s.maridaje}</dd></div>
+            </dl>
+
+            <footer class="tol-ss-snack-card__foot">
+              <span class="tol-ss-snack-card__intensidad-lbl">Intensidad</span>
+              <span class="tol-ss-snack-card__dots">
+                {[1,2,3,4,5].map(n => (
+                  <span class={`tol-ss-dot ${n <= s.intensidad ? 'tol-ss-dot--active' : ''}`}></span>
+                ))}
+              </span>
+            </footer>
+          </article>
+        ))}
+      </div>
+
+      <div class="tol-ss-carta__cta">
+        <p>¿Quieres carta personalizada con esta selección para tu evento? <strong>Cotizamos en menos de 24 horas</strong>.</p>
+        <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Snacks%20Salados%20Premium%20Valle%20Toluca" target="_blank" rel="noopener" class="tol-ss-btn tol-ss-btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Cotizar Salados Toluca
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-ss-toluca"
+    badge="Paquetes Salados Toluca"
+    title="Elige tu"
+    titleHighlight="Salados Toluca"
+    subtitle="3 niveles claros: 6, 9 o 12 snacks salados premium"
+    content={`<p>Diseñamos <strong>tres niveles de paquete Toluca</strong> según el tamaño y duración de tu evento. Todos incluyen mobiliario boutique, etiquetería personalizada, operador profesional y reposición continua. Lo que escala es la <strong>cantidad de snacks, presencia de máquinas en vivo (palomitas, nachos) y duración del servicio</strong>. Anticipo del 50% para reservar fecha.</p>`}
+    packages={paquetesSalados}
+    note="💡 <strong>Todos los paquetes Toluca incluyen:</strong> snacks salados premium, mobiliario boutique multinivel (madera, mimbre, cerámica), bandejas decorativas + bowls, etiquetería tipográfica, operador profesional con reposición continua cada 30-45 min, transporte desde Sucursal Metepec, atención a dietas especiales (sin gluten, vegano, healthy), desmontaje discreto al cierre."
+  />
+
+  <!-- ===================== Maridajes ===================== -->
+  <section class="tol-ss-maridajes">
+    <div class="container">
+      <div class="tol-ss-maridajes__header">
+        <span class="tol-ss-maridajes__badge">Pairings & Bebidas</span>
+        <h2>Maridajes <span>Recomendados</span></h2>
+        <p>Cada snack salado tiene su pareja perfecta. Sugerencias del sommelier de barras: cervezas artesanales, vinos boutique, mezcal mexicano y opciones para corporativos.</p>
+      </div>
+      <div class="tol-ss-maridajes__grid">
+        {maridajes.map(m => (
+          <div class="tol-ss-maridaje-card">
+            <span class="tol-ss-maridaje-card__icon">{m.icon}</span>
+            <h3>{m.bebida}</h3>
+            <p>{m.detalle}</p>
+            <span class="tol-ss-maridaje-card__snacks">{m.snacks}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-ss-toluca"
+    badge="Diferenciadores Sucursal Toluca"
+    title="Por qué elegir nuestros Snacks Salados en"
+    titleHighlight="Valle de Toluca"
+    descriptions={[
+      "Con <strong>60+ barras de snacks salados montadas en Valle Toluca</strong> y 8 años de experiencia MEDEDUL en eventos largos (bodas, XV, corporativos), somos la opción de referencia cuando lo que necesitas es <strong>snacks salados premium con máquinas en vivo, papas kettle y palomitas trufa de calidad boutique</strong>.",
+      "Cada barra parte del mismo estándar: importación premium con trazabilidad, máquina palomitas profesional en sitio (Salados 9/12), estación nachos con guacamole hecho del día, mobiliario boutique multinivel, etiquetería personalizada y reposición continua. Lo que cambia es la <strong>cantidad de variedades y presencia de chef-asistente</strong>, no la calidad."
+    ]}
+    stats={[
+      { number: "12+", label: "Snacks salados premium" },
+      { number: "6", label: "Categorías especializadas" },
+      { number: "100%", label: "Reposición continua" },
+      { number: "< 24h", label: "Cotización" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="tol-ss-galeria" id="galeria-ss-toluca">
+    <div class="container">
+      <SectionHeader title="Snacks Salados reales en eventos" titleHighlight="Valle de Toluca" subtitle="Selección curada de barras MEDEDUL en bodas, corporativos y celebraciones del Valle" />
+      <div class="tol-ss-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="tol-ss-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps id="proceso-ss-toluca" badge="Cómo trabajamos" title="4 fases para tu" titleHighlight="Barra de Salados Premium" subtitle="Proceso claro con curaduría especializada y máquinas en vivo" steps={procesoToluca} />
+
+  <!-- ===================== Eventos compatibles ===================== -->
+  <EventsGrid badge="Versatilidad Total" title="Tus Snacks Salados Valle Toluca para" titleHighlight="Cualquier Ocasión" subtitle="Diseñamos barras de salados premium para cada tipo de celebración en Valle de Toluca. Desde boda after-party en Hacienda La Magdalena Metepec con palomitas trufa, hasta cocktail corporativo en Parque Industrial Lerma con frutos secos premium." events={eventos} />
+
+  <!-- ===================== Subsecciones hermanas ===================== -->
+  <section class="tol-ss-hermanas">
+    <div class="container">
+      <SectionHeader
+        title="Otras Subsecciones de"
+        titleHighlight="Mesa de Snacks Toluca"
+        subtitle="Si prefieres mix dulce-salado, barra infantil sin alergenos, o quieres la vista completa del hub L4"
+      />
+      <div class="tol-ss-hermanas__grid">
+        {subsecciones.map(sub => (
+          <ServiceCard href={sub.href} image={sub.img} alt={`${sub.title} en Valle Toluca por MEDEDUL`} title={sub.title} excerpt={sub.excerpt} badge={sub.badge} cta={sub.cta} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="tol-ss-testimonios">
+    <div class="container">
+      <SectionHeader title="Lo que dicen clientes de" titleHighlight="Snacks Salados Valle Toluca" subtitle="Bodas, corporativos y celebraciones reales montadas por MEDEDUL en Valle de Toluca" />
+      <div class="tol-ss-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard name={t.name} initials={t.initials} review={t.review} event={t.event} rating={t.rating} verified={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20Snacks%20Salados" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Snacks Gourmet Salados L5 - Sucursal Toluca-Metepec
+     Prefix: tol-ss-
+     Acento naranja-ámbar (#e8851a) + amarillo dorado popcorn (#f5b800)
+     ========================================================== */
+
+  /* Stats */
+  .tol-ss-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #fffaf0 100%); }
+  .tol-ss-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .tol-ss-stat { display: flex; flex-direction: column; gap: 6px; padding: 20px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(232, 133, 26, 0.15); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .tol-ss-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #e8851a; line-height: 1; }
+  .tol-ss-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  /* Buttons */
+  .tol-ss-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .tol-ss-btn--primary { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
+
+  /* Carta 12 snacks (DARK) */
+  .tol-ss-carta { padding: 100px 0; background: linear-gradient(180deg, #1c1410 0%, #2a1f0e 100%); color: #fff; position: relative; overflow: hidden; }
+  .tol-ss-carta::before { content: ''; position: absolute; top: -20%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(245, 184, 0, 0.18) 0%, transparent 70%); pointer-events: none; }
+  .tol-ss-carta__header { text-align: center; max-width: 760px; margin: 0 auto 60px; position: relative; z-index: 1; }
+  .tol-ss-carta__badge { display: inline-block; background: linear-gradient(135deg, #f5b800 0%, #e8851a 100%); color: #1c1410; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+  .tol-ss-carta__header h2 { font-size: 2.4rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+  .tol-ss-carta__header h2 span { color: #f5b800; font-style: italic; }
+  .tol-ss-carta__header p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.75); line-height: 1.7; }
+
+  .tol-ss-carta__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .tol-ss-snack-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(245, 184, 0, 0.22); border-radius: 16px; padding: 28px 24px; backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 14px; }
+  .tol-ss-snack-card__head { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(245, 184, 0, 0.18); }
+  .tol-ss-snack-card__num { font-size: 1.4rem; color: rgba(245, 184, 0, 0.5); font-weight: 800; line-height: 1.2; font-family: 'Poppins', sans-serif; }
+  .tol-ss-snack-card__title { flex: 1; }
+  .tol-ss-snack-card__title h3 { font-size: 1.1rem; color: #f5b800; margin: 0 0 4px; font-weight: 700; line-height: 1.3; }
+  .tol-ss-snack-card__cat { font-size: 0.74rem; color: rgba(255, 255, 255, 0.55); margin: 0; text-transform: uppercase; letter-spacing: 0.6px; }
+  .tol-ss-snack-card__desc { font-size: 0.86rem; color: rgba(255, 255, 255, 0.78); line-height: 1.65; margin: 0; }
+  .tol-ss-snack-card__specs { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 0; }
+  .tol-ss-snack-card__specs > div { display: grid; grid-template-columns: 80px 1fr; gap: 8px; font-size: 0.78rem; }
+  .tol-ss-snack-card__specs dt { color: #f5b800; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; margin: 0; }
+  .tol-ss-snack-card__specs dd { color: rgba(255, 255, 255, 0.78); margin: 0; }
+  .tol-ss-snack-card__foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(245, 184, 0, 0.18); margin-top: auto; }
+  .tol-ss-snack-card__intensidad-lbl { font-size: 0.72rem; color: rgba(255, 255, 255, 0.55); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .tol-ss-snack-card__dots { display: flex; gap: 5px; }
+  .tol-ss-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(245, 184, 0, 0.2); }
+  .tol-ss-dot--active { background: #f5b800; }
+
+  .tol-ss-carta__cta { text-align: center; margin-top: 60px; padding: 32px; background: rgba(245, 184, 0, 0.08); border-radius: 20px; border: 1px dashed rgba(245, 184, 0, 0.4); position: relative; z-index: 1; }
+  .tol-ss-carta__cta p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.85); margin: 0 0 18px; }
+  .tol-ss-carta__cta strong { color: #f5b800; }
+
+  /* Maridajes */
+  .tol-ss-maridajes { padding: 90px 0; background: #fff; }
+  .tol-ss-maridajes__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .tol-ss-maridajes__badge { display: inline-block; background: linear-gradient(135deg, #e8851a 0%, #f5b800 100%); color: #1c1410; padding: 8px 22px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .tol-ss-maridajes__header h2 { font-size: 2.1rem; color: #1a1a1a; margin-bottom: 12px; }
+  .tol-ss-maridajes__header h2 span { color: #e8851a; font-style: italic; }
+  .tol-ss-maridajes__header p { font-size: 1.05rem; color: #666; line-height: 1.7; }
+  .tol-ss-maridajes__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tol-ss-maridaje-card { background: linear-gradient(180deg, #fffaf0 0%, #fff 100%); border: 1px solid rgba(232, 133, 26, 0.2); border-radius: 20px; padding: 30px 24px; text-align: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05); }
+  .tol-ss-maridaje-card__icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
+  .tol-ss-maridaje-card h3 { font-size: 1.1rem; color: #1a1a1a; margin: 0 0 12px; font-weight: 700; }
+  .tol-ss-maridaje-card p { font-size: 0.88rem; color: #666; line-height: 1.7; margin: 0 0 16px; }
+  .tol-ss-maridaje-card__snacks { display: inline-block; font-size: 0.74rem; color: #e8851a; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-top: 1px solid rgba(232, 133, 26, 0.3); padding-top: 12px; }
+
+  /* Galería bento */
+  .tol-ss-galeria { padding: 90px 0; background: linear-gradient(180deg, #fffaf0 0%, #fff 100%); }
+  .tol-ss-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .tol-ss-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .tol-ss-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tol-ss-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .tol-ss-galeria__item:nth-child(5), .tol-ss-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  /* Hermanas */
+  .tol-ss-hermanas { padding: 90px 0; background: linear-gradient(180deg, #fffaf0 0%, #fff 100%); }
+  .tol-ss-hermanas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+
+  /* Testimonios */
+  .tol-ss-testimonios { padding: 90px 0; background: #fff; }
+  .tol-ss-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  /* Sucursal Info Card */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .tol-ss-stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-ss-carta__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-ss-maridajes__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-ss-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .tol-ss-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .tol-ss-galeria__item:nth-child(5), .tol-ss-galeria__item:nth-child(6) { grid-column: span 1; }
+    .tol-ss-hermanas__grid { grid-template-columns: 1fr; }
+    .tol-ss-testimonios__grid { grid-template-columns: repeat(2, 1fr); }
+    .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tol-ss-stats { padding: 40px 0; }
+    .tol-ss-stat__num { font-size: 1.6rem; }
+    .tol-ss-carta, .tol-ss-maridajes, .tol-ss-galeria, .tol-ss-hermanas, .tol-ss-testimonios { padding: 60px 0; }
+    .tol-ss-carta__grid { grid-template-columns: 1fr; }
+    .tol-ss-carta__header h2 { font-size: 1.7rem; }
+    .tol-ss-maridajes__grid { grid-template-columns: 1fr; }
+    .tol-ss-maridajes__header h2 { font-size: 1.6rem; }
+    .tol-ss-testimonios__grid { grid-template-columns: 1fr; }
+    .tol-suc-info { padding: 60px 0; }
+    .tol-suc-info__card { padding: 36px 26px; }
+    .tol-suc-info__header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tol-ss-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .tol-ss-stat { padding: 16px 10px; }
+    .tol-ss-stat__num { font-size: 1.4rem; }
+    .tol-ss-stat__label { font-size: 0.78rem; }
+    .tol-ss-snack-card { padding: 22px 18px; }
+    .tol-ss-snack-card__title h3 { font-size: 1rem; }
+    .tol-ss-carta__cta { padding: 24px 18px; }
+    .tol-ss-carta__cta p { font-size: 0.95rem; }
+    .tol-suc-info__grid { grid-template-columns: 1fr; }
+  }
+</style>

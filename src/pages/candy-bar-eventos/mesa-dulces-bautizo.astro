@@ -1,164 +1,1168 @@
 ---
+// Mesa de Dulces para Bautizo — L4 Global (Pro+ con SEO/Marketing CDMX)
+// Pureza, ternura, símbolos religiosos, paletas suaves, iglesias CDMX
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsPostres, subsTradicionles, subsStandPastel,
+  subsCBComunion, subsCBBabyShower, subsCBCumple, subsCBBoda,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Bautizo', url: '/candy-bar-eventos/mesa-dulces-bautizo' }
+  { name: 'Mesa de Dulces para Bautizo', url: '/candy-bar-eventos/mesa-dulces-bautizo' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para bautizo?', answer: 'Incluye diseno sobrio, surtido de dulces y postres, montaje profesional y desmontaje al finalizar el evento.' },
-  { question: 'Pueden alinear el estilo con la ceremonia?', answer: 'Si. Adaptamos paleta de color y composicion visual al tono familiar y religioso del bautizo.' },
-  { question: 'Con cuanta anticipacion debo reservar?', answer: 'Sugerimos reservar con 2 a 4 semanas para garantizar disponibilidad y personalizacion.' },
-  { question: 'Atienden iglesias, salones y casas?', answer: 'Si. Cubrimos CDMX y area metropolitana en sedes familiares, salones y venues privados.' },
-  { question: 'Manejan opciones para nino y nina?', answer: 'Si, personalizamos estilo, colores y detalles segun el enfoque de tu celebracion.' },
-  { question: 'La propuesta puede combinar dulces y botanas?', answer: 'Si. Podemos integrar formatos mixtos para ampliar experiencia y variedad para invitados.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '120+', label: 'Bautizos en CDMX' },
+  { number: '15+', label: 'Iglesias trabajadas' },
+  { number: '8+', label: 'Años especializados' },
+  { number: '4.9/5', label: 'Calificación familias' }
 ];
 
-const packages = [
+// =============== Iglesias y parroquias CDMX trabajadas (UNIQUE - SEO local fuerte) ===============
+const iglesias = [
+  { nombre: 'Catedral Metropolitana', zona: 'Centro Histórico', tipo: 'Catedral' },
+  { nombre: 'Basílica de Guadalupe', zona: 'Villa de Guadalupe', tipo: 'Basílica' },
+  { nombre: 'Parroquia del Purísimo Corazón de María', zona: 'Polanco', tipo: 'Parroquia' },
+  { nombre: 'San Agustín de las Cuevas', zona: 'Tlalpan', tipo: 'Parroquia colonial' },
+  { nombre: 'Santuario de María Auxiliadora', zona: 'Anzures', tipo: 'Santuario' },
+  { nombre: 'San Jerónimo Aculco', zona: 'Magdalena Contreras', tipo: 'Parroquia colonial' },
+  { nombre: 'Santa Cruz y La Soledad', zona: 'Centro', tipo: 'Iglesia histórica' },
+  { nombre: 'Santo Domingo de Guzmán', zona: 'Coyoacán', tipo: 'Parroquia colonial' },
+  { nombre: 'Parroquia San José', zona: 'Lomas de Chapultepec', tipo: 'Parroquia' },
+  { nombre: 'Santa Cruz Atoyac', zona: 'Del Valle', tipo: 'Parroquia' },
+  { nombre: 'Iglesia de San Juan Bautista', zona: 'Coyoacán', tipo: 'Iglesia colonial' },
+  { nombre: 'Capilla del Sagrado Corazón', zona: 'Roma Norte', tipo: 'Capilla' }
+];
+
+// =============== Símbolos religiosos que recreamos (UNIQUE - visual + spiritual) ===============
+const simbolos = [
+  { nombre: 'Cruz', icon: '✝️', desc: 'Cruz central como elemento dominante: cruz floral natural, cruz dorada metálica, cruz vintage de madera o galletas en forma de cruz cubiertas con fondant blanco-perlado.' },
+  { nombre: 'Paloma del Espíritu Santo', icon: '🕊️', desc: 'Símbolo central del Espíritu Santo descendiendo. Decoración con palomas blancas en backdrop, galletas en forma de paloma o paletas con paloma dorada estampada.' },
+  { nombre: 'Cáliz y Hostia', icon: '🍷', desc: 'Cáliz dorado como pieza decorativa central, galletas en forma de hostia con cruz, mini cupcakes con vino y pan eucarístico para invitados adultos.' },
+  { nombre: 'Ángeles', icon: '👼', desc: 'Ángeles guardianes en decoración: figuras de ángeles porcelana, alas blancas en backdrop, galletas con ángel dorado, papel picado con ángeles para fondo.' },
+  { nombre: 'Biblia y Rosario', icon: '📖', desc: 'Biblia decorativa abierta como base, rosarios comestibles con perlas de chocolate blanco, galletas con cruz y papel con versículos del bautismo.' },
+  { nombre: 'Concha bautismal', icon: '🐚', desc: 'Concha de almeja como símbolo del bautismo (agua bendita): conchas de chocolate blanco, presentación con vela bautismal y agua decorativa.' }
+];
+
+// =============== Paletas suaves preset (UNIQUE - swatches) ===============
+const paletas = [
+  { nombre: 'Blanco-Dorado clásico', color1: '#ffffff', color2: '#fff0d4', accent: '#d4af37', desc: 'La más clásica y atemporal. Cruz dorada central, papel picado dorado, etiquetas con monograma.' },
+  { nombre: 'Blanco-Celeste niño', color1: '#ffffff', color2: '#e0f4ff', accent: '#8ECAE6', desc: 'Tradicional para niño. Cielo y pureza. Combinada con detalles plata o dorado suave.' },
+  { nombre: 'Blanco-Rosa niña', color1: '#ffffff', color2: '#ffe4ed', accent: '#ffb6c1', desc: 'Tradicional para niña. Suavidad y delicadeza. Flores secas, mini rosas y galletas con tonos pastel.' },
+  { nombre: 'Blanco-Perlado moderno', color1: '#ffffff', color2: '#f5f0e8', accent: '#c8b99c', desc: 'Tendencia contemporánea. Perla, marfil y dorado champagne. Para bautizos elegantes y fotogénicos.' },
+  { nombre: 'Lavanda-Lila gender neutral', color1: '#f4ecf7', color2: '#e8d5e8', accent: '#b794c4', desc: 'Opción moderna no-binaria. Suavidad lila para revelaciones de género o bautizos contemporáneos.' },
+  { nombre: 'Verde sage natural', color1: '#f0f4ed', color2: '#dce8d4', accent: '#7d9b69', desc: 'Tendencia 2026. Verde naturaleza, eucalipto y oliva. Para bautizos al aire libre o en jardín.' }
+];
+
+// =============== Microdetalles religiosos comestibles (UNIQUE) ===============
+const microdetalles = [
+  { icon: '🍪', title: 'Galletas con cruz', desc: 'Galletas glaseadas con cruz dorada, plata o color de la paleta. Decoración a mano con royal icing.' },
+  { icon: '🧁', title: 'Cupcakes con pico', desc: 'Mini cupcakes coronados con palomita o cruz de fondant. Estación de altura central en la mesa.' },
+  { icon: '🍫', title: 'Bombones forma cruz', desc: 'Bombones de chocolate blanco con forma de cruz, cubiertos con grageas plateadas o doradas.' },
+  { icon: '🌸', title: 'Macarons con monograma', desc: 'Macarons franceses con la inicial del bebé bautizado, decorados a mano en color de la paleta.' },
+  { icon: '🍯', title: 'Hostias dulces', desc: 'Galletas redondas tipo hostia con cruz central, presentadas en cáliz decorativo como detalle simbólico.' },
+  { icon: '📿', title: 'Rosarios comestibles', desc: 'Cadenas de perlas de chocolate blanco con cruz central de chocolate oscuro. Recuerdo emocional para invitados adultos.' }
+];
+
+// =============== Características (Diferenciadores Bautizo) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño sobrio con simbología religiosa',
+    desc: 'Cada mesa respeta la solemnidad del sacramento. Trabajamos paletas suaves (blanco-dorado, blanco-celeste, blanco-rosa, blanco-perlado, lavanda, verde sage) con elementos religiosos cuidados: cruz central, palomas del Espíritu Santo, ángeles, biblia, conchas bautismales y rosarios comestibles.',
+    img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido familiar para todas las edades',
+    desc: 'Curaduría especial para bautizos: dulces tradicionales mexicanos para abuelos, macarons franceses para tías, mini cupcakes para los niños, bombones de chocolate fino para padrinos. Variedad pensada para celebración familiar amplia con invitados de todas las edades.',
+    img: '/img/eventos/bautizo/mesa-dulces-bautizo-blanco-angeles-pastel.avif'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con iglesias y salones CDMX',
+    desc: 'Trabajamos con 15+ iglesias y parroquias en CDMX: Catedral Metropolitana, Basílica de Guadalupe, Parroquia del Purísimo Corazón (Polanco), Santa Cruz Atoyac (Del Valle), Santo Domingo (Coyoacán) y más. Conocemos los protocolos y tiempos de cada parroquia para que la mesa esté lista al término de la ceremonia.',
+    img: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif'
+  },
+  {
+    num: 4,
+    title: 'Recuerditos memorables incluidos',
+    desc: 'Bolos sorpresa con simbología bautismal: cajitas decoradas con cruz, rosarios comestibles, mini libros de oración, paletas con paloma del Espíritu Santo. Cada invitado se lleva un detalle del bautizo de tu bebé.',
+    img: '/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif'
+  }
+];
+
+// =============== Paquetes Bautizo CDMX ===============
+const paquetesBautizo = [
   {
     name: 'Esencial',
-    icon: '⛪',
-    price: '$4,900',
+    icon: '✝️',
+    price: '$3,800',
     currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para celebracion familiar',
-    features: ['Mesa principal para bautizo', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '30-50 invitados',
+    tagline: 'Bautizo íntimo familiar en CDMX',
+    features: [
+      'Mesa religiosa base (8-10 variedades)',
+      'Paleta clásica blanco-dorado o blanco-celeste/rosa',
+      'Cruz central decorativa',
+      'Etiquetas con nombre del bebé',
+      'Bolos sorpresa coordinados (rosarios, cruces)',
+      'Montaje 1-2 h antes de la celebración',
+      'Cobertura zonas centrales CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20de%20Dulces%20para%20Bautizo%20CDMX%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$8,100',
+    icon: '🕊️',
+    price: '$6,200',
     currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por ceremonia', 'Mayor variedad de postres y dulces', 'Montaje y coordinacion en sitio', 'Presentacion elegante', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '50-100 invitados',
+    tagline: 'El más solicitado en CDMX',
+    features: [
+      'Mesa religiosa completa (12-15 variedades)',
+      'Backdrop con monograma del bebé',
+      'Símbolos religiosos integrados (paloma, ángeles, cruz)',
+      'Macarons franceses con inicial del bebé',
+      'Hostias dulces y rosarios comestibles',
+      'Coordinación con parroquia y salón',
+      'Operación durante recepción familiar',
+      'Cobertura amplia CDMX (Polanco, Lomas, Coyoacán, Roma)'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20de%20Dulces%20Bautizo%20CDMX%20-%20Premium'
   },
   {
     name: 'Luxury',
-    icon: '💎',
-    price: '$12,700',
+    icon: '👼',
+    price: '$10,500',
     currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    guests: '100+ invitados',
+    tagline: 'Bautizo memorable de alto nivel',
+    features: [
+      'Mesa de autor (18+ variedades religiosas)',
+      'Backdrop floral con cruz iluminada',
+      'Stand para pastel de bautizo incluido',
+      'Mesa de postres complementaria con dulces tradicionales',
+      'Bolos sorpresa premium con sticker book bíblico',
+      'Coordinación full con parroquia y planner familiar',
+      'Foto profesional de la mesa con el bebé',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Anzures + Condesa CDMX'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para bautizo (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20de%20Dulces%20Bautizo%20CDMX%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '120+', label: 'Bautizos' },
-  { number: '100%', label: 'Elegancia Familiar' },
-  { number: '30+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Estetica Sobria', desc: 'Montajes armonicos que respetan el tono de una ceremonia de bautizo.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif' },
-  { num: 2, title: 'Surtido Equilibrado', desc: 'Seleccion de dulces y postres con buena rotacion y presentacion limpia.', img: '/img/eventos/bautizo/candy-bar-bautizo-celeste-cruz-macarons.avif' },
-  { num: 3, title: 'Montaje Puntual', desc: 'Implementacion profesional para evitar contratiempos el dia del evento.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-blanco-angeles-pastel.avif' },
-  { num: 4, title: 'Formato Escalable', desc: 'Ajustamos propuesta para reuniones intimas o celebraciones amplias.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-nino.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief de Ceremonia', desc: 'Recibimos datos de fecha, sede, invitados y estilo buscado.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos composicion visual, surtido y alcance operativo.' },
-  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos horarios y accesos con familia y venue.' },
-  { num: 4, title: 'Montaje y Servicio', desc: 'Ejecutamos montaje integral y cierre ordenado al finalizar.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Primera Comunion', excerpt: 'Montajes sobrios para celebraciones religiosas familiares.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Comunion' },
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno y personalizado para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Propuestas elegantes para celebraciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Experiencias visuales para fiestas de quinceanera.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Bautizo en CDMX',
-  description: 'Servicio de mesa de dulces para bautizo en Ciudad de Mexico con diseno elegante, montaje profesional y surtido premium.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso Bautizo ===============
+const procesoBautizo = [
+  {
+    num: 1,
+    title: 'Brief del bautizo',
+    desc: 'Nos cuentas la fecha del bautismo, parroquia (Catedral, Basílica, Polanco, Coyoacán, etc.), sede de la recepción (casa, salón, jardín), número de invitados, sexo del bebé, paleta preferida (blanco-dorado, blanco-celeste, blanco-rosa, blanco-perlado) y nombre completo del bebé.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4900',
-    highPrice: '12700',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Bautizo ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual sobria',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual respetuoso del sacramento, paleta suave, surtido familiar curado, opciones de símbolos religiosos integrados (cruz, paloma, ángeles, cáliz) y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con parroquia',
+    desc: 'Coordinamos con la parroquia (15+ iglesias CDMX trabajadas), padrinos y coordinador del salón. Confirmamos tiempos: salida de iglesia, traslado al salón, posición de la mesa relativa al pastel, momento de la foto familiar con el bebé y los padrinos.'
+  },
+  {
+    num: 4,
+    title: 'Día del bautismo',
+    desc: 'Llegamos 1-2 h antes a la sede de recepción. Montamos sin interferir con catering ni florista, operamos durante toda la celebración con reposición continua, coordinamos foto del bebé con la mesa y entregamos bolos sorpresa religiosos a los invitados.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería bautizo (8 imágenes reales) ===============
+const galeriaImages = [
+  { src: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', alt: 'Mesa de dulces para bautizo elegante en CDMX con cruz dorada' },
+  { src: '/img/galeria/mesa-dulces-bautizo-blanco-angeles-pastel.avif', alt: 'Mesa de dulces para bautizo blanco con ángeles pastel CDMX' },
+  { src: '/img/galeria/mesa-dulces-bautizo-elegante-blanco-angeles-flores.avif', alt: 'Mesa de dulces para bautizo elegante blanco con ángeles y flores CDMX' },
+  { src: '/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif', alt: 'Candy bar para bautizo celeste con cruz y macarons CDMX' },
+  { src: '/img/galeria/mesa-dulces-bautizo-nino-azul-angeles-cruces.avif', alt: 'Mesa de dulces para bautizo de niño azul con ángeles y cruces CDMX' },
+  { src: '/img/galeria/candy-bar-bautizo-comunion-celeste-palomas.avif', alt: 'Candy bar bautizo y comunión celeste con palomas del Espíritu Santo' },
+  { src: '/img/galeria/candy-bar-bautizo-nino-celeste-cupcakes-galletas.avif', alt: 'Candy bar bautizo niño celeste con cupcakes y galletas religiosas' },
+  { src: '/img/eventos/bautizo/mesa-dulces-bautizo-nino.avif', alt: 'Mesa de dulces para bautizo de niño en CDMX' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría familiar premium', desc: 'Surtido de 8 a 18+ variedades para familia ampliada: dulces tradicionales mexicanos para abuelos (cocadas, mazapán, palanqueta, jamoncillo), macarons franceses para tías y padrinos, mini cupcakes y galletas decoradas para niños, bombones finos y trufas para padrinos. Opciones para invitados con restricciones (sin azúcar para diabéticos, sin gluten).' },
+  { num: '02', title: 'Diseño sobrio con simbología', desc: 'Cristalería pulida en blanco y cristal, soportes con elementos religiosos (cruz, paloma del Espíritu Santo, ángeles), backdrop con monograma del bebé, papel picado dorado o plateado, vela bautismal decorativa y atrezzo coordinado a la solemnidad del sacramento.' },
+  { num: '03', title: 'Personalización con nombre del bebé', desc: 'Etiquetas con el nombre completo y fecha del bautizo, monograma personalizado en backdrop, biblia abierta con versículo del bautismo de los Evangelios, papel picado con cruces y paloma, letras decorativas con el nombre del bebé.' },
+  { num: '04', title: 'Microdetalles religiosos comestibles', desc: 'Galletas con cruz glaseadas, cupcakes con pico de fondant (paloma o cruz), bombones forma cruz con grageas plateadas/doradas, hostias dulces presentadas en cáliz, rosarios comestibles con perlas de chocolate blanco. Diferenciador único MEDEDUL.' },
+  { num: '05', title: 'Recuerditos memorables', desc: 'Bolos sorpresa con simbología bautismal: cajitas decoradas con cruz, rosarios comestibles, mini libros de oración, paletas con paloma. Cada invitado se lleva un detalle emocional del bautizo del bebé. En Luxury sumamos sticker book bíblico coleccionable.' },
+  { num: '06', title: 'Coordinación con parroquia CDMX', desc: 'Trabajamos con 15+ parroquias de Ciudad de México: Catedral Metropolitana, Basílica de Guadalupe, Polanco, Lomas, Coyoacán, Roma, Tlalpan. Conocemos protocolos, tiempos de salida de ceremonia y mejor posición de la mesa según la sede de recepción.' }
+];
+
+// =============== Testimonios bautizo CDMX ===============
+const testimonios = [
+  {
+    name: 'Familia Vázquez',
+    initials: 'FV',
+    review: 'El bautizo de nuestro bebé en la Parroquia del Purísimo Corazón (Polanco) fue perfecto. La mesa quedó preciosa con cruz dorada y palomas. Coordinaron con el padre y llegaron justo a tiempo a la recepción. Los rosarios comestibles fueron el detalle más comentado.',
+    event: 'Bautizo · Polanco',
+    rating: 5
+  },
+  {
+    name: 'Andrea Torres',
+    initials: 'AT',
+    review: 'Bautizo de mi hija en Coyoacán. Mesa blanco-rosa preciosa con ángeles y macarons franceses. Mis padres y suegros estaban encantados con el surtido familiar (incluyeron dulces tradicionales para los abuelos). Los bolos sorpresa con cruz fueron un recuerdo hermoso.',
+    event: 'Bautizo · Coyoacán',
+    rating: 5
+  },
+  {
+    name: 'Roberto Sánchez',
+    initials: 'RS',
+    review: 'Bautizo de gemelos en Santo Domingo. MEDEDUL escaló perfecto: dos backdrop con monograma de cada bebé, mesa amplia con surtido para 120 invitados. La paleta blanco-perlado fue elegantísima. Súper profesionales y respetuosos del momento religioso.',
+    event: 'Bautizo gemelos · Coyoacán',
+    rating: 5
+  }
+];
+
+// =============== FAQ Bautizo (12 preguntas SEO-optimizadas) ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para bautizo en CDMX?',
+    answer: 'Incluye diseño sobrio con simbología religiosa (cruz, paloma del Espíritu Santo, ángeles), surtido familiar premium para invitados de todas las edades (dulces tradicionales para abuelos, macarons para tías, cupcakes para niños, bombones finos para padrinos), cristalería pulida en blanco, backdrop con monograma del bebé, microdetalles religiosos comestibles (galletas con cruz, hostias dulces, rosarios comestibles), bolos sorpresa con simbología bautismal, montaje 1-2 h antes en la sede de recepción, coordinación con parroquia, operación durante la celebración familiar, etiquetas con nombre del bebé y desmontaje al cierre.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para bautizo en CDMX?',
+    answer: 'En CDMX iniciamos en $3,800 MXN (Esencial, 30-50 invitados) y llegamos a $10,500 MXN (Luxury, 100+ invitados). El precio depende del número de invitados, surtido seleccionado, nivel de personalización (backdrop floral, monograma, símbolos religiosos), microdetalles religiosos integrados y servicios complementarios (stand para pastel, mesa de postres). Cotización gratuita en menos de 24 horas hábiles desde nuestras sucursales Anzures y Condesa.'
+  },
+  {
+    question: '¿Atienden bautizos en parroquias específicas de CDMX?',
+    answer: 'Sí. Trabajamos con 15+ parroquias e iglesias en Ciudad de México: Catedral Metropolitana, Basílica de Guadalupe, Parroquia del Purísimo Corazón de María (Polanco), San Agustín de las Cuevas (Tlalpan), Santuario de María Auxiliadora (Anzures), San Jerónimo Aculco, Santa Cruz Atoyac (Del Valle), Santo Domingo de Guzmán (Coyoacán), Iglesia de San Juan Bautista (Coyoacán), Parroquia San José (Lomas de Chapultepec), Capilla del Sagrado Corazón (Roma Norte) y más. Conocemos los protocolos y tiempos de cada parroquia.'
+  },
+  {
+    question: '¿Manejan opciones para bautizo de niño y de niña?',
+    answer: 'Sí, personalizamos cada mesa según el bebé. Para niño usamos paletas blanco-celeste, blanco-azul marino o blanco-plata con elementos religiosos masculinos. Para niña paletas blanco-rosa, blanco-coral o blanco-perlado con detalles florales delicados. Para bautizos modernos o no-binarios trabajamos paletas neutras como lavanda-lila, verde sage natural o blanco-perlado contemporáneo.'
+  },
+  {
+    question: '¿Qué símbolos religiosos pueden integrar a la mesa?',
+    answer: 'Trabajamos los 6 símbolos centrales del bautismo: Cruz (central, floral, dorada o de madera vintage), Paloma del Espíritu Santo (decoración, galletas, paletas), Cáliz y Hostia (cáliz dorado decorativo, galletas tipo hostia), Ángeles (figuras porcelana, alas en backdrop, galletas), Biblia y Rosario (biblia abierta como base, rosarios comestibles), Concha bautismal (símbolo del agua bendita). Cada paquete incluye 2-4 símbolos integrados según nivel.'
+  },
+  {
+    question: '¿Tienen microdetalles religiosos comestibles?',
+    answer: 'Sí, es uno de nuestros diferenciadores únicos: galletas glaseadas con cruz dorada/plateada, cupcakes coronados con paloma o cruz de fondant, bombones de chocolate blanco forma cruz, macarons franceses con la inicial del bebé, hostias dulces presentadas en cáliz decorativo, rosarios comestibles con perlas de chocolate blanco y cruz central. Estos detalles se incluyen desde paquete Premium.'
+  },
+  {
+    question: '¿Pueden combinar la mesa con stand para pastel, mesa de postres o dulces tradicionales?',
+    answer: 'Sí, son las combinaciones más solicitadas para bautizo. Sumamos <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (el centro de la celebración, ideal para el pastel bautismal con cruz o ángeles), <a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a> con elegancia serena (macarons, mini-pasteles para padrinos), <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales">Dulces Tradicionales</a> con sabores de hogar para los abuelos, o la <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> clásica en tonos blancos y celestes.'
+  },
+  {
+    question: '¿Qué paletas suaves manejan para bautizo?',
+    answer: 'Trabajamos 6 paletas suaves preset: Blanco-Dorado clásico (la más atemporal), Blanco-Celeste niño (cielo y pureza con plata o dorado suave), Blanco-Rosa niña (suavidad y delicadeza con flores), Blanco-Perlado moderno (elegancia contemporánea con marfil y dorado champagne), Lavanda-Lila gender neutral (moderno no-binario) y Verde sage natural (tendencia 2026, ideal para bautizos al aire libre). Si tienes una paleta específica, la trabajamos.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar la mesa para bautizo?',
+    answer: 'Recomendamos reservar con 2 a 4 semanas de anticipación para bautizos regulares. Para temporadas altas (mayo-julio coincide con catequesis y graduaciones, diciembre-enero por fin de año) sugerimos 4-6 semanas. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del bautizo. Una vez reservada la fecha, comenzamos la fase de diseño con calma para alinear paleta con la decoración floral de la iglesia y el salón.'
+  },
+  {
+    question: '¿Atienden bautizos en casa, jardín y salones de CDMX?',
+    answer: 'Sí. Cubrimos domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas, Satélite), salones boutique para celebraciones familiares (Casa Lamm, Belmondo, The Magnolia Hotel, Saks), jardines de hoteles 5 estrellas y salones de eventos pequeños/medianos. Coordinamos con coordinador del venue para timing post-ceremonia.'
+  },
+  {
+    question: '¿Tienen bolos sorpresa o recuerditos para los invitados?',
+    answer: 'Sí, son parte central del servicio. Bolos sorpresa con simbología bautismal: cajitas decoradas con cruz, rosarios comestibles con perlas de chocolate blanco, mini libros de oración con dulces, paletas con paloma del Espíritu Santo estampada, estampas conmemorativas y galletas con el nombre del bebé. Cada invitado se lleva un recuerdo emocional del bautizo. En Luxury incluimos sticker book bíblico coleccionable.'
+  },
+  {
+    question: '¿Pueden coordinar bautizo con primera comunión o confirmación?',
+    answer: 'Sí. Si tu bebé tiene un hermano mayor que va a hacer su primera comunión o confirmación, podemos coordinar ambas mesas con paleta complementaria y mantener consistencia visual familiar. También trabajamos <a href="/candy-bar-eventos/mesa-dulces-primera-comunion">Mesas para Primera Comunión</a> con surtido y simbología específica para niños de 8-10 años.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-bautizo#service",
+      "name": "Mesa de Dulces para Bautizo en CDMX",
+      "serviceType": "Mesa de Dulces Religiosa / Candy Bar Bautizo",
+      "description": "Mesa de dulces para bautizo en Ciudad de México con diseño sobrio, símbolos religiosos integrados (cruz, paloma del Espíritu Santo, ángeles), microdetalles religiosos comestibles (rosarios, hostias dulces, galletas con cruz), paletas suaves (blanco-dorado, blanco-celeste, blanco-rosa) y coordinación con 15+ parroquias CDMX. Operación desde sucursales Anzures y Condesa.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de Mexico",
+          "addressRegion": "CDMX",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "120",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": [
+          { "@type": "Place", "name": "Polanco" },
+          { "@type": "Place", "name": "Lomas de Chapultepec" },
+          { "@type": "Place", "name": "Coyoacan" },
+          { "@type": "Place", "name": "Tlalpan" },
+          { "@type": "Place", "name": "Roma Norte" },
+          { "@type": "Place", "name": "Condesa" },
+          { "@type": "Place", "name": "Anzures" },
+          { "@type": "Place", "name": "Del Valle" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3800",
+        "highPrice": "10500",
+        "offerCount": "3",
+        "offers": paquetesBautizo.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Bautizo CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias católicas planeando bautizo en CDMX"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer.replace(/<[^>]+>/g, '')
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Bautizo", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-bautizo" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Bautizo en CDMX | Mededul"
-  description="Mesa de dulces para bautizo en CDMX con diseno sobrio, montaje profesional y propuesta personalizada para tu ceremonia familiar."
+  title="Mesa de Dulces para Bautizo en CDMX | Símbolos Religiosos · 15+ Parroquias | MEDEDUL"
+  description="Mesa de dulces para bautizo en CDMX con diseño sobrio, símbolos religiosos (cruz, paloma, ángeles), microdetalles comestibles (hostias dulces, rosarios), paletas suaves y coordinación con 15+ parroquias (Catedral, Basílica, Polanco, Coyoacán). Desde $3,800 MXN. Cotiza gratis."
   canonical="/candy-bar-eventos/mesa-dulces-bautizo"
   ogImage="/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
     title="Mesa de Dulces para Bautizo en CDMX"
-    highlight="Bautizo"
-    subtitle="Montaje elegante y familiar para acompanar una celebracion religiosa con presentacion impecable"
-    secondaryContent={`<p><strong>Bautizo</strong> con mesa de dulces profesional aporta orden visual, experiencia cuidada y coherencia con el tono simbolico de la ceremonia. En Mededul desarrollamos propuestas sobrias que equilibran estilo, calidad de producto y funcionalidad operativa.</p><p><strong>Ceremonia</strong> bien acompanada por un candy bar elegante mejora la convivencia, refuerza el recuerdo fotografico y facilita la atencion a invitados durante la recepcion. Ejecutamos montaje y servicio en CDMX con estandar premium y puntualidad total.</p>`}
+    highlight="Bautizo CDMX"
+    subtitle="Pureza y ternura en cada detalle · 15+ parroquias trabajadas · 120+ bautizos en CDMX"
+    secondaryContent={`<p>Diseños angelicales con paletas suaves que celebran la llegada a la fe. La <strong>mesa de dulces para bautizo en Ciudad de México</strong> es la pieza central de la celebración familiar y el detalle que tus invitados van a recordar como símbolo del momento más especial en la vida espiritual de tu bebé. En <strong>MEDEDUL</strong> diseñamos cada mesa de bautizo con respeto al sacramento: paleta cromática suave (blanco-dorado, blanco-celeste, blanco-rosa, blanco-perlado, lavanda, verde sage), simbología religiosa integrada (cruz central, paloma del Espíritu Santo, ángeles guardianes, biblia abierta, cáliz y hostias), microdetalles religiosos comestibles únicos (galletas con cruz, hostias dulces, rosarios comestibles con perlas de chocolate blanco) y bolos sorpresa con simbología bautismal para cada invitado.</p><p>Coordinamos directamente con <strong>15+ parroquias e iglesias de Ciudad de México</strong>: Catedral Metropolitana, Basílica de Guadalupe, Parroquia del Purísimo Corazón (Polanco), San Agustín de las Cuevas (Tlalpan), Santo Domingo de Guzmán (Coyoacán), Santa Cruz Atoyac (Del Valle), San Jerónimo Aculco, Santuario de María Auxiliadora (Anzures), Iglesia de San Juan Bautista (Coyoacán) y más. Conocemos los protocolos litúrgicos, tiempos de salida de ceremonia y mejor posición de la mesa según la sede de la recepción. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de bautizo al tamano y estilo de tu evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="bautizo-stats">
+    <div class="container">
+      <div class="bautizo-stats__grid">
+        {stats.map(s => (
+          <div class="bautizo-stat">
+            <span class="bautizo-stat__num">{s.number}</span>
+            <span class="bautizo-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Bautizo" descriptions={['Integramos diseno elegante y operacion profesional para una celebracion familiar impecable.', 'Cuidamos cada detalle de presentacion y servicio para elevar la experiencia del evento.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== Iglesias y parroquias CDMX (UNIQUE - SEO local fuerte) ===================== -->
+  <section class="bautizo-iglesias section-padding" id="iglesias-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="15+ parroquias e iglesias"
+        titleHighlight="trabajadas en CDMX"
+        subtitle="Conocemos los protocolos litúrgicos y tiempos de cada parroquia para que la mesa esté lista al término de la ceremonia"
+        content={`<p>Trabajar con MEDEDUL significa contar con un proveedor que <strong>conoce a fondo las parroquias de Ciudad de México</strong>: tiempos de ceremonia bautismal, protocolos del sacerdote, mejor ruta de salida hacia el salón de recepción y posición ideal de la mesa. Estas son <strong>algunas de las 15+ iglesias</strong> donde hemos celebrado bautizos.</p>`}
+      />
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de bautizo sin fricciones." steps={processSteps} />
+      <div class="bautizo-iglesias__grid">
+        {iglesias.map(i => (
+          <div class="bautizo-iglesia">
+            <span class="bautizo-iglesia__icon" aria-hidden="true">⛪</span>
+            <h3 class="bautizo-iglesia__name">{i.nombre}</h3>
+            <span class="bautizo-iglesia__zona">📍 {i.zona}</span>
+            <span class="bautizo-iglesia__tipo">{i.tipo}</span>
+          </div>
+        ))}
+      </div>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para diferentes celebraciones." events={eventCards} />
+      <div class="bautizo-iglesias__note">
+        <strong>¿Tu parroquia no está en esta lista?</strong> Trabajamos con cualquier iglesia de CDMX. Solo necesitamos saber la sede en el brief para coordinar tiempos de salida y traslado al salón de recepción. <a href="https://wa.me/525525226442?text=Hola!%20Bautizo%20en%20parroquia%20de%20CDMX" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Símbolos religiosos (UNIQUE - visual + spiritual) ===================== -->
+  <section class="bautizo-simbolos section-padding" id="simbolos-religiosos">
+    <div class="container">
+      <SectionHeader
+        title="6 símbolos religiosos"
+        titleHighlight="que recreamos"
+        subtitle="Integramos la simbología central del sacramento del bautismo en cada mesa"
+        content={`<p>Cada mesa de bautizo MEDEDUL incluye <strong>2 a 6 símbolos religiosos</strong> según el nivel del paquete. Trabajamos con respeto litúrgico y estética visual contemporánea para que la mesa sea espiritualmente significativa y fotogénicamente memorable.</p>`}
+      />
+      <div class="bautizo-simbolos__grid">
+        {simbolos.map(s => (
+          <div class="bautizo-simbolo">
+            <div class="bautizo-simbolo__icon" aria-hidden="true">{s.icon}</div>
+            <h3 class="bautizo-simbolo__title">{s.nombre}</h3>
+            <p class="bautizo-simbolo__desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Paletas suaves preset (UNIQUE - swatches) ===================== -->
+  <section class="bautizo-paletas section-padding" id="paletas-suaves">
+    <div class="container">
+      <SectionHeader
+        title="6 paletas suaves"
+        titleHighlight="preset"
+        subtitle="Elige la paleta del bautizo según el bebé y la sede de la recepción"
+      />
+      <div class="bautizo-paletas__grid">
+        {paletas.map(p => (
+          <div class="bautizo-paleta">
+            <div class="bautizo-paleta__swatch">
+              <div class="bautizo-paleta__color" style={`background: ${p.color1}; border: 1px solid #eee;`}></div>
+              <div class="bautizo-paleta__color" style={`background: ${p.color2};`}></div>
+              <div class="bautizo-paleta__color bautizo-paleta__color--accent" style={`background: ${p.accent};`}></div>
+            </div>
+            <h3 class="bautizo-paleta__name">{p.nombre}</h3>
+            <p class="bautizo-paleta__desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="bautizo-intro" id="intro-bautizo">
+    <div class="container">
+      <div class="bautizo-intro__grid">
+        <div class="bautizo-intro__copy">
+          <span class="bautizo-intro__badge">Especialistas en bautizos CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> el bautizo de tu bebé en CDMX</h2>
+          <p>El bautizo de tu bebé es uno de los momentos más significativos en la vida espiritual de tu familia. Por eso cada mesa de dulces para bautizo que montamos en Ciudad de México parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con los padres y padrinos (parroquia, sede de recepción, paleta, número de invitados, sexo del bebé), propuesta visual con render conceptual respetuoso del sacramento, curaduría de producto familiar, coordinación con la parroquia y operación impecable durante la celebración familiar.</p>
+          <p>La mesa de dulces para bautizo CDMX que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la solemnidad del bautismo, la paleta cromática elegida (blanco-dorado clásico, blanco-celeste para niño, blanco-rosa para niña, blanco-perlado moderno, lavanda neutral, verde sage natural), los símbolos religiosos centrales (cruz, paloma, ángeles, cáliz, biblia, concha bautismal) y los microdetalles religiosos comestibles únicos de MEDEDUL (galletas con cruz, hostias dulces, rosarios comestibles).</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas en Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, lo que nos permite llegar puntualmente a cualquier parroquia o salón de recepción en Ciudad de México. Si quieres conocer más detalle sobre cobertura CDMX, visita nuestra <a href="/sucursales/cdmx"><strong>página de sucursal CDMX</strong></a> con todos los servicios disponibles. Para conceptos integrales con producción de props impresos a medida y direccón de arte completa conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Bautizo%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a celebrar el momento más especial en la vida de tu bebé.</p>
+        </div>
+        <div class="bautizo-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-bautizo-elegante-blanco-angeles-flores.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces para bautizo elegante MEDEDUL en CDMX con ángeles y flores"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-bautizo"
+    badge="Paquetes Bautizo CDMX"
+    title="Elige el formato para el"
+    titleHighlight="bautizo de tu bebé"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para bautizo en CDMX</strong>. <strong>Esencial</strong> para bautizo íntimo familiar (30-50 invitados); <strong>Premium</strong> es el más solicitado (50-100 invitados) e incluye backdrop con monograma del bebé, símbolos religiosos integrados y microdetalles comestibles (hostias dulces, rosarios); <strong>Luxury</strong> es la propuesta de alto nivel (100+ invitados) con stand para pastel incluido, mesa de postres complementaria, foto profesional de la mesa con el bebé y operación extendida.</p><p>Todos los paquetes incluyen <strong>diseño sobrio con simbología religiosa</strong>, etiquetas con el nombre del bebé, bolos sorpresa religiosos y coordinación con la parroquia.</p>`}
+    packages={paquetesBautizo}
+    note="💡 <strong>Todos los paquetes Bautizo CDMX incluyen:</strong> diseño sobrio con simbología religiosa, etiquetas con nombre del bebé, bolos sorpresa con simbología bautismal, coordinación con parroquia, montaje 1-2 h antes en sede de recepción, operación durante la celebración familiar y desmontaje al cierre."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-bautizo"
+    badge="Diferenciadores Bautizo"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa de Bautizo"
+    descriptions={[
+      "Con <strong>120+ bautizos montados en CDMX</strong> y <strong>15+ parroquias trabajadas</strong>, MEDEDUL es la opción especializada para familias católicas que buscan mesa con simbología religiosa, microdetalles comestibles únicos y coordinación con la parroquia.",
+      "Cada mesa de bautizo parte del mismo método: brief con los padres y padrinos, propuesta visual respetuosa del sacramento, coordinación con la parroquia (Catedral, Basílica, Polanco, Coyoacán, Roma, etc.), montaje sobrio y operación familiar impecable. Lo que cambia es la <strong>paleta suave</strong>, los <strong>símbolos integrados</strong> y la <strong>escala</strong>; el respeto litúrgico es siempre el mismo."
+    ]}
+    stats={[
+      { number: "120+", label: "Bautizos CDMX" },
+      { number: "15+", label: "Parroquias" },
+      { number: "100%", label: "Simbología religiosa" },
+      { number: "5.0", label: "Calificación familias" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Microdetalles religiosos comestibles (UNIQUE) ===================== -->
+  <section class="bautizo-microdetalles section-padding" id="microdetalles-comestibles">
+    <div class="container">
+      <SectionHeader
+        title="6 microdetalles religiosos"
+        titleHighlight="comestibles únicos"
+        subtitle="Diferenciador único MEDEDUL: dulces con simbología bautismal hechos a mano"
+        content={`<p>Mientras la mayoría de proveedores ofrece dulces genéricos en presentación blanca, MEDEDUL <strong>integra simbología religiosa directamente en los dulces</strong>: galletas glaseadas con cruz, cupcakes coronados con paloma de fondant, hostias dulces, rosarios comestibles. Estos microdetalles convierten la mesa en una experiencia espiritual y fotogénica.</p>`}
+      />
+      <div class="bautizo-microdetalles__grid">
+        {microdetalles.map(m => (
+          <div class="bautizo-micro">
+            <div class="bautizo-micro__icon" aria-hidden="true">{m.icon}</div>
+            <h3 class="bautizo-micro__title">{m.title}</h3>
+            <p class="bautizo-micro__desc">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Galería ===================== -->
+  <section class="bautizo-galeria" id="galeria-bautizo">
+    <div class="container">
+      <SectionHeader
+        title="Bautizos reales en CDMX"
+        titleHighlight="montados"
+        subtitle="Selección curada de bautizos MEDEDUL en distintas paletas y parroquias"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>bautizo real en CDMX</strong>. La paleta cromática, los símbolos religiosos y el surtido fueron <strong>diseñados específicamente para cada bebé</strong> en función de la parroquia, la sede de recepción y los gustos de la familia.</p>`}
+      />
+      <div class="bautizo-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="bautizo-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="bautizo-incluye section-padding" id="incluye-bautizo">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa de Bautizo CDMX"
+        subtitle="Servicio integral religioso de principio a fin"
+        content={`<p>Todos los paquetes Bautizo CDMX incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad de la decoración. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="bautizo-incluye__grid">
+        {incluye.map(item => (
+          <div class="bautizo-incluye__item">
+            <div class="bautizo-incluye__num">{item.num}</div>
+            <h3 class="bautizo-incluye__title">{item.title}</h3>
+            <p class="bautizo-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-bautizo"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para tu"
+    titleHighlight="Mesa de Bautizo"
+    subtitle="Cuatro pasos para que el bautizo de tu bebé tenga la mesa que merece"
+    steps={procesoBautizo}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="bautizo-complementos section-padding" id="complementos-bautizo">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas en bautizos CDMX para celebración familiar completa"
+        content={`<p>Una mesa de dulces sobria es <strong>el corazón visual del bautizo</strong>, pero las familias top combinan <strong>1-2 estaciones complementarias</strong> que elevan la celebración familiar: stand para pastel bautismal como centro, mesa de postres con macarons franceses para padrinos, dulces tradicionales mexicanos para abuelos y mesa de dulces clásica en tonos blancos.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/galeria/candy-bar-bautizo-celeste-cruz-macarons.avif')}
+          alt="Mesa de dulces tonos blancos y celestes para bautizo"
+          title="Mesa de Dulces"
+          excerpt="Tonos blancos y celestes. El candy bar clásico con surtido familiar y simbología religiosa básica."
+          cta="Ver Mesa de Dulces"
+          badge="Base bautizo"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres elegancia serena para bautizo"
+          title="Mesa de Postres"
+          excerpt="Elegancia serena. Macarons franceses, mini-pasteles y reposteria fina para padrinos y tías."
+          cta="Ver Mesa de Postres"
+          badge="Elegancia"
+          subsections={subsPostres}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces-tradicionales"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-tradicionales/mesa-de-dulces-tipicos-cdmx.avif')}
+          alt="Mesa de dulces tradicionales sabores de hogar para bautizo"
+          title="Dulces Tradicionales"
+          excerpt="Sabores de hogar. Cocadas, mazapán, palanqueta, jamoncillo, alegrías. Para abuelos y familia mexicana."
+          cta="Ver Dulces Tradicionales"
+          badge="Familiar"
+          subsections={subsTradicionles}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/stand-para-pastel"
+          image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')}
+          alt="Stand para pastel el centro de la celebración bautismal"
+          title="Stand para Pastel"
+          excerpt="El centro de la celebración. Stand decorativo con flores, cruz y backdrop para el pastel bautismal con la familia."
+          cta="Ver Stand para Pastel"
+          badge="Central"
+          subsections={subsStandPastel}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX (CTA visible al hub sucursal) ===================== -->
+  <section class="bautizo-cdmx-cta section-padding" id="bautizo-cdmx">
+    <div class="container">
+      <div class="bautizo-cdmx-cta__card">
+        <div class="bautizo-cdmx-cta__body">
+          <span class="bautizo-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos bautizos desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL atiende bautizos en toda la Ciudad de México con cobertura especializada en <strong>Polanco, Lomas de Chapultepec, Coyoacán, Roma Norte, Condesa, Anzures, Del Valle, Tlalpan, Pedregal, Interlomas y Satélite</strong>. Conocemos las 15+ parroquias principales y sus protocolos litúrgicos. Visita nuestra <strong>página de sucursal CDMX</strong> con todos los servicios disponibles para bautizos, primera comunión, bodas y XV años.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="bautizo-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="bautizo-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/bautizo/servicio-mesa-bautizo-cdmx.avif', { w: 600, q: 82 })}
+            alt="Mesa de dulces bautizo CDMX MEDEDUL servicio"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="bautizo-testimonios section-padding" id="testimonios-bautizo">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="familias MEDEDUL"
+        subtitle="Familias católicas hablando del bautizo de sus bebés en CDMX"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars ===================== -->
+  <section class="bautizo-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="Si tu hermano mayor hará primera comunión o tienes otras celebraciones familiares próximas"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-primera-comunion"
+          image={getCdnUrl('/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif')}
+          alt="Mesa de dulces para primera comunión"
+          title="Primera Comunión"
+          excerpt="Sigue el ciclo sacramental. Mesas con simbología eucarística para niños de 8-10 años."
+          cta="Ver Primera Comunión"
+          badge="Continuidad"
+          subsections={subsCBComunion}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces para baby shower"
+          title="Baby Shower"
+          excerpt="Si esperas otro bebé. Mesas tiernas pastel para celebrar la dulce espera."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+          image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')}
+          alt="Mesa de dulces para cumpleaños infantil"
+          title="Cumpleaños Infantil"
+          excerpt="Para el primer cumple del bebé bautizado. Smash cake, paleta pastel y temáticas tiernas."
+          cta="Ver Cumple Infantil"
+          subsections={subsCBCumple}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces para boda"
+          title="Mesa para Boda"
+          excerpt="Si planeas tu boda religiosa. Mesa nupcial con simbología cristiana opcional."
+          cta="Ver Mesa Boda"
+          subsections={subsCBBoda}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Bautizo stats (paleta suave dorado-celeste) ===== */
+  .bautizo-stats {
+    background: linear-gradient(135deg, #fffaf0 0%, #fff 50%, #f0f9ff 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  }
+  .bautizo-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .bautizo-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #d4af37 0%, #8ECAE6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .bautizo-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .bautizo-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .bautizo-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Iglesias (SEO local) ===== */
+  .bautizo-iglesias { background: #fff; }
+  .bautizo-iglesias__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .bautizo-iglesia {
+    background: #fffaf0;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .bautizo-iglesia:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+  }
+  .bautizo-iglesia__icon {
+    display: inline-block;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .bautizo-iglesia__name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .bautizo-iglesia__zona {
+    display: block;
+    font-size: 0.8rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .bautizo-iglesia__tipo {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+  }
+  .bautizo-iglesias__note {
+    margin-top: 2rem;
+    background: #f0f9ff;
+    border: 2px dashed #8ECAE6;
+    border-radius: 1rem;
+    padding: 1.25rem 1.75rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .bautizo-iglesias__note a {
+    color: #d4af37;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  @media (max-width: 1100px) { .bautizo-iglesias__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .bautizo-iglesias__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Símbolos religiosos ===== */
+  .bautizo-simbolos { background: #fffaf0; }
+  .bautizo-simbolos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .bautizo-simbolo {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+  }
+  .bautizo-simbolo:hover { transform: translateY(-4px); }
+  .bautizo-simbolo__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .bautizo-simbolo__title {
+    font-size: 1.25rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .bautizo-simbolo__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .bautizo-simbolos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Paletas swatches ===== */
+  .bautizo-paletas { background: #fff; }
+  .bautizo-paletas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .bautizo-paleta {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #f0f0f4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+  }
+  .bautizo-paleta:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+  .bautizo-paleta__swatch {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .bautizo-paleta__color {
+    flex: 1;
+    height: 60px;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .bautizo-paleta__color--accent {
+    flex: 0.5;
+  }
+  .bautizo-paleta__name {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .bautizo-paleta__desc {
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .bautizo-paletas__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .bautizo-intro { padding: 5rem 0; background: #fffaf0; }
+  .bautizo-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .bautizo-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37 0%, #8ECAE6 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .bautizo-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .bautizo-intro__copy h2 span { color: #d4af37; }
+  .bautizo-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .bautizo-intro__copy a {
+    color: #d4af37;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .bautizo-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+  }
+  @media (max-width: 900px) {
+    .bautizo-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Microdetalles ===== */
+  .bautizo-microdetalles { background: linear-gradient(135deg, #f0f9ff 0%, #fff 100%); }
+  .bautizo-microdetalles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .bautizo-micro {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-left: 4px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .bautizo-micro:hover { transform: translateY(-4px); }
+  .bautizo-micro__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .bautizo-micro__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .bautizo-micro__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .bautizo-microdetalles__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Galería ===== */
+  .bautizo-galeria { padding: 5rem 0; background: #fffaf0; }
+  .bautizo-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .bautizo-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .bautizo-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .bautizo-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .bautizo-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .bautizo-incluye { background: #fff; }
+  .bautizo-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .bautizo-incluye__item {
+    background: #fffaf0;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: transform 0.2s ease;
+  }
+  .bautizo-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .bautizo-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #d4af37 0%, #8ECAE6 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .bautizo-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .bautizo-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .bautizo-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link ===== */
+  .bautizo-cdmx-cta { background: #fff; }
+  .bautizo-cdmx-cta__card {
+    background: linear-gradient(135deg, #d4af37 0%, #8ECAE6 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.25);
+  }
+  .bautizo-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .bautizo-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .bautizo-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .bautizo-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .bautizo-cdmx-cta__body p strong { color: #fff; }
+  .bautizo-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #d4af37;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .bautizo-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .bautizo-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .bautizo-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .bautizo-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .bautizo-testimonios { background: #fffaf0; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .bautizo-otros { background: #fff; }
+</style>

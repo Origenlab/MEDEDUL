@@ -1,0 +1,895 @@
+---
+// Mesa de Dulces para Baby Shower - Sucursal Toluca-Metepec (Subsección Mesa de Dulces)
+// SEO + GEO heavy: Valle de Toluca, mommy-to-be care, gender reveal, ternura pastel
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
+import ProcessSteps from '@/components/global/ProcessSteps.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+
+// =============== Breadcrumbs ===============
+const breadcrumbItems = [
+  { name: 'Sucursales', url: '/sucursales' },
+  { name: 'Toluca-Metepec', url: '/sucursales/toluca' },
+  { name: 'Mesa de Dulces', url: '/sucursales/toluca/mesa-de-dulces' },
+  { name: 'Baby Shower', url: '/sucursales/toluca/mesa-de-dulces/baby-shower' }
+];
+
+// =============== Trust Stats (Baby Shower Valle Toluca) ===============
+const stats = [
+  { number: '55+', label: 'Baby showers Valle Toluca' },
+  { number: '100%', label: 'Apto mamá embarazada' },
+  { number: '12+', label: 'Temáticas tiernas' },
+  { number: '< 24h', label: 'Cotización en línea' }
+];
+
+// =============== Características (Diferenciadores Baby Shower Toluca) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño tierno por sexo del bebé',
+    desc: 'Cada mesa se diseña al sexo del bebé: niña (paletas rosa-dorado, lavanda, coral), niño (azul-cielo, azul-marino, ositos) o sorpresa para gender reveal (híbrida rosa-azul). 12 temáticas tiernas trabajadas para baby showers en residenciales del Valle de Toluca.',
+    img: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa.avif'
+  },
+  {
+    num: 2,
+    title: '100% apto para mamá embarazada',
+    desc: 'Diferenciador único MEDEDUL: TODO el surtido base es seguro para mamá embarazada. Sin alcohol declarado, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo en tablas, etiquetado de alérgenos visible y estación mamá VIP separada en Premium/Luxury.',
+    img: '/img/eventos/baby-shower/candy-bar-baby-shower-celeste-macarons-osito.avif'
+  },
+  {
+    num: 3,
+    title: 'Mommy-to-be care integral',
+    desc: 'Coordinamos silla cómoda con cojín para mamá embarazada T3, estación de hidratación con bebidas sin alcohol y sin cafeína cerca de la mesa, mejor ángulo para foto de la barriguita frente al backdrop, integración con momento de regalos en residenciales Las Marinas, San Carlos y La Providencia.',
+    img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Mecánicas Gender Reveal coordinadas',
+    desc: 'Para baby shower con revelación: pastel sorpresa con relleno azul/rosa, globo gigante con confeti, smoke bomb fotográfica, dip dye coordinado, cañón de confetti o caja sorpresa de globos. Coordinamos timing perfecto con pastelero/decorador para foto épica del momento en Valle de Toluca.',
+    img: '/img/eventos/baby-shower/mesa-dulces-revelacion-genero.avif'
+  }
+];
+
+// =============== Paquetes Baby Shower Toluca ===============
+const paquetesBaby = [
+  {
+    name: 'Baby Toluca Esencial',
+    icon: '🎀',
+    price: '$4,000',
+    currency: 'MXN',
+    guests: '20-40 invitadas',
+    tagline: 'Baby shower íntimo en domicilio Valle Toluca',
+    features: [
+      'Mesa baby base (10-12 variedades)',
+      'Paleta alineada al sexo del bebé',
+      'Atrezzo tierno (ositos, lazos, mini biberón)',
+      'Etiquetas con nombre del bebé',
+      '100% apto mamá embarazada',
+      'Bolos sorpresa coordinados',
+      'Cobertura zonas centrales (Metepec, Toluca, Zinacantepec)'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Quiero%20cotizar%20Mesa%20Baby%20Shower%20Toluca%20-%20Esencial'
+  },
+  {
+    name: 'Baby Toluca Premium',
+    icon: '👶',
+    price: '$7,500',
+    currency: 'MXN',
+    guests: '40-80 invitadas',
+    tagline: 'El más solicitado por mamás Valle Toluca',
+    features: [
+      'Mesa baby completa (14-18 variedades)',
+      'Backdrop tierno con nombre del bebé',
+      'Atrezzo profesional 12 temáticas a elegir',
+      'Macarons franceses con inicial',
+      'Estación mamá VIP separada',
+      'Mecánica gender reveal incluida (si aplica)',
+      'Coordinación con organizadora del baby',
+      'Cobertura amplia Valle Toluca'
+    ],
+    popular: true,
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mesa%20Baby%20Shower%20Toluca%20-%20Premium'
+  },
+  {
+    name: 'Baby Toluca Luxury',
+    icon: '💎',
+    price: '$10,500',
+    currency: 'MXN',
+    guests: '80+ invitadas',
+    tagline: 'Baby shower memorable de alto nivel',
+    features: [
+      'Mesa de autor (20+ variedades temáticas)',
+      'Backdrop floral 360° con nombre y temática',
+      'Stand para pastel baby shower incluido',
+      'Mesa de frutas o donas complementaria',
+      'Estación mamá VIP premium con bebidas',
+      'Mecánica gender reveal premium (smoke + globo)',
+      'Foto profesional mamá con barriguita y mesa',
+      'Operación extendida hasta cierre',
+      'Sucursal preferente Metepec'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525521775184?text=Hola!%20Me%20interesa%20Mesa%20Baby%20Shower%20Toluca%20-%20Luxury'
+  }
+];
+
+// =============== Proceso Baby Shower Toluca ===============
+const procesoBaby = [
+  {
+    num: 1,
+    title: 'Brief con la organizadora',
+    desc: 'Recibimos brief de la organizadora (hermana, mamá, mejor amiga de la mamá embarazada): fecha, sede (domicilio en Las Marinas/San Carlos/La Providencia, salón boutique en Metepec, jardín en residencial), número de invitadas, sexo del bebé conocido o sorpresa, temática preferida, trimestre de embarazo de la mamá y restricciones específicas.'
+  },
+  {
+    num: 2,
+    title: 'Propuesta tierna',
+    desc: 'En menos de 24 h enviamos propuesta con render conceptual de la temática elegida, paleta alineada al sexo del bebé o híbrida (gender reveal), surtido apto para mamá embarazada, estación mamá VIP, mecánica de gender reveal si aplica y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con organizadora',
+    desc: 'Coordinamos con la organizadora del baby: timing del evento (apertura, juegos, regalos, gender reveal si aplica, despedida), posición de la mesa, integración con decoración general del baby, coordinación con pastelero local (Toluca/Metepec) para mecánica de reveal y mejor ángulo para foto de la mamá con la barriguita.'
+  },
+  {
+    num: 4,
+    title: 'Día del baby shower',
+    desc: 'Llegamos 1-2 h antes a la sede desde Sucursal Metepec. Montamos sin interferir con la organizadora ni decorador, operamos durante todo el baby con reposición continua, reservamos silla cómoda y bebidas para la mamá, coordinamos foto del momento gender reveal y entregamos bolos sorpresa al cierre.'
+  }
+];
+
+// =============== Galería Baby Shower Valle Toluca ===============
+const galeriaImages = [
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', alt: 'Mesa de dulces baby shower niña rosa con cupcakes Valle Toluca' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nino-ositos-azul.avif', alt: 'Mesa de dulces baby shower niño ositos azul Metepec' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-baby-shower-boho-eucalipto.avif', alt: 'Mesa de dulces baby shower boho con eucalipto Valle Toluca' },
+  { src: '/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif', alt: 'Candy bar baby shower rosa pastel con flores Toluca' },
+  { src: '/img/eventos/baby-shower/mesa-dulces-revelacion-genero.avif', alt: 'Mesa de dulces revelación de género gender reveal Valle Toluca' },
+  { src: '/img/galeria/mesa-dulces-baby-shower-celeste-nubes-globos.avif', alt: 'Mesa de dulces baby shower celeste nubes y globos Metepec' }
+];
+
+// =============== Qué incluye (Baby Shower Toluca) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría 100% apta mamá embarazada', desc: 'Surtido de 10 a 20+ variedades seguras: chocolates suaves sin cafeína excesiva (Lindt leche/blanco), macarons franceses, mini cupcakes tiernos, galletas con motivos del bebé, frutas lavadas con cloro alimentario, dulces sin alcohol declarado y opciones para mamás con restricciones (sin gluten, sin lactosa, sin azúcar para diabetes gestacional).' },
+  { num: '02', title: 'Diseño tierno por sexo del bebé', desc: 'Cristalería en colores tiernos (rosa pastel para niña, azul cielo para niño, neutro para sorpresa), atrezzo coordinado a la temática (ositos, lazos, biberón mini, princesas, astronauta, animalitos del bosque, twinkle twinkle, boho-eucalipto, etc.), backdrop con nombre del bebé y mensaje de bienvenida.' },
+  { num: '03', title: 'Estación mamá VIP separada', desc: 'En paquetes Premium y Luxury: área dedicada SOLO para la mamá embarazada con silla cómoda con cojín, bebidas sin alcohol y sin cafeína (limonada natural, té de manzanilla frío, agua mineral con menta), dulces seleccionados aptos en presentación premium y respaldo del fotógrafo para foto de barriguita.' },
+  { num: '04', title: 'Mecánica Gender Reveal coordinada', desc: 'Para baby shower con revelación: pastel sorpresa con relleno azul/rosa, globo gigante con confeti, smoke bomb fotográfica, dip dye, confetti cannon o caja sorpresa de globos. Coordinamos timing perfecto con pastelero local del Valle, decorador y fotógrafo para foto épica del momento.' },
+  { num: '05', title: 'Bolos sorpresa para invitadas', desc: 'Cajitas o bolsas decoradas con la temática del baby (osito, princesa, animalitos, etc.), con dulces aptos para todas las invitadas y mensaje de "gracias por celebrar con nosotras". En Luxury sumamos mini-detalle adicional (pulsera de hilo, vela aromática mini).' },
+  { num: '06', title: 'Coordinación con organizadora Valle Toluca', desc: 'Trabajamos directamente con la organizadora del baby (hermana, mamá, mejor amiga). Coordinamos timing del evento, posición de mesa, integración con decoración, mecánica de fotos. Todo para que la organizadora disfrute el día y no esté operando en domicilios particulares de Las Marinas, San Carlos, La Providencia o salones de Metepec.' }
+];
+
+// =============== Eventos compatibles (cross-link a otras L5 Toluca) ===============
+const eventos = [
+  {
+    title: 'Candy Bar para Boda Toluca',
+    excerpt: 'Diseños nupciales elegantes para bodas en haciendas y salones del Valle de Toluca. Hacienda La Magdalena, Quinta Real, Real de Minas. Coordinación con wedding planner. Desde $7,500 MXN.',
+    img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda',
+    badge: 'Top Bodas',
+    cta: 'Ver Candy Bar Boda Toluca'
+  },
+  {
+    title: 'Mesa para XV Años Toluca',
+    excerpt: 'Diseños glamour para quinceañera en haciendas y salones de Valle de Toluca. Paleta alineada al vestido, backdrop instagramable y surtido aesthetic-friendly. Desde $6,500 MXN.',
+    img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos',
+    badge: 'Top XV Toluca',
+    cta: 'Ver Mesa XV Toluca'
+  },
+  {
+    title: 'Cumpleaños Infantil Toluca',
+    excerpt: '30+ temáticas (Disney, Marvel, Pokemon, Frozen, Bluey). Control alergias sin nueces default y operador disfrazado opcional. Cobertura casas + salones infantiles Valle Toluca desde $3,500 MXN.',
+    img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif',
+    href: '/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil',
+    badge: 'Temático Toluca',
+    cta: 'Ver Cumple Toluca'
+  },
+  {
+    title: 'Mesa para Bautizo',
+    excerpt: 'Bautizos íntimos en parroquias del Valle Toluca. Paletas suaves blanco-celeste/rosa, símbolos religiosos integrados, recuerditos memorables.',
+    img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif',
+    href: '/candy-bar-eventos/mesa-dulces-bautizo',
+    cta: 'Ver Bautizo'
+  }
+];
+
+// =============== Venues Baby Shower Valle Toluca trabajados (12+) ===============
+const venuesBaby = [
+  { nombre: 'Domicilios Las Marinas', zona: 'Metepec', tipo: 'Residencial privado' },
+  { nombre: 'Domicilios San Carlos', zona: 'Metepec', tipo: 'Residencial privado' },
+  { nombre: 'Domicilios La Providencia', zona: 'Metepec', tipo: 'Residencial privado' },
+  { nombre: 'Domicilios Pilares', zona: 'Metepec', tipo: 'Residencial privado' },
+  { nombre: 'Casa Club Las Marinas', zona: 'Metepec', tipo: 'Casa club privada' },
+  { nombre: 'Salón Margarita Metepec', zona: 'Metepec', tipo: 'Salón boutique' },
+  { nombre: 'Quinta Real Toluca (salón)', zona: 'Toluca', tipo: 'Salón hotel premium' },
+  { nombre: 'Hotel Quinta del Rey (jardín)', zona: 'Toluca', tipo: 'Jardín hotel' },
+  { nombre: 'Salón Riviera Metepec', zona: 'Metepec', tipo: 'Salón eventos' },
+  { nombre: 'Galerías Metepec (eventos)', zona: 'Metepec', tipo: 'Centro comercial' },
+  { nombre: 'Domicilios Universidad', zona: 'Toluca', tipo: 'Residencial centro' },
+  { nombre: 'Hacienda La Magdalena (jardín)', zona: 'Metepec', tipo: 'Hacienda colonial' }
+];
+
+// =============== Zonas Valle Toluca ===============
+const zonasPremium = [
+  { nombre: 'Metepec', alcaldia: 'Estado de México', href: '/mesas-de-dulces-metepec', destacada: true },
+  { nombre: 'Toluca centro', alcaldia: 'Estado de México', href: '/mesas-de-dulces-toluca', destacada: true },
+  { nombre: 'Zinacantepec', alcaldia: 'Estado de México', href: '/mesas-de-dulces-zinacantepec', destacada: true },
+  { nombre: 'Lerma', alcaldia: 'Estado de México', href: '/mesas-de-dulces-lerma', destacada: true },
+  { nombre: 'Las Marinas', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'San Carlos', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'La Providencia', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'Pilares', alcaldia: 'Metepec, EdoMex', href: '#', destacada: false },
+  { nombre: 'Universidad Toluca', alcaldia: 'Toluca, EdoMex', href: '#', destacada: false }
+];
+
+const zonasAdicionales = [
+  'Ocoyoacac', 'San Mateo Atenco', 'Calimaya', 'Tianguistenco',
+  'Almoloya de Juárez', 'Capultitlán', 'Tenango del Valle', 'Mexicalcingo',
+  'Atizapán de Zaragoza', 'Xonacatlán', 'Otzolotepec', 'Temoaya',
+  'Sor Juana', 'Reforma Toluca', 'Santiago Tlaxomulco', 'Centro Toluca',
+  'Reforma 9 Sur', 'Belén Sucursal', 'Galerías Toluca', 'San Mateo Otzacatipan'
+];
+
+const zonasBaby = [...zonasPremium.map(z => z.nombre), ...zonasAdicionales];
+
+// =============== Testimonios Baby Shower Valle Toluca ===============
+const testimonios = [
+  {
+    name: 'Karla Domínguez',
+    initials: 'KD',
+    review: 'Organicé el baby shower de mi hermana en residencial Las Marinas Metepec. Mesa boho-eucalipto preciosa con surtido apto para ella (tiene diabetes gestacional, MEDEDUL incluyó opciones sin azúcar sin que yo lo pidiera, lo notaron en el brief). La estación mamá VIP fue genial: silla cómoda y bebidas sin cafeína. Mi hermana lloró de emoción.',
+    event: 'Baby Shower Las Marinas Metepec · Niña',
+    rating: 5
+  },
+  {
+    name: 'Isabela Rojas',
+    initials: 'IR',
+    review: 'Gender reveal en Casa Club Las Marinas para mi primer bebé. Mesa híbrida rosa-azul preciosa, pastel sorpresa con relleno azul que cortamos con mi esposo. Coordinaron con la pastelera local de Metepec y fotógrafo. La foto del momento es épica. Será NUESTRO proveedor para baby showers de toda la familia.',
+    event: 'Gender Reveal Casa Club Las Marinas · Niño sorpresa',
+    rating: 5
+  },
+  {
+    name: 'Familia Velázquez',
+    initials: 'FV',
+    review: 'Sprinkle baby shower de mi segundo bebé en domicilio La Providencia Metepec. Mesa elegante neutro-beige minimalista preciosa, no tan grande como el primer baby pero igual de cuidada. La organizadora (mi mejor amiga) coordinó todo con MEDEDUL Sucursal Toluca y yo solo disfruté.',
+    event: 'Sprinkle La Providencia Metepec',
+    rating: 5
+  }
+];
+
+// =============== FAQ Baby Shower Toluca ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para baby shower en Valle de Toluca?',
+    answer: 'Incluye diseño tierno por sexo del bebé (niña, niño o sorpresa para gender reveal), surtido 100% apto para mamá embarazada (sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo, etiquetado de alérgenos visible), 12 temáticas tiernas a elegir (boho-eucalipto, animalitos del bosque, twinkle twinkle, princesa rosa-dorado, astronauta, ositos, etc.), cristalería en colores tiernos, backdrop con nombre del bebé, estación mamá VIP separada (Premium/Luxury), mecánica de gender reveal coordinada si aplica, bolos sorpresa para invitadas, montaje 1-2 h antes desde Sucursal Metepec y coordinación con la organizadora del baby.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para baby shower en Valle de Toluca?',
+    answer: 'En Valle de Toluca iniciamos en $4,000 MXN (Esencial, 20-40 invitadas), $7,500 MXN (Premium, 40-80 invitadas, el más solicitado) y $10,500 MXN (Luxury, 80+ invitadas). El precio depende del número de invitadas, surtido seleccionado, temática elegida, mecánica de gender reveal incluida, estación mamá VIP, servicios complementarios. Cotización gratuita en menos de 24 horas hábiles vía WhatsApp 55 2177 5184.'
+  },
+  {
+    question: '¿El surtido es realmente apto para una mamá embarazada?',
+    answer: 'Sí, es uno de nuestros diferenciadores únicos. TODO el surtido base es seguro para mamá embarazada: chocolates con leche y blanco premium (sin niveles altos de cafeína de chocolate oscuro), frutas lavadas con cloro de grado alimentario (elimina riesgo toxoplasmosis), CERO dulces con alcohol, sin pescado crudo en tablas, etiquetado de alérgenos visible y estación mamá VIP separada en Premium/Luxury. Si la mamá tiene diabetes gestacional, ajustamos sin costo.'
+  },
+  {
+    question: '¿Manejan baby shower de niña, niño y gender reveal sorpresa?',
+    answer: 'Sí, las 3 modalidades. Para niña: paletas rosa-dorado, lavanda, fucsia, coral con elementos de princesa, mariposas, sirena. Para niño: azul-cielo, azul-marino, sage con ositos, autos, astronauta, dinosaurios. Para sorpresa (gender reveal): mesa híbrida rosa-azul hasta el momento de la revelación con mecánica coordinada (pastel sorpresa con relleno, globo gigante con confeti, smoke bomb, dip dye, confetti cannon o caja sorpresa de globos).'
+  },
+  {
+    question: '¿Tienen mommy-to-be care para la futura mamá?',
+    answer: 'Sí, es parte central del servicio. Coordinamos silla cómoda con cojín para mamá embarazada T3 (pueden ser largas las horas), estación de hidratación con bebidas sin alcohol y sin cafeína cerca de la mesa principal, mejor ángulo para foto de la barriguita con la mamá frente al backdrop e integración con el momento de "abrir regalos" (uno de los más fotografiados del baby shower).'
+  },
+  {
+    question: '¿Cómo coordinan la mecánica de Gender Reveal?',
+    answer: 'Trabajamos 6 mecánicas coordinadas: pastel sorpresa con relleno azul/rosa (cortamos con pastelero local de Toluca/Metepec), globo gigante con confeti dentro, smoke bomb fotográfica, dip dye coordinado, confetti cannon o caja sorpresa con globos flotantes. Coordinamos timing con pastelero, decorador y fotógrafo para foto épica del momento.'
+  },
+  {
+    question: '¿Dónde se montan los baby showers en Valle de Toluca?',
+    answer: 'Cubrimos domicilios particulares en residenciales premium (Las Marinas, San Carlos, La Providencia, Pilares en Metepec; Universidad y centro en Toluca), salones boutique (Salón Margarita Metepec, Salón Riviera Metepec), casas club privadas (Casa Club Las Marinas), jardines de hoteles (Hotel Quinta del Rey, Quinta Real Toluca) y áreas de eventos en Galerías Metepec. La mayoría son en domicilio con grupo cerrado de mujeres.'
+  },
+  {
+    question: '¿Pueden organizar baby shower con muy poco tiempo de aviso?',
+    answer: 'Sí, somos flexibles. Para baby showers regulares recomendamos 2-3 semanas de anticipación, pero podemos atender con 5-7 días de aviso si la fecha está disponible (cargo de urgencia 15%). Para baby showers grandes (50+ invitadas) o con mecánica de gender reveal coordinada con pastelero externo de Toluca, sugerimos 3-4 semanas mínimo.'
+  },
+  {
+    question: '¿Atienden todo el Valle de Toluca?',
+    answer: 'Sí. Cubrimos Metepec (Las Marinas, San Carlos, La Providencia, Pilares, centro), Toluca (centro, Universidad, Sor Juana, Reforma, Santiago Tlaxomulco), Zinacantepec, Lerma, Ocoyoacac, San Mateo Atenco, Calimaya y municipios cercanos del Estado de México. Operamos desde nuestra sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec).'
+  },
+  {
+    question: '¿Pueden coordinar baby shower con bautizo o primer cumpleaños posterior?',
+    answer: 'Sí. Si la familia ya está planeando el primer cumpleaños del bebé al cumplir el año o el bautizo posterior, mantenemos consistencia visual entre los eventos (paleta, temática, simbología). También trabajamos Mesas para Bautizo con simbología bautismal específica y Mesas para Cumpleaños Infantil con temáticas de personajes para el primer cumpleaños del bebé.'
+  }
+];
+
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces/baby-shower#service",
+      "name": "Mesa de Dulces para Baby Shower en Valle de Toluca",
+      "serviceType": "Mesa de Dulces Baby Shower / Candy Bar Gender Reveal",
+      "description": "Mesa de dulces para baby shower en Valle de Toluca con 12 temáticas tiernas (boho-eucalipto, animalitos del bosque, princesa, astronauta, twinkle twinkle), 100% apto mamá embarazada, mecánicas de Gender Reveal coordinadas, mommy-to-be care con silla cómoda y bebidas sin cafeína. Operación desde sucursal Metepec.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL - Sucursal Toluca-Metepec",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525521775184",
+        "url": "https://mesas-de-dulces.com/sucursales/toluca",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Blvd. Toluca-Metepec 913",
+          "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+          "postalCode": "52169",
+          "addressRegion": "Estado de Mexico",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "55",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Valle de Toluca",
+        "containsPlace": zonasBaby.map(z => ({ "@type": "Place", "name": z }))
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "4000",
+        "highPrice": "10500",
+        "offerCount": "3",
+        "offers": paquetesBaby.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Baby Shower Toluca ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias y organizadoras planeando baby shower o gender reveal en Valle de Toluca"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
+        { "@type": "ListItem", "position": 3, "name": "Toluca-Metepec", "item": "https://mesas-de-dulces.com/sucursales/toluca" },
+        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces" },
+        { "@type": "ListItem", "position": 5, "name": "Baby Shower", "item": "https://mesas-de-dulces.com/sucursales/toluca/mesa-de-dulces/baby-shower" }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Mesa Baby Shower Valle Toluca | Apto Mamá · Gender Reveal · 12 Temáticas | MEDEDUL"
+  description="Mesa de dulces para baby shower en Valle de Toluca por MEDEDUL: 100% apto mamá embarazada (sin alcohol, sin cafeína), 12 temáticas tiernas (boho, animalitos, princesa, astronauta), mecánicas Gender Reveal, estación mamá VIP. Sucursal Metepec. Las Marinas, San Carlos, La Providencia, Casa Club. Desde $4,000 MXN."
+  canonical="/sucursales/toluca/mesa-de-dulces/baby-shower"
+  ogImage="/img/eventos/baby-shower/candy-bar-baby-shower-rosa-pastel-flores.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Hero
+    title="Mesa Baby Shower en Valle de Toluca"
+    highlight="Baby Shower"
+    subtitle="Ternura y colores pastel · Sucursal MEDEDUL Toluca-Metepec"
+    secondaryContent={`<p>Mesas adorables para niño, niña o la emoción de una <strong>revelación de género inolvidable</strong>. La <strong>mesa de dulces para baby shower en Valle de Toluca</strong> es el centro emocional de la celebración: la foto que la mamá va a guardar para siempre y el detalle que las invitadas van a recordar como símbolo del amor con el que recibieron al bebé. En <strong>MEDEDUL Sucursal Toluca-Metepec</strong> diseñamos cada mesa con respeto por la mamá embarazada: 12 temáticas tiernas a elegir (boho-eucalipto, animalitos del bosque, twinkle twinkle little star, princesa rosa-dorado, astronauta, ositos, etc.), surtido <strong>100% apto para mamá embarazada</strong> (sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo, etiquetado de alérgenos visible) y diferenciador único: <strong>estación mamá VIP separada</strong> con silla cómoda, bebidas sin alcohol y sin cafeína.</p><p>Para <strong>Gender Reveal</strong> coordinamos 6 mecánicas: pastel sorpresa con relleno azul/rosa (con pastelero local del Valle), globo gigante con confeti, smoke bomb fotográfica, dip dye, confetti cannon o caja sorpresa de globos. Operamos desde nuestra <strong>sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong> con cobertura completa Valle de Toluca: domicilios premium (Las Marinas, San Carlos, La Providencia, Pilares en Metepec; Universidad en Toluca), salones boutique (Salón Margarita, Salón Riviera Metepec), Casa Club Las Marinas, jardines de hoteles (Hotel Quinta del Rey, Quinta Real Toluca) y áreas de Galerías Metepec.</p>`}
+  />
+
+  <section class="bbtol-stats">
+    <div class="container">
+      <div class="bbtol-stats__grid">
+        {stats.map(s => (
+          <div class="bbtol-stat">
+            <span class="bbtol-stat__num">{s.number}</span>
+            <span class="bbtol-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bbtol-intro" id="intro-mededul-baby-toluca">
+    <div class="container">
+      <div class="bbtol-intro__grid">
+        <div class="bbtol-intro__copy">
+          <span class="bbtol-intro__badge">Especialistas en baby shower Valle Toluca</span>
+          <h2>Así trabaja <span>MEDEDUL</span> el baby shower de la futura mamá en Valle de Toluca</h2>
+          <p>El baby shower es uno de los momentos más emocionales en la vida de la futura mamá: la celebración del amor con el que la familia y amigas le dan la bienvenida al bebé que viene en camino. Por eso cada mesa de dulces para baby shower que montamos en Valle de Toluca parte de un <strong>proceso profesional integral con enfoque en la mamá</strong>: brief con la organizadora del baby (hermana, mamá, mejor amiga), propuesta visual de la temática elegida, alineación con la decoración general del baby, coordinación con pastelero local del Valle/decorador/fotógrafo y operación impecable durante todo el evento.</p>
+          <p>La mesa de dulces para baby shower Valle Toluca que diseñamos no es un servicio genérico: es una <strong>propuesta a medida con seguridad alimenticia para embarazo</strong> que respeta la condición de la futura mamá (100% apto para mamá embarazada: sin alcohol, sin cafeína excesiva, frutas lavadas con cloro alimentario, sin pescado crudo), integra 12 temáticas tiernas (boho-eucalipto, animalitos del bosque, twinkle twinkle, princesa, astronauta, ositos, etc.) y considera el sexo del bebé (niña, niño o sorpresa para gender reveal).</p>
+          <p>Operamos desde nuestra <strong>sucursal en Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong>, lo que nos permite llegar puntualmente a cualquier domicilio o salón boutique en Valle de Toluca. Si quieres conocer más detalle sobre cobertura visita nuestra <a href="/sucursales/toluca/mesa-de-dulces"><strong>página de Mesa de Dulces Toluca</strong></a>.</p>
+          <p><a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Baby%20Shower%20Valle%20Toluca" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a celebrar a la futura mamá y al bebé que viene en camino.</p>
+        </div>
+        <div class="bbtol-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/baby-shower/candy-bar-baby-shower-celeste-macarons-osito.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces baby shower MEDEDUL en Valle Toluca celeste con macarons y ositos"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages
+    id="paquetes-baby-toluca"
+    badge="Paquetes Baby Shower Valle Toluca"
+    title="Elige el formato para el"
+    titleHighlight="baby shower"
+    subtitle="3 niveles claros con 100% apto mamá embarazada incluido"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para baby shower Valle Toluca</strong>. <strong>Esencial</strong> para baby íntimo en domicilio (20-40 invitadas); <strong>Premium</strong> es el más solicitado (40-80 invitadas) e incluye backdrop con nombre del bebé, atrezzo profesional de las 12 temáticas, estación mamá VIP separada y mecánica de gender reveal incluida si aplica; <strong>Luxury</strong> es la propuesta de alto nivel (80+ invitadas) con backdrop floral 360°, stand para pastel incluido, mesa de frutas o donas complementaria, foto profesional de mamá con barriguita y operación extendida.</p><p>Pricing Toluca 11% más accesible que CDMX manteniendo la misma calidad premium MEDEDUL.</p>`}
+    packages={paquetesBaby}
+    note="💡 <strong>Todos los paquetes Baby Shower Valle Toluca incluyen:</strong> surtido 100% apto mamá embarazada, atrezzo tierno de la temática elegida, etiquetas con nombre del bebé, bolos sorpresa, coordinación con organizadora del baby, montaje 1-2 h antes desde Sucursal Metepec y desmontaje al cierre."
+  />
+
+  <WhyChooseUs
+    id="por-que-baby-toluca"
+    badge="Diferenciadores Baby Shower Valle Toluca"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa Baby Shower Valle Toluca"
+    descriptions={[
+      "Con <strong>55+ baby showers montados en Valle de Toluca</strong>, <strong>12 temáticas tiernas trabajadas</strong> y <strong>100% apto para mamá embarazada</strong>, MEDEDUL es la opción especializada para organizadoras que buscan mesa segura, tierna y memorable en Metepec, Toluca y Lerma.",
+      "Cada mesa parte del mismo método con <strong>protagonismo de la mamá</strong>: brief con la organizadora, propuesta visual tierna, coordinación con pastelero local/decorador, mommy-to-be care (silla cómoda, bebidas sin cafeína), y mecánica gender reveal coordinada si aplica. La diferencia: <strong>la futura mamá es el centro de todo el diseño</strong>."
+    ]}
+    stats={[
+      { number: "55+", label: "Baby Valle Toluca" },
+      { number: "12+", label: "Temáticas tiernas" },
+      { number: "100%", label: "Apto mamá" },
+      { number: "5.0", label: "Calificación organizadoras" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <section class="bbtol-galeria" id="galeria-baby-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Baby showers reales en Valle Toluca"
+        titleHighlight="montados"
+        subtitle="Selección curada de baby showers MEDEDUL en distintas temáticas, paletas y modalidades"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>baby shower real en Valle de Toluca</strong>. La paleta cromática, la temática, el atrezzo y el surtido fueron <strong>diseñados específicamente para cada futura mamá</strong> según el sexo del bebé, la temática elegida y el número de invitadas en residenciales premium del Valle.</p>`}
+      />
+
+      <div class="bbtol-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="bbtol-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bbtol-incluye">
+    <div class="container">
+      <div class="bbtol-incluye__header">
+        <span class="bbtol-incluye__badge">Todo Incluido</span>
+        <h2>¿Qué incluye nuestra <span>Mesa Baby Shower Valle Toluca</span>?</h2>
+        <p>Servicio integral tierno con seguridad alimenticia para embarazo</p>
+      </div>
+
+      <div class="bbtol-incluye__grid">
+        {incluye.map(item => (
+          <div class="bbtol-incluye__card">
+            <span class="bbtol-incluye__num">{item.num}</span>
+            <h4>{item.title}</h4>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps
+    id="proceso-baby-toluca"
+    badge="Cómo trabajamos el baby shower en Valle Toluca"
+    title="4 pasos para el"
+    titleHighlight="baby shower"
+    subtitle="Cuatro pasos con la organizadora para que la futura mamá disfrute SU día"
+    steps={procesoBaby}
+  />
+
+  <section class="bbtol-venues" id="venues-baby-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Venues Baby Shower donde hemos montado en"
+        titleHighlight="Valle de Toluca"
+        subtitle="12+ venues con experiencia comprobada (residenciales, salones, casas club)"
+        content={`<p>El baby shower típico en Valle de Toluca se monta en <strong>domicilios particulares de residenciales premium</strong> (Las Marinas, San Carlos, La Providencia en Metepec) o en salones boutique. En MEDEDUL ya conocemos los protocolos de estos espacios y montamos sin fricción. Esta es una muestra de los venues donde tenemos experiencia comprobada montando mesas de baby shower.</p>`}
+      />
+
+      <div class="bbtol-venues__grid">
+        {venuesBaby.map(v => (
+          <div class="bbtol-venue-card">
+            <span class="bbtol-venue-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 21h18M3 7v14M21 11v10M6 7V4a1 1 0 011-1h10a1 1 0 011 1v7"/>
+                <path d="M10 9h.01M14 9h.01M10 13h.01M14 13h.01M10 17h.01M14 17h.01"/>
+              </svg>
+            </span>
+            <div class="bbtol-venue-card__body">
+              <span class="bbtol-venue-card__name">{v.nombre}</span>
+              <div class="bbtol-venue-card__meta">
+                <span class="bbtol-venue-card__zona">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  {v.zona}
+                </span>
+                <span class="bbtol-venue-card__tipo">{v.tipo}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="bbtol-venues__nota">
+        ¿Tu venue no aparece en la lista? Trabajamos en cualquier domicilio, salón o jardín del Valle de Toluca. <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20mi%20baby%20es%20en%20[nombre%20venue]%20Valle%20Toluca">Pregúntanos por tu venue específico</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bbtol-zonas" id="zonas-baby-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura Baby Shower en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Montamos baby showers en cualquier municipio del Valle de Toluca"
+        content={`<p>Desde nuestra sucursal en <strong>Blvd. Toluca-Metepec 913 (San Jorge Pueblo Nuevo, Metepec)</strong> llegamos puntualmente a cualquier domicilio o salón del Valle de Toluca.</p>`}
+      />
+
+      <div class="bbtol-zonas__subseccion">
+        <header class="bbtol-zonas__subheader">
+          <span class="bbtol-zonas__numero">01</span>
+          <div>
+            <h3>Municipios principales con página dedicada</h3>
+            <p>4 municipios con información detallada de cobertura, venues típicos y casos de baby shower en Valle Toluca.</p>
+          </div>
+        </header>
+
+        <div class="bbtol-zonas__grid">
+          {zonasPremium.map(z => (
+            <a href={z.href} class:list={['bbtol-zona-card', { 'bbtol-zona-card--destacada': z.destacada }]}>
+              <span class="bbtol-zona-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="bbtol-zona-card__body">
+                <span class="bbtol-zona-card__nombre">{z.nombre}</span>
+                <span class="bbtol-zona-card__alcaldia">{z.alcaldia}</span>
+              </div>
+              {z.destacada && <span class="bbtol-zona-card__badge">Top</span>}
+              <span class="bbtol-zona-card__arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="bbtol-zonas__subseccion">
+        <header class="bbtol-zonas__subheader">
+          <span class="bbtol-zonas__numero">02</span>
+          <div>
+            <h3>Cobertura adicional Valle Toluca</h3>
+            <p>20 zonas más que cubrimos sin restricciones para baby showers.</p>
+          </div>
+        </header>
+
+        <div class="bbtol-zonas__pills">
+          {zonasAdicionales.map(z => (
+            <span class="bbtol-zona-pill">{z}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="bbtol-zonas__cta">
+        <p>¿No ves tu zona? <strong>Cubrimos todo el Valle de Toluca y municipios cercanos del Estado de México</strong>.</p>
+        <a href="/sucursales/toluca" class="bbtol-zonas__cta-btn">
+          Ver Sucursal Toluca-Metepec completa
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bbtol-testimonios">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de baby showers en"
+        titleHighlight="Valle de Toluca"
+        subtitle="Hermanas, mejores amigas y futuras mamás hablando de su experiencia con MEDEDUL"
+      />
+      <div class="bbtol-testimonios__grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bbtol-otros-eventos" id="otros-candy-bars-toluca">
+    <div class="container">
+      <SectionHeader
+        title="Descubre nuestros otros Candy Bars en"
+        titleHighlight="Valle Toluca"
+        subtitle="Otros 4 montajes especializados que operamos en Valle de Toluca"
+      />
+
+      <div class="bbtol-otros-eventos__grid">
+        {eventos.map(ev => (
+          <ServiceCard
+            href={ev.href}
+            image={ev.img}
+            alt={`${ev.title} por MEDEDUL`}
+            title={ev.title}
+            excerpt={ev.excerpt}
+            badge={ev.badge}
+            cta={ev.cta}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bbtol-cdmx-cta">
+    <div class="container">
+      <div class="bbtol-cdmx-cta__card">
+        <div class="bbtol-cdmx-cta__body">
+          <span class="bbtol-cdmx-cta__badge">📍 ¿Baby Shower en Ciudad de México?</span>
+          <h2>Conoce nuestra <span>Sucursal CDMX</span></h2>
+          <p>Si tu baby shower es en Ciudad de México, MEDEDUL también tiene página exclusiva con cobertura completa CDMX. <strong>120+ baby showers montados</strong> en venues boutique como Saks, Belmondo, Casa Lamm, The Magnolia Hotel y domicilios particulares en Polanco, Lomas, Pedregal, Coyoacán, Roma. Operación desde sucursales <strong>Anzures + Condesa</strong>. Mismo estándar premium MEDEDUL.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/baby-shower" class="bbtol-cdmx-cta__link">Ver Baby Shower CDMX →</a>
+        </div>
+        <div class="bbtol-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', { w: 600, q: 82 })} alt="Baby Shower CDMX MEDEDUL sucursal hermana" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Sucursal Info Card (homologado 5 páginas Toluca) ===================== -->
+  <section class="tol-suc-info" aria-label="Información Sucursal MEDEDUL Toluca-Metepec">
+    <div class="container">
+      <div class="tol-suc-info__card">
+        <header class="tol-suc-info__header">
+          <span class="tol-suc-info__badge">Sucursal Toluca-Metepec</span>
+          <h2>Operamos desde <span>Metepec</span> con cobertura completa Valle de Toluca</h2>
+          <p>Te atendemos en menos de 24 horas. Cotización gratuita, anticipo 50% para reservar fecha y liquidación 48 h antes del evento.</p>
+        </header>
+        <div class="tol-suc-info__grid">
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📍</span>
+            <h3>Dirección Sucursal</h3>
+            <p>Blvd. Toluca-Metepec 913<br/>San Jorge Pueblo Nuevo<br/>Metepec, 52169, Edo. Méx.</p>
+            <a href="https://maps.google.com/?q=Blvd.+Toluca-Metepec+913,+San+Jorge+Pueblo+Nuevo,+Metepec,+52169" target="_blank" rel="noopener">Ver en Google Maps →</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">📞</span>
+            <h3>Teléfono</h3>
+            <p><a href="tel:+525521775184">+52 55 2177 5184</a></p>
+            <p>Lun-Sáb 10:00-19:00 h</p>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">💬</span>
+            <h3>WhatsApp directo</h3>
+            <p>Respuesta ejecutiva &lt; 24 h</p>
+            <a href="https://wa.me/525521775184?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar" class="tol-suc-info__btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <div class="tol-suc-info__item">
+            <span class="tol-suc-info__icon" aria-hidden="true">🚗</span>
+            <h3>Cobertura Valle Toluca</h3>
+            <p>Metepec · Toluca · Zinacantepec · Lerma · Ocoyoacac · San Mateo · Calimaya</p>
+            <a href="/sucursales/toluca">Ver Sucursal completa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FAQContactModule faqItems={faqs} />
+</BaseLayout>
+
+<style>
+  /* ==========================================================
+     Toluca Baby Shower — Subsección Mesa de Dulces
+     Prefix: bbtol- (baby-toluca)
+     ========================================================== */
+
+  .bbtol-stats { padding: 50px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .bbtol-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+  .bbtol-stat { display: flex; flex-direction: column; gap: 6px; padding: 22px 14px; background: #fff; border-radius: 16px; border: 1px solid rgba(125, 155, 105, 0.12); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04); }
+  .bbtol-stat__num { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: var(--rosa-principal, #D1007A); line-height: 1; }
+  .bbtol-stat__label { font-size: 0.85rem; color: var(--texto-light, #666); font-weight: 500; }
+
+  .bbtol-intro { padding: 90px 0; background: #fff; }
+  .bbtol-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; }
+  .bbtol-intro__badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; padding: 8px 22px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+  .bbtol-intro__copy h2 { font-size: 2.2rem; line-height: 1.25; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 22px; }
+  .bbtol-intro__copy h2 span { color: var(--rosa-principal, #D1007A); }
+  .bbtol-intro__copy p { font-size: 1.02rem; color: var(--texto-light, #555); line-height: 1.75; margin: 0 0 16px; }
+  .bbtol-intro__copy strong { color: var(--texto-oscuro, #1a1a1a); }
+  .bbtol-intro__copy a { color: var(--rosa-principal, #D1007A); text-decoration: underline; text-underline-offset: 2px; }
+  .bbtol-intro__visual { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12); }
+  .bbtol-intro__visual img { width: 100%; height: auto; display: block; }
+
+  .bbtol-galeria { padding: 90px 0; background: linear-gradient(180deg, #f8fbf6 0%, #fff9fb 100%); }
+  .bbtol-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 20px; margin-top: 40px; }
+  .bbtol-galeria__item { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  .bbtol-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bbtol-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .bbtol-galeria__item:nth-child(5), .bbtol-galeria__item:nth-child(6) { grid-column: span 2; }
+
+  .bbtol-incluye { padding: 90px 0; background: #fff; }
+  .bbtol-incluye__header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .bbtol-incluye__badge { display: inline-block; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .bbtol-incluye__header h2 { font-size: 2.2rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .bbtol-incluye__header h2 span { color: var(--rosa-principal, #D1007A); }
+  .bbtol-incluye__header p { font-size: 1.05rem; color: var(--texto-light, #666); line-height: 1.6; }
+  .bbtol-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .bbtol-incluye__card { background: #fff; border: 1px solid rgba(125, 155, 105, 0.15); border-radius: 20px; padding: 32px 28px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); }
+  .bbtol-incluye__num { display: inline-block; width: 36px; height: 36px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 700; line-height: 36px; text-align: center; margin-bottom: 18px; }
+  .bbtol-incluye__card h4 { font-size: 1.15rem; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 12px; }
+  .bbtol-incluye__card p { font-size: 0.92rem; color: var(--texto-light, #666); line-height: 1.7; margin: 0; }
+
+  .bbtol-venues { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .bbtol-venues__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .bbtol-venue-card { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #fff; border-radius: 14px; border: 1px solid rgba(125, 155, 105, 0.12); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); }
+  .bbtol-venue-card__icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; border-radius: 10px; }
+  .bbtol-venue-card__body { flex-grow: 1; min-width: 0; }
+  .bbtol-venue-card__name { display: block; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 4px; }
+  .bbtol-venue-card__meta { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; color: var(--texto-light, #666); flex-wrap: wrap; }
+  .bbtol-venue-card__zona { display: inline-flex; align-items: center; gap: 4px; }
+  .bbtol-venue-card__tipo { padding: 2px 8px; background: rgba(125, 155, 105, 0.12); border-radius: 6px; font-weight: 600; }
+  .bbtol-venues__nota { margin-top: 40px; text-align: center; font-size: 0.95rem; color: var(--texto-light, #666); padding: 22px 30px; background: #fff; border-radius: 14px; border: 1px dashed rgba(125, 155, 105, 0.3); }
+  .bbtol-venues__nota a { color: var(--rosa-principal, #D1007A); font-weight: 600; text-decoration: underline; }
+
+  .bbtol-zonas { padding: 90px 0; background: #fff; }
+  .bbtol-zonas__subseccion { margin-top: 40px; }
+  .bbtol-zonas__subheader { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 2px solid rgba(125, 155, 105, 0.15); }
+  .bbtol-zonas__numero { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7d9b69 100%); color: #fff; border-radius: 12px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+  .bbtol-zonas__subheader h3 { font-size: 1.4rem; color: var(--texto-oscuro, #1a1a1a); margin: 0 0 4px; }
+  .bbtol-zonas__subheader p { font-size: 0.92rem; color: var(--texto-light, #666); margin: 0; }
+  .bbtol-zonas__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .bbtol-zona-card { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: #fff; border-radius: 12px; border: 1px solid rgba(125, 155, 105, 0.12); text-decoration: none; transition: all 0.2s ease; position: relative; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03); }
+  .bbtol-zona-card:hover { border-color: var(--rosa-principal, #D1007A); box-shadow: 0 8px 22px rgba(208, 0, 122, 0.1); transform: translateY(-2px); }
+  .bbtol-zona-card--destacada { background: linear-gradient(135deg, #f8fbf6 0%, #fff5f9 100%); border-color: rgba(125, 155, 105, 0.25); }
+  .bbtol-zona-card__icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(125, 155, 105, 0.15); color: #7d9b69; border-radius: 8px; flex-shrink: 0; }
+  .bbtol-zona-card__body { flex-grow: 1; min-width: 0; }
+  .bbtol-zona-card__nombre { display: block; font-size: 0.92rem; font-weight: 600; color: var(--texto-oscuro, #1a1a1a); margin-bottom: 2px; }
+  .bbtol-zona-card__alcaldia { display: block; font-size: 0.78rem; color: var(--texto-light, #888); }
+  .bbtol-zona-card__badge { padding: 2px 8px; background: var(--rosa-principal, #D1007A); color: #fff; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .bbtol-zona-card__arrow { color: var(--rosa-principal, #D1007A); opacity: 0.5; flex-shrink: 0; }
+  .bbtol-zona-card:hover .bbtol-zona-card__arrow { opacity: 1; transform: translateX(2px); }
+  .bbtol-zonas__pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .bbtol-zona-pill { padding: 8px 16px; background: #fff; border: 1px solid rgba(125, 155, 105, 0.15); border-radius: 50px; font-size: 0.85rem; color: var(--texto-light, #555); }
+  .bbtol-zonas__cta { margin-top: 50px; text-align: center; padding: 28px; background: linear-gradient(135deg, #f8fbf6 0%, #fff5f9 100%); border-radius: 18px; border: 1px dashed rgba(125, 155, 105, 0.3); }
+  .bbtol-zonas__cta p { font-size: 0.98rem; color: var(--texto-light, #666); margin: 0 0 16px; }
+  .bbtol-zonas__cta strong { color: var(--rosa-principal, #D1007A); }
+  .bbtol-zonas__cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #A0005F 100%); color: #fff; border-radius: 50px; font-weight: 600; font-size: 0.92rem; text-decoration: none; box-shadow: 0 6px 20px rgba(208, 0, 122, 0.25); }
+
+  .bbtol-testimonios { padding: 90px 0; background: linear-gradient(180deg, #f8fbf6 0%, #fff 100%); }
+  .bbtol-testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+
+  .bbtol-otros-eventos { padding: 90px 0; background: #fff; }
+  .bbtol-otros-eventos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+
+  .bbtol-cdmx-cta { padding: 90px 0; background: linear-gradient(180deg, #fff 0%, #f8fbf6 100%); }
+  .bbtol-cdmx-cta__card { background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(208, 0, 122, 0.25); }
+  .bbtol-cdmx-cta__badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; backdrop-filter: blur(8px); }
+  .bbtol-cdmx-cta__body h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 16px; color: #fff; }
+  .bbtol-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .bbtol-cdmx-cta__body p { line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 24px; }
+  .bbtol-cdmx-cta__body p strong { color: #fff; }
+  .bbtol-cdmx-cta__link { display: inline-block; background: #fff; color: #D1007A; padding: 14px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .bbtol-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .bbtol-cdmx-cta__visual img { width: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); }
+
+  @media (max-width: 1024px) {
+    .bbtol-stats__grid, .bbtol-incluye__grid, .bbtol-venues__grid, .bbtol-zonas__grid, .bbtol-testimonios__grid, .bbtol-otros-eventos__grid { grid-template-columns: repeat(2, 1fr); }
+    .bbtol-galeria__bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .bbtol-galeria__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .bbtol-galeria__item:nth-child(5), .bbtol-galeria__item:nth-child(6) { grid-column: span 1; }
+    .bbtol-intro__grid { grid-template-columns: 1fr; }
+    .bbtol-cdmx-cta__card { grid-template-columns: 1fr; padding: 32px; }
+  }
+
+  @media (max-width: 768px) {
+    .bbtol-stats { padding: 40px 0; }
+    .bbtol-stat__num { font-size: 1.6rem; }
+    .bbtol-intro, .bbtol-galeria, .bbtol-incluye, .bbtol-venues, .bbtol-zonas, .bbtol-testimonios, .bbtol-otros-eventos, .bbtol-cdmx-cta { padding: 60px 0; }
+    .bbtol-intro__copy h2, .bbtol-incluye__header h2 { font-size: 1.7rem; }
+    .bbtol-incluye__grid, .bbtol-venues__grid, .bbtol-zonas__grid, .bbtol-testimonios__grid, .bbtol-otros-eventos__grid { grid-template-columns: 1fr; }
+    .bbtol-incluye__card { padding: 26px 22px; }
+    .bbtol-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .bbtol-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .bbtol-stat { padding: 16px 10px; }
+    .bbtol-stat__num { font-size: 1.4rem; }
+    .bbtol-stat__label { font-size: 0.78rem; }
+  }
+
+  /* ==========================================================
+     Sucursal Info Card (homologado 5 páginas Toluca)
+     ========================================================== */
+  .tol-suc-info { padding: 80px 0; background: #fff; }
+  .tol-suc-info__card { background: linear-gradient(135deg, #fff5f9 0%, #f8fbf6 100%); border-radius: 24px; padding: 50px 40px; border: 1px solid rgba(125, 155, 105, 0.15); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05); }
+  .tol-suc-info__header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .tol-suc-info__badge { display: inline-block; background: linear-gradient(135deg, #D1007A 0%, #7d9b69 100%); color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .tol-suc-info__header h2 { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; }
+  .tol-suc-info__header h2 span { color: #D1007A; }
+  .tol-suc-info__header p { font-size: 1rem; color: #666; line-height: 1.6; }
+  .tol-suc-info__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tol-suc-info__item { background: #fff; border-radius: 16px; padding: 28px 22px; text-align: center; border: 1px solid rgba(125, 155, 105, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .tol-suc-info__item:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(208, 0, 122, 0.1); }
+  .tol-suc-info__icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .tol-suc-info__item h3 { font-size: 1rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 700; }
+  .tol-suc-info__item p { font-size: 0.88rem; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .tol-suc-info__item a { color: #D1007A; font-weight: 600; text-decoration: none; font-size: 0.88rem; }
+  .tol-suc-info__item a:hover { text-decoration: underline; }
+  .tol-suc-info__btn { display: inline-block; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25); }
+  .tol-suc-info__btn:hover { text-decoration: none !important; transform: translateY(-2px); }
+  @media (max-width: 1024px) { .tol-suc-info__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .tol-suc-info { padding: 60px 0; } .tol-suc-info__card { padding: 36px 26px; } .tol-suc-info__header h2 { font-size: 1.4rem; } }
+  @media (max-width: 480px) { .tol-suc-info__grid { grid-template-columns: 1fr; } }
+</style>

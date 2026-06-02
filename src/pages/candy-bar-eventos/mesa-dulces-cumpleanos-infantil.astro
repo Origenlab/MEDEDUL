@@ -1,164 +1,1357 @@
 ---
+// Mesa de Dulces para Cumpleaños Infantil — L4 Global (Pro+)
+// Personajes, edades, seguridad infantil, operador disfrazado
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsDonas, subsParedDulces, subsFuenteChocolate,
+  subsCBXV, subsCBBoda, subsCBBabyShower, subsCBBautizo,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Cumpleanos Infantil', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' }
+  { name: 'Mesa de Dulces para Cumpleaños Infantil', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para cumpleanos infantil?', answer: 'Incluye diseno tematico, dulces y postres personalizados, montaje profesional y desmontaje al finalizar.' },
-  { question: 'Pueden trabajar tematicas de personajes?', answer: 'Si. Adaptamos colores, grafica, props y estilo al personaje o concepto de la fiesta.' },
-  { question: 'Manejan opciones seguras para ninos?', answer: 'Si. Curamos producto y presentacion pensando en seguridad, orden y practicidad para fiestas infantiles.' },
-  { question: 'Con cuanta anticipacion se recomienda reservar?', answer: 'Recomendamos reservar con 2 a 4 semanas para asegurar agenda y personalizacion.' },
-  { question: 'Atienden fiestas en casa y salon?', answer: 'Si. Cubrimos domicilios particulares (Polanco, Lomas, Pedregal, Coyoacan, Roma) y los principales salones infantiles de CDMX (KidZania Santa Fe, Salon Fiesta Land Polanco, Sandias Castillo Lomas, The Fun Factory Interlomas, Diversiones Wonderkid Coyoacan). Si tu cumple es en CDMX, visita nuestra pagina exclusiva Cumpleanos Infantil CDMX (https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil) con 30+ tematicas, control estricto de alergias (sin nueces default), operador disfrazado opcional y paquetes desde $3,500 MXN.' },
-  { question: 'Pueden combinar con estaciones interactivas?', answer: 'Si. Podemos integrar fuente de chocolate, chamoy u otras experiencias para elevar la fiesta.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '220+', label: 'Cumples montados' },
+  { number: '40+', label: 'Personajes y temáticas' },
+  { number: '100%', label: 'Control de alergias' },
+  { number: '< 24h', label: 'Cotización en línea' }
 ];
 
-const packages = [
+// =============== 12 Temáticas / Personajes (visual catalog) ===============
+const tematicas = [
+  { nombre: 'Princesas Disney', icon: '👑', desc: 'Ariel, Bella, Cenicienta, Rapunzel, Tiana, Moana. Castillo rosa-dorado con macarons en forma de corona.', img: '/img/galeria/candy-bar-princesa-elegante-rosa-dorado.avif', color: '#FFB6D9' },
+  { nombre: 'Marvel Superhéroes', icon: '🦸', desc: 'Spider-Man, Iron Man, Hulk, Capitán América, Thor. Paleta rojo-azul-amarillo con elementos de cómic.', img: '/img/galeria/candy-bar-superheroes-cumpleanos-nino.avif', color: '#E63946' },
+  { nombre: 'Frozen Elsa & Anna', icon: '❄️', desc: 'Hielo, copos de nieve, paleta celeste-plateado con cristales y dulces "congelados".', img: '/img/eventos/cumpleanos/infantiles/candy-bar-frozen-celeste-plateado-cristales.avif', color: '#8ECAE6' },
+  { nombre: 'Pokemon', icon: '⚡', desc: 'Pikachu, Charmander, Squirtle, Bulbasaur. Paleta amarillo-rojo con pokébolas y dulces "pokestop".', img: '/img/eventos/cumpleanos/infantiles/pastel-pokemon-pikachu-squirtle-cumpleanos-infantil.avif', color: '#FFC857' },
+  { nombre: 'Bluey & Bingo', icon: '🐶', desc: 'Bluey, Bingo, mamá Chilli, papá Bandit. Paleta azul-naranja con globos personalizados y dulces aussie.', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif', color: '#3A86FF' },
+  { nombre: 'Sirenita', icon: '🧜‍♀️', desc: 'Ariel, Flounder, Sebastián. Paleta turquesa-coral con conchas, perlas comestibles y dulces de "mar".', img: '/img/eventos/cumpleanos/infantiles/pastel-sirenita-ariel-cumpleanos-infantil-nina-tematico.avif', color: '#06D6A0' },
+  { nombre: 'Paw Patrol', icon: '🐾', desc: 'Chase, Skye, Marshall, Rubble. Paleta colorida con huellas, escudos y dulces "misión rescate".', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-paw-patrol-colorido-nino.avif', color: '#FB5607' },
+  { nombre: 'Unicornios & Mágico', icon: '🦄', desc: 'Arcoíris pastel con purpurina comestible, nubes de algodón, dulces aesthetic y backdrop fantasy.', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-unicornio-arcoiris-cumpleanos-nina.avif', color: '#B5179E' },
+  { nombre: 'Dinosaurios', icon: '🦖', desc: 'T-Rex, Triceratops, Stegosaurus. Paleta verde-naranja-tierra con huellas y dulces "prehistóricos".', img: '/img/eventos/cumpleanos/infantiles/candy-bar-dinosaurios-cumpleanos-nino.avif', color: '#7B7B3F' },
+  { nombre: 'Barbie', icon: '💖', desc: 'Barbie clásica y moderna. Paleta rosa fucsia-blanco-dorado con accesorios y dulces "fashion".', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-tematica-barbie.avif', color: '#E91E63' },
+  { nombre: 'Cars / Hot Wheels', icon: '🏎️', desc: 'Rayo McQueen, autos clásicos, pista de carreras. Paleta rojo-amarillo con elementos racing.', img: '/img/eventos/cumpleanos/infantiles/candy-bar-superman-ninos.avif', color: '#D62828' },
+  { nombre: 'Encanto / Disney', icon: '🌺', desc: 'Mirabel, Isabela, Luisa, Bruno. Paleta tropical colombiana con flores y dulces de la familia Madrigal.', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-fiesta-ninos.avif', color: '#FFD60A' }
+];
+
+// =============== Por edad del cumpleañero ===============
+const porEdad = [
+  {
+    rango: '1 año',
+    title: 'Primer cumpleaños',
+    desc: 'Smash cake-friendly. Paleta suave (rosa pastel, azul cielo, verde menta, neutro), dulces blandos sin riesgos para bebé, foto con la familia ampliada y recordatorios para invitados. Coordinación con fotógrafo del smash cake.',
+    icon: '🎂',
+    color: '#FFB6D9'
+  },
+  {
+    rango: '3-6 años',
+    title: 'Preescolar',
+    desc: 'Edad mágica de las temáticas: princesas Disney, Paw Patrol, Bluey, Frozen, dinosaurios, superhéroes. Surtido colorido aprobado por niños, control estricto de alergias y dulces fáciles de manejar para manos pequeñas.',
+    icon: '🦄',
+    color: '#8ECAE6'
+  },
+  {
+    rango: '7-12 años',
+    title: 'Escolar y preadolescente',
+    desc: 'Temáticas más sofisticadas: Marvel, Pokemon, Minecraft, Roblox, K-pop, anime, gaming. Surtido premium tipo "pack sorpresa" con bolos coleccionables y elementos aesthetic para fotos en grupos.',
+    icon: '🎮',
+    color: '#7A2BC2'
+  }
+];
+
+// =============== Seguridad infantil (diferenciador único) ===============
+const seguridad = [
+  {
+    icon: '🥜',
+    title: 'Sin nueces por defecto',
+    desc: 'TODO el surtido base es libre de nueces. Esto evita el riesgo más común de alergia infantil grave (anafilaxia). Si alguno de los invitados tolera nueces, se ofrecen como opción adicional.'
+  },
+  {
+    icon: '🌾',
+    title: 'Sin gluten / sin lactosa opcional',
+    desc: 'Adaptamos el surtido para niños celiacos o intolerantes a la lactosa sin costo adicional. Solo necesitamos saberlo en el brief de la fiesta.'
+  },
+  {
+    icon: '🍬',
+    title: 'Sin azúcar para diabéticos',
+    desc: 'Curaduría de dulces sin azúcar específica para niños diabéticos tipo 1. Etiquetado claro para diferenciar producto y evitar confusión durante la fiesta.'
+  },
+  {
+    icon: '🧒',
+    title: 'Mobiliario seguro',
+    desc: 'Sin esquinas peligrosas, exhibidores estables a altura segura para niños, soportes pesados anti-volcadura. Pensado para fiestas activas con niños corriendo cerca de la mesa.'
+  },
+  {
+    icon: '👨‍👩‍👧',
+    title: 'Coordinación con animadores',
+    desc: 'Trabajamos con animadores, magos, payasos, inflables y operadores de salones infantiles. Llegamos antes para no interferir con su montaje y operamos en sintonía durante la fiesta.'
+  },
+  {
+    icon: '🎁',
+    title: 'Bolos sorpresa coordinados',
+    desc: 'Empaque final en bolos sorpresa (cajitas, bolsas, totebags) decorados al personaje. Cada niño se lleva su recuerdo y los papás no tienen que preocuparse por preparar dulceros.'
+  }
+];
+
+// =============== Características (Diferenciadores Infantil) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño temático por personaje favorito',
+    desc: 'Trabajamos 40+ temáticas y personajes: Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, dinosaurios, sirenas, princesas, superhéroes, Cars, Barbie, Encanto, Minecraft, Roblox y más. Si tu hijo tiene un personaje específico, lo recreamos.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido aprobado por niños + control de alergias',
+    desc: 'Curaduría especial: gomitas favoritas, chocolates suaves, dulces icónicos por temática, paletas decoradas, mini cupcakes y bolos sorpresa. Control estricto de alergias (sin nueces por defecto, opciones sin gluten, sin lactosa, sin azúcar).',
+    img: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif'
+  },
+  {
+    num: 3,
+    title: 'Operador disfrazado opcional',
+    desc: 'Diferenciador único: en paquetes Premium y Luxury podemos asignar operador profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, etc.). Genera momento mágico para el cumpleañero y sus amigos.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-paw-patrol-colorido-nino.avif'
+  },
+  {
+    num: 4,
+    title: 'Coordinación con animadores e inflables',
+    desc: 'Operamos en paralelo con animadores, magos, payasos, inflables, salones infantiles (KidZania, Salón Fiesta Land, The Fun Factory). Llegamos antes para no interferir y nos integramos al timing de la fiesta.',
+    img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif'
+  }
+];
+
+// =============== Paquetes Cumpleaños Infantil ===============
+const paquetesKid = [
   {
     name: 'Esencial',
-    icon: '🎉',
-    price: '$4,700',
+    icon: '🎈',
+    price: '$3,500',
     currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para fiesta infantil intima',
-    features: ['Mesa principal tematizada', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '15-30 niños',
+    tagline: 'Ideal para fiesta íntima en casa',
+    features: [
+      'Mesa temática base (8-10 variedades)',
+      'Paleta y atrezzo del personaje elegido',
+      'Cristalería y soportes coordinados',
+      'Control de alergias incluido',
+      'Bolos sorpresa coordinados',
+      'Montaje 1-2 h antes',
+      'Empaque de sobrantes para casa'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Cumpleaños%20Infantil%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$7,900',
+    icon: '🎉',
+    price: '$5,800',
     currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por personaje', 'Mayor variedad de dulces y postres', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '30-60 niños',
+    tagline: 'El más solicitado por mamás',
+    features: [
+      'Mesa temática completa (12-15 variedades)',
+      'Backdrop con nombre y edad del cumpleañero',
+      'Atrezzo profesional del personaje',
+      'Operador disfrazado opcional (sin costo)',
+      'Control estricto de alergias (sin nueces, sin gluten opcional)',
+      'Coordinación con animador / inflables',
+      'Bolos sorpresa premium personalizados',
+      'Reposición continua durante la fiesta'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Cumpleaños%20Infantil%20-%20Premium'
   },
   {
     name: 'Luxury',
-    icon: '💎',
-    price: '$12,300',
+    icon: '🏰',
+    price: '$9,500',
     currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para fiestas grandes', 'Acompanamiento operativo total'],
+    guests: '60+ niños',
+    tagline: 'Experiencia mágica completa',
+    features: [
+      'Mesa de autor (18+ variedades temáticas)',
+      'Backdrop 360° con escenografía',
+      'Operador disfrazado + photobooth integrado',
+      'Fuente de chocolate o pared de dulces incluida',
+      'Pastel temático y mini cupcakes coordinados',
+      'Bolos sorpresa premium con sticker book',
+      'Coordinación full con animadores y planner',
+      'Empaque elegante de sobrantes para invitados',
+      'Cobertura amplia + montaje extendido'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para cumpleanos infantil (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Cumpleaños%20Infantil%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '220+', label: 'Fiestas Infantiles' },
-  { number: '100%', label: 'Tematico' },
-  { number: '40+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
+// =============== Tabla comparativa de paquetes ===============
+const tablaComparativa = [
+  { feature: 'Variedades de dulces', esencial: '8-10', premium: '12-15', luxury: '18+' },
+  { feature: 'Mesa temática', esencial: '✓ Base', premium: '✓ Completa', luxury: '✓ Autor' },
+  { feature: 'Backdrop fotográfico', esencial: '—', premium: '✓ Con nombre', luxury: '✓ 360° escenografía' },
+  { feature: 'Operador disfrazado', esencial: '—', premium: '✓ Opcional', luxury: '✓ Incluido' },
+  { feature: 'Control de alergias', esencial: '✓ Sin nueces', premium: '✓ Estricto', luxury: '✓ Estricto + custom' },
+  { feature: 'Bolos sorpresa', esencial: '✓ Coordinados', premium: '✓ Premium', luxury: '✓ Premium + sticker' },
+  { feature: 'Estación interactiva', esencial: '—', premium: 'Opcional', luxury: '✓ Incluida' },
+  { feature: 'Pastel y cupcakes', esencial: '—', premium: 'Opcional', luxury: '✓ Incluido' },
+  { feature: 'Coordinación animador', esencial: '—', premium: '✓', luxury: '✓ Full coordinación' },
+  { feature: 'Reposición continua', esencial: '—', premium: '✓', luxury: '✓ Extendida' }
 ];
 
-const whyFeatures = [
-  { num: 1, title: 'Diseno por Personaje', desc: 'Composicion visual alineada al tema favorito de la fiesta.', img: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif' },
-  { num: 2, title: 'Surtido Divertido', desc: 'Dulces y postres pensados para sorprender a ninos e invitados.', img: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif' },
-  { num: 3, title: 'Montaje Ordenado', desc: 'Ejecucion limpia y funcional para mantener flujo en la celebracion.', img: '/img/eventos/cumpleanos/infantiles/decoracion-mesa-barbie.avif' },
-  { num: 4, title: 'Formato Escalable', desc: 'Adaptamos propuesta para reuniones familiares o fiestas amplias.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif' }
+// =============== Timeline del día ===============
+const timeline = [
+  { hora: 'T-2h', icon: '🚛', title: 'Llegada y montaje', desc: 'Llegamos 1-2 horas antes del inicio para montar mesa, backdrop, atrezzo y verificar instalación eléctrica si aplica.' },
+  { hora: 'T-30min', icon: '✨', title: 'Setup final', desc: 'Producto colocado, etiquetas en lugar, bolos sorpresa listos en estación, control final de alergias y sanitización del área.' },
+  { hora: 'T+0', icon: '🎉', title: 'Inicio de fiesta', desc: 'Recepción de invitados. Operador atiende mesa, controla flujo de niños y resuelve dudas de papás sobre alergias.' },
+  { hora: 'T+1h', icon: '🎂', title: 'Corte de pastel', desc: 'Coordinamos con fotógrafo y animador para que el cumpleañero esté frente a la mesa. Foto familiar y momento de las velitas.' },
+  { hora: 'T+2h', icon: '🎁', title: 'Entrega bolos sorpresa', desc: 'Cada niño se lleva su bolo sorpresa coordinado al personaje. Empacamos producto sobrante para que el cumpleañero lo tenga en casa.' },
+  { hora: 'T+3h', icon: '🚛', title: 'Desmontaje discreto', desc: 'Retiramos mesa, backdrop y atrezzo sin interrumpir el cierre de la fiesta. Limpieza del área.' }
 ];
 
-const processSteps = [
-  { num: 1, title: 'Brief de Fiesta', desc: 'Recibimos tema, edad, invitados y sede del cumpleanos.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo.' },
-  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos tiempos, accesos y necesidades del venue.' },
-  { num: 4, title: 'Ejecucion del Evento', desc: 'Montamos y operamos la mesa con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para bienvenida de bebe.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para quinceaneras.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Mesa de Dulces para Bautizo', excerpt: 'Propuestas familiares con estilo elegante.', img: '/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif', href: '/candy-bar-eventos/mesa-dulces-bautizo', cta: 'Ver Bautizo' },
-  { title: 'Mesa de Dulces para Primera Comunion', excerpt: 'Montajes sobrios para celebraciones religiosas.', img: '/img/eventos/comunion/mesa-dulces-primera-comunion.avif', href: '/candy-bar-eventos/mesa-dulces-primera-comunion', cta: 'Ver Comunion' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Cumpleanos Infantil en CDMX',
-  description: 'Servicio de mesa de dulces para cumpleanos infantil en Ciudad de Mexico con diseno tematico y montaje profesional.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso ===============
+const procesoKid = [
+  {
+    num: 1,
+    title: 'Brief del cumpleaños',
+    desc: 'Nos cuentas la fecha, lugar (casa o salón infantil), edad del cumpleañero, número de niños, personaje o temática favorita y alergias o restricciones alimenticias específicas.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4700',
-    highPrice: '12300',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Cumpleanos Infantil ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual mágica',
+    desc: 'En menos de 24 h recibes render conceptual con la temática del personaje, paleta cromática, surtido sugerido apto para niños, opciones de backdrop y atrezzo, y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con animadores',
+    desc: 'Coordinamos directo con tu animador, mago, payaso, salón infantil o coordinador del venue. Confirmamos timing de la fiesta, posición de la mesa y momento del corte de pastel.'
+  },
+  {
+    num: 4,
+    title: 'Día del cumpleaños',
+    desc: 'Llegamos 1-2 h antes, montamos sin interferir con animador o inflables, operamos durante toda la fiesta con reposición continua y entregamos bolos sorpresa al final.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería (8 imágenes infantiles reales) ===============
+const galeriaImages = [
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif', alt: 'Mesa de dulces Superman superhéroes para cumpleaños infantil' },
+  { src: '/img/eventos/cumpleanos/infantiles/candy-bar-infantil-colorido.avif', alt: 'Candy bar infantil colorido para fiesta de cumpleaños' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif', alt: 'Mesa de dulces Bluey azul para cumpleaños infantil' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-paw-patrol-colorido-nino.avif', alt: 'Mesa de dulces Paw Patrol colorida para niño' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-unicornio-arcoiris-cumpleanos-nina.avif', alt: 'Mesa de dulces unicornio arcoíris para niña' },
+  { src: '/img/eventos/cumpleanos/infantiles/candy-bar-dinosaurios-cumpleanos-nino.avif', alt: 'Candy bar dinosaurios para cumpleaños niño' },
+  { src: '/img/eventos/cumpleanos/infantiles/mesa-dulces-tematica-barbie.avif', alt: 'Mesa de dulces temática Barbie' },
+  { src: '/img/eventos/cumpleanos/infantiles/torre-cupcakes-rosa-blanco-fiesta-infantil-elegante.avif', alt: 'Torre de cupcakes rosa blanco fiesta infantil elegante' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría aprobada por niños', desc: 'Surtido de 8 a 18+ variedades favoritas de niños: gomitas, chocolates suaves, paletas decoradas, mini cupcakes temáticos, galletas con motivos del personaje, dulces icónicos según temática y bolos sorpresa coordinados. Todo con control estricto de alergias (sin nueces por defecto, opciones sin gluten, sin lactosa, sin azúcar para diabéticos).' },
+  { num: '02', title: 'Diseño temático del personaje', desc: 'Cristalería, soportes, bandejas, manteles y backdrop coordinados al personaje del cumpleaños (Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, etc.). Atrezzo profesional, letras decorativas con el nombre del cumpleañero, edad en grande y elementos icónicos del personaje.' },
+  { num: '03', title: 'Operador disfrazado opcional', desc: 'En paquetes Premium y Luxury asignamos operador profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, Elsa, etc.). Genera momento mágico para el cumpleañero, sus amigos y fotos memorables para los papás.' },
+  { num: '04', title: 'Seguridad infantil prioritaria', desc: 'Sin nueces por defecto en todo el surtido. Verificamos alergias específicas en el brief y ajustamos sin costo: sin gluten, sin lactosa, sin azúcar, sin colorantes. Mobiliario sin esquinas peligrosas, exhibidores estables a altura segura.' },
+  { num: '05', title: 'Operación durante la fiesta', desc: 'Operador profesional asignado durante toda la fiesta. Reposición continua, atención a niños y a papás, foto coordinada del cumpleañero con la mesa, integración con el momento del corte de pastel y soporte a animadores.' },
+  { num: '06', title: 'Bolos sorpresa premium', desc: 'Empaque final en bolos sorpresa decorados al personaje (cajitas, bolsas, totebags). Cada niño se lleva su recuerdo y los papás no tienen que preocuparse por preparar dulceros. En Luxury incluimos sticker book coleccionable adicional.' }
+];
+
+// =============== Testimonios infantil ===============
+const testimonios = [
+  {
+    name: 'Mariana López',
+    initials: 'ML',
+    review: 'El cumple Bluey de mi hija de 4 años fue mágico. La mesa quedó idéntica a la serie, el operador llegó disfrazado de Bluey y los niños alucinaron. Súper detallistas con la alergia al gluten de mi hija. Repetiremos sin duda.',
+    event: 'Cumple 4 años · Bluey · Casa',
+    rating: 5
+  },
+  {
+    name: 'Carlos Méndez',
+    initials: 'CM',
+    review: 'Cumple Pokemon de mi hijo. Coordinaron con el animador y los inflables sin problema. El operador llegó disfrazado de entrenador Pokemon y mi hijo no lo podía creer. Surtido sin nueces respetando alergia de uno de los invitados. Perfecto.',
+    event: 'Cumple 7 años · Pokemon · Salón',
+    rating: 5
+  },
+  {
+    name: 'Laura Pérez',
+    initials: 'LP',
+    review: 'Primer cumpleaños de mi bebé. Mesa pastel-suave preciosa, smash cake coordinado, foto familiar épica. Llegaron antes y dejaron todo limpio. Bolos sorpresa para los invitados quedaron divinos. Recomendados al 100%.',
+    event: 'Primer cumpleaños · Pastel-suave',
+    rating: 5
+  }
+];
+
+// =============== FAQ infantil ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para cumpleaños infantil?',
+    answer: 'Incluye diseño temático según el personaje favorito del niño (Disney, Marvel, Pokemon, Frozen, Bluey, Paw Patrol, etc.), surtido de 8 a 18+ variedades aprobado por niños (gomitas, chocolates suaves, paletas, mini cupcakes, galletas decoradas, bolos sorpresa), cristalería y soportes coordinados al personaje, backdrop con nombre y edad del cumpleañero, atrezzo temático profesional, control estricto de alergias (sin nueces por defecto), montaje 1-2 h antes en domicilio o salón, coordinación con animadores e inflables, operación durante la fiesta y empaque en bolos sorpresa.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para cumpleaños infantil?',
+    answer: 'Iniciamos en $3,500 MXN (Esencial, 15-30 niños) y llegamos a $9,500 MXN (Luxury, 60+ niños). El precio depende del número de niños, surtido seleccionado, nivel de personalización (backdrop, escenografía, photobooth), operador disfrazado y estación interactiva (fuente de chocolate o pared de dulces). Cotización gratuita en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Qué temáticas o personajes pueden montar?',
+    answer: 'Trabajamos 40+ temáticas y personajes: Princesas Disney (Ariel, Rapunzel, Moana, Tiana), Marvel y DC (Spider-Man, Iron Man, Hulk, Batman), Frozen, Pokemon, Bluey, Paw Patrol, Sirenita, Unicornios, Dinosaurios, Safari, Cars, Hot Wheels, Barbie, Encanto, Minecraft, Roblox, Sonic, Mario Bros, Peppa Pig, Bob Esponja, anime/K-pop, gaming. Si tu hijo tiene un personaje específico no listado, lo conceptualizamos.'
+  },
+  {
+    question: '¿Tienen control de alergias y opciones especiales?',
+    answer: 'Sí, es uno de nuestros diferenciadores clave. TODO el surtido base es libre de nueces (alergia infantil más común y peligrosa). Adaptamos sin costo adicional para: sin gluten (celiacos), sin lactosa, sin azúcar (diabéticos tipo 1), sin colorantes artificiales (hipersensibles) y opciones kosher si aplica. Pídenos la curaduría especial en el brief inicial mencionando todas las alergias de los invitados.'
+  },
+  {
+    question: '¿El operador puede llegar disfrazado del personaje?',
+    answer: 'Sí. En paquetes Premium y Luxury podemos asignar operador profesional disfrazado del personaje del cumpleaños: entrenador Pokemon, princesa Disney, superhéroe Marvel, Bluey, Elsa, Ariel, etc. Es un diferenciador que genera momento mágico para el cumpleañero y sus amigos, además de fotos memorables para los papás. Especificar en el brief para confirmar disponibilidad.'
+  },
+  {
+    question: '¿Atienden cumpleaños en CDMX, Estado de México y Toluca?',
+    answer: 'Sí. Operamos desde 3 sucursales: Anzures y Condesa en CDMX, y nuestra sucursal Toluca-Metepec. Cubrimos toda la Ciudad de México (Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa) y zona metropolitana, además del Valle de Toluca. Si tu cumple es en CDMX, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil">Cumpleaños Infantil CDMX</a> con cobertura en domicilios particulares y los principales salones infantiles (KidZania Santa Fe, Salón Fiesta Land Polanco, Sandías Castillo Lomas, The Fun Factory Interlomas).'
+  },
+  {
+    question: '¿Coordinan con animadores, magos, payasos e inflables?',
+    answer: 'Sí. Trabajamos en paralelo con animadores, magos, payasos, baby DJ, inflables y operadores de salones infantiles. Llegamos antes para no interferir con su montaje y operamos en sintonía con el timing de la fiesta. Coordinamos directamente con ellos antes del evento si nos compartes su contacto.'
+  },
+  {
+    question: '¿Pueden combinar la mesa con fuente de chocolate, pared de dulces o donas?',
+    answer: 'Sí, y es muy popular para fiestas infantiles. Sumamos <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> belga (la favorita de los niños), <a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a> con dispensadores divertidos, <a href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes">Mesa de Donas y Cupcakes</a> decorados con arte temático, o la <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> clásica. Estas estaciones generan momentos interactivos memorables para los niños.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Recomendamos reservar con 2 a 4 semanas de anticipación para fiestas regulares. Para temporadas altas (mayo-junio, octubre-diciembre, fines de año escolar) sugerimos 4-6 semanas. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del cumpleaños.'
+  },
+  {
+    question: '¿Atienden fiestas en casa y en salones infantiles?',
+    answer: 'Sí. Cubrimos domicilios particulares (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa, Interlomas, Satélite) y los principales salones infantiles (KidZania Santa Fe, Salón Fiesta Land Polanco, Sandías Castillo Lomas, The Fun Factory Interlomas, Diversiones Wonderkid Coyoacán). Conocemos los reglamentos y tiempos de cada salón.'
+  },
+  {
+    question: '¿Pueden trabajar temáticas específicas con moodboard previo?',
+    answer: 'Sí. Para conceptos integrales con producción de etiquetas personalizadas, props impresos a medida y direccón de arte completa, conoce nuestras <a href="/candy-bar-eventos/mesas-tematicas">Mesas Temáticas Personalizadas</a>. Trabajamos moodboard previo, etiquetas con el nombre del cumpleañero y props 3D del personaje específico.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran al final?',
+    answer: 'Empacamos todos los sobrantes en cajas o bolsas decorativas alineadas a la temática del cumpleaños y los entregamos al cumpleañero o a los papás. Los bolos sorpresa son para que cada niño se lleve su recuerdo. El producto adicional sobrante es para el cumpleañero.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-cumpleanos-infantil#service",
+      "name": "Mesa de Dulces para Cumpleaños Infantil",
+      "serviceType": "Mesa de Dulces Temática Infantil / Candy Bar Cumpleaños Niños",
+      "description": "Mesa de dulces temática para cumpleaños infantil con 40+ personajes, control estricto de alergias (sin nueces por defecto), operador disfrazado opcional, coordinación con animadores y bolos sorpresa premium. Cobertura CDMX y Toluca.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "220",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Ciudad de Mexico" },
+        { "@type": "City", "name": "Toluca" },
+        { "@type": "City", "name": "Metepec" },
+        { "@type": "AdministrativeArea", "name": "Estado de Mexico" }
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "3500",
+        "highPrice": "9500",
+        "offerCount": "3",
+        "offers": paquetesKid.map(pkg => ({
+          "@type": "Offer",
+          "name": `Cumpleaños Infantil ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias con hijos planeando cumpleaños"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Cumpleaños Infantil", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-cumpleanos-infantil" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Cumpleanos Infantil en CDMX | Mededul"
-  description="Mesa de dulces para cumpleanos infantil en CDMX con diseno tematico, montaje profesional y propuesta personalizada por personaje."
+  title="Mesa de Dulces Cumpleaños Infantil | 40+ Personajes · Sin Nueces · Operador Disfrazado | MEDEDUL"
+  description="Mesa de dulces temática para cumpleaños infantil con 40+ personajes (Bluey, Pokemon, Princesas, Marvel, Paw Patrol). Sin nueces por defecto, opciones sin gluten/lactosa/azúcar, operador disfrazado opcional. 220+ cumples montados. Desde $3,500 MXN."
   canonical="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
   ogImage="/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para Cumpleanos Infantil en CDMX"
-    highlight="Cumpleanos Infantil"
-    subtitle="Candy bar tematico para crear una fiesta divertida, ordenada y memorable para ninos y familias"
-    secondaryContent={`<p><strong>Cumpleanos</strong> infantil con mesa de dulces profesional transforma la fiesta en una experiencia visual y emocional que sorprende desde el primer minuto. En Mededul disenamos propuestas tematicas por personaje para mantener coherencia estetica y alto impacto.</p><p><strong>Fiesta</strong> infantil bien planificada mejora el flujo de servicio, reduce improvisaciones y permite que la familia disfrute el evento con tranquilidad total. Ejecutamos montaje integral en CDMX con enfoque en calidad, seguridad y detalle.</p>`}
+    title="Mesa de Dulces para Cumpleaños Infantil"
+    highlight="Cumpleaños Infantil"
+    subtitle="Los ojos de los niños brillan con nuestra mesa · 40+ personajes · Sin nueces por defecto · Operador disfrazado opcional"
+    secondaryContent={`<p>Personajes favoritos, colores explosivos y todos los dulces que sueñan los niños. La <strong>mesa de dulces temática para cumpleaños infantil</strong> es el momento más esperado de la fiesta y la foto que los papás van a guardar para siempre. En <strong>MEDEDUL</strong> diseñamos cada mesa alrededor del personaje favorito del cumpleañero (Bluey, Pokemon, Princesas Disney, Marvel, Frozen, Paw Patrol, dinosaurios, sirenas, unicornios, Cars, Barbie, Encanto y 40+ temáticas más), con surtido aprobado por niños (gomitas, chocolates suaves, paletas decoradas, mini cupcakes, bolos sorpresa) y <strong>control estricto de alergias: sin nueces por defecto</strong>, opciones sin gluten, sin lactosa y sin azúcar para niños diabéticos.</p><p>Nuestro diferenciador único es el <strong>operador disfrazado opcional</strong>: en paquetes Premium y Luxury asignamos personal profesional disfrazado del personaje del cumpleaños (entrenador Pokemon, princesa, superhéroe, Bluey, Elsa, etc.) que opera la mesa, atiende a los niños y genera el momento mágico que tu hijo va a recordar para siempre. Coordinamos directamente con animadores, magos, payasos, inflables y operadores de salones infantiles para que la fiesta fluya sin fricciones.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta infantil al tamano de la fiesta y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu cumpleanos infantil." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="kid-stats">
+    <div class="container">
+      <div class="kid-stats__grid">
+        {stats.map(s => (
+          <div class="kid-stat">
+            <span class="kid-stat__num">{s.number}</span>
+            <span class="kid-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa Infantil" descriptions={['Creamos montajes tematicos con equilibrio entre impacto visual y funcionalidad.', 'Integramos diseno, montaje y operacion para una fiesta infantil sin errores.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== Catálogo de 12 Temáticas (UNIQUE: visual rainbow grid) ===================== -->
+  <section class="kid-tematicas section-padding" id="tematicas-infantil">
+    <div class="container">
+      <SectionHeader
+        title="Recreamos el"
+        titleHighlight="personaje favorito"
+        subtitle="40+ temáticas trabajadas. Estos son los 12 más solicitados por los niños"
+        content={`<p>Si tu hijo tiene un personaje favorito específico, <strong>lo recreamos al detalle</strong>. Trabajamos paleta cromática, atrezzo, etiquetas, props 3D y backdrop alineados a la serie, película o videojuego. ¿No ves la temática que buscas? Es porque trabajamos cualquier personaje: Sonic, Mario Bros, Minecraft, Roblox, Peppa Pig, Bob Esponja, Sailor Moon, Naruto, Stranger Things, Harry Potter y más. Pídenos tu temática específica en el brief.</p>`}
+      />
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa infantil con precision profesional." steps={processSteps} />
+      <div class="kid-tematicas__grid">
+        {tematicas.map(t => (
+          <div class="kid-tematica" style={`--tema-color: ${t.color}`}>
+            <div class="kid-tematica__img">
+              <img
+                src={getCdnUrl(t.img, { w: 400, q: 80 })}
+                alt={`Mesa de dulces temática ${t.nombre} para cumpleaños infantil`}
+                loading="lazy"
+                width="400"
+                height="300"
+              />
+            </div>
+            <div class="kid-tematica__body">
+              <span class="kid-tematica__icon" aria-hidden="true">{t.icon}</span>
+              <h3 class="kid-tematica__title">{t.nombre}</h3>
+              <p class="kid-tematica__desc">{t.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para celebraciones sociales y familiares." events={eventCards} />
+      <div class="kid-tematicas__cta">
+        <a href="https://wa.me/525525226442?text=Hola!%20Quiero%20una%20mesa%20temática%20para%20cumpleaños%20infantil" target="_blank" rel="noopener" class="kid-cta-btn">
+          Pedir mi temática personalizada por WhatsApp →
+        </a>
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Por edad del cumpleañero (UNIQUE) ===================== -->
+  <section class="kid-edades section-padding" id="por-edad">
+    <div class="container">
+      <SectionHeader
+        title="Adaptamos según la"
+        titleHighlight="edad del cumpleañero"
+        subtitle="Cada edad pide una propuesta distinta. Estos son los 3 grandes grupos"
+      />
+      <div class="kid-edades__grid">
+        {porEdad.map(e => (
+          <div class="kid-edad" style={`--edad-color: ${e.color}`}>
+            <div class="kid-edad__icon" aria-hidden="true">{e.icon}</div>
+            <span class="kid-edad__rango">{e.rango}</span>
+            <h3 class="kid-edad__title">{e.title}</h3>
+            <p class="kid-edad__desc">{e.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="kid-intro" id="intro-kid">
+    <div class="container">
+      <div class="kid-intro__grid">
+        <div class="kid-intro__copy">
+          <span class="kid-intro__badge">Especialistas en cumpleaños infantil</span>
+          <h2>Así trabaja <span>MEDEDUL</span> el cumpleaños de tu hijo</h2>
+          <p>El cumpleaños de tu hijo es uno de esos días que va a recordar para siempre. Por eso cada mesa de dulces infantil que montamos parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con los papás (edad, personaje favorito, alergias, número de niños, sede), propuesta visual con render conceptual del personaje, curaduría de producto aprobado por niños, coordinación con animadores y operadores del salón, montaje 1-2 h antes y operación impecable durante toda la fiesta.</p>
+          <p>La mesa de dulces infantil que diseñamos no es un servicio genérico: es una <strong>experiencia mágica a medida</strong> que respeta el universo del personaje favorito (Disney, Marvel, Pokemon, Bluey, Paw Patrol, Frozen, etc.), la edad y los gustos del cumpleañero, las restricciones alimenticias de los invitados y las expectativas visuales de los papás para fotos. Para conceptos integrales con producción de props impresos a medida conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p>Si planeas un <strong>cumpleaños en CDMX</strong> y buscas mesa con estándar premium, control estricto de alergias y coordinación con tu salón infantil o animador, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil"><strong>Cumpleaños Infantil CDMX</strong></a> con cobertura en domicilios particulares y los principales salones (KidZania Santa Fe, Salón Fiesta Land Polanco, Sandías Castillo Lomas, The Fun Factory Interlomas).</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Cumpleaños%20Infantil" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a hacer brillar los ojos de tu hijo.</p>
+        </div>
+        <div class="kid-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/cumpleanos/infantiles/mesa-dulces-superman-superheroes.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces para cumpleaños infantil temática superhéroes"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-kid"
+    badge="Paquetes Cumpleaños Infantil"
+    title="Elige el formato para el"
+    titleHighlight="cumple de tu hijo"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para cumpleaños infantil</strong>, pensados para diferentes tamaños de fiesta. <strong>Esencial</strong> para fiesta íntima en casa (15-30 niños); <strong>Premium</strong> es el más solicitado por mamás (30-60 niños) e incluye operador disfrazado opcional sin costo y backdrop con nombre del cumpleañero; <strong>Luxury</strong> es la experiencia mágica completa (60+ niños) con escenografía 360°, photobooth integrado, fuente de chocolate o pared de dulces incluida y pastel temático coordinado.</p><p>Todos los paquetes incluyen <strong>control estricto de alergias (sin nueces por defecto)</strong>, bolos sorpresa coordinados al personaje y coordinación con animadores. Lo que cambia es la escala del surtido y la complejidad del backdrop.</p>`}
+    packages={paquetesKid}
+    note="💡 <strong>Todos los paquetes Cumpleaños Infantil incluyen:</strong> control de alergias (sin nueces por defecto), bolos sorpresa coordinados al personaje, coordinación con animador, montaje 1-2 h antes en domicilio o salón, operación durante la fiesta y empaque de sobrantes para el cumpleañero."
+  />
+
+  <!-- ===================== Tabla comparativa de paquetes (UNIQUE) ===================== -->
+  <section class="kid-tabla section-padding" id="comparativa">
+    <div class="container">
+      <SectionHeader
+        title="Compara los"
+        titleHighlight="3 paquetes"
+        subtitle="Tabla detallada para que elijas el que mejor se adapta al cumple"
+      />
+      <div class="kid-tabla__wrap">
+        <table class="kid-tabla__table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th>Esencial<br/><small>$3,500</small></th>
+              <th class="kid-tabla__featured">Premium<br/><small>$5,800</small></th>
+              <th>Luxury<br/><small>$9,500</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            {tablaComparativa.map(row => (
+              <tr>
+                <td class="kid-tabla__feature">{row.feature}</td>
+                <td>{row.esencial}</td>
+                <td class="kid-tabla__featured">{row.premium}</td>
+                <td>{row.luxury}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-kid"
+    badge="Diferenciadores Infantil"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa Infantil"
+    descriptions={[
+      "Con <strong>220+ cumpleaños infantiles montados</strong> y <strong>40+ temáticas trabajadas</strong>, MEDEDUL es la opción de referencia para mamás y papás que buscan mesa temática con control de alergias y operador disfrazado.",
+      "Cada mesa parte del mismo método: brief con los papás (edad, personaje, alergias), propuesta visual del personaje, coordinación con animador, montaje y operación con operador disfrazado opcional. La <strong>seguridad infantil</strong> es nuestra prioridad: sin nueces por defecto, sin colorantes y mobiliario seguro."
+    ]}
+    stats={[
+      { number: "220+", label: "Cumples montados" },
+      { number: "40+", label: "Personajes" },
+      { number: "100%", label: "Sin nueces default" },
+      { number: "5.0", label: "Calificación mamás" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Seguridad infantil (UNIQUE - diferenciador clave) ===================== -->
+  <section class="kid-seguridad section-padding" id="seguridad-infantil">
+    <div class="container">
+      <SectionHeader
+        title="Seguridad infantil"
+        titleHighlight="prioritaria"
+        subtitle="6 protocolos que nos hacen la opción confiable para mamás exigentes"
+        content={`<p>Las fiestas infantiles concentran <strong>20-60 niños con perfiles alimenticios distintos</strong>. La alergia a las nueces puede ser anafiláctica y poner en riesgo la vida de un niño. Por eso desde el primer día implementamos protocolos de seguridad alimentaria que muchos proveedores no tienen.</p>`}
+      />
+      <div class="kid-seguridad__grid">
+        {seguridad.map(s => (
+          <div class="kid-seguridad__item">
+            <div class="kid-seguridad__icon" aria-hidden="true">{s.icon}</div>
+            <h3 class="kid-seguridad__title">{s.title}</h3>
+            <p class="kid-seguridad__desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="kid-seguridad__note">
+        <strong>📋 Importante:</strong> En el brief de tu cumpleaños menciona TODAS las alergias o restricciones de los invitados. Sin costo adicional ajustamos surtido para sin gluten, sin lactosa, sin azúcar (diabéticos) y sin colorantes (hipersensibles).
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Galería ===================== -->
+  <section class="kid-galeria" id="galeria-kid">
+    <div class="container">
+      <SectionHeader
+        title="Cumpleaños reales"
+        titleHighlight="montados"
+        subtitle="Selección curada de fiestas infantiles MEDEDUL en distintas temáticas"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>cumpleaños real</strong>. La paleta cromática, los props, el atrezzo y el surtido fueron <strong>diseñados específicamente para cada cumpleañero</strong> en función de su personaje favorito, edad y número de invitados.</p>`}
+      />
+      <div class="kid-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="kid-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="kid-incluye section-padding" id="incluye-kid">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa Infantil"
+        subtitle="Servicio integral mágico de principio a fin"
+        content={`<p>Todos los paquetes Cumpleaños Infantil incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad del backdrop. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="kid-incluye__grid">
+        {incluye.map(item => (
+          <div class="kid-incluye__item">
+            <div class="kid-incluye__num">{item.num}</div>
+            <h3 class="kid-incluye__title">{item.title}</h3>
+            <p class="kid-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-kid"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para el"
+    titleHighlight="cumple de tu hijo"
+    subtitle="Cuatro pasos para que tu hijo tenga la mesa que va a recordar para siempre"
+    steps={procesoKid}
+  />
+
+  <!-- ===================== Timeline del día (UNIQUE) ===================== -->
+  <section class="kid-timeline section-padding" id="timeline-fiesta">
+    <div class="container">
+      <SectionHeader
+        title="El día del"
+        titleHighlight="cumpleaños"
+        subtitle="Hora por hora cómo opera nuestro equipo en la fiesta"
+      />
+      <div class="kid-timeline__list">
+        {timeline.map((step, i) => (
+          <div class="kid-timeline__step">
+            <div class="kid-timeline__time">{step.hora}</div>
+            <div class="kid-timeline__connector">
+              <div class="kid-timeline__icon" aria-hidden="true">{step.icon}</div>
+              {i < timeline.length - 1 && <div class="kid-timeline__line"></div>}
+            </div>
+            <div class="kid-timeline__body">
+              <h3 class="kid-timeline__title">{step.title}</h3>
+              <p class="kid-timeline__desc">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="kid-complementos section-padding" id="complementos-kid">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas para fiestas infantiles inolvidables"
+        content={`<p>Una mesa de dulces temática es <strong>el corazón visual del cumpleaños</strong>, pero las mamás top combinan <strong>1-2 estaciones complementarias</strong> que generan momentos interactivos memorables: fuente de chocolate (favorita de los niños), pared de dulces (dispensadores divertidos para autoservicio), donas y cupcakes decorados al personaje y la mesa de dulces clásica como base.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif')}
+          alt="Mesa de dulces clásica con personajes y colores para cumpleaños infantil"
+          title="Mesa de Dulces"
+          excerpt="Personajes y colores. El candy bar clásico con surtido aprobado por niños y temática del personaje favorito."
+          cta="Ver Mesa de Dulces"
+          badge="Base infantil"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chocolate"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')}
+          alt="Fuente de chocolate la favorita de los niños para cumpleaños"
+          title="Fuente de Chocolate"
+          excerpt="La favorita de los niños. Chocolate belga en cascada con frutas, malvaviscos, churros y galletas para bañar."
+          cta="Ver Fuente de Chocolate"
+          badge="Favorita"
+          subsections={subsFuenteChocolate}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/pared-de-dulces"
+          image={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')}
+          alt="Pared de dulces con dispensadores divertidos para fiesta infantil"
+          title="Pared de Dulces"
+          excerpt="Dispensadores divertidos para autoservicio. Los niños eligen sus favoritos y se llevan recuerdo del cumple."
+          cta="Ver Pared de Dulces"
+          badge="Interactiva"
+          subsections={subsParedDulces}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-donas-y-cupcakes"
+          image={getCdnUrl('/img/tipos-de-mesas/donas-cupcakes/mesa-cupcakes-personalizados.avif')}
+          alt="Mesa de donas y cupcakes decorados con arte temático"
+          title="Donas y Cupcakes"
+          excerpt="Decorados con arte temático del personaje. Donas glaseadas, cupcakes con figuras 3D y mini pasteles personalizados."
+          cta="Ver Donas y Cupcakes"
+          badge="Decorados"
+          subsections={subsDonas}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="kid-cdmx-cta section-padding" id="kid-cdmx">
+    <div class="container">
+      <div class="kid-cdmx-cta__card">
+        <div class="kid-cdmx-cta__body">
+          <span class="kid-cdmx-cta__badge">📍 ¿Cumple en Ciudad de México?</span>
+          <h2>Conoce la página exclusiva <span>Cumpleaños Infantil CDMX</span></h2>
+          <p>Si el cumple es en Ciudad de México, tenemos una página dedicada con <strong>cobertura en domicilios particulares</strong> (Polanco, Lomas, Pedregal, Coyoacán, Roma, Condesa) y los <strong>principales salones infantiles</strong> de CDMX (KidZania Santa Fe, Salón Fiesta Land Polanco, Sandías Castillo Lomas, The Fun Factory Interlomas, Diversiones Wonderkid Coyoacán). Paquetes desde <strong>$3,500 MXN</strong>, operador disfrazado y operación desde Anzures + Condesa.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil" class="kid-cdmx-cta__link">Ver Cumpleaños Infantil CDMX →</a>
+        </div>
+        <div class="kid-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/cumpleanos/infantiles/mesa-dulces-bluey-cumpleanos-infantil-tematico-azul.avif', { w: 600, q: 82 })}
+            alt="Cumpleaños infantil CDMX con mesa temática"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="kid-testimonios section-padding" id="testimonios-kid">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="mamás MEDEDUL"
+        subtitle="Familias hablando del cumpleaños de sus hijos"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars ===================== -->
+  <section class="kid-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="También trabajamos XV años, bodas, baby shower y bautizo con el mismo estándar"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-xv-anos"
+          image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')}
+          alt="Mesa de dulces para XV Años"
+          title="Mesa para XV Años"
+          excerpt="Glamour juvenil con elegancia atemporal para quinceañeras."
+          cta="Ver XV Años"
+          subsections={subsCBXV}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces para boda"
+          title="Mesa para Boda"
+          excerpt="El día más importante merece el detalle más dulce."
+          cta="Ver Boda"
+          subsections={subsCBBoda}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces para baby shower"
+          title="Baby Shower"
+          excerpt="Diseños tiernos y delicados para celebrar la llegada del bebé."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-bautizo"
+          image={getCdnUrl('/img/eventos/bautizo/mesa-dulces-bautizo-elegante.avif')}
+          alt="Mesa de dulces para bautizo"
+          title="Bautizo"
+          excerpt="Diseños sobrios y elegantes con simbología religiosa cuidada."
+          cta="Ver Bautizo"
+          subsections={subsCBBautizo}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Kid stats (rainbow gradient) ===== */
+  .kid-stats {
+    background: linear-gradient(135deg, #fff5f9 0%, #f5f0ff 50%, #f0f9ff 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(208, 0, 122, 0.08);
+    border-bottom: 1px solid rgba(208, 0, 122, 0.08);
+  }
+  .kid-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .kid-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #D1007A 0%, #FB5607 50%, #FFC857 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .kid-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .kid-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .kid-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Catálogo temáticas ===== */
+  .kid-tematicas { background: #fff; }
+  .kid-tematicas__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .kid-tematica {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 2px solid var(--tema-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .kid-tematica:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+  .kid-tematica__img {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  .kid-tematica__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .kid-tematica:hover .kid-tematica__img img { transform: scale(1.08); }
+  .kid-tematica__body {
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .kid-tematica__icon {
+    display: inline-block;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .kid-tematica__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  .kid-tematica__desc {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  .kid-tematicas__cta {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .kid-cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #D1007A 0%, #FB5607 100%);
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(208, 0, 122, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .kid-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(208, 0, 122, 0.4);
+  }
+  @media (max-width: 1100px) { .kid-tematicas__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .kid-tematicas__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } }
+
+  /* ===== Por edad ===== */
+  .kid-edades { background: #fff5f9; }
+  .kid-edades__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .kid-edad {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border-top: 4px solid var(--edad-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+  }
+  .kid-edad:hover { transform: translateY(-4px); }
+  .kid-edad__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .kid-edad__rango {
+    display: inline-block;
+    background: var(--edad-color);
+    color: #fff;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .kid-edad__title {
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .kid-edad__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .kid-edades__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .kid-intro { padding: 5rem 0; background: #fff; }
+  .kid-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .kid-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #D1007A 0%, #FB5607 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .kid-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .kid-intro__copy h2 span { color: #D1007A; }
+  .kid-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .kid-intro__copy a {
+    color: #D1007A;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .kid-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(208, 0, 122, 0.2);
+  }
+  @media (max-width: 900px) {
+    .kid-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Tabla comparativa ===== */
+  .kid-tabla { background: #fff; }
+  .kid-tabla__wrap { overflow-x: auto; margin-top: 2rem; }
+  .kid-tabla__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .kid-tabla__table th,
+  .kid-tabla__table td {
+    padding: 1rem 1.25rem;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f4;
+  }
+  .kid-tabla__table th {
+    background: #f8f4fa;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .kid-tabla__table th small {
+    display: block;
+    font-size: 0.85rem;
+    color: #D1007A;
+    font-weight: 600;
+    margin-top: 0.25rem;
+  }
+  .kid-tabla__feature {
+    text-align: left !important;
+    font-weight: 600;
+    color: #444;
+  }
+  .kid-tabla__featured {
+    background: linear-gradient(180deg, rgba(208, 0, 122, 0.08) 0%, rgba(208, 0, 122, 0.03) 100%);
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+  .kid-tabla__table tbody tr:hover td { background: #fafafa; }
+  .kid-tabla__table tbody tr:hover .kid-tabla__featured { background: rgba(208, 0, 122, 0.12); }
+
+  /* ===== Seguridad ===== */
+  .kid-seguridad {
+    background: linear-gradient(135deg, #f0f9ff 0%, #fff 100%);
+  }
+  .kid-seguridad__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .kid-seguridad__item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border-left: 4px solid #06D6A0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  .kid-seguridad__item:hover { transform: translateY(-4px); }
+  .kid-seguridad__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .kid-seguridad__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .kid-seguridad__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  .kid-seguridad__note {
+    margin-top: 2.5rem;
+    background: #fff5f9;
+    border: 2px dashed #D1007A;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) { .kid-seguridad__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Galería ===== */
+  .kid-galeria { padding: 5rem 0; background: #fff5f9; }
+  .kid-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .kid-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .kid-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .kid-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .kid-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .kid-incluye { background: #fff; }
+  .kid-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .kid-incluye__item {
+    background: #fff5f9;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(208, 0, 122, 0.08);
+    transition: transform 0.2s ease;
+  }
+  .kid-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(208, 0, 122, 0.12);
+  }
+  .kid-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #D1007A 0%, #FB5607 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .kid-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .kid-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .kid-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Timeline ===== */
+  .kid-timeline { background: #f5f0ff; }
+  .kid-timeline__list {
+    max-width: 800px;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .kid-timeline__step {
+    display: grid;
+    grid-template-columns: 80px 60px 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+    position: relative;
+  }
+  .kid-timeline__time {
+    text-align: right;
+    font-weight: 700;
+    color: #7A2BC2;
+    font-size: 1rem;
+    padding-top: 0.75rem;
+  }
+  .kid-timeline__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .kid-timeline__icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7A2BC2 0%, #D1007A 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px rgba(122, 43, 194, 0.3);
+  }
+  .kid-timeline__line {
+    width: 3px;
+    flex-grow: 1;
+    background: linear-gradient(180deg, #7A2BC2 0%, transparent 100%);
+    margin-top: 0.5rem;
+    min-height: 2.5rem;
+  }
+  .kid-timeline__body {
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .kid-timeline__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .kid-timeline__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 768px) {
+    .kid-timeline__step { grid-template-columns: 60px 50px 1fr; gap: 1rem; }
+    .kid-timeline__time { font-size: 0.85rem; }
+  }
+
+  /* ===== CDMX cross-link ===== */
+  .kid-cdmx-cta { background: #fff; }
+  .kid-cdmx-cta__card {
+    background: linear-gradient(135deg, #D1007A 0%, #FB5607 50%, #FFC857 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(208, 0, 122, 0.25);
+  }
+  .kid-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .kid-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .kid-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .kid-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .kid-cdmx-cta__body p strong { color: #fff; }
+  .kid-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #D1007A;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .kid-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .kid-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .kid-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .kid-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .kid-testimonios { background: #fff5f9; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .kid-otros { background: #fff; }
+</style>

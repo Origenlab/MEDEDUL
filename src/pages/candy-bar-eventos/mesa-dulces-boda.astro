@@ -1,164 +1,834 @@
 ---
+// Mesa de Dulces para Boda — L4 Global (Plus)
+// Nupcial elegante, candy bar boda, hacienda/hotel/jardín
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsPostres, subsFrutas, subsQuesos, subsFuenteChocolate,
+  subsCBXV, subsCBBabyShower, subsCBCorporativo, subsCBComunion,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Bodas', url: '/candy-bar-eventos/mesa-dulces-boda' }
+  { name: 'Mesa de Dulces para Boda', url: '/candy-bar-eventos/mesa-dulces-boda' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para boda?', answer: 'Incluye diseno nupcial personalizado, surtido premium, montaje profesional, coordinacion en sitio y desmontaje al finalizar.' },
-  { question: 'Pueden alinear la mesa con wedding planner?', answer: 'Si. Coordinamos paleta de color, estilo y tiempos con wedding planner, venue y decorador.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Para bodas recomendamos reservar con 1 a 3 meses de anticipacion, segun fecha y temporada.' },
-  { question: 'Atienden bodas en jardin, hotel y hacienda?', answer: 'Si. Cubrimos CDMX y area metropolitana en distintos formatos de venue. Si tu boda es en CDMX, visita nuestra pagina exclusiva Candy Bar para Boda CDMX (https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/candy-bar-boda) con 12 venues nupciales trabajados (Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm), paquetes nupciales desde $8,500 MXN, coordinacion con wedding planner y operacion desde Anzures + Condesa.' },
-  { question: 'La propuesta incluye degustacion?', answer: 'En paquetes premium o configuraciones especiales podemos programar muestra de producto.' },
-  { question: 'Pueden combinar con mesa de postres?', answer: 'Si. Integrar mesa de postres incrementa valor percibido y experiencia de invitados.' }
+// =============== Trust Stats ===============
+const stats = [
+  { number: '160+', label: 'Bodas montadas' },
+  { number: '8+', label: 'Años de experiencia' },
+  { number: '4.9/5', label: 'Calificación novios' },
+  { number: '< 24h', label: 'Cotización en línea' }
 ];
 
-const packages = [
+// =============== Características (Diferenciadores Boda) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño nupcial a tu paleta de boda',
+    desc: 'Cada mesa se diseña a la paleta cromática de la boda: blanco-dorado clásico, blush-champagne romántico, terracota-mostaza boho, blanco-verde greenery, paleta sage o tendencias 2026 nude-moka. Trabajamos paleta clásica, boho, vintage o contemporánea.',
+    img: '/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif'
+  },
+  {
+    num: 2,
+    title: 'Curaduría premium nupcial',
+    desc: 'Surtido editorial pensado para invitados adultos: macarons franceses, mini-pasteles de almendra, trufas Lindt, chocolates Ferrero, gomitas gourmet, dulces típicos curados (recuerdo del país de origen) y opciones para invitados con restricciones.',
+    img: '/img/eventos/bodas/dulces-finos-boda.avif'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con wedding planner',
+    desc: 'Trabajamos con tu wedding planner como un proveedor más del equipo. Recibimos brief, alineamos paleta con la decoración floral, confirmamos posición en el venue y entregamos guía operativa antes de la boda. Cero fricción el día del evento.',
+    img: '/img/eventos/bodas/candy-bar-boda-jardin-luces-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Montaje editorial sin estrés',
+    desc: 'Llegamos 2-3 h antes del coctel. Montamos sin interferir con catering, banda, fotografía o decorador. Operamos durante toda la recepción y desmontamos discretamente al cierre. Tú solo disfrutas tu boda.',
+    img: '/img/eventos/bodas/candy-bar-boda-romantico.avif'
+  }
+];
+
+// =============== Paquetes Boda ===============
+const paquetesBoda = [
   {
     name: 'Esencial',
     icon: '💍',
     price: '$8,500',
     currency: 'MXN',
-    guests: '80-150 personas',
-    tagline: 'Ideal para boda intima',
-    features: ['Mesa de dulces nupcial base', 'Surtido premium inicial', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '50-100 invitados',
+    tagline: 'Boda íntima con todo el detalle',
+    features: [
+      'Mesa de dulces nupcial (10-12 variedades)',
+      'Diseño a paleta de la boda',
+      'Cristalería pulida y cake stands',
+      'Etiquetas con nombres de los novios',
+      'Montaje 2 h antes del coctel',
+      'Operación durante la recepción',
+      'Empaque de sobrantes en cajas decorativas'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para boda (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20para%20Boda%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$14,500',
+    icon: '💎',
+    price: '$13,500',
     currency: 'MXN',
-    guests: '150-250 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno nupcial personalizado', 'Mayor volumen y variedad de producto', 'Montaje y coordinacion en sitio', 'Curaduria premium de presentacion', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '100-200 invitados',
+    tagline: 'El más solicitado por novios',
+    features: [
+      'Mesa nupcial completa (16-20 variedades)',
+      'Macarons, mini-pasteles y reposteria fina',
+      'Backdrop floral con monograma de novios',
+      'Iluminación cálida y atrezzo dorado',
+      'Coordinación con wedding planner',
+      'Operador dedicado toda la recepción',
+      'Reposición continua del producto',
+      'Propuesta visual con render conceptual'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para boda (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20Boda%20-%20Premium'
   },
   {
     name: 'Luxury',
-    icon: '💎',
+    icon: '👑',
     price: '$22,000',
     currency: 'MXN',
-    guests: '250+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium avanzada', 'Operacion extendida en sitio', 'Configuracion para bodas grandes', 'Acompanamiento operativo total', 'Acabado visual de alto nivel'],
+    guests: '200+ invitados',
+    tagline: 'Experiencia editorial premium',
+    features: [
+      'Mesa de autor (22+ variedades exclusivas)',
+      'Chocolates importados premium',
+      'Fuente de chocolate o mesa de quesos incluida',
+      'Backdrop floral 360° con luces',
+      'Concierge dedicado novios + invitados VIP',
+      'Coordinación full con planner y catering',
+      'Mesa de postres gourmet complementaria',
+      'Fotografía profesional de la mesa',
+      'Operación extendida hasta cierre del venue'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para boda (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20Boda%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '180+', label: 'Bodas Atendidas' },
-  { number: '100%', label: 'Diseno Nupcial' },
-  { number: '50+', label: 'Opciones Premium' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Diseno Nupcial', desc: 'Composicion visual que armoniza con decoracion y protocolo de boda.', img: '/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif' },
-  { num: 2, title: 'Surtido Premium', desc: 'Producto seleccionado para elevar percepcion de calidad y experiencia.', img: '/img/eventos/bodas/dulces-finos-boda.avif' },
-  { num: 3, title: 'Montaje de Lujo', desc: 'Implementacion precisa para lograr presentacion impecable en venue.', img: '/img/eventos/bodas/candy-bar-boda-romantico.avif' },
-  { num: 4, title: 'Coordinacion Total', desc: 'Alineamos tiempos con wedding planner para ejecucion sin fricciones.', img: '/img/eventos/bodas/servicio-mesa-dulces-boda-cdmx.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief de Boda', desc: 'Levantamos datos de sede, invitados, estilo y timing de recepcion.' },
-  { num: 2, title: 'Propuesta Nupcial', desc: 'Presentamos diseno, producto y alcance operativo con cotizacion clara.' },
-  { num: 3, title: 'Planeacion con Proveedores', desc: 'Coordinamos montaje con planner, venue y decoracion general.' },
-  { num: 4, title: 'Ejecucion del Evento', desc: 'Montamos y operamos la mesa con calidad premium de principio a fin.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para celebraciones de quinceanera.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno y personalizado para celebraciones familiares.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Mesa de Dulces para Graduacion', excerpt: 'Propuestas elegantes para cierres academicos memorables.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduacion' },
-  { title: 'Mesa de Dulces para Corporativos', excerpt: 'Candy bar para eventos empresariales y activaciones de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', cta: 'Ver Corporativos' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para Boda en CDMX',
-  description: 'Servicio de mesa de dulces para bodas en Ciudad de Mexico con diseno nupcial, montaje profesional y propuesta premium.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso Boda ===============
+const procesoBoda = [
+  {
+    num: 1,
+    title: 'Brief de boda',
+    desc: 'Nos cuentas la fecha, venue, número de invitados, paleta cromática (blanco-dorado, blush, boho, greenery), estilo (clásico, contemporáneo, hacienda mexicana, destination wedding) y nombres de los novios. Levantamos perfil para alinear surtido al perfil de invitados.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '8500',
-    highPrice: '22000',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para Boda ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual nupcial',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual, paleta alineada al ramo y la decoración floral, surtido sugerido con curaduría premium, opciones de backdrop con monograma y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con wedding planner',
+    desc: 'Coordinamos directo con tu wedding planner, decorador, florista y coordinador del venue. Confirmamos paleta final, posición de la mesa (post-cena, durante el cocktail o al cierre), integración con backdrop principal y cualquier elemento simbólico de la boda.'
+  },
+  {
+    num: 4,
+    title: 'Ejecución del gran día',
+    desc: 'Llegamos 2-3 h antes con todo el equipo. Montamos sin interferir con catering, banda ni fotografía, operamos durante toda la recepción con reposición continua y desmontamos discretamente al cierre. Empacamos sobrantes en cajas decorativas para los invitados.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería Boda (8 imágenes) ===============
+const galeriaImages = [
+  { src: '/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif', alt: 'Mesa de dulces para boda elegante con macarons y cristalería' },
+  { src: '/img/galeria/mesa-dulces-boda-blanco-perlas-rosas.avif', alt: 'Mesa de dulces para boda blanco con perlas y rosas' },
+  { src: '/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif', alt: 'Mesa de dulces para boda elegante dorado con velas y trufas' },
+  { src: '/img/galeria/mesa-dulces-boda-terraza-atardecer.avif', alt: 'Mesa de dulces para boda en terraza al atardecer' },
+  { src: '/img/galeria/mesa-dulces-boda-hacienda-mexicana-rustico.avif', alt: 'Mesa de dulces para boda en hacienda mexicana rústico' },
+  { src: '/img/galeria/mesa-dulces-boda-moderna-minimalista-blanco.avif', alt: 'Mesa de dulces para boda moderna minimalista en blanco' },
+  { src: '/img/galeria/mesa-dulces-boda-terraza-elegante-dorado.avif', alt: 'Mesa de dulces para boda terraza elegante dorado' },
+  { src: '/img/galeria/candy-bar-boda-contemporanea-geometrico.avif', alt: 'Candy bar para boda contemporánea con diseño geométrico' }
+];
+
+// =============== Qué incluye (6 items) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium nupcial', desc: 'Surtido de 10 a 22+ variedades editorial: macarons franceses, mini-pasteles de almendra, trufas Lindt, chocolates Ferrero, gomitas gourmet, paletas decoradas, dulces típicos curados (recuerdo del país de origen de los novios) y opciones para invitados con restricciones (vegano, sin gluten, sin azúcar, sin nueces, kosher).' },
+  { num: '02', title: 'Diseño nupcial a paleta de boda', desc: 'Cristalería pulida, cake stands de mármol y cristal, bandejas decorativas, manteles de diseño y backdrop coordinado con la paleta de la boda (blanco-dorado, blush-champagne, boho, greenery, contemporáneo). Alturas y composición editorial pensadas para fotografía profesional.' },
+  { num: '03', title: 'Personalización con monograma de novios', desc: 'Etiquetas con los nombres de los novios, monograma personalizado, save-the-date integrado en el atrezzo, papel picado dorado o plateado para bodas mexicanas, letras decorativas y elementos simbólicos según concepto (destination, hacienda, jardín, salón).' },
+  { num: '04', title: 'Coordinación full con wedding planner', desc: 'Trabajamos con tu wedding planner como proveedor del equipo. Recibimos brief, alineamos paleta con decoración floral, confirmamos posición de mesa (cocktail, post-cena, cierre), coordinamos accesos al venue y entregamos guía operativa formal antes de la boda.' },
+  { num: '05', title: 'Operación durante recepción nupcial', desc: 'Operador profesional asignado durante toda la recepción. Reposición continua especialmente durante coctel y momentos clave (vals, primer baile, cierre), atención a invitados VIP y solución inmediata de cualquier eventualidad sin que los novios se enteren.' },
+  { num: '06', title: 'Empaque elegante de sobrantes', desc: 'Al cierre de la boda empacamos los dulces sobrantes en cajas decorativas alineadas a la estética nupcial, listas para que los invitados se las lleven como recuerdo de boda. Este detalle se vuelve parte del recuerdo emocional del evento.' }
+];
+
+// =============== Testimonios Boda ===============
+const testimonios = [
+  {
+    name: 'Mariana y Eduardo',
+    initials: 'ME',
+    review: 'La mesa de dulces de nuestra boda fue el rincón más fotografiado de la noche. Coordinaron directo con nuestra wedding planner, llegaron a tiempo y montaron sin que nos enteráramos. El surtido era impecable y nuestros invitados se llevaron cajitas con dulces.',
+    event: 'Boda · Hotel premium',
+    rating: 5
+  },
+  {
+    name: 'Ana y Roberto',
+    initials: 'AR',
+    review: 'Boda en hacienda con mesa nupcial blanco-dorado. La paleta combinó perfecto con las flores de la decoración y el backdrop con nuestro monograma fue uno de los detalles más comentados por nuestros invitados. Súper recomendados.',
+    event: 'Boda · Hacienda colonial',
+    rating: 5
+  },
+  {
+    name: 'Daniela y Luis',
+    initials: 'DL',
+    review: 'Necesitábamos mesa para 250 invitados con surtido para todas las edades. MEDEDUL escaló todo: surtido abundante, mesa de quesos complementaria y reposición continua durante toda la noche. La fuente de chocolate fue un éxito con los niños.',
+    event: 'Boda · Jardín de eventos',
+    rating: 5
+  }
+];
+
+// =============== FAQ Boda ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para boda?',
+    answer: 'Incluye diseño nupcial alineado a la paleta de la boda, surtido premium curado (chocolates importados, macarons franceses, mini-pasteles de almendra, trufas, gomitas gourmet, paletas decoradas, dulces típicos), cristalería pulida y cake stands, backdrop coordinado con monograma de novios, montaje 2-3 h antes del coctel, coordinación con wedding planner y decorador, operación durante toda la recepción con reposición continua, etiquetas personalizadas con nombres de los novios, desmontaje al cierre y empaque de sobrantes en cajas decorativas para invitados.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para boda?',
+    answer: 'Iniciamos en $8,500 MXN (Esencial, 50-100 invitados) y llegamos a $22,000 MXN (Luxury, 200+ invitados). El precio depende del número de invitados, surtido seleccionado, nivel de personalización (backdrop floral, iluminación, monograma), integración con estaciones (fuente de chocolate, mesa de quesos) y duración del servicio. Cotización gratuita en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Coordinan directamente con mi wedding planner?',
+    answer: 'Absolutamente sí. En cada boda nos integramos al equipo de proveedores como un más. Trabajamos con los wedding planners más reconocidos. Coordinamos paleta cromática, tiempos de montaje (que no interfieran con catering, banda, fotografía), posición en el venue, integración con la decoración floral y entregamos guía operativa formal antes del evento. Recibimos briefing previo y enviamos plan de acción al planner.'
+  },
+  {
+    question: '¿Atienden bodas en CDMX, Estado de México y Toluca?',
+    answer: 'Sí. Operamos desde 3 sucursales: Anzures y Condesa en CDMX, y nuestra sucursal Toluca-Metepec. Cubrimos toda la Ciudad de México (Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa) y zona metropolitana, además del Valle de Toluca completo. Si tu boda es en CDMX, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/candy-bar-boda">Candy Bar para Boda CDMX</a> con 12 venues nupciales nominados (Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm), paquetes nupciales desde $8,500 MXN, coordinación con wedding planner y operación desde Anzures + Condesa.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar la mesa para boda?',
+    answer: 'Para bodas en temporada alta (octubre-diciembre y marzo-mayo, especialmente sábados) recomendamos reservar con 3 a 6 meses de anticipación. Para fechas de menor demanda, 2-3 meses suelen ser suficientes. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del evento. Una vez reservada la fecha, comenzamos la fase de diseño con calma para alinear paleta con ramo, decoración floral y vestuario.'
+  },
+  {
+    question: '¿Pueden personalizar la mesa con monograma y nombres de los novios?',
+    answer: 'Sí. La personalización es parte central del servicio: etiquetas con los nombres de los novios, monograma personalizado en backdrop floral, save-the-date integrado en el atrezzo, papel picado dorado o plateado para bodas mexicanas, letras decorativas y elementos simbólicos según concepto. En paquetes Premium y Luxury incluimos personalización extendida sin costo adicional. Para bodas con concepto integral (destination wedding, vintage, hacienda mexicana premium) conoce nuestras <a href="/candy-bar-eventos/mesas-tematicas">Mesas Temáticas Personalizadas</a>.'
+  },
+  {
+    question: '¿La mesa se puede integrar con mesa de postres, frutas, fuente de chocolate o quesos?',
+    answer: 'Sí, y es la combinación más popular para bodas. Sumamos <a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a> con macarons y éclairs (repostería nupcial gourmet), <a href="/tipos-de-mesas-de-dulces/mesa-de-frutas">Mesa de Frutas</a> fresca y elegante, <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> belga (la estrella de toda boda) o <a href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos">Mesa de Quesos y Embutidos</a> ideal para coctel nupcial premium. Estas estaciones elevan el valor percibido y crean múltiples puntos de interacción.'
+  },
+  {
+    question: '¿Tienen opciones para invitados con restricciones alimenticias?',
+    answer: 'Sí. Curamos opciones específicas para invitados con restricciones: dulces sin azúcar (diabéticos), opciones sin gluten (celiacos), reposteria vegana, alternativas sin nueces (alérgicos) y opciones kosher si tu boda lo requiere. Esto es importante en bodas con invitados internacionales o con dietas especiales. Pídenos la curaduría especial en el briefing inicial y la incluimos sin costo adicional en paquetes Premium y Luxury.'
+  },
+  {
+    question: '¿A qué hora llegan al venue el día de la boda?',
+    answer: 'Llegamos 2-3 horas antes del horario de inicio de la recepción para montaje completo. En venues con reglamentos especiales (haciendas patrimoniales, hoteles 5 estrellas, recintos privados) nos adaptamos al horario que indique el coordinador del lugar y al wedding planner. El tiempo de montaje está incluido en todos los paquetes de boda.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran al final de la boda?',
+    answer: 'Son tuyos. Al cierre de la boda empacamos todos los sobrantes en cajas decorativas alineadas a la estética nupcial, listas para que tus invitados se las lleven como recuerdo de boda. Este detalle hace que la mesa se mantenga viva incluso después del evento y se vuelve parte del recuerdo emocional del día más importante.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-boda#service",
+      "name": "Mesa de Dulces para Boda",
+      "serviceType": "Mesa de Dulces Nupcial / Candy Bar Boda",
+      "description": "Mesa de dulces nupcial para bodas con diseño alineado a la paleta de la boda, surtido premium editorial, coordinación con wedding planner y operación impecable. Cobertura CDMX y Toluca-Metepec.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "160",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Ciudad de Mexico" },
+        { "@type": "City", "name": "Toluca" },
+        { "@type": "City", "name": "Metepec" },
+        { "@type": "AdministrativeArea", "name": "Estado de Mexico" }
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "8500",
+        "highPrice": "22000",
+        "offerCount": "3",
+        "offers": paquetesBoda.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Boda ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Novios planeando boda"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para Boda", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-boda" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para Boda en CDMX | Mededul"
-  description="Mesa de dulces para boda en CDMX con diseno elegante, montaje premium y coordinacion profesional para una recepcion inolvidable."
+  title="Mesa de Dulces para Boda | Candy Bar Nupcial Elegante | MEDEDUL"
+  description="Mesa de dulces nupcial elegante con diseño a paleta de boda, surtido premium editorial, monograma de novios y coordinación con wedding planner. 160+ bodas montadas. Desde $8,500 MXN. Cotiza gratis."
   canonical="/candy-bar-eventos/mesa-dulces-boda"
   ogImage="/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para Boda en CDMX"
+    title="Mesa de Dulces para Boda"
     highlight="Boda"
-    subtitle="Candy bar nupcial de alto nivel para elevar la experiencia visual y gastronomica de tu recepcion"
-    secondaryContent={`<p><strong>Boda</strong> premium requiere una mesa de dulces que combine elegancia estetica, calidad de producto y coordinacion precisa con el ritmo de la celebracion. En Mededul disenamos montajes nupciales que refuerzan el concepto del evento y se integran de forma impecable al venue.</p><p><strong>Candy bar</strong> para boda bien ejecutado incrementa el valor percibido, mejora la experiencia de invitados y aporta un punto fotografico memorable durante la recepcion. Operamos cada detalle con estandar profesional para que vivas tu gran dia sin preocupaciones.</p>`}
+    subtitle="El día más importante merece el detalle más dulce · 160+ bodas montadas · Cotización en 24 h"
+    secondaryContent={`<p>Creamos ese rincón romántico que tus invitados no olvidarán. La <strong>mesa de dulces para boda</strong> es uno de los detalles más fotografiados de la noche y un símbolo de la generosidad con la que recibes a tus invitados. En <strong>MEDEDUL</strong> diseñamos cada mesa nupcial con enfoque editorial: paleta cromática alineada a la decoración floral y vestuario, surtido premium curado (chocolates importados, macarons franceses, mini-pasteles de almendra, trufas, gomitas gourmet y dulces típicos), cristalería pulida con cake stands de mármol y cristal, etiquetas personalizadas con los nombres de los novios y un backdrop floral con monograma para el rincón fotográfico nupcial.</p><p>Coordinamos directamente con tu <strong>wedding planner, decorador, florista y coordinador del venue</strong> para que la mesa se integre sin fricción al evento. Llegamos 2-3 h antes del coctel, montamos sin interferir con catering, banda ni fotografía y operamos durante toda la recepción con reposición continua. Al cierre empacamos sobrantes en cajas decorativas para que cada invitado se lleve un recuerdo del día más importante.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de boda segun invitados, estilo y nivel de personalizacion." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu boda." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="boda-stats">
+    <div class="container">
+      <div class="boda-stats__grid">
+        {stats.map(s => (
+          <div class="boda-stat">
+            <span class="boda-stat__num">{s.number}</span>
+            <span class="boda-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de Boda" descriptions={['Combinamos diseno nupcial, operacion y detalle para crear una experiencia premium.', 'Coordinamos montaje con tus proveedores para lograr una ejecucion sin errores.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="boda-intro" id="intro-boda">
+    <div class="container">
+      <div class="boda-intro__grid">
+        <div class="boda-intro__copy">
+          <span class="boda-intro__badge">Diseño nupcial profesional</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu mesa de dulces para boda</h2>
+          <p>El día de tu boda es uno de los recuerdos más importantes de tu vida. Por eso cada mesa de dulces nupcial que montamos parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con los novios, propuesta visual con render conceptual alineado al ramo y la decoración floral, curaduría de producto editorial, coordinación con tu wedding planner y proveedores del evento, montaje editorial 2-3 h antes y operación impecable durante toda la recepción.</p>
+          <p>La mesa de dulces nupcial que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la paleta cromática de la boda, el concepto elegido (clásica blanco-dorado, blush-champagne romántica, boho terracota, greenery natural, hacienda mexicana premium, destination wedding), el estilo del venue y las expectativas visuales de los invitados. Trabajamos paletas clásicas, tendencias 2026 (nude-moka, sage), bodas mexicanas modernas con papel picado dorado y dulces tradicionales curados, y propuestas temáticas según concepto. Para bodas con concepto integral conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p>Si planeas una <strong>boda en CDMX</strong> y buscas mesa nupcial con estándar premium, ejecución confiable y coordinación impecable con tu planner, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/candy-bar-boda"><strong>Candy Bar para Boda CDMX</strong></a> con 12 venues nupciales nominados (Hotel W, Four Seasons, Hacienda de los Morales, Casa Lamm) y operación desde Anzures + Condesa.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Boda" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a coronar el día más importante.</p>
+        </div>
+        <div class="boda-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces para boda elegante MEDEDUL con macarons y cristalería"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de boda con precision profesional." steps={processSteps} />
+  <!-- ===================== Paquetes Boda ===================== -->
+  <PricingPackages
+    id="paquetes-boda"
+    badge="Paquetes Boda"
+    title="Elige el formato para tu"
+    titleHighlight="Boda"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para boda</strong>, pensados para diferentes tamaños de evento y niveles de sofisticación. El paquete <strong>Esencial</strong> está pensado para bodas íntimas (50-100 invitados); el <strong>Premium</strong> es el más solicitado para bodas medianas (100-200 invitados) e incluye backdrop floral con monograma de novios y coordinación con planner; el <strong>Luxury</strong> es nuestra propuesta editorial para bodas grandes (200+) e incluye fuente de chocolate o mesa de quesos, backdrop floral 360° y mesa de postres gourmet complementaria.</p><p>Todos los paquetes incluyen el <strong>mismo estándar profesional de diseño nupcial, montaje editorial y operación</strong>. Lo que cambia es la escala del surtido, la complejidad del backdrop y la duración del servicio.</p>`}
+    packages={paquetesBoda}
+    note="💡 <strong>Todos los paquetes Boda incluyen:</strong> diseño nupcial a paleta de la boda, surtido premium curado, cristalería pulida y cake stands, etiquetas personalizadas con nombres de los novios, montaje 2-3 h antes en el venue, coordinación con wedding planner, operación durante la recepción con reposición continua, desmontaje y empaque de sobrantes en cajas decorativas."
+  />
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para diferentes celebraciones." events={eventCards} />
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-boda"
+    badge="Diferenciadores Boda"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa Nupcial"
+    descriptions={[
+      "Con <strong>160+ bodas montadas</strong> en hoteles, haciendas, jardines y salones, MEDEDUL es la opción de referencia para novios y wedding planners que buscan mesa nupcial con ejecución profesional comprobada.",
+      "Cada mesa de boda parte del mismo método: brief con los novios, propuesta visual con render, coordinación con tu planner y proveedores del evento, montaje editorial y operación impecable. Lo que cambia es la <strong>paleta</strong>, el <strong>concepto</strong> y la <strong>escala</strong>; el estándar nupcial es siempre el mismo."
+    ]}
+    stats={[
+      { number: "160+", label: "Bodas" },
+      { number: "100%", label: "Diseño nupcial" },
+      { number: "24h", label: "Propuesta visual" },
+      { number: "5.0", label: "Calificación novios" }
+    ]}
+    features={caracteristicas}
+  />
 
+  <!-- ===================== Galería Boda ===================== -->
+  <section class="boda-galeria" id="galeria-boda">
+    <div class="container">
+      <SectionHeader
+        title="Bodas reales"
+        titleHighlight="montadas"
+        subtitle="Selección curada de bodas MEDEDUL en distintas paletas, venues y conceptos"
+        content={`<p>Cada mesa de esta galería corresponde a una <strong>boda real</strong>. La paleta cromática, las flores, el papel picado y el surtido fueron <strong>diseñados específicamente para cada pareja</strong> en función del ramo, la decoración y el número de invitados. Si quieres ver más referencias por estilo (clásica, boho, greenery, hacienda, destination) escríbenos por WhatsApp y te enviamos un portafolio dirigido.</p>`}
+      />
 
+      <div class="boda-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="boda-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="boda-incluye section-padding" id="incluye-boda">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa Nupcial"
+        subtitle="Servicio integral nupcial de principio a fin"
+        content={`<p>Todos los paquetes Boda incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad del backdrop. Estos son los <strong>seis pilares operativos</strong> que aseguran que tu boda tenga la mesa que mereces.</p>`}
+      />
+      <div class="boda-incluye__grid">
+        {incluye.map(item => (
+          <div class="boda-incluye__item">
+            <div class="boda-incluye__num">{item.num}</div>
+            <h3 class="boda-incluye__title">{item.title}</h3>
+            <p class="boda-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso Boda ===================== -->
+  <ProcessSteps
+    id="proceso-boda"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para tu"
+    titleHighlight="Mesa de Boda"
+    subtitle="Cuatro pasos para que tu boda tenga la mesa que merece el día más importante"
+    steps={procesoBoda}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards) ===================== -->
+  <section class="boda-complementos section-padding" id="complementos-boda">
+    <div class="container">
+      <SectionHeader
+        title="Combina tu Mesa con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas en bodas premium para elevar la experiencia"
+        content={`<p>Una mesa de dulces nupcial es <strong>el corazón visual de la boda</strong>, pero los novios top combinan <strong>2-3 servicios complementarios</strong> para crear la experiencia gastronómica completa: mesa de postres con macarons franceses, mesa de frutas fresca para coctel, fuente de chocolate como experiencia interactiva y mesa de quesos premium para el cocktail nupcial. Cada estación se diseña con la <strong>misma paleta y estándar editorial</strong> de la mesa principal.</p>`}
+      />
+
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres reposteria nupcial gourmet para boda"
+          title="Mesa de Postres"
+          excerpt="Repostería nupcial gourmet con macarons franceses, éclairs, mini-pasteles de almendra y creaciones de alta repostería. Eleva el nivel gastronómico de tu boda."
+          cta="Ver Mesa de Postres"
+          badge="Gourmet"
+          subsections={subsPostres}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
+          image={getCdnUrl('/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif')}
+          alt="Mesa de frutas frescas y elegantes para boda"
+          title="Mesa de Frutas"
+          excerpt="Fresco y elegante para coctel nupcial. Arreglos espectaculares con frutas de temporada, presentaciones gourmet y opciones aptas para invitados con restricciones."
+          cta="Ver Mesa de Frutas"
+          badge="Coctel"
+          subsections={subsFrutas}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chocolate"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')}
+          alt="Fuente de chocolate la estrella de tu boda"
+          title="Fuente de Chocolate"
+          excerpt="La estrella de toda boda. Chocolate belga en cascada con frutas, malvaviscos, churros y galletas para bañar. Experiencia interactiva favorita de los invitados."
+          cta="Ver Fuente de Chocolate"
+          badge="Estrella"
+          subsections={subsFuenteChocolate}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
+          image={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif')}
+          alt="Mesa de quesos y embutidos coctel de boda premium"
+          title="Quesos y Embutidos"
+          excerpt="Coctel de boda premium con tablas de quesos importados, embutidos selectos, panes artesanales y maridajes. Ideal para cocktail nupcial sofisticado."
+          cta="Ver Quesos y Embutidos"
+          badge="Coctel premium"
+          subsections={subsQuesos}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX (CTA visible al L5) ===================== -->
+  <section class="boda-cdmx-cta section-padding" id="boda-cdmx">
+    <div class="container">
+      <div class="boda-cdmx-cta__card">
+        <div class="boda-cdmx-cta__body">
+          <span class="boda-cdmx-cta__badge">📍 ¿Boda en Ciudad de México?</span>
+          <h2>Conoce la página exclusiva <span>Candy Bar Boda CDMX</span></h2>
+          <p>Si tu boda es en Ciudad de México, tenemos una página dedicada con <strong>12 venues nupciales nominados</strong> (Hotel W Polanco, Four Seasons, Hacienda de los Morales, Casa Lamm, St. Regis, Camino Real Polanco), <strong>cobertura en 30 zonas</strong>, paquetes nupciales CDMX desde $8,500 MXN, coordinación con wedding planner y operación desde nuestras sucursales <strong>Anzures + Condesa</strong>.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/candy-bar-boda" class="boda-cdmx-cta__link">Ver Candy Bar Boda CDMX →</a>
+        </div>
+        <div class="boda-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/bodas/mesa-dulces-boda-elegante-blanco-negro-personalizada.avif', { w: 600, q: 82 })}
+            alt="Candy bar para boda CDMX en venue premium"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="boda-testimonios section-padding" id="testimonios-boda">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="novios MEDEDUL"
+        subtitle="Parejas hablando de su experiencia el día más importante"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars (cross-link sister L4s) ===================== -->
+  <section class="boda-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="También trabajamos XV años, baby showers, primera comunión y corporativos con el mismo estándar"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-xv-anos"
+          image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')}
+          alt="Mesa de dulces para XV Años"
+          title="Mesa para XV Años"
+          excerpt="Glamour juvenil con elegancia atemporal. Mesas para quinceañera con backdrop instagramable y coordinación con coreógrafo del vals."
+          cta="Ver Mesa XV"
+          subsections={subsCBXV}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces para baby shower"
+          title="Mesa Baby Shower"
+          excerpt="Diseños tiernos y delicados para celebrar la llegada del bebé. Pastel, gender reveal y temáticos suaves."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-primera-comunion"
+          image={getCdnUrl('/img/eventos/comunion/candy-bar-comunion-elegante-caliz-galletas.avif')}
+          alt="Candy bar para primera comunión"
+          title="Primera Comunión"
+          excerpt="Sobrios y elegantes con simbología religiosa cuidada. Diseños en blanco con dorado o azul-plata para el sacramento."
+          cta="Ver Primera Comunión"
+          subsections={subsCBComunion}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-corporativos"
+          image={getCdnUrl('/img/eventos/corporativos/candy-bar-empresarial.avif')}
+          alt="Candy bar para eventos corporativos"
+          title="Eventos Corporativos"
+          excerpt="Branding integrado, montaje sobrio y operación impecable para lanzamientos, posadas y convenciones B2B."
+          cta="Ver Corporativos"
+          subsections={subsCBCorporativo}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Boda stats ===== */
+  .boda-stats {
+    background: linear-gradient(135deg, #faf6f0 0%, #f5ede0 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(192, 142, 70, 0.15);
+    border-bottom: 1px solid rgba(192, 142, 70, 0.15);
+  }
+  .boda-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .boda-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #c08e46;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .boda-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .boda-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .boda-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Boda intro ===== */
+  .boda-intro { padding: 5rem 0; background: #fff; }
+  .boda-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .boda-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #c08e46 0%, #8b6730 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .boda-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .boda-intro__copy h2 span { color: #c08e46; }
+  .boda-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .boda-intro__copy a {
+    color: #c08e46;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .boda-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(192, 142, 70, 0.25);
+  }
+  @media (max-width: 900px) {
+    .boda-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería bento ===== */
+  .boda-galeria { padding: 5rem 0; background: #faf6f0; }
+  .boda-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .boda-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .boda-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .boda-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .boda-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye grid ===== */
+  .boda-incluye { background: #fff; }
+  .boda-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .boda-incluye__item {
+    background: #faf6f0;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(192, 142, 70, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .boda-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(192, 142, 70, 0.18);
+  }
+  .boda-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #c08e46 0%, #8b6730 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .boda-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .boda-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .boda-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link CTA ===== */
+  .boda-cdmx-cta { background: #fff; }
+  .boda-cdmx-cta__card {
+    background: linear-gradient(135deg, #c08e46 0%, #8b6730 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(192, 142, 70, 0.3);
+  }
+  .boda-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .boda-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .boda-cdmx-cta__body h2 span {
+    color: #fff8e1;
+    font-weight: 800;
+  }
+  .boda-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .boda-cdmx-cta__body p strong { color: #fff; }
+  .boda-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #c08e46;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .boda-cdmx-cta__link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  }
+  .boda-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .boda-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .boda-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .boda-testimonios { background: #faf6f0; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .boda-otros { background: #fff; }
+</style>

@@ -1,164 +1,392 @@
 ---
+// Pared de Dulces (Candy Wall) — L4 Pro+ Estación Interactiva (CDMX)
+// Diseños de pared, dispensadores, capacidades, foto Instagram
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsCBBabyShower, subsCBXV, subsCBBoda, subsCBCorporativo,
+  subsFuenteChocolate, subsFuenteChamoy, subsStandPastel,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
   { name: 'Pared de Dulces', url: '/estaciones-interactivas/pared-de-dulces' }
 ];
 
+const stats = [
+  { number: '220+', label: 'Paredes operadas CDMX' },
+  { number: '6', label: 'Diseños temáticos' },
+  { number: '50-200', label: 'Dispensadores' },
+  { number: '< 24h', label: 'Cotización en línea' }
+];
+
+// 6 Diseños de pared (UNIQUE)
+const disenos = [
+  { diseno: 'Floral romántica', icon: '🌸', desc: 'Backdrop con flores frescas o artificiales premium. Paleta rosa-blanco-verde. Para bodas, baby showers, XV elegantes.', popular: false },
+  { diseno: 'Neón fotogénica', icon: '💡', desc: 'Letras neón con frase ("Best Day Ever", "Sweet Love", nombre del homenajeado). Negro de fondo. Tendencia 2026 para Instagram/TikTok.', popular: true },
+  { diseno: 'Geométrica moderna', icon: '🔷', desc: 'Patrón geométrico en colores corporativos o tendencia. Para eventos contemporáneos, corporativos, lanzamientos de marca.', popular: false },
+  { diseno: 'Vintage rústica', icon: '🪵', desc: 'Madera natural, marcos vintage, tipografía retro. Para bodas hacienda, baby showers boho, XV vintage.', popular: false },
+  { diseno: 'Branding corporativo', icon: '🏢', desc: 'Logo en gran formato, colores Pantone exactos, tagline integrado. Para lanzamientos, posadas, convenciones B2B.', popular: false },
+  { diseno: 'Temática personalizada', icon: '🎨', desc: 'Cualquier concepto: princesa Disney, Marvel, casino, destination. Producción a medida con moodboard previo.', popular: false }
+];
+
+// 8 Tipos de dulces (UNIQUE)
+const dulces = [
+  { icon: '🐻', nombre: 'Gomitas variadas', desc: 'Ositos, tubitos, aros, gusanitos, ácidas, cola, pica-pica. La base universal. Apto todas las edades.' },
+  { icon: '🍫', nombre: 'Chocolates pequeños', desc: 'Mini Hershey, Kisses, Lindt mini, Ferrero. Para perfil premium adulto y bodas elegantes.' },
+  { icon: '🍬', nombre: 'Caramelos duros', desc: 'Caramelos macizos surtidos, Halls, mini paletas. Larga duración, bajo costo por dispensador.' },
+  { icon: '🌽', nombre: 'Cacahuates japoneses', desc: 'Cacahuates japoneses, garapiñados, salados. Para perfil corporativo y eventos largos.' },
+  { icon: '🍿', nombre: 'Palomitas de colores', desc: 'Palomitas de colores caramelizadas. Estética colorida fotogénica. Tendencia 2026.' },
+  { icon: '🍭', nombre: 'Mini paletas', desc: 'Paletas pequeñas decoradas, Tootsie pop mini. Favorito infantil y adolescente.' },
+  { icon: '🌰', nombre: 'Frutos secos cubiertos', desc: 'Almendras cubiertas con chocolate, arándanos, blueberries cubiertos. Para perfil gourmet.' },
+  { icon: '🥨', nombre: 'Mini galletas', desc: 'Mini Oreo, mini chips ahoy, mini galletas saladas. Combina con fuente de chocolate.' }
+];
+
+// 4 Capacidades (UNIQUE)
+const capacidades = [
+  { capacidad: '50 dispensadores', icon: '🔹', invitados: '40-80 invitados', tamano: '2x2 m', uso: 'Eventos íntimos: baby shower, cumpleaños familiar, reuniones boutique. Cabe en pared estándar.' },
+  { capacidad: '100 dispensadores', icon: '🔸', invitados: '80-200 invitados', tamano: '3x2.5 m', uso: 'Eventos medianos: XV, boda boutique, evento corporativo small. El más solicitado.' },
+  { capacidad: '150 dispensadores', icon: '🔶', invitados: '200-350 invitados', tamano: '4x3 m', uso: 'Eventos grandes: boda completa, XV gran convocatoria, convención corporativa. Show visual statement.' },
+  { capacidad: '200+ dispensadores', icon: '⭐', invitados: '350-600+ invitados', tamano: '6x3 m', uso: 'Eventos masivos: graduación de generación, convención multinacional, evento de marca. Statement piece máximo impacto.' }
+];
+
+const caracteristicas = [
+  { num: 1, title: 'Estructura modular profesional', desc: 'Pared modular de 2x2m a 6x3m según capacidad. Estructura metálica resistente con dispensadores acrílicos profesionales (no vasos genéricos). Iluminación LED opcional integrada.', img: '/img/estaciones-interactivas/pared-dulces/candy-wall-pared-dulces-eventos.avif' },
+  { num: 2, title: '6 diseños temáticos a elegir', desc: 'Floral romántica, Neón fotogénica (tendencia 2026), Geométrica moderna, Vintage rústica, Branding corporativo y Temática personalizada con moodboard previo. Cada diseño con backdrop coordinado.', img: '/img/estaciones-interactivas/pared-dulces/candy-wall-servicio-cdmx.avif' },
+  { num: 3, title: '8 tipos de dulces variados', desc: 'Gomitas, chocolates, caramelos, cacahuates, palomitas de colores, mini paletas, frutos secos cubiertos, mini galletas. Combinables según evento. Producto fresco con rotación.', img: '/img/estaciones-interactivas/pared-dulces/pared-dulces-colorida-fiesta.avif' },
+  { num: 4, title: 'Spot fotográfico Instagram/TikTok', desc: 'La pared de dulces es uno de los detalles MÁS fotografiados de cualquier evento. Backdrop optimizado para foto y video, iluminación profesional disponible, hashtag personalizado opcional.', img: '/img/estaciones-interactivas/pared-dulces/pared-dulces-interactiva-fiestas.avif' }
+];
+
+const paquetes = [
+  { name: 'Esencial', icon: '🔹', price: '$4,500', currency: 'MXN', guests: '40-80 invitados', tagline: 'Pared íntima fotogénica', features: ['Pared 2x2m con 50 dispensadores acrílicos', '4 tipos de dulces (gomitas, chocolates, caramelos, paletas)', 'Diseño Floral o Vintage', 'Bolsitas para autoservicio', 'Operador 3 horas', 'Montaje 2h antes', 'Cobertura zonas centrales CDMX'], popular: false, ctaText: 'Cotizar Esencial', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Pared%20de%20Dulces%20CDMX%20-%20Esencial' },
+  { name: 'Premium', icon: '🔶', price: '$7,800', currency: 'MXN', guests: '100-200 invitados', tagline: 'El más solicitado en CDMX', features: ['Pared 3x2.5m con 100 dispensadores', '6 tipos de dulces (suma palomitas y cacahuates)', 'Diseño a elegir 6 opciones (incluye Neón)', 'Iluminación LED integrada', 'Bolsitas y cucharitas autoservicio', 'Operador 5 horas con reposición', 'Cobertura amplia CDMX'], popular: true, ctaText: 'Cotizar Premium', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Pared%20de%20Dulces%20CDMX%20-%20Premium' },
+  { name: 'Luxury', icon: '⭐', price: '$13,500', currency: 'MXN', guests: '250-600+ invitados', tagline: 'Statement piece máximo impacto', features: ['Pared 4x3m a 6x3m con 150-200+ dispensadores', '8 tipos de dulces premium', 'Diseño temático personalizado con moodboard previo', 'Iluminación LED + neón con frase', 'Hashtag personalizado disponible', 'Operador 7h + ayudante con reposición continua', 'Branding corporativo disponible', 'Sucursal preferente Anzures + Condesa CDMX'], popular: false, ctaText: 'Cotizar Luxury', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Pared%20de%20Dulces%20CDMX%20-%20Luxury' }
+];
+
+const proceso = [
+  { num: 1, title: 'Brief del evento', desc: 'Recibimos brief: tipo de evento, número de invitados, diseño preferido (floral, neón, geométrica, vintage, branding, temática), tipos de dulces deseados, sede y dimensiones disponibles para la pared.' },
+  { num: 2, title: 'Cotización y diseño', desc: 'En 24h enviamos cotización 3 niveles + render conceptual del diseño con tipos de dulces sugeridos. Para diseño Temática Personalizada o Branding Corporativo enviamos moodboard previo en 48h.' },
+  { num: 3, title: 'Coordinación logística', desc: 'Coordinamos posición de la pared (necesita backdrop sólido o muro), acceso para montaje (la estructura llega desarmada), tiempo de instalación 2-3h, integración con mesa de dulces o estación principal.' },
+  { num: 4, title: 'Día del evento', desc: 'Llegamos 2-3h antes. Armamos estructura modular, instalamos dispensadores, llenamos con dulces frescos, instalamos iluminación LED. Operador opera durante todo el evento con reposición continua. Desmontaje al cierre.' }
+];
+
+const galeriaImages = [
+  { src: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif', alt: 'Pared de dulces candy wall en CDMX' },
+  { src: '/img/estaciones-interactivas/pared-dulces/candy-wall-pared-dulces-eventos.avif', alt: 'Candy wall pared de dulces para eventos CDMX' },
+  { src: '/img/estaciones-interactivas/pared-dulces/candy-wall-servicio-cdmx.avif', alt: 'Servicio candy wall CDMX MEDEDUL' },
+  { src: '/img/estaciones-interactivas/pared-dulces/pared-dulces-colorida-fiesta.avif', alt: 'Pared dulces colorida fiesta CDMX' },
+  { src: '/img/estaciones-interactivas/pared-dulces/pared-dulces-interactiva-fiestas.avif', alt: 'Pared dulces interactiva fiestas CDMX' },
+  { src: '/img/eventos/baby-shower/candy-bar-baby-shower-celeste-macarons-osito.avif', alt: 'Pared dulces para baby shower CDMX' },
+  { src: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', alt: 'Pared dulces XV Años elegante CDMX' },
+  { src: '/img/eventos/corporativos/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Pared dulces corporativo branding CDMX' }
+];
+
+const incluye = [
+  { num: '01', title: 'Estructura modular profesional', desc: 'Pared metálica desde 2x2m hasta 6x3m según capacidad. Dispensadores acrílicos profesionales (no genéricos). Iluminación LED opcional integrada.' },
+  { num: '02', title: 'Diseño temático coordinado', desc: 'Backdrop con diseño elegido (floral, neón, geométrico, vintage, branding, temática). Coherencia visual con paleta del evento. Producción a medida disponible en Premium/Luxury.' },
+  { num: '03', title: '4-8 tipos de dulces variados', desc: 'Esencial 4 tipos básicos (gomitas, chocolates, caramelos, paletas), Premium 6 (suma palomitas y cacahuates), Luxury 8 tipos premium (todas las categorías). Producto fresco con rotación.' },
+  { num: '04', title: 'Bolsitas y utensilios autoservicio', desc: 'Bolsitas decorativas para que invitados se sirvan, cucharitas para dulces sueltos, cordón de seguridad opcional para protección de niños. Sistema de autoservicio fluido.' },
+  { num: '05', title: 'Operador uniformado con reposición', desc: 'Operador dedicado durante 3-7h según paquete. Reposición continua, limpieza de área, asistencia a invitados (especialmente niños), control de cantidades.' },
+  { num: '06', title: 'Montaje y desmontaje incluidos', desc: 'Llegamos 2-3h antes. Armamos estructura modular en sitio, instalamos dispensadores, llenamos con dulces, conectamos iluminación LED. Desmontaje discreto al cierre con limpieza completa.' }
+];
+
+const testimonios = [
+  { name: 'Camila Rivera (XV)', initials: 'CR', review: 'XV de mi hija con pared de dulces neón con su nombre en luz rosa. Las amigas no paraban de fotografiarse. Subió a TikTok y se hizo viral en su escuela. La pared fue MEJOR que la mesa de dulces para los adolescentes.', event: 'XV Años · Diseño Neón · CDMX', rating: 5 },
+  { name: 'Laura y Esposo (boda)', initials: 'LE', review: 'Pared de dulces vintage rústica para nuestra boda en hacienda. 100 dispensadores con chocolates premium, caramelos y mini paletas. Los invitados llenaron sus bolsitas como recuerdo. Ahorramos en bolos y quedó épica.', event: 'Boda · Hacienda · Vintage', rating: 5 },
+  { name: 'Marketing Manager (corp)', initials: 'MM', review: 'Lanzamiento de producto con pared 4x3m branding corporativo (logo + colores Pantone exactos). 150 dispensadores con dulces premium. Backdrop perfecto para foto de PR con prensa. Repetimos en cada lanzamiento.', event: 'Lanzamiento corporativo · Branding', rating: 5 }
+];
+
 const faqs = [
-  { question: 'Que es una pared de dulces?', answer: 'Es una estacion tipo candy wall con dispensadores y presentacion visual que combina decoracion y servicio interactivo.' },
-  { question: 'Se pueden personalizar colores y estilo?', answer: 'Si. Adaptamos paleta y seleccion de dulces al concepto de cada evento.' },
-  { question: 'Cuantos dispensadores incluye?', answer: 'La configuracion depende del paquete y aforo; definimos la mejor opcion segun tu evento.' },
-  { question: 'Incluyen bolsitas para invitados?', answer: 'Si, podemos integrar formato de entrega para facilitar la experiencia de consumo.' },
-  { question: 'Es ideal para bodas y XV Anos?', answer: 'Si. Es una de las estaciones mas solicitadas por su impacto visual y dinamica de participacion.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con montaje profesional y desmontaje al cierre.' }
+  { question: '¿Qué incluye la renta de pared de dulces (candy wall) en CDMX?', answer: 'Incluye estructura modular metálica desde 2x2m hasta 6x3m según capacidad, 50 a 200+ dispensadores acrílicos profesionales, 4 a 8 tipos de dulces variados (gomitas, chocolates, caramelos, palomitas, cacahuates, mini paletas, frutos secos, mini galletas), backdrop con diseño temático elegido (floral, neón, geométrica, vintage, branding o personalizada), bolsitas decorativas y utensilios para autoservicio, iluminación LED opcional, operador uniformado durante 3-7 h según paquete, montaje 2-3 h antes y desmontaje al cierre.' },
+  { question: '¿Cuánto cuesta rentar una pared de dulces en CDMX?', answer: 'En CDMX iniciamos en $4,500 MXN (Esencial, 50 dispensadores, 40-80 invitados), $7,800 MXN (Premium, 100 dispensadores, 100-200 invitados, el más solicitado) y $13,500 MXN (Luxury, 150-200+ dispensadores con diseño personalizado e iluminación neón). El precio depende del número de invitados, capacidad de la pared (m²), tipos de dulces, complejidad del diseño y duración del servicio.' },
+  { question: '¿Qué diseños de pared manejan?', answer: 'Trabajamos 6 diseños: Floral romántica (flores frescas o artificiales premium, ideal para bodas y baby showers), Neón fotogénica (letras neón con frase, tendencia 2026 viral en Instagram/TikTok), Geométrica moderna (patrón en colores corporativos), Vintage rústica (madera natural, marcos vintage), Branding corporativo (logo en gran formato con paleta Pantone exacta) y Temática personalizada (cualquier concepto con moodboard previo: princesa, casino, Marvel, destination, etc.).' },
+  { question: '¿Qué tipos de dulces incluyen?', answer: 'Trabajamos 8 categorías: gomitas variadas (ositos, tubitos, aros, ácidas), chocolates pequeños (mini Hershey, Kisses, Lindt mini, Ferrero), caramelos duros surtidos, cacahuates japoneses, palomitas de colores caramelizadas, mini paletas decoradas, frutos secos cubiertos (almendras con chocolate, arándanos cubiertos), mini galletas (Oreo mini, chips ahoy mini). Según paquete: Esencial 4 tipos, Premium 6 tipos, Luxury 8 tipos premium.' },
+  { question: '¿Qué capacidad necesito para mi evento?', answer: 'La capacidad depende del número de invitados: 50 dispensadores (pared 2x2m) para 40-80 invitados (eventos íntimos), 100 dispensadores (pared 3x2.5m) para 80-200 invitados (el más solicitado para XV, boda boutique, corporativo small), 150 dispensadores (pared 4x3m) para 200-350 invitados (eventos grandes, statement visual) y 200+ dispensadores (pared 6x3m) para 350-600+ invitados (graduación de generación, convención multinacional).' },
+  { question: '¿La pared funciona como spot fotográfico?', answer: 'Sí, es uno de sus diferenciadores principales. La pared de dulces es uno de los detalles MÁS fotografiados y compartidos en redes sociales (Instagram, TikTok, Stories) de cualquier evento. Backdrop optimizado para foto y video, iluminación profesional disponible, hashtag personalizado opcional para tracking de menciones. El diseño Neón es especialmente viral en 2026.' },
+  { question: '¿Para qué tipos de evento se renta más?', answer: 'Las 4 aplicaciones más solicitadas: <a href="/candy-bar-eventos/mesa-dulces-baby-shower">Baby Shower</a> (spot fotográfico tierno con diseño floral o boho), <a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a> (instagrammable total con diseño neón o glamour), <a href="/candy-bar-eventos/mesa-dulces-boda">Bodas</a> (decoración y servicio premium con flores o vintage), <a href="/candy-bar-eventos/mesa-dulces-corporativos">Eventos Corporativos</a> (branding con dulzura, logo en gran formato).' },
+  { question: '¿Pueden combinarla con otras estaciones?', answer: 'Sí: <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> (autoservicio + show interactivo), <a href="/estaciones-interactivas/fuente-de-chamoy">Fuente de Chamoy</a> (mexicano + sweet wall), <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (centro celebración + pared como backdrop). La combinación más popular: pared de dulces + fuente de chocolate + stand para pastel = trifecta interactiva.' },
+  { question: '¿Atienden eventos en todo CDMX?', answer: 'Sí. Operamos desde sucursales fijas Anzures y Condesa con cobertura completa CDMX: Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite y todas las 16 alcaldías. La pared modular se transporta desarmada y se monta en sitio. Visita <a href="/sucursales/cdmx/mesa-de-dulces">página de sucursal CDMX</a>.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para diseños estándar (floral, vintage, geométrica) recomendamos 2-3 semanas. Para diseño Neón con frase personalizada, Branding corporativo con logo o Temática personalizada con moodboard previo, sugerimos 4-6 semanas (la producción de neón y backdrop personalizado toma 2-3 semanas). Anticipo del 50% para apartar fecha y liquidación 48 h antes.' }
 ];
 
-const packages = [
-  {
-    name: 'Esencial',
-    icon: '🍬',
-    price: '$4,700',
-    currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para una candy wall principal',
-    features: ['Candy wall con configuracion base', 'Surtido inicial de dulces', 'Montaje profesional', 'Operacion en sitio', 'Desmontaje al finalizar'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Pared de Dulces - Paquete Esencial'
-  },
-  {
-    name: 'Premium',
-    icon: '⭐',
-    price: '$8,100',
-    currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Mayor capacidad de dispensadores', 'Personalizacion de colores', 'Surtido ampliado de dulces', 'Montaje y operacion extendida', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
-    popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Pared de Dulces - Paquete Premium'
-  },
-  {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$12,200',
-    currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia visual de alto impacto',
-    features: ['Configuracion para eventos grandes', 'Direccion estetica completa', 'Operacion en sitio extendida', 'Surtido premium ampliado', 'Acompanamiento operativo integral', 'Mayor capacidad de servicio'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Pared de Dulces - Paquete Luxury'
-  }
-];
-
-const whyStats = [
-  { number: '100%', label: 'Impacto Visual' },
-  { number: '20+', label: 'Opciones de Dulces' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Escenografia Funcional', desc: 'La candy wall funciona como decoracion y punto de servicio al mismo tiempo.', img: '/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif' },
-  { num: 2, title: 'Personalizacion de Color', desc: 'Alineamos paleta visual con el concepto del evento.', img: '/img/estaciones-interactivas/pared-dulces/pared-dulces-colorida-fiesta.avif' },
-  { num: 3, title: 'Experiencia Interactiva', desc: 'Invitados participan activamente al seleccionar su mezcla de dulces.', img: '/img/estaciones-interactivas/pared-dulces/pared-dulces-interactiva-fiestas.avif' },
-  { num: 4, title: 'Operacion Profesional', desc: 'Montaje y control de servicio para mantener orden y calidad.', img: '/img/estaciones-interactivas/pared-dulces/candy-wall-servicio-cdmx.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance de la candy wall.' },
-  { num: 2, title: 'Disenamos', desc: 'Definimos configuracion de dispensadores, colores y surtido.' },
-  { num: 3, title: 'Confirmamos', desc: 'Alineamos montaje, logistica y operacion en sitio.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la pared de dulces profesionalmente.' }
-];
-
-const eventCards = [
-  { title: 'Candy Wall para Bodas', excerpt: 'Elemento escenografico premium para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Candy Wall para XV Anos', excerpt: 'Montaje de alto impacto visual para celebraciones sociales.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Candy Wall para Corporativos', excerpt: 'Experiencia diferencial para activaciones y eventos de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
-  { title: 'Candy Wall para Graduacion', excerpt: 'Propuesta visual moderna para eventos de alta asistencia.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduaciones' }
-];
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
 const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Pared de Dulces para Eventos en CDMX',
-  description: 'Servicio de candy wall o pared de dulces para eventos sociales y corporativos en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4700',
-    highPrice: '12200',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Pared de Dulces ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/pared-de-dulces#service", "name": "Renta de Pared de Dulces (Candy Wall) en CDMX", "serviceType": "Estación Interactiva / Candy Wall / Pared Decorativa Dulces", "description": "Renta de pared de dulces (candy wall) en Ciudad de México con 6 diseños (floral, neón, geométrica, vintage, branding, temática personalizada), 50 a 200+ dispensadores acrílicos, 8 tipos de dulces, iluminación LED. Spot fotográfico Instagram/TikTok. Para baby showers, XV, bodas, corporativos. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "220", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "4500", "highPrice": "13500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Pared Dulces CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } },
+    { "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer.replace(/<[^>]+>/g, '') } })) },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Estaciones Interactivas", "item": "https://mesas-de-dulces.com/estaciones-interactivas" },
+      { "@type": "ListItem", "position": 3, "name": "Pared de Dulces", "item": "https://mesas-de-dulces.com/estaciones-interactivas/pared-de-dulces" }
+    ]}
+  ]
 };
 ---
 
 <BaseLayout
-  title="Pared de Dulces para Eventos en CDMX | Mededul"
-  description="Renta de pared de dulces candy wall en CDMX con montaje profesional y personalizacion por tipo de evento."
+  title="Pared de Dulces Candy Wall CDMX | 6 Diseños · 50-200 Dispensadores | MEDEDUL"
+  description="Renta de pared de dulces (candy wall) en CDMX con 6 diseños (floral, neón, geométrica, vintage, branding, temática). 50 a 200+ dispensadores con 8 tipos de dulces. Spot fotográfico Instagram/TikTok. 220+ paredes operadas. Baby showers, XV, bodas, corporativos. Desde $4,500 MXN."
   canonical="/estaciones-interactivas/pared-de-dulces"
   ogImage="/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <Hero
-    title="Pared de Dulces Candy Wall en CDMX"
-    highlight="Pared de Dulces"
-    subtitle="Estacion escenografica e interactiva para elevar impacto visual y experiencia de invitados"
-    secondaryContent={`<p><strong>Candy wall</strong> bien disenada transforma el montaje en un punto visual protagonista que combina decoracion y servicio en una sola pieza. En Mededul estructuramos paredes de dulces funcionales para eventos con alto nivel de exigencia estetica.</p><p><strong>Pared</strong> interactiva con operacion profesional permite mejorar participacion, orden de servicio y recordacion del evento. Adaptamos configuracion y presentacion segun tipo de celebracion para resultados consistentes en CDMX.</p>`}
-  />
+  <Hero title="Pared de Dulces (Candy Wall) en CDMX" highlight="Pared de Dulces CDMX" subtitle="El muro más fotografiado de tu fiesta · 6 diseños temáticos · 220+ paredes operadas en CDMX" secondaryContent={`<p>Dispensadores llenos de golosinas que decoran y endulzan a la vez. La <strong>pared de dulces (candy wall)</strong> es la estación interactiva con mayor potencial fotográfico de cualquier evento en Ciudad de México: el spot que tus invitados van a fotografiar para Instagram y TikTok, el sistema de autoservicio que elimina la necesidad de bolos sorpresa y el statement visual que se vuelve el centro de atención del evento. En <strong>MEDEDUL</strong> trabajamos <strong>6 diseños temáticos</strong>: Floral romántica, Neón fotogénica (tendencia 2026 viral), Geométrica moderna, Vintage rústica, Branding corporativo y Temática personalizada con moodboard previo.</p><p>Manejamos 4 capacidades escalables: 50 dispensadores (pared 2x2m, 40-80 invitados), 100 dispensadores (pared 3x2.5m, 100-200 invitados, el más solicitado), 150 dispensadores (4x3m, 250-350 invitados, statement visual) y 200+ dispensadores (6x3m, 350-600+ invitados, máximo impacto). Cada paquete incluye 4-8 tipos de dulces: gomitas, chocolates, caramelos, palomitas de colores, cacahuates, mini paletas, frutos secos cubiertos y mini galletas. Plus iluminación LED, bolsitas decorativas para autoservicio y operador uniformado. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong>.</p>`} />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos cada propuesta de candy wall al aforo y nivel de personalizacion requerido." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <section class="pared-stats">
+    <div class="container">
+      <div class="pared-stats__grid">
+        {stats.map(s => (<div class="pared-stat"><span class="pared-stat__num">{s.number}</span><span class="pared-stat__label">{s.label}</span></div>))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Pared de Dulces" descriptions={['Candy wall diseniada para eventos donde el impacto visual y la interaccion son clave.', 'Integramos personalizacion, montaje y operacion para sostener calidad durante todo el servicio.']} stats={whyStats} features={whyFeatures} />
+  <section class="pared-disenos section-padding" id="disenos">
+    <div class="container">
+      <SectionHeader title="6 diseños temáticos" titleHighlight="a elegir" subtitle="Cada diseño con backdrop coordinado, materiales premium y estética optimizada para foto/video Instagram-TikTok" />
+      <div class="pared-disenos__grid">
+        {disenos.map(d => (
+          <div class:list={['pared-diseno', { 'pared-diseno--popular': d.popular }]}>
+            {d.popular && <span class="pared-diseno__badge">Tendencia 2026</span>}
+            <div class="pared-diseno__icon" aria-hidden="true">{d.icon}</div>
+            <h3 class="pared-diseno__name">{d.diseno}</h3>
+            <p class="pared-diseno__desc">{d.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu candy wall sin fricciones." steps={processSteps} />
+  <section class="pared-dulces section-padding" id="tipos-dulces">
+    <div class="container">
+      <SectionHeader title="8 tipos de dulces" titleHighlight="para llenar" subtitle="Combinables según paquete y perfil de invitados. Producto fresco con rotación garantizada" content={`<p><strong>Esencial</strong> 4 tipos básicos, <strong>Premium</strong> 6 tipos, <strong>Luxury</strong> 8 tipos premium. Te asesoramos según el perfil del evento (infantil/adulto/corporativo).</p>`} />
+      <div class="pared-dulces__grid">
+        {dulces.map(d => (
+          <div class="pared-dulce">
+            <span class="pared-dulce__icon" aria-hidden="true">{d.icon}</span>
+            <h3 class="pared-dulce__name">{d.nombre}</h3>
+            <p class="pared-dulce__desc">{d.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Pared de Dulces para" titleHighlight="Cada Tipo de Evento" subtitle="Configuramos estilo, capacidad y operacion segun el formato de cada celebracion." events={eventCards} />
+  <section class="pared-capacidades section-padding" id="capacidades-tecnicas">
+    <div class="container">
+      <SectionHeader title="4 capacidades" titleHighlight="escalables" subtitle="Te asesoramos según número de invitados y dimensiones disponibles del venue" />
+      <div class="pared-capacidades__grid">
+        {capacidades.map(c => (
+          <div class="pared-capacidad">
+            <div class="pared-capacidad__icon" aria-hidden="true">{c.icon}</div>
+            <h3 class="pared-capacidad__cap">{c.capacidad}</h3>
+            <span class="pared-capacidad__inv">{c.invitados}</span>
+            <div class="pared-capacidad__specs">
+              <div><strong>Tamaño:</strong> {c.tamano}</div>
+            </div>
+            <p class="pared-capacidad__uso">{c.uso}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <section class="pared-intro" id="intro-pared">
+    <div class="container">
+      <div class="pared-intro__grid">
+        <div class="pared-intro__copy">
+          <span class="pared-intro__badge">Especialistas en candy wall CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu pared de dulces en CDMX</h2>
+          <p>La pared de dulces es la <strong>estación interactiva con mayor retorno en redes sociales</strong> de cualquier evento: combina autoservicio (sin bolos sorpresa adicionales), decoración (statement visual del evento) y fotografía (spot Instagram/TikTok garantizado). Por eso es la favorita de XV modernos, baby showers Instagram-friendly, bodas con presencia digital y corporativos con branding integral.</p>
+          <p>La pared de dulces CDMX que producimos no es un servicio improvisado: usamos <strong>estructura modular metálica profesional</strong> con dispensadores acrílicos (no vasos genéricos). Trabajamos 6 diseños temáticos a elegir, 4 capacidades escalables y 8 tipos de dulces. Operador uniformado durante toda la operación con reposición continua.</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong>. Visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a> para detalle. Para conceptos integrales con backdrop personalizado conoce nuestras <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20Pared%20de%20Dulces%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a>.</p>
+        </div>
+        <div class="pared-intro__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/pared-dulces/candy-wall-pared-dulces-eventos.avif', { w: 720, q: 82 })} alt="Pared de dulces candy wall MEDEDUL en CDMX" loading="lazy" width="720" height="480" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages id="paquetes-pared" badge="Paquetes Pared Dulces CDMX" title="Elige el formato para tu" titleHighlight="candy wall" subtitle="3 niveles claros con estructura modular profesional incluida" content={`<p><strong>Esencial</strong> pared 2x2m con 50 dispensadores; <strong>Premium</strong> es el más solicitado pared 3x2.5m con 100 dispensadores y diseño Neón disponible; <strong>Luxury</strong> pared 4x3m a 6x3m con 150-200+ dispensadores, diseño temático personalizado e iluminación LED+neón.</p>`} packages={paquetes} note="💡 <strong>Todos los paquetes Pared de Dulces CDMX incluyen:</strong> estructura modular metálica, dispensadores acrílicos profesionales, dulces frescos según paquete, backdrop con diseño elegido, bolsitas y utensilios para autoservicio, operador uniformado, montaje 2-3h antes y desmontaje al cierre." />
+
+  <WhyChooseUs id="por-que-pared" badge="Diferenciadores Pared Dulces" title="Por qué elegir nuestra" titleHighlight="Pared de Dulces" descriptions={["Con <strong>220+ paredes operadas en CDMX</strong>, 6 diseños temáticos y 8 tipos de dulces, MEDEDUL es la opción especializada para clientes que buscan candy wall con estructura profesional (no improvisada).", "Cada pared parte del mismo método: brief con asesoría de capacidad y diseño, cotización 24h con render conceptual, coordinación logística (espacio para pared, acceso para montaje), instalación 2-3h y operación con reposición continua. La diferencia: <strong>spot fotográfico Instagram/TikTok garantizado</strong>."]} stats={[{ number: "220+", label: "Paredes operadas" }, { number: "6", label: "Diseños temáticos" }, { number: "8", label: "Tipos dulces" }, { number: "100%", label: "Estructura pro" }]} features={caracteristicas} />
+
+  <section class="pared-galeria" id="galeria-pared">
+    <div class="container">
+      <SectionHeader title="Paredes de dulces operadas en" titleHighlight="CDMX" subtitle="Selección curada de candy walls MEDEDUL en distintos eventos y diseños" />
+      <div class="pared-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="pared-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pared-incluye section-padding" id="incluye-pared">
+    <div class="container">
+      <SectionHeader title="Qué incluye nuestra" titleHighlight="Pared de Dulces CDMX" subtitle="Servicio integral con estructura modular profesional y operador" />
+      <div class="pared-incluye__grid">
+        {incluye.map(item => (
+          <div class="pared-incluye__item">
+            <div class="pared-incluye__num">{item.num}</div>
+            <h3 class="pared-incluye__title">{item.title}</h3>
+            <p class="pared-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps id="proceso-pared" badge="Cómo trabajamos" title="Nuestro proceso para tu" titleHighlight="pared de dulces" subtitle="Cuatro pasos para que tu candy wall sea el muro más fotografiado del evento" steps={proceso} />
+
+  <section class="pared-eventos section-padding" id="aplica-eventos">
+    <div class="container">
+      <SectionHeader title="Para tu tipo de" titleHighlight="evento" subtitle="Las 4 aplicaciones más solicitadas de pared de dulces en CDMX" />
+      <div class="service-grid">
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-baby-shower" image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')} alt="Pared de dulces para baby shower" title="Para Baby Shower" excerpt="Spot fotográfico tierno con diseño floral o boho. Combina con paleta del baby shower." cta="Ver Baby Shower" badge="Spot tierno" subsections={subsCBBabyShower} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-xv-anos" image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')} alt="Pared de dulces para XV Años" title="Para XV Años" excerpt="Instagrammable total con diseño Neón (frase de la quinceañera) o Glamour rosa-dorado. Tendencia 2026." cta="Ver Mesa XV" badge="Viral XV" subsections={subsCBXV} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-boda" image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')} alt="Pared de dulces para boda" title="Para Bodas" excerpt="Decoración y servicio premium con diseño Floral o Vintage. Reemplaza bolos sorpresa de los invitados." cta="Ver Mesa Boda" badge="Reemplaza bolos" subsections={subsCBBoda} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-corporativos" image={getCdnUrl('/img/eventos/corporativos/candy-bar-empresarial.avif')} alt="Pared de dulces para corporativos" title="Para Corporativos" excerpt="Branding con dulzura. Logo en gran formato con paleta Pantone exacta. Para lanzamientos y posadas." cta="Ver Corporativos" badge="Branded" subsections={subsCBCorporativo} />
+      </div>
+    </div>
+  </section>
+
+  <section class="pared-cdmx-cta section-padding" id="pared-cdmx">
+    <div class="container">
+      <div class="pared-cdmx-cta__card">
+        <div class="pared-cdmx-cta__body">
+          <span class="pared-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos paredes de dulces desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL renta paredes de dulces (candy walls) en toda Ciudad de México con cobertura en <strong>Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite</strong>. Operamos en hoteles 5 estrellas, haciendas, edificios corporativos, salones boutique y domicilios.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="pared-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="pared-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/pared-dulces/candy-wall-servicio-cdmx.avif', { w: 600, q: 82 })} alt="Servicio candy wall CDMX MEDEDUL" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pared-testimonios section-padding" id="testimonios-pared">
+    <div class="container">
+      <SectionHeader title="Testimonios reales de" titleHighlight="clientes CDMX" subtitle="Familias y empresas hablando de su experiencia con candy wall MEDEDUL" />
+      <div class="reviews-grid">
+        {testimonios.map(t => (<ReviewCard {...t} />))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pared-otras section-padding" id="otras-estaciones">
+    <div class="container">
+      <SectionHeader title="Otras estaciones" titleHighlight="interactivas" subtitle="Combina la pared de dulces con otras estaciones para experiencia completa" />
+      <div class="service-grid">
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chocolate" image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')} alt="Fuente de chocolate" title="Fuente de Chocolate" excerpt="La estrella universal. Combo con candy wall: autoservicio + show interactivo." cta="Ver Fuente Chocolate" subsections={subsFuenteChocolate} />
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chamoy" image={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif')} alt="Fuente de chamoy" title="Fuente de Chamoy" excerpt="Identidad mexicana. Combo con candy wall para evento mexicano moderno." cta="Ver Fuente Chamoy" subsections={subsFuenteChamoy} />
+        <ServiceCard href="/estaciones-interactivas/stand-para-pastel" image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')} alt="Stand para pastel" title="Stand para Pastel" excerpt="Tu pastel merece su propio escenario. Combo trifecta con candy wall + fuente." cta="Ver Stand Pastel" subsections={subsStandPastel} />
+      </div>
+    </div>
+  </section>
 
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  .pared-stats { background: linear-gradient(135deg, #7A2BC2 0%, #d946ef 50%, #7A2BC2 100%); padding: 3rem 0; color: #fff; }
+  .pared-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .pared-stat__num { display: block; font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 0.5rem; }
+  .pared-stat__label { display: block; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+  @media (max-width: 768px) { .pared-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } .pared-stat__num { font-size: 2rem; } }
+
+  .pared-disenos { background: #fff; }
+  .pared-disenos__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .pared-diseno { background: #faf5ff; border-radius: 0.75rem; padding: 2rem 1.5rem; text-align: center; border-top: 3px solid #7A2BC2; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .pared-diseno:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(122,43,194,0.18); }
+  .pared-diseno--popular { border-top-color: #d946ef; background: #fdf4ff; }
+  .pared-diseno__badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #d946ef; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pared-diseno__icon { font-size: 2.75rem; margin-bottom: 1rem; }
+  .pared-diseno__name { font-size: 1.15rem; color: #7A2BC2; margin-bottom: 0.75rem; font-weight: 700; }
+  .pared-diseno__desc { color: #555; line-height: 1.5; font-size: 0.9rem; }
+  @media (max-width: 900px) { .pared-disenos__grid { grid-template-columns: 1fr; } }
+
+  .pared-dulces { background: linear-gradient(135deg, #faf5ff 0%, #fff 100%); }
+  .pared-dulces__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .pared-dulce { background: #fff; border-radius: 0.75rem; padding: 1.5rem 1.25rem; text-align: center; border: 1px solid #e9d5ff; transition: transform 0.2s ease; }
+  .pared-dulce:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(122,43,194,0.12); border-color: #7A2BC2; }
+  .pared-dulce__icon { display: inline-block; font-size: 2.25rem; margin-bottom: 0.5rem; }
+  .pared-dulce__name { font-size: 1rem; color: #7A2BC2; margin-bottom: 0.5rem; font-weight: 700; }
+  .pared-dulce__desc { color: #555; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .pared-dulces__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .pared-capacidades { background: #fff; }
+  .pared-capacidades__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .pared-capacidad { background: #faf5ff; border-radius: 1rem; padding: 2rem 1.5rem; text-align: center; border-top: 4px solid #7A2BC2; transition: transform 0.2s ease; }
+  .pared-capacidad:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(122,43,194,0.15); border-top-color: #d946ef; }
+  .pared-capacidad__icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .pared-capacidad__cap { font-size: 1.5rem; color: #7A2BC2; margin-bottom: 0.25rem; font-weight: 800; }
+  .pared-capacidad__inv { display: inline-block; background: #7A2BC2; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem; }
+  .pared-capacidad__specs { background: #fff; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 1rem; font-size: 0.85rem; color: #555; }
+  .pared-capacidad__specs strong { color: #7A2BC2; }
+  .pared-capacidad__uso { color: #666; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .pared-capacidades__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .pared-intro { padding: 5rem 0; background: #faf5ff; }
+  .pared-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .pared-intro__badge { display: inline-block; background: linear-gradient(135deg, #7A2BC2 0%, #d946ef 100%); color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+  .pared-intro__copy h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 1.5rem; color: #1a1a1a; }
+  .pared-intro__copy h2 span { color: #7A2BC2; }
+  .pared-intro__copy p { color: #444; line-height: 1.7; margin-bottom: 1rem; font-size: 1rem; }
+  .pared-intro__copy a { color: #7A2BC2; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 600; }
+  .pared-intro__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 20px 50px rgba(122,43,194,0.25); }
+  @media (max-width: 900px) { .pared-intro__grid { grid-template-columns: 1fr; } }
+
+  .pared-galeria { padding: 5rem 0; background: #fff; }
+  .pared-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .pared-galeria__item { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4/3; }
+  .pared-galeria__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .pared-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .pared-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  .pared-incluye { background: #faf5ff; }
+  .pared-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .pared-incluye__item { background: #fff; border-radius: 1rem; padding: 2rem 1.5rem; border: 1px solid #e9d5ff; transition: transform 0.2s ease; }
+  .pared-incluye__item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(122,43,194,0.18); border-color: #7A2BC2; }
+  .pared-incluye__num { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #7A2BC2 0%, #d946ef 100%); color: #fff; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-weight: 700; margin-bottom: 1rem; }
+  .pared-incluye__title { font-size: 1.1rem; color: #7A2BC2; margin-bottom: 0.75rem; font-weight: 700; }
+  .pared-incluye__desc { color: #555; line-height: 1.6; font-size: 0.95rem; }
+  @media (max-width: 900px) { .pared-incluye__grid { grid-template-columns: 1fr; } }
+
+  .pared-cdmx-cta { background: #fff; }
+  .pared-cdmx-cta__card { background: linear-gradient(135deg, #7A2BC2 0%, #d946ef 50%, #ec4899 100%); border-radius: 1.5rem; padding: 3rem; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(122,43,194,0.3); }
+  .pared-cdmx-cta__badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; backdrop-filter: blur(8px); }
+  .pared-cdmx-cta__body h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1rem; color: #fff; }
+  .pared-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .pared-cdmx-cta__body p { line-height: 1.65; color: rgba(255,255,255,0.95); margin-bottom: 1.5rem; }
+  .pared-cdmx-cta__body p strong { color: #fff; }
+  .pared-cdmx-cta__link { display: inline-block; background: #fff; color: #7A2BC2; padding: 1rem 2rem; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .pared-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .pared-cdmx-cta__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+  @media (max-width: 900px) { .pared-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; } .pared-cdmx-cta__body h2 { font-size: 1.5rem; } }
+
+  .pared-testimonios { background: #faf5ff; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .pared-otras { background: #fff; }
+</style>

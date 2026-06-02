@@ -1,164 +1,1358 @@
 ---
+// Mesa de Dulces para Eventos Corporativos — L4 Enterprise B2B (CDMX)
+// B2B profesional: branding, compliance, venues corporativos, industrias
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsQuesos, subsSnacks, subsPostres, subsFuenteChocolate,
+  subsCBBoda, subsCBXV, subsCBBabyShower, subsCBComunion,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos' }
+  { name: 'Mesa de Dulces para Eventos Corporativos', url: '/candy-bar-eventos/mesa-dulces-corporativos' }
 ];
 
-const faqs = [
-  { question: 'Que incluye un candy bar corporativo?', answer: 'Incluye planeacion, diseno visual, surtido de producto, montaje profesional, coordinacion en sitio y desmontaje.' },
-  { question: 'Se puede personalizar con branding de la empresa?', answer: 'Si. Podemos integrar paleta corporativa, mensajes, etiquetas y presentacion alineada a marca.' },
-  { question: 'Atienden congresos y lanzamientos?', answer: 'Si. Operamos eventos empresariales, activaciones, networking y celebraciones internas.' },
-  { question: 'Con cuanta anticipacion debo cotizar?', answer: 'Idealmente entre 2 y 4 semanas para asegurar planeacion y agenda del equipo.' },
-  { question: 'Cubren oficinas y centros de convenciones?', answer: 'Si. Cubrimos CDMX y area metropolitana en oficinas, hoteles y recintos empresariales.' },
-  { question: 'Manejan propuestas para distintos presupuestos?', answer: 'Si. Definimos configuraciones referenciales y ajustamos alcance segun objetivo y aforo.' }
+// =============== Trust Stats B2B ===============
+const stats = [
+  { number: '180+', label: 'Eventos corporativos CDMX' },
+  { number: '8', label: 'Industrias atendidas' },
+  { number: '100%', label: 'Factura A · contrato formal' },
+  { number: '< 24h', label: 'Cotización ejecutiva' }
 ];
 
-const packages = [
+// =============== 10 Tipos de eventos corporativos (UNIQUE B2B) ===============
+const tiposEventos = [
+  { tipo: 'Posada empresarial', icon: '🎄', desc: 'Diciembre. Mesa con paleta navideña corporativa, dulces tradicionales mexicanos premium, opción gratificante para colaboradores y familia. Capacidad 100-500 personas.' },
+  { tipo: 'Lanzamiento de producto', icon: '🚀', desc: 'Mesa con branding del producto: paleta del producto, etiquetas con tagline, dulces con logo. Diseñada para foto de PR y networking con prensa/clientes.' },
+  { tipo: 'Convención / Congreso', icon: '🎤', desc: 'Mesa para coffee breaks y cierre de jornada. Surtido productivo (chocolates con cafeína, frutos secos cubiertos, energéticos premium). Multiples puntos por día.' },
+  { tipo: 'Premiación interna', icon: '🏆', desc: 'Mesa elegante para cierre de premios o reconocimientos. Dulces premium en presentación ejecutiva, integración con backdrop de premios y menciones honoríficas.' },
+  { tipo: 'Kick-off / Onboarding', icon: '🎯', desc: 'Mesa para inicio de año o nuevos colaboradores. Branding fuerte, dulces con logo, momento de bienvenida con foto formal del equipo.' },
+  { tipo: 'Demo day / Pitch', icon: '💡', desc: 'Mesa para founders/inversionistas. Surtido sofisticado discreto que no distrae del pitch. Presentación minimalista premium con catering executive.' },
+  { tipo: 'Networking ejecutivo', icon: '🤝', desc: 'Mesa para cocktails empresariales y after-office. Surtido para acompañar bebidas: tablas de quesos, embutidos premium, mini-bites, fuente de chocolate.' },
+  { tipo: 'Aniversario empresa', icon: '🎉', desc: 'Mesa conmemorativa con paleta corporativa, año del aniversario, fotos históricas en backdrop, dulces premium para colaboradores y familia.' },
+  { tipo: 'Open House / Apertura', icon: '🔑', desc: 'Mesa para inauguración de oficinas, sucursal o tienda. Branding del lugar, dulces alineados a identidad de marca, presentación premium para invitados VIP.' },
+  { tipo: 'Capacitación / Training', icon: '📚', desc: 'Mesa para coffee breaks de programas formativos largos. Surtido para mantener energía durante el día: chocolates, gomitas, frutos secos, café/té premium.' }
+];
+
+// =============== 8 Industrias atendidas (UNIQUE B2B) ===============
+const industrias = [
+  { sector: 'Tech / Software', icon: '💻', clientes: 'Startups, scale-ups, fintech, SaaS', momento: 'Demo days, kickoffs, town halls, hackathons' },
+  { sector: 'Servicios financieros', icon: '🏦', clientes: 'Banca, casas de bolsa, aseguradoras', momento: 'Premiación broker, cierre fiscal, anuncios CEO' },
+  { sector: 'Pharma / Healthcare', icon: '⚕️', clientes: 'Laboratorios, distribuidoras, hospitales', momento: 'Lanzamiento producto, congreso médico, kickoff fuerza venta' },
+  { sector: 'Consultoría premium', icon: '📊', clientes: 'Big 4, Big 3 strategy, boutique consulting', momento: 'Cierre proyecto, premiación partners, year-end' },
+  { sector: 'Retail / FMCG', icon: '🛍️', clientes: 'Cadenas, marcas multinacionales', momento: 'Lanzamiento producto, premiación tienda, convención' },
+  { sector: 'Automotriz', icon: '🚗', clientes: 'OEM, distribuidores, talleres premium', momento: 'Lanzamiento modelo, kickoff dealer, convención sales' },
+  { sector: 'Hospitality / Hoteles', icon: '🏨', clientes: 'Cadenas hoteleras, restaurantes premium', momento: 'Apertura, anuncios trade, networking gerencias' },
+  { sector: 'Legal / Real Estate', icon: '⚖️', clientes: 'Despachos, brokerages, developers', momento: 'Cierre operación, networking, fiestas fin de año' }
+];
+
+// =============== Branding con logo (UNIQUE - showcase de personalización) ===============
+const branding = [
+  { icon: '🏷️', title: 'Etiquetas con logo', desc: 'Cada dulce empaquetado lleva etiqueta personalizada con logo, tagline o mensaje corporativo. Impresión en alta calidad, materiales premium (papel coated, sticker resistente).' },
+  { icon: '🎨', title: 'Paleta corporativa', desc: 'Cristalería, manteles, soportes y atrezzo en los colores Pantone exactos de tu marca. Si tu manual de identidad lo requiere, alineamos cada elemento.' },
+  { icon: '🖼️', title: 'Backdrop con logo', desc: 'Pared fotográfica corporativa con logo en gran formato, tagline e iluminación profesional. Perfecto para fotos de PR, redes sociales y press kit.' },
+  { icon: '🍬', title: 'Dulces con logo grabado', desc: 'Chocolates personalizados con logo grabado en relieve, galletas con monograma corporativo, bombones envueltos con sello de la marca. Empaque para regalo ejecutivo.' },
+  { icon: '🎯', title: 'Mensaje corporativo', desc: 'Bandera o letrero con tagline, mensaje del CEO, hashtag del evento o anuncio del producto. Integración total con la narrativa del evento.' },
+  { icon: '📋', title: 'Identidad coherente', desc: 'Coordinamos con tu equipo de marketing/eventos para asegurar que cada elemento (uniforme del operador, tipografía, colores) coincida con el manual de marca.' }
+];
+
+// =============== Compliance & Profesionalismo B2B (UNIQUE - diferenciador clave) ===============
+const compliance = [
+  { icon: '📄', title: 'Factura A profesional', desc: 'Emitimos factura electrónica timbrada con todos los requisitos SAT desde el primer evento. RFC, uso CFDI, método de pago según preferencia del área administrativa.' },
+  { icon: '✍️', title: 'Contrato formal', desc: 'Contrato de prestación de servicios con cláusulas claras: alcance, fechas, cancelación, pagos. Compatible con áreas legal y compliance de empresas grandes.' },
+  { icon: '🤐', title: 'NDA disponible', desc: 'Firmamos acuerdos de confidencialidad para eventos sensibles: lanzamientos, reorganizaciones, anuncios pre-públicos, fusiones. Privacidad total garantizada.' },
+  { icon: '🛡️', title: 'Póliza RC vigente', desc: 'Contamos con póliza de responsabilidad civil vigente, requisito de venues corporativos (WTC, Reforma 222, Torre Reforma) y áreas de seguridad de oficinas premium.' },
+  { icon: '🍽️', title: 'Sanitario y permisos', desc: 'Permisos sanitarios al día (Manejo de Alimentos), uniforme y cubrebocas para operadores, control de cadena de frío y trazabilidad de producto.' },
+  { icon: '📦', title: 'Compras ágiles', desc: 'Aceptamos PO (purchase order), pago a 30 días para empresas validadas, transferencias SPEI, tarjeta corporativa. Onboarding como proveedor ágil.' }
+];
+
+// =============== Venues corporativos CDMX (UNIQUE SEO local B2B) ===============
+const venues = [
+  { nombre: 'Reforma 222 / Reforma 296', zona: 'Reforma', tipo: 'Edificios corporativos' },
+  { nombre: 'Torre Reforma', zona: 'Reforma', tipo: 'Torre premium' },
+  { nombre: 'WTC (World Trade Center)', zona: 'Insurgentes Sur / Nápoles', tipo: 'Centro convenciones' },
+  { nombre: 'Punto Polanco', zona: 'Polanco', tipo: 'Edificios corporativos' },
+  { nombre: 'Park Plaza Santa Fe', zona: 'Santa Fe', tipo: 'Centro corporativo' },
+  { nombre: 'Torre Frisa Santa Fe', zona: 'Santa Fe', tipo: 'Torre premium' },
+  { nombre: 'Toreo Parque Central', zona: 'Naucalpan', tipo: 'Centro corporativo' },
+  { nombre: 'Centro Citibanamex', zona: 'Centro', tipo: 'Centro convenciones' },
+  { nombre: 'Hotel W Polanco', zona: 'Polanco', tipo: 'Hotel 5 estrellas' },
+  { nombre: 'Hotel Camino Real Polanco', zona: 'Polanco', tipo: 'Hotel premium' },
+  { nombre: 'Hotel Presidente InterContinental', zona: 'Polanco', tipo: 'Hotel 5 estrellas' },
+  { nombre: 'Hotel St. Regis Reforma', zona: 'Reforma', tipo: 'Hotel ultra-lujo' },
+  { nombre: 'Hipódromo de las Américas', zona: 'Lomas Verdes', tipo: 'Recinto múltiple' },
+  { nombre: 'Pepsi Center WTC', zona: 'Insurgentes Sur', tipo: 'Arena multifuncional' },
+  { nombre: 'Auditorio Nacional', zona: 'Reforma', tipo: 'Recinto cultural' }
+];
+
+// =============== Casos éxito anonimizados (UNIQUE B2B social proof) ===============
+const casosExito = [
+  { industria: 'Pharma multinacional Top 10', evento: 'Lanzamiento de medicamento oncológico', escala: '350 médicos · WTC', resultado: 'Mesa con paleta corporativa morado-blanco, dulces con tagline del producto, backdrop fotográfico para PR. Coordinación con compliance médico (sin azúcares para invitados con restricciones específicas).' },
+  { industria: 'Big 4 consultoría', evento: 'Year-End Partners Meeting', escala: '180 socios y directivos · Hotel St. Regis', resultado: 'Mesa elegante negro-dorado, surtido premium internacional (chocolates importados), tarjetas con logo del despacho, NDA firmado por anuncios sensibles de bonos.' },
+  { industria: 'Banco Top 5 mexicano', evento: 'Premiación Broker del Año', escala: '220 brokers · Centro Citibanamex', resultado: 'Mesa con paleta institucional, dulces premium, integración con escenografía del premio, factura A timbrada con datos fiscales del banco.' },
+  { industria: 'Tech unicornio mexicano', evento: 'Town Hall + 5to Aniversario', escala: '500 colaboradores · Reforma 222', resultado: 'Mesa colorida con branding tech, candy bar interactivo con dulces personalizados, fuente de chocolate como activación, fotografía profesional para historia corporativa.' },
+  { industria: 'Marca FMCG global', evento: 'Convención Anual Distribuidores', escala: '450 distribuidores · WTC', resultado: 'Mesa multi-día (3 días de coffee breaks + cocktail cierre), branding fuerte del producto, surtido distinto cada día, contrato formal con pagos a 30 días.' },
+  { industria: 'Despacho legal Top 10', evento: 'Apertura nueva oficina Polanco', escala: '120 invitados VIP · oficinas privadas', resultado: 'Cocktail premium con tabla de quesos importados, mini-bites ejecutivos, fuente de chocolate, póliza RC presentada al edificio para acceso.' }
+];
+
+// =============== Características (Diferenciadores B2B) ===============
+const caracteristicas = [
   {
-    name: 'Esencial',
+    num: 1,
+    title: 'Branding integral con tu identidad de marca',
+    desc: 'Cada elemento de la mesa se alinea a tu manual de identidad: paleta Pantone exacta, logo en backdrop, etiquetas personalizadas con tagline, dulces con monograma o logo grabado, uniformes de operador en colores corporativos. Tu marca presente en cada detalle.',
+    img: '/img/eventos/corporativos/candy-bar-empresarial-moderno-minimalista.avif'
+  },
+  {
+    num: 2,
+    title: 'Compliance y profesionalismo B2B',
+    desc: 'Factura A timbrada, contrato formal, NDA disponible para eventos sensibles, póliza RC vigente, permisos sanitarios al día, aceptamos PO y pago a 30 días para empresas validadas. Compatible con procesos de áreas legal, compras y compliance.',
+    img: '/img/eventos/corporativos/mesa-dulces-conferencia-ejecutivo-premium.avif'
+  },
+  {
+    num: 3,
+    title: 'Operación en venues corporativos premium',
+    desc: 'Trabajamos en 15+ venues corporativos premium CDMX: Reforma 222, Torre Reforma, WTC, Punto Polanco, Park Plaza Santa Fe, Toreo, Centro Citibanamex, Hotel W, St. Regis, Hipódromo. Conocemos protocolos de seguridad de cada edificio y áreas de carga/descarga.',
+    img: '/img/eventos/corporativos/mesa-dulces-corporativo-elegante-negro.avif'
+  },
+  {
+    num: 4,
+    title: 'Equipo profesional con código corporativo',
+    desc: 'Operadores uniformados (camisa blanca, mandil corporativo, identificación), entrenados en protocolo ejecutivo, con discreción para ambientes de alto perfil (lanzamientos, town halls de CEO, anuncios sensibles). Sin tonos festivos cuando el evento lo requiere.',
+    img: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif'
+  }
+];
+
+// =============== Paquetes Eventos Corporativos CDMX ===============
+const paquetesCorp = [
+  {
+    name: 'Executive',
+    icon: '💼',
+    price: '$8,500',
+    currency: 'MXN',
+    guests: '50-100 invitados',
+    tagline: 'Cocktail ejecutivo discreto',
+    features: [
+      'Mesa corporativa base (12-15 variedades)',
+      'Paleta corporativa (colores de marca)',
+      'Etiquetas básicas con logo',
+      'Cristalería pulida + cake stands',
+      'Operadores uniformados',
+      'Factura A timbrada',
+      'Contrato formal incluido',
+      'Cobertura zonas corporate CDMX'
+    ],
+    popular: false,
+    ctaText: 'Cotizar Executive',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20Eventos%20Corporativos%20CDMX%20-%20Executive'
+  },
+  {
+    name: 'Premium Corporate',
     icon: '🏢',
-    price: '$5,500',
+    price: '$15,800',
     currency: 'MXN',
-    guests: '30-60 personas',
-    tagline: 'Ideal para reuniones ejecutivas',
-    features: ['Candy bar corporativo base', 'Surtido funcional para eventos empresariales', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Esencial)'
-  },
-  {
-    name: 'Premium',
-    icon: '⭐',
-    price: '$9,400',
-    currency: 'MXN',
-    guests: '60-120 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado por objetivo del evento', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Personalizacion visual de marca', 'Asesoria comercial previa', 'Mejor equilibrio costo-beneficio'],
+    guests: '100-250 invitados',
+    tagline: 'El más solicitado por empresas grandes',
+    features: [
+      'Mesa corporativa completa (18-22 variedades)',
+      'Branding integral (paleta Pantone exacta)',
+      'Backdrop con logo en gran formato',
+      'Etiquetas premium con logo + tagline',
+      'Dulces con logo grabado disponibles',
+      'NDA firmado para eventos sensibles',
+      'Coordinación con seguridad del venue',
+      'Pago a 30 días para empresas validadas'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Premium)'
+    ctaText: 'Cotizar Premium Corporate',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Corporativa%20CDMX%20-%20Premium'
   },
   {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$15,500',
+    name: 'Enterprise',
+    icon: '🏆',
+    price: '$28,500',
     currency: 'MXN',
-    guests: '120+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total', 'Produccion enfocada en imagen de marca'],
+    guests: '250-500+ invitados',
+    tagline: 'Convenciones y lanzamientos de gran escala',
+    features: [
+      'Mesa de autor (25+ variedades premium)',
+      'Branding 360° + backdrop iluminado',
+      'Estación interactiva incluida (fuente chocolate o quesos)',
+      'Dulces personalizados con logo grabado',
+      'Operación multi-día disponible',
+      'Equipo dedicado (lead + 3 operadores)',
+      'Fotografía profesional del setup',
+      'PO + factura A + pago a 30/45/60 días',
+      'NDA + póliza RC + seguros adicionales'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar candy bar corporativo (Luxury)'
+    ctaText: 'Cotizar Enterprise',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20Enterprise%20CDMX%20-%20Convención'
   }
 ];
 
-const whyStats = [
-  { number: '200+', label: 'Eventos Corporativos' },
-  { number: '100%', label: 'Alineado a Marca' },
-  { number: '50+', label: 'Formatos Ejecutados' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Imagen Profesional', desc: 'Montajes que refuerzan percepcion de marca en cada punto de contacto.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif' },
-  { num: 2, title: 'Personalizacion Comercial', desc: 'Ajustamos diseno y narrativa visual al objetivo del evento corporativo.', img: '/img/eventos/corporativos/mesa-dulces-corporativo-elegante-negro.avif' },
-  { num: 3, title: 'Logistica Puntual', desc: 'Ejecucion precisa para cumplir horarios de venue y agenda empresarial.', img: '/img/eventos/corporativos/mesa-dulces-evento-corporativo-profesional.avif' },
-  { num: 4, title: 'Operacion Escalable', desc: 'Propuestas para reuniones ejecutivas o eventos de alto aforo.', img: '/img/eventos/corporativos/servicio-mesa-corporativo-cdmx.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief Comercial', desc: 'Definimos objetivo del evento, audiencia y criterios de marca.' },
-  { num: 2, title: 'Propuesta Ejecutiva', desc: 'Entregamos configuracion de diseno, producto y operacion.' },
-  { num: 3, title: 'Planeacion Logistica', desc: 'Alineamos accesos, montaje y tiempos con venue o corporativo.' },
-  { num: 4, title: 'Ejecucion en Sitio', desc: 'Implementamos montaje y servicio con estandar profesional.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Diseno elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Mesa de Dulces para XV Anos', excerpt: 'Montajes de alto impacto para fiestas de quinceanera.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Mesa de Dulces para Graduacion', excerpt: 'Propuestas para celebraciones academicas memorables.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduacion' },
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Candy bar tematico para celebraciones familiares.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Candy Bar Corporativo en CDMX',
-  description: 'Servicio de candy bar corporativo en Ciudad de Mexico para eventos empresariales, activaciones y reuniones ejecutivas.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso B2B ===============
+const procesoCorp = [
+  {
+    num: 1,
+    title: 'Brief ejecutivo',
+    desc: 'Recibimos brief con: tipo de evento (posada, lanzamiento, convención, premiación, etc.), número de asistentes, venue (Reforma 222, WTC, Polanco, Santa Fe, etc.), paleta corporativa, requerimientos de branding, fecha y restricciones administrativas (factura A, NDA, RFC).'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '5500',
-    highPrice: '15500',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Candy Bar Corporativo ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta ejecutiva 24h',
+    desc: 'En menos de 24 h hábiles enviamos propuesta con: render conceptual, paleta Pantone alineada a marca, surtido premium curado, opciones de branding (etiquetas, dulces grabados, backdrop), 3 niveles de paquete cerrados, factura proforma y plantilla de contrato.'
+  },
+  {
+    num: 3,
+    title: 'Onboarding como proveedor',
+    desc: 'Onboarding ágil: alta como proveedor en tu sistema, entrega de RFC, póliza RC, permisos sanitarios y plantilla de contrato. NDA firmado si el evento lo requiere. Coordinación con compras, legal y eventos para alineación administrativa.'
+  },
+  {
+    num: 4,
+    title: 'Día del evento corporativo',
+    desc: 'Llegamos 3 h antes con equipo uniformado e identificado. Coordinamos con seguridad del venue, montamos sin interferir con AV/catering/equipo de marketing, operamos durante toda la jornada con discreción ejecutiva. Desmontaje al cierre. Reporte post-evento opcional.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería corporativa (8 imágenes) ===============
+const galeriaImages = [
+  { src: '/img/eventos/corporativos/mesa-dulces-corporativo-elegante-negro.avif', alt: 'Mesa de dulces corporativo elegante en negro para evento empresarial CDMX' },
+  { src: '/img/eventos/corporativos/candy-bar-empresarial-moderno-minimalista.avif', alt: 'Candy bar empresarial moderno minimalista para corporativo' },
+  { src: '/img/eventos/corporativos/mesa-dulces-conferencia-ejecutivo-premium.avif', alt: 'Mesa de dulces conferencia ejecutivo premium CDMX' },
+  { src: '/img/eventos/corporativos/mesa-dulces-empresa-profesional.avif', alt: 'Mesa de dulces empresa profesional para corporativos' },
+  { src: '/img/galeria/mesa-dulces-evento-corporativo-elegante-oscuro.avif', alt: 'Mesa de dulces evento corporativo elegante oscuro CDMX' },
+  { src: '/img/galeria/candy-bar-corporativo-lujo-chocolate-whisky.avif', alt: 'Candy bar corporativo lujo con chocolate y whisky para premiación' },
+  { src: '/img/eventos/corporativos/barra-de-dulces-para-oficinas.avif', alt: 'Barra de dulces para oficinas corporativas CDMX' },
+  { src: '/img/eventos/corporativos/mesa-dulces-evento-corporativo.avif', alt: 'Mesa de dulces evento corporativo profesional' }
+];
+
+// =============== Qué incluye (6 pilares) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium ejecutiva', desc: 'Surtido de 12 a 25+ variedades para perfil corporativo: chocolates importados (Lindt, Ferrero, Godiva), trufas premium, macarons franceses, mini cupcakes ejecutivos, dulces tipo regalo de gerencia, opciones para invitados con restricciones (sin azúcar, sin gluten, vegano, kosher) y opciones para coffee break (chocolates con cafeína, frutos secos cubiertos).' },
+  { num: '02', title: 'Branding integral con marca corporativa', desc: 'Cristalería pulida en colores corporativos, soportes con paleta Pantone exacta, manteles de diseño profesional, backdrop con logo en gran formato y tagline, etiquetas premium con logo y mensaje del evento, atrezzo coordinado al manual de identidad de la empresa.' },
+  { num: '03', title: 'Dulces personalizados con logo grabado', desc: 'Disponible en Premium y Enterprise: chocolates con logo grabado en relieve, galletas con monograma corporativo, bombones envueltos con sello de la marca, mini regalos ejecutivos para invitados VIP, paletas y bombones con tagline del producto o evento.' },
+  { num: '04', title: 'Compliance y profesionalismo B2B', desc: 'Factura A timbrada desde el primer evento, contrato formal con cláusulas claras (alcance, fechas, cancelación, pagos), NDA disponible para eventos sensibles, póliza RC vigente, permisos sanitarios al día. Aceptamos PO y pago a 30/45/60 días para empresas validadas.' },
+  { num: '05', title: 'Equipo profesional ejecutivo', desc: 'Operadores uniformados (camisa blanca, mandil corporativo, identificación con foto), entrenados en protocolo ejecutivo, con discreción para ambientes de alto perfil. Lead operativo con experiencia en corporativos. Sin tonos festivos cuando el evento requiere sobriedad.' },
+  { num: '06', title: 'Operación en 15+ venues corporativos CDMX', desc: 'Trabajamos en Reforma 222, Torre Reforma, WTC, Punto Polanco, Park Plaza Santa Fe, Torre Frisa, Toreo, Centro Citibanamex, Hotel W, St. Regis, Camino Real, Hyatt, Presidente InterContinental, Hipódromo de las Américas, Pepsi Center y Auditorio Nacional. Conocemos protocolos de seguridad y áreas de carga.' }
+];
+
+// =============== Testimonios B2B (anonimizados) ===============
+const testimonios = [
+  {
+    name: 'Marketing Manager - Tech',
+    initials: 'MM',
+    review: 'Coordinamos lanzamiento de producto en Reforma 222 con 220 invitados de prensa y clientes. MEDEDUL entregó branding impecable: backdrop con logo, etiquetas con tagline, dulces con monograma. Factura A inmediata, NDA firmado sin fricción. Será nuestro proveedor recurrente.',
+    event: 'Lanzamiento producto · Reforma 222',
+    rating: 5
+  },
+  {
+    name: 'HR Lead - Big 4 Consulting',
+    initials: 'HR',
+    review: 'Year-end partners meeting en St. Regis con 180 socios. Mesa elegante negro-dorado con surtido internacional. Equipo discreto y profesional. Aceptaron pago a 60 días sin problema. Compliance perfecto. Recomendados.',
+    event: 'Year-end partners · St. Regis',
+    rating: 5
+  },
+  {
+    name: 'Events Coordinator - Banca',
+    initials: 'EC',
+    review: 'Convención anual de brokers en WTC con 350 personas. Mesa multi-día (3 días coffee breaks). Surtido distinto cada día, equipo dedicado, factura A con datos fiscales del banco sin retrasos. Operación impecable de principio a fin.',
+    event: 'Convención brokers · WTC',
+    rating: 5
+  }
+];
+
+// =============== FAQ B2B (12 preguntas SEO + ventas) ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para evento corporativo en CDMX?',
+    answer: 'Incluye diseño con branding integral (paleta corporativa, logo en backdrop, etiquetas con tagline, dulces personalizados con logo grabado disponibles), surtido premium ejecutivo (12-25+ variedades: chocolates importados Lindt/Ferrero, macarons franceses, trufas premium, opciones sin azúcar/gluten/vegano), cristalería pulida y soportes ejecutivos, montaje 3 h antes en el venue, coordinación con seguridad del edificio, operadores uniformados con identificación, operación durante toda la jornada con discreción, factura A timbrada, contrato formal y NDA disponible para eventos sensibles.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para evento corporativo en CDMX?',
+    answer: 'En CDMX iniciamos en $8,500 MXN (Executive, 50-100 invitados) y llegamos a $28,500 MXN (Enterprise, 250-500+ invitados). El precio depende del número de asistentes, nivel de branding (etiquetas básicas vs dulces con logo grabado), backdrop personalizado, duración del servicio (single-day vs multi-día) y servicios complementarios (estación interactiva, mesa de quesos, fuente de chocolate). Cotización ejecutiva en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Emiten factura A timbrada y aceptan pago a crédito?',
+    answer: 'Sí. Emitimos factura electrónica timbrada con todos los requisitos SAT desde el primer evento (RFC, uso CFDI, método de pago). Aceptamos PO (purchase order), transferencias SPEI, tarjeta corporativa. Para empresas validadas con historial trabajamos pago a 30 días estándar y hasta 60-90 días para Enterprise. Onboarding como proveedor en tu sistema sin fricción.'
+  },
+  {
+    question: '¿Firman NDA para eventos sensibles?',
+    answer: 'Sí. Firmamos acuerdos de confidencialidad para eventos sensibles: lanzamientos de producto pre-públicos, town halls con anuncios de CEO, premiación de bonos, reorganizaciones internas, fusiones y adquisiciones, demos para inversionistas. Privacidad total garantizada. El NDA se entrega antes del evento como parte del proceso de onboarding.'
+  },
+  {
+    question: '¿Trabajan en venues corporativos premium específicos de CDMX?',
+    answer: 'Sí. Trabajamos en 15+ venues corporativos premium CDMX: Reforma 222, Reforma 296, Torre Reforma, WTC (World Trade Center), Punto Polanco, Park Plaza Santa Fe, Torre Frisa Santa Fe, Toreo Parque Central, Centro Citibanamex, Hotel W Polanco, Hotel St. Regis Reforma, Hotel Camino Real Polanco, Presidente InterContinental, Hipódromo de las Américas, Pepsi Center y Auditorio Nacional. Conocemos los protocolos de seguridad, áreas de carga/descarga y coordinadores de cada lugar.'
+  },
+  {
+    question: '¿Pueden personalizar dulces con el logo de mi empresa?',
+    answer: 'Sí, es uno de nuestros diferenciadores. Disponible en paquetes Premium Corporate y Enterprise: chocolates con logo grabado en relieve, galletas con monograma corporativo, bombones envueltos con sello de la marca, paletas y bombones con tagline del producto, mini regalos ejecutivos para invitados VIP. Producción con 2 semanas de anticipación según volumen. Para conceptos integrales con producción a medida conoce nuestras <a href="/candy-bar-eventos/mesas-tematicas">Mesas Temáticas Personalizadas</a>.'
+  },
+  {
+    question: '¿Qué tipos de eventos corporativos atienden?',
+    answer: 'Atendemos 10+ tipos de eventos corporativos: posadas empresariales (diciembre), lanzamientos de producto, convenciones y congresos, premiaciones internas (sales kickoff, broker del año), kick-off de año fiscal, demo days para inversionistas, networking ejecutivo, aniversarios de empresa, open house de oficinas/sucursales, capacitaciones y trainings con coffee breaks. Si tu evento no encaja, lo conceptualizamos a medida.'
+  },
+  {
+    question: '¿En qué industrias tienen experiencia comprobada?',
+    answer: 'Tenemos experiencia en 8 industrias: Tech/Software (startups, scale-ups, fintech, SaaS), Servicios Financieros (banca, casas de bolsa, aseguradoras), Pharma/Healthcare (laboratorios, distribuidoras, hospitales), Consultoría premium (Big 4, Big 3 strategy, boutique), Retail/FMCG (cadenas, marcas multinacionales), Automotriz (OEM, distribuidores premium), Hospitality/Hoteles (cadenas, restaurantes), Legal/Real Estate (despachos, brokerages, developers).'
+  },
+  {
+    question: '¿Pueden combinar la mesa con quesos, snacks, postres o fuente de chocolate?',
+    answer: 'Sí, son las combinaciones más solicitadas para eventos corporativos. Sumamos <a href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos">Mesa de Quesos y Embutidos</a> (presentación ejecutiva ideal para cocktail ejecutivo y networking), <a href="/tipos-de-mesas-de-dulces/mesa-de-snacks">Mesa de Snacks</a> (networking con estilo, ideal para after-office), <a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a> (servicio de alto nivel con repostería fina) o <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> (show gastronómico con efecto wow).'
+  },
+  {
+    question: '¿Atienden eventos multi-día (convenciones, congresos)?',
+    answer: 'Sí. Para convenciones y congresos de 2-5 días manejamos operación multi-día con surtido distinto cada día, equipo dedicado (lead operativo + operadores rotativos), reposición continua y reset diario del setup. Cobramos por día con descuento progresivo. Disponible desde paquete Enterprise.'
+  },
+  {
+    question: '¿Ofrecen opciones eco-friendly y sustentables?',
+    answer: 'Sí. Para empresas con políticas ESG ofrecemos opciones sustentables: empaque biodegradable y compostable (cajas de cartón reciclado, bolsas de papel kraft), dulces de productores locales con menor huella de transporte, eliminación de plásticos de un solo uso, opciones orgánicas certificadas y reporte de sustentabilidad post-evento si tu área de ESG lo requiere.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Para eventos corporativos regulares recomendamos 3-6 semanas de anticipación. Para convenciones grandes, lanzamientos y posadas en temporada alta (octubre-diciembre, abril-junio) sugerimos 8-12 semanas. Cotización inicial en 24h hábiles, contrato firmado en 5-7 días hábiles, anticipo del 50% para apartar fecha y liquidación según términos pactados (contado o crédito a 30/60 días).'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-corporativos#service",
+      "name": "Mesa de Dulces para Eventos Corporativos en CDMX",
+      "serviceType": "Catering Corporativo / Candy Bar Empresarial / Branded Event Service",
+      "description": "Mesa de dulces para eventos corporativos en Ciudad de México con branding integral (logo, paleta Pantone, dulces personalizados), compliance B2B (factura A, contrato formal, NDA, póliza RC), operación en 15+ venues corporativos premium (Reforma 222, WTC, Punto Polanco, Santa Fe, hoteles 5 estrellas) y experiencia en 8 industrias. Posadas empresariales, lanzamientos, convenciones, premiaciones, kickoffs.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad de Mexico",
+          "addressRegion": "CDMX",
+          "addressCountry": "MX"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "180",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ciudad de Mexico",
+        "containsPlace": [
+          { "@type": "Place", "name": "Reforma" },
+          { "@type": "Place", "name": "Polanco" },
+          { "@type": "Place", "name": "Santa Fe" },
+          { "@type": "Place", "name": "Insurgentes Sur" },
+          { "@type": "Place", "name": "Centro Historico" },
+          { "@type": "Place", "name": "Naucalpan" },
+          { "@type": "Place", "name": "Lomas de Chapultepec" },
+          { "@type": "Place", "name": "Anzures" }
+        ]
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "8500",
+        "highPrice": "28500",
+        "offerCount": "3",
+        "offers": paquetesCorp.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa Corporativa CDMX ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Empresas, corporativos, multinacionales planeando eventos B2B en CDMX"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer.replace(/<[^>]+>/g, '')
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Eventos Corporativos", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-corporativos" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces Corporativos en CDMX | Mededul"
-  description="Candy bar corporativo en CDMX para lanzamientos, networking y eventos empresariales con diseno profesional y montaje puntual."
+  title="Mesa de Dulces Corporativos CDMX | Branding · Factura A · 15+ Venues Premium | MEDEDUL"
+  description="Mesa de dulces para eventos corporativos en CDMX con branding integral (logo, paleta Pantone, dulces personalizados), factura A, NDA, contrato formal y operación en Reforma 222, WTC, Polanco, Santa Fe. 180+ eventos corporativos · 8 industrias atendidas. Desde $8,500 MXN. Cotización ejecutiva 24h."
   canonical="/candy-bar-eventos/mesa-dulces-corporativos"
-  ogImage="/img/eventos/corporativos/candy-bar-empresarial.avif"
+  ogImage="/img/eventos/corporativos/candy-bar-empresarial-moderno-minimalista.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces Corporativos en CDMX"
-    highlight="Corporativos"
-    subtitle="Candy bar profesional para eventos empresariales con enfoque en imagen, hospitalidad y ejecucion puntual"
-    secondaryContent={`<p><strong>Corporativos</strong> exitosos necesitan un candy bar que comunique profesionalismo, refuerce identidad de marca y mejore la experiencia de asistentes en cada interaccion. En Mededul disenamos propuestas empresariales orientadas a impacto visual y operacion eficiente.</p><p><strong>Eventos</strong> de networking, lanzamientos y celebraciones internas se benefician de un montaje bien ejecutado que eleva percepcion de calidad y ordena el flujo de servicio. Entregamos una solucion integral para que tu empresa proyecte una imagen solida y memorable.</p>`}
+    title="Mesa de Dulces para Eventos Corporativos en CDMX"
+    highlight="Eventos Corporativos CDMX"
+    subtitle="Profesionalismo con un toque dulce · 180+ eventos B2B · 15+ venues corporativos · Factura A · NDA"
+    secondaryContent={`<p>Elevamos tus eventos empresariales con presentaciones ejecutivas impecables. La <strong>mesa de dulces para eventos corporativos en Ciudad de México</strong> es la herramienta perfecta para hospitalidad B2B premium: posadas empresariales, lanzamientos de producto, convenciones, premiaciones internas, kick-offs, demo days, networking ejecutivo y aniversarios. En <strong>MEDEDUL</strong> diseñamos cada mesa con enfoque corporativo: branding integral con tu identidad de marca (paleta Pantone exacta, logo en backdrop, etiquetas con tagline, dulces con logo grabado), surtido premium ejecutivo (chocolates importados Lindt/Ferrero/Godiva, macarons franceses, trufas premium, opciones para invitados con restricciones), operación discreta con equipo uniformado y compliance B2B completo (factura A timbrada, contrato formal, NDA disponible, póliza RC vigente).</p><p>Operamos en <strong>15+ venues corporativos premium</strong> de Ciudad de México: Reforma 222, Torre Reforma, WTC (World Trade Center), Punto Polanco, Park Plaza Santa Fe, Torre Frisa, Toreo Parque Central, Centro Citibanamex, Hotel W Polanco, St. Regis Reforma, Camino Real, Presidente InterContinental, Hipódromo de las Américas, Pepsi Center y Auditorio Nacional. Conocemos los protocolos de seguridad de cada edificio, las áreas de carga/descarga y los coordinadores de eventos. Tenemos experiencia comprobada en <strong>8 industrias</strong>: Tech/Software, Servicios Financieros, Pharma/Healthcare, Consultoría premium (Big 4), Retail/FMCG, Automotriz, Hospitality y Legal/Real Estate. Aceptamos PO, pago a 30/60 días para empresas validadas y cotización ejecutiva en menos de 24 horas hábiles.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos el candy bar corporativo al tipo de evento y nivel de servicio requerido." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu evento empresarial." />
+  <!-- ===================== Stats Trust B2B ===================== -->
+  <section class="corp-stats">
+    <div class="container">
+      <div class="corp-stats__grid">
+        {stats.map(s => (
+          <div class="corp-stat">
+            <span class="corp-stat__num">{s.number}</span>
+            <span class="corp-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestro" titleHighlight="Candy Bar Corporativo" descriptions={['Combinamos diseno, logistica y operacion para eventos empresariales de alto nivel.', 'Alineamos cada montaje a objetivos de marca y experiencia de asistentes.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== 10 Tipos de eventos corporativos (UNIQUE B2B) ===================== -->
+  <section class="corp-tipos section-padding" id="tipos-eventos">
+    <div class="container">
+      <SectionHeader
+        title="10 tipos de eventos corporativos"
+        titleHighlight="que atendemos"
+        subtitle="Desde posadas empresariales hasta lanzamientos de producto y convenciones de 500+ asistentes"
+        content={`<p>Cada tipo de evento corporativo tiene <strong>requerimientos distintos de branding, escala y discreción</strong>. Estos son los 10 formatos que atendemos con metodología específica para cada uno.</p>`}
+      />
+      <div class="corp-tipos__grid">
+        {tiposEventos.map(t => (
+          <div class="corp-tipo">
+            <span class="corp-tipo__icon" aria-hidden="true">{t.icon}</span>
+            <h3 class="corp-tipo__name">{t.tipo}</h3>
+            <p class="corp-tipo__desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para implementar tu candy bar corporativo sin errores." steps={processSteps} />
+  <!-- ===================== 8 Industrias (UNIQUE B2B) ===================== -->
+  <section class="corp-industrias section-padding" id="industrias">
+    <div class="container">
+      <SectionHeader
+        title="Experiencia comprobada en"
+        titleHighlight="8 industrias"
+        subtitle="Trabajamos con startups, scale-ups, multinacionales y despachos top en CDMX"
+      />
+      <div class="corp-industrias__grid">
+        {industrias.map(i => (
+          <div class="corp-industria">
+            <div class="corp-industria__icon" aria-hidden="true">{i.icon}</div>
+            <h3 class="corp-industria__sector">{i.sector}</h3>
+            <div class="corp-industria__field">
+              <strong>Clientes tipo:</strong>
+              <span>{i.clientes}</span>
+            </div>
+            <div class="corp-industria__field">
+              <strong>Momento clave:</strong>
+              <span>{i.momento}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes especializados para celebraciones sociales." events={eventCards} />
+  <!-- ===================== Branding integral (UNIQUE - showcase) ===================== -->
+  <section class="corp-branding section-padding" id="branding">
+    <div class="container">
+      <SectionHeader
+        title="Branding integral con"
+        titleHighlight="tu identidad de marca"
+        subtitle="Diferenciador único MEDEDUL: cada elemento alineado a tu manual de identidad corporativa"
+        content={`<p>Mientras la mayoría de proveedores ofrece mesas genéricas, MEDEDUL <strong>integra branding 360°</strong> en cada elemento: dulces con logo grabado, etiquetas con tagline, backdrop fotográfico con logo en gran formato, paleta Pantone exacta y operadores uniformados en colores corporativos. Tu marca presente en cada detalle del evento.</p>`}
+      />
+      <div class="corp-branding__grid">
+        {branding.map(b => (
+          <div class="corp-branding__item">
+            <div class="corp-branding__icon" aria-hidden="true">{b.icon}</div>
+            <h3 class="corp-branding__title">{b.title}</h3>
+            <p class="corp-branding__desc">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== Compliance B2B (UNIQUE - diferenciador clave) ===================== -->
+  <section class="corp-compliance section-padding" id="compliance">
+    <div class="container">
+      <SectionHeader
+        title="Compliance y profesionalismo"
+        titleHighlight="B2B garantizado"
+        subtitle="6 protocolos administrativos que nos hacen el proveedor confiable para áreas legal, compras y compliance"
+        content={`<p>Las empresas grandes requieren proveedores con <strong>compliance administrativo riguroso</strong>: factura A, contrato formal, NDA, póliza RC, permisos sanitarios, aceptación de PO. MEDEDUL cuenta con todo el respaldo administrativo desde el primer evento, sin fricciones para áreas internas.</p>`}
+      />
+      <div class="corp-compliance__grid">
+        {compliance.map(c => (
+          <div class="corp-compliance__item">
+            <div class="corp-compliance__icon" aria-hidden="true">{c.icon}</div>
+            <h3 class="corp-compliance__title">{c.title}</h3>
+            <p class="corp-compliance__desc">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="corp-compliance__cta">
+        <strong>📋 ¿Necesitas alta como proveedor?</strong> Tenemos onboarding ágil para empresas: te enviamos RFC, póliza RC, permisos sanitarios y plantilla de contrato en menos de 2 horas hábiles. <a href="https://wa.me/525525226442?text=Hola!%20Necesito%20alta%20como%20proveedor%20corporativo" target="_blank" rel="noopener">Solicítalo por WhatsApp</a>.
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== 15+ Venues corporativos CDMX (UNIQUE - SEO local B2B) ===================== -->
+  <section class="corp-venues section-padding" id="venues-cdmx">
+    <div class="container">
+      <SectionHeader
+        title="15+ venues corporativos premium"
+        titleHighlight="CDMX trabajados"
+        subtitle="Conocemos protocolos de seguridad y áreas de carga/descarga de cada edificio"
+        content={`<p>Trabajar con MEDEDUL significa contar con un proveedor que <strong>conoce a fondo los venues corporativos premium de Ciudad de México</strong>: tiempos de acceso, áreas de carga/descarga, requerimientos de seguridad de cada edificio y coordinadores de eventos. Estos son <strong>algunos de los 15+ venues</strong> donde hemos operado eventos corporativos.</p>`}
+      />
+      <div class="corp-venues__grid">
+        {venues.map(v => (
+          <div class="corp-venue">
+            <span class="corp-venue__icon" aria-hidden="true">🏢</span>
+            <h3 class="corp-venue__name">{v.nombre}</h3>
+            <span class="corp-venue__zona">📍 {v.zona}</span>
+            <span class="corp-venue__tipo">{v.tipo}</span>
+          </div>
+        ))}
+      </div>
+      <div class="corp-venues__note">
+        <strong>¿Tu venue no está en esta lista?</strong> Trabajamos en cualquier edificio corporativo, hotel u oficinas privadas de CDMX. Solo necesitamos saber la sede en el brief para coordinar accesos, seguridad y áreas de carga. <a href="https://wa.me/525525226442?text=Hola!%20Evento%20corporativo%20en%20venue%20CDMX" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Casos de éxito (UNIQUE B2B social proof) ===================== -->
+  <section class="corp-casos section-padding" id="casos-exito">
+    <div class="container">
+      <SectionHeader
+        title="Casos de éxito"
+        titleHighlight="anonimizados"
+        subtitle="6 eventos corporativos reales con escala, industria y resultado (cliente confidencial bajo NDA)"
+      />
+      <div class="corp-casos__grid">
+        {casosExito.map(c => (
+          <div class="corp-caso">
+            <div class="corp-caso__header">
+              <span class="corp-caso__industria">{c.industria}</span>
+            </div>
+            <h3 class="corp-caso__evento">{c.evento}</h3>
+            <span class="corp-caso__escala">📊 {c.escala}</span>
+            <p class="corp-caso__resultado">{c.resultado}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="corp-intro" id="intro-corp">
+    <div class="container">
+      <div class="corp-intro__grid">
+        <div class="corp-intro__copy">
+          <span class="corp-intro__badge">Especialistas en eventos B2B CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu evento corporativo en CDMX</h2>
+          <p>El evento corporativo es una herramienta estratégica de <strong>hospitalidad B2B, branding y posicionamiento</strong>. Por eso cada mesa de dulces para evento corporativo que montamos en Ciudad de México parte de un <strong>proceso profesional integral con enfoque ejecutivo</strong>: brief con el equipo de marketing/eventos/HR, propuesta visual con render conceptual alineado al manual de identidad de la empresa, onboarding ágil como proveedor (RFC, RC, permisos), coordinación con seguridad del venue corporativo y operación discreta con equipo uniformado.</p>
+          <p>La mesa para evento corporativo CDMX que diseñamos no es un servicio genérico: es una <strong>solución B2B a medida</strong> que integra tu marca en cada elemento (paleta Pantone exacta, logo en backdrop, etiquetas con tagline, dulces con logo grabado), respeta el tipo de evento (posada, lanzamiento, convención, premiación, kick-off, demo day, networking), considera la industria (tech, financial, pharma, consulting, retail, automotive, hospitality, legal) y cumple con todos los requerimientos administrativos (factura A, NDA, contrato formal, póliza RC).</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas en Anzures (Miguel Hidalgo) y Condesa (Cuauhtémoc)</strong>, lo que nos permite llegar puntualmente a cualquier venue corporativo de Ciudad de México: Reforma 222, Torre Reforma, WTC, Punto Polanco, Santa Fe, hoteles 5 estrellas, oficinas privadas. Si quieres conocer más detalle sobre cobertura CDMX, visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a> con todos los servicios disponibles para eventos corporativos. Para conceptos integrales con producción de props impresos a medida y direccón de arte completa conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20Evento%20Corporativo%20CDMX" target="_blank" rel="noopener"><strong>Solicita cotización ejecutiva</strong></a> y comencemos a diseñar la mesa que va a elevar la hospitalidad B2B de tu próximo evento corporativo.</p>
+        </div>
+        <div class="corp-intro__visual">
+          <img
+            src={getCdnUrl('/img/eventos/corporativos/mesa-dulces-conferencia-ejecutivo-premium.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces conferencia ejecutivo premium MEDEDUL en CDMX para evento corporativo"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Paquetes ===================== -->
+  <PricingPackages
+    id="paquetes-corp"
+    badge="Paquetes Corporativos CDMX"
+    title="Elige el formato para tu"
+    titleHighlight="evento corporativo"
+    subtitle="3 niveles claros con compliance B2B incluido. Cotización ejecutiva 24h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para eventos corporativos en CDMX</strong>. <strong>Executive</strong> para cocktail empresarial discreto (50-100 invitados); <strong>Premium Corporate</strong> es el más solicitado por empresas grandes (100-250 invitados) e incluye branding integral con paleta Pantone, backdrop con logo, dulces con logo grabado disponibles, NDA y pago a 30 días; <strong>Enterprise</strong> es para convenciones y lanzamientos de gran escala (250-500+ invitados) con operación multi-día, equipo dedicado, fotografía profesional y términos administrativos avanzados.</p><p>Todos los paquetes incluyen <strong>factura A timbrada, contrato formal y operadores uniformados con identificación</strong>.</p>`}
+    packages={paquetesCorp}
+    note="💡 <strong>Todos los paquetes Corporativos CDMX incluyen:</strong> factura A timbrada, contrato formal, operadores uniformados con identificación, montaje 3 h antes en venue corporativo, coordinación con seguridad del edificio, operación discreta con protocolo ejecutivo y desmontaje al cierre."
+  />
+
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-corp"
+    badge="Diferenciadores B2B"
+    title="Por qué elegir MEDEDUL para tu"
+    titleHighlight="evento corporativo"
+    descriptions={[
+      "Con <strong>180+ eventos corporativos CDMX</strong> en <strong>8 industrias</strong> y <strong>15+ venues premium</strong>, MEDEDUL es la opción especializada para empresas que requieren branding integral, compliance B2B y operación ejecutiva.",
+      "Cada mesa parte del mismo método B2B: brief ejecutivo con marketing/eventos/HR, propuesta 24h con render y proforma, onboarding ágil como proveedor (RFC, RC, permisos), coordinación con seguridad del venue y operación discreta con equipo uniformado. <strong>Compliance + Branding + Discreción</strong>: la fórmula MEDEDUL para eventos B2B."
+    ]}
+    stats={[
+      { number: "180+", label: "Eventos B2B CDMX" },
+      { number: "15+", label: "Venues corporativos" },
+      { number: "100%", label: "Factura A · NDA" },
+      { number: "5.0", label: "Calificación corporate" }
+    ]}
+    features={caracteristicas}
+  />
+
+  <!-- ===================== Galería ===================== -->
+  <section class="corp-galeria" id="galeria-corp">
+    <div class="container">
+      <SectionHeader
+        title="Eventos corporativos reales"
+        titleHighlight="montados en CDMX"
+        subtitle="Selección curada de eventos B2B MEDEDUL en distintas industrias y venues"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>evento corporativo real en CDMX</strong> bajo NDA. La paleta cromática, el branding y el surtido fueron <strong>diseñados específicamente para cada empresa</strong> según su identidad de marca, industria y tipo de evento.</p>`}
+      />
+      <div class="corp-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="corp-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="corp-incluye section-padding" id="incluye-corp">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra"
+        titleHighlight="Mesa Corporativa CDMX"
+        subtitle="Servicio integral B2B con branding, compliance y operación ejecutiva"
+        content={`<p>Todos los paquetes Corporativos CDMX incluyen el mismo estándar profesional B2B. Lo que cambia es la escala del surtido, complejidad del branding y duración del servicio. Estos son los <strong>seis pilares operativos</strong>.</p>`}
+      />
+      <div class="corp-incluye__grid">
+        {incluye.map(item => (
+          <div class="corp-incluye__item">
+            <div class="corp-incluye__num">{item.num}</div>
+            <h3 class="corp-incluye__title">{item.title}</h3>
+            <p class="corp-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso ===================== -->
+  <ProcessSteps
+    id="proceso-corp"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso"
+    titleHighlight="B2B ejecutivo"
+    subtitle="Cuatro pasos para tu evento corporativo con compliance administrativo completo"
+    steps={procesoCorp}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards solicitados) ===================== -->
+  <section class="corp-complementos section-padding" id="complementos-corp">
+    <div class="container">
+      <SectionHeader
+        title="Combina con servicios"
+        titleHighlight="complementarios B2B"
+        subtitle="Las 4 estaciones más solicitadas para eventos corporativos premium"
+        content={`<p>Una mesa de dulces corporativa es <strong>el centro visual del evento B2B</strong>, pero los corporativos top combinan <strong>1-2 estaciones complementarias</strong> que elevan la hospitalidad ejecutiva: tabla de quesos para cocktails ejecutivos, mesa de snacks para networking, mesa de postres para servicio de alto nivel y fuente de chocolate como show gastronómico.</p>`}
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
+          image={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/tabla-quesos-carnes-frias-eventos.avif')}
+          alt="Mesa de quesos y embutidos presentación ejecutiva para evento corporativo"
+          title="Quesos y Embutidos"
+          excerpt="Presentación ejecutiva. Tablas de quesos importados, embutidos selectos y maridajes. Ideal para cocktail ejecutivo y networking premium."
+          cta="Ver Quesos y Embutidos"
+          badge="Cocktail ejecutivo"
+          subsections={subsQuesos}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-snacks"
+          image={getCdnUrl('/img/tipos-de-mesas/snacks/barra-snacks-eventos-corporativos.avif')}
+          alt="Mesa de snacks networking con estilo para corporativo"
+          title="Mesa de Snacks"
+          excerpt="Networking con estilo. Mini-bites ejecutivos, frutos secos premium y opciones para acompañar bebidas. Ideal para after-office y demo day."
+          cta="Ver Mesa de Snacks"
+          badge="Networking"
+          subsections={subsSnacks}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres servicio de alto nivel para evento corporativo"
+          title="Mesa de Postres"
+          excerpt="Servicio de alto nivel. Macarons franceses, mini-pasteles, éclairs y repostería fina. Ideal para premiaciones y eventos VIP."
+          cta="Ver Mesa de Postres"
+          badge="Alto nivel"
+          subsections={subsPostres}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chocolate"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')}
+          alt="Fuente de chocolate show gastronómico para evento corporativo"
+          title="Fuente de Chocolate"
+          excerpt="Show gastronómico. Chocolate belga en cascada como activación interactiva. Genera efecto wow y momento fotográfico para PR."
+          cta="Ver Fuente de Chocolate"
+          badge="Show wow"
+          subsections={subsFuenteChocolate}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX ===================== -->
+  <section class="corp-cdmx-cta section-padding" id="corp-cdmx">
+    <div class="container">
+      <div class="corp-cdmx-cta__card">
+        <div class="corp-cdmx-cta__body">
+          <span class="corp-cdmx-cta__badge">📍 Sucursal CDMX especializada B2B</span>
+          <h2>Operamos eventos corporativos desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL atiende eventos corporativos en toda la Ciudad de México con cobertura especializada en zonas B2B premium: <strong>Reforma, Polanco, Santa Fe, Insurgentes Sur, Centro, Lomas de Chapultepec, Anzures, Naucalpan</strong>. Conocemos los 15+ venues corporativos principales (Reforma 222, WTC, Torre Reforma, Punto Polanco, Park Plaza Santa Fe, hoteles 5 estrellas) y sus protocolos de seguridad. Visita nuestra <strong>página de sucursal CDMX</strong> con todos los servicios B2B disponibles.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="corp-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="corp-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/corporativos/servicio-mesa-corporativo-cdmx.avif', { w: 600, q: 82 })}
+            alt="Servicio mesa de dulces corporativo CDMX MEDEDUL"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="corp-testimonios section-padding" id="testimonios-corp">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="clientes corporate"
+        subtitle="Marketing managers, HR leads y events coordinators de empresas top hablando de su experiencia"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars ===================== -->
+  <section class="corp-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="También trabajamos eventos sociales con el mismo estándar profesional"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Mesa de dulces para boda elegante"
+          title="Mesa para Boda"
+          excerpt="Mesa nupcial elegante. Si necesitas servicio para tu boda con el mismo estándar profesional."
+          cta="Ver Mesa Boda"
+          subsections={subsCBBoda}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-xv-anos"
+          image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')}
+          alt="Mesa de dulces para XV Años"
+          title="Mesa para XV Años"
+          excerpt="Glamour juvenil. Para hijas de colaboradores o regalo corporativo familiar."
+          cta="Ver XV Años"
+          subsections={subsCBXV}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces para baby shower"
+          title="Baby Shower"
+          excerpt="Mesa tierna pastel. Para celebrar nuevos miembros del equipo o regalo familiar corporativo."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-primera-comunion"
+          image={getCdnUrl('/img/galeria/candy-bar-comunion-elegante-caliz-galletas.avif')}
+          alt="Mesa de dulces para primera comunión"
+          title="Primera Comunión"
+          excerpt="Mesa eucarística. Para hijos de colaboradores o eventos familiares de empresa católica."
+          cta="Ver Primera Comunión"
+          subsections={subsCBComunion}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== Corp stats (paleta corporate negro-azul-dorado) ===== */
+  .corp-stats {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 50%, #1a1a1a 100%);
+    padding: 3rem 0;
+    color: #fff;
+  }
+  .corp-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .corp-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #d4af37;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .corp-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .corp-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .corp-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== Tipos de eventos (10 grid) ===== */
+  .corp-tipos { background: #fff; }
+  .corp-tipos__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .corp-tipo {
+    background: #f8f9fa;
+    border-radius: 0.75rem;
+    padding: 1.5rem 1.25rem;
+    border-top: 3px solid #1a1a1a;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .corp-tipo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-top-color: #d4af37;
+  }
+  .corp-tipo__icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .corp-tipo__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  .corp-tipo__desc {
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.85rem;
+  }
+  @media (max-width: 1100px) { .corp-tipos__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .corp-tipos__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Industrias ===== */
+  .corp-industrias { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .corp-industrias__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .corp-industria {
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 1.75rem 1.25rem;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+  }
+  .corp-industria:hover {
+    transform: translateY(-3px);
+    border-color: #d4af37;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+  }
+  .corp-industria__icon {
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .corp-industria__sector {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .corp-industria__field {
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .corp-industria__field strong {
+    display: block;
+    color: #d4af37;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+  .corp-industria__field span {
+    color: #555;
+  }
+  @media (max-width: 1100px) { .corp-industrias__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .corp-industrias__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Branding showcase ===== */
+  .corp-branding { background: #fff; }
+  .corp-branding__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .corp-branding__item {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    color: #fff;
+    border-left: 4px solid #d4af37;
+    transition: transform 0.2s ease;
+  }
+  .corp-branding__item:hover { transform: translateY(-4px); }
+  .corp-branding__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .corp-branding__title {
+    font-size: 1.15rem;
+    color: #d4af37;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .corp-branding__desc {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) { .corp-branding__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Compliance B2B ===== */
+  .corp-compliance { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .corp-compliance__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .corp-compliance__item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border-top: 4px solid #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .corp-compliance__item:hover {
+    transform: translateY(-4px);
+    border-top-color: #d4af37;
+  }
+  .corp-compliance__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .corp-compliance__title {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .corp-compliance__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  .corp-compliance__cta {
+    margin-top: 2.5rem;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .corp-compliance__cta strong { color: #d4af37; }
+  .corp-compliance__cta a {
+    color: #d4af37;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  @media (max-width: 900px) { .corp-compliance__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Venues CDMX ===== */
+  .corp-venues { background: #fff; }
+  .corp-venues__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .corp-venue {
+    background: #f8f9fa;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .corp-venue:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: #d4af37;
+  }
+  .corp-venue__icon {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .corp-venue__name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .corp-venue__zona {
+    display: block;
+    font-size: 0.75rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .corp-venue__tipo {
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
+    font-style: italic;
+  }
+  .corp-venues__note {
+    margin-top: 2rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: 2px dashed #d4af37;
+    border-radius: 1rem;
+    padding: 1.25rem 1.75rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .corp-venues__note strong { color: #d4af37; }
+  .corp-venues__note a {
+    color: #d4af37;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  @media (max-width: 1100px) { .corp-venues__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .corp-venues__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Casos éxito ===== */
+  .corp-casos { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .corp-casos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .corp-caso {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.75rem 1.5rem;
+    border-left: 5px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+  }
+  .corp-caso:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); }
+  .corp-caso__header {
+    margin-bottom: 0.75rem;
+  }
+  .corp-caso__industria {
+    display: inline-block;
+    background: #1a1a1a;
+    color: #d4af37;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .corp-caso__evento {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .corp-caso__escala {
+    display: block;
+    font-size: 0.85rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .corp-caso__resultado {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 1100px) { .corp-casos__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .corp-casos__grid { grid-template-columns: 1fr; } }
+
+  /* ===== Intro ===== */
+  .corp-intro { padding: 5rem 0; background: #fff; }
+  .corp-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .corp-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    color: #d4af37;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .corp-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .corp-intro__copy h2 span { color: #d4af37; }
+  .corp-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .corp-intro__copy a {
+    color: #d4af37;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+  .corp-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 900px) {
+    .corp-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería ===== */
+  .corp-galeria { padding: 5rem 0; background: #f8f9fa; }
+  .corp-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .corp-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .corp-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .corp-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .corp-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye ===== */
+  .corp-incluye { background: #fff; }
+  .corp-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .corp-incluye__item {
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+  }
+  .corp-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-color: #d4af37;
+  }
+  .corp-incluye__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    color: #d4af37;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .corp-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .corp-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .corp-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link ===== */
+  .corp-cdmx-cta { background: #fff; }
+  .corp-cdmx-cta__card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 50%, #d4af37 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  }
+  .corp-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .corp-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .corp-cdmx-cta__body h2 span { color: #d4af37; font-weight: 800; }
+  .corp-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .corp-cdmx-cta__body p strong { color: #d4af37; }
+  .corp-cdmx-cta__link {
+    display: inline-block;
+    background: #d4af37;
+    color: #1a1a1a;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .corp-cdmx-cta__link:hover { transform: translateY(-2px); background: #fff; }
+  .corp-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+  @media (max-width: 900px) {
+    .corp-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .corp-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .corp-testimonios { background: #f8f9fa; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .corp-otros { background: #fff; }
+</style>

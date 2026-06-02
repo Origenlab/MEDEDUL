@@ -1,164 +1,835 @@
 ---
+// Mesa de Dulces para XV Años — L4 Global (Plus)
+// Glamour quinceañera, paleta XV, backdrop instagramable
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsDulces, subsPostres, subsParedDulces, subsFuenteChocolate,
+  subsCBBoda, subsCBBabyShower, subsCBCorporativo, subsCBCumple,
+} from '@/data/subsections';
 
+// =============== Breadcrumbs ===============
 const breadcrumbItems = [
   { name: 'Candy Bar por Evento', url: '/candy-bar-eventos' },
-  { name: 'XV Anos', url: '/candy-bar-eventos/mesa-dulces-xv-anos' }
+  { name: 'Mesa de Dulces para XV Años', url: '/candy-bar-eventos/mesa-dulces-xv-anos' }
 ];
 
-const faqs = [
-  { question: 'Que incluye una mesa de dulces para XV anos?', answer: 'Incluye diseno tematico, surtido premium, montaje profesional y desmontaje al finalizar.' },
-  { question: 'Pueden personalizar segun tematica de la quinceanera?', answer: 'Si. Adaptamos paleta, estilo, grafica y composicion visual a la tematica elegida.' },
-  { question: 'Con cuanta anticipacion conviene reservar?', answer: 'Sugerimos reservar con 2 a 6 semanas segun temporada y nivel de personalizacion.' },
-  { question: 'Atienden salones y jardines de eventos?', answer: 'Si. Cubrimos CDMX y area metropolitana en distintos formatos de venue. Si tus XV son en CDMX, visita nuestra pagina exclusiva Mesa para XV Anos CDMX (https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos) con 12 salones de quinceanera trabajados (Hacienda de los Morales, Salon Aristos, Club de Industriales, Salon La Vista), paquetes XV CDMX desde $7,500 MXN, coordinacion con planner y coreografo del vals, y operacion desde Anzures + Condesa.' },
-  { question: 'Manejan propuestas para gran numero de invitados?', answer: 'Si. Escalamos diseno y volumen para celebraciones de alto aforo.' },
-  { question: 'Se puede combinar con estaciones interactivas?', answer: 'Si. Podemos integrar fuente de chocolate, chamoy y otras estaciones para elevar impacto.' }
+// =============== Trust Stats (XV Global) ===============
+const stats = [
+  { number: '180+', label: 'XV Años montados' },
+  { number: '8+', label: 'Años de experiencia' },
+  { number: '4.9/5', label: 'Calificación familias' },
+  { number: '< 24h', label: 'Cotización en línea' }
 ];
 
-const packages = [
+// =============== Características (Diferenciadores XV) ===============
+const caracteristicas = [
+  {
+    num: 1,
+    title: 'Diseño glamour a la paleta de tu quinceañera',
+    desc: 'Cada mesa se diseña a la paleta del XV: rosa-dorado, blanco-plata, morado-lila, terracota, paleta pastel o tendencias actuales como nude-champagne y glamour metálico. Trabajamos paleta clásica o tendencia 2026.',
+    img: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif'
+  },
+  {
+    num: 2,
+    title: 'Surtido aesthetic-friendly para Instagram y TikTok',
+    desc: 'Curaduría especial para quinceañeras y sus invitadas: chocolates importados, macarons franceses, dulces aesthetic para foto, gomitas gourmet, paletas decoradas, mexicanos tradicionales y opciones aptas para fiestas largas.',
+    img: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif'
+  },
+  {
+    num: 3,
+    title: 'Backdrop fotográfico instagramable',
+    desc: 'Pensado para que la quinceañera y sus invitadas tengan el rincón fotográfico más espectacular de la noche. Iluminación LED, flores, letras decorativas con su nombre y atrezzo coordinado para fotos memorables.',
+    img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif'
+  },
+  {
+    num: 4,
+    title: 'Coordinación con vals, chambelanes y planner',
+    desc: 'Nos integramos al plan general del XV. Coordinamos con el coreógrafo del vals, el wedding planner, decorador y coordinador del salón. Llegamos antes para que la mesa esté lista cuando entra la quinceañera.',
+    img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif'
+  }
+];
+
+// =============== Paquetes XV ===============
+const paquetesXV = [
   {
     name: 'Esencial',
     icon: '👑',
-    price: '$5,400',
+    price: '$7,500',
     currency: 'MXN',
-    guests: '40-70 personas',
-    tagline: 'Ideal para celebracion intima',
-    features: ['Mesa principal para XV anos', 'Surtido base de producto', 'Montaje profesional', 'Mobiliario incluido', 'Desmontaje al finalizar'],
+    guests: '50-100 invitadas',
+    tagline: 'Ideal para XV íntimo',
+    features: [
+      'Mesa de dulces glamour (10-12 variedades)',
+      'Diseño a paleta de la quinceañera',
+      'Cristalería y soportes dorados',
+      'Etiquetas con nombre de la quinceañera',
+      'Montaje 2 h antes del evento',
+      'Operación durante la recepción',
+      'Empaque de sobrantes en cajas decorativas'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Esencial)'
+    ctaText: 'Cotizar Esencial',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Mesa%20para%20XV%20Años%20-%20Esencial'
   },
   {
     name: 'Premium',
-    icon: '⭐',
-    price: '$9,500',
+    icon: '✨',
+    price: '$12,500',
     currency: 'MXN',
-    guests: '70-140 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Diseno personalizado de quinceanera', 'Mayor variedad de producto', 'Montaje y coordinacion en sitio', 'Presentacion visual premium', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
+    guests: '100-200 invitadas',
+    tagline: 'El más solicitado',
+    features: [
+      'Mesa glamour completa (16-20 variedades)',
+      'Macarons, mini-pasteles y reposteria fina',
+      'Backdrop floral con nombre de la quinceañera',
+      'Iluminación LED y atrezzo coordinado',
+      'Coordinación con planner y coreógrafo del vals',
+      'Operador dedicado toda la recepción',
+      'Reposición continua del producto',
+      'Propuesta visual con render conceptual'
+    ],
     popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Premium)'
+    ctaText: 'Cotizar Premium',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20XV%20Años%20-%20Premium'
   },
   {
     name: 'Luxury',
     icon: '💎',
-    price: '$14,900',
+    price: '$18,500',
     currency: 'MXN',
-    guests: '140+ personas',
-    tagline: 'Experiencia integral de alto impacto',
-    features: ['Direccion estetica completa', 'Curaduria premium de producto', 'Mayor volumen y variedad', 'Operacion extendida en sitio', 'Configuracion para eventos grandes', 'Acompanamiento operativo total'],
+    guests: '200+ invitadas',
+    tagline: 'Experiencia editorial alto nivel',
+    features: [
+      'Mesa de autor (22+ variedades exclusivas)',
+      'Chocolates importados premium',
+      'Fuente de chocolate o chamoy incluida',
+      'Backdrop floral 360° iluminado',
+      'Concierge dedicado quinceañera + invitadas',
+      'Coordinación full con planner / coreógrafo / decorador',
+      'Fotografía profesional de la mesa',
+      'Mesa de postres gourmet complementaria',
+      'Operación extendida hasta cierre'
+    ],
     popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar mesa de dulces para XV anos (Luxury)'
+    ctaText: 'Cotizar Luxury',
+    ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Mesa%20para%20XV%20Años%20-%20Luxury'
   }
 ];
 
-const whyStats = [
-  { number: '170+', label: 'XV Anos' },
-  { number: '100%', label: 'Tematico' },
-  { number: '45+', label: 'Opciones Dulces' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Diseno de Quinceanera', desc: 'Montajes de alto impacto alineados al concepto de la festejada.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif' },
-  { num: 2, title: 'Surtido Premium', desc: 'Producto curado para combinar experiencia de sabor y presentacion.', img: '/img/eventos/xv-anos/candy-bar-quinceanos-moderno-rosa-plateado.avif' },
-  { num: 3, title: 'Montaje Escenografico', desc: 'Implementacion visual para destacar en fotos y video del evento.', img: '/img/eventos/xv-anos/mesa-dulces-xv-anos-tematica.avif' },
-  { num: 4, title: 'Operacion de Evento', desc: 'Coordinacion puntual para mantener servicio continuo y ordenado.', img: '/img/eventos/xv-anos/mesa-postres-quinceanera-elegante.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Brief de XV Anos', desc: 'Recibimos tematica, sede, aforo y objetivo del evento.' },
-  { num: 2, title: 'Propuesta Personalizada', desc: 'Definimos diseno, producto y alcance operativo de la mesa.' },
-  { num: 3, title: 'Planeacion de Montaje', desc: 'Alineamos accesos, horarios y requerimientos de venue.' },
-  { num: 4, title: 'Ejecucion del Evento', desc: 'Montamos y operamos con estandar premium de principio a fin.' }
-];
-
-const eventCards = [
-  { title: 'Mesa de Dulces para Bodas', excerpt: 'Candy bar elegante para recepciones nupciales.', img: '/img/eventos/bodas/mesa-de-dulces-para-bodas.avif', href: '/candy-bar-eventos/mesa-dulces-boda', cta: 'Ver Bodas' },
-  { title: 'Mesa de Dulces para Baby Shower', excerpt: 'Diseno tierno para celebraciones familiares.', img: '/img/eventos/baby-shower/mesa-dulces-baby-shower-nina-rosa-cupcakes.avif', href: '/candy-bar-eventos/mesa-dulces-baby-shower', cta: 'Ver Baby Shower' },
-  { title: 'Mesa de Dulces para Cumpleanos Infantil', excerpt: 'Candy bar tematico para fiestas infantiles.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
-  { title: 'Mesa de Dulces para Graduacion', excerpt: 'Montajes para eventos academicos y ceremonias.', img: '/img/eventos/graduaciones/mesa-dulces-graduacion.avif', href: '/candy-bar-eventos/mesa-dulces-graduacion', cta: 'Ver Graduacion' }
-];
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mesa de Dulces para XV Anos en CDMX',
-  description: 'Servicio de mesa de dulces para XV anos en Ciudad de Mexico con diseno personalizado y montaje profesional.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
+// =============== Proceso XV ===============
+const procesoXV = [
+  {
+    num: 1,
+    title: 'Brief de quinceañera',
+    desc: 'Nos cuentas la fecha del XV, salón, número de invitadas, temática (princesa, glamour moderno, vintage hollywood, kpop, anime, mexicano elegante) y paleta cromática. Levantamos perfil de la quinceañera para alinear el surtido a sus gustos.'
   },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '5400',
-    highPrice: '14900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces para XV Anos ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
+  {
+    num: 2,
+    title: 'Propuesta visual glamour',
+    desc: 'En menos de 24 h recibes propuesta con render conceptual, paleta XV alineada al vestido y la decoración, surtido sugerido aesthetic-friendly para fotos, opciones de backdrop y cotización cerrada en 3 niveles.'
+  },
+  {
+    num: 3,
+    title: 'Coordinación con planner y coreógrafo',
+    desc: 'Coordinamos directo con tu wedding planner, decorador y el coreógrafo del vals para no interferir con tiempos de baile. Confirmamos paleta final, posición de la mesa, integración con backdrop principal y elementos temáticos.'
+  },
+  {
+    num: 4,
+    title: 'Ejecución del gran día',
+    desc: 'Llegamos 2-3 h antes del XV con todo el equipo. Montamos sin interferir con otros proveedores, operamos durante toda la recepción con reposición continua y desmontamos discretamente al cierre. Empacamos sobrantes en cajas decorativas para tus invitadas.'
   }
-};
+];
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+// =============== Galería XV (8 imágenes) ===============
+const galeriaImages = [
+  { src: '/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', alt: 'Mesa de dulces XV años lujosa con cristalería rosa' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-dorado-papel-picado.avif', alt: 'Mesa de dulces XV años rosa dorado con papel picado' },
+  { src: '/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', alt: 'Mesa de dulces XV años con fuente de chocolate elegante' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-morado-lila-elegante.avif', alt: 'Mesa de dulces XV años en morado lila elegante' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-elegante-macarons.avif', alt: 'Mesa de dulces XV años rosa elegante con macarons' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-azul-plateado-elegante.avif', alt: 'Mesa de dulces XV años azul plateado elegante' },
+  { src: '/img/galeria/candy-bar-xv-anos-azul-celeste-mariposas.avif', alt: 'Candy bar XV años azul celeste con mariposas' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-pastel-flores.avif', alt: 'Mesa de dulces XV años rosa pastel con flores' }
+];
+
+// =============== Qué incluye (6 items) ===============
+const incluye = [
+  { num: '01', title: 'Curaduría premium glamour quinceañera', desc: 'Surtido de 10 a 22+ variedades aesthetic-friendly: chocolates Lindt y Ferrero, macarons franceses, mini-pasteles, trufas, gomitas gourmet, paletas decoradas, mexicanos tradicionales y opciones especiales para invitadas con restricciones (vegano, sin gluten, sin azúcar).' },
+  { num: '02', title: 'Diseño glamour a paleta del XV', desc: 'Cristalería, soportes dorados, bases tipo cake stand, bandejas decorativas, manteles de diseño y backdrop coordinado con la paleta del XV (rosa-dorado, blanco-plata, morado-lila, pastel). Alturas calculadas para foto Instagram y iluminación LED opcional.' },
+  { num: '03', title: 'Personalización con nombre y temática', desc: 'Etiquetas con el nombre de la quinceañera, monograma personalizado, papel picado dorado o plateado, letras decorativas y elementos temáticos según concepto (princesa Disney, glamour moderno, vintage, kpop, anime, mexicano elegante).' },
+  { num: '04', title: 'Backdrop fotográfico instagramable', desc: 'Espacio fotográfico pensado para Instagram y TikTok: flores, iluminación LED, letras decorativas con nombre, props alineados a la temática y altura óptima de cámara. Las invitadas se llevan fotos memorables y la quinceañera tiene el rincón más fotografiado del XV.' },
+  { num: '05', title: 'Operación durante recepción XV', desc: 'Operador profesional asignado durante toda la noche. Reposición continua especialmente durante el baile sorpresa y el vals, atención a invitadas y solución inmediata de cualquier eventualidad.' },
+  { num: '06', title: 'Empaque elegante de sobrantes', desc: 'Al cierre del XV empacamos los dulces sobrantes en cajas decorativas glamour alineadas a la estética del evento, listas para que las invitadas se las lleven como recuerdo. Este detalle hace que la mesa se mantenga viva incluso después del XV.' }
+];
+
+// =============== Testimonios XV ===============
+const testimonios = [
+  {
+    name: 'Patricia Olvera',
+    initials: 'PO',
+    review: 'Los XV de mi hija quedaron de revista. El surtido, las alturas, el papel picado dorado y el backdrop floral con su nombre... todo perfecto. Mi hija se sintió como una verdadera princesa y las fotos quedaron espectaculares.',
+    event: 'XV Años · Hacienda',
+    rating: 5
+  },
+  {
+    name: 'Sofía Hernández',
+    initials: 'SH',
+    review: 'XV con mesa de dulces glamour rosa-dorado. Coordinaron directo con mi planner y el coreógrafo del vals. La mesa estaba lista exactamente cuando entró mi hija. Las invitadas no paraban de fotografiarse en el backdrop.',
+    event: 'XV Años · Salón eventos',
+    rating: 5
+  },
+  {
+    name: 'Familia Mendoza',
+    initials: 'FM',
+    review: 'Necesitábamos mesa de XV para 200+ invitadas. MEDEDUL escaló todo perfectamente: surtido abundante, reposición continua durante la noche, y al cierre empacaron todo en cajitas elegantes para que las invitadas se llevaran recuerdo.',
+    event: 'XV Años · Club privado',
+    rating: 5
+  }
+];
+
+// =============== FAQ XV ===============
+const faqs = [
+  {
+    question: '¿Qué incluye la mesa de dulces para XV Años?',
+    answer: 'Incluye diseño glamour alineado a la paleta de la quinceañera, surtido premium curado aesthetic-friendly para fotos (chocolates importados, macarons, mini-pasteles, trufas, gomitas gourmet, paletas decoradas, mexicanos tradicionales), cristalería y atrezzo dorado o plateado, backdrop coordinado con el concepto del XV, montaje 2-3 h antes en el salón, coordinación con wedding planner y coreógrafo del vals, operación durante toda la recepción con reposición continua, etiquetas personalizadas con el nombre de la quinceañera, desmontaje al cierre y empaque de sobrantes en cajas decorativas glamour.'
+  },
+  {
+    question: '¿Cuánto cuesta una mesa de dulces para XV?',
+    answer: 'Iniciamos en $7,500 MXN (Esencial, 50-100 invitadas) y llegamos a $18,500 MXN (Luxury, 200+ invitadas). El precio depende del número de invitadas, surtido seleccionado, nivel de personalización (backdrop floral, iluminación LED, letras decorativas), integración con estaciones (fuente de chocolate o chamoy) y duración del servicio. Cotización gratuita en menos de 24 horas hábiles.'
+  },
+  {
+    question: '¿Coordinan directamente con mi planner y el coreógrafo del vals?',
+    answer: 'Absolutamente sí. En cada XV nos integramos al plan general del evento. Trabajamos con los wedding planners y coreógrafos más reconocidos. Coordinamos paleta cromática, tiempos de montaje (que no interfieran con ensayos del vals), posición en el salón, integración con la decoración floral y cualquier elemento que tu planner necesite. Recibimos briefing previo y entregamos guía operativa antes del XV.'
+  },
+  {
+    question: '¿Atienden XV en CDMX, Estado de México y Toluca?',
+    answer: 'Sí. Operamos desde 3 sucursales: Anzures y Condesa en CDMX, y nuestra sucursal Toluca-Metepec. Cubrimos toda la Ciudad de México (Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa) y zona metropolitana, además del Valle de Toluca completo. Si tu XV es en CDMX, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos">Mesa para XV Años CDMX</a> con 12 venues nominados (Hacienda de los Morales, Salón Aristos, Club de Industriales, Salón La Vista), paquetes XV CDMX desde $7,500 MXN, coordinación con planner y coreógrafo del vals, y operación desde Anzures + Condesa.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar la mesa para XV?',
+    answer: 'Para XV en temporada alta (marzo-mayo y octubre-diciembre, especialmente sábados) recomendamos reservar con 2 a 3 meses de anticipación. Para fechas de menor demanda, 6-8 semanas suelen ser suficientes. Trabajamos con anticipo del 50% para apartar la fecha y liquidación 48 h antes del XV. Una vez reservada la fecha, comenzamos la fase de diseño con calma para alinear paleta con vestido y decoración.'
+  },
+  {
+    question: '¿Pueden personalizar la mesa con el nombre y la temática del XV?',
+    answer: 'Sí. La personalización es parte central del servicio: etiquetas con el nombre de la quinceañera, monograma personalizado, papel picado dorado o plateado, letras decorativas con su nombre, backdrop floral con su nombre integrado, atrezzo coordinado al concepto (princesa Disney, glamour moderno, vintage hollywood, kpop, anime, mexicano elegante). En paquetes Premium y Luxury incluimos personalización extendida sin costo adicional. Para conceptos integrales con moodboard previo y props impresos, conoce nuestras <a href="/candy-bar-eventos/mesas-tematicas">Mesas Temáticas Personalizadas</a>.'
+  },
+  {
+    question: '¿La mesa se puede integrar con fuente de chocolate, pared de dulces o mesa de postres?',
+    answer: 'Sí, y de hecho es la combinación más popular para XV. Sumamos <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> belga (experiencia interactiva favorita), <a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a> (spot fotográfico imperdible), <a href="/tipos-de-mesas-de-dulces/mesa-de-postres">Mesa de Postres</a> con macarons y éclairs o la <a href="/tipos-de-mesas-de-dulces/mesa-de-dulces">Mesa de Dulces</a> clásica. Estas estaciones elevan el valor percibido del XV y crean múltiples puntos de interacción para invitadas en TikTok e Instagram.'
+  },
+  {
+    question: '¿Tienen opciones para invitadas con restricciones alimenticias?',
+    answer: 'Sí. Curamos opciones específicas para invitadas con restricciones: dulces sin azúcar (para diabéticas), opciones sin gluten (celiacas), reposteria vegana, alternativas sin nueces (alérgicas) y opciones kosher si tu XV lo requiere. Esto es importante porque las XV concentran muchas invitadas adolescentes con dietas especiales. Pídenos la curaduría especial en el briefing inicial y la incluimos sin costo adicional en paquetes Premium y Luxury.'
+  },
+  {
+    question: '¿A qué hora llegan al salón el día del XV?',
+    answer: 'Llegamos 2-3 horas antes del horario de inicio de la recepción para montaje completo. En venues con reglamentos especiales (haciendas con tiempos limitados, hoteles 5 estrellas, recintos patrimoniales) nos adaptamos al horario que indique el coordinador del lugar y al ensayo del vals. El tiempo de montaje está incluido en todos los paquetes XV.'
+  },
+  {
+    question: '¿Qué pasa con los dulces que sobran al final del XV?',
+    answer: 'Son tuyos. Al cierre del XV empacamos todos los sobrantes en cajas o bolsas decorativas alineadas a la estética glamour del evento, listas para que tus invitadas se las lleven como recuerdo. Este detalle hace que la mesa se mantenga viva incluso después de la fiesta y se vuelve parte del recuerdo emocional del XV.'
+  }
+];
+
+// =============== Image responsive ===============
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+
+// =============== JSON-LD: Service + LocalBusiness + FAQ + Breadcrumb ===============
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-xv-anos#service",
+      "name": "Mesa de Dulces para XV Años",
+      "serviceType": "Mesa de Dulces Glamour / Candy Bar Quinceañera",
+      "description": "Mesa de dulces glamour para XV Años con diseño alineado a la paleta de la quinceañera, surtido aesthetic-friendly, backdrop fotográfico instagramable y coordinación con planner. Operación desde sucursales CDMX y Toluca-Metepec.",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "MEDEDUL",
+        "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
+        "telephone": "+525525226442",
+        "url": "https://mesas-de-dulces.com",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "180",
+          "bestRating": "5"
+        }
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Ciudad de Mexico" },
+        { "@type": "City", "name": "Toluca" },
+        { "@type": "City", "name": "Metepec" },
+        { "@type": "AdministrativeArea", "name": "Estado de Mexico" }
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "MXN",
+        "lowPrice": "7500",
+        "highPrice": "18500",
+        "offerCount": "3",
+        "offers": paquetesXV.map(pkg => ({
+          "@type": "Offer",
+          "name": `Mesa XV ${pkg.name}`,
+          "price": pkg.price.replace(/[$,]/g, ''),
+          "priceCurrency": "MXN",
+          "description": pkg.guests,
+          "availability": "https://schema.org/InStock"
+        }))
+      },
+      "audience": {
+        "@type": "PeopleAudience",
+        "audienceType": "Familias planeando XV Años"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
+        { "@type": "ListItem", "position": 3, "name": "Mesa para XV Años", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-xv-anos" }
+      ]
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Mesa de Dulces para XV Anos en CDMX | Mededul"
-  description="Mesa de dulces para XV anos en CDMX con diseno tematico, montaje profesional y propuesta personalizada para quinceaneras."
+  title="Mesa de Dulces para XV Años | Candy Bar Glamour Quinceañera | MEDEDUL"
+  description="Mesa de dulces glamour para XV Años con diseño a paleta de la quinceañera, surtido aesthetic premium, backdrop instagramable y coordinación con planner y coreógrafo del vals. 180+ XV montados. Desde $7,500 MXN. Cotiza gratis."
   canonical="/candy-bar-eventos/mesa-dulces-xv-anos"
-  ogImage="/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif"
+  ogImage="/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
-    title="Mesa de Dulces para XV Anos en CDMX"
-    highlight="XV Anos"
-    subtitle="Candy bar de alto impacto para una quinceanera inolvidable con diseno tematico y ejecucion profesional"
-    secondaryContent={`<p><strong>XV</strong> anos con mesa de dulces profesional transforma la celebracion en una experiencia visual impactante y totalmente alineada al estilo de la quinceanera. En Mededul desarrollamos propuestas personalizadas para potenciar estetica, servicio y recordacion del evento.</p><p><strong>Quinceanera</strong> con candy bar premium mejora la presentacion general, genera un punto fotografico memorable y eleva la experiencia de invitadas e invitados. Ejecutamos montaje integral en CDMX con puntualidad y estandar de calidad superior.</p>`}
+    title="Mesa de Dulces para XV Años"
+    highlight="XV Años"
+    subtitle="Glamour juvenil con elegancia atemporal · 180+ XV montados · Cotización en 24 h"
+    secondaryContent={`<p>La transición de niña a mujer merece una celebración épica. La <strong>mesa de dulces para XV Años</strong> es el rincón más fotografiado de la noche y uno de los recuerdos visuales más importantes del evento. En <strong>MEDEDUL</strong> diseñamos cada mesa con enfoque glamour editorial: paleta cromática alineada al vestido y decoración del XV, surtido premium aesthetic-friendly (chocolates importados, macarons franceses, mini-pasteles, trufas, gomitas gourmet, paletas decoradas y mexicanos tradicionales), cristalería pulida, soportes dorados o plateados, papel picado coordinado, etiquetas personalizadas con el nombre de la quinceañera y un backdrop floral fotográfico pensado para Instagram y TikTok.</p><p>Coordinamos directamente con tu <strong>wedding planner, decorador y coreógrafo del vals</strong> para que la mesa se integre sin fricción al evento. Llegamos 2-3 h antes del XV, montamos sin interferir con ensayos ni otros proveedores y operamos durante toda la recepción con reposición continua especialmente durante el vals y baile sorpresa. Al cierre empacamos sobrantes en cajas decorativas glamour para que cada invitada se lleve un recuerdo del XV.</p>`}
   />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de XV anos al nivel de personalizacion y aforo del evento." packages={packages} note="<strong>Necesitas otra configuracion?</strong> Creamos una propuesta personalizada para tu quinceanera." />
+  <!-- ===================== Stats Trust ===================== -->
+  <section class="xv-stats">
+    <div class="container">
+      <div class="xv-stats__grid">
+        {stats.map(s => (
+          <div class="xv-stat">
+            <span class="xv-stat__num">{s.number}</span>
+            <span class="xv-stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Mesa de XV Anos" descriptions={['Montajes personalizados de alto impacto con enfoque en detalle y operacion.', 'Integramos diseno, producto y ejecucion para una celebracion impecable.']} stats={whyStats} features={whyFeatures} />
+  <!-- ===================== SEO Intro long-form ===================== -->
+  <section class="xv-intro" id="intro-xv">
+    <div class="container">
+      <div class="xv-intro__grid">
+        <div class="xv-intro__copy">
+          <span class="xv-intro__badge">Diseño glamour profesional</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu mesa de XV Años</h2>
+          <p>Los XV son una noche única en la vida de tu hija. Por eso cada mesa de dulces para XV que montamos parte de un <strong>proceso profesional integral</strong>: levantamiento de brief con la quinceañera, propuesta visual con render conceptual alineado al vestido, curaduría de producto aesthetic-friendly para fotos, coordinación con tu planner y coreógrafo del vals, montaje editorial 2-3 h antes y operación impecable durante toda la recepción.</p>
+          <p>La mesa de dulces para XV que diseñamos no es un servicio genérico: es una <strong>propuesta a medida</strong> que respeta la paleta cromática del vestido, el concepto temático elegido (princesa Disney, glamour moderno, vintage hollywood, kpop, anime, mexicano elegante), el estilo del salón y las expectativas visuales de las invitadas en redes sociales. Trabajamos paletas clásicas (rosa-dorado, blanco-plata), tendencias actuales (nude-champagne, terracota-mostaza, morado-lila), XV mexicanos modernos con papel picado dorado y dulces tradicionales, y propuestas temáticas según concepto. Para conceptos 100% integrales conoce <a href="/candy-bar-eventos/mesas-tematicas"><strong>Mesas Temáticas</strong></a>.</p>
+          <p>Si planeas un <strong>XV en CDMX</strong> y buscas mesa con estándar premium, ejecución confiable y backdrop instagramable, visita nuestra página exclusiva <a href="/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos"><strong>Mesa para XV Años CDMX</strong></a> con 12 venues nominados (Hacienda de los Morales, Salón Aristos, Club de Industriales) y coordinación desde Anzures + Condesa.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20Mesa%20para%20XV%20Años" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a> y comencemos a diseñar la mesa que va a coronar el XV de tu hija.</p>
+        </div>
+        <div class="xv-intro__visual">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-xv-anos-lujosa-cristaleria-rosa.avif', { w: 720, q: 82 })}
+            alt="Mesa de dulces XV años glamour MEDEDUL en quinceañera rosa cristalería"
+            loading="lazy"
+            width="720"
+            height="480"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu mesa de XV anos sin errores." steps={processSteps} />
+  <!-- ===================== Paquetes XV ===================== -->
+  <PricingPackages
+    id="paquetes-xv"
+    badge="Paquetes XV"
+    title="Elige el formato para"
+    titleHighlight="los XV de tu hija"
+    subtitle="3 niveles claros con todo incluido. Cotización en menos de 24 h"
+    content={`<p>Diseñamos <strong>tres niveles de paquete específicos para XV</strong>, pensados para diferentes tamaños de evento y niveles de sofisticación. El paquete <strong>Esencial</strong> está pensado para XV íntimos (50-100 invitadas); el <strong>Premium</strong> es el más solicitado para XV medianos (100-200 invitadas) e incluye backdrop floral con el nombre de la quinceañera y coordinación con coreógrafo del vals; el <strong>Luxury</strong> es nuestra propuesta editorial para XV grandes (200+) e incluye fuente de chocolate, backdrop floral 360° y mesa de postres gourmet complementaria.</p><p>Todos los paquetes incluyen el <strong>mismo estándar profesional de diseño glamour, montaje editorial y operación</strong>. Lo que cambia es la escala del surtido, la complejidad del backdrop y la duración del servicio.</p>`}
+    packages={paquetesXV}
+    note="💡 <strong>Todos los paquetes XV incluyen:</strong> diseño glamour a paleta de la quinceañera, surtido premium aesthetic-friendly, cristalería y soportes dorados/plateados, etiquetas personalizadas con su nombre, montaje 2-3 h antes en el salón, operación durante la recepción, reposición continua durante vals y baile sorpresa, desmontaje y empaque de sobrantes en cajas decorativas."
+  />
 
-  <EventsGrid id="eventos" badge="Otros Eventos" title="Descubre mas" titleHighlight="Candy Bars" subtitle="Tambien operamos montajes para otras celebraciones sociales." events={eventCards} />
+  <!-- ===================== Por qué elegirnos ===================== -->
+  <WhyChooseUs
+    id="por-que-xv"
+    badge="Diferenciadores XV"
+    title="Por qué elegir nuestra"
+    titleHighlight="Mesa de XV Años"
+    descriptions={[
+      "Con <strong>180+ XV montados</strong> en haciendas, salones, clubes privados y centros de convenciones, MEDEDUL es la opción de referencia para familias y planners que buscan mesa glamour con ejecución profesional comprobada.",
+      "Cada mesa de XV parte del mismo método: brief con la quinceañera, propuesta visual con render, coordinación con tu planner y coreógrafo del vals, montaje editorial y operación impecable. Lo que cambia es la <strong>paleta</strong>, la <strong>temática</strong> y la <strong>escala</strong>; el estándar glamour es siempre el mismo."
+    ]}
+    stats={[
+      { number: "180+", label: "XV Años" },
+      { number: "100%", label: "Diseño glamour" },
+      { number: "24h", label: "Propuesta visual" },
+      { number: "5.0", label: "Calificación familias" }
+    ]}
+    features={caracteristicas}
+  />
 
+  <!-- ===================== Galería XV ===================== -->
+  <section class="xv-galeria" id="galeria-xv">
+    <div class="container">
+      <SectionHeader
+        title="Mesas de XV reales"
+        titleHighlight="montadas"
+        subtitle="Selección curada de quinceañeras MEDEDUL en distintas paletas y temáticas"
+        content={`<p>Cada mesa de esta galería corresponde a un <strong>XV real</strong>. La paleta cromática, las flores, el papel picado y el surtido fueron <strong>diseñados específicamente para cada quinceañera</strong> en función de su vestido, su temática y el número de invitadas. Si quieres ver más referencias por estilo (princesa, glamour moderno, vintage hollywood, kpop, mexicano elegante) escríbenos por WhatsApp y te enviamos un portafolio dirigido.</p>`}
+      />
 
+      <div class="xv-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="xv-galeria__item">
+            <img
+              src={getCdnUrl(img.src, { w: 800, q: 80 })}
+              srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })}
+              sizes={gallerySizes}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="800"
+              height="533"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Qué incluye ===================== -->
+  <section class="xv-incluye section-padding" id="incluye-xv">
+    <div class="container">
+      <SectionHeader
+        title="Qué incluye nuestra Mesa de"
+        titleHighlight="XV Años"
+        subtitle="Servicio integral glamour de principio a fin"
+        content={`<p>Todos los paquetes XV incluyen el mismo estándar profesional. Lo que cambia es la escala del surtido y la complejidad del backdrop. Estos son los <strong>seis pilares operativos</strong> que aseguran que tu XV tenga la mesa que mereces.</p>`}
+      />
+      <div class="xv-incluye__grid">
+        {incluye.map(item => (
+          <div class="xv-incluye__item">
+            <div class="xv-incluye__num">{item.num}</div>
+            <h3 class="xv-incluye__title">{item.title}</h3>
+            <p class="xv-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Proceso XV ===================== -->
+  <ProcessSteps
+    id="proceso-xv"
+    badge="Cómo trabajamos"
+    title="Nuestro proceso para tu"
+    titleHighlight="Mesa de XV"
+    subtitle="Cuatro pasos para que el XV de tu hija tenga la mesa que merece"
+    steps={procesoXV}
+  />
+
+  <!-- ===================== Servicios complementarios (4 cards) ===================== -->
+  <section class="xv-complementos section-padding" id="complementos-xv">
+    <div class="container">
+      <SectionHeader
+        title="Combina tu Mesa con servicios"
+        titleHighlight="complementarios"
+        subtitle="Las 4 estaciones más solicitadas para elevar tu XV al siguiente nivel"
+        content={`<p>Una mesa de dulces glamour es <strong>el corazón visual del XV</strong>, pero las quinceañeras top combinan <strong>2-3 servicios complementarios</strong> para crear la experiencia completa: mesa de postres con macarons franceses, pared de dulces como spot fotográfico, fuente de chocolate como experiencia interactiva. Cada estación se diseña con la <strong>misma paleta y estándar glamour</strong> de la mesa principal.</p>`}
+      />
+
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif')}
+          alt="Mesa de dulces clásica candy bar para quinceañera"
+          title="Mesa de Dulces"
+          excerpt="El candy bar clásico para quinceañera. Surtido premium aesthetic-friendly y cristalería glamour alineada a tu paleta XV."
+          cta="Ver Mesa de Dulces"
+          badge="Base XV"
+          subsections={subsDulces}
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres con macarons y eclairs para XV años"
+          title="Mesa de Postres"
+          excerpt="Macarons franceses, éclairs, mini-pasteles y reposteria fina. Eleva el nivel gastronómico del XV con una mesa de autor."
+          cta="Ver Mesa de Postres"
+          badge="Gourmet"
+          subsections={subsPostres}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/pared-de-dulces"
+          image={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')}
+          alt="Pared de dulces candy wall para XV años spot fotográfico"
+          title="Pared de Dulces"
+          excerpt="Spot fotográfico imperdible para Instagram y TikTok. Candy wall de gran formato con surtido aesthetic y backdrop iluminado."
+          cta="Ver Pared de Dulces"
+          badge="Instagrameable"
+          subsections={subsParedDulces}
+        />
+        <ServiceCard
+          href="/estaciones-interactivas/fuente-de-chocolate"
+          image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')}
+          alt="Fuente de chocolate belga para XV años experiencia interactiva"
+          title="Fuente de Chocolate"
+          excerpt="Experiencia interactiva favorita de las invitadas. Chocolate belga con frutas, malvaviscos, churros y galletas para bañar."
+          cta="Ver Fuente de Chocolate"
+          badge="Estrella"
+          subsections={subsFuenteChocolate}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Cross-link CDMX (CTA visible al L5) ===================== -->
+  <section class="xv-cdmx-cta section-padding" id="xv-cdmx">
+    <div class="container">
+      <div class="xv-cdmx-cta__card">
+        <div class="xv-cdmx-cta__body">
+          <span class="xv-cdmx-cta__badge">📍 ¿XV en Ciudad de México?</span>
+          <h2>Conoce la página exclusiva <span>Mesa para XV CDMX</span></h2>
+          <p>Si tu XV es en Ciudad de México, tenemos una página dedicada con <strong>12 venues nominados</strong> (Hacienda de los Morales, Salón Aristos, Club de Industriales, Salón La Vista, Quinta Real Polanco, Hipódromo de las Américas), <strong>cobertura en 30 zonas</strong>, paquetes XV CDMX desde $7,500 MXN, coordinación con planner y coreógrafo del vals, y operación desde nuestras sucursales <strong>Anzures + Condesa</strong>.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos" class="xv-cdmx-cta__link">Ver Mesa para XV Años CDMX →</a>
+        </div>
+        <div class="xv-cdmx-cta__visual">
+          <img
+            src={getCdnUrl('/img/eventos/xv-anos/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', { w: 600, q: 82 })}
+            alt="Mesa para XV Años CDMX con fuente de chocolate"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Testimonios ===================== -->
+  <section class="xv-testimonios section-padding" id="testimonios-xv">
+    <div class="container">
+      <SectionHeader
+        title="Testimonios reales de"
+        titleHighlight="familias MEDEDUL"
+        subtitle="Quinceañeras y sus familias hablando de su experiencia"
+      />
+      <div class="reviews-grid">
+        {testimonios.map(t => (
+          <ReviewCard {...t} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Otros candy bars (cross-link sister L4s) ===================== -->
+  <section class="xv-otros section-padding" id="otros-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Otros candy bars"
+        titleHighlight="por evento"
+        subtitle="También trabajamos bodas, baby showers, infantiles y corporativos con el mismo estándar"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-boda"
+          image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')}
+          alt="Candy bar para bodas elegantes"
+          title="Mesa para Boda"
+          excerpt="Montajes nupciales premium con enfoque en elegancia, armonía visual y experiencia de invitado."
+          cta="Ver Candy Bar Boda"
+          subsections={subsCBBoda}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-baby-shower"
+          image={getCdnUrl('/img/eventos/baby-shower/mesa-de-dulces-para-baby-shower.avif')}
+          alt="Mesa de dulces para baby shower"
+          title="Mesa Baby Shower"
+          excerpt="Diseños tiernos y delicados para celebrar la llegada del bebé. Pastel, gender reveal y temáticos suaves."
+          cta="Ver Baby Shower"
+          subsections={subsCBBabyShower}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil"
+          image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')}
+          alt="Candy bar para cumpleaños infantil"
+          title="Cumpleaños Infantil"
+          excerpt="Personajes favoritos, colores explosivos y diseño temático para fiestas de niños memorables."
+          cta="Ver Infantil"
+          subsections={subsCBCumple}
+        />
+        <ServiceCard
+          href="/candy-bar-eventos/mesa-dulces-corporativos"
+          image={getCdnUrl('/img/eventos/corporativos/candy-bar-empresarial.avif')}
+          alt="Candy bar para eventos corporativos"
+          title="Eventos Corporativos"
+          excerpt="Branding integrado, montaje sobrio y operación impecable para lanzamientos, posadas y convenciones B2B."
+          cta="Ver Corporativos"
+          subsections={subsCBCorporativo}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ + Contacto ===================== -->
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  /* ===== XV stats ===== */
+  .xv-stats {
+    background: linear-gradient(135deg, #fff5f9 0%, #fef0f7 100%);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(208, 0, 122, 0.08);
+    border-bottom: 1px solid rgba(208, 0, 122, 0.08);
+  }
+  .xv-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .xv-stat__num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #D1007A;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .xv-stat__label {
+    display: block;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .xv-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .xv-stat__num { font-size: 2rem; }
+  }
+
+  /* ===== XV intro ===== */
+  .xv-intro { padding: 5rem 0; background: #fff; }
+  .xv-intro__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .xv-intro__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .xv-intro__copy h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+  .xv-intro__copy h2 span { color: #D1007A; }
+  .xv-intro__copy p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .xv-intro__copy a {
+    color: #D1007A;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .xv-intro__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(208, 0, 122, 0.2);
+  }
+  @media (max-width: 900px) {
+    .xv-intro__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Galería bento ===== */
+  .xv-galeria { padding: 5rem 0; background: #fff5f9; }
+  .xv-galeria__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .xv-galeria__item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    aspect-ratio: 4/3;
+  }
+  .xv-galeria__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .xv-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .xv-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== Incluye grid ===== */
+  .xv-incluye { background: #fff; }
+  .xv-incluye__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .xv-incluye__item {
+    background: #fff5f9;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(208, 0, 122, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .xv-incluye__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(208, 0, 122, 0.12);
+  }
+  .xv-incluye__num {
+    display: inline-block;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .xv-incluye__title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .xv-incluye__desc {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 900px) { .xv-incluye__grid { grid-template-columns: 1fr; } }
+
+  /* ===== CDMX cross-link CTA ===== */
+  .xv-cdmx-cta { background: #fff; }
+  .xv-cdmx-cta__card {
+    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 25px 60px rgba(208, 0, 122, 0.25);
+  }
+  .xv-cdmx-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .xv-cdmx-cta__body h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .xv-cdmx-cta__body h2 span {
+    color: #ffd700;
+    font-weight: 800;
+  }
+  .xv-cdmx-cta__body p {
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+  }
+  .xv-cdmx-cta__body p strong { color: #fff; }
+  .xv-cdmx-cta__link {
+    display: inline-block;
+    background: #fff;
+    color: #D1007A;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .xv-cdmx-cta__link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  }
+  .xv-cdmx-cta__visual img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .xv-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; }
+    .xv-cdmx-cta__body h2 { font-size: 1.5rem; }
+  }
+
+  /* ===== Testimonios + Otros ===== */
+  .xv-testimonios { background: #fff5f9; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .xv-otros { background: #fff; }
+</style>

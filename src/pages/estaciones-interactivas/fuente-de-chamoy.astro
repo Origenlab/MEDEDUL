@@ -1,164 +1,384 @@
 ---
+// Fuente de Chamoy — L4 Pro+ Estación Interactiva (CDMX)
+// Chamoy artesanal mexicano, niveles de picor, productos para bañar
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import PricingPackages from '@/components/global/PricingPackages.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
+import PricingPackages from '@/components/global/PricingPackages.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
-import EventsGrid from '@/components/global/EventsGrid.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
+import {
+  subsCBXV, subsCBCumple, subsCBBoda, subsCBGraduacion,
+  subsFuenteChocolate, subsParedDulces, subsStandPastel,
+} from '@/data/subsections';
 
 const breadcrumbItems = [
   { name: 'Estaciones Interactivas', url: '/estaciones-interactivas' },
   { name: 'Fuente de Chamoy', url: '/estaciones-interactivas/fuente-de-chamoy' }
 ];
 
+const stats = [
+  { number: '180+', label: 'Fuentes operadas CDMX' },
+  { number: '4', label: 'Niveles de picor' },
+  { number: '100%', label: 'Chamoy artesanal' },
+  { number: '< 24h', label: 'Cotización en línea' }
+];
+
+// 4 Niveles de picor (UNIQUE)
+const niveles = [
+  { nivel: 'Suave (kid-friendly)', icon: '🌶️', desc: 'Chamoy dulce con muy poco chile (apto niños 6+). Sabor agridulce frutal. Ideal para fiestas infantiles y baby showers.', popular: false },
+  { nivel: 'Tradicional', icon: '🌶️🌶️', desc: 'El clásico mexicano. Equilibrio dulce-picosito-ácido. La opción más solicitada para XV, bodas y graduaciones.', popular: true },
+  { nivel: 'Picoso', icon: '🌶️🌶️🌶️', desc: 'Mayor concentración de chile. Para invitados que aman el picante. Acompañar con agua/refrescos cerca.', popular: false },
+  { nivel: 'Extra picoso', icon: '🔥', desc: 'Para los más valientes. Chile habanero o de árbol. Ideal como activación divertida en eventos jóvenes.', popular: false }
+];
+
+// 8 Productos para bañar (UNIQUE)
+const productos = [
+  { icon: '🍬', nombre: 'Gomitas variadas', desc: 'Ositos, tubitos, aros, gusanitos. La base perfecta para chamoy. Texturas que absorben sabor.' },
+  { icon: '🍓', nombre: 'Frutas frescas', desc: 'Mango, sandía, jícama, pepino, pepino con chile. Lavadas con cloro alimentario.' },
+  { icon: '🥭', nombre: 'Mango con chile', desc: 'Mango fresco en barritas, ya con tajín. Combinación icónica mexicana.' },
+  { icon: '🥒', nombre: 'Pepino y jícama', desc: 'Cortados en barritas, frescos. Para los que quieren versión más light/saludable.' },
+  { icon: '🍭', nombre: 'Paletas Vero', desc: 'Paletas mexicanas tradicionales (Vero, rebanaditas, paletón). Combinan perfecto con chamoy.' },
+  { icon: '🍿', nombre: 'Palomitas dulces', desc: 'Palomitas dulces o caramelizadas. Toque crujiente al chamoy. Tendencia 2026.' },
+  { icon: '🥨', nombre: 'Pretzels y churritos', desc: 'Pretzels y churritos salados. Contraste salado-picoso-dulce muy mexicano.' },
+  { icon: '🍦', nombre: 'Helado de vainilla', desc: 'Bola de helado de vainilla con chamoy fluyendo encima. Para postre interactivo.' }
+];
+
+// 5 Mezclas y dips (UNIQUE)
+const mezclas = [
+  { icon: '🍋', nombre: 'Chamoy + limón', desc: 'Toque cítrico extra que realza el sabor. Ideal con frutas frescas.' },
+  { icon: '🌶️', nombre: 'Chamoy + tajín', desc: 'Con tajín en polvo encima. Combinación clásica mexicana.' },
+  { icon: '🍯', nombre: 'Chamoy + miel', desc: 'Para bajar el picor y endulzar. Para invitados sensibles.' },
+  { icon: '🥒', nombre: 'Chamoy + pepino-tamarindo', desc: 'Tamarindo natural mezclado. Perfil agridulce profundo. Tendencia mexicana.' },
+  { icon: '🌰', nombre: 'Chamoy + cacahuate', desc: 'Cacahuates japoneses con chamoy. Botana premium para eventos jóvenes.' }
+];
+
+const caracteristicas = [
+  { num: 1, title: '100% chamoy artesanal mexicano', desc: 'Trabajamos exclusivamente chamoy artesanal preparado en pequeño lote (no industrial). Sabor profundo, textura espesa, balance dulce-picoso-ácido perfecto. Receta tradicional mexicana.', img: '/img/estaciones-interactivas/fuente-chamoy/renta-fuente-chamoy-profesional.avif' },
+  { num: 2, title: '4 niveles de picor a elegir', desc: 'Suave (kid-friendly, fiestas infantiles), Tradicional (el clásico mexicano, más solicitado), Picoso (para amantes del picante) y Extra picoso (chile habanero, activación divertida).', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif' },
+  { num: 3, title: '8 productos + 5 mezclas para combinar', desc: 'Gomitas variadas, frutas frescas, mango con chile, pepino-jícama, paletas Vero, palomitas dulces, pretzels, helado de vainilla. Plus 5 mezclas: chamoy+limón, chamoy+tajín, chamoy+miel, chamoy+tamarindo, chamoy+cacahuate.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-fiestas-cdmx.avif' },
+  { num: 4, title: 'Diferenciador identitario mexicano', desc: 'Mientras la fuente de chocolate es universal, la fuente de chamoy es 100% mexicana y diferenciadora. Para XV mexicanos modernos, bodas con identidad nacional, graduaciones universitarias y eventos corporativos con sello mexicano.', img: '/img/estaciones-interactivas/fuente-chamoy/alquiler-fuente-chamoy-mexico.avif' }
+];
+
+const paquetes = [
+  { name: 'Esencial', icon: '🌶️', price: '$3,200', currency: 'MXN', guests: '20-40 invitados', tagline: 'Fuente íntima con productos clásicos', features: ['Fuente 5 kg chamoy artesanal (suave o tradicional)', '3-4 productos para bañar (gomitas, mango, pepino, jícama)', 'Operador 2 horas', 'Mantel mexicano tradicional', 'Tajín y limón incluidos', 'Servilletas y palillos', 'Cobertura zonas centrales CDMX'], popular: false, ctaText: 'Cotizar Esencial', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Quiero%20cotizar%20Fuente%20de%20Chamoy%20CDMX%20-%20Esencial' },
+  { name: 'Premium', icon: '🔥', price: '$5,500', currency: 'MXN', guests: '50-150 invitados', tagline: 'El más solicitado en CDMX', features: ['Fuente 15 kg chamoy artesanal (4 niveles a elegir)', '5-6 productos para bañar', '3 mezclas adicionales (limón, tajín, miel)', 'Operador 4 horas', 'Backdrop con motivos mexicanos', 'Reposición continua', 'Cobertura amplia CDMX'], popular: true, ctaText: 'Cotizar Premium', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Fuente%20Chamoy%20CDMX%20-%20Premium' },
+  { name: 'Luxury', icon: '⭐', price: '$8,800', currency: 'MXN', guests: '150-400+ invitados', tagline: 'Show mexicano de gran escala', features: ['Fuente 30 kg chamoy artesanal premium', '8 productos + 5 mezclas completas', 'Operador 6 horas + ayudante', 'Backdrop temático mexicano (papel picado)', 'Estación helado vainilla con chamoy', 'Gomitas premium importadas', 'Cobertura completa CDMX y zona metropolitana'], popular: false, ctaText: 'Cotizar Luxury', ctaUrl: 'https://wa.me/525525226442?text=Hola!%20Me%20interesa%20Fuente%20Chamoy%20CDMX%20-%20Luxury' }
+];
+
+const proceso = [
+  { num: 1, title: 'Brief del evento', desc: 'Recibimos brief: tipo de evento, número de invitados, nivel de picor preferido (suave, tradicional, picoso, extra), productos para bañar deseados, sede y horarios. Te asesoramos según el perfil de invitados.' },
+  { num: 2, title: 'Cotización ejecutiva', desc: 'En 24h enviamos cotización 3 niveles (Esencial 5kg, Premium 15kg, Luxury 30kg) con detalle de productos, mezclas, duración y add-ons.' },
+  { num: 3, title: 'Coordinación logística', desc: 'Coordinamos posición de la fuente (zona ventilada por el aroma del chile), acceso eléctrico (110V), tiempo de montaje, integración con mesa de dulces o estación de bebidas.' },
+  { num: 4, title: 'Día del evento', desc: 'Llegamos 1-2h antes. Calentamos chamoy al punto óptimo, instalamos fuente, presentamos productos. Operamos con reposición continua y ofrecemos asesoría a invitados sobre niveles. Desmontaje al cierre.' }
+];
+
+const galeriaImages = [
+  { src: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif', alt: 'Fuente de chamoy artesanal mexicano para eventos CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif', alt: 'Fuente de chamoy eventos mexicanos CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-fiestas-cdmx.avif', alt: 'Fuente de chamoy fiestas CDMX picosito' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/alquiler-fuente-chamoy-mexico.avif', alt: 'Alquiler fuente de chamoy México CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif', alt: 'Fuente de chamoy para fiestas mexicanas premium' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/renta-fuente-chamoy-profesional.avif', alt: 'Renta fuente chamoy profesional CDMX' },
+  { src: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-fiestas-cdmx.avif', alt: 'Fuente chamoy fiestas CDMX MEDEDUL' },
+  { src: '/img/galeria/mesa-dulces-xv-anos-rosa-fuente-chocolate-elegante.avif', alt: 'Combo fuente chamoy + chocolate XV CDMX' }
+];
+
+const incluye = [
+  { num: '01', title: 'Chamoy artesanal mexicano 100%', desc: 'Chamoy preparado en pequeño lote con receta tradicional mexicana. Sabor profundo, textura espesa, balance dulce-picoso-ácido. No industrial, no genérico.' },
+  { num: '02', title: 'Fuente profesional según capacidad', desc: 'Fuente acero inoxidable grado alimentario, motor de torre, calefacción controlada. 5 kg (eventos íntimos), 15 kg (medianos, el más solicitado), 30 kg (grandes).' },
+  { num: '03', title: '3-8 productos + mezclas', desc: 'Esencial 3-4 productos, Premium 5-6 + 3 mezclas, Luxury 8 productos + 5 mezclas completas (limón, tajín, miel, tamarindo, cacahuate). Producto fresco lavado.' },
+  { num: '04', title: 'Mobiliario y decoración mexicana', desc: 'Mesa con mantel mexicano tradicional o papel picado, base estable, bandejas para productos, palillos, servilletas, tajín y limón en estación.' },
+  { num: '05', title: 'Operador uniformado con asesoría', desc: 'Operador dedicado uniformado durante toda la operación. Reposición continua, control de temperatura, asesoría a invitados sobre niveles de picor (especialmente para invitados extranjeros).' },
+  { num: '06', title: 'Montaje y desmontaje incluidos', desc: 'Llegamos 1-2h antes. Calentamiento del chamoy al punto óptimo, instalación, prueba de fluido. Desmontaje discreto al cierre con limpieza completa.' }
+];
+
+const testimonios = [
+  { name: 'Andrea Méndez (XV)', initials: 'AM', review: 'XV de mi hija con temática mexicana moderna en Hacienda de los Morales. Combo fuente chocolate + fuente chamoy. La de chamoy fue la sensación, todas las amigas tomaron foto y subieron a TikTok. Súper diferenciador.', event: 'XV Años · Hacienda de los Morales · Mexicana', rating: 5 },
+  { name: 'Familia Rojas (graduación)', initials: 'FR', review: 'Graduación de mi hijo de la UNAM con 200 invitados. Fuente de chamoy nivel tradicional con mango, jícama y palomitas dulces. La sensación con los compañeros mexicanos. El brindis de la victoria mexicana.', event: 'Graduación · UNAM · 200 invitados', rating: 5 },
+  { name: 'Marketing Lead (corporativo)', initials: 'ML', review: 'Lanzamiento de producto con clientes internacionales en Reforma. Pedimos fuente de chamoy nivel suave para invitados extranjeros. El operador explicaba cómo combinar productos. Diferenciador cultural mexicano impresionante.', event: 'Lanzamiento corporativo internacional · Reforma', rating: 5 }
+];
+
 const faqs = [
-  { question: 'Que tipo de chamoy usan?', answer: 'Utilizamos chamoy de calidad en perfiles de intensidad ajustables segun el tipo de evento.' },
-  { question: 'Que incluye la estacion?', answer: 'Incluye fuente, insumos principales, acompanamientos seleccionados, montaje profesional y operacion en sitio.' },
-  { question: 'Se puede ajustar nivel de picante?', answer: 'Si, configuramos intensidad y combinacion de toppings segun el perfil de asistentes.' },
-  { question: 'Es apta para fiestas tematicas mexicanas?', answer: 'Si. Es una de las estaciones mas efectivas para eventos con identidad mexicana y alto nivel de interaccion.' },
-  { question: 'Se puede combinar con otras estaciones?', answer: 'Si, se integra muy bien con candy wall, fuente de chocolate y mesas de frutas.' },
-  { question: 'Incluye montaje y desmontaje?', answer: 'Si, el servicio es integral con ejecucion profesional de inicio a fin.' }
+  { question: '¿Qué incluye la renta de fuente de chamoy en CDMX?', answer: 'Incluye fuente profesional acero inoxidable según capacidad (5, 15 o 30 kg), chamoy artesanal mexicano 100% en nivel a elegir (suave, tradicional, picoso o extra picoso), 3 a 8 productos para bañar (gomitas variadas, mango, jícama, pepino, palomitas dulces, paletas Vero, pretzels, helado de vainilla), 0 a 5 mezclas adicionales (limón, tajín, miel, tamarindo, cacahuate), mesa con mantel mexicano tradicional, palillos y servilletas, operador uniformado, montaje 1-2 h antes y desmontaje al cierre.' },
+  { question: '¿Cuánto cuesta rentar una fuente de chamoy en CDMX?', answer: 'En CDMX iniciamos en $3,200 MXN (Esencial, 5 kg, 20-40 invitados), $5,500 MXN (Premium, 15 kg, 50-150 invitados, el más solicitado) y $8,800 MXN (Luxury, 30 kg, 150-400+ invitados con backdrop mexicano y estación helado). El precio depende del número de invitados, nivel de picor (extra picoso sale igual que tradicional), número de productos y mezclas. Cotización 24h.' },
+  { question: '¿Qué niveles de picor manejan?', answer: 'Trabajamos 4 niveles: Suave (kid-friendly, dulce con poco chile, apto niños 6+, ideal infantiles y baby showers), Tradicional (el clásico mexicano equilibrio dulce-picoso-ácido, el más solicitado para XV/bodas/graduaciones), Picoso (mayor chile, para amantes del picante, acompañar con bebidas) y Extra picoso (chile habanero, activación divertida para eventos jóvenes).' },
+  { question: '¿Qué productos para bañar incluyen?', answer: 'Trabajamos 8 categorías: gomitas variadas (ositos, tubitos, gusanitos), frutas frescas (mango, sandía, jícama, pepino), mango con chile en barritas, pepino-jícama cortados, paletas Vero mexicanas tradicionales, palomitas dulces caramelizadas, pretzels y churritos salados, helado de vainilla con chamoy encima. Plus 5 mezclas: chamoy+limón, chamoy+tajín, chamoy+miel, chamoy+tamarindo, chamoy+cacahuate.' },
+  { question: '¿Para qué tipos de evento se renta más?', answer: 'Las 4 aplicaciones más solicitadas: <a href="/candy-bar-eventos/mesa-dulces-xv-anos">XV Años</a> (toque picosito mexicano para quinceañeras modernas), <a href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil">Cumpleaños</a> (sabor que celebra para niños 6+ con nivel suave), <a href="/candy-bar-eventos/mesa-dulces-boda">Bodas</a> (estación diferenciadora para bodas mexicanas modernas) y <a href="/candy-bar-eventos/mesa-dulces-graduacion">Graduaciones</a> (el brindis de la victoria mexicana, especialmente UNAM/IPN/universidades públicas).' },
+  { question: '¿La fuente de chamoy es apta para niños?', answer: 'Sí, en nivel Suave. Diseñamos el nivel kid-friendly con muy poco chile (apto niños 6+), sabor predominantemente dulce-frutal con apenas toque picosito. Ideal para fiestas infantiles, baby showers y eventos familiares. Para niños menores de 6 años recomendamos solo fuente de chocolate.' },
+  { question: '¿Pueden combinarla con fuente de chocolate?', answer: 'Sí, es la combinación más solicitada en CDMX: fuente de chocolate (universal, para todos) + fuente de chamoy (mexicana, diferenciadora). Especialmente popular en XV mexicanos modernos, bodas con identidad nacional, graduaciones universitarias. Visita <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> para detalle.' },
+  { question: '¿Pueden combinarla con otras estaciones?', answer: 'Sí: <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> (combo dulce + picosito), <a href="/estaciones-interactivas/pared-de-dulces">Pared de Dulces</a> (autoservicio + show interactivo), <a href="/estaciones-interactivas/stand-para-pastel">Stand para Pastel</a> (centro celebración + sabor mexicano).' },
+  { question: '¿Atienden eventos en todo CDMX?', answer: 'Sí. Operamos desde sucursales fijas Anzures y Condesa con cobertura completa CDMX: Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite y todas las 16 alcaldías. Visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces">página de sucursal CDMX</a>.' },
+  { question: '¿Con cuánta anticipación debo reservar?', answer: 'Para eventos regulares 2-3 semanas. Para temporadas altas (mayo-junio XV/graduaciones, octubre-diciembre bodas/posadas) sugerimos 4-6 semanas. Anticipo del 50% para apartar fecha y liquidación 48h antes del evento.' }
 ];
 
-const packages = [
-  {
-    name: 'Esencial',
-    icon: '🌶️',
-    price: '$4,600',
-    currency: 'MXN',
-    guests: '30-50 personas',
-    tagline: 'Ideal para una estacion principal',
-    features: ['Fuente de chamoy profesional', 'Acompanamientos base incluidos', 'Montaje profesional', 'Operacion en sitio', 'Desmontaje al finalizar'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Esencial'
-  },
-  {
-    name: 'Premium',
-    icon: '⭐',
-    price: '$7,900',
-    currency: 'MXN',
-    guests: '50-100 personas',
-    tagline: 'La opcion mas solicitada',
-    features: ['Mayor volumen de insumos', 'Personalizacion de intensidad y toppings', 'Diseno de presentacion personalizado', 'Montaje y operacion extendida', 'Asesoria previa del evento', 'Mejor equilibrio costo-beneficio'],
-    popular: true,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Premium'
-  },
-  {
-    name: 'Luxury',
-    icon: '💎',
-    price: '$11,900',
-    currency: 'MXN',
-    guests: '100+ personas',
-    tagline: 'Experiencia de alto impacto',
-    features: ['Configuracion para eventos grandes', 'Operacion en sitio extendida', 'Direccion estetica completa', 'Insumos premium ampliados', 'Acompanamiento operativo integral', 'Mayor capacidad de servicio'],
-    popular: false,
-    ctaText: 'Cotizar Paquete',
-    ctaUrl: 'https://wa.me/525525226442?text=Hola! Quiero cotizar Fuente de Chamoy - Paquete Luxury'
-  }
-];
-
-const whyStats = [
-  { number: '100%', label: 'Experiencia Interactiva' },
-  { number: '3+', label: 'Niveles de Intensidad' },
-  { number: '500+', label: 'Eventos Atendidos' },
-  { number: '24h', label: 'Respuesta Comercial' }
-];
-
-const whyFeatures = [
-  { num: 1, title: 'Identidad Mexicana', desc: 'Estacion con personalidad ideal para celebraciones de alto dinamismo.', img: '/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif' },
-  { num: 2, title: 'Personalizacion de Sabor', desc: 'Ajustamos intensidad y combinaciones segun el perfil del evento.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-de-chamoy-para-fiestas.avif' },
-  { num: 3, title: 'Operacion Continua', desc: 'Control profesional de flujo para mantener servicio estable.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif' },
-  { num: 4, title: 'Montaje Premium', desc: 'Presentacion funcional y visualmente atractiva para invitados.', img: '/img/estaciones-interactivas/fuente-chamoy/alquiler-fuente-chamoy-mexico.avif' }
-];
-
-const processSteps = [
-  { num: 1, title: 'Contactanos', desc: 'Recibimos fecha, sede y aforo para definir alcance.' },
-  { num: 2, title: 'Disenamos', desc: 'Definimos configuracion de insumos, intensidad y presentacion.' },
-  { num: 3, title: 'Confirmamos', desc: 'Alineamos logistica, montaje y operacion en sitio.' },
-  { num: 4, title: 'Ejecutamos', desc: 'Instalamos y operamos la fuente de chamoy profesionalmente.' }
-];
-
-const eventCards = [
-  { title: 'Chamoy para XV Anos', excerpt: 'Estacion de alto impacto para eventos sociales con perfil juvenil.', img: '/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif', href: '/candy-bar-eventos/mesa-dulces-xv-anos', cta: 'Ver XV Anos' },
-  { title: 'Chamoy para Cumpleanos', excerpt: 'Experiencia interactiva para celebraciones familiares con alta participacion.', img: '/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif', href: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil', cta: 'Ver Cumpleanos' },
-  { title: 'Chamoy para Corporativos', excerpt: 'Propuesta diferencial para activaciones y eventos de marca.', img: '/img/eventos/corporativos/candy-bar-empresarial.avif', href: '/candy-bar-eventos/mesa-dulces-corporativos', badge: 'Corporativo', cta: 'Ver Corporativos' },
-  { title: 'Chamoy para Fiestas Tematicas', excerpt: 'Formato ideal para eventos con narrativa mexicana.', img: '/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-fiestas-cdmx.avif', href: '/estaciones-interactivas', cta: 'Ver Estaciones' }
-];
+const galleryWidths = [320, 480, 640, 800, 960, 1200];
+const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
 const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Fuente de Chamoy para Eventos en CDMX',
-  description: 'Servicio de fuente de chamoy para eventos sociales y corporativos en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4600',
-    highPrice: '11900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Fuente de Chamoy ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy#service", "name": "Renta de Fuente de Chamoy en CDMX", "serviceType": "Estación Interactiva / Fuente de Chamoy Artesanal Mexicano", "description": "Renta de fuente de chamoy artesanal mexicano en Ciudad de México con 4 niveles de picor (suave, tradicional, picoso, extra picoso), 8 productos para bañar (gomitas, mango, jícama, pepino, paletas Vero, palomitas), 5 mezclas adicionales. Capacidades 5kg, 15kg y 30kg. Para XV, bodas, graduaciones, eventos corporativos. Operación desde sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "180", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "3200", "highPrice": "8800", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chamoy CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } },
+    { "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer.replace(/<[^>]+>/g, '') } })) },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Estaciones Interactivas", "item": "https://mesas-de-dulces.com/estaciones-interactivas" },
+      { "@type": "ListItem", "position": 3, "name": "Fuente de Chamoy", "item": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy" }
+    ]}
+  ]
 };
 ---
 
 <BaseLayout
-  title="Fuente de Chamoy para Eventos en CDMX | Mededul"
-  description="Renta de fuente de chamoy en CDMX con montaje profesional, operacion en sitio y experiencia interactiva para eventos."
+  title="Fuente de Chamoy CDMX | Artesanal Mexicano · 4 Niveles Picor · 8 Productos | MEDEDUL"
+  description="Renta de fuente de chamoy artesanal mexicano en CDMX con 4 niveles de picor (suave, tradicional, picoso, extra picoso). 8 productos para bañar (gomitas, mango, jícama, paletas Vero), 5 mezclas. 180+ fuentes operadas. XV, bodas, graduaciones, infantiles. Desde $3,200 MXN."
   canonical="/estaciones-interactivas/fuente-de-chamoy"
   ogImage="/img/estaciones-interactivas/fuente-chamoy/renta-de-fuente-de-chamoy.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
-
   <Breadcrumbs items={breadcrumbItems} />
 
-  <Hero
-    title="Fuente de Chamoy para Eventos en CDMX"
-    highlight="Fuente de Chamoy"
-    subtitle="Experiencia interactiva con identidad mexicana para elevar participacion en tu evento"
-    secondaryContent={`<p><strong>Chamoy</strong> en formato de fuente aporta dinamica social y una experiencia de sabor distinta para invitados que buscan opciones memorables. En Mededul operamos esta estacion con criterios profesionales para mantener flujo y presentacion constantes.</p><p><strong>Mexicana</strong> y personalizable, la fuente de chamoy se adapta al perfil de cada celebracion para maximizar participacion y valor percibido. Ejecutamos montaje y operacion integral en CDMX con estandar premium.</p>`}
-  />
+  <Hero title="Fuente de Chamoy en CDMX" highlight="Fuente de Chamoy CDMX" subtitle="El picosito que México ama · Chamoy artesanal 100% · 180+ fuentes operadas en CDMX" secondaryContent={`<p>Chamoy casero fluyendo para los valientes que buscan ese toque agridulce irresistible. La <strong>fuente de chamoy</strong> es la estación interactiva con mayor identidad mexicana de cualquier evento en Ciudad de México: el complemento perfecto a la fuente de chocolate, el diferenciador para eventos con sello nacional y la sensación de XV, graduaciones universitarias y bodas mexicanas modernas. En <strong>MEDEDUL</strong> trabajamos exclusivamente <strong>chamoy artesanal mexicano 100%</strong> (preparado en pequeño lote, no industrial) en 4 niveles de picor: suave (kid-friendly), tradicional (el clásico, más solicitado), picoso (para amantes del picante) y extra picoso (chile habanero para los más valientes).</p><p>Manejamos 3 capacidades (5kg, 15kg, 30kg) según invitados y 8 productos para bañar: gomitas variadas, mango fresco, jícama y pepino en barritas, paletas Vero mexicanas, palomitas dulces, pretzels, helado de vainilla con chamoy encima. Plus <strong>5 mezclas adicionales</strong>: chamoy+limón, chamoy+tajín, chamoy+miel, chamoy+tamarindo, chamoy+cacahuate. Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa en CDMX.</p>`} />
 
-  <PricingPackages id="paquetes" badge="Paquetes Referenciales" title="Escoge el" titleHighlight="Formato Correcto" subtitle="Ajustamos la propuesta de fuente de chamoy a tu aforo y nivel de servicio." packages={packages} note="<strong>Necesitas una configuracion especial?</strong> Creamos una propuesta personalizada para tu celebracion." />
+  <section class="chamoy-stats">
+    <div class="container">
+      <div class="chamoy-stats__grid">
+        {stats.map(s => (<div class="chamoy-stat"><span class="chamoy-stat__num">{s.number}</span><span class="chamoy-stat__label">{s.label}</span></div>))}
+      </div>
+    </div>
+  </section>
 
-  <WhyChooseUs id="ventajas" badge="Ventajas Diferenciales" title="Por que elegir nuestra" titleHighlight="Fuente de Chamoy" descriptions={['Fuente de chamoy operada con enfoque profesional para garantizar continuidad de servicio.', 'Integramos personalizacion, montaje y ejecucion para una experiencia interactiva de alto impacto.']} stats={whyStats} features={whyFeatures} />
+  <section class="chamoy-niveles section-padding" id="niveles-picor">
+    <div class="container">
+      <SectionHeader title="4 niveles de" titleHighlight="picor mexicano" subtitle="Elige según el perfil de tus invitados. El operador asesora invitados extranjeros sobre niveles" />
+      <div class="chamoy-niveles__grid">
+        {niveles.map(n => (
+          <div class:list={['chamoy-nivel', { 'chamoy-nivel--popular': n.popular }]}>
+            {n.popular && <span class="chamoy-nivel__badge">Más solicitado</span>}
+            <div class="chamoy-nivel__icon" aria-hidden="true">{n.icon}</div>
+            <h3 class="chamoy-nivel__name">{n.nivel}</h3>
+            <p class="chamoy-nivel__desc">{n.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ProcessSteps id="proceso" badge="Nuestro Proceso" title="Como" titleHighlight="Trabajamos" subtitle="Cuatro pasos para ejecutar tu fuente de chamoy sin fricciones." steps={processSteps} />
+  <section class="chamoy-productos section-padding" id="productos-banar">
+    <div class="container">
+      <SectionHeader title="8 productos" titleHighlight="para bañar en chamoy" subtitle="Gomitas, frutas frescas mexicanas, paletas Vero, palomitas y más combinaciones" content={`<p>Cada paquete incluye selección distinta: <strong>Esencial</strong> 3-4 productos, <strong>Premium</strong> 5-6 + 3 mezclas, <strong>Luxury</strong> los 8 productos + 5 mezclas completas. Producto fresco lavado con cloro alimentario.</p>`} />
+      <div class="chamoy-productos__grid">
+        {productos.map(p => (
+          <div class="chamoy-producto">
+            <span class="chamoy-producto__icon" aria-hidden="true">{p.icon}</span>
+            <h3 class="chamoy-producto__name">{p.nombre}</h3>
+            <p class="chamoy-producto__desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <EventsGrid id="eventos" badge="Aplicaciones Reales" title="Fuente de Chamoy para" titleHighlight="Cada Tipo de Evento" subtitle="Adaptamos configuracion de sabor y servicio segun la naturaleza de cada celebracion." events={eventCards} />
+  <section class="chamoy-mezclas section-padding" id="mezclas">
+    <div class="container">
+      <SectionHeader title="5 mezclas" titleHighlight="diferenciadoras" subtitle="Para clientes que buscan experiencia gastronómica más profunda. Disponibles desde Premium" />
+      <div class="chamoy-mezclas__grid">
+        {mezclas.map(m => (
+          <div class="chamoy-mezcla">
+            <span class="chamoy-mezcla__icon" aria-hidden="true">{m.icon}</span>
+            <h3 class="chamoy-mezcla__name">{m.nombre}</h3>
+            <p class="chamoy-mezcla__desc">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <section class="chamoy-intro" id="intro-chamoy">
+    <div class="container">
+      <div class="chamoy-intro__grid">
+        <div class="chamoy-intro__copy">
+          <span class="chamoy-intro__badge">Especialistas en fuente de chamoy CDMX</span>
+          <h2>Así trabaja <span>MEDEDUL</span> tu fuente de chamoy en CDMX</h2>
+          <p>La fuente de chamoy es la <strong>estación interactiva con mayor identidad mexicana</strong> de cualquier evento. A diferencia de la fuente de chocolate (universal), la fuente de chamoy es 100% mexicana, diferenciadora y memorable. Por eso es la favorita en XV mexicanos modernos, graduaciones universitarias (especialmente UNAM/IPN), bodas con identidad nacional y eventos corporativos con sello mexicano.</p>
+          <p>La fuente de chamoy CDMX que operamos no es un servicio improvisado: usamos <strong>chamoy artesanal preparado en pequeño lote</strong> con receta tradicional mexicana (no industrial). Sabor profundo, textura espesa, balance dulce-picoso-ácido perfecto. Trabajamos 4 niveles de picor, 3 capacidades y 8 productos + 5 mezclas.</p>
+          <p>Operamos desde nuestras <strong>sucursales fijas Anzures y Condesa</strong> con cobertura completa CDMX. La combinación más solicitada: <a href="/estaciones-interactivas/fuente-de-chocolate">Fuente de Chocolate</a> (universal) + Fuente de Chamoy (mexicana). Visita nuestra <a href="/sucursales/cdmx/mesa-de-dulces"><strong>página de sucursal CDMX</strong></a> para detalle.</p>
+          <p><a href="https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20Fuente%20de%20Chamoy%20CDMX" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a>.</p>
+        </div>
+        <div class="chamoy-intro__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/fuente-chamoy-eventos-mexicanos.avif', { w: 720, q: 82 })} alt="Fuente de chamoy artesanal MEDEDUL en CDMX" loading="lazy" width="720" height="480" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PricingPackages id="paquetes-chamoy" badge="Paquetes Fuente Chamoy CDMX" title="Elige el formato para tu" titleHighlight="fuente de chamoy" subtitle="3 niveles claros con chamoy artesanal mexicano incluido" content={`<p><strong>Esencial</strong> fuente 5kg eventos íntimos; <strong>Premium</strong> es el más solicitado fuente 15kg con 5-6 productos + 3 mezclas y operador 4h; <strong>Luxury</strong> fuente 30kg con 8 productos + 5 mezclas completas, backdrop mexicano y estación helado.</p>`} packages={paquetes} note="💡 <strong>Todos los paquetes Fuente de Chamoy CDMX incluyen:</strong> chamoy artesanal mexicano 100%, fuente profesional, productos lavados con cloro alimentario, mantel mexicano tradicional, palillos y servilletas, tajín y limón, operador uniformado con asesoría de niveles, montaje 1-2h antes y desmontaje al cierre." />
+
+  <WhyChooseUs id="por-que-chamoy" badge="Diferenciadores Fuente Chamoy" title="Por qué elegir nuestra" titleHighlight="Fuente de Chamoy" descriptions={["Con <strong>180+ fuentes operadas en CDMX</strong>, 4 niveles de picor, 8 productos y 5 mezclas, MEDEDUL es la opción especializada para clientes que buscan estación con identidad mexicana auténtica (no industrial).", "Cada fuente parte del mismo método: brief con asesoría de nivel, cotización 24h, coordinación logística (zona ventilada por aroma del chile), montaje 1-2h y operación con reposición continua. La diferencia: <strong>chamoy artesanal mexicano 100% real</strong>."]} stats={[{ number: "180+", label: "Fuentes operadas" }, { number: "4", label: "Niveles picor" }, { number: "8+5", label: "Productos + mezclas" }, { number: "100%", label: "Artesanal" }]} features={caracteristicas} />
+
+  <section class="chamoy-galeria" id="galeria-chamoy">
+    <div class="container">
+      <SectionHeader title="Fuentes de chamoy operadas en" titleHighlight="CDMX" subtitle="Selección curada de fuentes MEDEDUL en distintos eventos mexicanos" />
+      <div class="chamoy-galeria__bento">
+        {galeriaImages.map(img => (
+          <div class="chamoy-galeria__item">
+            <img src={getCdnUrl(img.src, { w: 800, q: 80 })} srcset={getCdnSrcSet(img.src, galleryWidths, { q: 80 })} sizes={gallerySizes} alt={img.alt} loading="lazy" decoding="async" fetchpriority="low" width="800" height="533" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="chamoy-incluye section-padding" id="incluye-chamoy">
+    <div class="container">
+      <SectionHeader title="Qué incluye nuestra" titleHighlight="Fuente Chamoy CDMX" subtitle="Servicio integral con chamoy artesanal mexicano y operador con asesoría" />
+      <div class="chamoy-incluye__grid">
+        {incluye.map(item => (
+          <div class="chamoy-incluye__item">
+            <div class="chamoy-incluye__num">{item.num}</div>
+            <h3 class="chamoy-incluye__title">{item.title}</h3>
+            <p class="chamoy-incluye__desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps id="proceso-chamoy" badge="Cómo trabajamos" title="Nuestro proceso para tu" titleHighlight="fuente de chamoy" subtitle="Cuatro pasos para llevar la identidad mexicana a tu evento" steps={proceso} />
+
+  <section class="chamoy-eventos section-padding" id="aplica-eventos">
+    <div class="container">
+      <SectionHeader title="Para tu tipo de" titleHighlight="evento" subtitle="Las 4 aplicaciones más solicitadas de fuente de chamoy en CDMX" />
+      <div class="service-grid">
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-xv-anos" image={getCdnUrl('/img/eventos/xv-anos/mesa-de-dulces-para-xv-anos.avif')} alt="Fuente de chamoy para XV Años" title="Para XV Años" excerpt="Toque picosito mexicano. La sensación en XV mexicanos modernos. Combina perfecto con fuente de chocolate." cta="Ver Mesa XV" badge="Top XV mexicano" subsections={subsCBXV} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-cumpleanos-infantil" image={getCdnUrl('/img/eventos/cumpleanos/mesa-de-dulces-para-cumpleanos.avif')} alt="Fuente de chamoy para cumpleaños" title="Para Cumpleaños" excerpt="Sabor que celebra. Nivel suave (kid-friendly) ideal para niños 6+. Activación divertida diferenciadora." cta="Ver Cumple Infantil" badge="Kid-friendly" subsections={subsCBCumple} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-boda" image={getCdnUrl('/img/eventos/bodas/mesa-de-dulces-para-bodas.avif')} alt="Fuente de chamoy para boda" title="Para Bodas" excerpt="Estación diferenciadora para bodas mexicanas modernas. Sello nacional inolvidable para invitados extranjeros." cta="Ver Mesa Boda" badge="Mexicana moderna" subsections={subsCBBoda} />
+        <ServiceCard href="/candy-bar-eventos/mesa-dulces-graduacion" image={getCdnUrl('/img/eventos/graduaciones/mesa-dulces-graduacion.avif')} alt="Fuente de chamoy para graduación" title="Para Graduaciones" excerpt="El brindis de la victoria mexicana. Especialmente popular en graduaciones UNAM/IPN/universidades públicas." cta="Ver Graduación" badge="Universidad MX" subsections={subsCBGraduacion} />
+      </div>
+    </div>
+  </section>
+
+  <section class="chamoy-cdmx-cta section-padding" id="chamoy-cdmx">
+    <div class="container">
+      <div class="chamoy-cdmx-cta__card">
+        <div class="chamoy-cdmx-cta__body">
+          <span class="chamoy-cdmx-cta__badge">📍 Sucursal CDMX especializada</span>
+          <h2>Operamos fuentes de chamoy desde nuestras <span>sucursales Anzures + Condesa</span></h2>
+          <p>MEDEDUL renta fuentes de chamoy en toda Ciudad de México con cobertura en <strong>Polanco, Lomas, Santa Fe, Interlomas, Coyoacán, Pedregal, Roma, Condesa, Anzures, Del Valle, Naucalpan, Huixquilucan, Tlalnepantla, Satélite</strong>. Operamos en hoteles 5 estrellas, haciendas patrimoniales, salones, jardines y domicilios.</p>
+          <a href="/sucursales/cdmx/mesa-de-dulces" class="chamoy-cdmx-cta__link">Ver Sucursal CDMX completa →</a>
+        </div>
+        <div class="chamoy-cdmx-cta__visual">
+          <img src={getCdnUrl('/img/estaciones-interactivas/fuente-chamoy/alquiler-fuente-chamoy-mexico.avif', { w: 600, q: 82 })} alt="Alquiler fuente chamoy CDMX MEDEDUL" loading="lazy" width="600" height="400" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chamoy-testimonios section-padding" id="testimonios-chamoy">
+    <div class="container">
+      <SectionHeader title="Testimonios reales de" titleHighlight="clientes CDMX" subtitle="Familias y empresas hablando de su experiencia con fuente de chamoy MEDEDUL" />
+      <div class="reviews-grid">
+        {testimonios.map(t => (<ReviewCard {...t} />))}
+      </div>
+    </div>
+  </section>
+
+  <section class="chamoy-otras section-padding" id="otras-estaciones">
+    <div class="container">
+      <SectionHeader title="Otras estaciones" titleHighlight="interactivas" subtitle="Combina la fuente de chamoy con otras estaciones para elevar tu evento mexicano" />
+      <div class="service-grid">
+        <ServiceCard href="/estaciones-interactivas/fuente-de-chocolate" image={getCdnUrl('/img/estaciones-interactivas/fuente-chocolate/fuente-chocolate-eventos-cdmx.avif')} alt="Fuente de chocolate belga" title="Fuente de Chocolate" excerpt="La estrella universal. Combo perfecto con chamoy: dulce + picosito mexicano." cta="Ver Fuente Chocolate" subsections={subsFuenteChocolate} />
+        <ServiceCard href="/estaciones-interactivas/pared-de-dulces" image={getCdnUrl('/img/estaciones-interactivas/pared-dulces/pared-de-dulces-candy-wall.avif')} alt="Pared de dulces" title="Pared de Dulces" excerpt="El muro más fotografiado. Autoservicio + show interactivo de la fuente." cta="Ver Pared Dulces" subsections={subsParedDulces} />
+        <ServiceCard href="/estaciones-interactivas/stand-para-pastel" image={getCdnUrl('/img/estaciones-interactivas/stand-pastel/stand-pastel-decorado-eventos.avif')} alt="Stand para pastel" title="Stand para Pastel" excerpt="Tu pastel merece su propio escenario. Marco decorado para el corte." cta="Ver Stand Pastel" subsections={subsStandPastel} />
+      </div>
+    </div>
+  </section>
 
   <FAQContactModule faqItems={faqs} />
 </BaseLayout>
+
+<style>
+  .chamoy-stats { background: linear-gradient(135deg, #b91c1c 0%, #fb7185 50%, #b91c1c 100%); padding: 3rem 0; color: #fff; }
+  .chamoy-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .chamoy-stat__num { display: block; font-size: 2.5rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 0.5rem; }
+  .chamoy-stat__label { display: block; font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+  @media (max-width: 768px) { .chamoy-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } .chamoy-stat__num { font-size: 2rem; } }
+
+  .chamoy-niveles { background: #fff; }
+  .chamoy-niveles__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .chamoy-nivel { background: #fff5f5; border-radius: 0.75rem; padding: 1.75rem 1.25rem; text-align: center; border-top: 3px solid #b91c1c; position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .chamoy-nivel:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(185,28,28,0.18); }
+  .chamoy-nivel--popular { border-top-color: #fb7185; background: #fff0f0; }
+  .chamoy-nivel__badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #b91c1c; color: #fff; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .chamoy-nivel__icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .chamoy-nivel__name { font-size: 1.05rem; color: #b91c1c; margin-bottom: 0.5rem; font-weight: 700; }
+  .chamoy-nivel__desc { color: #555; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .chamoy-niveles__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .chamoy-productos { background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); }
+  .chamoy-productos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .chamoy-producto { background: #fff; border-radius: 0.75rem; padding: 1.5rem 1.25rem; text-align: center; border: 1px solid #fecaca; transition: transform 0.2s ease; }
+  .chamoy-producto:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(185,28,28,0.12); border-color: #b91c1c; }
+  .chamoy-producto__icon { display: inline-block; font-size: 2.25rem; margin-bottom: 0.5rem; }
+  .chamoy-producto__name { font-size: 1rem; color: #b91c1c; margin-bottom: 0.5rem; font-weight: 700; }
+  .chamoy-producto__desc { color: #555; line-height: 1.5; font-size: 0.85rem; }
+  @media (max-width: 900px) { .chamoy-productos__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .chamoy-mezclas { background: #fff; }
+  .chamoy-mezclas__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .chamoy-mezcla { background: #fff5f5; border-radius: 0.75rem; padding: 1.5rem 1rem; text-align: center; border-left: 4px solid #fb7185; transition: transform 0.2s ease; }
+  .chamoy-mezcla:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(251,113,133,0.18); border-left-color: #b91c1c; }
+  .chamoy-mezcla__icon { display: inline-block; font-size: 2rem; margin-bottom: 0.5rem; }
+  .chamoy-mezcla__name { font-size: 0.95rem; color: #b91c1c; margin-bottom: 0.5rem; font-weight: 700; }
+  .chamoy-mezcla__desc { color: #555; line-height: 1.5; font-size: 0.8rem; }
+  @media (max-width: 900px) { .chamoy-mezclas__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .chamoy-intro { padding: 5rem 0; background: #fff5f5; }
+  .chamoy-intro__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: center; }
+  .chamoy-intro__badge { display: inline-block; background: linear-gradient(135deg, #b91c1c 0%, #fb7185 100%); color: #fff; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+  .chamoy-intro__copy h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 1.5rem; color: #1a1a1a; }
+  .chamoy-intro__copy h2 span { color: #b91c1c; }
+  .chamoy-intro__copy p { color: #444; line-height: 1.7; margin-bottom: 1rem; font-size: 1rem; }
+  .chamoy-intro__copy a { color: #b91c1c; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 600; }
+  .chamoy-intro__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 20px 50px rgba(185,28,28,0.25); }
+  @media (max-width: 900px) { .chamoy-intro__grid { grid-template-columns: 1fr; } }
+
+  .chamoy-galeria { padding: 5rem 0; background: #fff; }
+  .chamoy-galeria__bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
+  .chamoy-galeria__item { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4/3; }
+  .chamoy-galeria__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .chamoy-galeria__item:hover img { transform: scale(1.05); }
+  @media (max-width: 900px) { .chamoy-galeria__bento { grid-template-columns: repeat(2, 1fr); } }
+
+  .chamoy-incluye { background: #fff5f5; }
+  .chamoy-incluye__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .chamoy-incluye__item { background: #fff; border-radius: 1rem; padding: 2rem 1.5rem; border: 1px solid #fecaca; transition: transform 0.2s ease; }
+  .chamoy-incluye__item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(185,28,28,0.18); border-color: #b91c1c; }
+  .chamoy-incluye__num { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #b91c1c 0%, #fb7185 100%); color: #fff; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-weight: 700; margin-bottom: 1rem; }
+  .chamoy-incluye__title { font-size: 1.1rem; color: #b91c1c; margin-bottom: 0.75rem; font-weight: 700; }
+  .chamoy-incluye__desc { color: #555; line-height: 1.6; font-size: 0.95rem; }
+  @media (max-width: 900px) { .chamoy-incluye__grid { grid-template-columns: 1fr; } }
+
+  .chamoy-cdmx-cta { background: #fff; }
+  .chamoy-cdmx-cta__card { background: linear-gradient(135deg, #b91c1c 0%, #fb7185 50%, #fbbf24 100%); border-radius: 1.5rem; padding: 3rem; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; color: #fff; box-shadow: 0 25px 60px rgba(185,28,28,0.3); }
+  .chamoy-cdmx-cta__badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; backdrop-filter: blur(8px); }
+  .chamoy-cdmx-cta__body h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 1rem; color: #fff; }
+  .chamoy-cdmx-cta__body h2 span { color: #fff8e1; font-weight: 800; }
+  .chamoy-cdmx-cta__body p { line-height: 1.65; color: rgba(255,255,255,0.95); margin-bottom: 1.5rem; }
+  .chamoy-cdmx-cta__body p strong { color: #fff; }
+  .chamoy-cdmx-cta__link { display: inline-block; background: #fff; color: #b91c1c; padding: 1rem 2rem; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
+  .chamoy-cdmx-cta__link:hover { transform: translateY(-2px); }
+  .chamoy-cdmx-cta__visual img { width: 100%; border-radius: 1rem; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+  @media (max-width: 900px) { .chamoy-cdmx-cta__card { grid-template-columns: 1fr; padding: 2rem; } .chamoy-cdmx-cta__body h2 { font-size: 1.5rem; } }
+
+  .chamoy-testimonios { background: #fff5f5; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+  .chamoy-otras { background: #fff; }
+</style>

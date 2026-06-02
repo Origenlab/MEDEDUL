@@ -8,6 +8,7 @@ import ServiceCard from '@/components/global/ServiceCard.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnUrl } from '@/lib/cdn';
 import {
+  subsCBTematicas,
   subsCBBoda, subsCBXV, subsCBBabyShower, subsCBCumple,
   subsCBBautizo, subsCBComunion, subsCBCorporativo, subsCBGraduacion,
   subsFuenteChocolate, subsFuenteChamoy, subsParedDulces, subsStandPastel,
@@ -26,7 +27,7 @@ const faqItems = [
   },
   {
     question: 'Puedo personalizar el candy bar por tematica?',
-    answer: 'Si. Personalizamos paleta de color, estilo decorativo, tipos de dulces, etiquetas y presentacion para que el montaje sea coherente con la identidad de tu celebracion.'
+    answer: 'Si. Personalizamos paleta de color, estilo decorativo, tipos de dulces, etiquetas y presentacion para que el montaje sea coherente con la identidad de tu celebracion. Para conceptos integrales (Barbie, dinosaurios, casino, branding corporativo, dia de muertos, etc.) revisa nuestra pagina especializada de Mesas Tematicas en /candy-bar-eventos/mesas-tematicas con paquetes desde $5,200 MXN, moodboard previo, etiquetas y props impresos a medida.'
   },
   {
     question: 'Con cuanta anticipacion debo reservar?',
@@ -126,19 +127,33 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Candy Bar por Tipo de Evento en CDMX',
-  description: 'Catalogo de candy bars para bodas, XV anos, baby shower, bautizo, primera comunion y eventos corporativos',
-  numberOfItems: 8,
+  description: 'Catalogo completo de candy bars por tipo de evento en CDMX: mesas tematicas personalizadas, bodas, XV anos, baby shower, bautizo, primera comunion, cumpleanos infantil, eventos corporativos y graduaciones',
+  numberOfItems: 9,
   itemListElement: [
-    { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Candy Bar para Baby Shower' } },
-    { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Candy Bar para XV Anos' } },
-    { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'Candy Bar para Bodas' } },
-    { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Candy Bar para Cumpleanos Infantil' } },
-    { '@type': 'ListItem', position: 5, item: { '@type': 'Service', name: 'Candy Bar para Bautizo' } },
-    { '@type': 'ListItem', position: 6, item: { '@type': 'Service', name: 'Candy Bar para Primera Comunion' } },
-    { '@type': 'ListItem', position: 7, item: { '@type': 'Service', name: 'Candy Bar para Eventos Corporativos' } },
-    { '@type': 'ListItem', position: 8, item: { '@type': 'Service', name: 'Candy Bar para Graduacion' } }
+    { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Mesas Tematicas Personalizadas', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesas-tematicas' } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Mesa de Dulces para Boda', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-boda' } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'Mesa de Dulces para XV Anos', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-xv-anos' } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Mesa de Dulces para Baby Shower', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-baby-shower' } },
+    { '@type': 'ListItem', position: 5, item: { '@type': 'Service', name: 'Mesa de Dulces para Cumpleanos Infantil', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' } },
+    { '@type': 'ListItem', position: 6, item: { '@type': 'Service', name: 'Mesa de Dulces para Bautizo', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-bautizo' } },
+    { '@type': 'ListItem', position: 7, item: { '@type': 'Service', name: 'Mesa de Dulces para Primera Comunion', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-primera-comunion' } },
+    { '@type': 'ListItem', position: 8, item: { '@type': 'Service', name: 'Mesa de Dulces para Eventos Corporativos', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-corporativos' } },
+    { '@type': 'ListItem', position: 9, item: { '@type': 'Service', name: 'Mesa de Dulces para Graduacion', url: 'https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-graduacion' } }
   ]
 };
+
+// Comparison table data for all 9 L4
+const comparativaEventos = [
+  { evento: 'Mesas Temáticas', precio: '$5,200 - $14,800', audiencia: '30-100+ invitados', destacado: 'Concepto a medida · Moodboard previo', url: '/candy-bar-eventos/mesas-tematicas' },
+  { evento: 'Bodas', precio: '$8,500 - $22,000', audiencia: '50-200+ invitados', destacado: 'Coordinación wedding planner · Monograma novios', url: '/candy-bar-eventos/mesa-dulces-boda' },
+  { evento: 'XV Años', precio: '$7,500 - $18,500', audiencia: '50-200+ invitadas', destacado: 'Backdrop instagrameable · Coordinación vals', url: '/candy-bar-eventos/mesa-dulces-xv-anos' },
+  { evento: 'Baby Shower', precio: '$4,500 - $11,800', audiencia: '20-80+ invitadas', destacado: '100% apto mamá embarazada · Gender Reveal', url: '/candy-bar-eventos/mesa-dulces-baby-shower' },
+  { evento: 'Cumpleaños Infantil', precio: '$3,500 - $9,500', audiencia: '15-60+ niños', destacado: '40+ personajes · Sin nueces default · Disfrazado', url: '/candy-bar-eventos/mesa-dulces-cumpleanos-infantil' },
+  { evento: 'Bautizo', precio: '$3,800 - $10,500', audiencia: '30-100+ invitados', destacado: '15+ parroquias CDMX · Símbolos religiosos', url: '/candy-bar-eventos/mesa-dulces-bautizo' },
+  { evento: 'Primera Comunión', precio: '$4,200 - $12,800', audiencia: '40-100+ invitados', destacado: '20+ catequesis · 7 símbolos eucarísticos', url: '/candy-bar-eventos/mesa-dulces-primera-comunion' },
+  { evento: 'Eventos Corporativos', precio: '$8,500 - $28,500', audiencia: '50-500+ asistentes', destacado: 'Branding integral · Factura A · NDA · 15+ venues', url: '/candy-bar-eventos/mesa-dulces-corporativos' },
+  { evento: 'Graduaciones', precio: '$5,200 - $16,500', audiencia: '50-400+ invitados', destacado: '15+ universidades CDMX · 6 niveles académicos', url: '/candy-bar-eventos/mesa-dulces-graduacion' }
+];
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -269,6 +284,16 @@ const faqSchema = {
       />
 
       <div class="service-grid">
+        <ServiceCard
+          href="/candy-bar-eventos/mesas-tematicas"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-tematica.avif')}
+          alt="Mesa de dulces tematica personalizada en CDMX"
+          title="Mesas Tematicas"
+          excerpt="Concepto a medida: Barbie, dinosaurios, casino, branding o tradicional mexicana. Moodboard, props y etiquetas a juego."
+          cta="Ver Mesas Tematicas"
+          badge="Personalizadas"
+          subsections={subsCBTematicas}
+        />
         <ServiceCard
           href="/candy-bar-eventos/mesa-dulces-boda"
           image={getCdnUrl('/img/eventos/bodas/mesa-dulces-boda-elegante-macarons-cristaleria.avif')}
@@ -469,5 +494,106 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- ===================== Comparison Table 9 Eventos (UNIQUE - homologación) ===================== -->
+  <section class="hub-comparativa section-padding" id="comparativa-eventos">
+    <div class="container">
+      <SectionHeader
+        title="Compara los"
+        titleHighlight="9 tipos de evento"
+        subtitle="Precio referencial, audiencia y diferenciador clave para cada categoría"
+        content={`<p>Cada tipo de evento tiene su propia escala de precios, audiencia y diferenciador clave. Esta tabla te ayuda a <strong>decidir cuál es el formato MEDEDUL ideal</strong> para tu celebración. Todos los precios son referenciales desde paquete Esencial hasta Luxury/Master/Enterprise según categoría.</p>`}
+      />
+      <div class="hub-comparativa__wrap">
+        <table class="hub-comparativa__table">
+          <thead>
+            <tr>
+              <th>Tipo de evento</th>
+              <th>Rango de precio</th>
+              <th>Audiencia típica</th>
+              <th>Diferenciador clave</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativaEventos.map(e => (
+              <tr>
+                <td class="hub-comparativa__evento">{e.evento}</td>
+                <td>{e.precio}</td>
+                <td>{e.audiencia}</td>
+                <td class="hub-comparativa__diff">{e.destacado}</td>
+                <td><a href={e.url} class="hub-comparativa__link">Ver →</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <FAQContactModule faqItems={faqItems} />
 </BaseLayout>
+
+<style>
+  /* ===== Comparison table 9 eventos ===== */
+  .hub-comparativa { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); }
+  .hub-comparativa__wrap {
+    overflow-x: auto;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .hub-comparativa__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    min-width: 800px;
+  }
+  .hub-comparativa__table thead {
+    background: linear-gradient(135deg, #D1007A 0%, #7A2BC2 100%);
+    color: #fff;
+  }
+  .hub-comparativa__table th,
+  .hub-comparativa__table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f4;
+  }
+  .hub-comparativa__table th {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .hub-comparativa__table td {
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .hub-comparativa__evento {
+    font-weight: 700;
+    color: #D1007A;
+  }
+  .hub-comparativa__diff {
+    color: #555;
+    font-size: 0.85rem;
+  }
+  .hub-comparativa__link {
+    display: inline-block;
+    background: #D1007A;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .hub-comparativa__link:hover {
+    transform: translateY(-2px);
+    background: #A0005F;
+  }
+  .hub-comparativa__table tbody tr:hover {
+    background: #fafafa;
+  }
+</style>
