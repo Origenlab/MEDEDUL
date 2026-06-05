@@ -63,7 +63,6 @@ const breadcrumbItems = [
     type="Article"
     data={{ title, description, image: getCdnUrl(heroImage), url: articleUrl, datePublished: datePublishedISO, dateModified: dateModifiedISO }}
   />
-  {faqs && faqs.length > 0 && <JsonLd type="FAQPage" data={{ faqs }} />}
 
   <Breadcrumbs items={breadcrumbItems} />
 

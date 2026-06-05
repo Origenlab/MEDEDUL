@@ -8,7 +8,7 @@ import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
-import { buildServiceSchema, buildFaqSchema } from '@/lib/schema';
+import { buildServiceSchema } from '@/lib/schema';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -181,7 +181,6 @@ const serviceSchema = buildServiceSchema({
   packages
 });
 
-const faqSchema = buildFaqSchema(faqs);
 ---
 
 <BaseLayout
@@ -193,7 +192,6 @@ const faqSchema = buildFaqSchema(faqs);
 >
   <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 

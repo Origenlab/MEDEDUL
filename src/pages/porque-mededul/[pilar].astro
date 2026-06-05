@@ -9,7 +9,7 @@ import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { porqueMededulPillars, type PqmPillar } from '@/data/porqueMededul';
-import { buildServiceSchema, buildFaqSchema } from '@/lib/schema';
+import { buildServiceSchema } from '@/lib/schema';
 
 export function getStaticPaths() {
   return porqueMededulPillars.map((pillar) => ({
@@ -34,7 +34,6 @@ const serviceSchema = buildServiceSchema({
   bestRating: '5'
 });
 
-const faqSchema = buildFaqSchema(faqs);
 ---
 
 <BaseLayout
@@ -46,7 +45,6 @@ const faqSchema = buildFaqSchema(faqs);
 >
   <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
