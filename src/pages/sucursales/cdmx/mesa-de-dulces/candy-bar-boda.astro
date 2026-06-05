@@ -373,27 +373,6 @@ const serviceSchema = {
         "@type": "PeopleAudience",
         "audienceType": "Novios planeando boda en Ciudad de México"
       }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" },
-        { "@type": "ListItem", "position": 3, "name": "CDMX", "item": "https://mesas-de-dulces.com/sucursales/cdmx" },
-        { "@type": "ListItem", "position": 4, "name": "Mesa de Dulces", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces" },
-        { "@type": "ListItem", "position": 5, "name": "Candy Bar para Boda", "item": "https://mesas-de-dulces.com/sucursales/cdmx/mesa-de-dulces/candy-bar-boda" }
-      ]
     }
   ]
 };
