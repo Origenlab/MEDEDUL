@@ -178,7 +178,7 @@ const categorias = [
         titleHighlight="Generales"
         subtitle="Lo básico que necesitas saber"
       />
-      <FAQ items={faqsGenerales} id="faq-generales" />
+      <FAQ items={faqsGenerales} id="faq-generales" emitSchema={false} />
     </div>
   </section>
 
@@ -190,7 +190,7 @@ const categorias = [
         titleHighlight="Facturación"
         subtitle="Cómo funciona el proceso de pago"
       />
-      <FAQ items={faqsPago} id="faq-pago" />
+      <FAQ items={faqsPago} id="faq-pago" emitSchema={false} />
     </div>
   </section>
 
@@ -202,7 +202,7 @@ const categorias = [
         titleHighlight="Servicio"
         subtitle="Qué incluye y cómo funciona"
       />
-      <FAQ items={faqsServicio} id="faq-servicio" />
+      <FAQ items={faqsServicio} id="faq-servicio" emitSchema={false} />
     </div>
   </section>
 
@@ -214,7 +214,7 @@ const categorias = [
         titleHighlight="Opciones"
         subtitle="Cómo adaptamos la mesa a tu evento"
       />
-      <FAQ items={faqsPersonalizacion} id="faq-personalizacion" />
+      <FAQ items={faqsPersonalizacion} id="faq-personalizacion" emitSchema={false} />
     </div>
   </section>
 
@@ -226,11 +226,11 @@ const categorias = [
         titleHighlight="Montaje"
         subtitle="Cómo coordinamos el día del evento"
       />
-      <FAQ items={faqsLogistica} id="faq-logistica" />
+      <FAQ items={faqsLogistica} id="faq-logistica" emitSchema={false} />
     </div>
   </section>
 
-  <FAQContactModule faqItems={faqsGenerales} />
+  <FAQContactModule faqItems={faqsGenerales} emitSchema={false} />
 </BaseLayout>
 
 <style>

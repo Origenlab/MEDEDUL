@@ -22,9 +22,12 @@ interface FAQItem {
 interface Props {
   items: FAQItem[];
   id?: string;
+  /** Emitir el JSON-LD FAQPage. Poner en false cuando hay varios FAQ en una pagina
+   *  (la pagina debe emitir un unico FAQPage que agregue todas las preguntas). */
+  emitSchema?: boolean;
 }
 
-const { items, id = 'faq' } = Astro.props;
+const { items, id = 'faq', emitSchema = true } = Astro.props;
 
 // Schema FAQPage JSON-LD
 const faqSchema = {
@@ -41,7 +44,7 @@ const faqSchema = {
 };
 ---
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+{emitSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />}
 <div class="faq" id={id}>
   {items.map((item) => (
     <details class="faq__item" data-faq-item>

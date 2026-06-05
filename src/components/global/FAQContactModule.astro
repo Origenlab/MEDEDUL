@@ -21,13 +21,16 @@ interface Props {
   phone?: string;
   email?: string;
   whatsappNumber?: string;
+  /** Pasa a false cuando la pagina ya emite su propio FAQPage agregado. */
+  emitSchema?: boolean;
 }
 
 const {
   faqItems,
   phone = '55 2522 6442',
   email = 'info@mesas-de-dulces.com',
-  whatsappNumber = '525525226442'
+  whatsappNumber = '525525226442',
+  emitSchema = true
 } = Astro.props;
 ---
 
@@ -51,7 +54,7 @@ const {
       </div>
 
       <div class="fqm-accordion-wrapper">
-        <FAQ items={faqItems} />
+        <FAQ items={faqItems} emitSchema={emitSchema} />
       </div>
 
       <!-- Quick contact strip -->
