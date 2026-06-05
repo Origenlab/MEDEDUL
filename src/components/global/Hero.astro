@@ -352,7 +352,7 @@ const renderTitle = () => {
 
   /* Title */
   .hero h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Poppins Fallback', sans-serif;
     font-weight: 800;
     font-size: clamp(2rem, 4vw, 2.8rem);
     line-height: 1.2;
@@ -363,7 +363,7 @@ const renderTitle = () => {
 
   .hero h1 :global(span),
   .hero h1 :global(.highlight) {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Pacifico', 'Pacifico Fallback', cursive;
     color: var(--rosa-principal, #D1007A);
     font-weight: 400;
   }

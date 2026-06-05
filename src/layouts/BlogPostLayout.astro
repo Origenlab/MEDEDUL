@@ -19,7 +19,9 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, category, heroImage, heroImageAlt, tags, faqs } = post.data;
+const { title, description, category, heroImage, heroImageAlt, tags, faqs, publishDate, modifiedDate } = post.data;
+const datePublishedISO = publishDate ? new Date(publishDate).toISOString() : undefined;
+const dateModifiedISO = modifiedDate ? new Date(modifiedDate).toISOString() : datePublishedISO;
 const articleHeroSrc = heroImage ? getCdnUrl(heroImage, { w: 960, q: 82 }) : '';
 const articleHeroSrcSet = heroImage ? getCdnSrcSet(heroImage, [640, 960, 1280, 1600], { q: 82 }) : '';
 const articleHeroSizes = '(max-width: 768px) 100vw, (max-width: 1400px) 70vw, 960px';
@@ -59,7 +61,7 @@ const breadcrumbItems = [
 >
   <JsonLd
     type="Article"
-    data={{ title, description, image: getCdnUrl(heroImage), url: articleUrl }}
+    data={{ title, description, image: getCdnUrl(heroImage), url: articleUrl, datePublished: datePublishedISO, dateModified: dateModifiedISO }}
   />
   {faqs && faqs.length > 0 && <JsonLd type="FAQPage" data={{ faqs }} />}
 

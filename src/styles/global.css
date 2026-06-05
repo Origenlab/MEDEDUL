@@ -1,4 +1,26 @@
 /* =====================================================
+   FUENTES FALLBACK CON METRICAS AJUSTADAS (anti-CLS)
+   Igualan el espacio de Poppins/Pacifico mientras cargan
+   las webfonts, para que el swap NO mueva el layout.
+   ===================================================== */
+@font-face {
+    font-family: 'Poppins Fallback';
+    src: local('Arial');
+    ascent-override: 92.58%;
+    descent-override: 30.86%;
+    line-gap-override: 8.82%;
+    size-adjust: 113.43%;
+}
+@font-face {
+    font-family: 'Pacifico Fallback';
+    src: local('Arial');
+    ascent-override: 95.79%;
+    descent-override: 33.15%;
+    line-gap-override: 0%;
+    size-adjust: 137.69%;
+}
+
+/* =====================================================
    KILL-SWITCH GLOBAL — SIN ANIMACIONES EXCEPTO BOTONES
    Solo botones pueden tener transition / transform / animation.
    ===================================================== */
@@ -142,8 +164,8 @@ button:active,
     --gradiente-fiesta: linear-gradient(135deg, #5A1AA3 0%, #D1007A 100%);
     --rosa-hover: #A0005F;
 
-    --font-principal: 'Poppins', sans-serif;
-    --font-decorativa: 'Pacifico', cursive;
+    --font-principal: 'Poppins', 'Poppins Fallback', sans-serif;
+    --font-decorativa: 'Pacifico', 'Pacifico Fallback', cursive;
 
     --sombra-suave: 0 4px 20px rgba(0,0,0,0.08);
     --sombra-media: 0 8px 30px rgba(0,0,0,0.12);

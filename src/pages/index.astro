@@ -49,8 +49,8 @@ const faqItems = [
 const galleryWidths = [320, 480, 640, 800, 960, 1200];
 const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 const getGalleryImage = (path: string) => ({
-  src: getCdnUrl(path, { w: 800, q: 80 }),
-  srcset: getCdnSrcSet(path, galleryWidths, { q: 80 })
+  src: getCdnUrl(path, { w: 800, q: 75 }),
+  srcset: getCdnSrcSet(path, galleryWidths, { q: 75 })
 });
 ---
 
@@ -60,6 +60,7 @@ const getGalleryImage = (path: string) => ({
   includeOrganizationSchema={true}
   includeLocalBusinessSchema={true}
   includeServiceSchema={true}
+  includeWebSiteSchema={true}
 >
   <!-- FAQ Schema -->
   <JsonLd type="FAQPage" data={{

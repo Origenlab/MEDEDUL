@@ -1,0 +1,29 @@
+# Cloudflare Pages headers
+# Cache larga e inmutable para estaticos con hash o versionados.
+# El HTML NO se cachea largo (revalida) para que el deploy se vea al instante.
+
+# Assets generados por Astro (con hash en el nombre)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imagenes
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fuentes self-host (si se agregan en /fonts)
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Branding / favicons
+/img/branding/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS y JS por extension (fallback)
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML: revalidar siempre para reflejar nuevos deploys
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

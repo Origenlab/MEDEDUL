@@ -2,23 +2,27 @@
 import { getCdnUrl } from '@/lib/cdn';
 
 interface Props {
-  type: 'Organization' | 'LocalBusiness' | 'Article' | 'FAQPage' | 'BreadcrumbList' | 'Service';
+  type: 'Organization' | 'LocalBusiness' | 'Article' | 'FAQPage' | 'WebSite' | 'Service';
   data?: any;
 }
 
 const { type, data = {} } = Astro.props;
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
+// Base sin slash final para construir @id estables y enlazables.
+const baseUrl = siteUrl.replace(/\/$/, '');
+const orgId = `${baseUrl}#organization`;
 
 // Organization Schema
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": orgId,
   "name": "Mededul",
   "alternateName": "Mededul Mesas de Dulces",
   "url": siteUrl,
   "logo": getCdnUrl("/img/branding/logo-mededul-mesas-de-dulces.avif"),
   "description": "Empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México, Estado de México, Toluca y Metepec",
-  "foundingDate": "2020",
+  "foundingDate": "2018",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Av. Ejército Nacional Mexicano 216, Anzures",
@@ -134,6 +138,7 @@ function getArticleSchema(articleData: any) {
     },
     "publisher": {
       "@type": "Organization",
+      "@id": orgId,
       "name": "Mededul",
       "logo": {
         "@type": "ImageObject",
@@ -143,8 +148,17 @@ function getArticleSchema(articleData: any) {
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": articleData.url
-    }
+    },
+    "inLanguage": "es-MX"
   };
+
+  // Fechas (Google las usa para frescura y rich results)
+  if (articleData.datePublished) {
+    schema.datePublished = articleData.datePublished;
+  }
+  if (articleData.dateModified || articleData.datePublished) {
+    schema.dateModified = articleData.dateModified || articleData.datePublished;
+  }
 
   return schema;
 }
@@ -165,19 +179,17 @@ function getFAQSchema(faqs: Array<{question: string, answer: string}>) {
   };
 }
 
-// BreadcrumbList Schema (requires data.items prop)
-function getBreadcrumbSchema(items: Array<{name: string, url: string}>) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.url
-    }))
-  };
-}
+// WebSite Schema (entidad raíz del sitio; sin SearchAction porque no hay buscador)
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${baseUrl}#website`,
+  "url": siteUrl,
+  "name": "Mededul — Mesas de Dulces",
+  "alternateName": "Mededul Mesas de Dulces CDMX, Toluca y Metepec",
+  "inLanguage": "es-MX",
+  "publisher": { "@id": orgId }
+};
 
 // Service Schema
 const serviceSchema = {
@@ -252,8 +264,8 @@ switch (type) {
   case 'FAQPage':
     schema = getFAQSchema(data.faqs);
     break;
-  case 'BreadcrumbList':
-    schema = getBreadcrumbSchema(data.items);
+  case 'WebSite':
+    schema = websiteSchema;
     break;
   case 'Service':
     schema = serviceSchema;

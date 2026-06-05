@@ -8,6 +8,11 @@ export const CDN_CONFIG = {
   baseUrl: 'https://e2pex68gctc.exactdn.com',
 } as const;
 
+// Calidad por defecto para imagenes servidas por el CDN.
+// AVIF a 75 es visualmente equivalente a 80 y reduce ~15-20% el peso.
+// Cualquier llamada que pase su propio `q` lo sobreescribe.
+const DEFAULT_QUALITY = 75;
+
 const SITE_IMAGE_HOSTS = new Set([
   'mesas-de-dulces.com',
   'www.mesas-de-dulces.com'
@@ -45,10 +50,16 @@ export function getCdnUrl(imagePath: string, params?: Record<string, string | nu
     baseUrl = `${CDN_CONFIG.baseUrl}${cleanPath}`;
   }
 
+  // Aplicar calidad por defecto solo a URLs del CDN (no a externas).
+  const isCdnUrl = baseUrl.startsWith(CDN_CONFIG.baseUrl);
+  const effectiveParams = isCdnUrl
+    ? { q: DEFAULT_QUALITY, ...(params || {}) }
+    : (params || {});
+
   // Add optimization parameters if provided
-  if (params && Object.keys(params).length > 0) {
+  if (effectiveParams && Object.keys(effectiveParams).length > 0) {
     const url = new URL(baseUrl, CDN_CONFIG.baseUrl);
-    Object.entries(params).forEach(([key, value]) => {
+    Object.entries(effectiveParams).forEach(([key, value]) => {
       url.searchParams.set(key, String(value));
     });
     return /^https?:\/\//i.test(baseUrl) ? url.toString() : `${baseUrl}?${url.searchParams.toString()}`;

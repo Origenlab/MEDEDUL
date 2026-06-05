@@ -80,7 +80,7 @@ const {
       <div class="review-v6__rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
         <meta itemprop="ratingValue" content={String(rating)} />
         <meta itemprop="bestRating" content="5" />
-        <div class="review-v6__stars" aria-label={`${rating} de 5 estrellas`}>
+        <div class="review-v6__stars" role="img" aria-label={`${rating} de 5 estrellas`}>
           {[1,2,3,4,5].map((star) => (
             <svg
               class={`review-v6__star ${star <= rating ? 'review-v6__star--filled' : ''}`}
