@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
@@ -31,6 +30,7 @@ const serviceSchema = buildServiceSchema({
   description: pillar.schema.description,
   offerPrefix: pillar.schema.offerPrefix,
   packages,
+  canonical: `/porque-mededul/${pillar.slug}`,
   bestRating: '5'
 });
 
@@ -43,7 +43,6 @@ const serviceSchema = buildServiceSchema({
   ogImage={meta.ogImage}
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />

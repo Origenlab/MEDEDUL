@@ -1,9 +1,19 @@
 /**
  * Helpers de JSON-LD reutilizables para páginas de servicio.
  * Centralizan el boilerplate de Service/AggregateOffer y FAQPage que antes
- * se repetía (~50 líneas) en cada página. La forma del objeto y el orden de
- * claves se conservan EXACTOS para no alterar el HTML generado.
+ * se repetía (~50 líneas) en cada página.
  */
+import { getCdnUrl } from './cdn';
+
+const SITE_URL = 'https://mesas-de-dulces.com';
+const PROVIDER_LOGO = '/img/branding/logo-mededul-mesas-de-dulces.avif';
+// Zonas de cobertura reales del negocio (CDMX + Valle de Toluca + EdoMex).
+const DEFAULT_AREA_SERVED = [
+  { '@type': 'City', name: 'Ciudad de Mexico' },
+  { '@type': 'City', name: 'Toluca' },
+  { '@type': 'City', name: 'Metepec' },
+  { '@type': 'AdministrativeArea', name: 'Estado de Mexico' }
+];
 
 export interface SchemaPackageLike {
   name: string;
@@ -35,7 +45,12 @@ export interface ServiceSchemaOptions {
   /** Prefijo del nombre de cada Offer, ej. "Tabla de Quesos" -> "Tabla de Quesos Esencial". */
   offerPrefix: string;
   packages: SchemaPackageLike[];
-  areaServedName?: string;   // default: "Ciudad de Mexico"
+  /** Ruta canónica de la página (ej. "/tipos-de-mesas-de-dulces/mesa-de-postres") para el @id. */
+  canonical?: string;
+  /** Tipo de servicio; por defecto usa offerPrefix. */
+  serviceType?: string;
+  /** Lista de zonas; por defecto CDMX + Toluca + Metepec + EdoMex. */
+  areaServed?: { '@type': string; name: string }[];
   telephone?: string;        // default: "+525525226442"
   ratingValue?: string;      // default: "4.9"
   reviewCount?: string;      // default: "127"
@@ -54,18 +69,21 @@ export function buildServiceSchema(o: ServiceSchemaOptions) {
   };
   if (o.bestRating) aggregateRating.bestRating = o.bestRating;
 
-  return {
+  const service: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: o.name,
+    serviceType: o.serviceType ?? o.offerPrefix,
     description: o.description,
     provider: {
       '@type': 'LocalBusiness',
       name: 'Mededul',
+      image: getCdnUrl(PROVIDER_LOGO),
       telephone: o.telephone ?? '+525525226442',
+      url: SITE_URL,
       aggregateRating
     },
-    areaServed: { '@type': 'City', name: o.areaServedName ?? 'Ciudad de Mexico' },
+    areaServed: o.areaServed ?? DEFAULT_AREA_SERVED,
     offers: {
       '@type': 'AggregateOffer',
       lowPrice: String(Math.min(...nums)),
@@ -82,4 +100,9 @@ export function buildServiceSchema(o: ServiceSchemaOptions) {
       }))
     }
   };
+
+  // @id estable y enlazable cuando se conoce la ruta canónica.
+  if (o.canonical) service['@id'] = `${SITE_URL}${o.canonical}#service`;
+
+  return service;
 }

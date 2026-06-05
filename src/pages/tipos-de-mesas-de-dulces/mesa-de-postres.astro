@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
@@ -180,7 +179,8 @@ const serviceSchema = buildServiceSchema({
   name: 'Barra de Postres para Fiestas y Bodas en CDMX',
   description: 'Buffet de postres deliciosos con tartas, chocolate, macarrones y petit fours para fiestas, bodas, cumpleanos y baby showers en Ciudad de Mexico.',
   offerPrefix: 'Barra de Postres',
-  packages
+  packages,
+  canonical: '/tipos-de-mesas-de-dulces/mesa-de-postres'
 });
 
 ---
@@ -192,7 +192,6 @@ const serviceSchema = buildServiceSchema({
   ogImage="/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />

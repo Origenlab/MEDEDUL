@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
 import PricingPackages from '@/components/global/PricingPackages.astro';
 import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
@@ -179,7 +178,8 @@ const serviceSchema = buildServiceSchema({
   name: 'Mesa de Botanas para Fiestas y Cumpleanos en CDMX',
   description: 'Buffet de botanas con quesos, cacahuates, palomitas y sabores mexicanos para fiestas, cumpleanos, XV anos y celebraciones. Decoracion tematica estilo Pinterest en Ciudad de Mexico.',
   offerPrefix: 'Mesa de Botanas',
-  packages
+  packages,
+  canonical: '/tipos-de-mesas-de-dulces/mesa-de-botanas'
 });
 
 ---
@@ -191,7 +191,6 @@ const serviceSchema = buildServiceSchema({
   ogImage="/img/tipos-de-mesas/botanas/mesas-de-botanas-en-cdmx.avif"
   includeCategoryStyles={true}
 >
-  <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
