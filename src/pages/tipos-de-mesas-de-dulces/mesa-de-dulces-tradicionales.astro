@@ -9,6 +9,7 @@ import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
 
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { buildServiceSchema, buildFaqSchema } from '@/lib/schema';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -178,44 +179,14 @@ const eventCards = [
   }
 ];
 
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+const serviceSchema = buildServiceSchema({
   name: 'Mesa de Dulces Tradicionales Mexicanos para Fiestas en CDMX',
   description: 'Renta de mesa de dulces tradicionales con cocadas, jamoncillos, glorias y dulces regionales para fiestas, bodas y XV anos. Gastronomia mexicana autentica con tematica tradicional en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4300',
-    highPrice: '11500',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Mesa de Dulces Tradicionales ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
+  offerPrefix: 'Mesa de Dulces Tradicionales',
+  packages
+});
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
-};
+const faqSchema = buildFaqSchema(faqs);
 ---
 
 <BaseLayout

@@ -8,6 +8,7 @@ import WhyChooseUs from '@/components/global/WhyChooseUs.astro';
 import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { buildServiceSchema, buildFaqSchema } from '@/lib/schema';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -173,54 +174,14 @@ const eventCards = [
   }
 ];
 
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+const serviceSchema = buildServiceSchema({
   name: 'Arreglos de Frutas para Fiestas y Cumpleanos en CDMX',
   description: 'Bandejas de frutas frescas con sandia, mango, kiwi y pina para fiestas, cumpleanos y celebraciones. Diseno decorativo estilo Pinterest en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127'
-    }
-  },
-  areaServed: {
-    '@type': 'City',
-    name: 'Ciudad de Mexico'
-  },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '4200',
-    highPrice: '11900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Arreglo de Frutas ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
+  offerPrefix: 'Arreglo de Frutas',
+  packages
+});
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer
-    }
-  }))
-};
+const faqSchema = buildFaqSchema(faqs);
 ---
 
 <BaseLayout

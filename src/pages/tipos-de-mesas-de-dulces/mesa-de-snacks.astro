@@ -9,6 +9,7 @@ import ProcessSteps from '@/components/global/ProcessSteps.astro';
 import EventsGrid from '@/components/global/EventsGrid.astro';
 
 import FAQContactModule from '@/components/global/FAQContactModule.astro';
+import { buildServiceSchema, buildFaqSchema } from '@/lib/schema';
 
 const breadcrumbItems = [
   { name: 'Tipos de Mesas', url: '/tipos-de-mesas-de-dulces' },
@@ -174,44 +175,14 @@ const eventCards = [
   }
 ];
 
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+const serviceSchema = buildServiceSchema({
   name: 'Barra de Botanas para Fiestas y Bodas en CDMX',
   description: 'Buffet de botanas con canapes, quesos y bandejas decorativas para fiestas, bodas, cumpleanos y celebraciones. Renta con catering y decoracion tematica en Ciudad de Mexico.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127'
-    }
-  },
-  areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
-  offers: {
-    '@type': 'AggregateOffer',
-    lowPrice: '3900',
-    highPrice: '10900',
-    priceCurrency: 'MXN',
-    offerCount: '3',
-    offers: packages.map(pkg => ({
-      '@type': 'Offer',
-      name: `Barra de Botanas ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
-      priceCurrency: 'MXN',
-      description: pkg.guests,
-      availability: 'https://schema.org/InStock'
-    }))
-  }
-};
+  offerPrefix: 'Barra de Botanas',
+  packages
+});
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } }))
-};
+const faqSchema = buildFaqSchema(faqs);
 ---
 
 <BaseLayout
