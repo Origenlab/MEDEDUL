@@ -1,7 +1,6 @@
 ---
 // Homepage - Mededul Mesas de Dulces
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
 import Hero from '@/components/global/Hero.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import SectionHeader from '@/components/global/SectionHeader.astro';
@@ -62,28 +61,6 @@ const getGalleryImage = (path: string) => ({
   includeServiceSchema={true}
   includeWebSiteSchema={true}
 >
-  <!-- FAQ Schema -->
-  <JsonLd type="FAQPage" data={{
-    faqs: [
-      {
-        question: "¿Cuánto cuesta una mesa de dulces en CDMX?",
-        answer: "El precio de una mesa de dulces varía según el número de invitados, tipo de dulces y complejidad del diseño. En Mededul manejamos paquetes desde $3,500 MXN para eventos pequeños hasta $15,000 MXN para grandes celebraciones."
-      },
-      {
-        question: "¿Con cuánta anticipación debo reservar mi mesa de dulces?",
-        answer: "Recomendamos reservar con 2-3 semanas de anticipación para eventos regulares. Para temporadas altas como diciembre, mayo y noviembre, sugerimos 4-6 semanas de anticipación."
-      },
-      {
-        question: "¿Qué incluye el servicio de renta de mesa de dulces?",
-        answer: "Nuestro servicio incluye: diseño personalizado, selección de dulces premium, montaje profesional, mobiliario y decoración, supervisión durante el evento y desmontaje al finalizar."
-      },
-      {
-        question: "¿Qué zonas cubren en CDMX, EdoMex y Toluca?",
-        answer: "Cubrimos toda la Ciudad de México y área metropolitana (Polanco, Santa Fe, Coyoacán, Naucalpan, Tlalnepantla, Huixquilucan, Interlomas) además del Valle de Toluca completo: Toluca, Metepec, Zinacantepec, Lerma, Ocoyoacac y Calimaya. Operamos con 3 sucursales: Anzures, Condesa y Toluca-Metepec."
-      }
-    ]
-  }} />
-
   <!-- Page Hero Section -->
   <Hero
     id="inicio"
