@@ -1,0 +1,104 @@
+---
+/**
+ * SucursalCtaBanner — banner CTA que enlaza a la pagina de sucursal de un servicio.
+ * Reemplaza el bloque inline-styled duplicado en las paginas de tipos-de-mesas.
+ * Estilos scoped (una sola vez) en lugar de style="..." repetido por pagina.
+ *
+ * @example
+ * <SucursalCtaBanner
+ *   eyebrow="Evento en CDMX?"
+ *   highlight="Mesa de Frutas CDMX"
+ *   description="Paquetes desde $4,800 MXN..."
+ *   href="/sucursales/cdmx/mesa-de-frutas"
+ *   ctaText="Ver Mesa de Frutas CDMX"
+ * />
+ */
+interface Props {
+  eyebrow: string;
+  highlight: string;
+  description: string;
+  href: string;
+  ctaText: string;
+  /** Acento de color: 'pink' (default) o 'gold' (boutique/gourmet). */
+  accent?: 'pink' | 'gold';
+  /** Prefijo del titulo antes del highlight. */
+  titlePrefix?: string;
+}
+
+const {
+  eyebrow,
+  highlight,
+  description,
+  href,
+  ctaText,
+  accent = 'pink',
+  titlePrefix = 'Visita nuestra pagina exclusiva'
+} = Astro.props;
+---
+
+<section class={`scb scb--${accent}`}>
+  <div class="container scb__inner">
+    <div class="scb__text">
+      <strong class="scb__eyebrow">{eyebrow}</strong>
+      <h3 class="scb__title">{titlePrefix} <span>{highlight}</span></h3>
+      <p class="scb__desc">{description}</p>
+    </div>
+    <a href={href} class="scb__cta">
+      {ctaText}
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .scb {
+    padding: 30px 0;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff0f7 100%);
+  }
+  .scb__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 24px 28px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+  }
+  .scb__text { flex: 1; min-width: 260px; }
+  .scb__eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .scb__title {
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+    color: #1a1a1a;
+  }
+  .scb__title span { color: #D1007A; }
+  .scb__desc { margin: 0; color: #666; font-size: 0.95rem; }
+  .scb__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    background: linear-gradient(135deg, #D1007A 0%, #A0005F 100%);
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(209, 0, 122, 0.3);
+    white-space: nowrap;
+  }
+
+  /* Acento rosa (default) */
+  .scb--pink .scb__inner { border: 1px dashed rgba(233, 30, 140, 0.3); }
+  .scb--pink .scb__eyebrow { color: #D1007A; letter-spacing: 1px; }
+
+  /* Acento dorado (boutique / gourmet) */
+  .scb--gold .scb__inner { border: 1px dashed rgba(212, 175, 55, 0.4); }
+  .scb--gold .scb__eyebrow { color: #d4af37; letter-spacing: 1.5px; }
+</style>
