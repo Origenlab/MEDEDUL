@@ -400,25 +400,6 @@ const serviceSchema = {
         "@type": "PeopleAudience",
         "audienceType": "Familias con hijos planeando cumpleaños"
       }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
-        { "@type": "ListItem", "position": 3, "name": "Mesa para Cumpleaños Infantil", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-cumpleanos-infantil" }
-      ]
     }
   ]
 };

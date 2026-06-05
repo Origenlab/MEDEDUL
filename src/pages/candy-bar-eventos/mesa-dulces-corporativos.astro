@@ -391,25 +391,6 @@ const serviceSchema = {
         "@type": "BusinessAudience",
         "audienceType": "Empresas, corporativos, multinacionales planeando eventos B2B en CDMX"
       }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer.replace(/<[^>]+>/g, '')
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Candy Bar por Evento", "item": "https://mesas-de-dulces.com/candy-bar-eventos" },
-        { "@type": "ListItem", "position": 3, "name": "Eventos Corporativos", "item": "https://mesas-de-dulces.com/candy-bar-eventos/mesa-dulces-corporativos" }
-      ]
     }
   ]
 };
