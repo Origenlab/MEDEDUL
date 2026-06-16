@@ -107,108 +107,70 @@ const menuItems = [
     ]
   },
   {
-    label: 'Sucursal CDMX',
-    href: '/sucursales/cdmx',
+    label: 'Sucursales',
+    href: '/sucursales',
     startsWith: true,
     megaMenu: [
       {
-        title: 'Servicios CDMX',
-        icon: '🍬',
+        title: 'Sucursal CDMX',
+        icon: '🏙️',
         color: '#D1007A',
         items: [
           { label: 'Mesa de Dulces CDMX', href: '/sucursales/cdmx/mesa-de-dulces' },
+          { label: 'Candy Bar Boda CDMX', href: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda' },
+          { label: 'Mesa XV Años CDMX', href: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos' },
+          { label: 'Baby Shower CDMX', href: '/sucursales/cdmx/mesa-de-dulces/baby-shower' },
           { label: 'Mesa de Frutas CDMX', href: '/sucursales/cdmx/mesa-de-frutas' },
           { label: 'Mesa de Postres CDMX', href: '/sucursales/cdmx/mesa-de-postres' },
           { label: 'Quesos y Embutidos CDMX', href: '/sucursales/cdmx/mesa-de-quesos-y-embutidos' }
         ],
-        viewAll: { label: 'Hub Sucursal CDMX', href: '/sucursales/cdmx' }
-      },
-      {
-        title: 'CDMX por Evento',
-        icon: '🎉',
-        color: '#A0005F',
-        items: [
-          { label: 'Candy Bar Boda CDMX', href: '/sucursales/cdmx/mesa-de-dulces/candy-bar-boda' },
-          { label: 'Mesa XV Años CDMX', href: '/sucursales/cdmx/mesa-de-dulces/mesa-xv-anos' },
-          { label: 'Baby Shower CDMX', href: '/sucursales/cdmx/mesa-de-dulces/baby-shower' },
-          { label: 'Cumpleaños Infantil CDMX', href: '/sucursales/cdmx/mesa-de-dulces/cumpleanos-infantil' }
-        ],
-        viewAll: { label: 'Ver mesa-de-dulces CDMX', href: '/sucursales/cdmx/mesa-de-dulces' }
+        viewAll: { label: 'Ver Sucursal CDMX', href: '/sucursales/cdmx' }
       },
       {
         title: 'CDMX por Zona',
         icon: '📍',
-        color: '#7A2BC2',
+        color: '#A0005F',
         items: [
           { label: 'Polanco', href: '/zonas-cdmx/polanco' },
           { label: 'Santa Fe', href: '/zonas-cdmx/santa-fe' },
-          { label: 'Interlomas', href: '/zonas-cdmx/interlomas' },
           { label: 'Condesa', href: '/zonas-cdmx/condesa' },
           { label: 'Roma Norte', href: '/zonas-cdmx/roma-norte' },
           { label: 'Coyoacán', href: '/zonas-cdmx/coyoacan' },
           { label: 'Del Valle', href: '/zonas-cdmx/del-valle' },
+          { label: 'Interlomas', href: '/zonas-cdmx/interlomas' },
           { label: 'Anzures · Narvarte · más', href: '/zonas-cdmx' }
         ],
         viewAll: { label: 'Cobertura CDMX (16 alcaldías)', href: '/zonas-cdmx' }
       },
       {
-        title: 'Recursos CDMX',
+        title: 'Sucursal Toluca',
+        icon: '🏔️',
+        color: '#7A2BC2',
+        items: [
+          { label: 'Mesa de Dulces Toluca', href: '/sucursales/toluca/mesa-de-dulces' },
+          { label: 'Candy Bar Boda Toluca', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda' },
+          { label: 'Mesa XV Años Toluca', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos' },
+          { label: 'Baby Shower Toluca', href: '/sucursales/toluca/mesa-de-dulces/baby-shower' },
+          { label: 'Mesa de Frutas Toluca', href: '/sucursales/toluca/mesa-de-frutas' },
+          { label: 'Mesa de Postres Toluca', href: '/sucursales/toluca/mesa-de-postres' },
+          { label: 'Mesas de Dulces Metepec', href: '/mesas-de-dulces-metepec' },
+          { label: 'Mesas de Dulces Zinacantepec', href: '/mesas-de-dulces-zinacantepec' }
+        ],
+        viewAll: { label: 'Ver Sucursal Toluca', href: '/sucursales/toluca' }
+      },
+      {
+        title: 'Recursos',
         icon: '📞',
         color: '#3A0A74',
         items: [
-          { label: 'Cotizar mesa CDMX', href: '/cotizar' },
+          { label: 'Ver todas las sucursales', href: '/sucursales' },
+          { label: 'Cotizar mesa', href: '/cotizar' },
           { label: 'Galería de eventos', href: '/galeria' },
           { label: 'Testimonios', href: '/testimonios' },
           { label: 'Precios y paquetes', href: '/precios' },
           { label: 'Cómo trabajamos', href: '/proceso' }
         ],
-        viewAll: { label: 'WhatsApp CDMX', href: 'https://wa.me/525525226442' }
-      }
-    ]
-  },
-  {
-    label: 'Sucursal Toluca',
-    href: '/sucursales/toluca',
-    startsWith: false,
-    megaMenu: [
-      {
-        title: 'Sucursal Toluca-Metepec',
-        icon: '🏞️',
-        color: '#7A2BC2',
-        items: [
-          { label: 'Hub Sucursal Toluca', href: '/sucursales/toluca' },
-          { label: 'Mesa de Dulces Toluca', href: '/sucursales/toluca/mesa-de-dulces' },
-          { label: '↳ Candy Bar para Boda Toluca', href: '/sucursales/toluca/mesa-de-dulces/candy-bar-boda' },
-          { label: '↳ Mesa para XV Años Toluca', href: '/sucursales/toluca/mesa-de-dulces/mesa-xv-anos' },
-          { label: '↳ Baby Shower Toluca', href: '/sucursales/toluca/mesa-de-dulces/baby-shower' },
-          { label: '↳ Cumpleaños Infantil Toluca', href: '/sucursales/toluca/mesa-de-dulces/cumpleanos-infantil' },
-          { label: 'Mesa de Frutas Toluca', href: '/sucursales/toluca/mesa-de-frutas' },
-          { label: 'Mesa de Postres Toluca', href: '/sucursales/toluca/mesa-de-postres' },
-          { label: 'Quesos y Embutidos Toluca', href: '/sucursales/toluca/mesa-de-quesos-y-embutidos' },
-          { label: '↳ Quesos Europeos Toluca', href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/quesos-europeos' },
-          { label: '↳ Jamones Curados Toluca', href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/jamones-curados' },
-          { label: '↳ Tabla Mixta Premium Toluca', href: '/sucursales/toluca/mesa-de-quesos-y-embutidos/tabla-mixta-premium' },
-          { label: 'Mesa de Snacks Toluca', href: '/sucursales/toluca/mesa-de-snacks' },
-          { label: '↳ Snacks Salados Toluca', href: '/sucursales/toluca/mesa-de-snacks/snacks-gourmet-salados' },
-          { label: '↳ Mix Dulce-Salado Toluca', href: '/sucursales/toluca/mesa-de-snacks/mix-dulce-salado' },
-          { label: '↳ Barra Infantil Toluca', href: '/sucursales/toluca/mesa-de-snacks/barra-infantil' },
-          { label: 'Mesas de Dulces Metepec', href: '/mesas-de-dulces-metepec' },
-          { label: 'Mesas de Dulces Toluca', href: '/mesas-de-dulces-toluca' },
-          { label: 'Mesas de Dulces Zinacantepec', href: '/mesas-de-dulces-zinacantepec' },
-          { label: 'Mesas de Dulces Lerma', href: '/mesas-de-dulces-lerma' }
-        ],
-        viewAll: { label: 'Ver sucursal Toluca', href: '/sucursales/toluca' }
-      },
-      {
-        title: 'Cobertura',
-        icon: '📍',
-        color: '#A0005F',
-        items: [
-          { label: 'Valle de Toluca completo', href: '/sucursales/toluca#zonas-toluca' },
-          { label: 'Ver todas las sucursales', href: '/sucursales' },
-          { label: 'Cobertura nacional', href: '/sucursales' }
-        ],
-        viewAll: { label: 'WhatsApp Toluca', href: 'https://wa.me/525525226442' }
+        viewAll: { label: 'WhatsApp 55 2522 6442', href: 'https://wa.me/525525226442' }
       }
     ]
   },
