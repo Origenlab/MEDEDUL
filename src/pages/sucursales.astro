@@ -1,692 +1,1504 @@
 ---
+/**
+ * /sucursales — Hub principal de todas las sucursales MEDEDUL
+ * SEO + GEO completo · LocalBusiness schema por sucursal
+ * Homologado con el sistema de diseño v4 del sitio
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
 import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
+import ServiceCard from '@/components/global/ServiceCard.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
+import CTAServices from '@/components/global/CTAServices.astro';
+import { getCdnUrl } from '@/lib/cdn';
 
 const breadcrumbItems = [
   { name: 'Sucursales', url: '/sucursales' }
 ];
 
+// ─── Datos de sucursales ──────────────────────────────────────────────────
 const sucursales = [
   {
     id: 'anzures',
-    nombre: 'Sucursal Anzures',
-    ciudad: 'Ciudad de Mexico',
-    badge: 'Matriz CDMX',
-    destacada: true,
-    direccion: 'Av. Ejercito Nacional Mexicano 216',
-    zona: 'Anzures, Miguel Hidalgo',
-    cp: '11590, Ciudad de Mexico',
+    slug: 'cdmx',
+    nombre: 'Anzures',
+    nombreCompleto: 'Sucursal Anzures — CDMX',
+    ciudad: 'Ciudad de México',
+    estado: 'CDMX',
+    badge: 'Sucursal Principal',
+    badgeColor: 'rosa',
+    emoji: '🏙️',
+    direccion: 'Av. Ejército Nacional Mexicano 216',
+    colonia: 'Anzures, Miguel Hidalgo',
+    cp: '11590',
+    ciudadCompleta: 'Ciudad de México',
     telefono: '55 2522 6442',
     telefonoHref: 'tel:+525525226442',
-    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20%28Anzures%29',
-    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
-    cobertura: 'CDMX, Polanco, Lomas, Interlomas, Santa Fe, Roma, Condesa, Coyoacan, Del Valle y zona metropolitana poniente.',
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.4!2d-99.18!3d19.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Ejercito%20Nacional%20Mexicano%20216%2C%20Anzures%2C%20Miguel%20Hidalgo!5e0!3m2!1ses!2smx',
-    mapLink: 'https://maps.google.com/?q=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+11590+CDMX'
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%20Anzures%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces',
+    whatsappText: '525525226442',
+    mapLink: 'https://maps.google.com/?q=Av.+Ejercito+Nacional+Mexicano+216,+Anzures,+11590+CDMX',
+    mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.4!2d-99.18!3d19.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Ejercito%20Nacional%20Mexicano%20216%2C%20Anzures%2C%20Miguel%20Hidalgo!5e0!3m2!1ses!2smx!4v1680000000000',
+    horario: 'Lunes a Sábado, 10:00 – 19:00 h',
+    descripcion: 'Nuestra sucursal matriz. Ubicada en el corazón de Anzures, a pasos de Polanco, con atención directa, respuesta inmediata y sin costo de traslado para la zona poniente de CDMX.',
+    cobertura: [
+      'Polanco', 'Lomas de Chapultepec', 'Anzures', 'Granada', 'Ampliación Granada',
+      'Santa Fe', 'Interlomas', 'Huixquilucan', 'Las Águilas', 'Naucalpan',
+      'Tlalnepantla', 'Bosque de las Lomas', 'Cuajimalpa', 'Álvaro Obregón',
+      'San Ángel', 'Coyoacán', 'Del Valle', 'Narvarte', 'Insurgentes Sur'
+    ],
+    eventos: '250+',
+    servicios: [
+      { label: 'Mesa de Dulces CDMX', href: '/sucursales/cdmx/mesa-de-dulces' },
+      { label: 'Mesa de Frutas CDMX', href: '/sucursales/cdmx/mesa-de-frutas' },
+      { label: 'Mesa de Postres CDMX', href: '/sucursales/cdmx/mesa-de-postres' },
+      { label: 'Tabla Gourmet CDMX', href: '/sucursales/cdmx/mesa-de-quesos-y-embutidos' }
+    ],
+    hubHref: '/sucursales/cdmx',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'),
+    imagenAlt: 'Sucursal MEDEDUL Anzures CDMX — Mesas de dulces premium para eventos en Ciudad de México'
   },
   {
     id: 'condesa',
-    nombre: 'Sucursal Condesa',
-    ciudad: 'Ciudad de Mexico',
-    badge: 'Sucursal CDMX',
+    slug: 'cdmx',
+    nombre: 'Condesa',
+    nombreCompleto: 'Sucursal Condesa — CDMX',
+    ciudad: 'Ciudad de México',
+    estado: 'CDMX',
+    badge: 'Sucursal Centro',
+    badgeColor: 'rosa',
+    emoji: '🌆',
     direccion: 'Torre A, Av. Baja California 255',
-    zona: 'Hipodromo Condesa, Cuauhtemoc',
-    cp: '06170, Ciudad de Mexico',
+    colonia: 'Hipódromo Condesa, Cuauhtémoc',
+    cp: '06170',
+    ciudadCompleta: 'Ciudad de México',
     telefono: '55 2522 6442',
     telefonoHref: 'tel:+525525226442',
-    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20%28Condesa%29',
-    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
-    cobertura: 'Condesa, Roma Norte, Roma Sur, Juarez, Cuauhtemoc, Doctores, Narvarte, Del Valle y centro de la ciudad.',
-    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.0!2d-99.17!3d19.41!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Baja%20California%20255%2C%20Hipodromo%20Condesa%2C%20Cuauhtemoc!5e0!3m2!1ses!2smx',
-    mapLink: 'https://maps.google.com/?q=Av.+Baja+California+255,+Hipodromo+Condesa,+06170+CDMX'
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%20Condesa%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces',
+    whatsappText: '525525226442',
+    mapLink: 'https://maps.google.com/?q=Av.+Baja+California+255,+Hipodromo+Condesa,+06170+CDMX',
+    mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.0!2d-99.17!3d19.41!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.%20Baja%20California%20255%2C%20Hipodromo%20Condesa%2C%20Cuauhtemoc!5e0!3m2!1ses!2smx!4v1680000000001',
+    horario: 'Lunes a Sábado, 10:00 – 19:00 h',
+    descripcion: 'Sucursal estratégica en Condesa para la zona centro-oriente de CDMX. Cubre el corredor Roma – Condesa – Doctores – Narvarte y acceso rápido a zonas sur y oriente.',
+    cobertura: [
+      'Condesa', 'Hipódromo', 'Roma Norte', 'Roma Sur', 'Doctores',
+      'Juárez', 'Cuauhtémoc', 'Centro Histórico', 'Tepito', 'Tlatelolco',
+      'Lindavista', 'Peralvillo', 'Guerrero', 'Santa María la Ribera',
+      'Narvarte', 'Del Valle', 'Iztacalco', 'Benito Juárez', 'Iztapalapa'
+    ],
+    eventos: '180+',
+    servicios: [
+      { label: 'Mesa de Dulces CDMX', href: '/sucursales/cdmx/mesa-de-dulces' },
+      { label: 'Mesa de Frutas CDMX', href: '/sucursales/cdmx/mesa-de-frutas' },
+      { label: 'Mesa de Postres CDMX', href: '/sucursales/cdmx/mesa-de-postres' },
+      { label: 'Tabla Gourmet CDMX', href: '/sucursales/cdmx/mesa-de-quesos-y-embutidos' }
+    ],
+    hubHref: '/sucursales/cdmx',
+    imagen: getCdnUrl('/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'),
+    imagenAlt: 'Sucursal MEDEDUL Condesa CDMX — Candy bar y mesas de dulces para eventos en Roma y Condesa'
   },
   {
     id: 'toluca',
-    nombre: 'Sucursal Toluca Metepec',
-    ciudad: 'Estado de Mexico',
+    slug: 'toluca',
+    nombre: 'Toluca · Metepec',
+    nombreCompleto: 'Sucursal Toluca – Metepec',
+    ciudad: 'Toluca de Lerdo',
+    estado: 'Estado de México',
     badge: 'Nueva Sucursal',
-    nueva: true,
-    direccion: 'Blvrd Toluca Metepec 913',
-    zona: 'San Jorge Pueblo Nuevo, Metepec',
-    cp: '52169, Toluca de Lerdo, Mexico',
-    telefono: '52 55 2177 5184',
-    telefonoHref: 'tel:+525521775184',
-    whatsapp: 'https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20Toluca%2FMetepec',
-    horario: 'Lunes a Sabado, 10:00 a 19:00 h',
-    cobertura: 'Toluca, Metepec, Lerma, San Mateo Atenco, Ocoyoacac, Calimaya, Almoloya, Zinacantepec y Valle de Toluca.',
-    mapUrl: 'https://www.google.com/maps?q=Blvrd+Toluca+Metepec+913,+San+Jorge+Pueblo+Nuevo,+52169+Toluca+de+Lerdo&output=embed',
-    mapLink: 'https://maps.google.com/?q=Blvrd+Toluca+Metepec+913,+San+Jorge+Pueblo+Nuevo,+52169+Toluca+de+Lerdo'
+    badgeColor: 'morado',
+    emoji: '🏔️',
+    direccion: 'Blvd. Toluca–Metepec 913',
+    colonia: 'San Jorge Pueblo Nuevo, Metepec',
+    cp: '52169',
+    ciudadCompleta: 'Toluca de Lerdo, Estado de México',
+    telefono: '55 2522 6442',
+    telefonoHref: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%20Toluca%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20Toluca%2FMetepec',
+    whatsappText: '525525226442',
+    mapLink: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca',
+    mapsEmbed: 'https://www.google.com/maps?q=Blvrd+Toluca+Metepec+913,+San+Jorge+Pueblo+Nuevo,+52169+Toluca+de+Lerdo&output=embed',
+    horario: 'Lunes a Sábado, 10:00 – 19:00 h',
+    descripcion: 'La primera sucursal MEDEDUL en el Valle de Toluca. Atendemos Toluca, Metepec, Lerma y toda la zona metropolitana con el mismo estándar de calidad premium que nos distingue en CDMX.',
+    cobertura: [
+      'Metepec', 'Toluca Centro', 'San Mateo Atenco', 'Lerma', 'Ocoyoacac',
+      'Zinacantepec', 'Calimaya', 'Almoloya de Juárez', 'Tenango del Valle',
+      'Mexicaltzingo', 'Chapultepec', 'San Antonio la Isla', 'Rayón',
+      'Tianguistenco', 'Villa Guerrero', 'Xonacatlán', 'Otzolotepec'
+    ],
+    eventos: '70+',
+    servicios: [
+      { label: 'Mesa de Dulces Toluca', href: '/sucursales/toluca/mesa-de-dulces' },
+      { label: 'Mesa de Frutas Toluca', href: '/sucursales/toluca/mesa-de-frutas' },
+      { label: 'Mesa de Postres Toluca', href: '/sucursales/toluca/mesa-de-postres' },
+      { label: 'Quesos y Embutidos Toluca', href: '/sucursales/toluca/mesa-de-quesos-y-embutidos' }
+    ],
+    hubHref: '/sucursales/toluca',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'),
+    imagenAlt: 'Sucursal MEDEDUL Toluca Metepec — Mesas de dulces premium para eventos en el Valle de Toluca'
   }
 ];
 
-const sucursalesSchema = {
+// ─── Stats globales ───────────────────────────────────────────────────────
+const stats = [
+  { numero: '3', label: 'Sucursales activas', icono: '📍' },
+  { numero: '500+', label: 'Eventos exitosos', icono: '🎉' },
+  { numero: '8+', label: 'Años de experiencia', icono: '⭐' },
+  { numero: '2h', label: 'Tiempo de respuesta', icono: '⚡' },
+];
+
+// ─── Zonas CDMX para la sección de cobertura ─────────────────────────────
+const zonasCDMX = [
+  { alcaldia: 'Miguel Hidalgo', zonas: ['Polanco', 'Anzures', 'Lomas de Chapultepec', 'Bosque de las Lomas', 'Granada'] },
+  { alcaldia: 'Cuauhtémoc', zonas: ['Condesa', 'Roma Norte', 'Roma Sur', 'Juárez', 'Centro'] },
+  { alcaldia: 'Álvaro Obregón', zonas: ['Santa Fe', 'San Ángel', 'Las Águilas', 'Pedregal de San Ángel'] },
+  { alcaldia: 'Benito Juárez', zonas: ['Del Valle', 'Narvarte', 'Insurgentes', 'Tlacoquemécatl'] },
+  { alcaldia: 'Coyoacán', zonas: ['Coyoacán', 'Pedregal', 'Copilco', 'Universidad'] },
+  { alcaldia: 'Tlalpan', zonas: ['Tlalpan', 'Pedregal de Carrasco', 'Hacienda de Guadalupe'] },
+];
+
+// ─── Zonas Toluca ─────────────────────────────────────────────────────────
+const zonasToluca = [
+  { municipio: 'Metepec', zonas: ['Centro de Metepec', 'San Jorge Pueblo Nuevo', 'Metepec Residencial', 'La Asunción'] },
+  { municipio: 'Toluca', zonas: ['Centro de Toluca', 'Portal Guadalupe', 'San Bernardino', 'Calixtlahuaca'] },
+  { municipio: 'Lerma', zonas: ['Lerma de Villada', 'San Mateo Atenco', 'Ocoyoacac', 'Xonacatlán'] },
+  { municipio: 'Valle', zonas: ['Zinacantepec', 'Calimaya', 'Almoloya', 'Tenango del Valle'] },
+];
+
+// ─── Testimonios ──────────────────────────────────────────────────────────
+const testimonios = [
+  {
+    name: 'Mónica Ávila',
+    initials: 'MA',
+    review: 'La sucursal de Anzures es nuestra salvación. Somos wedding planners y necesitamos un proveedor que responda en minutos. MEDEDUL siempre lo hace. Llevan meses siendo nuestro proveedor oficial y cero problemas.',
+    event: 'Wedding Planner — Bodas en Polanco',
+    rating: 5
+  },
+  {
+    name: 'Eventos Condesa Group',
+    initials: 'EC',
+    review: 'Trabajamos con la sucursal Condesa para todos nuestros eventos en Roma y Juárez. La puntualidad y la calidad de los montajes es consistente. Lo que más valoramos: que siempre resuelven los imprevistos sin drama.',
+    event: 'Organizadora de Eventos — Zona Centro CDMX',
+    rating: 5
+  },
+  {
+    name: 'Hacienda Metepec Eventos',
+    initials: 'HM',
+    review: 'Desde que abrieron en Toluca-Metepec ya no necesito traer proveedores de CDMX. La calidad es exactamente la misma. Los XV años que montaron aquí en mayo quedaron de 10. Muy agradecida.',
+    event: 'Salón de Fiestas — Metepec, Estado de México',
+    rating: 5
+  }
+];
+
+// ─── FAQ ──────────────────────────────────────────────────────────────────
+const faqItems = [
+  {
+    question: '¿Cuántas sucursales tienen y dónde están?',
+    answer: 'MEDEDUL opera actualmente con tres sucursales: Anzures (Av. Ejército Nacional 216, CP 11590) y Condesa (Av. Baja California 255, CP 06170), ambas en Ciudad de México; y la sucursal Toluca–Metepec (Blvd. Toluca–Metepec 913, CP 52169) en Estado de México. Todas operan de lunes a sábado de 10:00 a 19:00 h.'
+  },
+  {
+    question: '¿Puedo contratar desde cualquier sucursal aunque mi evento sea en otra zona?',
+    answer: 'Sí. Puedes contactar cualquier sucursal y nosotros coordinamos cuál equipo atiende tu evento según la ubicación del venue. Generalmente asignamos la sucursal más cercana para optimizar la logística y reducir tiempos de traslado.'
+  },
+  {
+    question: '¿Tienen costo de traslado?',
+    answer: 'Depende de la distancia al venue. En las zonas centrales de cada sucursal (Polanco-Interlomas para Anzures; Roma-Condesa-Narvarte para Condesa; Metepec-Toluca para la sucursal Toluca) el traslado está sin costo o incluido en el paquete. Para zonas más alejadas se cotiza por separado. Siempre lo informamos antes de confirmar.'
+  },
+  {
+    question: '¿Puedo visitar alguna sucursal para ver muestras o cotizar en persona?',
+    answer: 'Sí, atendemos visitas previas con cita. Escríbenos por WhatsApp para agendar. En la visita puedes ver muestras de materiales, colores de empaque, dulces disponibles y discutir el concepto de tu evento directamente con nuestro equipo de diseño.'
+  },
+  {
+    question: '¿La sucursal de Toluca tiene los mismos servicios que CDMX?',
+    answer: 'Sí. La sucursal Toluca–Metepec ofrece el mismo catálogo completo: mesas de dulces, mesas de frutas, mesas de postres, tabla de quesos y embutidos, estaciones interactivas y candy bar por evento. El estándar de calidad, los materiales y el proceso de diseño son idénticos a CDMX.'
+  },
+  {
+    question: '¿Emiten factura?',
+    answer: 'Sí. Todas las sucursales emiten CFDI de manera inmediata. Aceptamos transferencia bancaria, tarjeta de crédito/débito y efectivo. Para empresas que requieren proveedor registrado, tenemos proceso de alta simplificado.'
+  },
+  {
+    question: '¿Con cuánto tiempo de anticipación debo reservar?',
+    answer: 'Para eventos en temporada normal (enero–octubre) recomendamos mínimo 2–3 semanas de anticipación. En temporada alta (noviembre–diciembre, mayo para bodas, julio–agosto) sugerimos 4–6 semanas. Para fechas muy demandadas como 14 de febrero o 10 de mayo, reserva con 2 meses de anticipación.'
+  },
+  {
+    question: '¿Tienen servicio a domicilio o solo atienden en sucursal?',
+    answer: 'Somos un servicio a domicilio. Vamos al venue de tu evento, instalamos, operamos la mesa durante la celebración y hacemos el desmontaje. También puedes recoger en sucursal si quieres armar la mesa tú mismo (en ese caso te asesoramos en persona para que quede perfecto).'
+  }
+];
+
+// ─── Schema LocalBusiness (uno por sucursal) ──────────────────────────────
+const schemaLD = {
   "@context": "https://schema.org",
-  "@graph": sucursales.map(s => ({
-    "@type": "LocalBusiness",
-    "@id": `https://mesas-de-dulces.com/sucursales#${s.id}`,
-    "name": `MEDEDUL - ${s.nombre}`,
-    "image": "https://mesas-de-dulces.com/img/mededul.png",
-    "url": `https://mesas-de-dulces.com/sucursales#${s.id}`,
-    "telephone": s.telefonoHref.replace('tel:', ''),
-    "priceRange": "$$-$$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": s.direccion,
-      "addressLocality": s.zona,
-      "postalCode": s.cp.split(',')[0].trim(),
-      "addressRegion": s.ciudad,
-      "addressCountry": "MX"
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mesas-de-dulces.com/sucursales#webpage",
+      "url": "https://mesas-de-dulces.com/sucursales",
+      "name": "Sucursales MEDEDUL — CDMX, Condesa y Toluca Metepec",
+      "description": "3 sucursales de mesas de dulces premium en CDMX y Estado de México. Anzures, Condesa y Toluca-Metepec. Cobertura para bodas, XV años, baby shower y eventos corporativos.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://mesas-de-dulces.com" },
+          { "@type": "ListItem", "position": 2, "name": "Sucursales", "item": "https://mesas-de-dulces.com/sucursales" }
+        ]
+      }
     },
-    "openingHoursSpecification": [{
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-      "opens": "10:00",
-      "closes": "19:00"
-    }],
-    "areaServed": s.cobertura
-  }))
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales#anzures",
+      "name": "MEDEDUL — Sucursal Anzures CDMX",
+      "alternateName": "Mesas de Dulces Anzures CDMX",
+      "description": "Sucursal principal de MEDEDUL en Anzures, Ciudad de México. Mesas de dulces, candy bar y estaciones interactivas para bodas, XV años, baby shower y eventos corporativos en CDMX.",
+      "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+      "image": "https://mesas-de-dulces.com/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif",
+      "logo": "https://mesas-de-dulces.com/img/mededul.png",
+      "telephone": "+525525226442",
+      "email": "info@mesas-de-dulces.com",
+      "priceRange": "$$-$$$",
+      "currenciesAccepted": "MXN",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Ejército Nacional Mexicano 216",
+        "addressLocality": "Anzures, Miguel Hidalgo",
+        "postalCode": "11590",
+        "addressRegion": "Ciudad de México",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "19.4326",
+        "longitude": "-99.1832"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "10:00",
+          "closes": "19:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Ciudad de México" },
+        { "@type": "Place", "name": "Polanco" },
+        { "@type": "Place", "name": "Lomas de Chapultepec" },
+        { "@type": "Place", "name": "Santa Fe" },
+        { "@type": "Place", "name": "Interlomas" },
+        { "@type": "Place", "name": "Anzures" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de Mesas de Dulces CDMX",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Dulces CDMX" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Candy Bar para Bodas CDMX" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Postres CDMX" } }
+        ]
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales#condesa",
+      "name": "MEDEDUL — Sucursal Condesa CDMX",
+      "alternateName": "Mesas de Dulces Condesa CDMX",
+      "description": "Sucursal MEDEDUL en Hipódromo Condesa para zona centro y oriente de CDMX. Mesas de dulces premium para bodas, XV años y eventos corporativos en Roma, Condesa, Narvarte y Del Valle.",
+      "url": "https://mesas-de-dulces.com/sucursales/cdmx",
+      "image": "https://mesas-de-dulces.com/img/galeria/candy-bar-empresarial-moderno-minimalista.avif",
+      "logo": "https://mesas-de-dulces.com/img/mededul.png",
+      "telephone": "+525525226442",
+      "email": "info@mesas-de-dulces.com",
+      "priceRange": "$$-$$$",
+      "currenciesAccepted": "MXN",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Torre A, Av. Baja California 255",
+        "addressLocality": "Hipódromo Condesa, Cuauhtémoc",
+        "postalCode": "06170",
+        "addressRegion": "Ciudad de México",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "19.4143",
+        "longitude": "-99.1740"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "10:00",
+          "closes": "19:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Ciudad de México" },
+        { "@type": "Place", "name": "Condesa" },
+        { "@type": "Place", "name": "Roma Norte" },
+        { "@type": "Place", "name": "Narvarte" },
+        { "@type": "Place", "name": "Del Valle" }
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://mesas-de-dulces.com/sucursales#toluca",
+      "name": "MEDEDUL — Sucursal Toluca Metepec",
+      "alternateName": "Mesas de Dulces Toluca Metepec",
+      "description": "Primera sucursal MEDEDUL en el Valle de Toluca. Mesas de dulces premium para bodas, XV años y eventos en Toluca, Metepec, Lerma, Zinacantepec y todo el Valle de Toluca.",
+      "url": "https://mesas-de-dulces.com/sucursales/toluca",
+      "image": "https://mesas-de-dulces.com/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif",
+      "logo": "https://mesas-de-dulces.com/img/mededul.png",
+      "telephone": "+525525226442",
+      "email": "info@mesas-de-dulces.com",
+      "priceRange": "$$-$$$",
+      "currenciesAccepted": "MXN",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Blvd. Toluca–Metepec 913",
+        "addressLocality": "San Jorge Pueblo Nuevo, Metepec",
+        "postalCode": "52169",
+        "addressRegion": "Estado de México",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "19.2565",
+        "longitude": "-99.5935"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "10:00",
+          "closes": "19:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Toluca" },
+        { "@type": "City", "name": "Metepec" },
+        { "@type": "Place", "name": "Lerma" },
+        { "@type": "Place", "name": "Zinacantepec" },
+        { "@type": "Place", "name": "San Mateo Atenco" },
+        { "@type": "Place", "name": "Ocoyoacac" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de Mesas de Dulces Toluca",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Dulces Toluca" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Candy Bar para Bodas Toluca" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mesa de Postres Toluca" } }
+        ]
+      }
+    }
+  ]
 };
 ---
 
 <BaseLayout
-  title="Sucursales MEDEDUL | CDMX, Toluca y Metepec | Mesas de Dulces"
-  description="Conoce las sucursales MEDEDUL: Anzures y Condesa en CDMX, y nuestra nueva sucursal en Toluca Metepec. Cobertura premium para mesas de dulces y candy bar."
+  title="Sucursales MEDEDUL | Mesas de Dulces en CDMX, Condesa y Toluca Metepec"
+  description="3 sucursales de mesas de dulces premium: Anzures y Condesa en CDMX, y Toluca–Metepec en EdoMex. 500+ eventos. Bodas, XV años, baby shower y corporativos. Cotiza gratis."
   canonical="/sucursales"
-  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
   includeCategoryStyles={true}
 >
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(sucursalesSchema)} slot="head" />
+  <!-- GEO Meta Tags -->
+  <meta name="geo.region" content="MX-CMX" slot="head" />
+  <meta name="geo.placename" content="Ciudad de México, México" slot="head" />
+  <meta name="geo.position" content="19.4326;-99.1832" slot="head" />
+  <meta name="ICBM" content="19.4326, -99.1832" slot="head" />
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaLD)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════ -->
   <Hero
     title="Sucursales MEDEDUL en CDMX y Toluca"
     highlight="Sucursales"
-    subtitle="Tres puntos estrategicos para llevarte la mejor mesa de dulces premium"
-    secondaryContent={`<p>MEDEDUL opera desde <strong>tres sucursales estrategicas</strong>: nuestra matriz en Anzures (CDMX), la sucursal Condesa para zona centro y poniente, y nuestra <strong>nueva sucursal en Toluca Metepec</strong> que abre la cobertura completa del Valle de Toluca.</p><p>Cada sucursal opera con el mismo estandar de calidad, los mismos procesos profesionales y el mismo equipo capacitado. Elige la sucursal mas cercana a tu evento para asesoria, cotizacion y logistica eficiente.</p>`}
+    subtitle="3 puntos estratégicos · Cobertura CDMX · Estado de México · Valle de Toluca"
+    secondaryContent={`
+      <p>Operamos desde <strong>tres sucursales activas</strong> para garantizar puntualidad, tiempos de respuesta cortos y logística eficiente en todos los rincones del área metropolitana. Cada sucursal opera con el mismo estándar de calidad, los mismos productos premium y el mismo equipo capacitado.</p>
+      <p><strong>¿No sabes cuál te corresponde?</strong> No te preocupes — escríbenos el venue de tu evento y te asignamos la sucursal óptima con el menor costo de traslado posible.</p>
+    `}
   />
 
-  <!-- Sucursales Grid -->
-  <section class="sucursales-section">
+  <!-- ═══════════════════════════════════════════════════════
+       STATS STRIP
+  ═══════════════════════════════════════════════════════ -->
+  <section class="stats-strip">
     <div class="container">
-      <SectionHeader
-        title="Nuestras"
-        titleHighlight="Sucursales"
-        subtitle="Atencion profesional y cobertura completa desde CDMX hasta el Valle de Toluca"
-      />
-
-      <div class="sucursales-grid">
-        {sucursales.map(s => (
-          <article class:list={['sucursal-card', { 'sucursal-card--nueva': s.nueva, 'sucursal-card--destacada': s.destacada }]} id={s.id}>
-            <div class="sucursal-mapa">
-              <iframe
-                src={s.mapUrl}
-                width="100%"
-                height="220"
-                style="border:0;"
-                allowfullscreen={false}
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title={`Ubicacion ${s.nombre}`}
-              ></iframe>
-              <span class:list={['sucursal-badge', { 'sucursal-badge--nueva': s.nueva }]}>
-                {s.badge}
-              </span>
-            </div>
-
-            <div class="sucursal-contenido">
-              <header class="sucursal-header">
-                <h3>{s.nombre}</h3>
-                <span class="sucursal-ciudad">{s.ciudad}</span>
-              </header>
-
-              <ul class="sucursal-info">
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                  <div>
-                    <strong>{s.direccion}</strong>
-                    <span>{s.zona}</span>
-                    <span>{s.cp}</span>
-                  </div>
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                  <div>
-                    <strong>Horario</strong>
-                    <span>{s.horario}</span>
-                  </div>
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                  </svg>
-                  <div>
-                    <strong>Cobertura</strong>
-                    <span>{s.cobertura}</span>
-                  </div>
-                </li>
-              </ul>
-
-              <div class="sucursal-acciones">
-                <a href={s.whatsapp} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--primary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                  </svg>
-                  WhatsApp
-                </a>
-                <a href={s.telefonoHref} class="sucursal-btn sucursal-btn--ghost">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                  </svg>
-                  {s.telefono}
-                </a>
-                <a href={s.mapLink} target="_blank" rel="noopener" class="sucursal-btn sucursal-btn--ghost">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-                    <line x1="8" y1="2" x2="8" y2="18"/>
-                    <line x1="16" y1="6" x2="16" y2="22"/>
-                  </svg>
-                  Ver en Google Maps
-                </a>
-                {(s.id === 'anzures' || s.id === 'condesa') && (
-                  <Fragment>
-                    <a href={`/sucursales/cdmx#${s.id}`} class="sucursal-btn sucursal-btn--ghost">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 3h7v7"/>
-                        <path d="M10 14L21 3"/>
-                        <path d="M21 14v7h-7"/>
-                        <path d="M3 21l7-7"/>
-                      </svg>
-                      Detalle sucursal CDMX
-                    </a>
-                    <a href="/sucursales/cdmx/mesa-de-dulces" class="sucursal-btn sucursal-btn--ghost">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 3v18M3 12h18"/>
-                      </svg>
-                      Mesa de Dulces CDMX
-                    </a>
-                    <a href="/sucursales/cdmx/mesa-de-frutas" class="sucursal-btn sucursal-btn--ghost">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 3v18M3 12h18"/>
-                      </svg>
-                      Mesa de Frutas CDMX
-                    </a>
-                    <a href="/sucursales/cdmx/mesa-de-postres" class="sucursal-btn sucursal-btn--ghost">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 3v18M3 12h18"/>
-                      </svg>
-                      Mesa de Postres CDMX
-                    </a>
-                    <a href="/sucursales/cdmx/mesa-de-quesos-y-embutidos" class="sucursal-btn sucursal-btn--ghost">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 3v18M3 12h18"/>
-                      </svg>
-                      Tabla Gourmet CDMX
-                    </a>
-                  </Fragment>
-                )}
-                {s.id === 'toluca' && (
-                  <a href="/sucursales/toluca" class="sucursal-btn sucursal-btn--ghost">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M14 3h7v7"/>
-                      <path d="M10 14L21 3"/>
-                      <path d="M21 14v7h-7"/>
-                      <path d="M3 21l7-7"/>
-                    </svg>
-                    Detalle sucursal Toluca
-                  </a>
-                )}
-              </div>
-            </div>
-          </article>
+      <div class="stats-grid">
+        {stats.map(s => (
+          <div class="stat-item">
+            <span class="stat-icono" aria-hidden="true">{s.icono}</span>
+            <span class="stat-numero">{s.numero}</span>
+            <span class="stat-label">{s.label}</span>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Cobertura Global -->
-  <section class="cobertura-section">
+  <!-- ═══════════════════════════════════════════════════════
+       MAPA RÁPIDO DE SUCURSALES
+  ═══════════════════════════════════════════════════════ -->
+  <section class="selector-section section-padding">
     <div class="container">
-      <div class="cobertura-content">
-        <div class="cobertura-texto">
-          <h2>Cobertura <span>Premium</span> en CDMX, EdoMex y Toluca</h2>
-          <p>Operamos con <strong>tres sucursales activas</strong> para garantizar tiempos de respuesta cortos, montaje puntual y logistica eficiente sin importar la ubicacion de tu evento.</p>
-          <ul class="cobertura-lista">
-            <li>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Traslado incluido en zonas centrales de cada sucursal
-            </li>
-            <li>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Atencion personalizada por sucursal mas cercana al venue
-            </li>
-            <li>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Mismo estandar de calidad premium en las tres ubicaciones
-            </li>
-            <li>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rosa-principal)" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              Cotizacion en menos de 24 horas habiles
-            </li>
-          </ul>
-        </div>
+      <SectionHeader
+        title="Elige tu"
+        titleHighlight="Sucursal"
+        subtitle="Selecciona la más cercana a tu evento para cotización inmediata"
+        align="center"
+      />
+      <div class="selector-grid">
+        {sucursales.map(s => (
+          <a href={`#${s.id}`} class={`selector-chip selector-chip--${s.badgeColor}`}>
+            <span class="selector-emoji" aria-hidden="true">{s.emoji}</span>
+            <div class="selector-info">
+              <span class="selector-nombre">{s.nombre}</span>
+              <span class="selector-estado">{s.estado}</span>
+            </div>
+            <svg class="selector-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
-        <div class="cobertura-cta">
-          <h3>Cotiza desde la sucursal mas cercana</h3>
-          <p>Te asignamos la sucursal optima segun la sede de tu evento para que la logistica sea eficiente y los tiempos de respuesta minimos.</p>
-          <a href="/cotizar" class="cobertura-btn">
-            Cotizar mi evento
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="tel:+525525226442" class="cobertura-telefono">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-            </svg>
-            55 2522 6442
-          </a>
+  <!-- ═══════════════════════════════════════════════════════
+       SUCURSALES — una por una, layout alternado
+  ═══════════════════════════════════════════════════════ -->
+  {sucursales.map((s, i) => (
+    <article
+      class={`sucursal-section ${i % 2 === 0 ? 'sucursal-section--light' : 'sucursal-section--alt'}`}
+      id={s.id}
+    >
+      <div class="container">
+        <div class={`sucursal-layout ${i % 2 !== 0 ? 'sucursal-layout--reverse' : ''}`}>
+
+          {/* Columna imagen + mapa */}
+          <div class="sucursal-visual">
+            <div class="sucursal-imagen-wrap">
+              <img
+                src={s.imagen}
+                alt={s.imagenAlt}
+                width="560"
+                height="420"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                class="sucursal-img"
+              />
+              <div class={`sucursal-badge-overlay sucursal-badge-overlay--${s.badgeColor}`}>
+                {s.badge}
+              </div>
+              <div class="sucursal-eventos-badge">
+                <span class="sucursal-eventos-num">{s.eventos}</span>
+                <span class="sucursal-eventos-label">eventos</span>
+              </div>
+            </div>
+
+            {/* Mapa embed */}
+            <div class="sucursal-mapa-wrap">
+              <iframe
+                src={s.mapsEmbed}
+                width="100%"
+                height="200"
+                style="border:0;"
+                allowfullscreen={false}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title={`Mapa de ubicación ${s.nombreCompleto}`}
+              ></iframe>
+              <a
+                href={s.mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sucursal-mapa-link"
+                aria-label={`Ver ${s.nombreCompleto} en Google Maps`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Abrir en Google Maps
+              </a>
+            </div>
+          </div>
+
+          {/* Columna info */}
+          <div class="sucursal-info">
+            <header class="sucursal-header">
+              <span class="sucursal-emoji" aria-hidden="true">{s.emoji}</span>
+              <div>
+                <span class={`sucursal-estado-tag sucursal-estado-tag--${s.badgeColor}`}>{s.estado}</span>
+                <h2 class="sucursal-titulo">{s.nombreCompleto}</h2>
+              </div>
+            </header>
+
+            <p class="sucursal-descripcion">{s.descripcion}</p>
+
+            {/* Datos de contacto */}
+            <div class="sucursal-datos">
+              <div class="sucursal-dato">
+                <div class="sucursal-dato-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div class="sucursal-dato-body">
+                  <span class="sucursal-dato-label">Dirección</span>
+                  <strong class="sucursal-dato-valor">{s.direccion}</strong>
+                  <span class="sucursal-dato-extra">{s.colonia} · CP {s.cp} · {s.ciudadCompleta}</span>
+                </div>
+              </div>
+
+              <div class="sucursal-dato">
+                <div class="sucursal-dato-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="sucursal-dato-body">
+                  <span class="sucursal-dato-label">Horario de atención</span>
+                  <strong class="sucursal-dato-valor">{s.horario}</strong>
+                  <span class="sucursal-dato-extra">Cotización online 24/7 por WhatsApp</span>
+                </div>
+              </div>
+
+              <div class="sucursal-dato">
+                <div class="sucursal-dato-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                  </svg>
+                </div>
+                <div class="sucursal-dato-body">
+                  <span class="sucursal-dato-label">Teléfono</span>
+                  <strong class="sucursal-dato-valor">{s.telefono}</strong>
+                  <span class="sucursal-dato-extra">Lunes a Sábado · 10:00 – 19:00 h</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Zonas de cobertura */}
+            <div class="sucursal-cobertura">
+              <h3 class="sucursal-cobertura-titulo">Zonas de cobertura</h3>
+              <div class="sucursal-zonas">
+                {s.cobertura.map(zona => (
+                  <span class="zona-chip">{zona}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Servicios disponibles */}
+            <div class="sucursal-servicios-links">
+              <h3 class="sucursal-servicios-titulo">Servicios en esta sucursal</h3>
+              <div class="sucursal-servicios-grid">
+                {s.servicios.map(srv => (
+                  <a href={srv.href} class="sucursal-servicio-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    {srv.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* CTAs */}
+            <div class="sucursal-ctas">
+              <a
+                href={s.whatsapp}
+                class="btn-wa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`WhatsApp ${s.nombreCompleto}`}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Cotizar por WhatsApp
+              </a>
+              <a href={s.telefonoHref} class="btn-tel">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                {s.telefono}
+              </a>
+              <a href={s.hubHref} class="btn-hub">
+                Ver página de sucursal →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </article>
+  ))}
+
+  <!-- ═══════════════════════════════════════════════════════
+       COBERTURA GEO — CDMX por alcaldía
+  ═══════════════════════════════════════════════════════ -->
+  <section class="geo-cobertura section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Cobertura en"
+        titleHighlight="Ciudad de México"
+        subtitle="Las dos sucursales CDMX cubren las 16 alcaldías"
+        content={`
+          <p>Con dos sucursales estratégicamente ubicadas en CDMX, garantizamos tiempos de traslado óptimos y costo de logística eficiente para cualquier venue de la ciudad. Seleccionamos la sucursal más cercana según la colonia de tu evento.</p>
+        `}
+      />
+
+      <div class="geo-grid">
+        {zonasCDMX.map(a => (
+          <div class="geo-alcaldia">
+            <h3 class="geo-alcaldia-nombre">{a.alcaldia}</h3>
+            <div class="geo-zonas">
+              {a.zonas.map(z => <span class="geo-chip">{z}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="geo-toluca-wrap">
+        <h3 class="geo-toluca-titulo">
+          Cobertura en <span class="titulo-decorativo">Valle de Toluca</span>
+        </h3>
+        <p class="geo-toluca-desc">Sucursal Toluca–Metepec: Blvd. Toluca–Metepec 913, San Jorge Pueblo Nuevo, CP 52169. Atendemos todo el Valle de Toluca.</p>
+        <div class="geo-grid geo-grid--toluca">
+          {zonasToluca.map(m => (
+            <div class="geo-alcaldia">
+              <h4 class="geo-alcaldia-nombre">{m.municipio}</h4>
+              <div class="geo-zonas">
+                {m.zonas.map(z => <span class="geo-chip geo-chip--morado">{z}</span>)}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════
+       SERVICIOS DISPONIBLES (ServiceCards)
+  ═══════════════════════════════════════════════════════ -->
+  <section class="servicios-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Todos los Servicios en"
+        titleHighlight="Todas las Sucursales"
+        subtitle="El mismo catálogo completo en CDMX y Toluca–Metepec"
+        align="center"
+      />
+      <div class="service-grid">
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-dulces"
+          image={getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesas-de-dulces-infantiles.avif')}
+          alt="Mesa de dulces premium para eventos en CDMX y Toluca"
+          title="Mesa de Dulces"
+          excerpt="Candy bar personalizado con dulces premium para bodas, XV años, baby shower y cualquier celebración. Diseño único, montaje incluido."
+          cta="Ver servicio"
+          badge="Popular"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-postres"
+          image={getCdnUrl('/img/tipos-de-mesas/postres/mesas-de-postres-cdmx.avif')}
+          alt="Mesa de postres gourmet para bodas y XV años en CDMX y Toluca"
+          title="Mesa de Postres"
+          excerpt="Macarons, éclairs, pays y repostería fina de alto nivel. Para eventos donde lo gourmet marca la diferencia."
+          cta="Ver postres"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-frutas"
+          image={getCdnUrl('/img/tipos-de-mesas/frutas/mesas-de-frutas-para-eventos.avif')}
+          alt="Mesa de frutas frescas para eventos en CDMX y Toluca"
+          title="Mesa de Frutas"
+          excerpt="Arreglos espectaculares con fruta de temporada. Frescura, color y sabor en cada evento."
+          cta="Ver frutas"
+        />
+        <ServiceCard
+          href="/tipos-de-mesas-de-dulces/mesa-de-quesos-y-embutidos"
+          image={getCdnUrl('/img/tipos-de-mesas/quesos-embutidos/renta-de-mesa-de-quesos.avif')}
+          alt="Mesa de quesos y embutidos gourmet para eventos corporativos y bodas"
+          title="Quesos y Embutidos"
+          excerpt="Selección de quesos finos, jamones curados y acompañamientos premium. El toque sofisticado para bodas y corporativos."
+          cta="Ver tabla"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TESTIMONIOS
+  ═══════════════════════════════════════════════════════ -->
+  <section class="testimonios-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Lo que dicen de nuestras"
+        titleHighlight="Sucursales"
+        subtitle="Clientes reales, experiencias verificadas en CDMX y Toluca"
+      />
+      <div class="testimonios-grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA COTIZAR
+  ═══════════════════════════════════════════════════════ -->
+  <CTAServices
+    href="/cotizar"
+    badge="Elige tu sucursal más cercana"
+    title="¿Cuál Sucursal Atiende tu Evento?"
+    titleHighlight="Sucursal"
+    text="Dinos la colonia o venue de tu evento y te asignamos la sucursal óptima. Cotización personalizada en menos de 2 horas en horario de atención."
+    buttonText="Solicitar Cotización Gratis"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════ -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas Frecuentes sobre"
+        titleHighlight="Nuestras Sucursales"
+        subtitle="Todo lo que necesitas saber antes de contactarnos"
+        align="center"
+      />
+      <FAQ items={faqItems} id="faq-sucursales" />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACTO
+  ═══════════════════════════════════════════════════════ -->
+  <ContactSection />
+
 </BaseLayout>
 
 <style>
-  /* =====================================================
-     SUCURSALES SECTION
-     ===================================================== */
-  .sucursales-section {
-    padding: 80px 0;
+  /* ─────────────────────────────────────────
+     STATS STRIP
+  ───────────────────────────────────────── */
+  .stats-strip {
+    padding: 56px 0;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+  }
+
+  .stat-icono {
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+  }
+
+  .stat-numero {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    opacity: 0.88;
+  }
+
+  /* ─────────────────────────────────────────
+     SELECTOR DE SUCURSAL
+  ───────────────────────────────────────── */
+  .selector-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .selector-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .selector-chip {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 28px;
+    border-radius: 16px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    min-width: 220px;
+    cursor: pointer;
+  }
+
+  .selector-chip--rosa {
+    background: linear-gradient(135deg, #fff5fb 0%, #fff 100%);
+    border-color: rgba(233, 30, 140, 0.2);
+    color: var(--texto-oscuro);
+  }
+
+  .selector-chip--morado {
+    background: linear-gradient(135deg, #f5f0ff 0%, #fff 100%);
+    border-color: rgba(122, 43, 194, 0.2);
+    color: var(--texto-oscuro);
+  }
+
+  .selector-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(233, 30, 140, 0.15);
+  }
+
+  .selector-chip--rosa:hover { border-color: var(--rosa-principal); }
+  .selector-chip--morado:hover { border-color: #7A2BC2; }
+
+  .selector-emoji { font-size: 2rem; flex-shrink: 0; }
+
+  .selector-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .selector-nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .selector-estado {
+    font-size: 0.78rem;
+    color: var(--gris-texto);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .selector-arrow {
+    color: var(--rosa-principal);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .selector-chip:hover .selector-arrow { transform: translateY(4px); }
+
+  /* ─────────────────────────────────────────
+     SUCURSALES — layout alternado
+  ───────────────────────────────────────── */
+  .sucursal-section {
+    padding: 100px 0;
+    scroll-margin-top: 120px;
+  }
+
+  .sucursal-section--light { background: #fff; }
+  .sucursal-section--alt { background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%); }
+
+  .sucursal-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .sucursal-layout--reverse {
+    direction: rtl;
+  }
+  .sucursal-layout--reverse > * {
+    direction: ltr;
+  }
+
+  /* Visual */
+  .sucursal-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sucursal-imagen-wrap {
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+  }
+
+  .sucursal-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .sucursal-imagen-wrap:hover .sucursal-img {
+    transform: scale(1.03);
+  }
+
+  .sucursal-badge-overlay {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+  }
+
+  .sucursal-badge-overlay--rosa {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    box-shadow: 0 4px 14px rgba(233, 30, 140, 0.4);
+  }
+
+  .sucursal-badge-overlay--morado {
+    background: linear-gradient(135deg, #7A2BC2 0%, #5A1AA3 100%);
+    box-shadow: 0 4px 14px rgba(122, 43, 194, 0.4);
+  }
+
+  .sucursal-eventos-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  .sucursal-eventos-num {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--rosa-principal);
+    line-height: 1;
+  }
+
+  .sucursal-eventos-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Mapa */
+  .sucursal-mapa-wrap {
+    position: relative;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    border: 1px solid #f0e6ef;
+    border-top: none;
+  }
+
+  .sucursal-mapa-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 200px;
+  }
+
+  .sucursal-mapa-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fdf8fa;
+    border-top: 1px solid #f0e6ef;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .sucursal-mapa-link:hover {
+    background: rgba(233, 30, 140, 0.06);
+  }
+
+  /* Info */
+  .sucursal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .sucursal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .sucursal-emoji {
+    font-size: 3rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  .sucursal-estado-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 8px;
+  }
+
+  .sucursal-estado-tag--rosa { color: var(--rosa-principal); }
+  .sucursal-estado-tag--morado { color: #7A2BC2; }
+
+  .sucursal-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--texto-oscuro);
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .sucursal-descripcion {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--gris-texto);
+    margin: 0;
+  }
+
+  /* Datos */
+  .sucursal-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: #fdf8fa;
+    border-radius: 16px;
+    border: 1px solid #f0e6ef;
+  }
+
+  .sucursal-dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sucursal-dato-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(233, 30, 140, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--rosa-principal);
+  }
+
+  .sucursal-dato-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sucursal-dato-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gris-texto);
+  }
+
+  .sucursal-dato-valor {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+  }
+
+  .sucursal-dato-extra {
+    font-size: 0.82rem;
+    color: var(--gris-texto);
+  }
+
+  /* Cobertura */
+  .sucursal-cobertura-titulo,
+  .sucursal-servicios-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .sucursal-zonas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .zona-chip {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(233, 30, 140, 0.07);
+    border: 1px solid rgba(233, 30, 140, 0.15);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--texto-oscuro);
+  }
+
+  /* Servicios links */
+  .sucursal-servicios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .sucursal-servicio-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #fdf8fa;
+    border: 1px solid #f0e6ef;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .sucursal-servicio-link:hover {
+    background: rgba(233, 30, 140, 0.06);
+    border-color: var(--rosa-principal);
+    color: var(--rosa-principal);
+  }
+
+  .sucursal-servicio-link svg {
+    flex-shrink: 0;
+    color: var(--rosa-principal);
+  }
+
+  /* CTAs */
+  .sucursal-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: #25D366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-wa:hover {
+    background: #1fbd5c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  }
+
+  .btn-tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    border: 2px solid rgba(233, 30, 140, 0.3);
+    color: var(--rosa-principal);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-tel:hover {
+    background: var(--rosa-principal);
+    border-color: var(--rosa-principal);
+    color: #fff;
+  }
+
+  .btn-hub {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--rosa-principal);
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(233, 30, 140, 0.4);
+    transition: border-color 0.2s;
+  }
+
+  .btn-hub:hover {
+    border-color: var(--rosa-principal);
+  }
+
+  /* ─────────────────────────────────────────
+     COBERTURA GEO
+  ───────────────────────────────────────── */
+  .geo-cobertura {
     background: #fff;
   }
 
-  .sucursales-grid {
+  .geo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .geo-alcaldia {
+    padding: 20px 22px;
+    background: #fdf8fa;
+    border-radius: 14px;
+    border: 1px solid #f0e6ef;
+  }
+
+  .geo-alcaldia-nombre {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--rosa-principal);
+    display: inline-block;
+  }
+
+  .geo-zonas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .geo-chip {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #fff;
+    border: 1px solid #f0e6ef;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--gris-texto);
+  }
+
+  .geo-chip--morado {
+    background: rgba(122, 43, 194, 0.05);
+    border-color: rgba(122, 43, 194, 0.2);
+    color: #5A1AA3;
+  }
+
+  .geo-toluca-wrap {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid #f0e6ef;
+  }
+
+  .geo-toluca-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0 0 10px;
+  }
+
+  .geo-toluca-desc {
+    font-size: 0.92rem;
+    color: var(--gris-texto);
+    margin: 0 0 0;
+  }
+
+  .geo-grid--toluca {
+    margin-top: 32px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .geo-grid--toluca .geo-alcaldia-nombre {
+    border-color: #7A2BC2;
+  }
+
+  /* ─────────────────────────────────────────
+     SERVICIOS
+  ───────────────────────────────────────── */
+  .servicios-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* ─────────────────────────────────────────
+     TESTIMONIOS
+  ───────────────────────────────────────── */
+  .testimonios-section {
+    background: #fff;
+  }
+
+  .testimonios-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 50px;
   }
 
-  /* Sucursal Card */
-  .sucursal-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 1px solid #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    scroll-margin-top: 180px;
-  }
-
-  .sucursal-card--destacada {
-    border: 2px solid rgba(209, 0, 122, 0.18);
-  }
-
-  .sucursal-card--nueva {
-    border: 2px solid rgba(122, 43, 194, 0.25);
-    box-shadow: 0 10px 35px rgba(122, 43, 194, 0.12);
-  }
-
-  /* Mapa */
-  .sucursal-mapa {
-    position: relative;
-    height: 220px;
-    overflow: hidden;
-    background: #fdf8fa;
-  }
-
-  .sucursal-mapa iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  .sucursal-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 14px rgba(209, 0, 122, 0.35);
-  }
-
-  .sucursal-badge--nueva {
-    background: linear-gradient(135deg, #7A2BC2 0%, #5A1AA3 100%);
-    box-shadow: 0 4px 14px rgba(122, 43, 194, 0.4);
-  }
-
-  /* Contenido */
-  .sucursal-contenido {
-    padding: 28px 26px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .sucursal-header {
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f3f3f3;
-  }
-
-  .sucursal-header h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 0 0 4px;
-    line-height: 1.25;
-  }
-
-  .sucursal-ciudad {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--rosa-principal);
-    letter-spacing: 0.3px;
-  }
-
-  /* Info List */
-  .sucursal-info {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    flex: 1;
-  }
-
-  .sucursal-info li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
-  .sucursal-info svg {
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .sucursal-info > li > div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .sucursal-info strong {
-    color: var(--texto-oscuro);
-    font-weight: 600;
-    font-size: 0.92rem;
-  }
-
-  .sucursal-info span {
-    color: var(--gris-texto, #636E72);
-    font-size: 0.88rem;
-  }
-
-  /* Acciones */
-  .sucursal-acciones {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: auto;
-  }
-
-  .sucursal-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    border-radius: 12px;
-    text-decoration: none;
-}
-
-  .sucursal-btn--primary {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
-  }
-
-  .sucursal-btn--primary:hover {
-    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
-  }
-
-  .sucursal-btn--ghost {
-    background: #fafafa;
-    color: var(--texto-oscuro);
-    border: 1px solid #ececec;
-  }
-
-  .sucursal-btn--ghost:hover {
-    background: #fff;
-    color: var(--rosa-principal);
-    border-color: rgba(209, 0, 122, 0.25);
-}
-
-  /* =====================================================
-     COBERTURA SECTION
-     ===================================================== */
-  .cobertura-section {
-    padding: 80px 0;
+  /* ─────────────────────────────────────────
+     FAQ
+  ───────────────────────────────────────── */
+  .faq-section {
     background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
   }
 
-  .cobertura-content {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-
-  .cobertura-texto h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 0 0 20px;
-    line-height: 1.25;
-  }
-
-  .cobertura-texto h2 span {
-    color: var(--rosa-principal);
-  }
-
-  .cobertura-texto > p {
-    font-size: 1.05rem;
-    color: var(--gris-texto, #636E72);
-    line-height: 1.7;
-    margin: 0 0 28px;
-  }
-
-  .cobertura-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .cobertura-lista li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.95rem;
-    color: var(--texto-oscuro);
-  }
-
-  .cobertura-cta {
-    background: #fff;
-    border-radius: 20px;
-    padding: 36px 32px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    border: 1px solid #f0f0f0;
-    text-align: center;
-  }
-
-  .cobertura-cta h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin: 0 0 12px;
-  }
-
-  .cobertura-cta > p {
-    font-size: 0.95rem;
-    color: var(--gris-texto, #636E72);
-    line-height: 1.6;
-    margin: 0 0 24px;
-  }
-
-  .cobertura-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px 24px;
-    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 50px;
-    box-shadow: 0 6px 20px rgba(209, 0, 122, 0.3);
-    margin-bottom: 14px;
-  }
-
-  .cobertura-btn:hover {
-    box-shadow: 0 8px 24px rgba(209, 0, 122, 0.4);
-  }
-
-  .cobertura-telefono {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 14px 20px;
-    background: #fafafa;
-    color: var(--texto-oscuro);
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 50px;
-    border: 1px solid #ececec;
-  }
-
-  .cobertura-telefono:hover {
-    color: var(--rosa-principal);
-    border-color: rgba(209, 0, 122, 0.25);
-  }
-
-  /* =====================================================
+  /* ─────────────────────────────────────────
      RESPONSIVE
-     ===================================================== */
+  ───────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .sucursal-layout {
+      gap: 40px;
+    }
+
+    .geo-grid--toluca {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 1024px) {
-    .sucursales-grid {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .sucursal-layout,
+    .sucursal-layout--reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .sucursal-layout--reverse > * {
+      direction: ltr;
+    }
+
+    .geo-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .cobertura-content {
-      grid-template-columns: 1fr;
-      gap: 40px;
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .selector-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .selector-chip {
+      width: 100%;
+      max-width: 360px;
     }
   }
 
   @media (max-width: 768px) {
-    .sucursales-section,
-    .cobertura-section {
-      padding: 50px 0;
+    .sucursal-section {
+      padding: 60px 0;
     }
 
-    .sucursales-grid {
+    .sucursal-titulo {
+      font-size: 1.5rem;
+    }
+
+    .sucursal-img {
+      height: 240px;
+    }
+
+    .sucursal-servicios-grid {
       grid-template-columns: 1fr;
-      gap: 22px;
-      margin-top: 36px;
     }
 
-    .sucursal-mapa {
-      height: 200px;
+    .sucursal-ctas {
+      flex-direction: column;
+      align-items: stretch;
     }
 
-    .sucursal-contenido {
-      padding: 24px 22px;
+    .btn-wa,
+    .btn-tel {
+      justify-content: center;
     }
 
-    .sucursal-header h3 {
-      font-size: 1.2rem;
+    .geo-grid {
+      grid-template-columns: 1fr;
     }
 
-    .cobertura-texto h2 {
-      font-size: 1.6rem;
+    .geo-grid--toluca {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .cobertura-cta {
-      padding: 28px 22px;
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-numero {
+      font-size: 2rem;
     }
   }
 
-  @media (max-width: 480px) {
-    .sucursales-section,
-    .cobertura-section {
-      padding: 40px 0;
+  @media (max-width: 540px) {
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
 
-    .sucursal-mapa {
-      height: 180px;
+    .selector-chip {
+      max-width: 100%;
     }
 
-    .sucursal-contenido {
-      padding: 22px 18px;
-    }
-
-    .sucursal-badge {
-      font-size: 0.68rem;
-      padding: 5px 12px;
-    }
-
-    .sucursal-btn {
-      font-size: 0.88rem;
-      padding: 12px 14px;
+    .geo-grid--toluca {
+      grid-template-columns: 1fr;
     }
   }
 </style>

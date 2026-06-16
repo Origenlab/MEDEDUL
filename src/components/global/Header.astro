@@ -32,9 +32,9 @@ const sucursales = [
     id: 'toluca',
     city: 'Toluca',
     cityFull: 'Toluca / Metepec',
-    number: '55 2177 5184',
-    tel: 'tel:+525521775184',
-    whatsapp: 'https://wa.me/525521775184?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20Toluca%2FMetepec',
+    number: '55 2522 6442',
+    tel: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442?text=Hola%20MEDEDUL%2C%20me%20interesa%20cotizar%20una%20mesa%20de%20dulces%20en%20Toluca%2FMetepec',
     horario: 'Lun-Sab 10:00-19:00 h',
     zona: 'Metepec'
   }
@@ -208,7 +208,54 @@ const menuItems = [
           { label: 'Ver todas las sucursales', href: '/sucursales' },
           { label: 'Cobertura nacional', href: '/sucursales' }
         ],
-        viewAll: { label: 'WhatsApp Toluca', href: 'https://wa.me/525521775184' }
+        viewAll: { label: 'WhatsApp Toluca', href: 'https://wa.me/525525226442' }
+      }
+    ]
+  },
+  {
+    label: 'Dulces',
+    href: '/dulces',
+    startsWith: true,
+    megaMenu: [
+      {
+        title: 'Comprar Dulces',
+        icon: '🍬',
+        color: '#D1007A',
+        items: [
+          { label: 'Dulces a Granel', href: '/dulces/a-granel' },
+          { label: 'Gomitas Premium', href: '/dulces/a-granel#gomitas' },
+          { label: 'Enchilados Gourmet', href: '/dulces/a-granel#enchilados' },
+          { label: 'Chocolates Finos', href: '/dulces/a-granel#chocolates' },
+          { label: 'Mexicanos Clásicos', href: '/dulces/mexicanos-clasicos' },
+          { label: 'Chocolates Gourmet', href: '/dulces/chocolates-gourmet' },
+          { label: 'Sin Azúcar', href: '/dulces/sin-azucar' },
+        ],
+        viewAll: { label: 'Ver todo a granel', href: '/dulces/a-granel' }
+      },
+      {
+        title: 'Kits por Evento',
+        icon: '🎁',
+        color: '#A0005F',
+        items: [
+          { label: 'Kit Boda Elegante', href: '/dulces/kits-por-evento#boda' },
+          { label: 'Kit XV Romántico', href: '/dulces/kits-por-evento#xv-anos' },
+          { label: 'Kit Baby Shower', href: '/dulces/kits-por-evento#baby-shower' },
+          { label: 'Kit Corporativo', href: '/dulces/kits-por-evento#corporativo' },
+          { label: 'Kit Cumpleaños', href: '/dulces/kits-por-evento#cumpleanos' },
+          { label: 'Kit Bautizo & Comunión', href: '/dulces/kits-por-evento#bautizo' },
+        ],
+        viewAll: { label: 'Ver todos los kits', href: '/dulces/kits-por-evento' }
+      },
+      {
+        title: 'Destacados',
+        icon: '✨',
+        color: '#7A2BC2',
+        items: [
+          { label: '⚡ Freeze-Dried Candy', href: '/dulces/freeze-dried' },
+          { label: 'Mayoreo B2B', href: '/dulces/mayoreo' },
+          { label: 'Asesoría Gratis', href: 'https://wa.me/525525226442?text=Hola!%20Quiero%20asesoría%20para%20comprar%20dulces' },
+        ],
+        viewAll: { label: 'Ir a sección de dulces', href: '/dulces' }
       }
     ]
   },

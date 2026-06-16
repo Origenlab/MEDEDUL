@@ -1,0 +1,877 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Dulces', url: '/dulces' },
+  { name: 'A Granel', url: '/dulces/a-granel' }
+];
+
+// ─── Categorías de producto ───────────────────────────────────────────────
+const categorias = [
+  {
+    id: 'gomitas',
+    titulo: 'Gomitas Premium',
+    emoji: '🐻',
+    descripcion: 'Ositos, lombrices, sandías, aros y frutitas. Las gomitas básicas que hacen lucir cualquier candy bar.',
+    productos: [
+      { nombre: 'Gomita Ositos', desde250g: '$50', desde500g: '$100', desde1kg: '$200' },
+      { nombre: 'Gomita Lombriz', desde250g: '$43', desde500g: '$86', desde1kg: '$172' },
+      { nombre: 'Gomita Mini Sandía', desde250g: '$55', desde500g: '$109', desde1kg: '$218' },
+      { nombre: 'Gomita Naranja', desde250g: '$40', desde500g: '$79', desde1kg: '$158' },
+      { nombre: 'Gomita Gotita', desde250g: '$48', desde500g: '$95', desde1kg: '$189' },
+      { nombre: 'Mexican Party Mix', desde250g: '$50', desde500g: '$99', desde1kg: '$199' }
+    ],
+    nota: 'Precios orientativos. Consultar disponibilidad por WhatsApp.',
+    badge: 'Más solicitadas'
+  },
+  {
+    id: 'enchilados',
+    titulo: 'Enchilados Gourmet',
+    emoji: '🌶️',
+    descripcion: 'La categoría estrella del mercado mexicano. Gomitas y dulces con chile en polvo gourmet que elevan cualquier mesa.',
+    productos: [
+      { nombre: 'Gomita Aro Manzana Enchilada', desde250g: '$67', desde500g: '$133', desde1kg: '$266' },
+      { nombre: 'Gomita Mini Sandía Enchilada', desde250g: '$78', desde500g: '$155', desde1kg: '$310' },
+      { nombre: 'Gomita Ositos Enchilada', desde250g: '$73', desde500g: '$146', desde1kg: '$292' },
+      { nombre: 'Mexican Chili Party Mix', desde250g: '$84', desde500g: '$166', desde1kg: '$333' },
+      { nombre: 'Gomita Lombriz Enchilada', desde250g: '$67', desde500g: '$133', desde1kg: '$266' },
+      { nombre: 'Mix Gomitas Enchiladas', desde250g: '$39', desde500g: '$76', desde1kg: '$153' }
+    ],
+    nota: 'Premium: el doble de impacto en presentación y sabor vs. enchilados genéricos.',
+    badge: 'Gourmet'
+  },
+  {
+    id: 'chocolates',
+    titulo: 'Chocolates Finos',
+    emoji: '🍫',
+    descripcion: 'Pasas con chocolate amargo, galletas cubiertas, almendras y coberturas premium. El toque de lujo de toda mesa elegante.',
+    productos: [
+      { nombre: 'Pasas con Chocolate Amargo', desde250g: '$65', desde500g: '$129', desde1kg: '$255' },
+      { nombre: 'Galleta Cubierta Chocolate Premium', desde250g: '$78', desde500g: '$155', desde1kg: '$305' },
+      { nombre: 'Almendra con Chocolate Blanco', desde250g: '$80', desde500g: '$158', desde1kg: '$313' },
+      { nombre: 'Arándano con Chocolate', desde250g: '$72', desde500g: '$143', desde1kg: '$283' }
+    ],
+    nota: 'Ideales para mesa de postres en bodas y eventos premium.',
+    badge: ''
+  },
+  {
+    id: 'freeze-dried',
+    titulo: 'Freeze-Dried Candy',
+    emoji: '🧊',
+    descripcion: 'Dulces liofilizados: la tendencia más viral. Crocantes, intensos e irresistibles para fotografiar. Los primeros en CDMX para eventos.',
+    productos: [
+      { nombre: 'Freeze-Dried Skittles', desde250g: '$120', desde500g: '$235', desde1kg: 'Consultar' },
+      { nombre: 'Freeze-Dried Gummies Mix', desde250g: '$115', desde500g: '$225', desde1kg: 'Consultar' },
+      { nombre: 'Freeze-Dried Caramelos', desde250g: '$130', desde500g: '$255', desde1kg: 'Consultar' },
+      { nombre: 'Mix Freeze-Dried Premium', desde250g: '$140', desde500g: '$275', desde1kg: 'Consultar' }
+    ],
+    nota: 'Disponibilidad variable. Siempre consultar stock por WhatsApp.',
+    badge: 'Tendencia 2026'
+  },
+  {
+    id: 'mexicanos',
+    titulo: 'Mexicanos Clásicos',
+    emoji: '🇲🇽',
+    descripcion: 'Mazapanes, tamarindos, obleas, pulparindos y paletas tradicionales. La nostalgia curada con estándar premium.',
+    productos: [
+      { nombre: 'Mazapán Cerezo 30 pzas', desde250g: '—', desde500g: '$121', desde1kg: '—' },
+      { nombre: 'Pulparindo 20 pzas', desde250g: '—', desde500g: '$65', desde1kg: '—' },
+      { nombre: 'Duvalin Trisabor 18 pzas', desde250g: '—', desde500g: '$54', desde1kg: '—' },
+      { nombre: 'Panditas Mini 25 pzas', desde250g: '—', desde500g: '$117', desde1kg: '—' },
+      { nombre: 'Mangomitas 1 kg', desde250g: '—', desde500g: '—', desde1kg: '$99' },
+      { nombre: 'Obleas Cajeta 20 pzas', desde250g: '—', desde500g: '$74', desde1kg: '—' }
+    ],
+    nota: 'Disponibles por pieza, paquete o a granel según producto.',
+    badge: ''
+  },
+  {
+    id: 'mixes-gourmet',
+    titulo: 'Mixes Gourmet',
+    emoji: '✨',
+    descripcion: 'Combinaciones curadas por nuestros expertos: mezclas que maximizan el impacto visual y la variedad de sabor en tu mesa.',
+    productos: [
+      { nombre: 'Mix Boda Elegante', desde250g: '$95', desde500g: '$185', desde1kg: '$365' },
+      { nombre: 'Mix XV Romántico', desde250g: '$88', desde500g: '$173', desde1kg: '$342' },
+      { nombre: 'Mix Baby Shower Pasteles', desde250g: '$82', desde500g: '$162', desde1kg: '$321' },
+      { nombre: 'Mix Corporativo Neutro', desde250g: '$78', desde500g: '$154', desde1kg: '$305' },
+      { nombre: 'Mix Cumpleaños Infantil', desde250g: '$68', desde500g: '$134', desde1kg: '$265' },
+      { nombre: 'Mix Nostalgia Retro', desde250g: '$72', desde500g: '$142', desde1kg: '$281' }
+    ],
+    nota: 'Los mixes son curaduría exclusiva MEDEDUL. No disponibles en dulcerías genéricas.',
+    badge: 'Exclusivo MEDEDUL'
+  }
+];
+
+// ─── Guía de cantidades ───────────────────────────────────────────────────
+const cantidades = [
+  { invitados: '30–50', candy_bar: '6–10 kg', mesa_premium: '9–15 kg', mesa_top: '12–20 kg' },
+  { invitados: '51–100', candy_bar: '10–20 kg', mesa_premium: '15–30 kg', mesa_top: '20–40 kg' },
+  { invitados: '101–150', candy_bar: '20–30 kg', mesa_premium: '30–45 kg', mesa_top: '40–60 kg' },
+  { invitados: '151–200', candy_bar: '30–40 kg', mesa_premium: '45–60 kg', mesa_top: '60–80 kg' },
+  { invitados: '200+', candy_bar: 'Consultar', mesa_premium: 'Consultar', mesa_top: 'Consultar' }
+];
+
+// ─── Testimonios ──────────────────────────────────────────────────────────
+const testimonios = [
+  {
+    name: 'Andrea Montes',
+    initials: 'AM',
+    review: 'Pedí el mix gourmet de boda para 150 invitados. No solo llegó perfectamente empacado, sino que la cantidad fue exacta. Cero desperdicio y la presentación en la mesa quedó increíble.',
+    event: 'Dulces a Granel — Boda en Lomas',
+    rating: 5
+  },
+  {
+    name: 'Jorge Castellanos',
+    initials: 'JC',
+    review: 'Los enchilados gourmet son otro nivel. Los comparé con los de una dulcería común y no hay punto de comparación. Para el candy bar de la graduación fueron el elemento estrella.',
+    event: 'Enchilados Gourmet — Graduación',
+    rating: 5
+  },
+  {
+    name: 'Familia Reyes',
+    initials: 'FR',
+    review: 'El mix de baby shower en azul fue exactamente lo que buscaba. Me ayudaron a calcular la cantidad y acertaron perfecto. Los invitados se los terminaron todos y sobró poco.',
+    event: 'Mix Baby Shower — Interlomas',
+    rating: 5
+  }
+];
+
+// ─── FAQ ──────────────────────────────────────────────────────────────────
+const faqItems = [
+  {
+    question: '¿Cuál es el pedido mínimo para dulces a granel?',
+    answer: 'El mínimo es de 250g por variedad. Para pedidos completos de mesa de dulces recomendamos mínimo 5kg total para que la entrega y la presentación sean óptimas. Para kits de evento no hay mínimo por tipo, el kit ya viene calculado.'
+  },
+  {
+    question: '¿Los precios de la tabla son finales?',
+    answer: 'Los precios son orientativos y pueden variar según disponibilidad y temporada. Para cotización exacta y actualizada, escríbenos por WhatsApp con el detalle de tu pedido. Siempre respondemos en menos de 2 horas en horario de atención.'
+  },
+  {
+    question: '¿Cómo sé cuánto pedir para mi número de invitados?',
+    answer: 'Usa la guía de cantidades de esta página como punto de partida. Para un cálculo exacto según tu tipo de evento, dinos por WhatsApp: número de invitados, tipo de evento (boda, cumpleaños, corporativo) y si será mesa principal o complementaria.'
+  },
+  {
+    question: '¿Los mixes gourmet se pueden personalizar?',
+    answer: 'Sí. Los mixes son una base curada que puedes ajustar en porcentaje de cada tipo de dulce. Si tienes restricciones (sin chile, sin gluten) o preferencias de color, consúltanos y armamos la mezcla personalizada.'
+  },
+  {
+    question: '¿El freeze-dried candy siempre está disponible?',
+    answer: 'La disponibilidad del freeze-dried varía por ser un producto de importación. Te recomendamos consultarlo con 7-10 días de anticipación para eventos. Cuando hay stock, la entrega es inmediata.'
+  }
+];
+
+// ─── Schema ───────────────────────────────────────────────────────────────
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Dulces a Granel para Mesa de Dulces — MEDEDUL",
+  "description": "Gomitas, enchilados gourmet, chocolates finos y freeze-dried candy por 250g, 500g o 1kg. Curados por MEDEDUL para eventos en CDMX.",
+  "brand": { "@type": "Brand", "name": "MEDEDUL" },
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "37",
+    "highPrice": "380",
+    "priceCurrency": "MXN",
+    "offerCount": "30"
+  }
+};
+---
+
+<BaseLayout
+  title="Dulces a Granel para Mesa de Dulces y Candy Bar | MEDEDUL CDMX"
+  description="Compra dulces a granel por 250g, 500g o 1kg en CDMX. Gomitas, enchilados gourmet, chocolates y freeze-dried candy. Curados por MEDEDUL para eventos. Entrega express."
+  canonical="/dulces/a-granel"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════ -->
+  <Hero
+    title="Dulces a Granel para tu Mesa"
+    highlight="Dulces a Granel"
+    subtitle="Por 250g, 500g o 1kg — los mismos dulces de nuestras mesas premium"
+    secondaryContent={`
+      <p>Seleccionamos cada dulce con el mismo criterio que usamos para nuestros montajes: <strong>calidad visual + sabor excepcional + impacto en mesa</strong>. No vendemos cualquier granel.</p>
+      <p>Elige por tipo, elige la cantidad exacta para tu número de invitados, y recibe en CDMX en 24–48h. Sin complejidad, sin desperdicio.</p>
+    `}
+  />
+
+  <!-- ═══════════════════════════════════════════════════════
+       GUÍA RÁPIDA DE CANTIDADES
+  ═══════════════════════════════════════════════════════ -->
+  <section class="guia-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="¿Cuánto Necesito para"
+        titleHighlight="mi Evento?"
+        subtitle="Guía de cantidades por número de invitados"
+        content={`
+          <p>Esta es la pregunta más frecuente. Usamos estas referencias en nuestros 500+ eventos. Las cantidades varían según si la mesa es el centro de la celebración o un elemento complementario.</p>
+        `}
+      />
+      <div class="tabla-wrapper">
+        <table class="tabla-cantidades">
+          <thead>
+            <tr>
+              <th>Invitados</th>
+              <th>Candy Bar básico<br><span>~150g/persona</span></th>
+              <th>Mesa Premium<br><span>~200g/persona</span></th>
+              <th>Mesa Top<br><span>~300g/persona</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {cantidades.map(row => (
+              <tr>
+                <td class="invitados-col">{row.invitados}</td>
+                <td>{row.candy_bar}</td>
+                <td>{row.mesa_premium}</td>
+                <td class="top-col">{row.mesa_top}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">
+        <strong>¿Dudas de cuánto pedir?</strong> Escríbenos a WhatsApp con el número de invitados y tipo de evento. Te calculamos exacto sin costo.
+        <a href="https://wa.me/525525226442?text=Hola!%20Necesito%20ayuda%20para%20calcular%20la%20cantidad%20de%20dulces%20para%20mi%20evento." target="_blank" rel="noopener noreferrer" class="tabla-wa-link">
+          Consultar ahora →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CATÁLOGO POR CATEGORÍA
+  ═══════════════════════════════════════════════════════ -->
+  <section class="catalogo-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Catálogo de"
+        titleHighlight="Dulces a Granel"
+        subtitle="6 categorías curadas. Precios orientativos en MXN."
+        align="center"
+      />
+
+      {categorias.map(cat => (
+        <div class="categoria-block" id={cat.id}>
+          <div class="categoria-header">
+            <div class="categoria-titulo-wrap">
+              <span class="categoria-emoji">{cat.emoji}</span>
+              <div>
+                <div class="categoria-top-row">
+                  <h2 class="categoria-titulo">{cat.titulo}</h2>
+                  {cat.badge && <span class="categoria-badge">{cat.badge}</span>}
+                </div>
+                <p class="categoria-desc">{cat.descripcion}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabla-productos-wrapper">
+            <table class="tabla-productos">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>250g</th>
+                  <th>500g</th>
+                  <th>1 kg</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cat.productos.map(prod => (
+                  <tr>
+                    <td class="prod-nombre">{prod.nombre}</td>
+                    <td class={prod.desde250g === '—' ? 'no-disponible' : ''}>{prod.desde250g}</td>
+                    <td class={prod.desde500g === '—' ? 'no-disponible' : ''}>{prod.desde500g}</td>
+                    <td class={prod.desde1kg === '—' || prod.desde1kg === 'Consultar' ? 'no-disponible' : ''}>{prod.desde1kg}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {cat.nota && (
+            <p class="categoria-nota">ⓘ {cat.nota}</p>
+          )}
+
+          <div class="categoria-cta">
+            <a
+              href={`https://wa.me/525525226442?text=Hola!%20Quiero%20pedir%20dulces%20a%20granel%3A%20${encodeURIComponent(cat.titulo)}.%20%C2%BFPueden%20cotizarme?`}
+              class="btn-pedir"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pedir {cat.titulo} →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NOTA SOBRE PRECIOS / DISCLAIMER
+  ═══════════════════════════════════════════════════════ -->
+  <section class="disclaimer-section">
+    <div class="container">
+      <div class="disclaimer-box">
+        <span class="disclaimer-icon">📋</span>
+        <div class="disclaimer-texto">
+          <strong>Sobre los precios mostrados:</strong> Los precios son orientativos y pueden variar según disponibilidad, temporada y volumen del pedido. Para cotización exacta y confirmación de stock, escríbenos por WhatsApp antes de tu pedido. Siempre respondemos en menos de 2 horas (lun–sáb 9:00–19:00).
+        </div>
+        <a
+          href="https://wa.me/525525226442?text=Hola!%20Necesito%20cotizar%20dulces%20a%20granel%20para%20mi%20evento."
+          class="disclaimer-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Cotizar ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TESTIMONIOS
+  ═══════════════════════════════════════════════════════ -->
+  <section class="testimonios-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Lo dicen quienes ya"
+        titleHighlight="compraron a granel"
+        subtitle="Experiencias reales con nuestra selección de dulces"
+      />
+      <div class="testimonios-grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CROSS-LINK KITS
+  ═══════════════════════════════════════════════════════ -->
+  <section class="crosslink-section section-padding">
+    <div class="container">
+      <div class="crosslink-content">
+        <div class="crosslink-texto">
+          <span class="crosslink-badge">¿Prefieres que lo armemos nosotros?</span>
+          <h2>Kits Curados por <span class="titulo-decorativo">Tipo de Evento</span></h2>
+          <p>Si no quieres elegir producto por producto, nuestros kits ya incluyen la selección ideal de dulces calculada por número de invitados y tipo de celebración. Listo para usar.</p>
+          <a href="/dulces/kits-por-evento" class="btn-crosslink">
+            Ver Kits por Evento →
+          </a>
+        </div>
+        <div class="crosslink-imagen">
+          <img
+            src={getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif')}
+            alt="Kits de dulces curados por tipo de evento"
+            width="480"
+            height="360"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════ -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Dulces a Granel"
+        subtitle="Resolvemos tus dudas antes de hacer el pedido"
+        align="center"
+      />
+      <FAQ items={faqItems} id="faq-granel" />
+    </div>
+  </section>
+
+  <ContactSection />
+
+</BaseLayout>
+
+<style>
+  /* ───────────────────────────────────────────
+     GUÍA CANTIDADES
+  ─────────────────────────────────────────── */
+  .guia-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .tabla-wrapper {
+    overflow-x: auto;
+    margin-top: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .tabla-cantidades {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    background: #fff;
+  }
+
+  .tabla-cantidades thead {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    color: #fff;
+  }
+
+  .tabla-cantidades th {
+    padding: 18px 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    line-height: 1.3;
+  }
+
+  .tabla-cantidades th span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  .tabla-cantidades td {
+    padding: 16px 20px;
+    text-align: center;
+    border-bottom: 1px solid #f0e6ef;
+    color: var(--gris-texto);
+  }
+
+  .tabla-cantidades .invitados-col {
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .tabla-cantidades .top-col {
+    color: var(--rosa-principal);
+    font-weight: 600;
+  }
+
+  .tabla-cantidades tbody tr:hover {
+    background: #fdf8fa;
+  }
+
+  .tabla-cantidades tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tabla-nota {
+    margin-top: 20px;
+    font-size: 0.88rem;
+    color: var(--gris-texto);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tabla-wa-link {
+    color: var(--rosa-principal);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .tabla-wa-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ───────────────────────────────────────────
+     CATÁLOGO
+  ─────────────────────────────────────────── */
+  .catalogo-section {
+    background: #fff;
+  }
+
+  .categoria-block {
+    margin-top: 60px;
+    padding: 36px;
+    border-radius: 20px;
+    border: 1px solid #f0e6ef;
+    background: #fdf8fa;
+    scroll-margin-top: 120px;
+  }
+
+  .categoria-block:first-of-type {
+    margin-top: 48px;
+  }
+
+  .categoria-header {
+    margin-bottom: 28px;
+  }
+
+  .categoria-titulo-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .categoria-emoji {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .categoria-top-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .categoria-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin: 0;
+  }
+
+  .categoria-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(233, 30, 140, 0.1);
+    border: 1px solid rgba(233, 30, 140, 0.25);
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--rosa-principal);
+  }
+
+  .categoria-desc {
+    font-size: 0.92rem;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .tabla-productos-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: #fff;
+  }
+
+  .tabla-productos thead {
+    background: var(--texto-oscuro);
+    color: #fff;
+  }
+
+  .tabla-productos th {
+    padding: 14px 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+  }
+
+  .tabla-productos th:first-child {
+    text-align: left;
+  }
+
+  .tabla-productos td {
+    padding: 13px 20px;
+    text-align: center;
+    border-bottom: 1px solid #f5f0f4;
+    color: var(--gris-texto);
+  }
+
+  .tabla-productos .prod-nombre {
+    text-align: left;
+    color: var(--texto-oscuro);
+    font-weight: 500;
+  }
+
+  .tabla-productos .no-disponible {
+    color: #ccc;
+  }
+
+  .tabla-productos tbody tr:hover {
+    background: #fdf8fa;
+  }
+
+  .tabla-productos tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .categoria-nota {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--gris-texto);
+    font-style: italic;
+  }
+
+  .categoria-cta {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-pedir {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-pedir:hover {
+    background: var(--rosa-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
+  }
+
+  /* ───────────────────────────────────────────
+     DISCLAIMER
+  ─────────────────────────────────────────── */
+  .disclaimer-section {
+    padding: 40px 0;
+    background: #fff;
+  }
+
+  .disclaimer-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff5fb 100%);
+    border: 1px solid rgba(233, 30, 140, 0.2);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .disclaimer-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .disclaimer-texto {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    min-width: 240px;
+  }
+
+  .disclaimer-btn {
+    display: inline-flex;
+    padding: 12px 24px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-radius: 50px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .disclaimer-btn:hover {
+    background: var(--rosa-hover);
+  }
+
+  /* ───────────────────────────────────────────
+     TESTIMONIOS
+  ─────────────────────────────────────────── */
+  .testimonios-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* ───────────────────────────────────────────
+     CROSSLINK KITS
+  ─────────────────────────────────────────── */
+  .crosslink-section {
+    background: #fff;
+  }
+
+  .crosslink-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 48px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1a2e 100%);
+    border-radius: 24px;
+  }
+
+  .crosslink-texto {
+    color: #fff;
+  }
+
+  .crosslink-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(233, 30, 140, 0.2);
+    border: 1px solid rgba(233, 30, 140, 0.4);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--rosa-principal);
+    margin-bottom: 16px;
+  }
+
+  .crosslink-texto h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  .crosslink-texto p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 28px;
+  }
+
+  .btn-crosslink {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 32px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-crosslink:hover {
+    background: var(--rosa-hover);
+    transform: translateY(-2px);
+  }
+
+  .crosslink-imagen img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  /* ───────────────────────────────────────────
+     FAQ
+  ─────────────────────────────────────────── */
+  .faq-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* ───────────────────────────────────────────
+     RESPONSIVE
+  ─────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .crosslink-content {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 32px;
+    }
+
+    .crosslink-imagen img {
+      height: 220px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categoria-block {
+      padding: 24px 20px;
+    }
+
+    .categoria-titulo-wrap {
+      gap: 12px;
+    }
+
+    .categoria-emoji {
+      font-size: 2rem;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .disclaimer-box {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .crosslink-imagen {
+      display: none;
+    }
+
+    .tabla-cantidades th,
+    .tabla-cantidades td,
+    .tabla-productos th,
+    .tabla-productos td {
+      padding: 12px 14px;
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .categoria-cta {
+      justify-content: stretch;
+    }
+
+    .btn-pedir {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

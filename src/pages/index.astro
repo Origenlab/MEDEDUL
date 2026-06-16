@@ -309,6 +309,71 @@ const getGalleryImage = (path: string) => ({
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════
+       SECCIÓN DULCES — Nueva categoría de venta
+  ═══════════════════════════════════════════════════════ -->
+  <section class="dulces-promo section-padding" id="dulces">
+    <div class="container">
+      <SectionHeader
+        title="Compra los Dulces de"
+        titleHighlight="Nuestras Mesas"
+        subtitle="Los mismos dulces que usamos en 500+ eventos, ahora disponibles para ti"
+        content={`<p>¿Quieres armar tu propia mesa? Vendemos los dulces exactos que seleccionamos para nuestros montajes premium: <strong>a granel por kilo, kits curados por tipo de evento</strong> o el exclusivo <strong>Freeze-Dried Candy</strong>, la tendencia más viral del mundo para eventos. Entrega express en CDMX.</p>`}
+      />
+
+      <div class="service-grid">
+        <ServiceCard
+          href="/dulces/a-granel"
+          image={getCdnUrl("/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif")}
+          alt="Dulces a granel para mesa de dulces y candy bar CDMX — gomitas, enchilados, chocolates por kilo"
+          title="Dulces a Granel"
+          excerpt="Gomitas, enchilados gourmet, chocolates finos y mixes curados por 250g, 500g o 1kg. Con guía de cantidades por número de invitados."
+          cta="Ver selección"
+          badge="Más Popular"
+        />
+        <ServiceCard
+          href="/dulces/kits-por-evento"
+          image={getCdnUrl("/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif")}
+          alt="Kits de dulces curados por tipo de evento — boda, XV años, baby shower, corporativo CDMX"
+          title="Kits por Evento"
+          excerpt="Surtidos completos calculados para tu número de invitados: boda, XV años, baby shower, corporativo y más. Sin adivinar qué ni cuánto pedir."
+          cta="Ver kits"
+          badge="Nuevo"
+        />
+        <ServiceCard
+          href="/dulces/freeze-dried"
+          image={getCdnUrl("/img/galeria/candy-bar-empresarial-moderno-minimalista.avif")}
+          alt="Freeze dried candy dulces liofilizados premium para eventos en México CDMX"
+          title="Freeze-Dried Candy"
+          excerpt="La tendencia más viral del mundo de los dulces. Crocantes, intensos y absolutamente instagrameables. Los primeros en CDMX para eventos premium."
+          cta="Descubrir"
+          badge="Tendencia 2026"
+        />
+        <ServiceCard
+          href="/dulces"
+          image={getCdnUrl("/img/galeria/candy-bar-graduacion-birrete-elegante.avif")}
+          alt="Mayoreo de dulces para organizadores de eventos y wedding planners CDMX"
+          title="Mayoreo B2B"
+          excerpt="Para wedding planners, organizadores y salones. Descuentos del 15–25%, facturación CFDI y asesor dedicado. Conviértenos en tu proveedor oficial."
+          cta="Cotizar mayoreo"
+          badge="Facturación"
+        />
+      </div>
+
+      <div class="dulces-cta-strip">
+        <p class="dulces-cta-texto">¿No sabes cuánto pedir? <strong>Te calculamos la cantidad exacta gratis</strong></p>
+        <a
+          href="https://wa.me/525525226442?text=Hola!%20Quiero%20comprar%20dulces%20para%20mi%20evento.%20%C2%BFPueden%20asesorarme?"
+          class="dulces-cta-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Asesoría gratis por WhatsApp →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Por qué Elegirnos Section -->
   <section class="porque-elegirnos section-padding" id="nosotros">
     <div class="container">
@@ -488,3 +553,66 @@ const getGalleryImage = (path: string) => ({
   <FAQContactModule faqItems={faqItems} />
 
 </BaseLayout>
+
+<style>
+  /* ── Sección Dulces Homepage ─────────────────────────────────────── */
+  .dulces-promo {
+    background: linear-gradient(180deg, #fff 0%, #fdf8fa 100%);
+  }
+
+  .dulces-cta-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+    padding: 22px 32px;
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .dulces-cta-texto {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+
+  .dulces-cta-texto strong {
+    color: #fff;
+  }
+
+  .dulces-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    background: #fff;
+    color: var(--rosa-principal);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+  }
+
+  .dulces-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .dulces-cta-strip {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px 24px;
+    }
+
+    .dulces-cta-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

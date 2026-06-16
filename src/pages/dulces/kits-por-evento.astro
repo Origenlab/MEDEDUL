@@ -1,0 +1,1077 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Hero from '@/components/global/Hero.astro';
+import SectionHeader from '@/components/global/SectionHeader.astro';
+import ReviewCard from '@/components/global/ReviewCard.astro';
+import FAQ from '@/components/global/FAQ.astro';
+import ContactSection from '@/components/global/ContactSection.astro';
+import { getCdnUrl } from '@/lib/cdn';
+
+const breadcrumbItems = [
+  { name: 'Dulces', url: '/dulces' },
+  { name: 'Kits por Evento', url: '/dulces/kits-por-evento' }
+];
+
+// ─── Kits por evento ──────────────────────────────────────────────────────
+const kits = [
+  {
+    id: 'boda',
+    emoji: '💍',
+    titulo: 'Kit Boda Elegante',
+    subtitulo: 'Para la mesa de dulces de tu gran día',
+    descripcion: 'Curado para bodas donde la estética lo es todo. Combina chocolates belgas, trufas, gomitas premium y dulces finos en una paleta neutra y sofisticada. Todo calculado para que cada invitado se lleve la mejor impresión.',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'),
+    alt: 'Kit de dulces para boda elegante CDMX',
+    incluye: [
+      'Chocolates belgas y trufas artesanales',
+      'Gomitas premium en tonos neutros',
+      'Mix gourmet boda MEDEDUL',
+      'Macarons o petit fours (según disponibilidad)',
+      'Dulces importados seleccionados',
+      'Presentación en empaque premium'
+    ],
+    paquetes: [
+      { personas: '30–50', precio: '$2,800', porPersona: '$56–93' },
+      { personas: '50–100', precio: '$4,800', porPersona: '$48–96' },
+      { personas: '100–150', precio: '$6,800', porPersona: '$45–68' },
+      { personas: '150+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: 'Premium',
+    waText: 'Kit+Boda+Elegante'
+  },
+  {
+    id: 'xv-anos',
+    emoji: '👑',
+    titulo: 'Kit XV Romántico',
+    subtitulo: 'El centro de atención de tu quince',
+    descripcion: 'Diseñado para quinceañeras que quieren una mesa que sea tendencia. Gomitas temáticas, chocolates, malvaviscos y dulces en la paleta de color del evento. Todo Instagram-ready desde el primer momento.',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif'),
+    alt: 'Kit de dulces para XV años romántico CDMX',
+    incluye: [
+      'Gomitas en paleta de color personalizada',
+      'Malvaviscos y bombones decorativos',
+      'Chocolates y dulces en color tema',
+      'Dulces importados fotogénicos',
+      'Mix MEDEDUL XV adaptado a tu color',
+      'Empaque con detalles personalizados'
+    ],
+    paquetes: [
+      { personas: '50–80', precio: '$3,200', porPersona: '$40–64' },
+      { personas: '80–130', precio: '$5,000', porPersona: '$38–62' },
+      { personas: '130–200', precio: '$7,200', porPersona: '$36–55' },
+      { personas: '200+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: 'Personalizable',
+    waText: 'Kit+XV+Romantico'
+  },
+  {
+    id: 'baby-shower',
+    emoji: '🍼',
+    titulo: 'Kit Baby Shower',
+    subtitulo: 'Dulce bienvenida para el bebé en camino',
+    descripcion: 'Delicado, tierno y perfectamente instagrameable. Paleta pasteles en azul, rosa, verde menta o amarillo. Dulces suaves, bombones, malvaviscos y gomitas tiernas que crean la atmósfera perfecta para la llegada de un nuevo integrante.',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-velas-chocolate.avif'),
+    alt: 'Kit de dulces para baby shower CDMX',
+    incluye: [
+      'Malvaviscos y bombones en color pasteles',
+      'Gomitas suaves temáticas',
+      'Chocolates blancos decorativos',
+      'Caramelos en paleta pasteles',
+      'Mezcla gourmet baby shower MEDEDUL',
+      'Empaque especial con motivo bebé'
+    ],
+    paquetes: [
+      { personas: '20–40', precio: '$1,800', porPersona: '$45–90' },
+      { personas: '40–70', precio: '$2,800', porPersona: '$40–70' },
+      { personas: '70–100', precio: '$4,000', porPersona: '$40–57' },
+      { personas: '100+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: '',
+    waText: 'Kit+Baby+Shower'
+  },
+  {
+    id: 'corporativo',
+    emoji: '🏢',
+    titulo: 'Kit Corporativo',
+    subtitulo: 'Presentación ejecutiva con facturación CFDI',
+    descripcion: 'Para eventos de empresa donde la imagen lo es todo. Presentación ejecutiva y neutra, posibilidad de empaque con logo o paleta corporativa. Facturación CFDI inmediata. Ideal para convenciones, lanzamientos de producto, eventos de fin de año y reuniones ejecutivas.',
+    imagen: getCdnUrl('/img/galeria/candy-bar-empresarial-moderno-minimalista.avif'),
+    alt: 'Kit de dulces corporativo para eventos de empresa CDMX',
+    incluye: [
+      'Chocolates premium en presentación ejecutiva',
+      'Dulces finos seleccionados',
+      'Botanas gourmet y snacks ejecutivos',
+      'Mix MEDEDUL corporativo neutro',
+      'Opción de empaque con branding',
+      'Factura CFDI incluida'
+    ],
+    paquetes: [
+      { personas: '30–60', precio: '$2,400', porPersona: '$40–80' },
+      { personas: '60–100', precio: '$3,600', porPersona: '$36–60' },
+      { personas: '100–200', precio: '$5,500', porPersona: '$27–55' },
+      { personas: '200+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: 'Facturación',
+    waText: 'Kit+Corporativo'
+  },
+  {
+    id: 'cumpleanos',
+    emoji: '🎂',
+    titulo: 'Kit Cumpleaños',
+    subtitulo: 'Desde infantil temático hasta adulto elegante',
+    descripcion: 'Adaptable a cualquier edad y temática. Para fiestas infantiles: colores vibrantes, dulces divertidos y gomitas temáticas. Para adultos: selección más sofisticada con chocolates, dulces importados y presentación elegante. Totalmente personalizable.',
+    imagen: getCdnUrl('/img/galeria/candy-bar-graduacion-birrete-elegante.avif'),
+    alt: 'Kit de dulces para cumpleaños infantil y adulto CDMX',
+    incluye: [
+      'Surtido adaptado a edad y temática',
+      'Gomitas en colores de la decoración',
+      'Chocolates y dulces seleccionados',
+      'Dulces especiales de temporada',
+      'Mix personalizado por tema',
+      'Empaque con detalles del festejado'
+    ],
+    paquetes: [
+      { personas: '15–30', precio: '$1,200', porPersona: '$40–80' },
+      { personas: '30–60', precio: '$2,000', porPersona: '$33–67' },
+      { personas: '60–100', precio: '$3,200', porPersona: '$32–53' },
+      { personas: '100+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: '',
+    waText: 'Kit+Cumpleanos'
+  },
+  {
+    id: 'bautizo',
+    emoji: '🕊️',
+    titulo: 'Kit Bautizo & Comunión',
+    subtitulo: 'Elegancia y significado en cada detalle',
+    descripcion: 'Para celebraciones religiosas donde la presentación debe transmitir pureza, elegancia y emoción. Paleta en blanco, dorado y tonos suaves. Dulces finos, chocolates blancos y detalles que reflejan la importancia del momento.',
+    imagen: getCdnUrl('/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif'),
+    alt: 'Kit de dulces para bautizo y primera comunión CDMX',
+    incluye: [
+      'Chocolates blancos y dorados',
+      'Malvaviscos en blanco y dorado',
+      'Dulces finos en tonos suaves',
+      'Detalles decorativos religiosos',
+      'Mix MEDEDUL bautizo/comunión',
+      'Empaque especial con motivo religioso'
+    ],
+    paquetes: [
+      { personas: '20–40', precio: '$1,600', porPersona: '$40–80' },
+      { personas: '40–80', precio: '$2,600', porPersona: '$32–65' },
+      { personas: '80–120', precio: '$3,800', porPersona: '$31–47' },
+      { personas: '120+', precio: 'Cotización', porPersona: 'Personalizado' }
+    ],
+    badge: '',
+    waText: 'Kit+Bautizo+Comunion'
+  }
+];
+
+// ─── Qué incluye siempre ──────────────────────────────────────────────────
+const siempreIncluye = [
+  { icono: '🎁', texto: 'Empaque premium para cada variedad' },
+  { icono: '📊', texto: 'Cantidad calculada exacta para tu número de invitados' },
+  { icono: '🚚', texto: 'Entrega en CDMX en 24–48h o recogida en sucursal' },
+  { icono: '💬', texto: 'Asesoría de especialista para personalización de colores' },
+  { icono: '🔄', texto: 'Ajuste de kit sin costo 48h antes del evento' },
+  { icono: '🧾', texto: 'Factura CFDI para kits corporativos' }
+];
+
+// ─── Testimonios ──────────────────────────────────────────────────────────
+const testimonios = [
+  {
+    name: 'Mariana Ortega',
+    initials: 'MO',
+    review: 'El kit de boda para 120 invitados fue perfecto. La cantidad fue exacta, cero sobrante, y la selección de dulces fue exactamente el estilo elegante que queríamos. Sin estresarme eligiendo producto por producto.',
+    event: 'Kit Boda Elegante — 120 personas — Pedregal',
+    rating: 5
+  },
+  {
+    name: 'Distribuidora Hoffmann',
+    initials: 'DH',
+    review: 'Para nuestro evento corporativo de fin de año necesitábamos algo que impresionara sin perder formalidad. El kit corporativo con nuestro logo en el empaque fue exactamente eso. Factura inmediata, trato excelente.',
+    event: 'Kit Corporativo — 200 personas — Corporativo Santa Fe',
+    rating: 5
+  },
+  {
+    name: 'Karla Medina',
+    initials: 'KM',
+    review: 'Los XV de mi hija quedaron de ensueño. El kit en tonos rosa pálido y dorado fue el centro de todas las fotos. Me dieron el mix exacto para la paleta de colores que elegimos. Recomendadísimos.',
+    event: 'Kit XV Romántico — 150 personas — Interlomas',
+    rating: 5
+  }
+];
+
+// ─── FAQ ──────────────────────────────────────────────────────────────────
+const faqItems = [
+  {
+    question: '¿En cuánto tiempo está listo un kit?',
+    answer: 'Los kits estándar están listos en 48–72h desde la confirmación del pedido. Para eventos urgentes (menos de 48h), contáctanos directamente por WhatsApp y verificamos disponibilidad. Los kits con personalización de empaque o branding requieren 5–7 días.'
+  },
+  {
+    question: '¿Puedo cambiar los dulces de un kit?',
+    answer: 'Sí. Cada kit es una base curada que puedes ajustar: cambiar proporciones, eliminar algún tipo de dulce (por alergias o preferencia) o agregar una variedad específica. Hacemos el ajuste sin costo si nos avisas con más de 48h de anticipación.'
+  },
+  {
+    question: '¿Los precios incluyen empaque y entrega?',
+    answer: 'Los precios incluyen el empaque premium. La entrega en CDMX tiene un costo adicional según zona (consúltalo al pedir). La recogida en sucursal de Anzures o Condesa es siempre sin costo.'
+  },
+  {
+    question: '¿Pueden adaptar el kit a una paleta de colores específica?',
+    answer: 'Sí, es una de nuestras especialidades. Dinos los colores del evento y seleccionamos los dulces que encajan visualmente. Para bodas, XV años y baby shower esto es parte del proceso estándar.'
+  },
+  {
+    question: '¿Los kits corporativos incluyen factura?',
+    answer: 'Sí, todos los kits corporativos incluyen factura CFDI de forma inmediata. Aceptamos transferencia bancaria, tarjeta y efectivo. Para cuentas recurrentes ofrecemos crédito a 30 días sujeto a autorización.'
+  },
+  {
+    question: '¿Puedo combinar varios tipos de kit para un evento grande?',
+    answer: 'Por supuesto. Muchos eventos tienen una mesa principal (Kit Boda Elegante) y estaciones complementarias (Kit Mini Postres, Kit Snacks Salados). Cotizamos el conjunto con descuento por volumen.'
+  },
+  {
+    question: '¿Qué pasa si necesito más cantidad del kit que pedí?',
+    answer: 'Si avisas con más de 24h, lo ajustamos sin problema. Si es el mismo día del evento y tenemos stock, lo resolvemos por WhatsApp. Siempre recomendamos confirmar la cantidad final 3 días antes.'
+  }
+];
+
+// ─── Schema ───────────────────────────────────────────────────────────────
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Kits de Dulces por Tipo de Evento — MEDEDUL CDMX",
+  "description": "Kits de dulces curados por expertos según el tipo de evento. Boda, XV años, baby shower, corporativo, cumpleaños y bautizo. Con cálculo exacto de cantidades por número de invitados.",
+  "url": "https://mesas-de-dulces.com/dulces/kits-por-evento",
+  "numberOfItems": 6,
+  "itemListElement": kits.map((kit, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": kit.titulo,
+    "url": `https://mesas-de-dulces.com/dulces/kits-por-evento#${kit.id}`
+  }))
+};
+---
+
+<BaseLayout
+  title="Kits de Dulces para Eventos: Boda, XV Años, Baby Shower y más | MEDEDUL CDMX"
+  description="Kits de dulces curados por tipo de evento en CDMX. Boda, XV años, baby shower, corporativo, cumpleaños y bautizo. Cantidad exacta calculada. Entrega express CDMX."
+  canonical="/dulces/kits-por-evento"
+  ogImage="/img/galeria/mesa-dulces-boda-elegante-blanco-dorado.avif"
+  includeCategoryStyles={true}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} slot="head" />
+
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════ -->
+  <Hero
+    title="Kits de Dulces por Tipo de Evento"
+    highlight="Kits de Dulces"
+    subtitle="Curados por expertos. Cantidad exacta. Listos para tu celebración."
+    secondaryContent={`
+      <p>No tienes que saber qué dulces pedir ni cuántos. Nosotros llevamos <strong>8 años y 500+ eventos</strong> resolviendo exactamente eso. Dinos el tipo de evento y el número de invitados — el resto lo hacemos nosotros.</p>
+      <p>Cada kit incluye la selección perfecta de dulces, empaque premium y la cantidad calculada para que <strong>no sobre ni falte</strong>. Adaptable a tu paleta de colores.</p>
+    `}
+  />
+
+  <!-- ═══════════════════════════════════════════════════════
+       QUÉ INCLUYE SIEMPRE
+  ═══════════════════════════════════════════════════════ -->
+  <section class="siempre-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Lo que Incluye"
+        titleHighlight="Todo Kit"
+        subtitle="Sin importar qué tipo de evento, esto siempre va incluido"
+        align="center"
+      />
+      <div class="siempre-grid">
+        {siempreIncluye.map(item => (
+          <div class="siempre-item">
+            <span class="siempre-icono">{item.icono}</span>
+            <p class="siempre-texto">{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       KITS POR EVENTO
+  ═══════════════════════════════════════════════════════ -->
+  <section class="kits-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="6 Kits para Cada"
+        titleHighlight="Celebración"
+        subtitle="Elige el tuyo y personaliza colores, cantidades y detalles"
+        content={`
+          <p>Cada kit fue diseñado basándonos en lo que funciona en eventos reales. No son catálogos genéricos: son las combinaciones de dulces que más éxito han tenido en nuestros montajes a lo largo de 8 años.</p>
+        `}
+      />
+
+      {kits.map(kit => (
+        <article class="kit-block" id={kit.id}>
+          <div class="kit-imagen-wrap">
+            <img
+              src={kit.imagen}
+              alt={kit.alt}
+              width="480"
+              height="360"
+              loading="lazy"
+            />
+            {kit.badge && <span class="kit-badge">{kit.badge}</span>}
+          </div>
+
+          <div class="kit-contenido">
+            <div class="kit-header">
+              <span class="kit-emoji">{kit.emoji}</span>
+              <div>
+                <h2 class="kit-titulo">{kit.titulo}</h2>
+                <p class="kit-subtitulo">{kit.subtitulo}</p>
+              </div>
+            </div>
+
+            <p class="kit-descripcion">{kit.descripcion}</p>
+
+            <h3 class="kit-incluye-titulo">¿Qué incluye?</h3>
+            <ul class="kit-incluye-lista">
+              {kit.incluye.map(item => (
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--rosa-principal)">
+                    <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="var(--rosa-principal)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div class="kit-precios">
+              <h3 class="kit-precios-titulo">Precios orientativos</h3>
+              <div class="kit-precios-grid">
+                {kit.paquetes.map(paq => (
+                  <div class={`kit-precio-item ${paq.precio === 'Cotización' ? 'kit-precio-item--consulta' : ''}`}>
+                    <span class="precio-personas">{paq.personas} personas</span>
+                    <span class="precio-total">{paq.precio}</span>
+                    <span class="precio-por-persona">{paq.porPersona}/persona</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="kit-cta-wrap">
+              <a
+                href={`https://wa.me/525525226442?text=Hola!%20Me%20interesa%20el%20${kit.waText}.%20%C2%BFPueden%20cotizarme?`}
+                class="btn-kit-wa"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Cotizar {kit.titulo}
+              </a>
+              <a href="/dulces/a-granel" class="btn-kit-granel">
+                O elige a granel →
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NOTA PRECIOS
+  ═══════════════════════════════════════════════════════ -->
+  <section class="nota-precios-section">
+    <div class="container">
+      <div class="nota-precios-box">
+        <span class="nota-icon">📋</span>
+        <div class="nota-texto">
+          <strong>Sobre los precios:</strong> Los precios mostrados son orientativos e incluyen la selección de dulces y empaque premium. Costos de entrega se calculan por zona. Para cotización exacta y personalización de colores, escríbenos por WhatsApp — respondemos en menos de 2 horas en horario de atención (lun–sáb 9:00–19:00).
+        </div>
+        <a
+          href="https://wa.me/525525226442?text=Hola!%20Necesito%20cotizar%20un%20kit%20de%20dulces%20para%20mi%20evento."
+          class="nota-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Cotizar ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TESTIMONIOS
+  ═══════════════════════════════════════════════════════ -->
+  <section class="testimonios-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Clientes que confiaron en"
+        titleHighlight="nuestros kits"
+        subtitle="Resultados reales en eventos de CDMX"
+      />
+      <div class="testimonios-grid">
+        {testimonios.map(t => (
+          <ReviewCard
+            name={t.name}
+            initials={t.initials}
+            review={t.review}
+            event={t.event}
+            rating={t.rating}
+            verified={true}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CROSS-LINK SERVICIO COMPLETO
+  ═══════════════════════════════════════════════════════ -->
+  <section class="crosslink-servicio section-padding">
+    <div class="container">
+      <div class="crosslink-box">
+        <div class="crosslink-texto">
+          <span class="crosslink-badge">¿Quieres que lo hagamos todo?</span>
+          <h2>Servicio Completo de <span class="titulo-decorativo">Mesa de Dulces</span></h2>
+          <p>Si prefieres que MEDEDUL se encargue del diseño, montaje, operación y desmontaje — y no solo los dulces — conoce nuestro servicio completo. La misma calidad premium, pero sin que tengas que preocuparte por nada.</p>
+          <div class="crosslink-botones">
+            <a href="/servicios" class="btn-servicio">
+              Ver Servicios Completos →
+            </a>
+            <a href="/dulces/a-granel" class="btn-granel-link">
+              O compra a granel →
+            </a>
+          </div>
+        </div>
+        <div class="crosslink-stats">
+          <div class="crosslink-stat">
+            <span class="crosslink-num">500+</span>
+            <span class="crosslink-label">Eventos realizados</span>
+          </div>
+          <div class="crosslink-stat">
+            <span class="crosslink-num">4.9★</span>
+            <span class="crosslink-label">Calificación promedio</span>
+          </div>
+          <div class="crosslink-stat">
+            <span class="crosslink-num">2h</span>
+            <span class="crosslink-label">Tiempo de respuesta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════ -->
+  <section class="faq-section section-padding">
+    <div class="container">
+      <SectionHeader
+        title="Preguntas sobre"
+        titleHighlight="Kits por Evento"
+        subtitle="Todo lo que necesitas saber antes de hacer tu pedido"
+        align="center"
+      />
+      <FAQ items={faqItems} id="faq-kits" />
+    </div>
+  </section>
+
+  <ContactSection />
+
+</BaseLayout>
+
+<style>
+  /* ───────────────────────────────────────────
+     SIEMPRE INCLUYE
+  ─────────────────────────────────────────── */
+  .siempre-section {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+  }
+
+  /* Override SectionHeader color dentro de esta sección */
+  .siempre-section :global(.section-header-title),
+  .siempre-section :global(.section-header-subtitle),
+  .siempre-section :global(h2),
+  .siempre-section :global(p) {
+    color: #fff !important;
+  }
+
+  .siempre-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .siempre-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 22px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    color: #fff;
+  }
+
+  .siempre-icono {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .siempre-texto {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ───────────────────────────────────────────
+     KITS
+  ─────────────────────────────────────────── */
+  .kits-section {
+    background: #fff;
+  }
+
+  .kit-block {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 48px;
+    margin-top: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #f0e6ef;
+    align-items: start;
+    scroll-margin-top: 120px;
+  }
+
+  .kit-block:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  /* Alternar imagen lado derecho */
+  .kit-block:nth-child(even) {
+    direction: rtl;
+  }
+
+  .kit-block:nth-child(even) > * {
+    direction: ltr;
+  }
+
+  .kit-imagen-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .kit-imagen-wrap img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .kit-imagen-wrap:hover img {
+    transform: scale(1.03);
+  }
+
+  .kit-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 16px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+  }
+
+  .kit-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .kit-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .kit-emoji {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .kit-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--texto-oscuro);
+    margin: 0 0 4px;
+  }
+
+  .kit-subtitulo {
+    font-size: 0.9rem;
+    color: var(--rosa-principal);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .kit-descripcion {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gris-texto);
+    margin: 0 0 24px;
+  }
+
+  .kit-incluye-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-oscuro);
+    margin: 0 0 12px;
+  }
+
+  .kit-incluye-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .kit-incluye-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.87rem;
+    color: var(--gris-texto);
+    line-height: 1.4;
+  }
+
+  .kit-incluye-lista li svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .kit-precios {
+    background: #fdf8fa;
+    border: 1px solid #f0e6ef;
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+
+  .kit-precios-titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-oscuro);
+    margin: 0 0 14px;
+  }
+
+  .kit-precios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .kit-precio-item {
+    text-align: center;
+    padding: 12px 8px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #f0e6ef;
+  }
+
+  .kit-precio-item--consulta {
+    background: linear-gradient(135deg, var(--rosa-principal) 0%, #A0005F 100%);
+    border-color: transparent;
+  }
+
+  .kit-precio-item--consulta .precio-personas,
+  .kit-precio-item--consulta .precio-total,
+  .kit-precio-item--consulta .precio-por-persona {
+    color: #fff !important;
+    opacity: 0.9;
+  }
+
+  .precio-personas {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gris-texto);
+    margin-bottom: 4px;
+  }
+
+  .precio-total {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--rosa-principal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .precio-por-persona {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--gris-texto);
+  }
+
+  .kit-cta-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-kit-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: #25D366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-kit-wa:hover {
+    background: #1fbd5c;
+    transform: translateY(-2px);
+  }
+
+  .btn-kit-granel {
+    color: var(--rosa-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-kit-granel:hover {
+    opacity: 0.75;
+  }
+
+  /* ───────────────────────────────────────────
+     NOTA PRECIOS
+  ─────────────────────────────────────────── */
+  .nota-precios-section {
+    padding: 32px 0;
+    background: #fff;
+  }
+
+  .nota-precios-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #fdf8fa 0%, #fff5fb 100%);
+    border: 1px solid rgba(233, 30, 140, 0.2);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .nota-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .nota-texto {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    min-width: 240px;
+  }
+
+  .nota-btn {
+    display: inline-flex;
+    padding: 12px 24px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-radius: 50px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .nota-btn:hover {
+    background: var(--rosa-hover);
+  }
+
+  /* ───────────────────────────────────────────
+     TESTIMONIOS
+  ─────────────────────────────────────────── */
+  .testimonios-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 50px;
+  }
+
+  /* ───────────────────────────────────────────
+     CROSSLINK SERVICIO
+  ─────────────────────────────────────────── */
+  .crosslink-servicio {
+    background: #fff;
+  }
+
+  .crosslink-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+    padding: 48px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1a2e 100%);
+    border-radius: 24px;
+  }
+
+  .crosslink-texto {
+    color: #fff;
+  }
+
+  .crosslink-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(233, 30, 140, 0.2);
+    border: 1px solid rgba(233, 30, 140, 0.4);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--rosa-principal);
+    margin-bottom: 16px;
+  }
+
+  .crosslink-texto h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  .crosslink-texto p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 28px;
+  }
+
+  .crosslink-botones {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-servicio {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    background: var(--rosa-principal);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-servicio:hover {
+    background: var(--rosa-hover);
+  }
+
+  .btn-granel-link {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .btn-granel-link:hover {
+    color: #fff;
+  }
+
+  .crosslink-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 180px;
+  }
+
+  .crosslink-stat {
+    text-align: center;
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+  }
+
+  .crosslink-num {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--rosa-principal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .crosslink-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+  }
+
+  /* ───────────────────────────────────────────
+     FAQ
+  ─────────────────────────────────────────── */
+  .faq-section {
+    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
+  }
+
+  /* ───────────────────────────────────────────
+     RESPONSIVE
+  ─────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .kit-block {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .kit-incluye-lista {
+      grid-template-columns: 1fr;
+    }
+
+    .kit-precios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .siempre-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .crosslink-box {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .crosslink-stats {
+      flex-direction: row;
+      min-width: auto;
+      width: 100%;
+    }
+
+    .crosslink-stat {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .kit-block,
+    .kit-block:nth-child(even) {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .kit-imagen-wrap img {
+      height: 260px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .siempre-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .crosslink-box {
+      padding: 28px 24px;
+    }
+
+    .crosslink-stats {
+      flex-wrap: wrap;
+    }
+
+    .nota-precios-box {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .kit-precios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .kit-titulo {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .kit-precios-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .kit-cta-wrap {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .btn-kit-wa {
+      justify-content: center;
+    }
+
+    .crosslink-botones {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .btn-servicio {
+      justify-content: center;
+    }
+  }
+</style>

@@ -77,6 +77,24 @@ const navColumns = [
     ]
   },
   {
+    title: 'Dulces',
+    links: [
+      { label: '🍬 Comprar Dulces',       href: '/dulces' },
+      { label: 'Dulces a Granel',         href: '/dulces/a-granel' },
+      { label: 'Gomitas Premium',         href: '/dulces/a-granel#gomitas' },
+      { label: 'Enchilados Gourmet',      href: '/dulces/a-granel#enchilados' },
+      { label: 'Chocolates Finos',        href: '/dulces/a-granel#chocolates' },
+      { label: 'Freeze-Dried Candy ⚡',   href: '/dulces/freeze-dried' },
+      { label: 'Kits por Evento',         href: '/dulces/kits-por-evento' },
+      { label: 'Kit Boda',                href: '/dulces/kits-por-evento#boda' },
+      { label: 'Kit XV Años',             href: '/dulces/kits-por-evento#xv-anos' },
+      { label: 'Kit Baby Shower',         href: '/dulces/kits-por-evento#baby-shower' },
+      { label: 'Kit Corporativo',         href: '/dulces/kits-por-evento#corporativo' },
+      { label: 'Mexicanos Clásicos',      href: '/dulces/mexicanos-clasicos' },
+      { label: 'Mayoreo B2B',             href: '/dulces/mayoreo' },
+    ]
+  },
+  {
     title: 'Explora',
     links: [
       { label: 'Galería',      href: '/galeria' },
@@ -121,9 +139,9 @@ const sucursales = [
     direccion: 'Blvd. Toluca–Metepec 913',
     colonia: 'San Jorge Pueblo Nuevo · CP 52169',
     horario: 'Lun–Sáb · 10:00–19:00',
-    telefono: '52 55 2177 5184',
-    telefonoLink: 'tel:+525521775184',
-    whatsapp: 'https://wa.me/525521775184',
+    telefono: '55 2522 6442',
+    telefonoLink: 'tel:+525525226442',
+    whatsapp: 'https://wa.me/525525226442',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.+Toluca-Metepec+913+San+Jorge+Pueblo+Nuevo+52169+Toluca',
     detalleUrl: '/sucursales/toluca'
   }
@@ -629,8 +647,8 @@ const legalLinks = [
 /* ── Nav ───────────────────────────────────────────────────── */
 .mf-nav {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: clamp(12px, 2vw, 28px);
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(10px, 1.5vw, 22px);
 }
 
 .mf-nav__col { display: flex; flex-direction: column; }
@@ -1036,7 +1054,8 @@ const legalLinks = [
     max-width: 480px;
   }
   .mf-nav {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 18px;
   }
 }
 
