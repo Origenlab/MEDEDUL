@@ -10,8 +10,7 @@ import Hero from '@/components/global/Hero.astro';
 import SectionHeader from '@/components/global/SectionHeader.astro';
 import ServiceCard from '@/components/global/ServiceCard.astro';
 import ReviewCard from '@/components/global/ReviewCard.astro';
-import FAQ from '@/components/global/FAQ.astro';
-import ContactSection from '@/components/global/ContactSection.astro';
+import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import CTAServices from '@/components/global/CTAServices.astro';
 import { getCdnUrl } from '@/lib/cdn';
 
@@ -612,24 +611,9 @@ const schemaLD = {
 
 
   <!-- ═══════════════════════════════════════════════════════
-       FAQ
+       FAQ + CONTACTO — módulo unificado 2 columnas
   ═══════════════════════════════════════════════════════ -->
-  <section class="faq-section section-padding">
-    <div class="container">
-      <SectionHeader
-        title="Preguntas Frecuentes sobre"
-        titleHighlight="Nuestras Sucursales"
-        subtitle="Todo lo que necesitas saber antes de contactarnos"
-        align="center"
-      />
-      <FAQ items={faqItems} id="faq-sucursales" />
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       CONTACTO
-  ═══════════════════════════════════════════════════════ -->
-  <ContactSection />
+  <FAQContactModule faqItems={faqItems} emitSchema={false} />
 
 </BaseLayout>
 
@@ -1214,12 +1198,6 @@ const schemaLD = {
     margin-top: 50px;
   }
 
-  /* ─────────────────────────────────────────
-     FAQ
-  ───────────────────────────────────────── */
-  .faq-section {
-    background: linear-gradient(180deg, #fdf8fa 0%, #fff 100%);
-  }
 
   /* ─────────────────────────────────────────
      RESPONSIVE
