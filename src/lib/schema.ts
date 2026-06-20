@@ -62,13 +62,8 @@ export interface ServiceSchemaOptions {
 export function buildServiceSchema(o: ServiceSchemaOptions) {
   const nums = o.packages.map((p) => Number(p.price.replace(/[$,]/g, '')));
 
-  const aggregateRating: Record<string, string> = {
-    '@type': 'AggregateRating',
-    ratingValue: o.ratingValue ?? '4.9',
-    reviewCount: o.reviewCount ?? '127'
-  };
-  if (o.bestRating) aggregateRating.bestRating = o.bestRating;
-
+  // Integridad: NO se emite AggregateRating salvo reseñas reales y verificables.
+  // (Los defaults fabricados 4.9/127 fueron retirados — 2026-06-20.)
   const service: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -80,8 +75,7 @@ export function buildServiceSchema(o: ServiceSchemaOptions) {
       name: 'Mededul',
       image: getCdnUrl(PROVIDER_LOGO),
       telephone: o.telephone ?? '+525525226442',
-      url: SITE_URL,
-      aggregateRating
+      url: SITE_URL
     },
     areaServed: o.areaServed ?? DEFAULT_AREA_SERVED,
     offers: {

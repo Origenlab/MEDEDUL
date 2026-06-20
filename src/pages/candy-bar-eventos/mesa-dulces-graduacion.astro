@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsDulces, subsDonas, subsBotanas, subsFuenteChamoy,
-  subsCBXV, subsCBBoda, subsCBCorporativo, subsCBCumple,
+  subsCBXV, subsCBBoda, subsCBCorporativo, subsCBCumple
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -384,12 +384,6 @@ const serviceSchema = {
           "addressLocality": "Ciudad de Mexico",
           "addressRegion": "CDMX",
           "addressCountry": "MX"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "200",
-          "bestRating": "5"
         }
       },
       "areaServed": {
@@ -415,7 +409,7 @@ const serviceSchema = {
         "offers": paquetesGrad.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa Graduacion CDMX ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

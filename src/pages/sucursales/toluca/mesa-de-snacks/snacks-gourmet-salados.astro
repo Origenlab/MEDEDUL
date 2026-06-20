@@ -245,8 +245,7 @@ const serviceSchema = {
           "postalCode": "52169",
           "addressRegion": "Estado de Mexico",
           "addressCountry": "MX"
-        },
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "62", "bestRating": "5" }
+        }
       },
       "areaServed": {
         "@type": "AdministrativeArea",
@@ -270,7 +269,7 @@ const serviceSchema = {
         "offers": paquetesSalados.map(pkg => ({
           "@type": "Offer",
           "name": `Snacks Salados Toluca ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

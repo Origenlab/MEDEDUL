@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsDulces, subsPostres, subsTradicionles, subsStandPastel,
-  subsCBBautizo, subsCBBoda, subsCBCumple, subsCBBabyShower,
+  subsCBBautizo, subsCBBoda, subsCBCumple, subsCBBabyShower
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -333,12 +333,6 @@ const serviceSchema = {
           "addressLocality": "Ciudad de Mexico",
           "addressRegion": "CDMX",
           "addressCountry": "MX"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "140",
-          "bestRating": "5"
         }
       },
       "areaServed": {
@@ -364,7 +358,7 @@ const serviceSchema = {
         "offers": paquetesComunion.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa Primera Comunion CDMX ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

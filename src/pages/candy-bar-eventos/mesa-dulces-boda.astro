@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsPostres, subsFrutas, subsQuesos, subsFuenteChocolate,
-  subsCBXV, subsCBBabyShower, subsCBCorporativo, subsCBComunion,
+  subsCBXV, subsCBBabyShower, subsCBCorporativo, subsCBComunion
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -260,13 +260,7 @@ const serviceSchema = {
         "name": "MEDEDUL",
         "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
         "telephone": "+525525226442",
-        "url": "https://mesas-de-dulces.com",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "160",
-          "bestRating": "5"
-        }
+        "url": "https://mesas-de-dulces.com"
       },
       "areaServed": [
         { "@type": "City", "name": "Ciudad de Mexico" },
@@ -283,7 +277,7 @@ const serviceSchema = {
         "offers": paquetesBoda.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa Boda ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

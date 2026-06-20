@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsCBXV, subsCBBoda, subsCBBabyShower, subsCBBautizo,
-  subsCBCumple, subsCBComunion, subsCBCorporativo, subsCBGraduacion,
+  subsCBCumple, subsCBComunion, subsCBCorporativo, subsCBGraduacion
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -296,12 +296,6 @@ const serviceSchema = {
           "addressLocality": "Ciudad de Mexico",
           "addressRegion": "CDMX",
           "addressCountry": "MX"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "180",
-          "bestRating": "5"
         }
       },
       "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
@@ -314,7 +308,7 @@ const serviceSchema = {
         "offers": paquetes.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa Temática ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

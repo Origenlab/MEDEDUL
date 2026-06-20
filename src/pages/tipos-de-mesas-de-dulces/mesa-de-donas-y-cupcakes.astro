@@ -115,12 +115,7 @@ const serviceSchema = {
   provider: {
     '@type': 'LocalBusiness',
     name: 'Mededul',
-    telephone: '+525525226442',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127'
-    }
+    telephone: '+525525226442'
   },
   areaServed: { '@type': 'City', name: 'Ciudad de Mexico' },
   offers: {
@@ -132,7 +127,7 @@ const serviceSchema = {
     offers: packages.map(pkg => ({
       '@type': 'Offer',
       name: `Mesa de Donas y Cupcakes ${pkg.name}`,
-      price: pkg.price.replace(/[$,]/g, ''),
+      price: pkg.price.replace(/[$]/g, ''),
       priceCurrency: 'MXN',
       description: pkg.guests,
       availability: 'https://schema.org/InStock'

@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsCBBoda, subsCBXV, subsCBBabyShower, subsCBBautizo,
-  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces,
+  subsFuenteChocolate, subsFuenteChamoy, subsParedDulces
 } from '@/data/subsections';
 
 const breadcrumbItems = [
@@ -113,7 +113,7 @@ const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/stand-para-pastel#service", "name": "Renta de Stand para Pastel en CDMX", "serviceType": "Estación Interactiva / Stand Decorativo Pastel", "description": "Renta de stand para pastel en Ciudad de México con 6 diseños temáticos (clásico, arco globos, floral, neón, LED, temático personalizado). Soporte para pasteles de 1 a 5+ pisos. Coordinación con pastelero externo. Para bodas, XV, baby shower, bautizo. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "280", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "2800", "highPrice": "8500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Stand Pastel CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/stand-para-pastel#service", "name": "Renta de Stand para Pastel en CDMX", "serviceType": "Estación Interactiva / Stand Decorativo Pastel", "description": "Renta de stand para pastel en Ciudad de México con 6 diseños temáticos (clásico, arco globos, floral, neón, LED, temático personalizado). Soporte para pasteles de 1 a 5+ pisos. Coordinación con pastelero externo. Para bodas, XV, baby shower, bautizo. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "2800", "highPrice": "8500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Stand Pastel CDMX ${pkg.name}`, "price": pkg.price.replace(/[$]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
   ]
 };
 ---

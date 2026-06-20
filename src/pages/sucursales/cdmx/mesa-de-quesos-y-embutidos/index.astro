@@ -638,12 +638,6 @@ const serviceSchema = {
           "postalCode": "11590",
           "addressRegion": "Ciudad de Mexico",
           "addressCountry": "MX"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "127",
-          "bestRating": "5"
         }
       },
       "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
@@ -656,7 +650,7 @@ const serviceSchema = {
         "offers": paquetesQuesosCdmx.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa de Quesos CDMX ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

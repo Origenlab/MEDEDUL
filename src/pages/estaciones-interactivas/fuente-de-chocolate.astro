@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsCBBoda, subsCBXV, subsCBCumple, subsCBCorporativo,
-  subsFuenteChamoy, subsParedDulces, subsStandPastel,
+  subsFuenteChamoy, subsParedDulces, subsStandPastel
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -144,8 +144,7 @@ const serviceSchema = {
         "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
         "telephone": "+525525226442",
         "url": "https://mesas-de-dulces.com",
-        "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" },
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "350", "bestRating": "5" }
+        "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }
       },
       "areaServed": { "@type": "City", "name": "Ciudad de Mexico" },
       "offers": {
@@ -154,7 +153,7 @@ const serviceSchema = {
         "lowPrice": "3500",
         "highPrice": "9500",
         "offerCount": "3",
-        "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chocolate CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" }))
+        "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chocolate CDMX ${pkg.name}`, "price": pkg.price.replace(/[$]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" }))
       }
     }
   ]

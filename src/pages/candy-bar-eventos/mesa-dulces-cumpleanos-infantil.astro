@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsDulces, subsDonas, subsParedDulces, subsFuenteChocolate,
-  subsCBXV, subsCBBoda, subsCBBabyShower, subsCBBautizo,
+  subsCBXV, subsCBBoda, subsCBBabyShower, subsCBBautizo
 } from '@/data/subsections';
 
 // =============== Breadcrumbs ===============
@@ -367,13 +367,7 @@ const serviceSchema = {
         "name": "MEDEDUL",
         "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'),
         "telephone": "+525525226442",
-        "url": "https://mesas-de-dulces.com",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "220",
-          "bestRating": "5"
-        }
+        "url": "https://mesas-de-dulces.com"
       },
       "areaServed": [
         { "@type": "City", "name": "Ciudad de Mexico" },
@@ -390,7 +384,7 @@ const serviceSchema = {
         "offers": paquetesKid.map(pkg => ({
           "@type": "Offer",
           "name": `Cumpleaños Infantil ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

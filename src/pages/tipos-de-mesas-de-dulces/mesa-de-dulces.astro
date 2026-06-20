@@ -141,12 +141,6 @@ const serviceSchema = {
       "@type": "PostalAddress",
       "addressLocality": "Ciudad de Mexico",
       "addressCountry": "MX"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "127",
-      "bestRating": "5"
     }
   },
   "areaServed": {
@@ -162,7 +156,7 @@ const serviceSchema = {
     "offers": paquetesMesaDulces.map(pkg => ({
       "@type": "Offer",
       "name": `Mesa de Dulces ${pkg.name}`,
-      "price": pkg.price.replace(/[$,]/g, ''),
+      "price": pkg.price.replace(/[$]/g, ''),
       "priceCurrency": "MXN",
       "description": pkg.guests,
       "availability": "https://schema.org/InStock"

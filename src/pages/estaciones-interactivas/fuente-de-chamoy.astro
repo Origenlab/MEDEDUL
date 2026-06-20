@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsCBXV, subsCBCumple, subsCBBoda, subsCBGraduacion,
-  subsFuenteChocolate, subsParedDulces, subsStandPastel,
+  subsFuenteChocolate, subsParedDulces, subsStandPastel
 } from '@/data/subsections';
 
 const breadcrumbItems = [
@@ -123,7 +123,7 @@ const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy#service", "name": "Renta de Fuente de Chamoy en CDMX", "serviceType": "Estación Interactiva / Fuente de Chamoy Artesanal Mexicano", "description": "Renta de fuente de chamoy artesanal mexicano en Ciudad de México con 4 niveles de picor (suave, tradicional, picoso, extra picoso), 8 productos para bañar (gomitas, mango, jícama, pepino, paletas Vero, palomitas), 5 mezclas adicionales. Capacidades 5kg, 15kg y 30kg. Para XV, bodas, graduaciones, eventos corporativos. Operación desde sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "180", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "3200", "highPrice": "8800", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chamoy CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/fuente-de-chamoy#service", "name": "Renta de Fuente de Chamoy en CDMX", "serviceType": "Estación Interactiva / Fuente de Chamoy Artesanal Mexicano", "description": "Renta de fuente de chamoy artesanal mexicano en Ciudad de México con 4 niveles de picor (suave, tradicional, picoso, extra picoso), 8 productos para bañar (gomitas, mango, jícama, pepino, paletas Vero, palomitas), 5 mezclas adicionales. Capacidades 5kg, 15kg y 30kg. Para XV, bodas, graduaciones, eventos corporativos. Operación desde sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "3200", "highPrice": "8800", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Fuente Chamoy CDMX ${pkg.name}`, "price": pkg.price.replace(/[$]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
   ]
 };
 ---

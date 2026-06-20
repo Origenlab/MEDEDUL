@@ -14,7 +14,7 @@ import FAQContactModule from '@/components/global/FAQContactModule.astro';
 import { getCdnSrcSet, getCdnUrl } from '@/lib/cdn';
 import {
   subsCBBabyShower, subsCBXV, subsCBBoda, subsCBCorporativo,
-  subsFuenteChocolate, subsFuenteChamoy, subsStandPastel,
+  subsFuenteChocolate, subsFuenteChamoy, subsStandPastel
 } from '@/data/subsections';
 
 const breadcrumbItems = [
@@ -124,7 +124,7 @@ const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/pared-de-dulces#service", "name": "Renta de Pared de Dulces (Candy Wall) en CDMX", "serviceType": "Estación Interactiva / Candy Wall / Pared Decorativa Dulces", "description": "Renta de pared de dulces (candy wall) en Ciudad de México con 6 diseños (floral, neón, geométrica, vintage, branding, temática personalizada), 50 a 200+ dispensadores acrílicos, 8 tipos de dulces, iluminación LED. Spot fotográfico Instagram/TikTok. Para baby showers, XV, bodas, corporativos. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "220", "bestRating": "5" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "4500", "highPrice": "13500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Pared Dulces CDMX ${pkg.name}`, "price": pkg.price.replace(/[$,]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
+    { "@type": "Service", "@id": "https://mesas-de-dulces.com/estaciones-interactivas/pared-de-dulces#service", "name": "Renta de Pared de Dulces (Candy Wall) en CDMX", "serviceType": "Estación Interactiva / Candy Wall / Pared Decorativa Dulces", "description": "Renta de pared de dulces (candy wall) en Ciudad de México con 6 diseños (floral, neón, geométrica, vintage, branding, temática personalizada), 50 a 200+ dispensadores acrílicos, 8 tipos de dulces, iluminación LED. Spot fotográfico Instagram/TikTok. Para baby showers, XV, bodas, corporativos. Sucursales Anzures y Condesa.", "provider": { "@type": "LocalBusiness", "name": "MEDEDUL", "image": getCdnUrl('/img/branding/logo-mededul-mesas-de-dulces.avif'), "telephone": "+525525226442", "url": "https://mesas-de-dulces.com", "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de Mexico", "addressRegion": "CDMX", "addressCountry": "MX" } }, "areaServed": { "@type": "City", "name": "Ciudad de Mexico" }, "offers": { "@type": "AggregateOffer", "priceCurrency": "MXN", "lowPrice": "4500", "highPrice": "13500", "offerCount": "3", "offers": paquetes.map(pkg => ({ "@type": "Offer", "name": `Pared Dulces CDMX ${pkg.name}`, "price": pkg.price.replace(/[$]/g, ''), "priceCurrency": "MXN", "description": pkg.guests, "availability": "https://schema.org/InStock" })) } }
   ]
 };
 ---

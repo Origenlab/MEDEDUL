@@ -363,8 +363,7 @@ const serviceSchema = {
           "postalCode": "52169",
           "addressRegion": "Estado de Mexico",
           "addressCountry": "MX"
-        },
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "62", "bestRating": "5" }
+        }
       },
       "areaServed": {
         "@type": "AdministrativeArea",
@@ -388,7 +387,7 @@ const serviceSchema = {
         "offers": paquetesMix.map(pkg => ({
           "@type": "Offer",
           "name": `Mix Dulce-Salado Toluca ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"

@@ -304,12 +304,6 @@ const serviceSchema = {
           "postalCode": "52169",
           "addressRegion": "Estado de Mexico",
           "addressCountry": "MX"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "54",
-          "bestRating": "5"
         }
       },
       "areaServed": {
@@ -334,7 +328,7 @@ const serviceSchema = {
         "offers": paquetesQuesosToluca.map(pkg => ({
           "@type": "Offer",
           "name": `Mesa de Quesos Toluca ${pkg.name}`,
-          "price": pkg.price.replace(/[$,]/g, ''),
+          "price": pkg.price.replace(/[$]/g, ''),
           "priceCurrency": "MXN",
           "description": pkg.guests,
           "availability": "https://schema.org/InStock"
