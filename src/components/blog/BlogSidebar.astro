@@ -82,7 +82,7 @@ const coberturaZonas = {
     <ul class="sidebar-featured">
       {featuredPosts.map((post, i) => (
         <li>
-          <a href={`/blog/${post.slug}`}>
+          <a href={`/blog/${post.id}`}>
             <span class="featured-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <span class="featured-title">{post.data.title}</span>
           </a>
