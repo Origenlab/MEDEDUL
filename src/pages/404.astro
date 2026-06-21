@@ -95,7 +95,7 @@ const categories = [...new Set(allPosts.map(post => post.data.category))].slice(
             {recentPosts.map(post => {
               const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
               return (
-                <a href={`/blog/${post.slug}`} class="recent-post-card">
+                <a href={`/blog/${post.id}`} class="recent-post-card">
                   <img
                     src={getCdnUrl(post.data.heroImage ?? '')}
                     alt={post.data.heroImageAlt}

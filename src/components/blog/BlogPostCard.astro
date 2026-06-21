@@ -13,7 +13,7 @@ const { post, index = 0 } = Astro.props;
 const meta = categoryMeta[post.data.category as keyof typeof categoryMeta];
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://mesas-de-dulces.com';
-const articleUrl = `/blog/${post.slug}`;
+const articleUrl = `/blog/${post.id}`;
 const absoluteUrl = `${siteUrl}${articleUrl}`;
 const categoryUrl = `/blog/categoria/${post.data.category}`;
 const categoryName = meta?.name || post.data.category;

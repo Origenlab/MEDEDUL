@@ -1,67 +1,4 @@
-import { defineCollection, z } from 'astro:content';
-
-// Blog Collection Schema
-const blogCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string().max(150), // Extended to accommodate longer SEO titles
-    description: z.string().max(300), // Extended for longer meta descriptions
-    publishDate: z.coerce.date().optional(),
-    modifiedDate: z.coerce.date().optional(),
-    category: z.enum([
-      'bodas',
-      'xv-anos',
-      'baby-shower',
-      'bautizos',
-      'corporativos',
-      'fiestas-infantiles',
-      'infantiles', // Alias for fiestas-infantiles
-      'graduaciones',
-      'despedidas-soltero',
-      'tips-consejos',
-      'tendencias',
-      'estaciones' // For interactive stations articles
-    ]),
-    heroImage: z.string().optional(), // Path to image in public folder
-    heroImageAlt: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    location: z.string().optional(),
-    readTime: z.string().optional(),
-    faqs: z.array(z.object({
-      question: z.string(),
-      answer: z.string()
-    })).optional(),
-    draft: z.boolean().default(false)
-  })
-});
-
-// Service Pages Collection (Candy Bar, Tipos de Mesas, etc.)
-const serviceCollection = defineCollection({
-  type: 'content',
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    description: z.string(),
-    heroImage: image(),
-    heroImageAlt: z.string().optional(),
-    packages: z.array(z.object({
-      name: z.string(),
-      price: z.string(),
-      features: z.array(z.string()),
-      popular: z.boolean().default(false)
-    })).optional(),
-    gallery: z.array(z.object({
-      src: image(),
-      alt: z.string()
-    })).optional(),
-    faqs: z.array(z.object({
-      question: z.string(),
-      answer: z.string()
-    })).optional(),
-    order: z.number().default(0)
-  })
-});
-
-// Category metadata for blog
+// Metadatos de categorías del blog (no es content collection config — eso vive en src/content.config.ts).
 export const categoryMeta = {
   'bodas': {
     name: 'Bodas',
@@ -135,12 +72,4 @@ export const categoryMeta = {
     color: '#8B4513',
     description: 'Estaciones interactivas para eventos'
   }
-};
-
-export const collections = {
-  blog: blogCollection,
-  'candy-bar': serviceCollection,
-  'tipos-mesas': serviceCollection,
-  'estaciones': serviceCollection,
-  'porque-mededul': serviceCollection
 };

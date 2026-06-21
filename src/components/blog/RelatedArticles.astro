@@ -18,7 +18,7 @@ const currentTags = new Set((post.data.tags || []).map((t) => t.toLowerCase()));
 const currentLoc = (post.data.location || '').toLowerCase();
 
 const scored = all
-  .filter((p) => p.slug !== post.slug)
+  .filter((p) => p.id !== post.id)
   .map((p) => {
     let score = 0;
     if (p.data.category === post.data.category) score += 3;
@@ -37,16 +37,16 @@ const scored = all
 let related = scored;
 if (related.length < limit) {
   const sameCat = all
-    .filter((p) => p.slug !== post.slug && p.data.category === post.data.category)
-    .filter((p) => !related.some((r) => r.slug === p.slug));
+    .filter((p) => p.id !== post.id && p.data.category === post.data.category)
+    .filter((p) => !related.some((r) => r.id === p.id));
   related = [...related, ...sameCat].slice(0, limit);
 }
 
 // Last-resort fallback: any recent content
 if (related.length < limit) {
   const rest = all
-    .filter((p) => p.slug !== post.slug)
-    .filter((p) => !related.some((r) => r.slug === p.slug));
+    .filter((p) => p.id !== post.id)
+    .filter((p) => !related.some((r) => r.id === p.id));
   related = [...related, ...rest].slice(0, limit);
 }
 ---
@@ -63,7 +63,7 @@ if (related.length < limit) {
       {related.map((p) => {
         const meta = categoryMeta[p.data.category as keyof typeof categoryMeta];
         return (
-          <a href={`/blog/${p.slug}`} class="related-card">
+          <a href={`/blog/${p.id}`} class="related-card">
             <div class="related-image">
               <img
                 src={getCdnUrl(p.data.heroImage ?? '', { w: 400, q: 78 })}

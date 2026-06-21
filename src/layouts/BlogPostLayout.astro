@@ -42,7 +42,7 @@ const enabledTagSlugs = Array.from(tagCounts.entries())
   .map(([slug]) => slug);
 
 const siteUrl = Astro.site?.toString() || 'https://mesas-de-dulces.com';
-const articleUrl = `${siteUrl}/blog/${post.slug}`;
+const articleUrl = `${siteUrl}/blog/${post.id}`;
 const categoryInfo = categoryMeta[category as keyof typeof categoryMeta];
 
 const breadcrumbItems = [
@@ -108,7 +108,7 @@ const breadcrumbItems = [
                 titleHighlight="Frecuentes"
                 subtitle="Resolvemos las dudas clave relacionadas con este contenido"
               />
-              <FAQ items={faqs} id={`faq-${post.slug}`} />
+              <FAQ items={faqs} id={`faq-${post.id}`} />
             </section>
           )}
 
