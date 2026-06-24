@@ -6,5 +6,5 @@ Disallow: /_astro/
 Disallow: /api/
 Disallow: /_image
 
-# Sitemap
-Sitemap: https://mesas-de-dulces.com/sitemap.xml
+# Sitemap (generado por @astrojs/sitemap)
+Sitemap: https://mesas-de-dulces.com/sitemap-index.xml

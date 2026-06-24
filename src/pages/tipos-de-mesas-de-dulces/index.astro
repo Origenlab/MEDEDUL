@@ -153,6 +153,31 @@ const faqSchema = {
     }
   }))
 };
+
+// Product schema con precios reales de los paquetes referenciales (sin aggregateRating: no hay reseñas verificadas)
+const pkgPrices = packages
+  .map((p) => parseInt(p.priceAmount.replace(/[^0-9]/g, ''), 10))
+  .filter((n) => Number.isFinite(n) && n > 0);
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Mesa de Dulces para Eventos',
+  description: 'Renta de mesa de dulces y candy bar con montaje profesional para bodas, XV anos, baby shower, cumpleanos y eventos corporativos en CDMX, Toluca y Metepec.',
+  brand: { '@type': 'Brand', name: 'Mededul' },
+  image: getCdnUrl('/img/tipos-de-mesas/dulces-personalizadas/mesa-dulces-personalizada-elegante.avif'),
+  category: 'Renta de mesas de dulces',
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'MXN',
+    lowPrice: Math.min(...pkgPrices),
+    highPrice: Math.max(...pkgPrices),
+    offerCount: packages.length,
+    availability: 'https://schema.org/InStock',
+    url: 'https://mesas-de-dulces.com/tipos-de-mesas-de-dulces/',
+    seller: { '@type': 'Organization', name: 'Mededul' }
+  }
+};
 ---
 
 <BaseLayout
@@ -164,6 +189,7 @@ const faqSchema = {
 >
   <JsonLd type="Service" />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(itemListSchema)} slot="head" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} slot="head" />
 
   <Breadcrumbs items={breadcrumbItems} />
 

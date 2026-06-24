@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://mesas-de-dulces.com',
@@ -21,7 +22,8 @@ export default defineConfig({
     '/blog/mesa-de-dulces-para-baby-shower-magia-en-cada-dulce-interlomas': '/blog/mesa-de-dulces-para-baby-shower-guia-completa'
   },
   integrations: [
-    mdx()
+    mdx(),
+    sitemap()
   ],
   image: {
     service: {
