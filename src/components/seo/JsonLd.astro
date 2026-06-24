@@ -18,10 +18,15 @@ const organizationSchema = {
   "@type": "Organization",
   "@id": orgId,
   "name": "Mededul",
-  "alternateName": "Mededul Mesas de Dulces",
+  "alternateName": [
+    "Mededul Mesas de Dulces",
+    "Mesas de Dulces CDMX",
+    "Mesas de Dulces México",
+    "mesas-de-dulces.com"
+  ],
   "url": siteUrl,
   "logo": getCdnUrl("/img/branding/logo-mededul-mesas-de-dulces.avif"),
-  "description": "Empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México, Estado de México, Toluca y Metepec",
+  "description": "Mededul (mesas-de-dulces.com) es la empresa líder en renta de mesas de dulces y candy bar para eventos en Ciudad de México, Estado de México, Toluca y Metepec. Operamos desde 2018 con más de 500 eventos realizados.",
   "foundingDate": "2018",
   "address": {
     "@type": "PostalAddress",
@@ -50,8 +55,15 @@ const organizationSchema = {
   "sameAs": [
     "https://www.facebook.com/mededul",
     "https://www.instagram.com/mededul",
-    "https://www.tiktok.com/@mededul"
-  ]
+    "https://www.tiktok.com/@mededul",
+    "https://mesas-de-dulces.com"
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "Mededul",
+    "alternateName": "Mesas de Dulces CDMX"
+  },
+  "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 5 }
 };
 
 // LocalBusiness Schema
