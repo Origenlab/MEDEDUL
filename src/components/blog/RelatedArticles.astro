@@ -66,7 +66,7 @@ if (related.length < limit) {
           <a href={`/blog/${p.slug}`} class="related-card">
             <div class="related-image">
               <img
-                src={getCdnUrl(p.data.heroImage, { w: 400, q: 78 })}
+                src={getCdnUrl(p.data.heroImage ?? '', { w: 400, q: 78 })}
                 alt={p.data.heroImageAlt || p.data.title}
                 width="400"
                 height="240"
