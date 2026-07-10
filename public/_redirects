@@ -1,3 +1,6 @@
 # Cloudflare Pages redirects
+# www → dominio canónico (solo aplica si www está adjunto al proyecto Pages;
+# el fix garantizado es una Redirect Rule en el dashboard de Cloudflare)
+https://www.mesas-de-dulces.com/* https://mesas-de-dulces.com/:splat 301
 # Fix: ZeroRank y crawlers de IA buscan /sitemap.xml — Astro genera sitemap-index.xml
 /sitemap.xml /sitemap-index.xml 301

@@ -29,6 +29,34 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString(
 const defaultOgImage = getCdnUrl("/img/galeria/mesa-dulces-elegante-03.avif");
 const finalOgImage = ogImage ? getCdnUrl(ogImage) : defaultOgImage;
 
+// OG para redes: Facebook/WhatsApp/Twitter NO soportan AVIF/WebP como og:image.
+// Si la imagen resuelta es .avif/.webp se sirve el JPEG 1200x630 pre-generado en
+// /images/og/ (nombre = ruta bajo /img/ aplanada con guiones, evita colisiones).
+function ogSafeUrl(img: string): string {
+  const pathname = /^https?:\/\//i.test(img)
+    ? new URL(img).pathname
+    : (img.split("?")[0] ?? "");
+  if (!/\.(avif|webp)$/i.test(pathname)) return img;
+  const flat = pathname
+    .replace(/^\/img\//i, "")
+    .replace(/^\//, "")
+    .replace(/\.(avif|webp)$/i, "")
+    .split("/")
+    .join("-");
+  return new URL(`/images/og/${flat}.jpg`, siteUrl).toString();
+}
+const socialImage = ogSafeUrl(finalOgImage);
+const socialImagePath = /^https?:\/\//i.test(socialImage)
+  ? new URL(socialImage).pathname
+  : (socialImage.split("?")[0] ?? "");
+const socialImageExt = (socialImagePath.split(".").pop() ?? "").toLowerCase();
+const socialImageType =
+  socialImageExt === "png"
+    ? "image/png"
+    : socialImageExt === "jpg" || socialImageExt === "jpeg"
+      ? "image/jpeg"
+      : undefined;
+
 const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;
 ---
 
@@ -61,7 +89,8 @@ const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={finalOgImage} />
+<meta property="og:image" content={socialImage} />
+{socialImageType && <meta property="og:image:type" content={socialImageType} />}
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={title} />
@@ -73,7 +102,7 @@ const fullTitle = title.includes('Mededul') ? title : `${title} | Mededul`;
 <meta name="twitter:url" content={canonicalUrl} />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={finalOgImage} />
+<meta name="twitter:image" content={socialImage} />
 <meta name="twitter:image:alt" content={title} />
 
 {article && (
