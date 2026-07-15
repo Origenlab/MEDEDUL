@@ -23,6 +23,11 @@ jobs:
       - run: npm ci || npm install
       - run: npx astro check
       - run: npm run build
+      # Huella del commit DENTRO del artefacto publicado. El gate final se la
+      # pide al dominio: si no la devuelve, el deploy no llego a produccion.
+      # Sin punto inicial a proposito (los dotfiles pueden no servirse).
+      - name: Sellar build-id
+        run: echo "${{ github.sha }}" > dist/build-id.txt
       - name: Ensure Pages project exists
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -33,3 +38,25 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=mededul --branch=main --commit-dirty=true
+
+      # ─── GATE REAL: verifica el DOMINIO, no el build ───
+      # Un deploy verde solo prueba que el archivo subio a Cloudflare. NO prueba
+      # que el visitante lo vea: el DNS puede apuntar a otro origen (GitHub Pages
+      # congelado detras del proxy CF = exactamente lo que tuvo este sitio del
+      # 24-jun al 15-jul-2026, con la Action en verde todo el tiempo).
+      # Este paso cierra ese hueco. Si falla, el sitio NO refleja este commit.
+      - name: Verificar que el dominio sirve este commit
+        run: |
+          DOMINIO="mesas-de-dulces.com"
+          for i in $(seq 1 12); do
+            sleep 10
+            # cache-bust obligatorio: sin el, el edge devuelve el valor viejo y da falso verde
+            LIVE=$(curl -fsSL --max-time 15 "https://$DOMINIO/build-id.txt?cb=${RANDOM}${i}" 2>/dev/null | tr -d '[:space:]' || echo "")
+            if [ "$LIVE" = "${{ github.sha }}" ]; then
+              echo "OK — $DOMINIO sirve ${GITHUB_SHA:0:12}"
+              exit 0
+            fi
+            echo "intento $i/12 — el dominio devuelve '${LIVE:0:12}', esperado '${GITHUB_SHA:0:12}'"
+          done
+          echo "::error::$DOMINIO NO sirve este build tras 2 min. El deploy a Cloudflare fue verde, pero el dominio apunta a otro origen (revisar: custom domain del proyecto Pages, DNS de la zona, y GitHub Pages activo en el repo)."
+          exit 1
