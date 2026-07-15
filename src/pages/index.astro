@@ -45,6 +45,47 @@ const faqItems = [
   }
 ];
 
+// Aliados — proveedores de eventos con los que coordinamos montajes.
+// Son colaboraciones operativas, NO reseñas de clientes.
+const aliados = [
+  {
+    name: "Palomita.mx",
+    link: "",
+    giro: "Máquinas de palomitas para eventos",
+    desc: "Renta máquinas de palomitas para fiestas y eventos. Cuando un evento combina snacks salados con mesa de dulces, coordinamos horarios y montaje con su equipo."
+  },
+  {
+    name: "MesasPicnic.com",
+    link: "https://mesaspicnic.com",
+    giro: "Renta de mesas picnic para eventos",
+    desc: "Renta mesas picnic para reuniones y eventos al aire libre. Hemos coordinado montajes en los que la mesa de dulces se integra a la estética picnic del evento."
+  },
+  {
+    name: "Brincolins.com",
+    link: "https://brincolins.com",
+    giro: "Renta de brincolines e inflables",
+    desc: "Renta brincolines e inflables para fiestas infantiles. En eventos compartidos sincronizamos la instalación: primero el inflable, después el montaje de la mesa."
+  },
+  {
+    name: "Inflapy.com",
+    link: "https://inflapy.com",
+    giro: "Renta de inflables para fiestas",
+    desc: "Renta inflables para fiestas y kermeses. Cuando coincidimos en un evento, alineamos tiempos de carga, descarga y montaje para que todo quede listo antes de los invitados."
+  },
+  {
+    name: "Redeil.com",
+    link: "",
+    giro: "Renta de equipo e iluminación",
+    desc: "Renta equipo e iluminación para eventos. Coordinamos con su equipo la logística de montaje para que iluminación y mesa de dulces queden listas sin estorbarse."
+  },
+  {
+    name: "Fantasyglobos.com.mx",
+    link: "",
+    giro: "Decoración con globos",
+    desc: "Hace decoración con globos para eventos. Sus arreglos suelen enmarcar nuestras mesas de dulces; coordinamos colores y montaje para que el conjunto se vea integrado."
+  },
+];
+
 const galleryWidths = [320, 480, 640, 800, 960, 1200];
 const gallerySizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 const getGalleryImage = (path: string) => ({
@@ -472,58 +513,10 @@ const getGalleryImage = (path: string) => ({
         title="Lo que Dicen Nuestros"
         titleHighlight="500+ Clientes"
         subtitle="Historias reales de eventos inolvidables en CDMX"
-        content={`<p>Cada evento es una oportunidad para superar expectativas. Nuestros clientes comparten sus experiencias reales: desde bodas elegantes hasta fiestas infantiles tematicas. <strong>Calificacion 5 estrellas</strong> consistente en Google y redes sociales.</p><p>Lee lo que dicen y decide si quieres ser parte de nuestra proxima historia de exito.</p>`}
+        content={`<p>Cada evento es una oportunidad para superar expectativas. Nuestros clientes comparten sus experiencias reales: desde bodas elegantes hasta bautizos y graduaciones. <strong>Calificacion 5 estrellas</strong> consistente en Google y redes sociales.</p><p>Lee lo que dicen y decide si quieres ser parte de nuestra proxima historia de exito.</p>`}
       />
 
       <div class="review-grid">
-        <ReviewCard
-          name="Palomita.mx"
-          link=""
-          image="/img/personas/cliente-mesa-dulces-boda-cdmx.avif"
-          review="Llevamos tiempo trabajando en eventos con nuestras máquinas de palomitas y siempre era difícil encontrar a alguien confiable para el resto de la experiencia. Con Mededul fue diferente: llegaron a tiempo, la mesa quedó preciosa y los invitados no paraban de comentarla. Buena gente, buen trabajo. Ya los hemos recomendado varias veces."
-          event="Equipo Palomita.mx — Máquinas de Palomitas para Eventos"
-          rating={5}
-        />
-        <ReviewCard
-          name="MesasPicnic.com"
-          link="https://mesaspicnic.com"
-          image="/img/personas/cliente-candy-bar-corporativo-cdmx.avif"
-          review="Nosotros ponemos las mesas y el ambiente, pero siempre faltaba ese detalle extra que elevara el evento. Desde que empezamos a trabajar con Mededul eso cambió por completo. La mesa de dulces encaja perfecto con la estética picnic y los clientes quedan encantados. Es de esas colaboraciones que se dan solas."
-          event="Equipo MesasPicnic.com — Renta de Mesas Picnic para Eventos"
-          rating={5}
-        />
-        <ReviewCard
-          name="Brincolins.com"
-          link="https://brincolins.com"
-          image="/img/personas/cliente-mesa-dulces-xv-anos-cdmx.avif"
-          review="Rentamos brincolines e inflables para fiestas infantiles y siempre buscamos proveedores que cuiden tanto los detalles como nosotros. Mededul los tiene bien puestos: puntual, profesional y la mesa quedó espectacular. Los niños entre el brincolín y los dulces no querían que el evento terminara. Seguimos recomendándolos."
-          event="Equipo Brincolins.com — Renta de Brincolines e Inflables para Fiestas"
-          rating={5}
-        />
-        <ReviewCard
-          name="Inflapy.com"
-          link="https://inflapy.com"
-          image="/img/personas/cliente-baby-shower-mesa-dulces-cdmx.avif"
-          review="Hemos trabajado en muchos eventos y uno aprende rápido a distinguir a los proveedores que de verdad cumplen. Mededul cumple. Coordinamos juntos varias fiestas y cada vez que llegamos al montaje ya estaban ellos con todo en orden. Eso, en este negocio, vale mucho."
-          event="Equipo Inflapy.com — Renta de Inflables para Fiestas"
-          rating={5}
-        />
-        <ReviewCard
-          name="Redeil.com"
-          link=""
-          image="/img/personas/cliente-mesa-postres-evento-cdmx.avif"
-          review="Cuando recomiendas a alguien en este medio te juegas tu reputación. Por eso no recomendamos a cualquiera. Mededul nos ha dado razones para recomendarlos con confianza: trato profesional, presentación impecable y ningún dolor de cabeza. Exactamente lo que se necesita cuando el evento no puede fallar."
-          event="Equipo Redeil.com"
-          rating={5}
-        />
-        <ReviewCard
-          name="Fantasyglobos.com.mx"
-          link=""
-          image="/img/personas/cliente-candy-bar-infantil-cdmx.avif"
-          review="Mi hijo de 6 años dijo que fue 'el mejor día de su vida universal'. La mesa de dulces de dinosaurios fue ESPECTACULAR. Los papás de sus amigos me siguen pidiendo el contacto."
-          event="Equipo Fantasyglobos.com.mx — Decoración con Globos para Eventos"
-          rating={5}
-        />
         <ReviewCard
           name="Mesa Quesos Graduación"
           image="/img/personas/cliente-mesa-quesos-graduacion-cdmx.avif"
@@ -545,6 +538,39 @@ const getGalleryImage = (path: string) => ({
           event="Boda en Santa Fe"
           rating={5}
         />
+      </div>
+    </div>
+  </section>
+
+  <!-- Aliados Section -->
+  <section class="aliados-section section-padding" id="aliados">
+    <div class="container">
+      <SectionHeader
+        title="Aliados con los que Trabajamos"
+        titleHighlight="Aliados"
+        subtitle="Colaboraciones en eventos: proveedores con los que coordinamos montajes y logística"
+        content={`<p>En muchos eventos la mesa de dulces convive con inflables, mobiliario, iluminación o decoración. Estos son <strong>proveedores con los que hemos colaborado en eventos</strong>: coordinamos horarios, logística y montaje para que cada servicio llegue a tiempo y el evento fluya sin fricciones.</p>`}
+      />
+
+      <div class="aliados-grid">
+        {aliados.map((aliado) => (
+          <article class="aliado-card">
+            <div class="aliado-card__head">
+              <span class="aliado-card__monogram" aria-hidden="true">{aliado.name.charAt(0)}</span>
+              <div class="aliado-card__id">
+                <h3 class="aliado-card__name">
+                  {aliado.link ? (
+                    <a href={aliado.link} target="_blank" rel="noopener noreferrer">{aliado.name}</a>
+                  ) : (
+                    aliado.name
+                  )}
+                </h3>
+                <p class="aliado-card__giro">{aliado.giro}</p>
+              </div>
+            </div>
+            <p class="aliado-card__desc">{aliado.desc}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -613,6 +639,116 @@ const getGalleryImage = (path: string) => ({
     .dulces-cta-btn {
       width: 100%;
       justify-content: center;
+    }
+  }
+
+  /* ── Sección Aliados ─────────────────────────────────────────────── */
+  .aliados-section {
+    background: #fff;
+  }
+
+  .aliados-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .aliado-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    padding: 26px 26px 24px;
+    background: linear-gradient(180deg, #fffefd 0%, #fdfbfa 100%);
+    border: 1px solid rgba(209, 0, 122, 0.10);
+    border-radius: 18px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .aliado-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(209, 0, 122, 0.10);
+  }
+
+  .aliado-card__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .aliado-card__monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa-principal, #D1007A) 0%, #7A2BC2 100%);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .aliado-card__id {
+    min-width: 0;
+  }
+
+  .aliado-card__name {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-oscuro, #1a1a1a);
+    line-height: 1.3;
+  }
+
+  .aliado-card__name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .aliado-card__name a:hover {
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .aliado-card__name a::after {
+    content: " ↗";
+    font-size: 0.8em;
+    color: var(--rosa-principal, #D1007A);
+  }
+
+  .aliado-card__giro {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: var(--gris-texto, #636E72);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .aliado-card__desc {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #4b5563;
+  }
+
+  @media (max-width: 1100px) {
+    .aliados-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .aliados-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>
