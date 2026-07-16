@@ -41,3 +41,4 @@ _md-backup/
 
 # Análisis local de Graphify
 graphify-out/
+.wrangler
