@@ -155,28 +155,12 @@ const estadisticas = [
   { numero: '150+', label: 'Resenas Verificadas' }
 ];
 
-const testimoniosSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Mededul - Mesas de Dulces CDMX",
-  "review": [
-    ...testimoniosBodas,
-    ...testimoniosXVAnos,
-    ...testimoniosCorporativos
-  ].slice(0, 5).map(t => ({
-    "@type": "Review",
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": t.rating.toString(),
-      "bestRating": "5"
-    },
-    "author": {
-      "@type": "Person",
-      "name": t.name
-    },
-    "reviewBody": t.review
-  }))
-};
+// [2026-07-20] Schema JSON-LD Review eliminado: emitia 5 resenas FABRICADAS
+// (nombres/ratings inventados) sobre el LocalBusiness propio de Mededul.
+// Viola la regla dura "cero contenido fabricado" + la politica declarada en
+// lib/schema.ts (solo emitir Review si es verificable). El copy on-page de los
+// testimonios se conserva; re-emitir schema Review SOLO con fuente real
+// verificable (link a resena Google de la ficha real).
 ---
 
 <BaseLayout
@@ -186,8 +170,6 @@ const testimoniosSchema = {
   ogImage="/img/galeria/mesa-dulces-boda-elegante-dorado-velas-trufas.avif"
   includeCategoryStyles={true}
 >
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(testimoniosSchema)} slot="head" />
-
   <Breadcrumbs items={breadcrumbItems} />
 
   <Hero
